@@ -1,21 +1,66 @@
 import { StyleSheet } from "react-native";
-import normalize from "react-native-normalize";
+import { color } from "../theme";
 
 const loginStyle = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: color.white,
+  },
+  imageView: {
+    flex: 2,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  image: {
+    width: 120,
+    height: 120,
+  },
+  imageText: {
+    fontSize: 27,
+    fontWeight: "700",
+  },
+  buttonView: {
+    flex: 3,
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
-  title: {
-    fontSize: 40,
-    fontWeight: "bold",
-    paddingBottom: normalize(30),
-    fontFamily: "Suprema Thin",
+  buttonText: {
+    fontSize: 20,
+    fontWeight: "500",
   },
-  image: {
-    width: 100,
-    height: 100,
+  loginView: {
+    display: "flex",
+    flexDirection: "row",
+    paddingTop: 30,
+  },
+  iconView: {
+    padding: 20,
+    borderRadius: 50,
+    marginHorizontal: 10,
+    backgroundColor: color.white,
+    shadowColor: color.black,
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: 1,
+      width: 1,
+    },
+    elevation: 5,
+  },
+  icon: {
+    width: 40,
+    height: 40,
+  },
+  footerView: {
+    flex: 0.5,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.3,
   },
 });
 

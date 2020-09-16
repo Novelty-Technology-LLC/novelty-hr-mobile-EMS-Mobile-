@@ -1,0 +1,6 @@
+module Pods_noveltyhrmobile_noveltyhrmobileTests {
+  umbrella header "Pods-noveltyhrmobile-noveltyhrmobileTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
