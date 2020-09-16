@@ -1,4 +1,4 @@
-#Wed Sep 16 13:43:04 NPT 2020
-base.0=/home/rj/Documents/noveltyhrmobile/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
-path.0=classes.dex
+#Wed Sep 16 19:14:18 NPT 2020
+base.0=/Applications/Work/novelty-hr-mobile/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 renamed.0=classes.dex
+path.0=classes.dex
