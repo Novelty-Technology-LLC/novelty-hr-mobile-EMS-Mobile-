@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/rj/Documents/noveltyhrmobile/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es/values-es.xml",
+            "outputFile": "/home/rj/Documents/novelty-hr-mobile/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es/values-es.xml",
             "map": [
                 {
                     "source": "/home/rj/.gradle/caches/transforms-2/files-2.1/1cb9b9ea592aa2ea85233be252327dcf/appcompat-1.1.0/res/values-es/values-es.xml",

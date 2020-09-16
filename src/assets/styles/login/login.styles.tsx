@@ -1,16 +1,22 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
 
 const loginStyle = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    paddingBottom: 30,
+    fontSize: 40,
+    fontWeight: "bold",
+    paddingBottom: normalize(30),
+    fontFamily: "Suprema Thin",
+  },
+  image: {
+    width: 100,
+    height: 100,
   },
 });
 
-export {loginStyle};
+export { loginStyle };
