@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
 import { Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
 
 import appleAuth, {
-  AppleButton,
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
   AppleAuthCredentialState,
@@ -93,15 +89,12 @@ const Login = () => {
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
-          <TouchableWithoutFeedback
-            style={style.iconView}
-            onPress={() => signIn()}
-          >
+          <TouchableOpacity style={style.iconView} onPress={() => signIn()}>
             <Image
               style={style.icon}
               source={require('../../../assets/images/icons8-google-96.png')}
             />
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
 
           <View style={style.iconView}>
             <TouchableOpacity onPress={() => signInApple()}>
