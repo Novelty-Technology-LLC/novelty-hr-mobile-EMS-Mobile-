@@ -17,6 +17,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* noveltyhrmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* noveltyhrmobileTests.m */; };
 		3239C2B79C9726865B7F87F4 /* libPods-noveltyhrmobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC12EB886F0CF8F36A8F10FA /* libPods-noveltyhrmobile-tvOSTests.a */; };
+		540B23BB2513841D00C1895C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 540B23BA2513841D00C1895C /* GoogleService-Info.plist */; };
 		54E150C725131EC400261AB0 /* Suprema SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */; };
 		54E150C925131ECA00261AB0 /* Suprema Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 54E150C825131ECA00261AB0 /* Suprema Thin.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -57,6 +58,7 @@
 		2D02E4901E0B4A5D006451C7 /* noveltyhrmobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "noveltyhrmobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357883CD5BD92CD096926EDE /* libPods-noveltyhrmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-noveltyhrmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B794375D531388478760380 /* Pods-noveltyhrmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile/Pods-noveltyhrmobile.release.xcconfig"; sourceTree = "<group>"; };
+		540B23BA2513841D00C1895C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		546C166C2513793600BBD90A /* noveltyhrmobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = noveltyhrmobile.entitlements; path = noveltyhrmobile/noveltyhrmobile.entitlements; sourceTree = "<group>"; };
 		54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Suprema SemiBold.ttf"; sourceTree = "<group>"; };
 		54E150C825131ECA00261AB0 /* Suprema Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Suprema Thin.otf"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		13B07FAE1A68108700A75B9A /* noveltyhrmobile */ = {
 			isa = PBXGroup;
 			children = (
+				540B23BA2513841D00C1895C /* GoogleService-Info.plist */,
 				546C166C2513793600BBD90A /* noveltyhrmobile.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -358,6 +361,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				54E150C725131EC400261AB0 /* Suprema SemiBold.ttf in Resources */,
+				540B23BB2513841D00C1895C /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				54E150C925131ECA00261AB0 /* Suprema Thin.otf in Resources */,
 			);
@@ -424,6 +428,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-noveltyhrmobile/Pods-noveltyhrmobile-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -444,6 +449,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -554,6 +560,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-noveltyhrmobile-noveltyhrmobileTests/Pods-noveltyhrmobile-noveltyhrmobileTests-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -574,6 +581,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
