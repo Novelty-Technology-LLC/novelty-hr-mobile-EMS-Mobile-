@@ -17,6 +17,8 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* noveltyhrmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* noveltyhrmobileTests.m */; };
 		3239C2B79C9726865B7F87F4 /* libPods-noveltyhrmobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC12EB886F0CF8F36A8F10FA /* libPods-noveltyhrmobile-tvOSTests.a */; };
+		54E150C725131EC400261AB0 /* Suprema SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */; };
+		54E150C925131ECA00261AB0 /* Suprema Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 54E150C825131ECA00261AB0 /* Suprema Thin.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D63758B825A142DD0116A812 /* libPods-noveltyhrmobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E53C17F4CE740A97B96CF02D /* libPods-noveltyhrmobile-tvOS.a */; };
 		FE2E41A35378F5B59F6ED7C5 /* libPods-noveltyhrmobile-noveltyhrmobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4A45B9F75E28E0B3A2C955F /* libPods-noveltyhrmobile-noveltyhrmobileTests.a */; };
@@ -55,6 +57,8 @@
 		2D02E4901E0B4A5D006451C7 /* noveltyhrmobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "noveltyhrmobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357883CD5BD92CD096926EDE /* libPods-noveltyhrmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-noveltyhrmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B794375D531388478760380 /* Pods-noveltyhrmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile/Pods-noveltyhrmobile.release.xcconfig"; sourceTree = "<group>"; };
+		54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Suprema SemiBold.ttf"; sourceTree = "<group>"; };
+		54E150C825131ECA00261AB0 /* Suprema Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Suprema Thin.otf"; sourceTree = "<group>"; };
 		67C2C519ADD047E562D47B7B /* Pods-noveltyhrmobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-tvOSTests/Pods-noveltyhrmobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D4EDA9F09A6C22C254AC595 /* Pods-noveltyhrmobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-tvOS/Pods-noveltyhrmobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7F154751E0320723B1AF00D0 /* Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-noveltyhrmobileTests/Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +153,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		54E150CB2513209E00261AB0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */,
+				54E150C825131ECA00261AB0 /* Suprema Thin.otf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		737A873E9ED7ABBFE92AC572 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,7 +174,6 @@
 				C56D5C11FCE257ED325ED578 /* Pods-noveltyhrmobile-tvOSTests.debug.xcconfig */,
 				67C2C519ADD047E562D47B7B /* Pods-noveltyhrmobile-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +187,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				54E150CB2513209E00261AB0 /* Resources */,
 				13B07FAE1A68108700A75B9A /* noveltyhrmobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* noveltyhrmobileTests */,
@@ -294,6 +307,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = ZHW62ASSRT;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -341,7 +355,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				54E150C725131EC400261AB0 /* Suprema SemiBold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				54E150C925131ECA00261AB0 /* Suprema Thin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +736,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZHW62ASSRT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = noveltyhrmobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -728,7 +745,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.noveltyhrmobile;
 				PRODUCT_NAME = noveltyhrmobile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -743,6 +760,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZHW62ASSRT;
 				INFOPLIST_FILE = noveltyhrmobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -750,7 +768,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.noveltyhrmobile;
 				PRODUCT_NAME = noveltyhrmobile;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
