@@ -11,7 +11,6 @@ const Request = ({ item }: any) => {
         <Text style={style.type}>{item.item.type}</Text>
       </View>
       <State state={item.item.state} />
-      {/* <Text style={style.state}>{item.item.state}</Text> */}
     </View>
   );
 };
