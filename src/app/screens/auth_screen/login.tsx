@@ -41,16 +41,13 @@ const Login = () => {
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
-          <TouchableWithoutFeedback
-            style={style.iconView}
-            onPress={() => navigation.navigate("leaveList")}
-          >
+          <View style={style.iconView}>
             <Image
               style={style.icon}
               source={require('../../../assets/images/icons8-google-96.png')}
             />
-          </TouchableWithoutFeedback>
           </View>
+
           <View style={style.iconView}>
             <TouchableOpacity onPress={() => signInApple()}>
               <Image
