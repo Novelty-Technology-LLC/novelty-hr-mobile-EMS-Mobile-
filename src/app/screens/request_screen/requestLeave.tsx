@@ -1,12 +1,13 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React from "react";
+import { Text, View } from "react-native";
+import { header as Header } from "../../common/header";
 
 const RequestLeave = () => {
   return (
     <View>
-      <Text>RequestListing Screen</Text>
+      <Header>Request Leave </Header>
     </View>
   );
 };
 
-export {RequestLeave};
+export { RequestLeave };

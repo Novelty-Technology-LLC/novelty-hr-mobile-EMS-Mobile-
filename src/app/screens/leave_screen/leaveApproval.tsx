@@ -1,12 +1,13 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React from "react";
+import { Text, View } from "react-native";
+import { header as Header } from "../../common/header";
 
 const LeaveApproval = () => {
   return (
     <View>
-      <Text>LeaveApproval Screen</Text>
+      <Header>Biren Gurung </Header>
     </View>
   );
 };
 
-export {LeaveApproval};
+export { LeaveApproval };
