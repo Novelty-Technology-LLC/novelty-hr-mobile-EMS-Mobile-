@@ -3,6 +3,7 @@ import { Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import appleAuth, {
   AppleAuthRequestOperation,
@@ -42,7 +43,7 @@ const Login = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
+      console.log('info', userInfo);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('error occured SIGN_IN_CANCELLED');
@@ -60,21 +61,33 @@ const Login = () => {
   };
 
   const signInApple = async () => {
-    if (!appleAuth.isSupported) return WSnackBar.show(snackBarOpts);
+    try {
+      if (!appleAuth.isSupported) throw new Error('Apple signin not supported');
 
-    return appleAuth
-      .performRequest({
+      const data = await appleAuth.performRequest({
         requestedOperation: AppleAuthRequestOperation.LOGIN,
         requestedScopes: [
           AppleAuthRequestScope.EMAIL,
           AppleAuthRequestScope.FULL_NAME,
         ],
-      })
-      .then((res) => {
-        let { identiyToken, email } = res;
-        console.log('res -> ', email);
-      })
-      .catch((err) => console.log('error'));
+      });
+
+      let { identityToken } = data;
+
+      if (!identityToken) throw new Error('Error while sign in');
+      const jsonValue = JSON.stringify(data);
+      await AsyncStorage.setItem('token', jsonValue);
+    } catch (error) {
+      const snackBarOpts = {
+        data: error.message,
+        position: WSnackBar.position.BOTTOM,
+        duration: WSnackBar.duration.LONG,
+        textColor: '#ff490b',
+        backgroundColor: '#050405',
+        actionTextColor: '#ff490b',
+      };
+      WSnackBar.show(snackBarOpts);
+    }
   };
 
   return (
