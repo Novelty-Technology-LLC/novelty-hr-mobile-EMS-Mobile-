@@ -19,12 +19,15 @@ const Login = () => {
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
-          <View style={style.iconView}>
+          <TouchableWithoutFeedback
+            style={style.iconView}
+            onPress={() => navigation.navigate("leaveList")}
+          >
             <Image
               style={style.icon}
               source={require("../../../assets/images/icons8-google-96.png")}
             />
-          </View>
+          </TouchableWithoutFeedback>
           <View style={style.iconView}>
             <Image
               style={style.icon}
