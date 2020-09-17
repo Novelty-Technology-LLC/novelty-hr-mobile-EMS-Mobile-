@@ -10,11 +10,22 @@ import appleAuth, {
   AppleAuthRequestScope,
   AppleAuthCredentialState,
 } from '@invertase/react-native-apple-authentication';
+import { WSnackBar } from 'react-native-smart-tip';
+
+const snackBarOpts = {
+  data: 'Apple login not supported.',
+  position: WSnackBar.position.BOTTOM,
+  duration: WSnackBar.duration.LONG,
+  backgroundColor: '#050405',
+  textColor: '#ff0000',
+};
 
 const Login = () => {
   const navigation = useNavigation();
 
   const signInApple = async () => {
+    if (!appleAuth.isSupported) return WSnackBar.show(snackBarOpts);
+
     return appleAuth
       .performRequest({
         requestedOperation: AppleAuthRequestOperation.LOGIN,
@@ -25,8 +36,9 @@ const Login = () => {
       })
       .then((res) => {
         let { identiyToken, email } = res;
-        console.log('res -> ', res);
-      });
+        console.log('res -> ', email);
+      })
+      .catch((err) => console.log('error'));
   };
 
   return (
