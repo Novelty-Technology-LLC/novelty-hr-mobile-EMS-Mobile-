@@ -20,6 +20,7 @@ const loginStyle = StyleSheet.create({
   imageText: {
     fontSize: 27,
     fontWeight: "700",
+   
   },
   buttonView: {
     flex: 3,
@@ -44,12 +45,12 @@ const loginStyle = StyleSheet.create({
     backgroundColor: color.white,
     shadowColor: color.black,
     shadowOpacity: 0.2,
-    shadowRadius: 3,
+    shadowRadius: 1,
     shadowOffset: {
       height: 1,
       width: 1,
     },
-    elevation: 5,
+    elevation:3,
   },
   icon: {
     width: 40,
