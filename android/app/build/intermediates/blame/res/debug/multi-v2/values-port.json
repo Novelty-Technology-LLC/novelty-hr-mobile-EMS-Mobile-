@@ -1,14 +1,10 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
             "outputFile": "/home/rj/Documents/novelty-hr-mobile/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
-=======
-            "outputFile": "/Applications/Work/novelty-hr-mobile/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
->>>>>>> 8a7dd368e32064aafe3f0148d32b9b3ca2e68492
             "map": [
                 {
-                    "source": "/Users/lovishhamal/.gradle/caches/transforms-2/files-2.1/7dca42c052e713f328992d116d98f349/appcompat-1.1.0/res/values-port/values-port.xml",
+                    "source": "/home/rj/.gradle/caches/transforms-2/files-2.1/7dca42c052e713f328992d116d98f349/appcompat-1.1.0/res/values-port/values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
