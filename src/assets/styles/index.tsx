@@ -6,3 +6,5 @@ export * from "./leave_screen/days_remaining.styles";
 export * from "./leave_screen/leave_dashboard.styles";
 export * from "./leave_screen/my_requests.styles";
 export * from "./leave_screen/request.styles";
+export * from "./leave_screen/swipe.styles";
+export * from "./leave_screen/delete_alert.styles";

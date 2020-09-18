@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, FlatList } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+
 import { myRequestsStyle as style } from "../../../assets/styles";
 import History from "./history";
 import { Request } from "./request";
+import Swipe from "./swipe";
+import colors from "../../../assets/colors";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const MyRequests = () => {
+  const [toggle, setToggle] = useState("on");
   const requests = [
     {
       id: 1,
@@ -20,16 +27,31 @@ const MyRequests = () => {
     <View style={style.container}>
       <View style={style.header}>
         <Text style={style.title}>My Requests</Text>
-        <Text style={style.history}>Show History</Text>
+        <View style={style.row}>
+          <Text style={style.history}>Show History</Text>
+          <View style={style.gap}></View>
+          <TouchableWithoutFeedback
+            onPress={() => setToggle(toggle === "on" ? "off" : "on")}
+          >
+            <Icon
+              name={"toggle-" + toggle}
+              color={toggle === "on" ? colors.primary : colors.secondary}
+              size={25}
+            />
+          </TouchableWithoutFeedback>
+        </View>
       </View>
-      <View style={style.list}>
-        <FlatList
-          data={requests}
-          renderItem={(item) => <Request item={item} />}
-          keyExtractor={(item) => item.date}
-        />
-      </View>
-      <History />
+
+      <FlatList
+        data={requests}
+        renderItem={(item) => (
+          <Swipeable renderRightActions={() => <Swipe />}>
+            <Request item={item} />
+          </Swipeable>
+        )}
+        keyExtractor={(item) => item.date}
+      />
+      {toggle === "on" && <History />}
     </View>
   );
 };

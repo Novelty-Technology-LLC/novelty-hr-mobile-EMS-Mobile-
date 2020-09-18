@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "245208989401-othcqq07h5fi0d6hp52lns0caa4vkvqi.apps.googleusercontent.com",
+          "client_id": "245208989401-6ucq6geuudf78d439m14hun8ohicmof3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.noveltyhrmobile",
@@ -38,6 +38,13 @@
             {
               "client_id": "245208989401-sbqgp1i00kq1o7f18q02ls7mf0n1mlc1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "245208989401-tjee1iob81glvpnvtq1g6ip5c02p59c8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.novelty.hr"
+              }
             }
           ]
         }
