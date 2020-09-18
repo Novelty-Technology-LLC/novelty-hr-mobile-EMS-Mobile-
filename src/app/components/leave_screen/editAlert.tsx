@@ -8,6 +8,8 @@ import Dialog from "react-native-dialog";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import colors from "../../../assets/colors";
 import { editAlertStyle as style } from "../../../assets/styles";
+import RequestWithImage from "./requestWithImage";
+import State from "./state";
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -20,6 +22,10 @@ const EditAlert = ({ item }: any) => {
       </TouchableWithoutFeedback>
       <Dialog.Container visible={showAlert}>
         <Dialog.Title>Your response is ready to go</Dialog.Title>
+        <View style={style.row}>
+          <RequestWithImage item={item} />
+          <State state={item.item.state} />
+        </View>
         <View style={style.container}>
           <Text style={style.note}>You can attach a note if you want</Text>
           <TextInput

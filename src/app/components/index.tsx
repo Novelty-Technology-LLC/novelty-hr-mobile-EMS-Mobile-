@@ -7,3 +7,4 @@ export * from "./leave_screen/swipe";
 export * from "./leave_screen/deleteAlert";
 export * from "./leave_screen/otherRequests";
 export * from "./leave_screen/editAlert";
+export * from "./leave_screen/requestWithImage";

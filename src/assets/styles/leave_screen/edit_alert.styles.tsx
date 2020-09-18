@@ -5,7 +5,8 @@ import colors from "../../colors";
 const editAlertStyle = StyleSheet.create({
   container: {
     paddingLeft: normalize(15),
-    paddingBottom: normalize(20),
+    paddingBottom: normalize(30),
+    paddingTop: normalize(20),
   },
   title: {
     margin: 0,
@@ -23,11 +24,15 @@ const editAlertStyle = StyleSheet.create({
   },
   note: {
     color: colors.secondary,
-    paddingBottom: normalize(15),
+    paddingBottom: normalize(25),
   },
   textArea: {
     backgroundColor: "#f5f5f5",
     alignItems: "flex-start",
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

@@ -11,8 +11,15 @@ const History = () => {
       date: "Sept 20-23 (3 days)",
       type: "PAID TIME OFF",
       state: "Approved",
+      sender: "Biren Gurung",
     },
-    { id: 2, date: "Jan 28 (1 day)", type: "FLOATING", state: "Denied" },
+    {
+      id: 2,
+      date: "Jan 28 (1 day)",
+      type: "FLOATING",
+      state: "Denied",
+      sender: "Biren Gurung",
+    },
   ];
 
   return (
