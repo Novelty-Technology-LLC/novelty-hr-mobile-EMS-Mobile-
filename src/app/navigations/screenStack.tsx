@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { LeaveApproval, LeaveDashboard, Login, RequestLeave } from "../screens";
-import { useAuth, AuthContext } from "../reducer";
-import { Text } from "react-native";
-import { getToken } from "../utils";
+import React, { useEffect } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { LeaveApproval, LeaveDashboard, Login, RequestLeave } from '../screens';
+import { useAuth, AuthContext } from '../reducer';
+import { Text } from 'react-native';
+import { getToken } from '../utils';
 
 const ScreenStack = createStackNavigator();
 
@@ -14,7 +14,7 @@ const ScreenNav = () => {
     const bootstrapAsync = async () => {
       try {
         let userToken = await getToken();
-        dispatch({ type: "RESTORE_TOKEN", token: userToken });
+        dispatch({ type: 'RESTORE_TOKEN', token: userToken });
       } catch (e) {}
     };
 
