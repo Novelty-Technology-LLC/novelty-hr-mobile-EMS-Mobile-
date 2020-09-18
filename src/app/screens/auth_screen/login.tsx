@@ -31,23 +31,28 @@ const Login = () => {
     });
   }, []);
 
-  const signIn = async () => {
+  const signInGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('info', userInfo);
-      navigation.navigate('leaveList');
+
+      if (!userInfo.idToken) throw new Error('Error while sign in');
+
+      userInfo.user['token'] = userInfo.idToken;
+      delete userInfo.idToken;
+
+      storeToken(userInfo.user);
+      dispatch({ type: 'SIGN_IN', token: userInfo.user });
     } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('error occured SIGN_IN_CANCELLED');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('error occured IN_PROGRESS');
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('error occured PLAY_SERVICES_NOT_AVAILABLE');
-      } else {
-        console.log(error);
-        console.log('error occured unknow error');
-      }
+      const snackBarOpts = {
+        data: error.message.slice(0, 35),
+        position: WSnackBar.position.BOTTOM,
+        duration: WSnackBar.duration.LONG,
+        textColor: '#ff490b',
+        backgroundColor: '#050405',
+        actionTextColor: '#ff490b',
+      };
+      WSnackBar.show(snackBarOpts);
     }
   };
 
@@ -63,11 +68,15 @@ const Login = () => {
         ],
       });
 
-      if (!data.identityToken) throw new Error('Error while signin');
+      if (!data.identityToken || !data.email)
+        throw new Error('Please provide email');
 
-      const jsonValue = JSON.stringify(data);
-      storeToken(jsonValue);
-      dispatch({ type: 'SIGN_IN', token: jsonValue });
+      data.fullName['email'] = data.email;
+      data.fullName['token'] = data.identityToken;
+      delete data.identityToken;
+
+      storeToken(data);
+      dispatch({ type: 'SIGN_IN', token: data.fullName });
     } catch (error) {
       const snackBarOpts = {
         data: error.message.slice(0, 35),
@@ -93,7 +102,10 @@ const Login = () => {
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
-          <TouchableOpacity style={style.iconView} onPress={() => signIn()}>
+          <TouchableOpacity
+            style={style.iconView}
+            onPress={() => signInGoogle()}
+          >
             <Image
               style={style.icon}
               source={require('../../../assets/images/icons8-google-96.png')}
