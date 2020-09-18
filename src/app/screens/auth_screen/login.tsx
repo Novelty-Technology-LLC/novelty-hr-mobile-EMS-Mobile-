@@ -8,15 +8,12 @@ import {
 import { loginStyle as style } from "../../../assets/styles";
 
 import appleAuth, {
-  AppleButton,
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
-  AppleAuthCredentialState,
 } from "@invertase/react-native-apple-authentication";
 
 import {
   GoogleSignin,
-  GoogleSigninButton,
   statusCodes,
 } from "@react-native-community/google-signin";
 
@@ -40,10 +37,8 @@ const Login = () => {
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log("error occured SIGN_IN_CANCELLED");
-        // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
         console.log("error occured IN_PROGRESS");
-        // operation (f.e. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.log("error occured PLAY_SERVICES_NOT_AVAILABLE");
       } else {
@@ -51,6 +46,7 @@ const Login = () => {
         console.log("error occured unknow error");
       }
     }
+    navigation.navigate("leaveList");
   };
 
   const signInApple = async () => {
