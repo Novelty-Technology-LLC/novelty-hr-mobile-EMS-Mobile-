@@ -44,10 +44,10 @@ const MyRequests = () => {
           <Text style={style.history}>Show History</Text>
           <View style={style.gap}></View>
           <TouchableWithoutFeedback
-            onPress={() => setToggle(toggle === 'on' ? 'off' : 'on')}
+            onPress={() => setToggle(toggle === 'on' ? 'off' : '')}
           >
             <Icon
-              name={'toggle-' + toggle}
+              name={'toggle-switch'}
               color={toggle === 'on' ? colors.primary : colors.secondary}
               size={25}
             />

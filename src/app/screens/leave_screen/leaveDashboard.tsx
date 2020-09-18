@@ -28,7 +28,7 @@ const LeaveDashboard = () => {
         Leave
       </Text>
       <Header>Leave Application</Header>
-      {/* <ScrollView>
+      <ScrollView>
         <View style={style.container}>
           <DaysRemaining total={5} remaining={4} title="Paid Time Offs" />
           <DaysRemaining total={5} remaining={3} title="Floating Days" />
@@ -42,7 +42,7 @@ const LeaveDashboard = () => {
         >
           <Icon name="plus" color={colors.white} size={20} />
         </TouchableWithoutFeedback>
-      </View> */}
+      </View>
     </View>
   );
 };

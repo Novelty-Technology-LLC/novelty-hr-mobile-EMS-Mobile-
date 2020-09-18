@@ -39,7 +39,7 @@ const OtherRequests = () => {
             onPress={() => setToggle(toggle === 'on' ? 'off' : 'on')}
           >
             <Icon
-              name={'toggle-' + toggle}
+              name={'toggle-switch'}
               color={toggle === 'on' ? colors.primary : colors.secondary}
               size={25}
             />
