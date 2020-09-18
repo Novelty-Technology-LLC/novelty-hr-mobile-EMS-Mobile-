@@ -4,8 +4,12 @@ const getToken = async () => {
   return await AsyncStorage.getItem('token');
 };
 
-const storeToken = async (jsonValue) => {
+const storeToken = async (jsonValue: String) => {
   return await AsyncStorage.setItem('token', jsonValue);
 };
 
-export { getToken, storeToken };
+const removeToken = async () => {
+  return await AsyncStorage.removeItem('token');
+};
+
+export { getToken, storeToken, removeToken };

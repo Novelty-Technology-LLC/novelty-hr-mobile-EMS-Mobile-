@@ -70,7 +70,7 @@ const Login = () => {
       dispatch({ type: 'SIGN_IN', token: jsonValue });
     } catch (error) {
       const snackBarOpts = {
-        data: error.message,
+        data: error.message.slice(0, 35),
         position: WSnackBar.position.BOTTOM,
         duration: WSnackBar.duration.LONG,
         textColor: '#ff490b',
