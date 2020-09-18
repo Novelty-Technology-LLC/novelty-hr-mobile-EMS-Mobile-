@@ -1,32 +1,93 @@
-import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import appleAuth, {
-  AppleButton,
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
   AppleAuthCredentialState,
 } from '@invertase/react-native-apple-authentication';
+import { WSnackBar } from 'react-native-smart-tip';
+
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-community/google-signin';
+
+const snackBarOpts = {
+  data: 'Apple login not supported.',
+  position: WSnackBar.position.BOTTOM,
+  duration: WSnackBar.duration.LONG,
+  backgroundColor: '#050405',
+  textColor: '#ff0000',
+};
 
 const Login = () => {
   const navigation = useNavigation();
 
+  useEffect(() => {
+    GoogleSignin.configure({
+      scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+      webClientId:
+        '245208989401-sbqgp1i00kq1o7f18q02ls7mf0n1mlc1.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+      forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+    });
+  }, []);
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('info', userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log('error occured SIGN_IN_CANCELLED');
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('error occured IN_PROGRESS');
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('error occured PLAY_SERVICES_NOT_AVAILABLE');
+      } else {
+        console.log(error);
+        console.log('error occured unknow error');
+      }
+    }
+  };
+
   const signInApple = async () => {
-    return appleAuth
-      .performRequest({
+    try {
+      if (!appleAuth.isSupported) throw new Error('Apple signin not supported');
+
+      const data = await appleAuth.performRequest({
         requestedOperation: AppleAuthRequestOperation.LOGIN,
         requestedScopes: [
           AppleAuthRequestScope.EMAIL,
           AppleAuthRequestScope.FULL_NAME,
         ],
-      })
-      .then((res) => {
-        let { identiyToken, email } = res;
-        console.log('res -> ', res);
       });
+
+      let { identityToken } = data;
+
+      if (!identityToken) throw new Error('Error while sign in');
+      const jsonValue = JSON.stringify(data);
+      await AsyncStorage.setItem('token', jsonValue);
+    } catch (error) {
+      const snackBarOpts = {
+        data: error.message,
+        position: WSnackBar.position.BOTTOM,
+        duration: WSnackBar.duration.LONG,
+        textColor: '#ff490b',
+        backgroundColor: '#050405',
+        actionTextColor: '#ff490b',
+      };
+      WSnackBar.show(snackBarOpts);
+    }
   };
 
   return (
@@ -41,12 +102,12 @@ const Login = () => {
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
-          <View style={style.iconView}>
+          <TouchableOpacity style={style.iconView} onPress={() => signIn()}>
             <Image
               style={style.icon}
               source={require('../../../assets/images/icons8-google-96.png')}
             />
-          </View>
+          </TouchableOpacity>
 
           <View style={style.iconView}>
             <TouchableOpacity onPress={() => signInApple()}>

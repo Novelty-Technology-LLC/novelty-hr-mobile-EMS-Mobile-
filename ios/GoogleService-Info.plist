@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>742877336730-8mscg3mk8ccel2u3gkr7njhq3g9jod86.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.742877336730-8mscg3mk8ccel2u3gkr7njhq3g9jod86</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAPu8XyM3-uB3A-2dyoihoMP47Ir4FMCnE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>742877336730</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.novelty.hr</string>
+	<key>PROJECT_ID</key>
+	<string>novelty-hr-2f0d1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>novelty-hr-2f0d1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:742877336730:ios:980f35e09e663f03cb7b23</string>
+	<key>DATABASE_URL</key>
+	<string>https://novelty-hr-2f0d1.firebaseio.com</string>
+</dict>
+</plist>

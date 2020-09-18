@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "245208989401",
+    "firebase_url": "https://novelty-hr.firebaseio.com",
+    "project_id": "novelty-hr",
+    "storage_bucket": "novelty-hr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245208989401:android:92143f8057f7cf462d88c8",
+        "android_client_info": {
+          "package_name": "com.noveltyhrmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245208989401-othcqq07h5fi0d6hp52lns0caa4vkvqi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.noveltyhrmobile",
+            "certificate_hash": "8c547b6c904431735e233365901c217f5c2e9afc"
+          }
+        },
+        {
+          "client_id": "245208989401-sbqgp1i00kq1o7f18q02ls7mf0n1mlc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV1Ec8fMKfTfPrT_uuXupAk06BRN0uXM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245208989401-sbqgp1i00kq1o7f18q02ls7mf0n1mlc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
