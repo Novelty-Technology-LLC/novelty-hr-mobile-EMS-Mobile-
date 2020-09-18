@@ -6,7 +6,6 @@ import { loginStyle as style } from '../../../assets/styles';
 import { WSnackBar } from 'react-native-smart-tip';
 import { AuthContext } from '../../reducer';
 import { storeToken } from '../../utils';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import appleAuth, {
   AppleAuthRequestOperation,
