@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Text, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
-import AsyncStorage from '@react-native-community/async-storage';
+
+import { WSnackBar } from 'react-native-smart-tip';
+import { AuthContext } from '../../reducer';
+import { storeToken } from '../../utils';
 
 import appleAuth, {
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
   AppleAuthCredentialState,
 } from '@invertase/react-native-apple-authentication';
-import { WSnackBar } from 'react-native-smart-tip';
 
 import {
   GoogleSignin,
@@ -18,16 +19,8 @@ import {
   statusCodes,
 } from '@react-native-community/google-signin';
 
-const snackBarOpts = {
-  data: 'Apple login not supported.',
-  position: WSnackBar.position.BOTTOM,
-  duration: WSnackBar.duration.LONG,
-  backgroundColor: '#050405',
-  textColor: '#ff0000',
-};
-
 const Login = () => {
-  const navigation = useNavigation();
+  const { dispatch } = useContext(AuthContext);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -72,11 +65,11 @@ const Login = () => {
         ],
       });
 
-      let { identityToken } = data;
+      if (!data.identityToken) throw new Error('Error while signin');
 
-      if (!identityToken) throw new Error('Error while sign in');
       const jsonValue = JSON.stringify(data);
-      await AsyncStorage.setItem('token', jsonValue);
+      storeToken(jsonValue);
+      dispatch({ type: 'SIGN_IN', token: jsonValue });
     } catch (error) {
       const snackBarOpts = {
         data: error.message,
