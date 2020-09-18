@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { daysRemainingStyle as style } from "../../../assets/styles/";
+import AnimateNumber from "react-native-countup";
 
 interface DaysRemainingPropType {
   total: number;
@@ -12,7 +13,15 @@ const DaysRemaining = ({ total, remaining, title }: DaysRemainingPropType) => {
   return (
     <View style={style.container}>
       <Text style={style.text}>
-        <Text style={style.remaining}>{remaining}</Text>
+        <Text style={style.remaining}>
+          <AnimateNumber
+            value={remaining}
+            initial={-1}
+            interval={120}
+            countBy={1}
+            timing="linear"
+          />
+        </Text>
         <Text style={style.total}>/{total}</Text>
       </Text>
       <Text style={style.title}>{title}</Text>

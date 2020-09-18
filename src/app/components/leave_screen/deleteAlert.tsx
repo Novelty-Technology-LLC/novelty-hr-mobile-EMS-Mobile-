@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { View, TouchableWithoutFeedback } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Dialog from "react-native-dialog";
 import colors from "../../../assets/colors";
