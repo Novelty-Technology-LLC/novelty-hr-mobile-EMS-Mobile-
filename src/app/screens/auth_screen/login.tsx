@@ -42,6 +42,7 @@ const Login = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       console.log("info", userInfo);
+      navigation.navigate("leaveList");
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log("error occured SIGN_IN_CANCELLED");
@@ -54,7 +55,6 @@ const Login = () => {
         console.log("error occured unknow error");
       }
     }
-    navigation.navigate("leaveList");
   };
 
   const signInApple = async () => {
@@ -99,7 +99,10 @@ const Login = () => {
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
-          <TouchableOpacity style={style.iconView} onPress={() => signIn()}>
+          <TouchableOpacity
+            style={style.iconView}
+            onPress={() => navigation.navigate("leaveList")}
+          >
             <Image
               style={style.icon}
               source={require("../../../assets/images/icons8-google-96.png")}

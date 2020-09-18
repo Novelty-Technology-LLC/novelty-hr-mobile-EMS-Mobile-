@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import { myRequestsStyle as style } from "../../../assets/styles";
 import History from "./history";
 import { Request } from "./request";
+import Swipe from "./swipe";
 
 const MyRequests = () => {
   const requests = [
@@ -22,13 +24,15 @@ const MyRequests = () => {
         <Text style={style.title}>My Requests</Text>
         <Text style={style.history}>Show History</Text>
       </View>
-      <View style={style.list}>
-        <FlatList
-          data={requests}
-          renderItem={(item) => <Request item={item} />}
-          keyExtractor={(item) => item.date}
-        />
-      </View>
+      <FlatList
+        data={requests}
+        renderItem={(item) => (
+          <Swipeable renderRightActions={() => <Swipe />}>
+            <Request item={item} />
+          </Swipeable>
+        )}
+        keyExtractor={(item) => item.date}
+      />
       <History />
     </View>
   );

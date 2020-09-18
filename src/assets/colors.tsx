@@ -4,4 +4,6 @@ export default {
   green: "#64e885",
   tomato: "#f75151",
   yellow: "#ffc03d",
+  black: "#000",
+  white: "#fff",
 };
