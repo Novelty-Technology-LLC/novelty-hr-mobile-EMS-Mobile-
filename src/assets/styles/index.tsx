@@ -8,3 +8,7 @@ export * from "./leave_screen/my_requests.styles";
 export * from "./leave_screen/request.styles";
 export * from "./leave_screen/swipe.styles";
 export * from "./leave_screen/delete_alert.styles";
+export * from "./leave_screen/history.styles";
+export * from "./leave_screen/other_requests.styles";
+export * from "./leave_screen/edit_alert.styles";
+export * from "./leave_screen/request_with_image.styles";
