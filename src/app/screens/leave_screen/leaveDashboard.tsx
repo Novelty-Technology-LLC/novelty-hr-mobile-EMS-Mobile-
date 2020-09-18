@@ -23,7 +23,7 @@ const LeaveDashboard = () => {
           <DaysRemaining total={5} remaining={3} title="Floating Days" />
         </View>
         <MyRequests />
-        {/* <OtherRequests /> */}
+        <OtherRequests />
       </ScrollView>
       <View style={style.plus}>
         <TouchableWithoutFeedback

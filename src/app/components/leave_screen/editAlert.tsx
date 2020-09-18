@@ -21,7 +21,9 @@ const EditAlert = ({ item }: any) => {
         <Icon name="edit" color={colors.yellow} size={15} />
       </TouchableWithoutFeedback>
       <Dialog.Container visible={showAlert}>
-        <Dialog.Title>Your response is ready to go</Dialog.Title>
+        <Dialog.Title style={style.title}>
+          Your response is ready to go
+        </Dialog.Title>
         <View style={style.row}>
           <RequestWithImage item={item} />
           <State state={item.item.state} />

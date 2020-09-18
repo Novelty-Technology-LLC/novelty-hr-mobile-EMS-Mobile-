@@ -1,12 +1,33 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { myRequestsStyle, otherRequestsStyle } from "../../../assets/styles";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import colors from "../../../assets/colors";
+import { Request } from "./request";
 
 const OtherRequests = () => {
   const [toggle, setToggle] = useState("on");
+  const requests = [
+    {
+      id: 2,
+      date: "Oct 28 (1 day)",
+      type: "FLOATING",
+      state: "In Progress",
+      sender: "Biren Gurung",
+    },
+    {
+      id: 3,
+      date: "Oct 30 (1 day)",
+      type: "PAID TIME OFF",
+      state: "Denied",
+      sender: "Biren Gurung",
+    },
+  ];
+
   return (
     <View>
       <View style={otherRequestsStyle.header}>
@@ -25,6 +46,11 @@ const OtherRequests = () => {
           </TouchableWithoutFeedback>
         </View>
       </View>
+      <FlatList
+        data={requests}
+        renderItem={(item) => <Request item={item} other={true} />}
+        keyExtractor={(item) => item.date}
+      />
     </View>
   );
 };

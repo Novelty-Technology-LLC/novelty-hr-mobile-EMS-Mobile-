@@ -11,6 +11,7 @@ const editAlertStyle = StyleSheet.create({
   title: {
     margin: 0,
     padding: 0,
+    fontWeight: "bold",
   },
   cancel: {
     color: colors.black,
