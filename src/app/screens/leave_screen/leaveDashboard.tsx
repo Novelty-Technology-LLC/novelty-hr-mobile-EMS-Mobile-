@@ -8,7 +8,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { removeToken } from '../../utils';
@@ -28,7 +28,7 @@ const LeaveDashboard = () => {
         Leave
       </Text>
       <Header>Leave Application</Header>
-      <ScrollView>
+      {/* <ScrollView>
         <View style={style.container}>
           <DaysRemaining total={5} remaining={4} title="Paid Time Offs" />
           <DaysRemaining total={5} remaining={3} title="Floating Days" />
@@ -42,7 +42,7 @@ const LeaveDashboard = () => {
         >
           <Icon name="plus" color={colors.white} size={20} />
         </TouchableWithoutFeedback>
-      </View>
+      </View> */}
     </View>
   );
 };

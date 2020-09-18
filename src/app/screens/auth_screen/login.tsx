@@ -44,6 +44,8 @@ const Login = () => {
       storeToken(userInfo.user);
       dispatch({ type: 'SIGN_IN', token: userInfo.user });
     } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED)
+        error.message = 'Sign in cancled.';
       const snackBarOpts = {
         data: error.message.slice(0, 35),
         position: WSnackBar.position.BOTTOM,
@@ -75,7 +77,7 @@ const Login = () => {
       data.fullName['token'] = data.identityToken;
       delete data.identityToken;
 
-      storeToken(data);
+      storeToken(data.fullName);
       dispatch({ type: 'SIGN_IN', token: data.fullName });
     } catch (error) {
       const snackBarOpts = {

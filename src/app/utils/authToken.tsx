@@ -12,10 +12,6 @@ const mapObject = (profile) => {
   for (let keys in profile) {
     if (storeData.hasOwnProperty(keys)) {
       storeData[keys] = profile[keys];
-    } else {
-      if (keys === 'fullName') {
-        return mapObject(profile[keys]);
-      }
     }
   }
   return storeData;

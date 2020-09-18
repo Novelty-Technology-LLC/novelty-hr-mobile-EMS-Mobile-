@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
 import {
   TextInput,
   TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
-import Dialog from "react-native-dialog";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import colors from "../../../assets/colors";
-import { editAlertStyle as style } from "../../../assets/styles";
-import RequestWithImage from "./requestWithImage";
-import State from "./state";
+} from 'react-native-gesture-handler';
+import Dialog from 'react-native-dialog';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../../assets/colors';
+import { editAlertStyle as style } from '../../../assets/styles';
+import RequestWithImage from './requestWithImage';
+import State from './state';
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
