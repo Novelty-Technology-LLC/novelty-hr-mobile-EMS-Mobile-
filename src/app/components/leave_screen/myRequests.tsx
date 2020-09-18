@@ -45,7 +45,7 @@ const MyRequests = () => {
       <FlatList
         data={requests}
         renderItem={(item) => (
-          <Swipeable renderRightActions={() => <Swipe />}>
+          <Swipeable renderRightActions={() => <Swipe item={item} />}>
             <Request item={item} />
           </Swipeable>
         )}

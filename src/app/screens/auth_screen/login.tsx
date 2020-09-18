@@ -1,31 +1,31 @@
-import React, { useContext, useEffect, useReducer } from 'react';
-import { Text, View, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { loginStyle as style } from '../../../assets/styles';
-import { WSnackBar } from 'react-native-smart-tip';
-import { AuthContext } from '../../reducer';
-import { storeToken } from '../../utils';
+import React, { useContext, useEffect, useReducer } from "react";
+import { Text, View, Image } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { loginStyle as style } from "../../../assets/styles";
+import { WSnackBar } from "react-native-smart-tip";
+import { AuthContext } from "../../reducer";
+import { storeToken } from "../../utils";
 
 import appleAuth, {
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
-} from '@invertase/react-native-apple-authentication';
+} from "@invertase/react-native-apple-authentication";
 
 import {
   GoogleSignin,
   statusCodes,
-} from '@react-native-community/google-signin';
+} from "@react-native-community/google-signin";
 
 const Login = () => {
   const { dispatch } = useContext(AuthContext);
 
   useEffect(() => {
     GoogleSignin.configure({
-      scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+      scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
       webClientId:
-        '742877336730-9lt7k06p7eihbb6rar2esdeal9recl2l.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+        "742877336730-9lt7k06p7eihbb6rar2esdeal9recl2l.apps.googleusercontent.com", // client ID of type WEB for your server (needed to verify user ID and offline access)
       iosClientId:
-        '742877336730-8mscg3mk8ccel2u3gkr7njhq3g9jod86.apps.googleusercontent.com',
+        "742877336730-8mscg3mk8ccel2u3gkr7njhq3g9jod86.apps.googleusercontent.com",
       offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
       forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
     });
@@ -35,25 +35,24 @@ const Login = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('info', userInfo);
-      navigation.navigate('leaveList');
+      console.log("info", userInfo);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('error occured SIGN_IN_CANCELLED');
+        console.log("error occured SIGN_IN_CANCELLED");
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('error occured IN_PROGRESS');
+        console.log("error occured IN_PROGRESS");
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('error occured PLAY_SERVICES_NOT_AVAILABLE');
+        console.log("error occured PLAY_SERVICES_NOT_AVAILABLE");
       } else {
         console.log(error);
-        console.log('error occured unknow error');
+        console.log("error occured unknow error");
       }
     }
   };
 
   const signInApple = async () => {
     try {
-      if (!appleAuth.isSupported) throw new Error('Apple signin not supported');
+      if (!appleAuth.isSupported) throw new Error("Apple signin not supported");
 
       const data = await appleAuth.performRequest({
         requestedOperation: AppleAuthRequestOperation.LOGIN,
@@ -63,19 +62,19 @@ const Login = () => {
         ],
       });
 
-      if (!data.identityToken) throw new Error('Error while signin');
+      if (!data.identityToken) throw new Error("Error while signin");
 
       const jsonValue = JSON.stringify(data);
       storeToken(jsonValue);
-      dispatch({ type: 'SIGN_IN', token: jsonValue });
+      dispatch({ type: "SIGN_IN", token: jsonValue });
     } catch (error) {
       const snackBarOpts = {
         data: error.message,
         position: WSnackBar.position.BOTTOM,
         duration: WSnackBar.duration.LONG,
-        textColor: '#ff490b',
-        backgroundColor: '#050405',
-        actionTextColor: '#ff490b',
+        textColor: "#ff490b",
+        backgroundColor: "#050405",
+        actionTextColor: "#ff490b",
       };
       WSnackBar.show(snackBarOpts);
     }
@@ -86,7 +85,7 @@ const Login = () => {
       <View style={style.imageView}>
         <Image
           style={style.image}
-          source={require('../../../assets/images/noveltylogo.png')}
+          source={require("../../../assets/images/noveltylogo.png")}
         />
         <Text style={style.imageText}>Novelty EMS</Text>
       </View>
@@ -96,7 +95,7 @@ const Login = () => {
           <TouchableOpacity style={style.iconView} onPress={() => signIn()}>
             <Image
               style={style.icon}
-              source={require('../../../assets/images/icons8-google-96.png')}
+              source={require("../../../assets/images/icons8-google-96.png")}
             />
           </TouchableOpacity>
 
@@ -104,7 +103,7 @@ const Login = () => {
             <TouchableOpacity onPress={() => signInApple()}>
               <Image
                 style={style.icon}
-                source={require('../../../assets/images/icons8-apple-logo-100.png')}
+                source={require("../../../assets/images/icons8-apple-logo-100.png")}
               />
             </TouchableOpacity>
           </View>
