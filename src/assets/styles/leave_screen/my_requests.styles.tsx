@@ -17,6 +17,13 @@ const myRequestsStyle = StyleSheet.create({
   history: {
     color: colors.secondary,
   },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  gap: {
+    width: normalize(10),
+  },
 });
 
 export { myRequestsStyle };

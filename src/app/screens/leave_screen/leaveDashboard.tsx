@@ -16,14 +16,14 @@ const LeaveDashboard = () => {
       </View>
       <MyRequests />
 
-      <Button
+      {/* <Button
         title="Approve"
         onPress={() => navigation.navigate("leaveApprove")}
       />
       <Button
         title="Request"
         onPress={() => navigation.navigate("requestLeave")}
-      />
+      /> */}
     </View>
   );
 };

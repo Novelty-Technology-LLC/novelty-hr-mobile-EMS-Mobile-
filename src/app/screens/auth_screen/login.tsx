@@ -31,7 +31,8 @@ const Login = () => {
     GoogleSignin.configure({
       scopes: ["https://www.googleapis.com/auth/drive.readonly"], // what API you want to access on behalf of the user, default is email and profile
       webClientId:
-        "245208989401-sbqgp1i00kq1o7f18q02ls7mf0n1mlc1.apps.googleusercontent.com", // client ID of type WEB for your server (needed to verify user ID and offline access)
+        "245208989401-6ucq6geuudf78d439m14hun8ohicmof3.apps.googleusercontent.com", // client ID of type WEB for your server (needed to verify user ID and offline access)
+
       offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
       forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
     });
@@ -99,10 +100,7 @@ const Login = () => {
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
-          <TouchableOpacity
-            style={style.iconView}
-            onPress={() => navigation.navigate("leaveList")}
-          >
+          <TouchableOpacity style={style.iconView} onPress={() => signIn()}>
             <Image
               style={style.icon}
               source={require("../../../assets/images/icons8-google-96.png")}
