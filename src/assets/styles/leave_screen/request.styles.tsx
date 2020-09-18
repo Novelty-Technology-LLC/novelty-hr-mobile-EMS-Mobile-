@@ -7,6 +7,8 @@ const requestStyle = StyleSheet.create({
     paddingVertical: normalize(15),
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingLeft: normalize(35),
+    paddingRight: normalize(20),
   },
   date: {
     fontWeight: "bold",
@@ -21,6 +23,7 @@ const requestStyle = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
+    alignItems: "center",
   },
   space: {
     paddingHorizontal: 5,

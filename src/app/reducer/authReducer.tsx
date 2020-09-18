@@ -1,0 +1,43 @@
+import React, { useReducer } from 'react';
+
+const AuthReducer = (prevState, action) => {
+  switch (action.type) {
+    case 'RESTORE_TOKEN':
+      return {
+        ...prevState,
+        userToken: action.identityToken,
+        isLoading: false,
+      };
+    case 'SIGN_IN':
+      return {
+        ...prevState,
+        isSignout: false,
+        userToken: JSON.parse(action.identityToken),
+      };
+    case 'SIGN_OUT':
+      return {
+        ...prevState,
+        isSignout: true,
+        userToken: null,
+      };
+  }
+};
+
+const AuthContext = React.createContext();
+
+const initialState = {
+  isLoading: true,
+  isSignout: false,
+  userToken: null,
+};
+
+const useAuth = () => {
+  const [state, dispatch] = useReducer(AuthReducer, initialState);
+
+  return {
+    state,
+    dispatch,
+  };
+};
+
+export { useAuth, AuthContext };

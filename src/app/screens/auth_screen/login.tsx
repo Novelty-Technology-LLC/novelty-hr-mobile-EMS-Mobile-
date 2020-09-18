@@ -1,39 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Text, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
-import AsyncStorage from '@react-native-community/async-storage';
+
+import { WSnackBar } from 'react-native-smart-tip';
+import { AuthContext } from '../../reducer';
+import { storeToken } from '../../utils';
 
 import appleAuth, {
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
-  AppleAuthCredentialState,
 } from '@invertase/react-native-apple-authentication';
-import { WSnackBar } from 'react-native-smart-tip';
 
 import {
   GoogleSignin,
-  GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
 
-const snackBarOpts = {
-  data: 'Apple login not supported.',
-  position: WSnackBar.position.BOTTOM,
-  duration: WSnackBar.duration.LONG,
-  backgroundColor: '#050405',
-  textColor: '#ff0000',
-};
-
 const Login = () => {
-  const navigation = useNavigation();
+  const { dispatch } = useContext(AuthContext);
 
   useEffect(() => {
     GoogleSignin.configure({
       scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
       webClientId:
-        '245208989401-sbqgp1i00kq1o7f18q02ls7mf0n1mlc1.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+        '245208989401-6ucq6geuudf78d439m14hun8ohicmof3.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+
       offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
       forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
     });
@@ -44,13 +36,12 @@ const Login = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       console.log('info', userInfo);
+      navigation.navigate('leaveList');
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('error occured SIGN_IN_CANCELLED');
-        // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
         console.log('error occured IN_PROGRESS');
-        // operation (f.e. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.log('error occured PLAY_SERVICES_NOT_AVAILABLE');
       } else {
@@ -72,11 +63,11 @@ const Login = () => {
         ],
       });
 
-      let { identityToken } = data;
+      if (!data.identityToken) throw new Error('Error while signin');
 
-      if (!identityToken) throw new Error('Error while sign in');
       const jsonValue = JSON.stringify(data);
-      await AsyncStorage.setItem('token', jsonValue);
+      storeToken(jsonValue);
+      dispatch({ type: 'SIGN_IN', token: jsonValue });
     } catch (error) {
       const snackBarOpts = {
         data: error.message,
