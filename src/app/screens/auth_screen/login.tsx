@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useReducer } from 'react';
 import { Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
-
 import { WSnackBar } from 'react-native-smart-tip';
 import { AuthContext } from '../../reducer';
 import { storeToken } from '../../utils';
@@ -24,8 +23,9 @@ const Login = () => {
     GoogleSignin.configure({
       scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
       webClientId:
-        '245208989401-6ucq6geuudf78d439m14hun8ohicmof3.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-
+        '742877336730-9lt7k06p7eihbb6rar2esdeal9recl2l.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+      iosClientId:
+        '742877336730-8mscg3mk8ccel2u3gkr7njhq3g9jod86.apps.googleusercontent.com',
       offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
       forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
     });
