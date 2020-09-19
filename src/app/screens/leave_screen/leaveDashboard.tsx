@@ -33,7 +33,7 @@ const LeaveDashboard = () => {
           <DaysRemaining total={5} remaining={4} title="Paid Time Offs" />
           <DaysRemaining total={5} remaining={3} title="Floating Days" />
         </View>
-        <MyRequests />
+        {/* <MyRequests /> */}
         <OtherRequests />
       </ScrollView>
       <View style={style.plus}>
