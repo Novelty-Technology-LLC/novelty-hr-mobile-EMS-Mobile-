@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 
 export default RangeCalendarSimpleUsageShowcase = ({ style }) => {
   const { handleChange } = useFormikContext();
-  const [range, setrange] = useState({});
+  const [range, setrange] = useState('');
 
   useEffect(() => {
     handleChange('date')(`${JSON.stringify(range)}`);

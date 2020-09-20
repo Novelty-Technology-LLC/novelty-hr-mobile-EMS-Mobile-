@@ -13,6 +13,7 @@ const description = () => {
         <Text style={style.text}>Write a note</Text>
         <Textarea
           containerStyle={style.textareaContainer}
+          style={style.textArea}
           maxLength={120}
           placeholder={'Write a short note for your leave..'}
           placeholderTextColor={'#c7c7c7'}

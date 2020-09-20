@@ -12,14 +12,14 @@ import Calander from '../../components/request_screen/calander';
 import Teams from '../../components/request_screen/teams';
 import Leave from '../../components/request_screen/leave_type';
 import Description from '../../components/request_screen/description';
+import Button from '../../common/button';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import moment from 'moment';
 
 const validationSchema = Yup.object().shape({
-  date: Yup.date().required().label('date'),
-  leaveType: Yup.string().label('leaveType'),
-  description: Yup.string().label('description'),
+  date: Yup.object().required().label('date'),
+  leaveType: Yup.string().required().label('leaveType'),
+  description: Yup.string().required().label('description'),
 });
 
 const initialValues = {
@@ -29,7 +29,7 @@ const initialValues = {
 };
 
 const RequestLeave = () => {
-  const onSubmit = (values) => {
+  const onSubmit = (values: Object) => {
     const startDate = new Date(JSON.parse(values.date).startDate)
       .toString()
       .slice(0, 10);
@@ -50,6 +50,7 @@ const RequestLeave = () => {
         <ScrollView style={style.container}>
           <Header>Request Leave </Header>
           <Formik
+            validationSchema={validationSchema}
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
@@ -60,9 +61,7 @@ const RequestLeave = () => {
                 <Leave />
                 <Description />
                 <TouchableOpacity onPress={() => handleSubmit()}>
-                  <View style={style.buttonView}>
-                    <Text style={style.buttonText}>Submit Request</Text>
-                  </View>
+                  <Button style={style} title={'Submit Request'} />
                 </TouchableOpacity>
               </>
             )}

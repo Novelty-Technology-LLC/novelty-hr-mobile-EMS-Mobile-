@@ -19,7 +19,6 @@
     "@react-navigation/stack": "^5.9.0",
     "@ui-kitten/components": "^5.0.0",
     "formik": "^2.1.5",
-    "moment": "^2.28.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-countup": "0.0.2",

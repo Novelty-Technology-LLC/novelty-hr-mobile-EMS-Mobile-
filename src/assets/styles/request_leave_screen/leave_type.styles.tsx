@@ -43,7 +43,7 @@ const leaveType = StyleSheet.create({
     alignItems: 'center',
     padding: normalize(15),
     backgroundColor: color.buttonGrey,
-    borderRadius: normalize(3),
+    borderRadius: normalize(4),
   },
   buttonPaid: {
     display: 'flex',
