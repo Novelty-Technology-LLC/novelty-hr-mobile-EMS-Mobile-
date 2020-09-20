@@ -13,6 +13,20 @@ const requestLeave = StyleSheet.create({
     borderBottomWidth: 1,
     width: '100%',
   },
+  buttonView: {
+    marginTop: normalize(23),
+    marginHorizontal: normalize(20),
+    paddingVertical: normalize(15),
+    borderRadius: normalize(6),
+    marginBottom: normalize(10),
+    backgroundColor: color.primary,
+    display: 'flex',
+  },
+  buttonText: {
+    color: color.white,
+    alignSelf: 'center',
+    fontSize: normalize(16),
+  },
 });
 
 export { requestLeave };

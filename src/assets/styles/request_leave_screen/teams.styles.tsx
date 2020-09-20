@@ -24,7 +24,6 @@ const teamStyle = StyleSheet.create({
     width: 'auto',
     display: 'flex',
     flexDirection: 'row',
-    marginLeft: normalize(10),
   },
   main: {
     width: normalize(100),

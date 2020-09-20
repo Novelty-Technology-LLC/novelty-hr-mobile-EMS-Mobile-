@@ -14,9 +14,9 @@ const Teams = () => {
         showsHorizontalScrollIndicator={false}
       >
         <View style={style.wrapper}>
-          {json.map((val) => {
+          {json.map((val, i) => {
             return (
-              <View style={style.main}>
+              <View style={style.main} key={i}>
                 <Image
                   style={style.image}
                   source={require('../../../assets/images/person.jpeg')}

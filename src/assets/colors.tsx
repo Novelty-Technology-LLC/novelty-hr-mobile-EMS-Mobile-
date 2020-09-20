@@ -6,5 +6,9 @@ export default {
   yellow: '#ffc03d',
   black: '#000',
   white: '#fff',
+  grey: '#f2f2f2',
   border: '#f2f2f2',
+  buttonOrange: '#ffe6b3',
+  buttonGrey: '#f2f2f2',
+  fontGrey: '#8c8c8c',
 };
