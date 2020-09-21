@@ -47,7 +47,10 @@ const RequestLeave = () => {
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <SafeAreaView style={style.container}>
-        <ScrollView style={style.container}>
+        <ScrollView
+          style={style.container}
+          showsVerticalScrollIndicator={false}
+        >
           <Header>Request Leave </Header>
           <Formik
             validationSchema={validationSchema}
