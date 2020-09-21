@@ -29,9 +29,10 @@ const EditAlert = ({ item }: any) => {
         </Dialog.Title>
         <View style={style.row}>
           <RequestWithImage item={item} />
+          <View style={style.gap}></View>
           <State state={item.state} />
         </View>
-        <View style={style.container}>
+        <View style={style.main}>
           <Text style={style.note}>You can attach a note if you want</Text>
           <Textarea
             containerStyle={style.textareaContainer}
@@ -44,8 +45,9 @@ const EditAlert = ({ item }: any) => {
           />
         </View>
         <View style={style.buttons}>
-          <Dialog.Button label="Cancel" onPress={hide} style={style.cancel} />
-          <Dialog.Button label="Submit" onPress={show} style={style.delete} />
+          <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
+          <View style={style.buttonGap}></View>
+          <Dialog.Button label="SUBMIT" onPress={show} style={style.delete} />
         </View>
       </Dialog.Container>
     </View>

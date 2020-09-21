@@ -1,28 +1,28 @@
-import { StyleSheet } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
+import { StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
 
 const requestWithImageStyle = StyleSheet.create({
   row: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  image: {
+    width: normalize(40),
+    height: normalize(40),
+    borderRadius: normalize(25),
+    marginRight: normalize(10),
   },
   gap: {
     paddingRight: 5,
   },
-
-  image: {
-    width: normalize(50),
-    height: normalize(50),
-    borderRadius: normalize(25),
-    marginRight: normalize(10),
-  },
   name: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
+  date: { flexDirection: 'row', paddingTop: normalize(5) },
   type: {
     fontSize: normalize(12),
-    color: colors.secondary,
+    opacity: 0.4,
   },
 });
 

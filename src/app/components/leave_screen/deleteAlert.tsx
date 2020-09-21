@@ -18,11 +18,17 @@ const DeleteAlert = () => {
       <Dialog.Container visible={showAlert}>
         <View style={style.container}>
           <Icon name="alert" color={colors.tomato} size={35} />
-          <View style={style.gap}></View>
-          <Dialog.Title>Delete the request ?</Dialog.Title>
+          <View style={style.main}>
+            <Dialog.Title style={style.text1}>
+              Delete the request ?
+            </Dialog.Title>
+            <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
+          </View>
         </View>
-        <Dialog.Button label="Cancel" onPress={hide} style={style.cancel} />
-        <Dialog.Button label="Delete" onPress={show} style={style.delete} />
+        <View style={style.buttons}>
+          <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
+          <Dialog.Button label="DELETE" onPress={show} style={style.delete} />
+        </View>
       </Dialog.Container>
     </>
   );

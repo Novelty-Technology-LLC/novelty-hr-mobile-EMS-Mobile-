@@ -14,9 +14,8 @@ const RequestWithImage = ({ item }: any) => {
         />
         <View>
           <Text style={style.name}>{item.sender}</Text>
-          <Text style={style.type}>{item.type}</Text>
-          <View style={style.row}>
-            <Icon name="calendar" size={8} color={colors.secondary} />
+          <View style={style.date}>
+            <Icon name="calendar" size={15} color={colors.secondary} />
             <View style={style.gap}></View>
             <Text style={style.type}>{item.date}</Text>
           </View>
