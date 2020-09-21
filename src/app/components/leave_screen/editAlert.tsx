@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Dialog from "react-native-dialog";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import {
-  editAlertStyle as style,
   deleteAlertStyle,
+  editAlertStyle as style,
 } from "../../../assets/styles";
 import RequestWithImage from "./requestWithImage";
 import State from "./state";
@@ -23,10 +24,15 @@ const EditAlert = ({ item }: any) => {
       >
         <Icon name="square-edit-outline" color={colors.yellow} size={15} />
       </TouchableOpacity>
-      <Dialog.Container visible={showAlert}>
-        <Dialog.Title style={style.title}>
-          Your response is ready to go
-        </Dialog.Title>
+      <Dialog.Container
+        visible={showAlert}
+        contentStyle={style.dialogContainer}
+      >
+        <View style={style.titleView}>
+          <Dialog.Title style={style.title}>
+            Your response is ready to go
+          </Dialog.Title>
+        </View>
         <View style={style.row}>
           <RequestWithImage item={item} />
           <View style={style.gap}></View>
