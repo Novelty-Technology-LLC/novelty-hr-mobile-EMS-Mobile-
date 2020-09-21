@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useReducer } from 'react';
 import { Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
-import { WSnackBar } from 'react-native-smart-tip';
 import { AuthContext } from '../../reducer';
 import { storeToken } from '../../utils';
+import { snackErrorBottom } from '../../common/error';
 
 import appleAuth, {
   AppleAuthRequestOperation,
@@ -44,15 +44,9 @@ const Login = () => {
       storeToken(userInfo.user);
       dispatch({ type: 'SIGN_IN', token: userInfo.user });
     } catch (error) {
-      const snackBarOpts = {
-        data: error.message.slice(0, 35),
-        position: WSnackBar.position.BOTTOM,
-        duration: WSnackBar.duration.LONG,
-        textColor: '#ff490b',
-        backgroundColor: '#050405',
-        actionTextColor: '#ff490b',
-      };
-      WSnackBar.show(snackBarOpts);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED)
+        error.message = 'Sign in cancled.';
+      snackErrorBottom(error);
     }
   };
 
@@ -75,18 +69,10 @@ const Login = () => {
       data.fullName['token'] = data.identityToken;
       delete data.identityToken;
 
-      storeToken(data);
+      storeToken(data.fullName);
       dispatch({ type: 'SIGN_IN', token: data.fullName });
     } catch (error) {
-      const snackBarOpts = {
-        data: error.message.slice(0, 35),
-        position: WSnackBar.position.BOTTOM,
-        duration: WSnackBar.duration.LONG,
-        textColor: '#ff490b',
-        backgroundColor: '#050405',
-        actionTextColor: '#ff490b',
-      };
-      WSnackBar.show(snackBarOpts);
+      snackErrorBottom(error);
     }
   };
 

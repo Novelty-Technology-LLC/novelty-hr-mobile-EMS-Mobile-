@@ -37,12 +37,12 @@ const ScreenNav = () => {
             ) : (
               <>
                 <ScreenStack.Screen
-                  name="leaveApprove"
-                  component={LeaveApproval}
-                />
-                <ScreenStack.Screen
                   name="leaveList"
                   component={LeaveDashboard}
+                />
+                <ScreenStack.Screen
+                  name="leaveApprove"
+                  component={LeaveApproval}
                 />
                 <ScreenStack.Screen
                   name="requestLeave"
