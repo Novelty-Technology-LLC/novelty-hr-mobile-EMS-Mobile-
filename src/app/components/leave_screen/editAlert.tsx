@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from "react";
+import { View, Text } from "react-native";
 import {
   TextInput,
   TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
-import Dialog from 'react-native-dialog';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../../../assets/colors';
-import { editAlertStyle as style } from '../../../assets/styles';
-import RequestWithImage from './requestWithImage';
-import State from './state';
+} from "react-native-gesture-handler";
+import Dialog from "react-native-dialog";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import colors from "../../../assets/colors";
+import { editAlertStyle as style } from "../../../assets/styles";
+import RequestWithImage from "./requestWithImage";
+import State from "./state";
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -18,7 +18,7 @@ const EditAlert = ({ item }: any) => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={() => show()}>
-        <Icon name="edit" color={colors.yellow} size={15} />
+        <Icon name="square-edit-outline" color={colors.yellow} size={15} />
       </TouchableWithoutFeedback>
       <Dialog.Container visible={showAlert}>
         <Dialog.Title style={style.title}>
@@ -26,7 +26,7 @@ const EditAlert = ({ item }: any) => {
         </Dialog.Title>
         <View style={style.row}>
           <RequestWithImage item={item} />
-          <State state={item.item.state} />
+          <State state={item.state} />
         </View>
         <View style={style.container}>
           <Text style={style.note}>You can attach a note if you want</Text>
