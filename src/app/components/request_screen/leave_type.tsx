@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { useFormikContext } from 'formik';
 import { leaveType as style } from '../../../assets/styles';
 import color from '../../../assets/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function Leavetype() {
-  const { handleChange } = useFormikContext();
+function Leavetype({ handleChange }) {
   const [type, setType] = useState(1);
 
   return (

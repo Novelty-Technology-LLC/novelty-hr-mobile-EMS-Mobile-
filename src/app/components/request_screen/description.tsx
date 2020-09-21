@@ -1,12 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import Textarea from 'react-native-textarea';
-import { useFormikContext } from 'formik';
+
 import { descriptionStyle as style } from '../../../assets/styles';
 
-const description = () => {
-  const { handleChange, handleSubmit } = useFormikContext();
-
+const description = ({ handleChange }) => {
   return (
     <View>
       <View style={style.main}>

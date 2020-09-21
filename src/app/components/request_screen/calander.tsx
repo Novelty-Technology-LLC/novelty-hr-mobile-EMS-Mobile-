@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { RangeCalendar } from '@ui-kitten/components';
-import { useFormikContext } from 'formik';
 
-export default RangeCalendarSimpleUsageShowcase = ({ style }) => {
-  const { handleChange } = useFormikContext();
+export default RangeCalendarSimpleUsageShowcase = ({ style, handleChange }) => {
   const [range, setrange] = useState('');
 
   useEffect(() => {

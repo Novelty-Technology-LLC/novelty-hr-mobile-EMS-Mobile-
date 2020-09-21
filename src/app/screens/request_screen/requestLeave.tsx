@@ -54,12 +54,12 @@ const RequestLeave = () => {
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
-            {({ handleSubmit }) => (
+            {({ handleChange, handleSubmit }) => (
               <>
-                <Calander style={style.calendar} />
+                <Calander style={style.calendar} handleChange={handleChange} />
                 <Teams />
-                <Leave />
-                <Description />
+                <Leave handleChange={handleChange} />
+                <Description handleChange={handleChange} />
                 <TouchableOpacity onPress={() => handleSubmit()}>
                   <Button style={style} title={'Submit Request'} />
                 </TouchableOpacity>
