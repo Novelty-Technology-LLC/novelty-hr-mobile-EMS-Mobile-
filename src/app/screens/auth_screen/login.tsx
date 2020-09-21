@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { loginStyle as style } from '../../../assets/styles';
 import { AuthContext } from '../../reducer';
@@ -98,14 +98,16 @@ const Login = () => {
             />
           </TouchableOpacity>
 
-          <View style={style.iconView}>
-            <TouchableOpacity onPress={() => signInApple()}>
-              <Image
-                style={style.icon}
-                source={require('../../../assets/images/icons8-apple-logo-100.png')}
-              />
-            </TouchableOpacity>
-          </View>
+          {Platform.OS === 'ios' && (
+            <View style={style.iconView}>
+              <TouchableOpacity onPress={() => signInApple()}>
+                <Image
+                  style={style.icon}
+                  source={require('../../../assets/images/icons8-apple-logo-100.png')}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
       <View style={style.footerView}>

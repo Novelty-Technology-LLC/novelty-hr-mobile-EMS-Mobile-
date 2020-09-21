@@ -1,9 +1,9 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
-import { requestWithImageStyle as style } from "../../../assets/styles";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import colors from "../../../assets/colors";
-import State from "./state";
+import React from 'react';
+import { View, Text, Image } from 'react-native';
+import { requestWithImageStyle as style } from '../../../assets/styles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../../assets/colors';
+import State from './state';
 
 const RequestWithImage = ({ item }: any) => {
   return (
@@ -11,13 +11,12 @@ const RequestWithImage = ({ item }: any) => {
       <View style={style.row}>
         <Image
           style={style.image}
-          source={require("../../../assets/images/person.jpeg")}
+          source={require('../../../assets/images/person.jpeg')}
         />
         <View>
           <Text style={style.name}>{item.sender}</Text>
-          <Text style={style.type}>{item.type}</Text>
-          <View style={style.row}>
-            <Icon name="calendar" size={8} color={colors.secondary} />
+          <View style={style.date}>
+            <Icon name="calendar" size={15} color={colors.secondary} />
             <View style={style.gap}></View>
             <Text style={style.type}>{item.date}</Text>
           </View>
