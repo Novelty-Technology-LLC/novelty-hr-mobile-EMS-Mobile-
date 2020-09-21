@@ -3,7 +3,6 @@ import { View, Text, Image } from "react-native";
 import { requestWithImageStyle as style } from "../../../assets/styles";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
-import State from "./state";
 
 const RequestWithImage = ({ item }: any) => {
   return (

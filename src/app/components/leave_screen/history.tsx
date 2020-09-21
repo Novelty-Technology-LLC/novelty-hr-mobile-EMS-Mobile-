@@ -1,12 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import {
-  historyStyle as style,
-  otherRequestsStyle,
-} from "../../../assets/styles";
+import { historyStyle as style } from "../../../assets/styles";
 import { Request } from "./request";
-import RequestWithImage from "./requestWithImage";
 
 const History = ({ other }: any) => {
   const pastrequests = [

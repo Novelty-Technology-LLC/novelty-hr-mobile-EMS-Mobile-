@@ -9,7 +9,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { Request } from "./request";
 import History from "./history";
-import { styled } from "@ui-kitten/components";
 
 const OtherRequests = () => {
   const [toggle, setToggle] = useState("toggle-switch");
