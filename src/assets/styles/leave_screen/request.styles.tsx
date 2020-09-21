@@ -4,19 +4,24 @@ import colors from "../../colors";
 
 const requestStyle = StyleSheet.create({
   container: {
-    paddingVertical: normalize(15),
+    paddingVertical: normalize(20),
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingLeft: normalize(35),
-    paddingRight: normalize(20),
+    marginLeft: normalize(20),
+    paddingLeft: normalize(15),
+    marginRight: normalize(20),
+    backgroundColor: colors.snow,
+    paddingRight: normalize(10),
+    borderRadius: 2,
+    marginVertical: 7,
   },
   date: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: normalize(18),
   },
   type: {
     color: colors.secondary,
-    fontSize: 12,
+    fontSize: normalize(12),
   },
   state: {
     color: colors.secondary,
@@ -26,7 +31,26 @@ const requestStyle = StyleSheet.create({
     alignItems: "center",
   },
   space: {
-    paddingHorizontal: 5,
+    paddingHorizontal: normalize(5),
+  },
+  button: {
+    width: normalize(75),
+    paddingVertical: normalize(6),
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+  },
+  subcontainer: {
+    width: normalize(200),
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    paddingHorizontal: normalize(10),
+    paddingRight: normalize(20),
+  },
+  days: {
+    color: colors.secondary,
   },
 });
 

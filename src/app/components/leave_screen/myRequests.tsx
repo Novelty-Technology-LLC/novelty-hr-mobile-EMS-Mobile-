@@ -67,7 +67,7 @@ const MyRequests = () => {
         data={requests}
         renderItem={(item) => (
           <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
-            <Request item={item.item} />
+            <Request item={item.item} other={false} />
           </Swipeable>
         )}
         keyExtractor={(item) => item.date}

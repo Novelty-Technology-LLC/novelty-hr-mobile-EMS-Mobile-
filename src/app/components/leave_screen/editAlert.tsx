@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { View, Text, TouchableOpacity } from "react-native";
 import Dialog from "react-native-dialog";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
-import { editAlertStyle as style } from "../../../assets/styles";
+import {
+  editAlertStyle as style,
+  deleteAlertStyle,
+} from "../../../assets/styles";
 import RequestWithImage from "./requestWithImage";
 import State from "./state";
 import Textarea from "react-native-textarea";
@@ -15,9 +17,12 @@ const EditAlert = ({ item }: any) => {
   const hide = () => setShowAlert(false);
   return (
     <View>
-      <TouchableWithoutFeedback onPress={() => show()}>
+      <TouchableOpacity
+        onPress={() => show()}
+        style={deleteAlertStyle.iconContainer}
+      >
         <Icon name="square-edit-outline" color={colors.yellow} size={15} />
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
       <Dialog.Container visible={showAlert}>
         <Dialog.Title style={style.title}>
           Your response is ready to go

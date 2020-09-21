@@ -16,6 +16,14 @@ const deleteAlertStyle = StyleSheet.create({
   delete: {
     color: colors.primary,
   },
+  iconContainer: {
+    backgroundColor: colors.snow,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },
 });
 
 export { deleteAlertStyle };

@@ -8,6 +8,8 @@ import { myRequestsStyle, otherRequestsStyle } from "../../../assets/styles";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { Request } from "./request";
+import History from "./history";
+import { styled } from "@ui-kitten/components";
 
 const OtherRequests = () => {
   const [toggle, setToggle] = useState("toggle-switch");
@@ -29,7 +31,7 @@ const OtherRequests = () => {
   ];
 
   return (
-    <View>
+    <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
         <Text style={myRequestsStyle.title}> Requests Recieved</Text>
         <View style={myRequestsStyle.row}>
@@ -56,9 +58,12 @@ const OtherRequests = () => {
       </View>
       <FlatList
         data={requests}
-        renderItem={(item) => <Request item={item.item} other={true} />}
+        renderItem={(item) => (
+          <Request item={item.item} other={true} recieved={true} />
+        )}
         keyExtractor={(item) => item.date}
       />
+      {toggle === "toggle-switch" && <History other={true} />}
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TouchableWithoutFeedback } from "react-native";
+import { View, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Dialog from "react-native-dialog";
 import colors from "../../../assets/colors";
@@ -12,9 +12,9 @@ const DeleteAlert = () => {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={() => show()}>
+      <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
         <Icon name="delete" color={colors.tomato} size={15} />
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
       <Dialog.Container visible={showAlert}>
         <View style={style.container}>
           <Icon name="alert" color={colors.tomato} size={35} />

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import color from '../../colors';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import color from "../../colors";
 
 const requestLeave = StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ const requestLeave = StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 0,
     borderBottomWidth: 1,
-    width: '100%',
+    width: "100%",
   },
   buttonView: {
     marginTop: normalize(23),
@@ -20,11 +20,11 @@ const requestLeave = StyleSheet.create({
     borderRadius: normalize(6),
     marginBottom: normalize(10),
     backgroundColor: color.primary,
-    display: 'flex',
+    display: "flex",
   },
   buttonText: {
     color: color.white,
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: normalize(16),
   },
 });

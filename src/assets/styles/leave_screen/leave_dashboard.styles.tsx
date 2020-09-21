@@ -5,7 +5,8 @@ import colors from "../../colors";
 const leaveDashboardStyle = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginHorizontal: normalize(10),
+    paddingHorizontal: normalize(10),
+    flex: 1,
   },
   plus: {
     width: normalize(50),
@@ -20,6 +21,7 @@ const leaveDashboardStyle = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
+    backgroundColor: colors.white,
   },
 });
 

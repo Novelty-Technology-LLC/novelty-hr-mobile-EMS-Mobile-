@@ -3,7 +3,9 @@ import normalize from "react-native-normalize";
 import colors from "../../colors";
 
 const myRequestsStyle = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: colors.white,
+  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
