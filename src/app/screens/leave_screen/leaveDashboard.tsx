@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Text, View, Button, ScrollView } from "react-native";
+import React from "react";
+import { View, ScrollView } from "react-native";
 import { header as Header } from "../../common/header";
 import { DaysRemaining, MyRequests } from "../../components";
 import { leaveDashboardStyle as style } from "../../../assets/styles";
@@ -17,7 +17,7 @@ const LeaveDashboard = () => {
           <DaysRemaining total={5} remaining={3} title="Floating Days" />
         </View>
         <MyRequests />
-        <OtherRequests />
+        {/* <OtherRequests /> */}
       </ScrollView>
       <RequestButton />
     </View>

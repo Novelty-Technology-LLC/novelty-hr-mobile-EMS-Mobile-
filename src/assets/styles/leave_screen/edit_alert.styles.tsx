@@ -27,13 +27,22 @@ const editAlertStyle = StyleSheet.create({
     color: colors.secondary,
     paddingBottom: normalize(25),
   },
-  textArea: {
-    backgroundColor: "#f5f5f5",
-    alignItems: "flex-start",
-  },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  textareaContainer: {
+    height: normalize(140),
+    width: normalize(280),
+    marginTop: normalize(10),
+    padding: normalize(10),
+    borderRadius: normalize(4),
+    backgroundColor: colors.grey,
+    opacity: 0.8,
+  },
+  textArea: {
+    height: normalize(130),
+    textAlignVertical: "top",
   },
 });
 
