@@ -10,7 +10,7 @@ import { requestLeave as style } from '../../../assets/styles';
 
 import Calander from '../../components/request_screen/calander';
 import Teams from '../../components/request_screen/teams';
-import Leave from '../../components/request_screen/leave_type';
+import Leave from '../../components/request_screen/leavetType';
 import Description from '../../components/request_screen/description';
 import Button from '../../common/button';
 import { Formik } from 'formik';
