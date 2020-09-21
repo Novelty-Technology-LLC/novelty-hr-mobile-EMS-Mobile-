@@ -11,11 +11,11 @@ const Request = ({ item, other }: any) => {
         <RequestWithImage item={item} />
       ) : (
         <View>
-          <Text style={style.date}>{item.item.date}</Text>
-          <Text style={style.type}>{item.item.type}</Text>
+          <Text style={style.date}>{item.date}</Text>
+          <Text style={style.type}>{item.type}</Text>
         </View>
       )}
-      <State state={item.item.state} />
+      <State state={item.state} />
     </View>
   );
 };

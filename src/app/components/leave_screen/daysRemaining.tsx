@@ -21,6 +21,7 @@ const DaysRemaining = ({ total, remaining, title }: DaysRemainingPropType) => {
             countBy={1}
             timing="linear"
           />
+          {/* {remaining} */}
         </Text>
         <Text style={style.total}>/{total}</Text>
       </Text>

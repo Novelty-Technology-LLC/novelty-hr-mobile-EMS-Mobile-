@@ -27,7 +27,7 @@ const History = () => {
       <Text style={style.header}>Past Requests</Text>
       <FlatList
         data={pastrequests}
-        renderItem={(item) => <Request item={item} />}
+        renderItem={(item) => <Request item={item.item} />}
         keyExtractor={(item) => item.date}
       />
     </View>
