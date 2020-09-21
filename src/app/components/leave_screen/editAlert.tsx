@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
-import {
-  TextInput,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Dialog from "react-native-dialog";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { editAlertStyle as style } from "../../../assets/styles";
 import RequestWithImage from "./requestWithImage";
 import State from "./state";
+import Textarea from "react-native-textarea";
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -30,13 +28,14 @@ const EditAlert = ({ item }: any) => {
         </View>
         <View style={style.container}>
           <Text style={style.note}>You can attach a note if you want</Text>
-          <TextInput
-            multiline={true}
-            numberOfLines={4}
-            onChangeText={(text) => console.log(text)}
+          <Textarea
+            containerStyle={style.textareaContainer}
             style={style.textArea}
-            placeholder="Write a short note for your response"
-            placeholderTextColor={colors.secondary}
+            maxLength={120}
+            placeholder={"Write a short note for your response"}
+            placeholderTextColor={"#c7c7c7"}
+            underlineColorAndroid={"transparent"}
+            // onChangeText={}
           />
         </View>
         <View style={style.buttons}>
