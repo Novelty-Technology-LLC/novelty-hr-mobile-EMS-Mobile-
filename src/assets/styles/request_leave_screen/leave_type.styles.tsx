@@ -36,7 +36,7 @@ const leaveType = StyleSheet.create({
     borderRadius: normalize(3),
   },
   spacer: {
-    paddingHorizontal: normalize(10),
+    paddingHorizontal: theme.spacing.button,
   },
   floatingView: {
     display: 'flex',

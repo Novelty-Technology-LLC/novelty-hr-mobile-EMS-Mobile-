@@ -19,6 +19,7 @@ const theme = {
     normal: 1,
     wide: 2,
     tight: 0.5,
+    button: 10,
   },
   color: {
     theme_color: '#5FC4D6',
