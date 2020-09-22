@@ -1,15 +1,12 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, Text } from 'react-native';
+import { header as Header } from '../../common/header';
 
 const RequestDetail = ({ route }) => {
   const { date, id, sender, state, type } = route.params;
   return (
     <View>
-      <Text>requestDetail</Text>
-      <Text>{date}</Text>
-      <Text>{sender}</Text>
-      <Text>{state}</Text>
-      <Text>{type}</Text>
+      <Header>Hello</Header>
     </View>
   );
 };

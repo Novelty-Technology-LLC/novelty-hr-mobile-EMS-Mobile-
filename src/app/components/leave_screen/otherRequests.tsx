@@ -1,33 +1,33 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
 import {
   FlatList,
   TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
-import { myRequestsStyle, otherRequestsStyle } from "../../../assets/styles";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import colors from "../../../assets/colors";
-import { Request } from "./request";
-import History from "./history";
-import { useNavigation } from "@react-navigation/native";
+} from 'react-native-gesture-handler';
+import { myRequestsStyle, otherRequestsStyle } from '../../../assets/styles';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../../assets/colors';
+import { Request } from './request';
+import History from './history';
+import { useNavigation } from '@react-navigation/native';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
-  const [toggle, setToggle] = useState("toggle-switch");
+  const [toggle, setToggle] = useState('toggle-switch');
   const requests = [
     {
       id: 2,
-      date: "Oct 28 (1 day)",
-      type: "FLOATING",
-      state: "In Progress",
-      sender: "Biren Gurung",
+      date: 'Oct 28 (1 day)',
+      type: 'FLOATING',
+      state: 'In Progress',
+      sender: 'Biren Gurung',
     },
     {
       id: 3,
-      date: "Oct 30 (1 day)",
-      type: "PAID TIME OFF",
-      state: "Denied",
-      sender: "Biren Gurung",
+      date: 'Oct 30 (1 day)',
+      type: 'PAID TIME OFF',
+      state: 'Denied',
+      sender: 'Biren Gurung',
     },
   ];
 
@@ -41,16 +41,16 @@ const OtherRequests = () => {
           <TouchableWithoutFeedback
             onPress={() =>
               setToggle(
-                toggle === "toggle-switch"
-                  ? "toggle-switch-off"
-                  : "toggle-switch"
+                toggle === 'toggle-switch'
+                  ? 'toggle-switch-off'
+                  : 'toggle-switch'
               )
             }
           >
             <Icon
               name={toggle}
               color={
-                toggle === "toggle-switch" ? colors.primary : colors.secondary
+                toggle === 'toggle-switch' ? colors.primary : colors.secondary
               }
               size={40}
             />
@@ -64,12 +64,12 @@ const OtherRequests = () => {
             item={item.item}
             other={true}
             recieved={true}
-            onPress={() => navigation.navigate("approveLeave", item.item)}
+            onPress={() => navigation.navigate('approveLeave', item.item)}
           />
         )}
         keyExtractor={(item) => item.date}
       />
-      {toggle === "toggle-switch" && <History other={true} />}
+      {toggle === 'toggle-switch' && <History other={true} />}
     </View>
   );
 };

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { View, ScrollView, Text } from "react-native";
-import { header as Header } from "../../common/header";
-import { DaysRemaining, MyRequests } from "../../components";
-import { leaveDashboardStyle as style } from "../../../assets/styles";
+import React, { useState } from 'react';
+import { View, ScrollView, Text } from 'react-native';
+import { header as Header } from '../../common/header';
+import { DaysRemaining, MyRequests } from '../../components';
+import { leaveDashboardStyle as style } from '../../../assets/styles';
 
-import OtherRequests from "../../components/leave_screen/otherRequests";
-import { RequestButton } from "../../components/requestButton";
-import colors from "../../../assets/colors";
+import OtherRequests from '../../components/leave_screen/otherRequests';
+import { RequestButton } from '../../components/requestButton';
+import colors from '../../../assets/colors';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -20,8 +20,8 @@ const LeaveDashboard = () => {
         </View>
         <View
           style={{
-            alignItems: "center",
-            justifyContent: "center",
+            alignItems: 'center',
+            justifyContent: 'center',
             backgroundColor: colors.white,
           }}
         >

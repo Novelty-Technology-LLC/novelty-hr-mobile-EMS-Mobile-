@@ -64,7 +64,9 @@ const RequestLeave = () => {
                 <Leave handleChange={handleChange} />
                 <Description handleChange={handleChange} />
                 <TouchableOpacity onPress={() => handleSubmit()}>
-                  <Button style={style} title={'Submit Request'} />
+                  <View style={style.buttonView}>
+                    <Button style={style.buttonText} title={'Submit Request'} />
+                  </View>
                 </TouchableOpacity>
               </>
             )}
