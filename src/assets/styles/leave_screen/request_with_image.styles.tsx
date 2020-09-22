@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
-import colors from "../../colors";
 import { theme } from "../theme";
 
 const requestWithImageStyle = StyleSheet.create({

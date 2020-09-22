@@ -27,6 +27,17 @@ const myRequestsStyle = StyleSheet.create({
   gap: {
     width: normalize(10),
   },
+  emptyContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: normalize(35),
+    marginHorizontal: normalize(20),
+    borderRadius: 2,
+    backgroundColor: colors.snow,
+  },
+  emptyText: {
+    color: colors.secondary,
+  },
 });
 
 export { myRequestsStyle };
