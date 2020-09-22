@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
+import { theme } from '../theme';
 
 const requestLeave = StyleSheet.create({
   container: {
@@ -25,7 +26,7 @@ const requestLeave = StyleSheet.create({
   buttonText: {
     color: color.white,
     alignSelf: 'center',
-    fontSize: normalize(16),
+    fontSize: theme.size.base,
   },
 });
 
