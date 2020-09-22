@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { requestStyle as style } from "../../../assets/styles";
@@ -7,10 +6,11 @@ import RequestWithImage from "./requestWithImage";
 import State from "./state";
 
 const Request = ({ item, other, recieved, onPress }: any) => {
-  const navigation = useNavigation();
-
   return (
-    <TouchableOpacity style={style.container} onPress={() => onPress()}>
+    <TouchableOpacity
+      style={style.container}
+      onPress={() => onPress && onPress()}
+    >
       {other ? (
         <RequestWithImage item={item} />
       ) : (

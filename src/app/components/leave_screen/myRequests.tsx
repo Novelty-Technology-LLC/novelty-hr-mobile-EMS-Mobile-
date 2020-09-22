@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
@@ -10,33 +10,19 @@ import Swipe from "./swipe";
 import colors from "../../../assets/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { RequestContext, useRequest } from "../../reducer";
 
 const MyRequests = () => {
   const navigation = useNavigation();
+  const { requests, data } = useContext(RequestContext);
+  // console.log(data);
+
   const [toggle, setToggle] = useState("toggle-switch");
-  const requests = [
-    {
-      id: 1,
-      date: "Oct 20-24 (4 days)",
-      type: "PAID TIME OFF",
-      state: "Approved",
-      sender: "Biren Gurung",
-    },
-    {
-      id: 2,
-      date: "Oct 28 (1 day)",
-      type: "FLOATING",
-      state: "In Progress",
-      sender: "Biren Gurung",
-    },
-    {
-      id: 3,
-      date: "Oct 30 (1 day)",
-      type: "PAID TIME OFF",
-      state: "Denied",
-      sender: "Biren Gurung",
-    },
-  ];
+
+  useEffect(() => {
+    console.log(requests.requests);
+    console.log("data", requests.data);
+  }, [data]);
 
   return (
     <View style={style.container}>
@@ -66,7 +52,7 @@ const MyRequests = () => {
       </View>
 
       <FlatList
-        data={requests}
+        data={requests.requests}
         renderItem={(item) => (
           <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
             <Request

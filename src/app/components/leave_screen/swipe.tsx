@@ -8,7 +8,7 @@ const Swipe = ({ item }: any) => {
   return (
     <View style={style.container}>
       <EditAlert item={item} />
-      <DeleteAlert />
+      <DeleteAlert item={item} />
     </View>
   );
 };
