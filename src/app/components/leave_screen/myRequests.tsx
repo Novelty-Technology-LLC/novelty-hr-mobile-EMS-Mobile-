@@ -9,6 +9,7 @@ import { Request } from "./request";
 import Swipe from "./swipe";
 import colors from "../../../assets/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import useRequests from "../../hooks/useRequests";
 
 const MyRequests = () => {
   const [toggle, setToggle] = useState("toggle-switch");
@@ -35,6 +36,8 @@ const MyRequests = () => {
       sender: "Biren Gurung",
     },
   ];
+  // const [requests] = useRequests();
+  // console.log("requests", requests);
 
   return (
     <View style={style.container}>
