@@ -8,7 +8,7 @@ import {
   RequestDetail,
   RequestLeave,
 } from "../screens";
-import { useAuth, AuthContext, useRequest, RequestContext } from "../reducer";
+import { useAuth, AuthContext } from "../reducer";
 import { Text } from "react-native";
 import { getToken } from "../utils";
 
@@ -16,7 +16,6 @@ const ScreenStack = createStackNavigator();
 
 const ScreenNav = () => {
   const { state, dispatch } = useAuth();
-  // const { requests, dispatchRequest } = useRequest();
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -35,7 +34,6 @@ const ScreenNav = () => {
     return (
       <>
         <AuthContext.Provider value={{ state, dispatch }}>
-          {/* <RequestContext.Provider value={{ requests, dispatchRequest }}> */}
           <ScreenStack.Navigator
             screenOptions={{
               headerShown: false,
@@ -68,7 +66,6 @@ const ScreenNav = () => {
               </>
             )}
           </ScreenStack.Navigator>
-          {/* </RequestContext.Provider> */}
         </AuthContext.Provider>
       </>
     );

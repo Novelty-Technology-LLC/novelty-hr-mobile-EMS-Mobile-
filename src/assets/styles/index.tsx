@@ -17,5 +17,4 @@ export * from './request_leave_screen/request_leave.styles';
 export * from './request_leave_screen/teams.styles';
 export * from './request_leave_screen/leave_type.styles';
 export * from './request_leave_screen/description.styles';
-export * from './common/app_button.styles';
 export * from './approve_request/approve_request.styles';

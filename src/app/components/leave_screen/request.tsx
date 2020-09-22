@@ -1,19 +1,18 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { requestStyle as style } from '../../../assets/styles';
-import AppButton from '../../common/appButton';
-import RequestWithImage from './requestWithImage';
-import State from './state';
-import Button from '../../common/button';
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { requestStyle as style } from "../../../assets/styles";
+import RequestWithImage from "./requestWithImage";
+import State from "./state";
+import Button from "../../common/button";
 
 const Request = ({ item, other, recieved, onPress }: any) => {
   return (
     <TouchableOpacity
       style={style.container}
-      onPress={() => onPress && onPress()}
+      onPress={() => onPress && !other && onPress()}
     >
       {other ? (
-        <RequestWithImage item={item} />
+        <RequestWithImage item={item} onPress={onPress} />
       ) : (
         <View>
           <Text style={style.date}>{item.date}</Text>

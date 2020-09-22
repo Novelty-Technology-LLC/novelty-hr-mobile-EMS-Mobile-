@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { requestWithImageStyle as style } from "../../../assets/styles";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 
-const RequestWithImage = ({ item }: any) => {
+const RequestWithImage = ({ item, onPress }: any) => {
   return (
-    <View>
+    <TouchableOpacity onPress={() => onPress()}>
       <View style={style.row}>
         <Image
           style={style.image}
@@ -21,7 +21,7 @@ const RequestWithImage = ({ item }: any) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
