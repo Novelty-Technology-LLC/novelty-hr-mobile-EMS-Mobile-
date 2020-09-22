@@ -57,7 +57,7 @@ const MyRequests = () => {
               color={
                 toggle === "toggle-switch" ? colors.primary : colors.secondary
               }
-              size={25}
+              size={40}
             />
           </TouchableWithoutFeedback>
         </View>

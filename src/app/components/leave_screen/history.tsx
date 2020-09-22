@@ -23,7 +23,7 @@ const History = ({ other }: any) => {
   ];
 
   return (
-    <View>
+    <View style={style.container}>
       <Text style={style.header}>Past Requests</Text>
       <FlatList
         data={pastrequests}

@@ -9,6 +9,9 @@ const historyStyle = StyleSheet.create({
     paddingBottom: normalize(10),
     color: colors.secondary,
   },
+  container: {
+    paddingBottom: normalize(40),
+  },
 });
 
 export { historyStyle };
