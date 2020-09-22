@@ -1,13 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { approveRequest as style } from "../../../assets/styles";
+import { View, Text } from "react-native";
 
-const ApproveRequest = ({ route }) => {
+const RequestDetail = ({ route }) => {
   const { date, id, sender, state, type } = route.params;
-
   return (
     <View>
-      <Text>Approve request</Text>
+      <Text>requestDetail</Text>
       <Text>{date}</Text>
       <Text>{sender}</Text>
       <Text>{state}</Text>
@@ -16,4 +14,4 @@ const ApproveRequest = ({ route }) => {
   );
 };
 
-export { ApproveRequest };
+export { RequestDetail };

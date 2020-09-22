@@ -9,8 +9,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { Request } from "./request";
 import History from "./history";
+import { useNavigation } from "@react-navigation/native";
 
 const OtherRequests = () => {
+  const navigation = useNavigation();
   const [toggle, setToggle] = useState("toggle-switch");
   const requests = [
     {
@@ -58,7 +60,12 @@ const OtherRequests = () => {
       <FlatList
         data={requests}
         renderItem={(item) => (
-          <Request item={item.item} other={true} recieved={true} />
+          <Request
+            item={item.item}
+            other={true}
+            recieved={true}
+            onPress={() => navigation.navigate("approveLeave", item.item)}
+          />
         )}
         keyExtractor={(item) => item.date}
       />

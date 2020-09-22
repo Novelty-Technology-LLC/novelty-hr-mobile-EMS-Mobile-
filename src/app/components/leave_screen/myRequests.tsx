@@ -9,8 +9,10 @@ import { Request } from "./request";
 import Swipe from "./swipe";
 import colors from "../../../assets/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 const MyRequests = () => {
+  const navigation = useNavigation();
   const [toggle, setToggle] = useState("toggle-switch");
   const requests = [
     {
@@ -67,7 +69,11 @@ const MyRequests = () => {
         data={requests}
         renderItem={(item) => (
           <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
-            <Request item={item.item} other={false} />
+            <Request
+              item={item.item}
+              other={false}
+              onPress={() => navigation.navigate("requestDetail", item.item)}
+            />
           </Swipeable>
         )}
         keyExtractor={(item) => item.date}
