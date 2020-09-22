@@ -28,6 +28,7 @@ const Request = ({ item, other, recieved, onPress }: any) => {
             <View style={style.buttonViewApprove}>
               <Button title="Approve" style={style.buttonApprove} />
             </View>
+            <View style={style.buttonSpacer}></View>
             <View style={style.buttonViewDeny}>
               <Button title="Deny" style={style.buttonDeny} />
             </View>

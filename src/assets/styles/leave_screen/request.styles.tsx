@@ -35,14 +35,14 @@ const requestStyle = StyleSheet.create({
     paddingHorizontal: normalize(5),
   },
   buttonContainer: {
-    width: normalize(150),
-    paddingTop: normalize(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: normalize(30),
   },
+  buttonSpacer: { marginLeft: normalize(15) },
   buttonViewApprove: {
-    height: normalize(30),
-    width: normalize(70),
+    paddingHorizontal: normalize(20),
+    paddingVertical: normalize(8),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
@@ -56,8 +56,8 @@ const requestStyle = StyleSheet.create({
     }),
   },
   buttonViewDeny: {
-    height: normalize(30),
-    width: normalize(70),
+    paddingHorizontal: normalize(20),
+    paddingVertical: normalize(8),
     alignItems: 'center',
     justifyContent: 'center',
     ...Platform.select({

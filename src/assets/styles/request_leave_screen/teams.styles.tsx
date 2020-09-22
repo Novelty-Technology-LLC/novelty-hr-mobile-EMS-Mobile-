@@ -18,10 +18,10 @@ const teamStyle = StyleSheet.create({
     fontSize: normalize(16),
   },
   scrollView: {
-    width: normalize(375),
+    flex: 1,
   },
   wrapper: {
-    width: 'auto',
+    flex: 1,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -41,7 +41,6 @@ const teamStyle = StyleSheet.create({
   },
   nameView: {
     paddingTop: normalize(10),
-    height: normalize(30),
   },
   name: {
     fontSize: normalize(13),

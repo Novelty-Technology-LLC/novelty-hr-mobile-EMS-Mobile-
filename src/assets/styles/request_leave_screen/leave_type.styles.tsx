@@ -4,7 +4,7 @@ import color from '../../colors';
 
 const leaveType = StyleSheet.create({
   main: {
-    height: normalize(140),
+    paddingBottom: normalize(15),
     borderBottomWidth: 1,
     borderBottomColor: color.border,
   },
