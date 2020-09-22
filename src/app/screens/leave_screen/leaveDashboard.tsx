@@ -7,6 +7,7 @@ import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import colors from '../../../assets/colors';
 import { RequestContext, useRequest } from '../../reducer';
+import { headerText } from '../../../assets/styles';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -15,7 +16,9 @@ const LeaveDashboard = () => {
   return (
     <RequestContext.Provider value={{ requests, dispatchRequest }}>
       <View style={style.mainContainer}>
-        <Header>Leave Application</Header>
+        <Header>
+          <Text style={headerText}>Leave Application</Text>
+        </Header>
         <ScrollView>
           <View style={style.container}>
             <DaysRemaining total={5} remaining={4} title="Paid Time Offs" />

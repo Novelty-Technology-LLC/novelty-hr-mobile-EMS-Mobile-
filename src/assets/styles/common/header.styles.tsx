@@ -1,25 +1,29 @@
-import { StyleSheet } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import color from "../../colors";
+import { StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
 
 const headerStyle = StyleSheet.create({
   container: {
     paddingHorizontal: normalize(20),
-    flexDirection: "row",
-    alignItems: "center",
-    height: normalize(50),
-    borderBottomColor: color.border,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: normalize(20),
+    borderBottomColor: colors.border,
     borderBottomWidth: 1,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     backgroundColor: colors.white,
   },
-  text: {
-    fontSize: normalize(20),
-    paddingLeft: normalize(30),
-    color: color.primary,
+  textView: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
-  textContainer: { flexDirection: "row", alignItems: "center" },
+  textContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export { headerStyle };

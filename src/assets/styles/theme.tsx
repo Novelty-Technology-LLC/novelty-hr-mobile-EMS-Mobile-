@@ -18,6 +18,7 @@ const theme = {
   spacing: {
     normal: 1,
     wide: 2,
+    wider: 5,
     tight: 0.5,
     button: 10,
   },
