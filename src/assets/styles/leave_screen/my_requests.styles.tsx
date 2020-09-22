@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../colors";
+import { theme } from "../theme";
 
 const myRequestsStyle = StyleSheet.create({
   container: {
@@ -14,7 +15,7 @@ const myRequestsStyle = StyleSheet.create({
     marginHorizontal: normalize(20),
   },
   title: {
-    fontSize: normalize(25),
+    fontSize: theme.size.xl,
   },
   history: {
     color: colors.secondary,
