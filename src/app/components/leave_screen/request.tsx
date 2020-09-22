@@ -1,13 +1,16 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { requestStyle as style } from "../../../assets/styles";
 import AppButton from "../../common/appButton";
 import RequestWithImage from "./requestWithImage";
 import State from "./state";
 
-const Request = ({ item, other, recieved }: any) => {
+const Request = ({ item, other, recieved, onPress }: any) => {
+  const navigation = useNavigation();
+
   return (
-    <View style={style.container}>
+    <TouchableOpacity style={style.container} onPress={() => onPress()}>
       {other ? (
         <RequestWithImage item={item} />
       ) : (
@@ -36,7 +39,7 @@ const Request = ({ item, other, recieved }: any) => {
       ) : (
         <State state={item.state} />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 
