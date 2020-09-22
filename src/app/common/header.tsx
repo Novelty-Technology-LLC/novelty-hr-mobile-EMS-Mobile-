@@ -15,12 +15,13 @@ const header = ({ children }: any) => {
 
   return (
     <View style={style.container}>
-      <View style={style.textContainer}>
+      <View style={style.textView}>
         <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
           <Icon name="chevron-left" size={30} color={color.primary} />
         </TouchableWithoutFeedback>
-        <View style={style.textView}>{children}</View>
+        {children}
       </View>
+
       <TouchableWithoutFeedback
         onPress={() => {
           removeToken();

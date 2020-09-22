@@ -14,14 +14,7 @@ const headerStyle = StyleSheet.create({
     backgroundColor: colors.white,
   },
   textView: {
-    display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-  textContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
   },
 });
