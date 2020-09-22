@@ -9,6 +9,7 @@ import { Request } from "./request";
 import Swipe from "./swipe";
 import colors from "../../../assets/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import useRequests from "../../hooks/useRequests";
 
 const MyRequests = () => {
   const [toggle, setToggle] = useState("toggle-switch");
@@ -35,6 +36,8 @@ const MyRequests = () => {
       sender: "Biren Gurung",
     },
   ];
+  // const [requests] = useRequests();
+  // console.log("requests", requests);
 
   return (
     <View style={style.container}>
@@ -57,7 +60,7 @@ const MyRequests = () => {
               color={
                 toggle === "toggle-switch" ? colors.primary : colors.secondary
               }
-              size={25}
+              size={40}
             />
           </TouchableWithoutFeedback>
         </View>
@@ -67,7 +70,7 @@ const MyRequests = () => {
         data={requests}
         renderItem={(item) => (
           <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
-            <Request item={item.item} />
+            <Request item={item.item} other={false} />
           </Swipeable>
         )}
         keyExtractor={(item) => item.date}

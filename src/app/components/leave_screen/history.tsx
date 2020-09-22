@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { historyStyle as style } from "../../../assets/styles";
 import { Request } from "./request";
 
-const History = () => {
+const History = ({ other }: any) => {
   const pastrequests = [
     {
       id: 1,
@@ -23,11 +23,11 @@ const History = () => {
   ];
 
   return (
-    <View>
+    <View style={style.container}>
       <Text style={style.header}>Past Requests</Text>
       <FlatList
         data={pastrequests}
-        renderItem={(item) => <Request item={item.item} />}
+        renderItem={(item) => <Request item={item.item} other={other} />}
         keyExtractor={(item) => item.date}
       />
     </View>
