@@ -12,6 +12,18 @@ const historyStyle = StyleSheet.create({
   container: {
     paddingBottom: normalize(40),
   },
+  subcontainer: {
+    flexDirection: "row",
+    marginRight: normalize(20),
+    alignItems: "center",
+  },
+  line: {
+    paddingTop: normalize(22),
+    width: "65%",
+    marginHorizontal: normalize(20),
+    borderBottomColor: colors.border,
+    borderBottomWidth: 1,
+  },
 });
 
 export { historyStyle };
