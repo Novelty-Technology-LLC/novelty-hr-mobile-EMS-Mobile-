@@ -4,6 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
 
+const ar = [1, 2];
+
 const Request = ({ data, style }) => {
   const { date, id, sender, state, type } = data;
 
@@ -47,45 +49,30 @@ const Request = ({ data, style }) => {
         <View style={style.responseView}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={style.response}>Responses</Text>
-            <View>
-              <View style={style.imageView}>
-                <Image
-                  style={style.image}
-                  source={require('../../../assets/images/person.jpeg')}
-                />
-                <View style={style.senderView}>
-                  <Text style={style.sender}>{sender}</Text>
-                  <View style={style.teamLeadView}>
-                    <Text style={style.teamLead}>Team Lead</Text>
-                    <State state={state}></State>
+            {ar.map(() => (
+              <>
+                <View style={style.main}>
+                  <View style={style.imageView}>
+                    <Image
+                      style={style.image}
+                      source={require('../../../assets/images/person.jpeg')}
+                    />
+                    <View style={style.senderView}>
+                      <Text style={style.sender}>{sender}</Text>
+                      <View style={style.teamLeadView}>
+                        <Text style={style.teamLead}>Team Lead</Text>
+                        <State state={state}></State>
+                      </View>
+                    </View>
                   </View>
+                  <Text style={style.leadText}>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.
+                  </Text>
                 </View>
-              </View>
-              <Text style={style.leadText}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </Text>
-            </View>
-            <View style={style.spacer} />
-            <View>
-              <View style={style.imageView}>
-                <Image
-                  style={style.image}
-                  source={require('../../../assets/images/person.jpeg')}
-                />
-                <View style={style.senderView}>
-                  <Text style={style.sender}>{sender}</Text>
-                  <View style={style.teamLeadView}>
-                    <Text style={style.teamLead}>Team Lead</Text>
-                    <State state={state}></State>
-                  </View>
-                </View>
-              </View>
-              <Text style={style.leadText}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </Text>
-            </View>
+                <View style={style.spacer} />
+              </>
+            ))}
           </ScrollView>
         </View>
       </View>

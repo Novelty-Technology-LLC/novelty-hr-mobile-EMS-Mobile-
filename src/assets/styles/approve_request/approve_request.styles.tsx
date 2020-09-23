@@ -16,8 +16,13 @@ const approveRequest = StyleSheet.create({
   },
   scrollView: { flex: 1 },
   requestView: {
-    flex: 0.8,
+    flex: 0.6,
     flexDirection: 'column',
+  },
+  main: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    paddingBottom: normalize(15),
   },
   imageView: {
     paddingTop: normalize(15),
@@ -89,13 +94,14 @@ const approveRequest = StyleSheet.create({
     lineHeight: normalize(theme.size.lg),
   },
   buttonView: {
-    flex: 0.2,
+    flex: 0.1,
     backgroundColor: colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: normalize(5),
+    paddingBottom: normalize(5),
     paddingHorizontal: normalize(20),
+    marginBottom: normalize(0),
   },
   buttonApprove: {
     paddingHorizontal: normalize(55),
