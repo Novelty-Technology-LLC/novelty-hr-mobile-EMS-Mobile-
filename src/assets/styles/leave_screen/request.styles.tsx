@@ -39,7 +39,7 @@ const requestStyle = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: normalize(20),
   },
-  buttonSpacer: { marginLeft: normalize(15) },
+  buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
   buttonViewApprove: {
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(8),
