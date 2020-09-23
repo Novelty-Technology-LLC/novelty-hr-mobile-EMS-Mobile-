@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import Dialog from "react-native-dialog";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import colors from "../../../assets/colors";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import Dialog from 'react-native-dialog';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../../assets/colors';
 import {
   deleteAlertStyle,
   editAlertStyle as style,
-} from "../../../assets/styles";
-import RequestWithImage from "./requestWithImage";
-import State from "./state";
-import Textarea from "react-native-textarea";
+} from '../../../assets/styles';
+import RequestWithImage from './requestWithImage';
+import State from './state';
+import Textarea from 'react-native-textarea';
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -23,6 +23,7 @@ const EditAlert = ({ item }: any) => {
       >
         <Icon name="square-edit-outline" color={colors.yellow} size={15} />
       </TouchableOpacity>
+      <View style={style.spacer}></View>
       <Dialog.Container
         visible={showAlert}
         contentStyle={style.dialogContainer}
@@ -43,9 +44,9 @@ const EditAlert = ({ item }: any) => {
             containerStyle={style.textareaContainer}
             style={style.textArea}
             maxLength={120}
-            placeholder={"Write a short note for your response"}
-            placeholderTextColor={"#c7c7c7"}
-            underlineColorAndroid={"transparent"}
+            placeholder={'Write a short note for your response'}
+            placeholderTextColor={'#c7c7c7'}
+            underlineColorAndroid={'transparent'}
             // onChangeText={}
           />
         </View>

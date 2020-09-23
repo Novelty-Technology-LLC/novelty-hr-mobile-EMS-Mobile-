@@ -36,7 +36,7 @@ const approveRequest = StyleSheet.create({
     marginRight: normalize(10),
   },
   senderView: { marginLeft: normalize(10), flex: 1 },
-  sender: { fontSize: normalize(theme.size.base), fontWeight: '500' },
+  sender: { fontSize: normalize(theme.size.base), fontWeight: '600' },
   dateView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -46,6 +46,7 @@ const approveRequest = StyleSheet.create({
     fontSize: normalize(theme.size.xxs),
     fontWeight: '500',
     textTransform: 'uppercase',
+    opacity: 0.5,
   },
   date: {
     fontSize: normalize(theme.size.xxs),
@@ -62,14 +63,18 @@ const approveRequest = StyleSheet.create({
   },
   calander: { marginLeft: normalize(10), color: colors.fontGrey },
   sectionDateView: { flex: 1, flexDirection: 'row', alignItems: 'center' },
-  sectionDate: { marginLeft: normalize(5), fontSize: theme.size.xs },
+  sectionDate: {
+    marginLeft: normalize(5),
+    fontSize: theme.size.xs,
+    opacity: 0.6,
+  },
   sectionBody: {
     flex: 1,
     paddingTop: normalize(10),
     paddingLeft: normalize(10),
     overflow: 'hidden',
   },
-  note: { lineHeight: normalize(theme.size.lg) },
+  note: { lineHeight: normalize(theme.size.lg), opacity: 0.8 },
   responseView: {
     flex: 1,
     marginTop: normalize(20),
@@ -85,13 +90,14 @@ const approveRequest = StyleSheet.create({
     alignItems: 'center',
   },
   teamLead: {
-    fontSize: normalize(theme.size.xxs),
+    fontSize: normalize(theme.size.xs),
     marginTop: normalize(1),
     color: colors.fontGrey,
   },
   leadText: {
     marginTop: normalize(15),
     lineHeight: normalize(theme.size.lg),
+    opacity: 0.7,
   },
   buttonView: {
     flex: 0.1,
