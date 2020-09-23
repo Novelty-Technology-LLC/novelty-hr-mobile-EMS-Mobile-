@@ -17,10 +17,7 @@ function Leavetype({ handleChange }) {
               setType(1), handleChange('leaveType')('paid time of');
             }}
           >
-            <View
-              style={type == 1 ? style.paidView : style.floatingView}
-              name="leaveType"
-            >
+            <View style={type == 1 ? style.paidView : style.floatingView}>
               {type === 1 && (
                 <Icon
                   name="check-circle"
@@ -38,10 +35,7 @@ function Leavetype({ handleChange }) {
               setType(0), handleChange('leaveType')('floating day');
             }}
           >
-            <View
-              style={type == 1 ? style.floatingView : style.paidView}
-              name="leaveType"
-            >
+            <View style={type == 1 ? style.floatingView : style.paidView}>
               {type === 0 && (
                 <Icon
                   name="check-circle"

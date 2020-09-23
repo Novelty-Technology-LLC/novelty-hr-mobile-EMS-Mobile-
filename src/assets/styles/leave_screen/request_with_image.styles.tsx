@@ -1,11 +1,12 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import { theme } from "../theme";
 
 const requestWithImageStyle = StyleSheet.create({
   row: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   image: {
     width: normalize(40),
@@ -17,12 +18,13 @@ const requestWithImageStyle = StyleSheet.create({
     paddingRight: 5,
   },
   name: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  date: { flexDirection: 'row', paddingTop: normalize(5) },
+  date: { flexDirection: "row", paddingTop: normalize(10) },
   type: {
-    fontSize: normalize(12),
-    opacity: 0.4,
+    fontSize: theme.size.xs,
+    color: colors.secondary,
+    // opacity: 0.4,
   },
 });
 

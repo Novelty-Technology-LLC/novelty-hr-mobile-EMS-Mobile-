@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
+import { theme } from '../theme';
 
 const teamStyle = StyleSheet.create({
   container: {
-    height: normalize(150, 'height'),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -15,13 +15,14 @@ const teamStyle = StyleSheet.create({
   text: {
     paddingTop: normalize(19),
     paddingLeft: normalize(18),
-    fontSize: normalize(16),
+    fontSize: theme.size.base,
   },
   scrollView: {
-    width: normalize(375),
+    flex: 1,
+    paddingVertical: normalize(20),
   },
   wrapper: {
-    width: 'auto',
+    flex: 1,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -41,10 +42,9 @@ const teamStyle = StyleSheet.create({
   },
   nameView: {
     paddingTop: normalize(10),
-    height: normalize(30),
   },
   name: {
-    fontSize: normalize(13),
+    fontSize: theme.size.sm,
   },
 });
 

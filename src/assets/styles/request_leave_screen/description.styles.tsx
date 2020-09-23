@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
+import { theme } from '../theme';
 
 const descriptionStyle = StyleSheet.create({
   main: {
@@ -8,7 +9,7 @@ const descriptionStyle = StyleSheet.create({
     marginLeft: normalize(20),
   },
   text: {
-    fontSize: normalize(18),
+    fontSize: theme.size.lg,
   },
   textareaContainer: {
     height: normalize(140),

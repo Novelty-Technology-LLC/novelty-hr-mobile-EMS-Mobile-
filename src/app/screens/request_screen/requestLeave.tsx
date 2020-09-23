@@ -7,6 +7,7 @@ import { default as theme } from '../../../assets/styles/leave_screen/custom-the
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { requestLeave as style } from '../../../assets/styles';
+import { headerText } from '../../../assets/styles';
 
 import Calander from '../../components/request_screen/calander';
 import Teams from '../../components/request_screen/teams';
@@ -51,7 +52,9 @@ const RequestLeave = () => {
           style={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header>Request Leave </Header>
+          <Header>
+            <Text style={headerText}>Request Leave</Text>
+          </Header>
           <Formik
             validationSchema={validationSchema}
             initialValues={initialValues}
@@ -64,7 +67,9 @@ const RequestLeave = () => {
                 <Leave handleChange={handleChange} />
                 <Description handleChange={handleChange} />
                 <TouchableOpacity onPress={() => handleSubmit()}>
-                  <Button style={style} title={'Submit Request'} />
+                  <View style={style.buttonView}>
+                    <Button style={style.buttonText} title={'Submit Request'} />
+                  </View>
                 </TouchableOpacity>
               </>
             )}

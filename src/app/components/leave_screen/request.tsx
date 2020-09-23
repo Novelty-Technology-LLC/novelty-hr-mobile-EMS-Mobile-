@@ -1,15 +1,18 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { requestStyle as style } from "../../../assets/styles";
-import AppButton from "../../common/appButton";
-import RequestWithImage from "./requestWithImage";
-import State from "./state";
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { requestStyle as style } from '../../../assets/styles';
+import RequestWithImage from './requestWithImage';
+import State from './state';
+import Button from '../../common/button';
 
-const Request = ({ item, other, recieved }: any) => {
+const Request = ({ item, other, recieved, onPress }: any) => {
   return (
-    <View style={style.container}>
+    <TouchableOpacity
+      style={style.container}
+      onPress={() => onPress && !other && onPress()}
+    >
       {other ? (
-        <RequestWithImage item={item} />
+        <RequestWithImage item={item} onPress={onPress} />
       ) : (
         <View>
           <Text style={style.date}>{item.date}</Text>
@@ -20,23 +23,20 @@ const Request = ({ item, other, recieved }: any) => {
       {recieved ? (
         <View style={style.subcontainer}>
           <Text style={style.days}>5 days ago</Text>
-          <View style={style.buttons}>
-            <AppButton
-              approve={true}
-              title="Approve"
-              buttonStyle={style.button}
-            />
-            <AppButton
-              approve={false}
-              title="Deny"
-              buttonStyle={style.button}
-            />
+          <View style={style.buttonContainer}>
+            <View style={style.buttonViewApprove}>
+              <Button title="Approve" style={style.buttonApprove} />
+            </View>
+            <View style={style.buttonSpacer}></View>
+            <View style={style.buttonViewDeny}>
+              <Button title="Deny" style={style.buttonDeny} />
+            </View>
           </View>
         </View>
       ) : (
         <State state={item.state} />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

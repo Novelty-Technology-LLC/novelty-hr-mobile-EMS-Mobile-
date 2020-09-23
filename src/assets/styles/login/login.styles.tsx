@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { color } from "../theme";
+import { color, theme } from "../theme";
 
 const loginStyle = StyleSheet.create({
   container: {
@@ -18,9 +18,8 @@ const loginStyle = StyleSheet.create({
     height: 120,
   },
   imageText: {
-    fontSize: 27,
+    fontSize: theme.size.xl,
     fontWeight: "700",
-   
   },
   buttonView: {
     flex: 3,
@@ -30,7 +29,7 @@ const loginStyle = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: theme.size.lg,
     fontWeight: "500",
   },
   loginView: {
@@ -50,7 +49,7 @@ const loginStyle = StyleSheet.create({
       height: 1,
       width: 1,
     },
-    elevation:3,
+    elevation: 3,
   },
   icon: {
     width: 40,

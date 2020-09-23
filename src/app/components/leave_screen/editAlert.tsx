@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Dialog from "react-native-dialog";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";

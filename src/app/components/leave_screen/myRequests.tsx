@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
@@ -9,35 +9,14 @@ import { Request } from "./request";
 import Swipe from "./swipe";
 import colors from "../../../assets/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import useRequests from "../../hooks/useRequests";
+import { useNavigation } from "@react-navigation/native";
+import { RequestContext } from "../../reducer";
 
 const MyRequests = () => {
+  const navigation = useNavigation();
+  const { requests } = useContext(RequestContext);
+
   const [toggle, setToggle] = useState("toggle-switch");
-  const requests = [
-    {
-      id: 1,
-      date: "Oct 20-24 (4 days)",
-      type: "PAID TIME OFF",
-      state: "Approved",
-      sender: "Biren Gurung",
-    },
-    {
-      id: 2,
-      date: "Oct 28 (1 day)",
-      type: "FLOATING",
-      state: "In Progress",
-      sender: "Biren Gurung",
-    },
-    {
-      id: 3,
-      date: "Oct 30 (1 day)",
-      type: "PAID TIME OFF",
-      state: "Denied",
-      sender: "Biren Gurung",
-    },
-  ];
-  // const [requests] = useRequests();
-  // console.log("requests", requests);
 
   return (
     <View style={style.container}>
@@ -66,15 +45,25 @@ const MyRequests = () => {
         </View>
       </View>
 
-      <FlatList
-        data={requests}
-        renderItem={(item) => (
-          <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
-            <Request item={item.item} other={false} />
-          </Swipeable>
-        )}
-        keyExtractor={(item) => item.date}
-      />
+      {requests.requests[0] ? (
+        <FlatList
+          data={requests.requests}
+          renderItem={(item) => (
+            <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
+              <Request
+                item={item.item}
+                other={false}
+                onPress={() => navigation.navigate("requestDetail", item.item)}
+              />
+            </Swipeable>
+          )}
+          keyExtractor={(item) => item.date}
+        />
+      ) : (
+        <View style={style.emptyContainer}>
+          <Text style={style.emptyText}>There are not current Requests</Text>
+        </View>
+      )}
 
       {toggle === "toggle-switch" && <History />}
     </View>
