@@ -9,7 +9,7 @@ const headerStyle = StyleSheet.create({
     paddingHorizontal: normalize(20),
     flexDirection: "row",
     alignItems: "center",
-    height: normalize(50),
+    paddingVertical: normalize(10),
     borderBottomColor: color.border,
     borderBottomWidth: 1,
     justifyContent: "space-between",

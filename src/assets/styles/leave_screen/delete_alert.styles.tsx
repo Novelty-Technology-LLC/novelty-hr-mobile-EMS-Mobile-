@@ -62,8 +62,7 @@ const deleteAlertStyle = StyleSheet.create({
     backgroundColor: colors.snow,
     alignItems: "center",
     justifyContent: "center",
-    width: 30,
-    height: 30,
+    padding: normalize(10),
     borderRadius: 15,
   },
 });

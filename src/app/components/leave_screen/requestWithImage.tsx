@@ -6,7 +6,7 @@ import colors from "../../../assets/colors";
 
 const RequestWithImage = ({ item, onPress }: any) => {
   return (
-    <TouchableOpacity onPress={() => onPress()}>
+    <TouchableOpacity onPress={() => onPress && onPress()}>
       <View style={style.row}>
         <Image
           style={style.image}
