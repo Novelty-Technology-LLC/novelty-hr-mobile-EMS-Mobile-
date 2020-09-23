@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
-import { View, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Dialog from "react-native-dialog";
-import colors from "../../../assets/colors";
-import { deleteAlertStyle as style } from "../../../assets/styles";
-import { RequestContext } from "../../reducer";
+import React, { useContext, useState } from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Dialog from 'react-native-dialog';
+import colors from '../../../assets/colors';
+import { deleteAlertStyle as style } from '../../../assets/styles';
+import { RequestContext } from '../../reducer';
 
 const DeleteAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -35,7 +35,7 @@ const DeleteAlert = ({ item }: any) => {
           <Dialog.Button
             label="DELETE"
             onPress={() => {
-              dispatchRequest({ type: "DELETE", payload: item.id });
+              dispatchRequest({ type: 'DELETE', payload: item.id });
               hide();
             }}
             style={style.delete}
