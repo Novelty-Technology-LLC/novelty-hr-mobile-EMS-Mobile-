@@ -79,9 +79,9 @@ const requestStyle = StyleSheet.create({
     color: colors.primary,
   },
   subcontainer: {
-    width: "60%",
+    width: normalize(200),
     alignItems: "flex-end",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     paddingHorizontal: normalize(10),
     paddingRight: normalize(10),
   },
