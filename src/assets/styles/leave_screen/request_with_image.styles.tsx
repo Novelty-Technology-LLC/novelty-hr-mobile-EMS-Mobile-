@@ -24,7 +24,6 @@ const requestWithImageStyle = StyleSheet.create({
   type: {
     fontSize: theme.size.xs,
     color: colors.secondary,
-    // opacity: 0.4,
   },
 });
 

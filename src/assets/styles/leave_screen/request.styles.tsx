@@ -1,13 +1,13 @@
-import { StyleSheet, Platform } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import { theme } from '../theme';
+import { StyleSheet, Platform } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import { theme } from "../theme";
 
 const requestStyle = StyleSheet.create({
   container: {
     paddingVertical: normalize(20),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginLeft: normalize(20),
     paddingLeft: normalize(15),
     marginRight: normalize(20),
@@ -17,7 +17,7 @@ const requestStyle = StyleSheet.create({
     marginVertical: 7,
   },
   date: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: theme.size.md,
   },
   type: {
@@ -28,23 +28,23 @@ const requestStyle = StyleSheet.create({
     color: colors.secondary,
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   space: {
     paddingHorizontal: normalize(5),
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: normalize(30),
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: normalize(20),
   },
   buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
   buttonViewApprove: {
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(8),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.primary,
     ...Platform.select({
       ios: {
@@ -58,8 +58,8 @@ const requestStyle = StyleSheet.create({
   buttonViewDeny: {
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(8),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     ...Platform.select({
       ios: {
         borderRadius: normalize(3),
@@ -80,13 +80,18 @@ const requestStyle = StyleSheet.create({
   },
   subcontainer: {
     width: normalize(200),
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    alignItems: "flex-end",
+    justifyContent: "space-between",
     paddingHorizontal: normalize(10),
     paddingRight: normalize(10),
   },
   days: {
     color: colors.secondary,
+  },
+  progress: {
+    backgroundColor: colors.yellow,
+    padding: normalize(5),
+    borderRadius: normalize(20),
   },
 });
 
