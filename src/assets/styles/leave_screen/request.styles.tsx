@@ -37,7 +37,7 @@ const requestStyle = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: normalize(30),
+    marginTop: normalize(20),
   },
   buttonSpacer: { marginLeft: normalize(15) },
   buttonViewApprove: {
@@ -79,12 +79,11 @@ const requestStyle = StyleSheet.create({
     color: colors.primary,
   },
   subcontainer: {
-    // width: normalize(200),
     width: "60%",
     alignItems: "flex-end",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     paddingHorizontal: normalize(10),
-    paddingRight: normalize(20),
+    paddingRight: normalize(10),
   },
   days: {
     color: colors.secondary,
