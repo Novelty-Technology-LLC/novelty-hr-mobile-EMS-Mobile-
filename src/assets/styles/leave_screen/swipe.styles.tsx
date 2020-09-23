@@ -5,7 +5,7 @@ const swipeStyle = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "space-around",
-    width: normalize(50),
+    width: "15%",
     paddingVertical: normalize(10),
     marginRight: normalize(10),
   },

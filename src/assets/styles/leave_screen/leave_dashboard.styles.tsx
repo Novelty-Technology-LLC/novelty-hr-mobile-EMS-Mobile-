@@ -1,22 +1,20 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import { theme } from '../theme';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
 
 const leaveDashboardStyle = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: normalize(10),
     flex: 1,
   },
   plus: {
-    width: normalize(50),
-    height: normalize(50),
-    borderRadius: normalize(25),
+    padding: normalize(20),
+    borderRadius: normalize(40),
     backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
     right: normalize(20),
     bottom: normalize(20),
   },

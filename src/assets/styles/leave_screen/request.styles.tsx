@@ -83,7 +83,7 @@ const requestStyle = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     paddingHorizontal: normalize(10),
-    paddingRight: normalize(20),
+    paddingRight: normalize(10),
   },
   days: {
     color: colors.secondary,

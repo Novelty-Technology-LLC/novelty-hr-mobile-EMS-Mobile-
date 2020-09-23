@@ -90,10 +90,12 @@ const approveRequest = StyleSheet.create({
   },
   buttonView: {
     flex: 0.2,
+    backgroundColor: colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: normalize(5),
+    paddingHorizontal: normalize(20),
   },
   buttonApprove: {
     paddingHorizontal: normalize(55),

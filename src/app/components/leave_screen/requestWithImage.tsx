@@ -6,7 +6,7 @@ import colors from "../../../assets/colors";
 
 const RequestWithImage = ({ item, onPress }: any) => {
   return (
-    <TouchableOpacity onPress={() => onPress()}>
+    <TouchableOpacity onPress={() => onPress && onPress()}>
       <View style={style.row}>
         <Image
           style={style.image}
@@ -14,6 +14,7 @@ const RequestWithImage = ({ item, onPress }: any) => {
         />
         <View>
           <Text style={style.name}>{item.sender}</Text>
+          <Text style={style.type}>{item.type}</Text>
           <View style={style.date}>
             <Icon name="calendar" size={15} color={colors.secondary} />
             <View style={style.gap}></View>

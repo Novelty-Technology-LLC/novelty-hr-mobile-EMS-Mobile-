@@ -2,15 +2,18 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { header as Header } from '../../common/header';
 import { headerText } from '../../../assets/styles';
+import Request from '../../components/approveRequest/approve_request';
+import { approveRequest as style } from '../../../assets/styles';
 
 const RequestDetail = ({ route }) => {
-  const { date, id, sender, state, type } = route.params;
+  const { date } = route.params;
   return (
-    <View>
+    <>
       <Header>
-        <Text style={headerText}>Hello</Text>
+        <Text style={headerText}>{date}</Text>
       </Header>
-    </View>
+      <Request data={route.params} style={style} />
+    </>
   );
 };
 
