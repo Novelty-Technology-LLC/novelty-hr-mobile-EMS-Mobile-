@@ -88,6 +88,11 @@ const requestStyle = StyleSheet.create({
   days: {
     color: colors.secondary,
   },
+  progress: {
+    backgroundColor: colors.yellow,
+    padding: normalize(5),
+    borderRadius: normalize(20),
+  },
 });
 
 export { requestStyle };
