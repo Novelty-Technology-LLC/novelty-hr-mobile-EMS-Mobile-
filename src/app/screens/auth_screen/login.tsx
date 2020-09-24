@@ -13,14 +13,6 @@ const Login = () => {
     GoogleConfig();
   }, []);
 
-  const onPressGoogle = async () => {
-    await signInGoogle(dispatch);
-  };
-
-  const onPressApple = async () => {
-    await signInApple(dispatch);
-  };
-
   return (
     <View style={style.container}>
       <View style={style.imageView}>
@@ -35,7 +27,7 @@ const Login = () => {
         <View style={style.loginView}>
           <TouchableOpacity
             style={style.iconView}
-            onPress={() => onPressGoogle()}
+            onPress={async () => await signInGoogle(dispatch)}
           >
             <Image
               style={style.icon}
@@ -45,7 +37,9 @@ const Login = () => {
 
           {Platform.OS === 'ios' && (
             <View style={style.iconView}>
-              <TouchableOpacity onPress={() => onPressApple()}>
+              <TouchableOpacity
+                onPress={async () => await signInApple(dispatch)}
+              >
                 <Image
                   style={style.icon}
                   source={require('../../../assets/images/icons8-apple-logo-100.png')}
