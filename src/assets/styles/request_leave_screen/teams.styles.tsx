@@ -27,13 +27,13 @@ const teamStyle = StyleSheet.create({
     flexDirection: 'row',
   },
   main: {
-    width: normalize(100),
     marginLeft: normalize(20),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  spacing: { marginLeft: normalize(105) },
   image: {
     width: normalize(60),
     height: normalize(60),
