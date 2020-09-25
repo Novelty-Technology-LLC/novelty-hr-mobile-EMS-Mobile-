@@ -19,6 +19,7 @@ const requestStyle = StyleSheet.create({
   date: {
     fontWeight: "bold",
     fontSize: theme.size.base,
+    color: colors.black,
   },
   type: {
     color: colors.secondary,

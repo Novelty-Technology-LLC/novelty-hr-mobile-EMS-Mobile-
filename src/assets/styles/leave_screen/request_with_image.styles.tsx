@@ -20,6 +20,7 @@ const requestWithImageStyle = StyleSheet.create({
   name: {
     fontWeight: "bold",
     fontSize: theme.size.base,
+    color: colors.black,
   },
   date: { flexDirection: "row", paddingTop: normalize(10) },
   type: {

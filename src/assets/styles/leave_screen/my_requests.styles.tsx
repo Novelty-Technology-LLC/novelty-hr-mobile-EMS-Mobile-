@@ -16,6 +16,7 @@ const myRequestsStyle = StyleSheet.create({
   },
   title: {
     fontSize: theme.size.lg,
+    color: colors.black,
   },
   history: {
     color: colors.secondary,
