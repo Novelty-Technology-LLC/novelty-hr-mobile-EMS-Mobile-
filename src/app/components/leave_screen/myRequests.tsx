@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { View, Text, FlatList } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import { myRequestsStyle as style } from "../../../assets/styles";
@@ -11,6 +10,7 @@ import colors from "../../../assets/colors";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { RequestContext } from "../../reducer";
+import AppIcon from "../../common/icon";
 
 const MyRequests = () => {
   const navigation = useNavigation();
@@ -34,7 +34,7 @@ const MyRequests = () => {
               );
             }}
           >
-            <Icon
+            <AppIcon
               name={toggle}
               color={
                 toggle === "toggle-switch" ? colors.primary : colors.secondary

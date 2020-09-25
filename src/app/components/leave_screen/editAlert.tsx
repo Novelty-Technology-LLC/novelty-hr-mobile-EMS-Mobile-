@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Dialog from "react-native-dialog";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import {
   deleteAlertStyle,
@@ -10,6 +9,7 @@ import {
 import RequestWithImage from "./requestWithImage";
 import State from "./state";
 import Textarea from "react-native-textarea";
+import AppIcon from "../../common/icon";
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -21,7 +21,7 @@ const EditAlert = ({ item }: any) => {
         onPress={() => show()}
         style={deleteAlertStyle.iconContainer}
       >
-        <Icon name="square-edit-outline" color={colors.primary} size={13} />
+        <AppIcon name="square-edit-outline" color={colors.primary} size={13} />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}

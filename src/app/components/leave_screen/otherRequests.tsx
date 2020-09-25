@@ -5,11 +5,11 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { myRequestsStyle, otherRequestsStyle } from "../../../assets/styles";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { Request } from "./request";
 import History from "./history";
 import { useNavigation } from "@react-navigation/native";
+import AppIcon from "../../common/icon";
 
 const OtherRequests = () => {
   const navigation = useNavigation();
@@ -47,7 +47,7 @@ const OtherRequests = () => {
               )
             }
           >
-            <Icon
+            <AppIcon
               name={toggle}
               color={
                 toggle === "toggle-switch" ? colors.primary : colors.secondary

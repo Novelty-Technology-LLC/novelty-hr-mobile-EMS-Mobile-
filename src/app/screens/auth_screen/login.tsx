@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from 'react';
-import { Text, View, Image, Platform } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { AuthContext } from '../../reducer';
-import { loginStyle as style } from '../../../assets/styles';
-import { GoogleConfig } from '../../utils';
-import { signInApple, signInGoogle } from '../../services';
+import React, { useEffect, useContext } from "react";
+import { Text, View, Image, Platform } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { AuthContext } from "../../reducer";
+import { loginStyle as style } from "../../../assets/styles";
+import { GoogleConfig } from "../../utils";
+import { signInApple, signInGoogle } from "../../services";
 
 const Login = () => {
   const { dispatch } = useContext(AuthContext);
@@ -26,7 +26,7 @@ const Login = () => {
       <View style={style.imageView}>
         <Image
           style={style.image}
-          source={require('../../../assets/images/noveltylogo.png')}
+          source={require("../../../assets/images/noveltylogo.png")}
         />
         <Text style={style.imageText}>Novelty EMS</Text>
       </View>
@@ -39,16 +39,16 @@ const Login = () => {
           >
             <Image
               style={style.icon}
-              source={require('../../../assets/images/icons8-google-96.png')}
+              source={require("../../../assets/images/icons8-google-96.png")}
             />
           </TouchableOpacity>
 
-          {Platform.OS === 'ios' && (
+          {Platform.OS === "ios" && (
             <View style={style.iconView}>
               <TouchableOpacity onPress={() => onPressApple()}>
                 <Image
                   style={style.icon}
-                  source={require('../../../assets/images/icons8-apple-logo-100.png')}
+                  source={require("../../../assets/images/icons8-apple-logo-100.png")}
                 />
               </TouchableOpacity>
             </View>

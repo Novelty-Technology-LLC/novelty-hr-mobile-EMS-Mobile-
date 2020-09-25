@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { View, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Dialog from "react-native-dialog";
 import colors from "../../../assets/colors";
 import { deleteAlertStyle as style } from "../../../assets/styles";
+import AppIcon from "../../common/icon";
 import { RequestContext } from "../../reducer";
 
 const DeleteAlert = ({ item }: any) => {
@@ -15,14 +15,14 @@ const DeleteAlert = ({ item }: any) => {
   return (
     <>
       <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
-        <Icon name="delete" color={colors.tomato} size={13} />
+        <AppIcon name="delete" color={colors.tomato} size={13} />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}
         contentStyle={style.dialogContainer}
       >
         <View style={style.container}>
-          <Icon name="alert" color={colors.tomato} size={30} />
+          <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Dialog.Title style={style.text1}>
               Delete the request ?

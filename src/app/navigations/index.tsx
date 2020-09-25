@@ -3,14 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ScreenStack from "./screenStack";
 import colors from "../../assets/colors";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Tab = createBottomTabNavigator();
 
 const RootNavigation = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      {/* <Tab.Navigator
         tabBarOptions={{
           activeTintColor: colors.primary,
           showLabel: false,
@@ -21,7 +20,7 @@ const RootNavigation = () => {
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size} />
+              <AppIcon name="home" color={color} size={size} />
             ),
           }}
         />
@@ -30,7 +29,7 @@ const RootNavigation = () => {
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="timer" color={color} size={size} />
+              <AppIcon name="timer" color={color} size={size} />
             ),
           }}
         />
@@ -39,7 +38,7 @@ const RootNavigation = () => {
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="account" color={color} size={size} />
+              <AppIcon name="account" color={color} size={size} />
             ),
           }}
         />
@@ -48,12 +47,12 @@ const RootNavigation = () => {
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="cog" color={color} size={size} />
+              <AppIcon name="cog" color={color} size={size} />
             ),
           }}
         />
-      </Tab.Navigator>
-      {/* <ScreenStack /> */}
+      </Tab.Navigator> */}
+      <ScreenStack />
     </NavigationContainer>
   );
 };
