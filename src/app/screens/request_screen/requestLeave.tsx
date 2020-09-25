@@ -8,11 +8,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
-
-import Calander from '../../components/request_screen/calander';
-import Teams from '../../components/request_screen/teams';
-import Leave from '../../components/request_screen/leavetType';
-import Description from '../../components/request_screen/description';
+import {
+  Calander,
+  Teams,
+  Leavetype,
+  Description,
+} from '../../components/request_screen';
 import Button from '../../common/button';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -60,17 +61,19 @@ const RequestLeave = () => {
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
-            {({ handleChange, handleSubmit }) => (
+            {({ handleChange, handleSubmit, values }) => (
               <>
                 <Calander style={style.calendar} handleChange={handleChange} />
                 <Teams />
-                <Leave handleChange={handleChange} />
+                <Leavetype handleChange={handleChange} />
                 <Description handleChange={handleChange} />
-                <TouchableOpacity onPress={() => handleSubmit()}>
-                  <View style={style.buttonView}>
-                    <Button style={style.buttonText} title={'Submit Request'} />
-                  </View>
-                </TouchableOpacity>
+                <View style={style.buttonView}>
+                  <Button
+                    style={style.buttonText}
+                    title={'Submit Request'}
+                    onPress={() => handleSubmit()}
+                  />
+                </View>
               </>
             )}
           </Formik>

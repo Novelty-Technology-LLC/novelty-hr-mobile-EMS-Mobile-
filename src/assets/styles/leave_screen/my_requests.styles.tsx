@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../colors";
-import { theme } from "../theme";
+import { theme, fonts } from "../theme";
 
 const myRequestsStyle = StyleSheet.create({
   container: {
@@ -15,10 +15,14 @@ const myRequestsStyle = StyleSheet.create({
     marginHorizontal: normalize(20),
   },
   title: {
-    fontSize: theme.size.xl,
+    fontFamily: fonts.poppinsMedium,
+    fontSize: normalize(theme.size.lg),
+    color: colors.black,
   },
   history: {
+    fontFamily: fonts.poppinsMedium,
     color: colors.secondary,
+    fontSize: normalize(theme.size.xs),
   },
   row: {
     flexDirection: "row",

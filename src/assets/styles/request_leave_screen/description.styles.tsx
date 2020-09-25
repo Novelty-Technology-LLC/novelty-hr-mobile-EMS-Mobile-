@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import color from '../../colors';
-import { theme } from '../theme';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import color from "../../colors";
+import { theme, fonts } from "../theme";
 
 const descriptionStyle = StyleSheet.create({
   main: {
@@ -9,7 +9,8 @@ const descriptionStyle = StyleSheet.create({
     marginLeft: normalize(20),
   },
   text: {
-    fontSize: theme.size.lg,
+    fontFamily: fonts.poppinsMedium,
+    fontSize: normalize(theme.size.md),
   },
   textareaContainer: {
     height: normalize(140),
@@ -22,7 +23,7 @@ const descriptionStyle = StyleSheet.create({
   },
   textArea: {
     height: normalize(130),
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
 });
 

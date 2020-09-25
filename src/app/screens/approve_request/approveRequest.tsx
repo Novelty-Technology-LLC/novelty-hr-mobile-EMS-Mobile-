@@ -10,6 +10,10 @@ import Request from '../../components/approveRequest/approve_request';
 
 const ApproveRequest = ({ route }) => {
   const { date, id, sender, state, type } = route.params;
+
+  const Approve = () => {};
+  const Deny = () => {};
+
   return (
     <>
       <Header>
@@ -18,12 +22,12 @@ const ApproveRequest = ({ route }) => {
       </Header>
       <Request data={route.params} style={style} />
       <View style={style.buttonView}>
-        <TouchableOpacity>
-          <Button title="Approve" style={style.buttonApprove} />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Button title="Deny" style={style.buttonDeny} />
-        </TouchableOpacity>
+        <Button
+          title="Approve"
+          style={style.buttonApprove}
+          onPress={() => Approve()}
+        />
+        <Button title="Deny" style={style.buttonDeny} onPress={() => Deny()} />
       </View>
     </>
   );

@@ -1,8 +1,8 @@
-import React, { useReducer } from 'react';
+import React, { useReducer } from "react";
 
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
-    case 'DELETE':
+    case "DELETE":
       return {
         ...prevState,
         requests: [
@@ -18,24 +18,24 @@ const initialState = {
   requests: [
     {
       id: 1,
-      date: 'Oct 20-24 (4 days)',
-      type: 'PAID TIME OFF',
-      state: 'Approved',
-      sender: 'Biren Gurung',
+      date: "Oct 20-24 (4 days)",
+      type: "PAID TIME OFF",
+      state: "Approved",
+      sender: "Biren Gurung",
     },
     {
       id: 2,
-      date: 'Oct 28 (1 day)',
-      type: 'FLOATING',
-      state: 'In Progress',
-      sender: 'Biren Gurung',
+      date: "Oct 28 (1 day)",
+      type: "FLOATING",
+      state: "Pending",
+      sender: "Biren Gurung",
     },
     {
       id: 3,
-      date: 'Oct 30 (1 day)',
-      type: 'PAID TIME OFF',
-      state: 'Denied',
-      sender: 'Biren Gurung',
+      date: "Oct 30 (1 day)",
+      type: "PAID TIME OFF",
+      state: "Denied",
+      sender: "Biren Gurung",
     },
   ],
 };

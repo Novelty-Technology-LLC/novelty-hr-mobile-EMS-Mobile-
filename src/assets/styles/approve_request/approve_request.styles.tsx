@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 import colors from '../../colors';
-import { theme } from '../theme';
+import { theme, fonts } from '../theme';
 import normalize from 'react-native-normalize';
 
 const approveRequest = StyleSheet.create({
@@ -10,6 +10,7 @@ const approveRequest = StyleSheet.create({
     paddingHorizontal: normalize(20),
   },
   headerDate: {
+    fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     marginLeft: normalize(theme.spacing.wider),
@@ -35,8 +36,11 @@ const approveRequest = StyleSheet.create({
     borderRadius: normalize(25),
     marginRight: normalize(10),
   },
-  senderView: { marginLeft: normalize(10), flex: 1 },
-  sender: { fontSize: normalize(theme.size.base), fontWeight: '600' },
+  senderView: { marginLeft: normalize(8), flex: 1 },
+  sender: {
+    fontSize: normalize(theme.size.base),
+    fontFamily: fonts.mulishBold,
+  },
   dateView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -44,13 +48,26 @@ const approveRequest = StyleSheet.create({
   },
   leaveType: {
     fontSize: normalize(theme.size.xxs),
-    fontWeight: '500',
+    fontFamily: fonts.poppinsMedium,
     textTransform: 'uppercase',
-    opacity: 0.5,
+    color: colors.fontGrey,
   },
   date: {
     fontSize: normalize(theme.size.xxs),
     color: colors.fontGrey,
+  },
+  sendView: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  send: {
+    color: colors.white,
+    padding: normalize(3),
+    backgroundColor: colors.primary,
+    borderWidth: 1,
+    overflow: 'hidden',
+    borderColor: colors.primary,
+    borderRadius: normalize(8),
   },
   sectionView: {
     flexDirection: 'column',
@@ -65,8 +82,8 @@ const approveRequest = StyleSheet.create({
   sectionDateView: { flex: 1, flexDirection: 'row', alignItems: 'center' },
   sectionDate: {
     marginLeft: normalize(5),
-    fontSize: theme.size.xs,
-    opacity: 0.6,
+    fontSize: normalize(theme.size.xs),
+    color: colors.fontGrey,
   },
   sectionBody: {
     flex: 1,
@@ -74,30 +91,47 @@ const approveRequest = StyleSheet.create({
     paddingLeft: normalize(10),
     overflow: 'hidden',
   },
-  note: { lineHeight: normalize(theme.size.lg), opacity: 0.8 },
+  note: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.normal),
+    lineHeight: normalize(theme.size.lg),
+  },
   responseView: {
     flex: 1,
     marginTop: normalize(20),
     marginLeft: normalize(10),
   },
   response: {
+    color: colors.fontGrey,
+    fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.base),
   },
   spacer: { marginTop: normalize(theme.spacing.wider) },
-  teamLeadView: {
+  teamWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  teamLeadView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
   teamLead: {
+    fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xs),
-    marginTop: normalize(1),
     color: colors.fontGrey,
   },
   leadText: {
+    fontFamily: fonts.mulishRegular,
     marginTop: normalize(15),
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
+  },
+  text: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.xxs),
+    color: colors.fontGrey,
   },
   buttonView: {
     flex: 0.1,
@@ -110,11 +144,13 @@ const approveRequest = StyleSheet.create({
     marginBottom: normalize(0),
   },
   buttonApprove: {
+    fontFamily: fonts.mulishBold,
     paddingHorizontal: normalize(55),
     paddingVertical: normalize(15),
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.primary,
     color: colors.white,
+    overflow: 'hidden',
     fontWeight: '600',
     ...Platform.select({
       ios: {
@@ -126,6 +162,7 @@ const approveRequest = StyleSheet.create({
     }),
   },
   buttonDeny: {
+    fontFamily: fonts.mulishBold,
     paddingHorizontal: normalize(55),
     paddingVertical: normalize(15),
     fontSize: normalize(theme.size.base),

@@ -8,7 +8,7 @@ function Leavetype({ handleChange }) {
   const [type, setType] = useState(1);
 
   return (
-    <View style={style.main}>
+    <View style={style.container}>
       <View style={style.wrapper}>
         <Text style={style.text}>Choose Leave Type</Text>
         <View style={style.body}>
@@ -26,7 +26,11 @@ function Leavetype({ handleChange }) {
                   style={{ marginRight: 6 }}
                 />
               )}
-              <Text>Paid Time Off</Text>
+              <Text
+                style={type == 0 ? style.buttonTextFloat : style.buttonTextPaid}
+              >
+                Paid Time Off
+              </Text>
             </View>
           </TouchableOpacity>
           <View style={style.spacer}></View>
@@ -44,7 +48,11 @@ function Leavetype({ handleChange }) {
                   style={{ marginRight: 6 }}
                 />
               )}
-              <Text>Floating day</Text>
+              <Text
+                style={type == 1 ? style.buttonTextFloat : style.buttonTextPaid}
+              >
+                Floating day
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -53,4 +61,4 @@ function Leavetype({ handleChange }) {
   );
 }
 
-export default Leavetype;
+export { Leavetype };

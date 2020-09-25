@@ -5,6 +5,7 @@ import { AuthContext } from '../../reducer';
 import { loginStyle as style } from '../../../assets/styles';
 import { GoogleConfig } from '../../utils';
 import { signInApple, signInGoogle } from '../../services';
+import Logo from '../../common/ui/buttonUi';
 
 const Login = () => {
   const { dispatch } = useContext(AuthContext);
@@ -16,10 +17,7 @@ const Login = () => {
   return (
     <View style={style.container}>
       <View style={style.imageView}>
-        <Image
-          style={style.image}
-          source={require('../../../assets/images/noveltylogo.png')}
-        />
+        <Logo name="novelty" />
         <Text style={style.imageText}>Novelty EMS</Text>
       </View>
       <View style={style.buttonView}>
@@ -29,10 +27,7 @@ const Login = () => {
             style={style.iconView}
             onPress={async () => await signInGoogle(dispatch)}
           >
-            <Image
-              style={style.icon}
-              source={require('../../../assets/images/icons8-google-96.png')}
-            />
+            <Logo name="google" />
           </TouchableOpacity>
 
           {Platform.OS === 'ios' && (
@@ -40,17 +35,16 @@ const Login = () => {
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}
               >
-                <Image
-                  style={style.icon}
-                  source={require('../../../assets/images/icons8-apple-logo-100.png')}
-                />
+                <Logo name="apple" />
               </TouchableOpacity>
             </View>
           )}
         </View>
       </View>
       <View style={style.footerView}>
-        <Text>Copyright 2020. Powered by Novelty Technology.</Text>
+        <Text style={style.footerText}>
+          Copyright 2020. Powered by Novelty Technology.
+        </Text>
       </View>
     </View>
   );

@@ -43,7 +43,7 @@ const signInApple = async (dispatch) => {
     });
 
     if (!data.identityToken || !data.email)
-      throw new Error('Please provide email');
+      throw new Error('Please provide your email.');
 
     data.fullName['email'] = data.email;
     data.fullName['token'] = data.identityToken;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { RangeCalendar } from '@ui-kitten/components';
 
-export default RangeCalendarSimpleUsageShowcase = ({ style, handleChange }) => {
+const Calander = ({ style, handleChange }) => {
   const [range, setrange] = useState('');
 
   useEffect(() => {
@@ -19,3 +19,5 @@ export default RangeCalendarSimpleUsageShowcase = ({ style, handleChange }) => {
     />
   );
 };
+
+export { Calander };

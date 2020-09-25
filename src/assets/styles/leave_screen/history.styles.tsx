@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../colors";
+import { fonts, theme } from "../theme";
 
 const historyStyle = StyleSheet.create({
   header: {
@@ -8,6 +9,8 @@ const historyStyle = StyleSheet.create({
     paddingTop: normalize(30),
     paddingBottom: normalize(10),
     color: colors.secondary,
+    fontSize: normalize(theme.size.xs),
+    fontFamily: fonts.mulishRegular,
   },
   container: {
     paddingBottom: normalize(40),

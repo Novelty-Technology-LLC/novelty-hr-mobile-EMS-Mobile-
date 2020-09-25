@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
-import { color, theme } from "../theme";
+import normalize from "react-native-normalize";
+import { theme, fonts } from "../theme";
+import color from "../../colors";
 
 const loginStyle = StyleSheet.create({
   container: {
@@ -17,9 +19,11 @@ const loginStyle = StyleSheet.create({
     width: 120,
     height: 120,
   },
+
   imageText: {
-    fontSize: theme.size.xl,
-    fontWeight: "700",
+    fontFamily: fonts.PoppinsSemibold,
+    fontSize: normalize(theme.size.logo),
+    marginTop: normalize(theme.spacing.logo),
   },
   buttonView: {
     flex: 3,
@@ -29,8 +33,8 @@ const loginStyle = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    fontSize: theme.size.lg,
-    fontWeight: "500",
+    fontFamily: fonts.poppinsMedium,
+    fontSize: normalize(theme.size.lg),
   },
   loginView: {
     display: "flex",
@@ -61,6 +65,10 @@ const loginStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     opacity: 0.3,
+  },
+  footerText: {
+    fontFamily: fonts.poppinsRegular,
+    fontSize: normalize(theme.size.sm),
   },
 });
 

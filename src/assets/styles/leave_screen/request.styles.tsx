@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import { theme } from '../theme';
+import { theme, fonts } from '../theme';
 
 const requestStyle = StyleSheet.create({
   container: {
@@ -16,20 +16,56 @@ const requestStyle = StyleSheet.create({
     borderRadius: 2,
     marginVertical: 7,
   },
+  main: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  wrapper: { flexDirection: 'row' },
+  requestDate: {
+    marginTop: normalize(theme.spacing.wide),
+    fontSize: normalize(theme.size.xxs),
+    fontFamily: fonts.mulishRegular,
+    color: colors.fontGrey,
+  },
   date: {
-    fontWeight: 'bold',
-    fontSize: theme.size.md,
+    fontSize: normalize(theme.size.base),
+    color: colors.black,
+    fontFamily: fonts.mulishBold,
+  },
+  text: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.xxs),
+    color: colors.fontGrey,
+    paddingTop: normalize(theme.spacing.wide),
   },
   type: {
     color: colors.secondary,
-    fontSize: theme.size.xs,
+    fontSize: normalize(theme.size.xs),
+    fontFamily: fonts.poppinsMedium,
   },
+  icon: {
+    transform: [{ rotate: '-40deg' }],
+    backgroundColor: colors.primary,
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        padding: normalize(2.9),
+        borderRadius: normalize(8),
+      },
+      android: { padding: normalize(5), borderRadius: normalize(14) },
+    }),
+  },
+  stateView: { flexDirection: 'column' },
   state: {
-    color: colors.secondary,
+    fontFamily: fonts.poppinsMedium,
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.xs),
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   space: {
     ...Platform.select({
@@ -47,6 +83,7 @@ const requestStyle = StyleSheet.create({
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(8),
     alignItems: 'center',
+    fontSize: normalize(theme.size.xs),
     justifyContent: 'center',
     backgroundColor: colors.primary,
     ...Platform.select({
@@ -63,6 +100,7 @@ const requestStyle = StyleSheet.create({
     paddingVertical: normalize(8),
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize: normalize(theme.size.xs),
     ...Platform.select({
       ios: {
         borderRadius: normalize(3),
@@ -86,10 +124,12 @@ const requestStyle = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     paddingHorizontal: normalize(10),
-    paddingRight: normalize(10),
+    paddingRight: normalize(18),
   },
   days: {
     color: colors.secondary,
+    fontSize: normalize(theme.size.xs),
+    fontFamily: fonts.mulishRegular,
   },
   progress: {
     backgroundColor: colors.yellow,

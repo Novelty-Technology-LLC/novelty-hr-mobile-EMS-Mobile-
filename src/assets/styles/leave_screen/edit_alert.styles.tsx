@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import { theme } from '../theme';
+import { fonts, theme } from '../theme';
 
 const editAlertStyle = StyleSheet.create({
   dialogContainer: {
@@ -22,16 +22,25 @@ const editAlertStyle = StyleSheet.create({
   titleView: {
     paddingBottom: normalize(15),
   },
+  stateView: {
+    ...Platform.select({
+      ios: { paddingTop: normalize(2) },
+      android: {
+        paddingTop: normalize(5),
+      },
+    }),
+  },
   title: {
     fontWeight: '700',
+    fontSize: normalize(theme.size.base),
   },
   cancel: {
     color: colors.black,
-    fontWeight: 'bold',
+    fontFamily: fonts.mulishBold,
   },
   delete: {
     color: colors.primary,
-    fontWeight: 'bold',
+    fontFamily: fonts.mulishBold,
   },
   buttonGap: {
     ...Platform.select({
@@ -49,6 +58,7 @@ const editAlertStyle = StyleSheet.create({
   note: {
     color: colors.secondary,
     paddingBottom: normalize(15),
+    fontFamily: fonts.mulishRegular,
   },
   row: {
     flexDirection: 'row',
