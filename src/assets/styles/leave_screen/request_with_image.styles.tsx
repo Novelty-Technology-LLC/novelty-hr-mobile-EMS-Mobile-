@@ -26,7 +26,7 @@ const requestWithImageStyle = StyleSheet.create({
     paddingTop: normalize(5),
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   type: {
     fontSize: normalize(theme.size.xs),
