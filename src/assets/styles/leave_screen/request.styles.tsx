@@ -37,6 +37,7 @@ const requestStyle = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     fontSize: theme.size.xxs,
     color: colors.fontGrey,
+    paddingTop: normalize(theme.spacing.wide),
   },
   type: {
     color: colors.secondary,

@@ -43,9 +43,7 @@ const State = ({ state, children }: { state: string }) => {
               <View style={style.space}></View>
               <Text style={style.state}>{state}</Text>
             </View>
-            <View>
-              <Text style={style.text}>on {children} </Text>
-            </View>
+            <Text style={style.text}>on {children} </Text>
           </View>
         </>
       )}
