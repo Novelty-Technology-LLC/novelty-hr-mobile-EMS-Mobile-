@@ -28,6 +28,7 @@ const daysRemainingStyle = StyleSheet.create({
     fontWeight: "bold",
     fontSize: theme.size.sm,
     color: colors.black,
+    fontFamily: "Mulish-SemiBold",
   },
   footer: {
     fontWeight: "normal",
