@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
-import { color, theme } from "../theme";
+import { StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
+import { theme, fonts } from '../theme';
+import color from '../../colors';
 
 const loginStyle = StyleSheet.create({
   container: {
@@ -8,33 +10,35 @@ const loginStyle = StyleSheet.create({
   },
   imageView: {
     flex: 2,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   image: {
     width: 120,
     height: 120,
   },
+
   imageText: {
-    fontSize: theme.size.xl,
-    fontWeight: "700",
+    fontFamily: fonts.PoppinsSemibold,
+    fontSize: normalize(theme.size.logo),
+    marginTop: normalize(theme.spacing.logo),
   },
   buttonView: {
     flex: 3,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
-    fontSize: theme.size.lg,
-    fontWeight: "500",
+    fontFamily: fonts.poppinsMedium,
+    fontSize: normalize(theme.size.lg),
   },
   loginView: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     paddingTop: 30,
   },
   iconView: {
@@ -57,10 +61,14 @@ const loginStyle = StyleSheet.create({
   },
   footerView: {
     flex: 0.5,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     opacity: 0.3,
+  },
+  footerText: {
+    fontFamily: fonts.poppinsRegular,
+    fontSize: normalize(theme.size.sm),
   },
 });
 

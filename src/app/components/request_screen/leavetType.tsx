@@ -53,4 +53,4 @@ function Leavetype({ handleChange }) {
   );
 }
 
-export default Leavetype;
+export { Leavetype };

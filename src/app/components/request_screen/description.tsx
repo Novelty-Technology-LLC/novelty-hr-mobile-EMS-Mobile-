@@ -4,7 +4,7 @@ import Textarea from 'react-native-textarea';
 
 import { descriptionStyle as style } from '../../../assets/styles';
 
-const description = ({ handleChange }) => {
+const Description = ({ handleChange }) => {
   return (
     <View>
       <View style={style.main}>
@@ -24,4 +24,4 @@ const description = ({ handleChange }) => {
   );
 };
 
-export default description;
+export { Description };

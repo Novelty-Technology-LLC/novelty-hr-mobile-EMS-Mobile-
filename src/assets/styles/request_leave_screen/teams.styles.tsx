@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
-import { theme } from '../theme';
+import { theme, fonts } from '../theme';
 
 const teamStyle = StyleSheet.create({
   container: {
@@ -15,7 +15,8 @@ const teamStyle = StyleSheet.create({
   text: {
     paddingTop: normalize(19),
     paddingLeft: normalize(18),
-    fontSize: theme.size.base,
+    fontFamily: fonts.poppinsMedium,
+    fontSize: theme.size.md,
   },
   scrollView: {
     flex: 1,
@@ -44,7 +45,8 @@ const teamStyle = StyleSheet.create({
     paddingTop: normalize(10),
   },
   name: {
-    fontSize: theme.size.sm,
+    fontSize: normalize(theme.size.sm),
+    fontFamily: fonts.mulishRegular,
   },
 });
 

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
-import { theme } from '../theme';
+import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
   main: {

@@ -52,9 +52,13 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Suprema Thin.otf</string>
 		<string>FontAwesome.ttf</string>
-		<string>Suprema SemiBold.ttf</string>
+		<string>poppins.regular.ttf</string>
+		<string>Mulish-SemiBold.ttf</string>
+		<string>Mulish-Regular.ttf</string>
+		<string>Mulish-Regular.ttf</string>
+		<string>poppins.medium.ttf</string>
+		<string>poppins.semibold.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

@@ -19,6 +19,9 @@ module.exports = MetroConfig.create(evaConfig, {
         experimentalImportSupport: false,
         inlineRequires: false,
       },
+      transformer: {
+        babelTransformerPath: require.resolve('react-native-svg-transformer'),
+      },
     }),
   },
 });
