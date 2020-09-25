@@ -9,7 +9,6 @@ import { headerStyle as style } from '../../assets/styles';
 
 const header = ({ onPress = null, children }: any) => {
   const navigation = useNavigation();
-  console.log('press- > ', onPress);
 
   return (
     <View style={style.container}>
