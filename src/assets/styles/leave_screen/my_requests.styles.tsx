@@ -15,10 +15,12 @@ const myRequestsStyle = StyleSheet.create({
     marginHorizontal: normalize(20),
   },
   title: {
-    fontSize: theme.size.xl,
+    fontSize: theme.size.lg,
+    color: colors.black,
   },
   history: {
     color: colors.secondary,
+    fontSize: theme.size.xs,
   },
   row: {
     flexDirection: "row",

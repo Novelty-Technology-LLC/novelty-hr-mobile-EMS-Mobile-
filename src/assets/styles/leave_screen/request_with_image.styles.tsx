@@ -9,8 +9,8 @@ const requestWithImageStyle = StyleSheet.create({
     alignItems: "flex-start",
   },
   image: {
-    width: normalize(40),
-    height: normalize(40),
+    width: normalize(37),
+    height: normalize(37),
     borderRadius: normalize(25),
     marginRight: normalize(10),
   },
@@ -19,6 +19,8 @@ const requestWithImageStyle = StyleSheet.create({
   },
   name: {
     fontWeight: "bold",
+    fontSize: theme.size.base,
+    color: colors.black,
   },
   date: { flexDirection: "row", paddingTop: normalize(10) },
   type: {

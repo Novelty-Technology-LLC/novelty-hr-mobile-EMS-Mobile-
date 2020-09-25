@@ -23,8 +23,8 @@ const theme = {
     md: 18,
     lg: 20,
     xl: 24,
+    xxl: 67,
     logo: 32,
-    xxl: 100,
   },
   spacing: {
     normal: 1,

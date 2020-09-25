@@ -9,7 +9,7 @@ const leaveDashboardStyle = StyleSheet.create({
     flex: 1,
   },
   plus: {
-    padding: normalize(15),
+    padding: normalize(10),
     borderRadius: normalize(40),
     backgroundColor: colors.primary,
     alignItems: "center",

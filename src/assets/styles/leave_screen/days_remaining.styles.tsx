@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
+import colors from "../../colors";
 import color from "../../colors";
 import { theme } from "../theme";
 
@@ -17,6 +18,7 @@ const daysRemainingStyle = StyleSheet.create({
   },
   total: {
     fontWeight: "100",
+    fontSize: theme.size.base,
   },
   text: {
     fontSize: theme.size.xl,
@@ -24,6 +26,8 @@ const daysRemainingStyle = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+    fontSize: theme.size.sm,
+    color: colors.black,
   },
   footer: {
     fontWeight: "normal",

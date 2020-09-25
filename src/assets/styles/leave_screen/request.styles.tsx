@@ -30,7 +30,8 @@ const requestStyle = StyleSheet.create({
   },
   date: {
     fontWeight: 'bold',
-    fontSize: theme.size.md,
+    fontSize: theme.size.base,
+    color: colors.black,
   },
   text: {
     fontFamily: fonts.mulishRegular,
@@ -67,6 +68,7 @@ const requestStyle = StyleSheet.create({
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(8),
     alignItems: 'center',
+    fontSize: theme.size.xs,
     justifyContent: 'center',
     backgroundColor: colors.primary,
     ...Platform.select({
@@ -83,6 +85,7 @@ const requestStyle = StyleSheet.create({
     paddingVertical: normalize(8),
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize: theme.size.xs,
     ...Platform.select({
       ios: {
         borderRadius: normalize(3),
@@ -106,10 +109,11 @@ const requestStyle = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     paddingHorizontal: normalize(10),
-    paddingRight: normalize(10),
+    paddingRight: normalize(18),
   },
   days: {
     color: colors.secondary,
+    fontSize: theme.size.xs,
   },
   progress: {
     backgroundColor: colors.yellow,

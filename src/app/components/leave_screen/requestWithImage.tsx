@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { requestWithImageStyle as style } from "../../../assets/styles";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
+import AppIcon from "../../common/icon";
 
 const RequestWithImage = ({ item, onPress }: any) => {
   return (
@@ -16,7 +16,7 @@ const RequestWithImage = ({ item, onPress }: any) => {
           <Text style={style.name}>{item.sender}</Text>
           <Text style={style.type}>{item.type}</Text>
           <View style={style.date}>
-            <Icon name="calendar" size={15} color={colors.secondary} />
+            <AppIcon name="calendar" size={12} color={colors.secondary} />
             <View style={style.gap}></View>
             <Text style={style.type}>{item.date}</Text>
           </View>
