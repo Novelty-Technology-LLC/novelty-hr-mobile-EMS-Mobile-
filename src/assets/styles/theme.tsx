@@ -10,6 +10,7 @@ const fonts = {
   poppinsMedium: 'Poppins-Medium',
   poppinsRegular: 'Poppins-Regular',
   mulishRegular: 'Mulish-Regular',
+  mulishBold: 'Mulish-Bold',
 };
 
 const theme = {

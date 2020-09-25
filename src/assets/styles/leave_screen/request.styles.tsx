@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import { theme } from '../theme';
+import { theme, fonts } from '../theme';
 
 const requestStyle = StyleSheet.create({
   container: {
@@ -16,16 +16,36 @@ const requestStyle = StyleSheet.create({
     borderRadius: 2,
     marginVertical: 7,
   },
+  main: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  wrapper: { flexDirection: 'row' },
+  requestDate: {
+    marginTop: normalize(theme.spacing.wide),
+    fontSize: theme.size.xxs,
+    fontFamily: fonts.mulishRegular,
+    color: colors.fontGrey,
+  },
   date: {
     fontWeight: 'bold',
     fontSize: theme.size.md,
+  },
+  text: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: theme.size.xxs,
+    color: colors.fontGrey,
   },
   type: {
     color: colors.secondary,
     fontSize: theme.size.xs,
   },
+  stateView: { flexDirection: 'column' },
   state: {
-    color: colors.secondary,
+    fontFamily: fonts.poppinsMedium,
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.xs),
   },
   row: {
     flexDirection: 'row',
@@ -93,6 +113,17 @@ const requestStyle = StyleSheet.create({
   },
   progress: {
     backgroundColor: colors.yellow,
+    borderRadius: normalize(20),
+    ...Platform.select({
+      ios: { padding: normalize(3) },
+      android: {
+        padding: normalize(5),
+      },
+    }),
+  },
+  requested: {
+    backgroundColor: colors.primary,
+    fontFamily: 'Poppind-Medium',
     borderRadius: normalize(20),
     ...Platform.select({
       ios: { padding: normalize(3) },

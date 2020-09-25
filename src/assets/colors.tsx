@@ -10,6 +10,7 @@ export default {
   border: '#f2f2f2',
   buttonOrange: '#ffe6b3',
   buttonGrey: '#f2f2f2',
-  fontGrey: '#8c8c8c',
+  fontGrey: '#8D8D8D',
+  fontOrange: '#BF8B59',
   snow: '#fafafa',
 };

@@ -73,7 +73,7 @@ const Login = () => {
         </View>
       </View>
       <View style={style.footerView}>
-        <Text style={style.footeText}>
+        <Text style={style.footerText}>
           Copyright 2020. Powered by Novelty Technology.
         </Text>
       </View>

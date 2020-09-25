@@ -1,23 +1,22 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
+import colors from '../../colors';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
-  main: {
-    paddingBottom: normalize(15),
-    borderBottomWidth: 1,
-    borderBottomColor: color.border,
-  },
+  container: { borderBottomWidth: 1, borderBottomColor: color.border },
   wrapper: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginLeft: normalize(20),
+    marginHorizontal: normalize(20),
     paddingTop: normalize(20),
+    paddingBottom: normalize(20),
   },
   text: {
+    fontFamily: fonts.poppinsMedium,
     fontSize: theme.size.md,
   },
   body: {
@@ -30,7 +29,7 @@ const leaveType = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: normalize(31),
+    paddingHorizontal: normalize(30),
     paddingVertical: normalize(15),
     backgroundColor: color.buttonOrange,
     borderRadius: normalize(3),
@@ -42,17 +41,26 @@ const leaveType = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: normalize(40),
+    paddingHorizontal: normalize(35),
     paddingVertical: normalize(15),
     backgroundColor: color.buttonGrey,
     borderRadius: normalize(4),
+  },
+  buttonTextPaid: {
+    fontFamily: fonts.mulishBold,
+    fontSize: theme.size.normal,
+    color: colors.fontOrange,
+  },
+  buttonTextFloat: {
+    fontFamily: fonts.mulishBold,
+    fontSize: theme.size.normal,
+    color: colors.fontGrey,
   },
   buttonPaid: {
     display: 'flex',
     flexDirection: 'row',
   },
   buttonFloat: {
-    color: color.fontGrey,
     fontSize: theme.size.sm,
   },
 });

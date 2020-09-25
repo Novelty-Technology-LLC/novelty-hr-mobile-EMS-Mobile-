@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
-import colors from '../../colors';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 
@@ -25,6 +24,7 @@ const requestLeave = StyleSheet.create({
     display: 'flex',
   },
   buttonText: {
+    fontFamily: fonts.mulishBold,
     color: color.white,
     alignSelf: 'center',
     fontSize: theme.size.base,

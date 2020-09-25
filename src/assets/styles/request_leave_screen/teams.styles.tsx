@@ -5,6 +5,7 @@ import { theme, fonts } from '../theme';
 
 const teamStyle = StyleSheet.create({
   container: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -12,6 +13,7 @@ const teamStyle = StyleSheet.create({
     borderBottomColor: color.border,
     borderBottomWidth: 1,
   },
+
   text: {
     paddingTop: normalize(19),
     paddingLeft: normalize(18),
