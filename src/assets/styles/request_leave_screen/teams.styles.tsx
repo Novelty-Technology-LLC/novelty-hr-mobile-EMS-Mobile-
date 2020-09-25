@@ -1,15 +1,15 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import color from '../../colors';
-import { theme, fonts } from '../theme';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import color from "../../colors";
+import { theme, fonts } from "../theme";
 
 const teamStyle = StyleSheet.create({
   container: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     borderBottomColor: color.border,
     borderBottomWidth: 1,
   },
@@ -18,7 +18,7 @@ const teamStyle = StyleSheet.create({
     paddingTop: normalize(19),
     paddingLeft: normalize(18),
     fontFamily: fonts.poppinsMedium,
-    fontSize: theme.size.md,
+    fontSize: normalize(theme.size.md),
   },
   scrollView: {
     flex: 1,
@@ -26,15 +26,15 @@ const teamStyle = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   },
   main: {
     marginLeft: normalize(20),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   spacing: { marginLeft: normalize(105) },
   image: {
