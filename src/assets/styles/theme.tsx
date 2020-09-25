@@ -14,7 +14,7 @@ const theme = {
     md: 18,
     lg: 20,
     xl: 24,
-    xxl: 100,
+    xxl: 67,
   },
   spacing: {
     normal: 1,

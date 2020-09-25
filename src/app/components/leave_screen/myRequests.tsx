@@ -23,7 +23,7 @@ const MyRequests = () => {
       <View style={style.header}>
         <Text style={style.title}>My Requests</Text>
         <View style={style.row}>
-          <Text style={style.history}>Show History</Text>
+          <Text style={style.history}> History</Text>
           <View style={style.gap}></View>
           <TouchableWithoutFeedback
             onPress={() => {
@@ -39,7 +39,7 @@ const MyRequests = () => {
               color={
                 toggle === "toggle-switch" ? colors.primary : colors.secondary
               }
-              size={40}
+              size={35}
             />
           </TouchableWithoutFeedback>
         </View>

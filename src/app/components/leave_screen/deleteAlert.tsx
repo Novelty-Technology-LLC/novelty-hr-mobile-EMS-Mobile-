@@ -15,14 +15,14 @@ const DeleteAlert = ({ item }: any) => {
   return (
     <>
       <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
-        <Icon name="delete" color={colors.tomato} size={15} />
+        <Icon name="delete" color={colors.tomato} size={13} />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}
         contentStyle={style.dialogContainer}
       >
         <View style={style.container}>
-          <Icon name="alert" color={colors.tomato} size={35} />
+          <Icon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Dialog.Title style={style.text1}>
               Delete the request ?

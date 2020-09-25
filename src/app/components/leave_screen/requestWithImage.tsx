@@ -16,7 +16,7 @@ const RequestWithImage = ({ item, onPress }: any) => {
           <Text style={style.name}>{item.sender}</Text>
           <Text style={style.type}>{item.type}</Text>
           <View style={style.date}>
-            <Icon name="calendar" size={15} color={colors.secondary} />
+            <Icon name="calendar" size={12} color={colors.secondary} />
             <View style={style.gap}></View>
             <Text style={style.type}>{item.date}</Text>
           </View>

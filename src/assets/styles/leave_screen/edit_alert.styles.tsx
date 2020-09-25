@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../colors";
+import { theme } from "../theme";
 
 const editAlertStyle = StyleSheet.create({
   dialogContainer: {
@@ -22,6 +23,7 @@ const editAlertStyle = StyleSheet.create({
   },
   title: {
     fontWeight: "700",
+    fontSize: theme.size.base,
   },
   cancel: {
     color: colors.black,

@@ -22,7 +22,7 @@ const deleteAlertStyle = StyleSheet.create({
     marginLeft: normalize(10),
   },
   text1: {
-    fontSize: theme.size.lg,
+    fontSize: theme.size.md,
   },
   text2: {
     fontSize: theme.size.xs,

@@ -17,6 +17,7 @@ const daysRemainingStyle = StyleSheet.create({
   },
   total: {
     fontWeight: "100",
+    fontSize: theme.size.base,
   },
   text: {
     fontSize: theme.size.xl,
@@ -24,6 +25,7 @@ const daysRemainingStyle = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+    fontSize: theme.size.sm,
   },
   footer: {
     fontWeight: "normal",

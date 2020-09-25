@@ -21,7 +21,7 @@ const EditAlert = ({ item }: any) => {
         onPress={() => show()}
         style={deleteAlertStyle.iconContainer}
       >
-        <Icon name="square-edit-outline" color={colors.yellow} size={15} />
+        <Icon name="square-edit-outline" color={colors.primary} size={13} />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}
