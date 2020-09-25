@@ -22,9 +22,6 @@ const Request = ({ data, style }) => {
               <Text style={style.sender}>{sender}</Text>
               <View style={style.dateView}>
                 <Text style={style.leaveType}>Paid time off</Text>
-                <View style={style.sendView}>
-                  <State state="Requested">{date}</State>
-                </View>
               </View>
             </View>
           </View>
@@ -33,6 +30,9 @@ const Request = ({ data, style }) => {
               <View style={style.sectionDateView}>
                 <Icon style={style.calander} name="calendar" size={20} />
                 <Text style={style.sectionDate}>{date}</Text>
+              </View>
+              <View style={style.sendView}>
+                <State state="Requested">{date}</State>
               </View>
             </View>
           </View>

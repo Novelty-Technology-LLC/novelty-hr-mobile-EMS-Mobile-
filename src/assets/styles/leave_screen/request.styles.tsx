@@ -122,7 +122,7 @@ const requestStyle = StyleSheet.create({
     }),
   },
   requested: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.yellow,
     fontFamily: 'Poppind-Medium',
     borderRadius: normalize(20),
     ...Platform.select({
