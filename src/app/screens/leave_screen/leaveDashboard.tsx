@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, ScrollView, Text } from "react-native";
 import { header as Header } from "../../common/header";
 import { DaysRemaining, MyRequests } from "../../components";
@@ -8,15 +8,23 @@ import { RequestButton } from "../../components/requestButton";
 import colors from "../../../assets/colors";
 import { RequestContext, useRequest } from "../../reducer";
 import { headerText } from "../../../assets/styles";
+import { AuthContext } from "../../reducer";
+import { removeToken } from "../../utils";
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const { requests, dispatchRequest } = useRequest();
+  const { dispatch } = useContext(AuthContext);
 
   return (
     <RequestContext.Provider value={{ requests, dispatchRequest }}>
       <View style={style.mainContainer}>
-        <Header>
+        <Header
+          onPress={() => {
+            removeToken();
+            dispatch({ type: "SIGN_OUT" });
+          }}
+        >
           <Text style={headerText}>Leave Application</Text>
         </Header>
         <ScrollView>

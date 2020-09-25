@@ -61,17 +61,19 @@ const RequestLeave = () => {
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
-            {({ handleChange, handleSubmit }) => (
+            {({ handleChange, handleSubmit, values }) => (
               <>
                 <Calander style={style.calendar} handleChange={handleChange} />
                 <Teams />
                 <Leavetype handleChange={handleChange} />
                 <Description handleChange={handleChange} />
-                <TouchableOpacity onPress={() => handleSubmit()}>
-                  <View style={style.buttonView}>
-                    <Button style={style.buttonText} title={'Submit Request'} />
-                  </View>
-                </TouchableOpacity>
+                <View style={style.buttonView}>
+                  <Button
+                    style={style.buttonText}
+                    title={'Submit Request'}
+                    onPress={() => handleSubmit()}
+                  />
+                </View>
               </>
             )}
           </Formik>

@@ -22,7 +22,6 @@ const Request = ({ data, style }) => {
               <Text style={style.sender}>{sender}</Text>
               <View style={style.dateView}>
                 <Text style={style.leaveType}>Paid time off</Text>
-                <Text style={style.date}>Requested on {date}</Text>
               </View>
             </View>
           </View>
@@ -32,8 +31,8 @@ const Request = ({ data, style }) => {
                 <Icon style={style.calander} name="calendar" size={20} />
                 <Text style={style.sectionDate}>{date}</Text>
               </View>
-              <View>
-                <State state={state}></State>
+              <View style={style.sendView}>
+                <State state="Requested">{date}</State>
               </View>
             </View>
           </View>
@@ -58,10 +57,13 @@ const Request = ({ data, style }) => {
                       source={require('../../../assets/images/person.jpeg')}
                     />
                     <View style={style.senderView}>
-                      <Text style={style.sender}>{sender}</Text>
+                      <View style={style.teamWrapper}>
+                        <Text style={style.sender}>{sender}</Text>
+                        <State state={state}>{date}</State>
+                      </View>
                       <View style={style.teamLeadView}>
                         <Text style={style.teamLead}>Team Lead</Text>
-                        <State state={state}></State>
+                        <Text style={style.text}>on {date}</Text>
                       </View>
                     </View>
                   </View>
