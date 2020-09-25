@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import { theme, fonts } from '../theme';
-import color from '../../colors';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import { theme, fonts } from "../theme";
+import color from "../../colors";
 
 const loginStyle = StyleSheet.create({
   container: {
@@ -10,10 +10,10 @@ const loginStyle = StyleSheet.create({
   },
   imageView: {
     flex: 2,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
   image: {
     width: 120,
@@ -27,18 +27,18 @@ const loginStyle = StyleSheet.create({
   },
   buttonView: {
     flex: 3,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.lg),
   },
   loginView: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     paddingTop: 30,
   },
   iconView: {
@@ -61,9 +61,9 @@ const loginStyle = StyleSheet.create({
   },
   footerView: {
     flex: 0.5,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     opacity: 0.3,
   },
   footerText: {

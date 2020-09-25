@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../colors";
-import { theme } from "../theme";
+import { fonts, theme } from "../theme";
 
 const requestWithImageStyle = StyleSheet.create({
   row: {
@@ -18,14 +18,15 @@ const requestWithImageStyle = StyleSheet.create({
     paddingRight: 5,
   },
   name: {
-    fontWeight: "bold",
-    fontSize: theme.size.base,
+    fontSize: normalize(theme.size.base),
     color: colors.black,
+    fontFamily: fonts.mulishBold,
   },
   date: { flexDirection: "row", paddingTop: normalize(10) },
   type: {
-    fontSize: theme.size.xs,
+    fontSize: normalize(theme.size.xs),
     color: colors.secondary,
+    fontFamily: fonts.poppinsMedium,
   },
 });
 

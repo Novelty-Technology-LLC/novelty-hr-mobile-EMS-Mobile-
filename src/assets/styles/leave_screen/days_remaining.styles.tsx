@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../colors";
 import color from "../../colors";
-import { theme } from "../theme";
+import { fonts, theme } from "../theme";
 
 const daysRemainingStyle = StyleSheet.create({
   container: {
@@ -14,25 +14,27 @@ const daysRemainingStyle = StyleSheet.create({
   },
   remaining: {
     fontWeight: "300",
-    fontSize: theme.size.xxl,
+    fontSize: normalize(theme.size.xxl),
+    fontFamily: fonts.mulishRegular,
   },
   total: {
     fontWeight: "100",
-    fontSize: theme.size.base,
+    fontSize: normalize(theme.size.base),
+    fontFamily: fonts.mulishRegular,
   },
   text: {
-    fontSize: theme.size.xl,
+    fontSize: normalize(theme.size.xl),
     color: color.primary,
   },
   title: {
-    fontWeight: "bold",
-    fontSize: theme.size.sm,
+    fontSize: normalize(theme.size.sm),
     color: colors.black,
+    fontFamily: fonts.PoppinsSemibold,
   },
   footer: {
-    fontWeight: "normal",
-    fontSize: theme.size.xxs,
+    fontSize: normalize(theme.size.xxs),
     color: color.secondary,
+    fontFamily: fonts.poppinsRegular,
   },
 });
 
