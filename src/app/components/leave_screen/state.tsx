@@ -21,7 +21,7 @@ const State = ({ state }: any) => {
           <Text style={style.state}>{state}</Text>
         </>
       )}
-      {state === "In Progress" && (
+      {state === "Pending" && (
         <>
           <View style={style.progress}>
             <Icon name="timer-sand" size={11} color={colors.white} />

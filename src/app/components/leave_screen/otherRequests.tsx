@@ -19,7 +19,7 @@ const OtherRequests = () => {
       id: 2,
       date: "Oct 28 (1 day)",
       type: "FLOATING",
-      state: "In Progress",
+      state: "Pending",
       sender: "Biren Gurung",
     },
     {
