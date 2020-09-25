@@ -5,16 +5,25 @@ const color = {
   white: "#ffffff",
 };
 
+const fonts = {
+  PoppinsSemibold: "Poppins-SemiBold",
+  poppinsMedium: "Poppins-Medium",
+  poppinsRegular: "Poppins-Regular",
+  mulishRegular: "Mulish-Regular",
+};
+
 const theme = {
   size: {
     xxs: 10,
     xs: 12,
     sm: 14,
+    normal: 15,
     base: 16,
     md: 18,
     lg: 20,
     xl: 24,
     xxl: 67,
+    logo: 32,
   },
   spacing: {
     normal: 1,
@@ -22,6 +31,7 @@ const theme = {
     wider: 5,
     tight: 0.5,
     button: 10,
+    logo: 20,
   },
   color: {
     theme_color: "#5FC4D6",
@@ -40,4 +50,4 @@ const isDarkMode = () => {
   return useDarkMode();
 };
 
-export { theme, color, isDarkMode };
+export { theme, color, fonts, isDarkMode };

@@ -18,8 +18,12 @@
 		2DCD954D1E0B4F2C00145EB5 /* noveltyhrmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* noveltyhrmobileTests.m */; };
 		3239C2B79C9726865B7F87F4 /* libPods-noveltyhrmobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC12EB886F0CF8F36A8F10FA /* libPods-noveltyhrmobile-tvOSTests.a */; };
 		540B23BB2513841D00C1895C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 540B23BA2513841D00C1895C /* GoogleService-Info.plist */; };
-		54E150C725131EC400261AB0 /* Suprema SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */; };
-		54E150C925131ECA00261AB0 /* Suprema Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 54E150C825131ECA00261AB0 /* Suprema Thin.otf */; };
+		543D562C251DC73A00273AE5 /* poppins.medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 543D562B251DC73A00273AE5 /* poppins.medium.ttf */; };
+		543D562E251DC74700273AE5 /* poppins.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 543D562D251DC74700273AE5 /* poppins.regular.ttf */; };
+		545BA834251DCF23009B832F /* Mulish-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 545BA833251DCF23009B832F /* Mulish-Bold.ttf */; };
+		545BA836251DCF29009B832F /* Mulish-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 545BA835251DCF29009B832F /* Mulish-SemiBold.ttf */; };
+		545BA838251DCF2F009B832F /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 545BA837251DCF2F009B832F /* Mulish-Regular.ttf */; };
+		54C61655251DC07C003C7E60 /* poppins.semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54C61654251DC07C003C7E60 /* poppins.semibold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D63758B825A142DD0116A812 /* libPods-noveltyhrmobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E53C17F4CE740A97B96CF02D /* libPods-noveltyhrmobile-tvOS.a */; };
 		FE2E41A35378F5B59F6ED7C5 /* libPods-noveltyhrmobile-noveltyhrmobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4A45B9F75E28E0B3A2C955F /* libPods-noveltyhrmobile-noveltyhrmobileTests.a */; };
@@ -59,9 +63,13 @@
 		357883CD5BD92CD096926EDE /* libPods-noveltyhrmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-noveltyhrmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B794375D531388478760380 /* Pods-noveltyhrmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile/Pods-noveltyhrmobile.release.xcconfig"; sourceTree = "<group>"; };
 		540B23BA2513841D00C1895C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		543D562B251DC73A00273AE5 /* poppins.medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = poppins.medium.ttf; sourceTree = "<group>"; };
+		543D562D251DC74700273AE5 /* poppins.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = poppins.regular.ttf; sourceTree = "<group>"; };
+		545BA833251DCF23009B832F /* Mulish-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Bold.ttf"; sourceTree = "<group>"; };
+		545BA835251DCF29009B832F /* Mulish-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-SemiBold.ttf"; sourceTree = "<group>"; };
+		545BA837251DCF2F009B832F /* Mulish-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Regular.ttf"; sourceTree = "<group>"; };
 		546C166C2513793600BBD90A /* noveltyhrmobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = noveltyhrmobile.entitlements; path = noveltyhrmobile/noveltyhrmobile.entitlements; sourceTree = "<group>"; };
-		54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Suprema SemiBold.ttf"; sourceTree = "<group>"; };
-		54E150C825131ECA00261AB0 /* Suprema Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Suprema Thin.otf"; sourceTree = "<group>"; };
+		54C61654251DC07C003C7E60 /* poppins.semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = poppins.semibold.ttf; sourceTree = "<group>"; };
 		67C2C519ADD047E562D47B7B /* Pods-noveltyhrmobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-tvOSTests/Pods-noveltyhrmobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D4EDA9F09A6C22C254AC595 /* Pods-noveltyhrmobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-tvOS/Pods-noveltyhrmobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7F154751E0320723B1AF00D0 /* Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-noveltyhrmobileTests/Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,8 +169,12 @@
 		54E150CB2513209E00261AB0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				54E150C625131EC400261AB0 /* Suprema SemiBold.ttf */,
-				54E150C825131ECA00261AB0 /* Suprema Thin.otf */,
+				545BA837251DCF2F009B832F /* Mulish-Regular.ttf */,
+				545BA835251DCF29009B832F /* Mulish-SemiBold.ttf */,
+				545BA833251DCF23009B832F /* Mulish-Bold.ttf */,
+				543D562D251DC74700273AE5 /* poppins.regular.ttf */,
+				543D562B251DC73A00273AE5 /* poppins.medium.ttf */,
+				54C61654251DC07C003C7E60 /* poppins.semibold.ttf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -360,10 +372,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				54E150C725131EC400261AB0 /* Suprema SemiBold.ttf in Resources */,
+				545BA834251DCF23009B832F /* Mulish-Bold.ttf in Resources */,
+				543D562C251DC73A00273AE5 /* poppins.medium.ttf in Resources */,
 				540B23BB2513841D00C1895C /* GoogleService-Info.plist in Resources */,
+				54C61655251DC07C003C7E60 /* poppins.semibold.ttf in Resources */,
+				545BA836251DCF29009B832F /* Mulish-SemiBold.ttf in Resources */,
+				545BA838251DCF2F009B832F /* Mulish-Regular.ttf in Resources */,
+				543D562E251DC74700273AE5 /* poppins.regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				54E150C925131ECA00261AB0 /* Suprema Thin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,7 +34,10 @@ const requestStyle = StyleSheet.create({
     alignItems: "center",
   },
   space: {
-    paddingHorizontal: normalize(5),
+    ...Platform.select({
+      ios: { paddingHorizontal: normalize(theme.spacing.wide) },
+      android: { paddingHorizontal: normalize(theme.spacing.wider) },
+    }),
   },
   buttonContainer: {
     flexDirection: "row",
@@ -95,8 +98,13 @@ const requestStyle = StyleSheet.create({
   },
   progress: {
     backgroundColor: colors.yellow,
-    padding: normalize(5),
     borderRadius: normalize(20),
+    ...Platform.select({
+      ios: { padding: normalize(3) },
+      android: {
+        padding: normalize(5),
+      },
+    }),
   },
 });
 

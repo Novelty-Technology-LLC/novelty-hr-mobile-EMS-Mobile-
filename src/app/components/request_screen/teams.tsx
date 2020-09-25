@@ -21,6 +21,7 @@ const Teams = () => {
                   style={style.image}
                   source={require('../../../assets/images/person.jpeg')}
                 />
+                <View style={style.spacing}></View>
                 <View style={style.nameView}>
                   <Text style={style.name}>
                     {val.name.length > 14
@@ -37,4 +38,4 @@ const Teams = () => {
   );
 };
 
-export default Teams;
+export { Teams };

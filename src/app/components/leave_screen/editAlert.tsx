@@ -23,6 +23,7 @@ const EditAlert = ({ item }: any) => {
       >
         <AppIcon name="square-edit-outline" color={colors.primary} size={13} />
       </TouchableOpacity>
+      <View style={style.spacer}></View>
       <Dialog.Container
         visible={showAlert}
         contentStyle={style.dialogContainer}
