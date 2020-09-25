@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { useDarkMode } from "react-native-dynamic";
 
 const color = {
@@ -6,9 +7,10 @@ const color = {
 };
 
 const fonts = {
-  PoppinsSemibold: "Poppins-SemiBold",
-  poppinsMedium: "Poppins-Medium",
-  poppinsRegular: "Poppins-Regular",
+  PoppinsSemibold:
+    Platform.OS === "ios" ? "Poppins-SemiBold" : "poppins.semibold",
+  poppinsMedium: Platform.OS === "ios" ? "Poppins-Medium" : "poppins.medium",
+  poppinsRegular: Platform.OS === "ios" ? "Poppins-Regular" : "poppins.regular",
   mulishRegular: "Mulish-Regular",
 };
 
