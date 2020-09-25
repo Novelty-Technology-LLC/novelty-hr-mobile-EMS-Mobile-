@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import colors from '../../../assets/colors';
 import { requestStyle as style } from '../../../assets/styles';
 import AppIcon from '../../common/icon';
 const State = ({ state, children }: { state: string }) => {
+  const platform = Platform.OS;
+
   return (
     <View style={style.row}>
       {state === 'Approved' && (
@@ -15,7 +17,7 @@ const State = ({ state, children }: { state: string }) => {
       )}
       {state === 'Denied' && (
         <>
-          <AppIcon name="alert-circle" size={16} color={colors.tomato} />
+          <AppIcon name="alert-circle" size={18} color={colors.tomato} />
           <View style={style.space}></View>
           <Text style={style.state}>{state}</Text>
         </>
@@ -25,7 +27,11 @@ const State = ({ state, children }: { state: string }) => {
           <View style={style.main}>
             <View style={style.wrapper}>
               <View style={style.progress}>
-                <AppIcon name="timer-sand" size={10} color={colors.white} />
+                <AppIcon
+                  name="timer-sand"
+                  size={platform === 'ios' ? 10 : 12}
+                  color={colors.white}
+                />
               </View>
               <View style={style.space}></View>
               <Text style={style.state}>{state}</Text>
@@ -37,8 +43,13 @@ const State = ({ state, children }: { state: string }) => {
         <>
           <View style={style.main}>
             <View style={style.wrapper}>
-              <View style={style.requested}>
-                <AppIcon name="send" size={10} color={colors.white} />
+              <View>
+                <AppIcon
+                  style={style.icon}
+                  name="send"
+                  size={platform === 'ios' ? 10 : 10}
+                  color={colors.white}
+                />
               </View>
               <View style={style.space}></View>
               <Text style={style.state}>{state}</Text>

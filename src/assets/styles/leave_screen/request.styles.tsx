@@ -1,13 +1,13 @@
-import { StyleSheet, Platform } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import { theme, fonts } from "../theme";
+import { StyleSheet, Platform } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
+import { theme, fonts } from '../theme';
 
 const requestStyle = StyleSheet.create({
   container: {
     paddingVertical: normalize(20),
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginLeft: normalize(20),
     paddingLeft: normalize(15),
     marginRight: normalize(20),
@@ -17,11 +17,11 @@ const requestStyle = StyleSheet.create({
     marginVertical: 7,
   },
   main: {
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
-  wrapper: { flexDirection: "row" },
+  wrapper: { flexDirection: 'row' },
   requestDate: {
     marginTop: normalize(theme.spacing.wide),
     fontSize: normalize(theme.size.xxs),
@@ -44,15 +44,27 @@ const requestStyle = StyleSheet.create({
     fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,
   },
-  stateView: { flexDirection: "column" },
+  icon: {
+    transform: [{ rotate: '-40deg' }],
+    backgroundColor: colors.primary,
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        padding: normalize(2.9),
+        borderRadius: normalize(8),
+      },
+      android: { padding: normalize(5), borderRadius: normalize(14) },
+    }),
+  },
+  stateView: { flexDirection: 'column' },
   state: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
   },
   row: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   space: {
     ...Platform.select({
@@ -61,17 +73,17 @@ const requestStyle = StyleSheet.create({
     }),
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: normalize(20),
   },
   buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
   buttonViewApprove: {
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(8),
-    alignItems: "center",
+    alignItems: 'center',
     fontSize: normalize(theme.size.xs),
-    justifyContent: "center",
+    justifyContent: 'center',
     backgroundColor: colors.primary,
     ...Platform.select({
       ios: {
@@ -85,8 +97,8 @@ const requestStyle = StyleSheet.create({
   buttonViewDeny: {
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(8),
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: normalize(theme.size.xs),
     ...Platform.select({
       ios: {
@@ -108,8 +120,8 @@ const requestStyle = StyleSheet.create({
   },
   subcontainer: {
     width: normalize(200),
-    alignItems: "flex-end",
-    justifyContent: "space-between",
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
     paddingHorizontal: normalize(10),
     paddingRight: normalize(18),
   },
@@ -120,17 +132,6 @@ const requestStyle = StyleSheet.create({
   },
   progress: {
     backgroundColor: colors.yellow,
-    borderRadius: normalize(20),
-    ...Platform.select({
-      ios: { padding: normalize(3) },
-      android: {
-        padding: normalize(5),
-      },
-    }),
-  },
-  requested: {
-    backgroundColor: colors.yellow,
-    fontFamily: "Poppind-Medium",
     borderRadius: normalize(20),
     ...Platform.select({
       ios: { padding: normalize(3) },
