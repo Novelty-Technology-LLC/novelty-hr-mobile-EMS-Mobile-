@@ -65,6 +65,7 @@ const requestStyle = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   space: {
     ...Platform.select({
