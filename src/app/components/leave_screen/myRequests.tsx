@@ -1,22 +1,22 @@
-import React, { useState, useContext } from "react";
-import { View, Text, FlatList } from "react-native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import React, { useState, useContext } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-import { myRequestsStyle as style } from "../../../assets/styles";
-import History from "./history";
-import { Request } from "./request";
-import Swipe from "./swipe";
-import colors from "../../../assets/colors";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
-import { RequestContext } from "../../reducer";
-import AppIcon from "../../common/icon";
+import { myRequestsStyle as style } from '../../../assets/styles';
+import History from './history';
+import { Request } from './request';
+import Swipe from './swipe';
+import colors from '../../../assets/colors';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { RequestContext } from '../../reducer';
+import AppIcon from '../../common/icon';
 
 const MyRequests = () => {
   const navigation = useNavigation();
   const { requests } = useContext(RequestContext);
 
-  const [toggle, setToggle] = useState("toggle-switch");
+  const [toggle, setToggle] = useState('toggle-switch');
 
   return (
     <View style={style.container}>
@@ -28,16 +28,16 @@ const MyRequests = () => {
           <TouchableWithoutFeedback
             onPress={() => {
               setToggle(
-                toggle === "toggle-switch"
-                  ? "toggle-switch-off"
-                  : "toggle-switch"
+                toggle === 'toggle-switch'
+                  ? 'toggle-switch-off'
+                  : 'toggle-switch'
               );
             }}
           >
             <AppIcon
               name={toggle}
               color={
-                toggle === "toggle-switch" ? colors.primary : colors.secondary
+                toggle === 'toggle-switch' ? colors.primary : colors.secondary
               }
               size={35}
             />
@@ -53,7 +53,7 @@ const MyRequests = () => {
               <Request
                 item={item.item}
                 other={false}
-                onPress={() => navigation.navigate("requestDetail", item.item)}
+                onPress={() => navigation.navigate('requestDetail', item.item)}
               />
             </Swipeable>
           )}
@@ -65,7 +65,7 @@ const MyRequests = () => {
         </View>
       )}
 
-      {toggle === "toggle-switch" && <History />}
+      {toggle === 'toggle-switch' && <History />}
     </View>
   );
 };
