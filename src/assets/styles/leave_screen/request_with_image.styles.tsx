@@ -21,7 +21,12 @@ const requestWithImageStyle = StyleSheet.create({
     color: colors.fontBlack,
     fontFamily: fonts.mulishBold,
   },
-  date: { flexDirection: 'row', paddingTop: normalize(10) },
+  date: {
+    paddingTop: normalize(5),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
   type: {
     fontSize: normalize(theme.size.xs),
     color: colors.secondary,
