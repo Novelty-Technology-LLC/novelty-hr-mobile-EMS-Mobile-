@@ -1,4 +1,17 @@
-import { paix } from 'paix';
+const clone = (obj) => Object.assign({}, obj);
+
+const renameKey = (old, newobj) => {
+  const clonedObj = clone(old);
+
+  for (let key in clonedObj) {
+    if (newobj.hasOwnProperty(key)) {
+      const targetKey = clonedObj[key];
+      delete clonedObj[key];
+      clonedObj[newobj[key]] = targetKey;
+    }
+  }
+  return clonedObj;
+};
 
 const mapDataToObject = (profile: any) => {
   const replacement = {
@@ -22,7 +35,7 @@ const mapDataToObject = (profile: any) => {
     }
   }
 
-  const modified_object = paix(user, replacement);
+  const modified_object = renameKey(user, replacement);
 
   return {
     ...modified_object,
