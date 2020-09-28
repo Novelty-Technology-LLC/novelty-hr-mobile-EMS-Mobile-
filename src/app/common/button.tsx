@@ -5,7 +5,9 @@ const button = ({ style, title, onPress }) => {
   return (
     <>
       <TouchableOpacity onPress={onPress}>
-        <View>{title && <Text style={style}>{title}</Text>}</View>
+        <View style={style.buttonView}>
+          {title && <Text style={style.buttonText}>{title}</Text>}
+        </View>
       </TouchableOpacity>
     </>
   );

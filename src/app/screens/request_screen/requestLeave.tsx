@@ -67,13 +67,11 @@ const RequestLeave = () => {
                 <Teams />
                 <Leavetype handleChange={handleChange} />
                 <Description handleChange={handleChange} />
-                <View style={style.buttonView}>
-                  <Button
-                    style={style.buttonText}
-                    title={'Submit Request'}
-                    onPress={() => handleSubmit()}
-                  />
-                </View>
+                <Button
+                  style={style}
+                  title={'Submit Request'}
+                  onPress={() => console.log('button pressed')}
+                />
               </>
             )}
           </Formik>
