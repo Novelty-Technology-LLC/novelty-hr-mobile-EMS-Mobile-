@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import { requestWithImageStyle as style } from "../../../assets/styles";
-import colors from "../../../assets/colors";
-import AppIcon from "../../common/icon";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { requestWithImageStyle as style } from '../../../assets/styles';
+import colors from '../../../assets/colors';
+import AppIcon from '../../common/icon';
 
 const RequestWithImage = ({ item, onPress }: any) => {
   return (
@@ -10,7 +10,7 @@ const RequestWithImage = ({ item, onPress }: any) => {
       <View style={style.row}>
         <Image
           style={style.image}
-          source={require("../../../assets/images/person.jpeg")}
+          source={require('../../../assets/images/person.jpeg')}
         />
         <View>
           <Text style={style.name}>{item.sender}</Text>

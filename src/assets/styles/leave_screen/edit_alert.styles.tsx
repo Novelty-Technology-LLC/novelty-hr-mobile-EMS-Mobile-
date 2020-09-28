@@ -1,20 +1,20 @@
-import { StyleSheet, Platform } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import { fonts, theme } from "../theme";
+import { StyleSheet, Platform } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
+import { fonts, theme } from '../theme';
 
 const editAlertStyle = StyleSheet.create({
   dialogContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    width: "92%",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '92%',
     borderRadius: normalize(4),
     paddingBottom: normalize(20),
     paddingHorizontal: normalize(20),
   },
   main: {
-    width: "100%",
+    width: '100%',
     paddingTop: normalize(20),
   },
   gap: { flex: 1 },
@@ -23,7 +23,7 @@ const editAlertStyle = StyleSheet.create({
     paddingBottom: normalize(15),
   },
   title: {
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: normalize(theme.size.base),
   },
   cancel: {
@@ -42,10 +42,10 @@ const editAlertStyle = StyleSheet.create({
     }),
   },
   buttons: {
-    width: "100%",
+    width: '100%',
     paddingTop: normalize(15),
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   note: {
     color: colors.secondary,
@@ -53,8 +53,8 @@ const editAlertStyle = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
   },
   row: {
-    flexDirection: "row",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     paddingTop: normalize(10),
   },
   textareaContainer: {
@@ -65,7 +65,7 @@ const editAlertStyle = StyleSheet.create({
   },
   textArea: {
     height: normalize(130),
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
     padding: normalize(15),
   },
 });

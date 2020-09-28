@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import Dialog from "react-native-dialog";
-import colors from "../../../assets/colors";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import Dialog from 'react-native-dialog';
+import colors from '../../../assets/colors';
 import {
   deleteAlertStyle,
   editAlertStyle as style,
-} from "../../../assets/styles";
-import RequestWithImage from "./requestWithImage";
-import State from "./state";
-import Textarea from "react-native-textarea";
-import AppIcon from "../../common/icon";
+} from '../../../assets/styles';
+import RequestWithImage from './requestWithImage';
+import State from './state';
+import Textarea from 'react-native-textarea';
+import AppIcon from '../../common/icon';
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -44,9 +44,9 @@ const EditAlert = ({ item }: any) => {
             containerStyle={style.textareaContainer}
             style={style.textArea}
             maxLength={120}
-            placeholder={"Write a short note for your response"}
-            placeholderTextColor={"#c7c7c7"}
-            underlineColorAndroid={"transparent"}
+            placeholder={'Write a short note for your response'}
+            placeholderTextColor={'#c7c7c7'}
+            underlineColorAndroid={'transparent'}
             // onChangeText={}
           />
         </View>

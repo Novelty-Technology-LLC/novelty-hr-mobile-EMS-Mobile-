@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import ScreenStack from "./screenStack";
-import { AuthContext, useAuth } from "../reducer";
-import { getToken } from "../utils";
-import { Text } from "react-native-svg";
-import { Login } from "../screens";
-import { createStackNavigator } from "@react-navigation/stack";
-import TabNavigator from "./tabNavigator";
+import React, { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { AuthContext, useAuth } from '../reducer';
+import { getToken } from '../utils';
+import { Text } from 'react-native-svg';
+import { Login } from '../screens';
+import { createStackNavigator } from '@react-navigation/stack';
+import TabNavigator from './tabNavigator';
 
 const Root = createStackNavigator();
 
@@ -17,7 +16,7 @@ const RootNavigation = () => {
     const bootstrapAsync = async () => {
       try {
         let userToken = await getToken();
-        dispatch({ type: "RESTORE_TOKEN", token: userToken });
+        dispatch({ type: 'RESTORE_TOKEN', token: userToken });
       } catch (e) {}
     };
 
