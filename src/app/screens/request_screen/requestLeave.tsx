@@ -50,8 +50,7 @@ const RequestLeave = () => {
       ...values,
       leave_date: date,
     };
-    console.log('submit -> ', requestData);
-    return;
+
     submitRequest(requestData);
   };
 
