@@ -5,7 +5,7 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
 import {
@@ -19,6 +19,7 @@ import { button as Button } from '../../common';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { postRequest } from '../../services';
+import { onChange } from 'react-native-reanimated';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -29,7 +30,7 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   date: '',
-  status: 'Paid time off',
+  leaveType: 'Paid time off',
   description: '',
   lead: '',
 };
@@ -50,7 +51,6 @@ const RequestLeave = () => {
       ...values,
       leave_date: date,
     };
-
     submitRequest(requestData);
   };
 
