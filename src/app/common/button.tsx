@@ -11,7 +11,7 @@ const button = ({ style, title, onPress }) => {
   return (
     <>
       <TouchableOpacity onPress={onPress}>
-        <View>{title && <Text style={style}>{title}</Text>}</View>
+        {title && <Text style={style}>{title}</Text>}
       </TouchableOpacity>
     </>
   );

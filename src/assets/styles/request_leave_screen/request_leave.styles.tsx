@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
@@ -16,18 +16,27 @@ const requestLeave = StyleSheet.create({
   },
   buttonView: {
     marginTop: normalize(23),
-    marginHorizontal: normalize(20),
-    paddingVertical: normalize(15),
-    borderRadius: normalize(6),
-    marginBottom: normalize(10),
-    backgroundColor: color.primary,
     display: 'flex',
+    marginBottom: normalize(20),
   },
   buttonText: {
+    backgroundColor: color.primary,
     fontFamily: fonts.mulishBold,
+    paddingVertical: normalize(20),
     color: color.white,
     alignSelf: 'center',
+    overflow: 'hidden',
     fontSize: normalize(theme.size.base),
+    ...Platform.select({
+      ios: {
+        borderRadius: normalize(4),
+        paddingHorizontal: normalize(105),
+      },
+      android: {
+        borderRadius: normalize(5),
+        paddingHorizontal: normalize(115),
+      },
+    }),
   },
 });
 

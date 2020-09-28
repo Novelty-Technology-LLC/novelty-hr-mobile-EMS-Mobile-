@@ -22,6 +22,14 @@ const editAlertStyle = StyleSheet.create({
   titleView: {
     paddingBottom: normalize(15),
   },
+  stateView: {
+    ...Platform.select({
+      ios: { paddingTop: normalize(2) },
+      android: {
+        paddingTop: normalize(5),
+      },
+    }),
+  },
   title: {
     fontWeight: '700',
     fontSize: normalize(theme.size.base),

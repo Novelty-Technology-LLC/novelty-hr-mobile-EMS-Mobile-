@@ -3,11 +3,9 @@ import React, { useReducer } from 'react';
 const AuthReducer = (prevState, action) => {
   switch (action.type) {
     case 'RESTORE_TOKEN':
-      let restore_token = action.token ? JSON.parse(action.token).token : null;
-
       return {
         ...prevState,
-        userToken: restore_token,
+        userToken: action.token,
         isLoading: false,
       };
 
@@ -15,7 +13,7 @@ const AuthReducer = (prevState, action) => {
       return {
         ...prevState,
         isSignout: false,
-        userToken: action.token.token,
+        userToken: action.token,
       };
     case 'SIGN_OUT':
       return {

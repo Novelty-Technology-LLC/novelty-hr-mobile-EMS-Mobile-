@@ -10,8 +10,14 @@ import Request from '../../components/approveRequest/approve_request';
 const ApproveRequest = ({ route }: any) => {
   const { date, id, sender, state, type } = route.params;
 
-  const Approve = () => {};
-  const Deny = () => {};
+  const Approve = (res) => {
+    route.params['state'] = res;
+    console.log('state -> ', route.params);
+  };
+  const Deny = (res) => {
+    route.params['state'] = res;
+    console.log('state -> ', route.params);
+  };
 
   return (
     <>
@@ -24,9 +30,13 @@ const ApproveRequest = ({ route }: any) => {
         <Button
           title="Approve"
           style={style.buttonApprove}
-          onPress={() => Approve()}
+          onPress={() => Approve('Approved')}
         />
-        <Button title="Deny" style={style.buttonDeny} onPress={() => Deny()} />
+        <Button
+          title="Deny"
+          style={style.buttonDeny}
+          onPress={() => Deny('Denied')}
+        />
       </View>
     </>
   );

@@ -36,7 +36,9 @@ const EditAlert = ({ item }: any) => {
         <View style={style.row}>
           <RequestWithImage item={item} />
           <View style={style.gap}></View>
-          <State state={item.state} />
+          <View style={style.stateView}>
+            <State state={item.state} />
+          </View>
         </View>
         <View style={style.main}>
           <Text style={style.note}>You can attach a note if you want</Text>

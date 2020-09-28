@@ -33,7 +33,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
             <View style={style.subcontainer}>
               <Text style={style.days}>5 days ago</Text>
               <View style={style.buttonContainer}>
-                <View style={style.buttonViewApprove}>
+                <View style={style.buttonView}>
                   <Button
                     title="Approve"
                     style={style.buttonApprove}
@@ -41,7 +41,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                   />
                 </View>
                 <View style={style.buttonSpacer}></View>
-                <View style={style.buttonViewDeny}>
+                <View style={style.buttonView}>
                   <Button
                     title="Deny"
                     style={style.buttonDeny}

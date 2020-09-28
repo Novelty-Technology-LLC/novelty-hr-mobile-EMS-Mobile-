@@ -9,20 +9,22 @@ import appleAuth, {
 } from '@invertase/react-native-apple-authentication';
 
 import { storeToken } from '../utils';
-import { snackErrorBottom } from '../common';
+import { snackErrorBottom } from '../common/error';
+import { create } from '../services';
+import { mapDataToObject } from '../utils';
 
-const signInGoogle = async (dispatch) => {
+const signInGoogle = async (dispatch: any) => {
   try {
     await GoogleSignin.hasPlayServices();
-    const userInfo = await GoogleSignin.signIn();
+    const userInfo: any = await GoogleSignin.signIn();
 
     if (!userInfo.idToken) throw new Error('Error while sign in');
+    delete userInfo.user.name;
 
-    userInfo.user['token'] = userInfo.idToken;
-    delete userInfo.idToken;
-
-    storeToken(userInfo.user);
-    dispatch({ type: 'SIGN_IN', token: userInfo.user });
+    const userData = mapDataToObject(userInfo.user);
+    await create(userData);
+    storeToken(userInfo.idToken);
+    dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
@@ -30,11 +32,11 @@ const signInGoogle = async (dispatch) => {
   }
 };
 
-const signInApple = async (dispatch) => {
+const signInApple = async (dispatch: any) => {
   try {
     if (!appleAuth.isSupported) throw new Error('Apple signin not supported');
 
-    const data = await appleAuth.performRequest({
+    const data: any = await appleAuth.performRequest({
       requestedOperation: AppleAuthRequestOperation.LOGIN,
       requestedScopes: [
         AppleAuthRequestScope.EMAIL,
@@ -43,14 +45,17 @@ const signInApple = async (dispatch) => {
     });
 
     if (!data.identityToken || !data.email)
-      throw new Error('Please provide email');
+      throw new Error('Please provide your email.');
 
     data.fullName['email'] = data.email;
     data.fullName['token'] = data.identityToken;
-    delete data.identityToken;
+    data.fullName['id'] = data.user;
 
-    storeToken(data.fullName);
-    dispatch({ type: 'SIGN_IN', token: data.fullName });
+    const userData = mapDataToObject(data.fullName);
+    await create(userData);
+
+    storeToken(data.identityToken);
+    dispatch({ type: 'SIGN_IN', token: data.identityToken });
   } catch (error) {
     snackErrorBottom(error);
   }

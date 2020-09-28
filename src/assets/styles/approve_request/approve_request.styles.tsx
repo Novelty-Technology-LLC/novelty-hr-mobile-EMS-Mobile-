@@ -150,6 +150,7 @@ const approveRequest = StyleSheet.create({
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.primary,
     color: colors.white,
+    overflow: 'hidden',
     fontWeight: '600',
     ...Platform.select({
       ios: {

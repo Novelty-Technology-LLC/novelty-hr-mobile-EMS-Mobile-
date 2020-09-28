@@ -13,10 +13,10 @@ const headerStyle = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: colors.white,
   },
-
   textView: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
