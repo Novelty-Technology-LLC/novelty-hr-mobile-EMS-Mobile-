@@ -23,7 +23,7 @@ import { onChange } from 'react-native-reanimated';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
-  leaveType: Yup.string().required().label('leaveType'),
+  status: Yup.string().required().label('status'),
   description: Yup.string().required().label('description'),
   lead: Yup.string().required().label('lead'),
 });
@@ -32,6 +32,7 @@ const initialValues = {
   date: '',
   leaveType: 'Paid time off',
   description: '',
+  lead: '',
 };
 
 const submitRequest = (data) => {
