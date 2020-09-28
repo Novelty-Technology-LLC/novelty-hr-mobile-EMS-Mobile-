@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { header as Header } from '../../common/header';
+import { header as Header } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
@@ -14,7 +14,8 @@ import {
   Leavetype,
   Description,
 } from '../../components/request_screen';
-import Button from '../../common/button';
+import { button as Button } from '../../common';
+
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -26,7 +27,7 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   date: '',
-  leaveType: 'paid time of',
+  leaveType: 'Paid time off',
   description: '',
 };
 
@@ -43,6 +44,7 @@ const RequestLeave = () => {
 
     values.startDate = startDate;
     values.endDate = endDate;
+
     console.log('values -> ', values);
   };
 

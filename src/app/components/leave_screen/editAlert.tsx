@@ -9,7 +9,7 @@ import {
 import RequestWithImage from './requestWithImage';
 import State from './state';
 import Textarea from 'react-native-textarea';
-import AppIcon from '../../common/icon';
+import { AppIcon } from '../../common';
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);

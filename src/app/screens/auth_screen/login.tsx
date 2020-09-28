@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from "react";
-import { Text, View, Image, Platform } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { AuthContext } from "../../reducer";
-import { loginStyle as style } from "../../../assets/styles";
-import { GoogleConfig } from "../../utils";
-import { signInApple, signInGoogle } from "../../services";
-import Svg, { Path } from "react-native-svg";
+import React, { useEffect, useContext } from 'react';
+import { Text, View, Platform } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AuthContext } from '../../reducer';
+import { loginStyle as style } from '../../../assets/styles';
+import { GoogleConfig } from '../../utils';
+import { signInApple, signInGoogle } from '../../services';
+import Svg, { Path } from 'react-native-svg';
 
 const Login = () => {
   const { dispatch } = useContext(AuthContext);
@@ -52,7 +52,7 @@ const Login = () => {
             </Svg>
           </TouchableOpacity>
 
-          {Platform.OS === "ios" && (
+          {Platform.OS === 'ios' && (
             <View style={style.iconView}>
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}

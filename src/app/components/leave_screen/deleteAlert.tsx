@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import AppIcon from '../../common/icon';
+import { AppIcon } from '../../common';
 import { RequestContext } from '../../reducer';
 
 const DeleteAlert = ({ item }: any) => {

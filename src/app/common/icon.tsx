@@ -5,4 +5,4 @@ const AppIcon = ({ name, color, size }: any) => {
   return <Icon name={name} color={color} size={size} />;
 };
 
-export default AppIcon;
+export { AppIcon };

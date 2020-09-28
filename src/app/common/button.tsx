@@ -1,7 +1,13 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 
-const button = ({ style, title, onPress }) => {
+interface buttonPropType {
+  style: object;
+  title: string;
+  onPress: Function;
+}
+
+const button = ({ style, title, onPress }: buttonPropType) => {
   return (
     <>
       <TouchableOpacity onPress={onPress}>
@@ -11,4 +17,4 @@ const button = ({ style, title, onPress }) => {
   );
 };
 
-export default button;
+export { button };

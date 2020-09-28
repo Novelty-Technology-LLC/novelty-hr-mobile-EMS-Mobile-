@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
-import { header as Header } from '../../common/header';
 import Async from '@react-native-community/async-storage';
 import { AuthContext } from '../../reducer';
 import { headerText } from '../../../assets/styles';
+import { header as Header } from '../../common';
 
 const LeaveApproval = () => {
   const { dispatch } = useContext(AuthContext);

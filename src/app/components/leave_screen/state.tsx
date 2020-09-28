@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import colors from '../../../assets/colors';
 import { requestStyle as style } from '../../../assets/styles';
-import AppIcon from '../../common/icon';
-const State = ({ state, children }: { state: string }) => {
+import { AppIcon } from '../../common';
+const State = ({ state, children }: { state: string; children?: any }) => {
   return (
     <View style={style.row}>
       {state === 'Approved' && (

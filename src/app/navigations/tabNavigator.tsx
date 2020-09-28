@@ -2,8 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenStack from './screenStack';
 import colors from '../../assets/colors';
-import AppIcon from '../common/icon';
 import { ComingSoon } from '../screens';
+import { AppIcon } from '../common';
 
 const Tab = createBottomTabNavigator();
 

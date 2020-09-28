@@ -14,7 +14,7 @@ function Leavetype({ handleChange }) {
         <View style={style.body}>
           <TouchableOpacity
             onPress={() => {
-              setType(1), handleChange('leaveType')('paid time of');
+              setType(1), handleChange('leaveType')('Paid time off');
             }}
           >
             <View style={type == 1 ? style.paidView : style.floatingView}>

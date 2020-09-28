@@ -3,9 +3,16 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
-import Button from '../../common/button';
+import { button as Button } from '../../common';
 
-const Request = ({ item, other, recieved, onPress }: any) => {
+interface requestPropType {
+  item: object;
+  other?: boolean;
+  recieved?: boolean;
+  onPress: Function;
+}
+
+const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   return (
     <>
       {!other ? (
