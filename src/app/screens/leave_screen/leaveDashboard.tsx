@@ -19,9 +19,12 @@ const LeaveDashboard = () => {
   const [daysDetails, setDaysDetails] = useState([]);
 
   useEffect(() => {
-    getLeaveQuota()
-      .then((data) => setDaysDetails(data))
-      .catch((err) => console.log(err));
+    const getData = () => {
+      getLeaveQuota()
+        .then((data) => setDaysDetails(data))
+        .catch((err) => console.log("GetLeaveQuota error", err));
+    };
+    getData();
   }, []);
 
   return (

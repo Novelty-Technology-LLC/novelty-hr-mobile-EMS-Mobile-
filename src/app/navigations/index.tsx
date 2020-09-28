@@ -1,60 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenStack from './screenStack';
-import colors from '../../assets/colors';
+import { AuthContext, useAuth } from '../reducer';
+import { getToken } from '../utils';
+import { Text } from 'react-native-svg';
+import { Login } from '../screens';
+import { createStackNavigator } from '@react-navigation/stack';
+import TabNavigator from './tabNavigator';
 
-const Tab = createBottomTabNavigator();
+const Root = createStackNavigator();
 
 const RootNavigation = () => {
-  return (
-    <NavigationContainer>
-      {/* <Tab.Navigator
-        tabBarOptions={{
-          activeTintColor: colors.primary,
-          showLabel: false,
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={ScreenStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Activity"
-          component={ScreenStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="timer" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ScreenStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="account" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Setting"
-          component={ScreenStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="cog" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator> */}
-      <ScreenStack />
-    </NavigationContainer>
-  );
+  const { state, dispatch } = useAuth();
+
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      try {
+        let userToken = await getToken();
+
+        dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      } catch (e) {}
+    };
+
+    bootstrapAsync();
+  }, []);
+
+  if (state.isLoading) {
+    return <Text>Hello</Text>;
+  } else {
+    return (
+      <NavigationContainer>
+        <AuthContext.Provider value={{ state, dispatch }}>
+          <Root.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            {state.userToken === null ? (
+              <Root.Screen name="login" component={Login} />
+            ) : (
+              <Root.Screen name="tab" component={TabNavigator} />
+            )}
+          </Root.Navigator>
+        </AuthContext.Provider>
+      </NavigationContainer>
+    );
+  }
 };
 
 export default RootNavigation;
