@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, ScrollView, Text } from "react-native";
 import { header as Header } from "../../common/header";
 import { DaysRemaining, MyRequests } from "../../components";
@@ -10,11 +10,19 @@ import { RequestContext, useRequest } from "../../reducer";
 import { headerText } from "../../../assets/styles";
 import { AuthContext } from "../../reducer";
 import { removeToken } from "../../utils";
+import { getLeaveQuota } from "../../services";
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const { requests, dispatchRequest } = useRequest();
   const { dispatch } = useContext(AuthContext);
+  const [daysDetails, setDaysDetails] = useState([]);
+
+  useEffect(() => {
+    getLeaveQuota()
+      .then((data) => setDaysDetails(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <RequestContext.Provider value={{ requests, dispatchRequest }}>
@@ -29,8 +37,14 @@ const LeaveDashboard = () => {
         </Header>
         <ScrollView>
           <View style={style.container}>
-            <DaysRemaining total={5} remaining={4} title="Paid Time Offs" />
-            <DaysRemaining total={5} remaining={3} title="Floating Days" />
+            {daysDetails.length > 0 &&
+              daysDetails.map((daysDetail) => (
+                <DaysRemaining
+                  total={daysDetail.leave_total}
+                  remaining={daysDetail.leave_used}
+                  title={daysDetail.leave_type}
+                />
+              ))}
           </View>
           <View
             style={{
