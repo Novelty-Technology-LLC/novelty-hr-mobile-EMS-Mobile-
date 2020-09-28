@@ -19,11 +19,13 @@ import { button as Button } from '../../common';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { postRequest } from '../../services';
+import { onChange } from 'react-native-reanimated';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
   leaveType: Yup.string().required().label('leaveType'),
   description: Yup.string().required().label('description'),
+  lead: Yup.string().required().label('lead'),
 });
 
 const initialValues = {
@@ -40,23 +42,15 @@ const submitRequest = (data) => {
 
 const RequestLeave = () => {
   const onSubmit = (values: Object) => {
-    const startDate = new Date(JSON.parse(values.date).startDate)
-      .toString()
-      .slice(0, 10);
-    const endDate = new Date(JSON.parse(values.date).endDate)
-      .toString()
-      .slice(0, 10);
-
-    values.type = values.leaveType;
-    values.requestor_id = 5;
-    values.status = 'In Progress';
-    values.leave_date = {
-      startDate,
-      endDate,
-    };
+    const date = JSON.parse(values.date);
+    if (date['endDate'] === null) date['endDate'] = date['startDate'];
     delete values.date;
-    delete values.leaveType;
-    submitRequest(values);
+
+    const requestData = {
+      ...values,
+      leave_date: date,
+    };
+    submitRequest(requestData);
   };
 
   return (
@@ -77,7 +71,7 @@ const RequestLeave = () => {
             {({ handleChange, handleSubmit, values }) => (
               <>
                 <Calander style={style.calendar} handleChange={handleChange} />
-                <Teams />
+                <Teams handleChange={handleChange} />
                 <Leavetype handleChange={handleChange} />
                 <Description handleChange={handleChange} />
                 <View style={style.buttonView}>

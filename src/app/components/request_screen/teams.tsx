@@ -4,7 +4,7 @@ import { teamStyle as style } from '../../../assets/styles';
 import json from '../../../../fake.json';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-const Teams = () => {
+const Teams = ({ handleChange }) => {
   return (
     <View style={style.container}>
       <Text style={style.text}>Team Lead</Text>
@@ -16,7 +16,7 @@ const Teams = () => {
         <View style={style.wrapper}>
           {json.map((val, i) => {
             return (
-              <TouchableOpacity onPress={() => console.log('pressed photo')}>
+              <TouchableOpacity onPress={() => handleChange('lead')(val.name)}>
                 <View style={style.main} key={i}>
                   <Image
                     style={style.image}
