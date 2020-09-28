@@ -7,7 +7,7 @@ interface buttonPropType {
   onPress: Function;
 }
 
-const button = ({ style, title, onPress }: buttonPropType) => {
+const button = ({ style, title, onPress }) => {
   return (
     <>
       <TouchableOpacity onPress={onPress}>

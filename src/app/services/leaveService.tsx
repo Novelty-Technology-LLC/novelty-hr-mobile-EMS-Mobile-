@@ -26,7 +26,7 @@ export const postRequest = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.post('/leave', data);
-      resolve(res.data.data);
+      resolve(res);
     } catch (error) {
       reject({ success: false, message: error });
     }
