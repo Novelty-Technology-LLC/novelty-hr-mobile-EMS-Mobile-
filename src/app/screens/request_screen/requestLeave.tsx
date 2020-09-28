@@ -56,7 +56,6 @@ const RequestLeave = () => {
     };
     delete values.date;
     delete values.leaveType;
-    console.log('values -> ', values);
     submitRequest(values);
   };
 

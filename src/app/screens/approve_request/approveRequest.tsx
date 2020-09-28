@@ -12,11 +12,9 @@ const ApproveRequest = ({ route }: any) => {
 
   const Approve = (res) => {
     route.params['state'] = res;
-    console.log('state -> ', route.params);
   };
   const Deny = (res) => {
     route.params['state'] = res;
-    console.log('state -> ', route.params);
   };
 
   return (
