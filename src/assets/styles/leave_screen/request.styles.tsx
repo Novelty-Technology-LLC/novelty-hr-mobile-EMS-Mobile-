@@ -79,45 +79,42 @@ const requestStyle = StyleSheet.create({
     marginTop: normalize(20),
   },
   buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
-  buttonViewApprove: {
-    paddingHorizontal: normalize(20),
-    paddingVertical: normalize(8),
+
+  buttonView: {
     alignItems: 'center',
     fontSize: normalize(theme.size.xs),
     justifyContent: 'center',
-    backgroundColor: colors.primary,
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(6),
-      },
-    }),
-  },
-  buttonViewDeny: {
-    paddingHorizontal: normalize(20),
-    paddingVertical: normalize(8),
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: normalize(theme.size.xs),
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(6),
-      },
-    }),
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.primary,
   },
   buttonApprove: {
+    paddingHorizontal: normalize(18),
+    paddingVertical: normalize(10),
     color: colors.white,
+    backgroundColor: colors.primary,
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        borderRadius: normalize(3),
+      },
+      android: {
+        borderRadius: normalize(6),
+      },
+    }),
   },
   buttonDeny: {
+    paddingHorizontal: normalize(20),
+    paddingVertical: normalize(10),
     color: colors.primary,
+    borderColor: colors.primary,
+    borderWidth: 1,
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        borderRadius: normalize(3),
+      },
+      android: {
+        borderRadius: normalize(6),
+      },
+    }),
   },
   subcontainer: {
     width: normalize(200),
@@ -133,6 +130,17 @@ const requestStyle = StyleSheet.create({
   },
   progress: {
     backgroundColor: colors.yellow,
+    borderRadius: normalize(20),
+    ...Platform.select({
+      ios: { padding: normalize(3) },
+      android: {
+        padding: normalize(5),
+      },
+    }),
+  },
+  requested: {
+    backgroundColor: colors.yellow,
+    fontFamily: 'Poppind-Medium',
     borderRadius: normalize(20),
     ...Platform.select({
       ios: { padding: normalize(3) },

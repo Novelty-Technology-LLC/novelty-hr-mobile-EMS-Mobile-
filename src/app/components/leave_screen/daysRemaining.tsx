@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { daysRemainingStyle as style } from "../../../assets/styles/";
-import AnimateNumber from "react-native-countup";
+import React from 'react';
+import { View, Text } from 'react-native';
+import { daysRemainingStyle as style } from '../../../assets/styles/';
+import AnimateNumber from 'react-native-countup';
 
 interface DaysRemainingPropType {
   total: number;

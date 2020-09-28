@@ -4,15 +4,18 @@ import { header as Header } from '../../common/header';
 import { headerText } from '../../../assets/styles';
 import { approveRequest as style } from '../../../assets/styles';
 
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Button from '../../common/button';
+import { button as Button } from '../../common';
 import Request from '../../components/approveRequest/approve_request';
 
-const ApproveRequest = ({ route }) => {
+const ApproveRequest = ({ route }: any) => {
   const { date, id, sender, state, type } = route.params;
 
-  const Approve = () => {};
-  const Deny = () => {};
+  const Approve = (res) => {
+    route.params['state'] = res;
+  };
+  const Deny = (res) => {
+    route.params['state'] = res;
+  };
 
   return (
     <>
@@ -25,9 +28,13 @@ const ApproveRequest = ({ route }) => {
         <Button
           title="Approve"
           style={style.buttonApprove}
-          onPress={() => Approve()}
+          onPress={() => Approve('Approved')}
         />
-        <Button title="Deny" style={style.buttonDeny} onPress={() => Deny()} />
+        <Button
+          title="Deny"
+          style={style.buttonDeny}
+          onPress={() => Deny('Denied')}
+        />
       </View>
     </>
   );

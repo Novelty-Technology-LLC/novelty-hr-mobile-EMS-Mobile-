@@ -6,7 +6,7 @@ import State from '../leave_screen/state';
 
 const ar = [1, 2];
 
-const Request = ({ data, style }) => {
+const Request = ({ data, style }: any) => {
   const { date, id, sender, state, type } = data;
 
   return (

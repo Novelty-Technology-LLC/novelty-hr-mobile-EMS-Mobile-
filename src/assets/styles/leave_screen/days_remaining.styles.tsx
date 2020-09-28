@@ -1,24 +1,24 @@
-import { StyleSheet } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import color from "../../colors";
-import { fonts, theme } from "../theme";
+import { StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
+import color from '../../colors';
+import { fonts, theme } from '../theme';
 
 const daysRemainingStyle = StyleSheet.create({
   container: {
-    width: "50%",
-    alignItems: "center",
+    width: '50%',
+    alignItems: 'center',
     paddingBottom: normalize(40),
     borderBottomColor: color.border,
     borderBottomWidth: 1,
   },
   remaining: {
-    fontWeight: "300",
+    fontWeight: '300',
     fontSize: normalize(theme.size.xxl),
     fontFamily: fonts.mulishRegular,
   },
   total: {
-    fontWeight: "100",
+    fontWeight: '100',
     fontSize: normalize(theme.size.base),
     fontFamily: fonts.mulishRegular,
   },

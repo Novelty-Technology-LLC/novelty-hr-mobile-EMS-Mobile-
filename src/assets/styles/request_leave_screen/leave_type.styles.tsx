@@ -1,16 +1,16 @@
-import { StyleSheet } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import color from "../../colors";
-import { theme, fonts } from "../theme";
+import { StyleSheet, Platform } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
+import color from '../../colors';
+import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
   container: { borderBottomWidth: 1, borderBottomColor: color.border },
   wrapper: {
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     marginHorizontal: normalize(20),
     paddingTop: normalize(20),
     paddingBottom: normalize(20),
@@ -20,31 +20,54 @@ const leaveType = StyleSheet.create({
     fontSize: normalize(theme.size.md),
   },
   body: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
+    width: '100%',
+    flexDirection: 'row',
     paddingTop: normalize(20),
   },
   paidView: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: normalize(30),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: normalize(15),
     backgroundColor: color.buttonOrange,
     borderRadius: normalize(3),
+    ...Platform.select({
+      ios: {
+        paddingHorizontal: normalize(25),
+        borderRadius: normalize(3),
+      },
+      android: {
+        paddingHorizontal: normalize(35),
+        borderRadius: normalize(4),
+      },
+    }),
   },
   spacer: {
-    paddingHorizontal: theme.spacing.button,
+    ...Platform.select({
+      ios: {
+        paddingHorizontal: normalize(theme.spacing.button),
+      },
+      android: {
+        paddingHorizontal: normalize(theme.spacing.button),
+      },
+    }),
   },
   floatingView: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: normalize(35),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: normalize(15),
     backgroundColor: color.buttonGrey,
-    borderRadius: normalize(4),
+    ...Platform.select({
+      ios: {
+        paddingHorizontal: normalize(25),
+        borderRadius: normalize(3),
+      },
+      android: {
+        paddingHorizontal: normalize(35),
+        borderRadius: normalize(4),
+      },
+    }),
   },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
@@ -57,8 +80,8 @@ const leaveType = StyleSheet.create({
     color: colors.fontGrey,
   },
   buttonPaid: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
   },
   buttonFloat: {
     fontSize: normalize(theme.size.sm),

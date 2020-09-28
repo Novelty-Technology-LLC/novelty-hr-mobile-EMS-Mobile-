@@ -1,9 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { TouchableOpacity } from "react-native";
-import colors from "../../assets/colors";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { leaveDashboardStyle as style } from "../../assets/styles";
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import colors from '../../assets/colors';
+import { leaveDashboardStyle as style } from '../../assets/styles';
+import { AppIcon } from '../common';
 
 const RequestButton = () => {
   const navigation = useNavigation();
@@ -11,9 +11,9 @@ const RequestButton = () => {
     <>
       <TouchableOpacity
         style={style.plus}
-        onPress={() => navigation.navigate("requestLeave")}
+        onPress={() => navigation.navigate('requestLeave')}
       >
-        <Icon name="plus" color={colors.white} size={30} />
+        <AppIcon name="plus" color={colors.white} size={30} />
       </TouchableOpacity>
     </>
   );
