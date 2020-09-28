@@ -22,7 +22,7 @@ import { postRequest } from '../../services';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
-  leaveType: Yup.string().required().label('status'),
+  status: Yup.string().required().label('status'),
   description: Yup.string().required().label('description'),
   lead: Yup.string().required().label('lead'),
 });
@@ -31,6 +31,7 @@ const initialValues = {
   date: '',
   status: 'Paid time off',
   description: '',
+  lead: '',
 };
 
 const submitRequest = (data) => {
@@ -49,7 +50,8 @@ const RequestLeave = () => {
       ...values,
       leave_date: date,
     };
-
+    console.log('submit -> ', requestData);
+    return;
     submitRequest(requestData);
   };
 
