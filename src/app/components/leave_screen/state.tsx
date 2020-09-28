@@ -2,10 +2,9 @@ import React from 'react';
 import { View, Text, Platform } from 'react-native';
 import colors from '../../../assets/colors';
 import { requestStyle as style } from '../../../assets/styles';
-import AppIcon from '../../common/icon';
-const State = ({ state, children }: { state: string }) => {
-  const platform = Platform.OS;
+import { AppIcon } from '../../common';
 
+const State = ({ state, children }: { state: string; children?: any }) => {
   return (
     <View style={style.row}>
       {state === 'Approved' && (
@@ -29,7 +28,7 @@ const State = ({ state, children }: { state: string }) => {
               <View style={style.progress}>
                 <AppIcon
                   name="timer-sand"
-                  size={platform === 'ios' ? 10 : 12}
+                  size={Platform === 'ios' ? 10 : 12}
                   color={colors.white}
                 />
               </View>
@@ -47,7 +46,7 @@ const State = ({ state, children }: { state: string }) => {
                 <AppIcon
                   style={style.icon}
                   name="send"
-                  size={platform === 'ios' ? 10 : 10}
+                  size={Platform === 'ios' ? 10 : 10}
                   color={colors.white}
                 />
               </View>

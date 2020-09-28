@@ -9,7 +9,8 @@ import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import AppIcon from '../../common/icon';
+
+import { AppIcon } from '../../common';
 
 const OtherRequests = () => {
   const navigation = useNavigation();

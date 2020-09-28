@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { header as Header } from '../../common/header';
+import { header as Header } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
@@ -14,9 +14,11 @@ import {
   Leavetype,
   Description,
 } from '../../components/request_screen';
-import Button from '../../common/button';
+import { button as Button } from '../../common';
+
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { postRequest } from '../../services';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -26,8 +28,14 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   date: '',
-  leaveType: 'paid time of',
+  leaveType: 'Paid time off',
   description: '',
+};
+
+const submitRequest = (data) => {
+  postRequest(data)
+    .then((data) => console.log('data posted'))
+    .catch((err) => console.log(err));
 };
 
 const RequestLeave = () => {
@@ -39,11 +47,17 @@ const RequestLeave = () => {
       .toString()
       .slice(0, 10);
 
+    values.type = values.leaveType;
+    values.requestor_id = 5;
+    values.status = 'In Progress';
+    values.leave_date = {
+      startDate,
+      endDate,
+    };
     delete values.date;
-
-    values.startDate = startDate;
-    values.endDate = endDate;
+    delete values.leaveType;
     console.log('values -> ', values);
+    submitRequest(values);
   };
 
   return (

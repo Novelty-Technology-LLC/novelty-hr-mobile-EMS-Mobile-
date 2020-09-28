@@ -9,9 +9,10 @@ import appleAuth, {
 } from '@invertase/react-native-apple-authentication';
 
 import { storeToken } from '../utils';
-import { snackErrorBottom } from '../common/error';
+
 import { create } from '../services';
 import { mapDataToObject } from '../utils';
+import { snackErrorBottom } from '../common';
 
 const signInGoogle = async (dispatch: any) => {
   try {

@@ -4,10 +4,10 @@ import { header as Header } from '../../common/header';
 import { headerText } from '../../../assets/styles';
 import { approveRequest as style } from '../../../assets/styles';
 
-import Button from '../../common/button';
+import { button as Button } from '../../common';
 import Request from '../../components/approveRequest/approve_request';
 
-const ApproveRequest = ({ route }) => {
+const ApproveRequest = ({ route }: any) => {
   const { date, id, sender, state, type } = route.params;
 
   const Approve = (res) => {

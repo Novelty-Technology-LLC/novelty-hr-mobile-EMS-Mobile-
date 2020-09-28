@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { requestWithImageStyle as style } from '../../../assets/styles';
 import colors from '../../../assets/colors';
-import AppIcon from '../../common/icon';
+import { AppIcon } from '../../common';
 
 const RequestWithImage = ({ item, onPress }: any) => {
   return (

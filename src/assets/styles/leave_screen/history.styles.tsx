@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import { fonts, theme } from "../theme";
+import { StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
+import { fonts, theme } from '../theme';
 
 const historyStyle = StyleSheet.create({
   header: {
@@ -16,13 +16,13 @@ const historyStyle = StyleSheet.create({
     paddingBottom: normalize(40),
   },
   subcontainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginRight: normalize(20),
-    alignItems: "center",
+    alignItems: 'center',
   },
   line: {
     paddingTop: normalize(22),
-    width: "65%",
+    width: '65%',
     marginHorizontal: normalize(20),
     borderBottomColor: colors.border,
     borderBottomWidth: 1,

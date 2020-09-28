@@ -25,6 +25,7 @@ const leaveType = StyleSheet.create({
     paddingTop: normalize(20),
   },
   paidView: {
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: normalize(15),

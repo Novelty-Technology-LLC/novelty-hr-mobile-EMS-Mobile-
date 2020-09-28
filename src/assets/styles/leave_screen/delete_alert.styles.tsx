@@ -1,24 +1,24 @@
-import { Platform, StyleSheet } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import { fonts, theme } from "../theme";
+import { Platform, StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
+import { fonts, theme } from '../theme';
 
 const deleteAlertStyle = StyleSheet.create({
   dialogContainer: {
-    width: "92%",
+    width: '92%',
     borderRadius: 4,
   },
   container: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingBottom: normalize(20),
     paddingHorizontal: normalize(15),
   },
   main: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     marginLeft: normalize(10),
   },
   text1: {
@@ -31,8 +31,8 @@ const deleteAlertStyle = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
   },
   buttons: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
 
     ...Platform.select({
       ios: {
@@ -64,8 +64,8 @@ const deleteAlertStyle = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: colors.snow,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: normalize(8),
     borderRadius: normalize(50),
   },

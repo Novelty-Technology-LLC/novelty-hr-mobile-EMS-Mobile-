@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   ApproveRequest,
   LeaveApproval,
   LeaveDashboard,
   RequestDetail,
   RequestLeave,
-} from "../screens";
+} from '../screens';
 
 const ScreenStack = createStackNavigator();
 

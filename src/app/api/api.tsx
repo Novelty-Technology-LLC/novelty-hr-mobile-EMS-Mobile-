@@ -1,6 +1,6 @@
-import axios from "axios";
-import { getToken } from "../utils";
-import { BASE_URI } from "./uri";
+import axios from 'axios';
+import { getToken } from '../utils';
+import { BASE_URI } from './uri';
 
 export const api = axios.create({
   baseURL: BASE_URI,
@@ -8,7 +8,7 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    config.headers["requestsource"] = "localhost";
+    config.headers['requestsource'] = 'localhost';
     return config;
   },
   (err) => {
