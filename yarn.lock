@@ -5776,11 +5776,6 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
-paix@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/paix/-/paix-1.0.0.tgz#553e3c81bf32c8a7593755c3e2a4e8cfb666077b"
-  integrity sha512-RW6Qv6RCfvd2KUL4It1lqhVZqetoNLuFb75dh7YkdOibV6mRuCMUbTGMHr/DtHOzXGhdOF8Vijs7bG7hP7/Tlg==
-
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"

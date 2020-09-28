@@ -3,7 +3,7 @@ import { api } from '../api/api';
 const create = async (data: object) => {
   return new Promise((resolve, reject) => {
     api
-      .post('/add', data)
+      .post('/user/add', data)
       .then(() => resolve())
       .catch(() => reject());
   });
