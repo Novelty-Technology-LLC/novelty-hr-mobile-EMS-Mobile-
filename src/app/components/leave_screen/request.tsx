@@ -1,9 +1,9 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { requestStyle as style } from "../../../assets/styles";
-import RequestWithImage from "./requestWithImage";
-import State from "./state";
-import Button from "../../common/button";
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { requestStyle as style } from '../../../assets/styles';
+import RequestWithImage from './requestWithImage';
+import State from './state';
+import Button from '../../common/button';
 
 const Request = ({ item, other, recieved, onPress }: any) => {
   return (
@@ -26,19 +26,19 @@ const Request = ({ item, other, recieved, onPress }: any) => {
             <View style={style.subcontainer}>
               <Text style={style.days}>5 days ago</Text>
               <View style={style.buttonContainer}>
-                <View style={style.buttonViewApprove}>
+                <View style={style.buttonView}>
                   <Button
                     title="Approve"
                     style={style.buttonApprove}
-                    onPress={() => console.log("approve", item)}
+                    onPress={() => console.log('approve', item)}
                   />
                 </View>
                 <View style={style.buttonSpacer}></View>
-                <View style={style.buttonViewDeny}>
+                <View style={style.buttonView}>
                   <Button
                     title="Deny"
                     style={style.buttonDeny}
-                    onPress={() => console.log("deny", item)}
+                    onPress={() => console.log('deny', item)}
                   />
                 </View>
               </View>
