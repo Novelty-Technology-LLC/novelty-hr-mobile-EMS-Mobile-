@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts, theme } from '../theme';
-
 const requestWithImageStyle = StyleSheet.create({
   row: {
     flexDirection: 'row',

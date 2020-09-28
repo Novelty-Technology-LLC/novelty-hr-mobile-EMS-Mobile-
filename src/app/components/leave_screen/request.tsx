@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
-
 import { button as Button } from '../../common';
 
 interface requestPropType {

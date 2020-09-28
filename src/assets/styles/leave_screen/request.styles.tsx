@@ -138,6 +138,17 @@ const requestStyle = StyleSheet.create({
       },
     }),
   },
+  requested: {
+    backgroundColor: colors.yellow,
+    fontFamily: 'Poppind-Medium',
+    borderRadius: normalize(20),
+    ...Platform.select({
+      ios: { padding: normalize(3) },
+      android: {
+        padding: normalize(5),
+      },
+    }),
+  },
 });
 
 export { requestStyle };

@@ -1,7 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-
 import { Text, View, Platform } from 'react-native';
-
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AuthContext } from '../../reducer';
 import { loginStyle as style } from '../../../assets/styles';
