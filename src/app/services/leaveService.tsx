@@ -1,4 +1,5 @@
 import { api } from '../api/api';
+import { dataType } from '../interface';
 
 export const getMyRequests = (id: number) => {
   return new Promise(async (resolve, reject) => {
@@ -44,11 +45,11 @@ export const deleteRequest = (id: number) => {
   });
 };
 
-export const updateRequest = (id: number) => {
+export const updateRequest = (id: number, data: dataType) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/leave/${id}`);
-      resolve(res.data.data);
+      let res = await api.put(`/leave/${id}`, data);
+      resolve(res.data.result);
     } catch (error) {
       reject({ success: false, message: error });
     }

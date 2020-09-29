@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { clockRunning } from 'react-native-reanimated';
-import { getMyRequests } from '../services';
+import { mapObjectToRequest } from '../utils';
 
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
@@ -11,21 +10,29 @@ const RequestReducer = (prevState, action) => {
           ...prevState.requests.filter((data) => data.id !== action.payload),
         ],
       };
-  }
 
-  switch (action.type) {
     case 'CHANGE':
       return {
         ...prevState,
         requests: [...action.payload],
       };
-  }
 
-  switch (action.type) {
+    case 'ADD':
+      return {
+        ...prevState,
+        requests: [].concat(
+          ...prevState.requests,
+          mapObjectToRequest(action.payload)
+        ),
+      };
+
     case 'UPDATE':
       return {
         ...prevState,
-        requests: [...action.payload],
+        requests: [].concat(
+          ...prevState.requests.filter((item) => item.id !== action.payload.id),
+          mapObjectToRequest(action.payload.data)
+        ),
       };
   }
 };

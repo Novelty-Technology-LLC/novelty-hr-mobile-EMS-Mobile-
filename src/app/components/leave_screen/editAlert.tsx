@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
@@ -10,15 +10,26 @@ import RequestWithImage from './requestWithImage';
 import State from './state';
 import Textarea from 'react-native-textarea';
 import { AppIcon } from '../../common';
+import { dataType } from '../../interface';
+import { updateRequest } from '../../services';
+import { RequestContext } from '../../reducer';
 
-const EditAlert = ({ item }: any) => {
+const EditAlert = ({ item }: { item: dataType }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
+  const { dispatchRequest } = useContext(RequestContext);
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    const data = { ...item, note: note };
 
+    updateRequest(item.id, data)
+      .then((data) =>
+        dispatchRequest({ type: 'UPDATE', payload: { id: item.id, data } })
+      )
+      .catch((err) => console.log(err));
+  };
   return (
     <View>
       <TouchableOpacity
@@ -50,6 +61,7 @@ const EditAlert = ({ item }: any) => {
             containerStyle={style.textareaContainer}
             style={style.textArea}
             maxLength={120}
+            defaultValue={item.note}
             placeholder={'Write a short note for your response'}
             placeholderTextColor={'#c7c7c7'}
             underlineColorAndroid={'transparent'}
@@ -59,7 +71,14 @@ const EditAlert = ({ item }: any) => {
         <View style={style.buttons}>
           <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
           <View style={style.buttonGap}></View>
-          <Dialog.Button label="SUBMIT" onPress={show} style={style.delete} />
+          <Dialog.Button
+            label="SUBMIT"
+            onPress={() => {
+              onSubmit();
+              hide();
+            }}
+            style={style.delete}
+          />
         </View>
       </Dialog.Container>
     </View>
