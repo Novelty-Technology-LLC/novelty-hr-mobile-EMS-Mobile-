@@ -24,7 +24,9 @@ const signInGoogle = async (dispatch: any) => {
     const userData = mapDataToObject(userInfo.user);
 
     create(userData)
-      .then(() => {
+      .then(({ data }) => {
+        console.log('log -> ', data);
+        /*context here*/
         storeToken(userInfo.idToken);
         dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
       })

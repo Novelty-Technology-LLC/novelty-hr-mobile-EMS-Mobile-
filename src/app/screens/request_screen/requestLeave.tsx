@@ -74,7 +74,7 @@ const RequestLeave = () => {
     };
 
     setisLoading(!isLoading);
-    submitRequest(requestData);
+    submitRequest(requestData, navigation);
   };
 
   return (
