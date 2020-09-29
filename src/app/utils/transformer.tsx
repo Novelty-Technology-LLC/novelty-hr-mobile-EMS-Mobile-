@@ -21,21 +21,8 @@ const mapDataToObject = (profile: any) => {
     photo: 'image_url',
     user: 'uuid',
   };
-  let user = {
-    id: null,
-    email: null,
-    givenName: null,
-    familyName: null,
-    photo: null,
-  };
 
-  for (let key in profile) {
-    if (user.hasOwnProperty(key)) {
-      user[key] = profile[key];
-    }
-  }
-
-  const modified_object = renameKey(user, replacement);
+  const modified_object = renameKey(profile, replacement);
 
   return {
     ...modified_object,
