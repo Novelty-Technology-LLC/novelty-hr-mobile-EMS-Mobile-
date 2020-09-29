@@ -20,6 +20,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { postRequest } from '../../services';
 import colors from '../../../assets/colors';
+import { useNavigation } from '@react-navigation/native';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -32,18 +33,19 @@ const validationSchema = Yup.object().shape({
 const initialValues = {
   date: '',
   type: 'Paid time off',
-  status: 'pending',
+  status: 'Pending',
   note: '',
   lead: '',
 };
 
-const submitRequest = (data) => {
+const submitRequest = (data, navigation) => {
   postRequest(data)
-    .then((data) => console.log('data posted'))
+    .then((data) => navigation.navigate('leaveList'))
     .catch((err) => console.log(err));
 };
 
 const RequestLeave = () => {
+  const navigation = useNavigation();
   const [isLoading, setisLoading] = useState(false);
   const onSubmit = (values) => {
     const date = JSON.parse(values.date);
@@ -63,12 +65,11 @@ const RequestLeave = () => {
         startDate,
         endDate,
       },
+      requestor_id: 3,
     };
 
-    console.log('data -> ', requestData);
-
     setisLoading(!isLoading);
-    submitRequest(requestData);
+    submitRequest(requestData, navigation);
   };
 
   return (
