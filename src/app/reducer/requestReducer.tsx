@@ -1,4 +1,6 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { clockRunning } from 'react-native-reanimated';
+import { getMyRequests } from '../services';
 
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
@@ -42,6 +44,16 @@ const initialState = {
 
 const useRequest = () => {
   const [requests, dispatchRequest] = useReducer(RequestReducer, initialState);
+
+  useEffect(() => {
+    const getData = () => {
+      getMyRequests(3)
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+    };
+
+    getData();
+  }, []);
 
   return {
     requests,

@@ -1,9 +1,9 @@
 import { api } from '../api/api';
 
-export const getMyRequests = () => {
+export const getMyRequests = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get('/leavequota');
+      let res = await api.get(`/leave/${id}`);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

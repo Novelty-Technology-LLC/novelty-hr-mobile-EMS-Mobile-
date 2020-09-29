@@ -23,7 +23,7 @@ import { onChange } from 'react-native-reanimated';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
-  status: Yup.string().required().label('status'),
+  leaveType: Yup.string().required().label('status'),
   description: Yup.string().required().label('description'),
   lead: Yup.string().required().label('lead'),
 });
@@ -49,7 +49,10 @@ const RequestLeave = () => {
 
     const requestData = {
       ...values,
+      type: values.leaveType,
       leave_date: date,
+      requestor_id: 3,
+      status: 'Pending',
     };
     submitRequest(requestData);
   };
