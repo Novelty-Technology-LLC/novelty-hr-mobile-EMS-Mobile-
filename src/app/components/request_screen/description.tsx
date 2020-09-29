@@ -17,7 +17,7 @@ const Description = ({ handleChange }) => {
           placeholderTextColor={'#c7c7c7'}
           underlineColorAndroid={'transparent'}
           name="description"
-          onChangeText={handleChange('description')}
+          onChangeText={handleChange('note')}
         />
       </View>
     </View>
