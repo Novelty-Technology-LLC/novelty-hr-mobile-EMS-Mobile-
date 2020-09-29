@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import { teamStyle as style } from '../../../assets/styles';
 import json from '../../../../fake.json';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../../assets/colors';
 
 const Teams = ({ handleChange }) => {
+  const [state, setstate] = useState('');
   return (
     <View style={style.container}>
       <Text style={style.text}>Team Lead</Text>
@@ -16,7 +19,11 @@ const Teams = ({ handleChange }) => {
         <View style={style.wrapper}>
           {json.map((val, i) => {
             return (
-              <TouchableOpacity onPress={() => handleChange('lead')(val.name)}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleChange('lead')(val.name), setstate(val.name);
+                }}
+              >
                 <View style={style.main} key={i}>
                   <Image
                     style={style.image}
@@ -28,6 +35,13 @@ const Teams = ({ handleChange }) => {
                       {val.name.length > 14
                         ? val.name.substring(0, 14 - 2) + '...'
                         : val.name}
+                      {state == val.name && (
+                        <Icon
+                          name="check-circle"
+                          size={15}
+                          color={colors.green}
+                        ></Icon>
+                      )}
                     </Text>
                   </View>
                 </View>

@@ -17,6 +17,10 @@ const requestLeave = StyleSheet.create({
   buttonView: {
     marginTop: normalize(23),
     display: 'flex',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: normalize(20),
   },
   buttonText: {
