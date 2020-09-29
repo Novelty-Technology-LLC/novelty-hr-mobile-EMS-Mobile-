@@ -21,6 +21,12 @@ const AuthReducer = (prevState, action) => {
         isSignout: true,
         userToken: null,
       };
+
+    case 'STORE_ID':
+      return {
+        ...prevState,
+        id: action.id,
+      };
   }
 };
 
@@ -30,6 +36,7 @@ const initialState = {
   isLoading: true,
   isSignout: false,
   userToken: null,
+  id: null,
 };
 
 const useAuth = () => {

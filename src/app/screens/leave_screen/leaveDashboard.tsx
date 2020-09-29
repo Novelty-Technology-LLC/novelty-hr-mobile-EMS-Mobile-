@@ -8,13 +8,13 @@ import { RequestButton } from '../../components/requestButton';
 import colors from '../../../assets/colors';
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
-import { mapDataToRequest, removeToken } from '../../utils';
+import { getId, mapDataToRequest, removeToken } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { dispatch } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
 
@@ -24,7 +24,10 @@ const LeaveDashboard = () => {
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
   const getRequest = () => {
-    getMyRequests(3)
+    console.log(state);
+    console.log(getId());
+
+    getMyRequests(state.id)
       .then((data) =>
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) })
       )

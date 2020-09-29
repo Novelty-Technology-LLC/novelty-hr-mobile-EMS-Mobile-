@@ -22,6 +22,7 @@ import { postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
+import { getId } from '../../utils';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -42,6 +43,7 @@ const initialValues = {
 const RequestLeave = () => {
   const navigation = useNavigation();
   const { dispatchRequest } = useContext(RequestContext);
+  const { state } = useContext(AuthContext);
 
   const submitRequest = (data) => {
     postRequest(data)
@@ -70,11 +72,11 @@ const RequestLeave = () => {
         startDate,
         endDate,
       },
-      requestor_id: 3,
+      requestor_id: state.id,
     };
 
     setisLoading(!isLoading);
-    submitRequest(requestData, navigation);
+    submitRequest(requestData);
   };
 
   return (
