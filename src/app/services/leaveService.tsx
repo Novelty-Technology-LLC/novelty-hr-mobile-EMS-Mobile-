@@ -32,3 +32,25 @@ export const postRequest = (data: object) => {
     }
   });
 };
+
+export const deleteRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.delete(`/leave/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+export const updateRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/leave/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};

@@ -10,8 +10,8 @@ import colors from '../../../assets/colors';
 import { RequestContext, useRequest } from '../../reducer';
 import { headerText } from '../../../assets/styles';
 import { AuthContext } from '../../reducer';
-import { removeToken } from '../../utils';
-import { getLeaveQuota } from '../../services';
+import { mapDataToRequest, removeToken } from '../../utils';
+import { getLeaveQuota, getMyRequests } from '../../services';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -19,13 +19,21 @@ const LeaveDashboard = () => {
   const { dispatch } = useContext(AuthContext);
   const [daysDetails, setDaysDetails] = useState([]);
 
+  const getData = () => {
+    getLeaveQuota()
+      .then((data) => setDaysDetails(data))
+      .catch((err) => console.log('GetLeaveQuota error', err));
+  };
+  const getRequest = () => {
+    getMyRequests(3)
+      .then((data) =>
+        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) })
+      )
+      .catch((err) => console.log('GetRequests error', err));
+  };
   useEffect(() => {
-    const getData = () => {
-      getLeaveQuota()
-        .then((data) => setDaysDetails(data))
-        .catch((err) => console.log('GetLeaveQuota error', err));
-    };
     getData();
+    getRequest();
   }, []);
 
   return (

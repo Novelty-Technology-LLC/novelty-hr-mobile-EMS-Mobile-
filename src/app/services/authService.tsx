@@ -22,7 +22,6 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
 
     const userData = mapDataToObject(userInfo.user);
-    console.log(userData);
 
     create(userData)
       .then(() => {

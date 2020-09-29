@@ -4,12 +4,13 @@ import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
 import { button as Button } from '../../common';
+import { dataType } from '../../interface';
 
 interface requestPropType {
-  item: object;
+  item: dataType;
   other?: boolean;
   recieved?: boolean;
-  onPress: Function;
+  onPress?: Function;
 }
 
 const Request = ({ item, other, recieved, onPress }: requestPropType) => {
