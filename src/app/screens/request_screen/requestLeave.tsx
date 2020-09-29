@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, ActivityIndicator } from 'react-native';
 import { header as Header } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -19,6 +19,7 @@ import { button as Button } from '../../common';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { postRequest } from '../../services';
+import colors from '../../../assets/colors';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -29,7 +30,7 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   date: '',
-  leaveType: 'Paid time off',
+  status: 'Paid time off',
   description: '',
   lead: '',
 };
@@ -41,18 +42,28 @@ const submitRequest = (data) => {
 };
 
 const RequestLeave = () => {
-  const onSubmit = (values: Object) => {
+  const [isLoading, setisLoading] = useState(false);
+  const onSubmit = (values) => {
     const date = JSON.parse(values.date);
-    if (date['endDate'] === null) date['endDate'] = date['startDate'];
+    const startDate = new Date(date.startDate).toString().slice(0, 15);
+
+    let endDate = '';
+    if (date['endDate'] === null) {
+      endDate = startDate;
+    } else {
+      endDate = new Date(date.endDate).toString().slice(0, 15);
+    }
     delete values.date;
 
     const requestData = {
       ...values,
-      type: values.leaveType,
-      leave_date: date,
-      requestor_id: 3,
-      status: 'Pending',
+      leave_date: {
+        startDate,
+        endDate,
+      },
     };
+
+    setisLoading(!isLoading);
     submitRequest(requestData);
   };
 
@@ -78,11 +89,18 @@ const RequestLeave = () => {
                 <Leavetype handleChange={handleChange} />
                 <Description handleChange={handleChange} />
                 <View style={style.buttonView}>
-                  <Button
-                    style={style.buttonText}
-                    title={'Submit Request'}
-                    onPress={() => handleSubmit()}
-                  />
+                  <View>
+                    <Button
+                      style={style.buttonText}
+                      title={'Submit Request'}
+                      onPress={() => handleSubmit()}
+                    />
+                  </View>
+                  <View>
+                    {isLoading && (
+                      <ActivityIndicator size={30} color={colors.primary} />
+                    )}
+                  </View>
                 </View>
               </>
             )}

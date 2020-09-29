@@ -5,7 +5,7 @@ import { AuthContext } from '../../reducer';
 import { loginStyle as style } from '../../../assets/styles';
 import { GoogleConfig } from '../../utils';
 import { signInApple, signInGoogle } from '../../services';
-import Logo from '../../common/ui/buttonUi';
+import { buttonui as Logo } from '../../common/ui/buttonUi';
 
 const Login = () => {
   const { dispatch } = useContext(AuthContext);

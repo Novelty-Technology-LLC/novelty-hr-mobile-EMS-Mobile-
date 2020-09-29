@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, ActivityIndicator, TouchableOpacity } from 'react-native';
 
 interface buttonPropType {
   style: object;
