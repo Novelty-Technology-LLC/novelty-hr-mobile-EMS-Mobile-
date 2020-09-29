@@ -19,9 +19,11 @@ const RootNavigation = () => {
         let userToken = await getToken();
         dispatch({ type: 'RESTORE_TOKEN', token: userToken });
 
-        let id = await getId();
-        dispatch({ type: 'STORE_ID', id: id });
-      } catch (e) {}
+        const getdata = await getId();
+        dispatch({ type: 'STORE_ID', id: getdata });
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     bootstrapAsync();

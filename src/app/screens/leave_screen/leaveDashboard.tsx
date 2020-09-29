@@ -23,11 +23,9 @@ const LeaveDashboard = () => {
       .then((data) => setDaysDetails(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
-  const getRequest = () => {
-    console.log(state);
-    console.log(getId());
-
-    getMyRequests(state.id)
+  const getRequest = async () => {
+    const userid = await getId();
+    getMyRequests(userid)
       .then((data) =>
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) })
       )
