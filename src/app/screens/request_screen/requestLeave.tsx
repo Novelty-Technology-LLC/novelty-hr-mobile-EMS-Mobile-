@@ -43,7 +43,6 @@ const initialValues = {
 const RequestLeave = () => {
   const navigation = useNavigation();
   const { dispatchRequest } = useContext(RequestContext);
-  const { state } = useContext(AuthContext);
 
   const submitRequest = (data) => {
     postRequest(data)
@@ -55,7 +54,7 @@ const RequestLeave = () => {
   };
 
   const [isLoading, setisLoading] = useState(false);
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     const date = JSON.parse(values.date);
     const startDate = new Date(date.startDate).toString().slice(0, 15);
 
@@ -66,6 +65,7 @@ const RequestLeave = () => {
       endDate = new Date(date.endDate).toString().slice(0, 15);
     }
     delete values.date;
+    const userid = await getId();
 
     const requestData = {
       ...values,
@@ -73,7 +73,7 @@ const RequestLeave = () => {
         startDate,
         endDate,
       },
-      requestor_id: state.id,
+      requestor_id: userid,
     };
 
     setisLoading(!isLoading);
