@@ -45,13 +45,24 @@ const RequestLeave = () => {
   const [isLoading, setisLoading] = useState(false);
   const onSubmit = (values) => {
     const date = JSON.parse(values.date);
-    if (date['endDate'] === null) date['endDate'] = date['startDate'];
+    const startDate = new Date(date.startDate).toString().slice(0, 15);
+
+    let endDate = '';
+    if (date['endDate'] === null) {
+      endDate = startDate;
+    } else {
+      endDate = new Date(date.endDate).toString().slice(0, 15);
+    }
     delete values.date;
 
     const requestData = {
       ...values,
-      leave_date: date,
+      leave_date: {
+        startDate,
+        endDate,
+      },
     };
+
     setisLoading(!isLoading);
     submitRequest(requestData);
   };
