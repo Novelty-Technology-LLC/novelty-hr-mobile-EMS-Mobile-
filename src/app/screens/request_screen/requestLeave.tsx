@@ -21,7 +21,7 @@ import * as Yup from 'yup';
 import { postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
-import { RequestContext, useRequest } from '../../reducer';
+import { AuthContext, RequestContext } from '../../reducer';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),

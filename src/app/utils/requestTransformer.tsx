@@ -1,16 +1,16 @@
 import { dataType } from '../interface';
+interface userType {
+  id: number;
+  leave_date: { endDate: string; startDate: string };
+  note: string;
+  requestor_id: number;
+  status: string;
+  type: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const mapDataToRequest = (requests: any) => {
-  interface userType {
-    id: number;
-    leave_date: { endDate: string; startDate: string };
-    note: string;
-    requestor_id: number;
-    status: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-  }
   let newRequests: Array<dataType> = [];
 
   requests &&
@@ -38,17 +38,7 @@ const mapDataToRequest = (requests: any) => {
   return newRequests;
 };
 
-const mapObjectToRequest = (data: any) => {
-  interface userType {
-    id: number;
-    leave_date: { endDate: string; startDate: string };
-    note: string;
-    requestor_id: number;
-    status: string;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
-  }
+const mapObjectToRequest = (data: userType) => {
   let newRequest: Array<dataType> = [];
 
   const newData: dataType = {
