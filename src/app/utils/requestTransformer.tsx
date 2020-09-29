@@ -18,9 +18,15 @@ const mapDataToRequest = (requests: any) => {
       const newData: dataType = {
         id: data.id,
         date:
-          data.leave_date.startDate.substring(5, 10) +
+          data.leave_date.startDate.substring(
+            4,
+            data.leave_date.startDate.length - 4
+          ) +
           ':' +
-          data.leave_date.endDate.substring(5, 10),
+          data.leave_date.endDate.substring(
+            4,
+            data.leave_date.startDate.length - 4
+          ),
         type: data.type.toUpperCase(),
         state: data.status,
         sender: data.requestor_id.toString(),
