@@ -22,12 +22,15 @@ const EditAlert = ({ item }: { item: dataType }) => {
   const { dispatchRequest } = useContext(RequestContext);
 
   const onSubmit = () => {
-    const data = { ...item, note: note };
+    const newData = { ...item, note: note };
 
-    updateRequest(item.id, data)
-      .then((data) =>
-        dispatchRequest({ type: 'UPDATE', payload: { id: item.id, data } })
-      )
+    updateRequest(item.id, newData)
+      .then((data) => {
+        dispatchRequest({
+          type: 'UPDATE',
+          payload: { id: newData.id, data: newData },
+        });
+      })
       .catch((err) => console.log(err));
   };
   return (

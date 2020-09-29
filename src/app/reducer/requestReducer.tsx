@@ -31,7 +31,7 @@ const RequestReducer = (prevState, action) => {
         ...prevState,
         requests: [].concat(
           ...prevState.requests.filter((item) => item.id !== action.payload.id),
-          mapObjectToRequest(action.payload.data)
+          action.payload.data
         ),
       };
   }
