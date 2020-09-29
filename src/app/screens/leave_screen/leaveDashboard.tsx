@@ -49,7 +49,8 @@ const LeaveDashboard = () => {
         </Header>
         <ScrollView>
           <View style={style.container}>
-            {daysDetails.length > 0 &&
+            {daysDetails &&
+              daysDetails.length > 0 &&
               daysDetails.map((daysDetail) => (
                 <DaysRemaining
                   key={daysDetail.id}

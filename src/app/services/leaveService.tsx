@@ -4,7 +4,7 @@ export const getMyRequests = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/leave/${id}`);
-      resolve(res.data.data);
+      resolve(res.data.result);
     } catch (error) {
       reject({ success: false, message: error });
     }

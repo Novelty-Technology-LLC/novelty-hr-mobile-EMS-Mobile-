@@ -13,19 +13,20 @@ const mapDataToRequest = (requests: any) => {
   }
   let newRequests: Array<dataType> = [];
 
-  requests.map((data: userType, index: number) => {
-    const newData: dataType = {
-      id: data.id,
-      date:
-        data.leave_date.startDate.substring(5, 10) +
-        ':' +
-        data.leave_date.endDate.substring(5, 10),
-      type: data.type,
-      state: data.status,
-      sender: data.requestor_id.toString(),
-    };
-    newRequests.push(newData);
-  });
+  requests &&
+    requests.map((data: userType, index: number) => {
+      const newData: dataType = {
+        id: data.id,
+        date:
+          data.leave_date.startDate.substring(5, 10) +
+          ':' +
+          data.leave_date.endDate.substring(5, 10),
+        type: data.type.toUpperCase(),
+        state: data.status,
+        sender: data.requestor_id.toString(),
+      };
+      newRequests.push(newData);
+    });
 
   return newRequests;
 };

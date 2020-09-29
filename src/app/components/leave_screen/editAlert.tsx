@@ -13,8 +13,12 @@ import { AppIcon } from '../../common';
 
 const EditAlert = ({ item }: any) => {
   const [showAlert, setShowAlert] = useState(false);
+  const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
+
+  const onSubmit = () => {};
+
   return (
     <View>
       <TouchableOpacity
@@ -49,7 +53,7 @@ const EditAlert = ({ item }: any) => {
             placeholder={'Write a short note for your response'}
             placeholderTextColor={'#c7c7c7'}
             underlineColorAndroid={'transparent'}
-            // onChangeText={}
+            onChangeText={(data: string) => setNote(data)}
           />
         </View>
         <View style={style.buttons}>

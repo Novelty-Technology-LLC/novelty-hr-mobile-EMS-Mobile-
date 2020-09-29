@@ -20,6 +20,14 @@ const RequestReducer = (prevState, action) => {
         requests: [...action.payload],
       };
   }
+
+  switch (action.type) {
+    case 'UPDATE':
+      return {
+        ...prevState,
+        requests: [...action.payload],
+      };
+  }
 };
 
 const RequestContext = React.createContext();
