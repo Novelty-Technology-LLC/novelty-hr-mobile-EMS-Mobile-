@@ -22,9 +22,14 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
 
     const userData = mapDataToObject(userInfo.user);
-    await create(userData);
-    storeToken(userInfo.idToken);
-    dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
+    console.log(userData);
+
+    create(userData)
+      .then(() => {
+        storeToken(userInfo.idToken);
+        dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
+      })
+      .catch((err) => console.log(err));
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
