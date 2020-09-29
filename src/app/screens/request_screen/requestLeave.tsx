@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 import { header as Header } from '../../common';
 import * as eva from '@eva-design/eva';
@@ -21,6 +21,7 @@ import * as Yup from 'yup';
 import { postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
+import { RequestContext, useRequest } from '../../reducer';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -38,14 +39,18 @@ const initialValues = {
   lead: '',
 };
 
-const submitRequest = (data) => {
-  postRequest(data)
-    .then((data) => navigation.navigate('leaveList'))
-    .catch((err) => console.log(err));
-};
-
 const RequestLeave = () => {
   const navigation = useNavigation();
+  const { dispatchRequest } = useContext(RequestContext);
+
+  const submitRequest = (data) => {
+    postRequest(data)
+      .then((res) => {
+        dispatchRequest({ type: 'ADD', payload: data });
+        navigation.navigate('leaveList');
+      })
+      .catch((err) => console.log(err));
+  };
   const [isLoading, setisLoading] = useState(false);
   const onSubmit = (values) => {
     const date = JSON.parse(values.date);
@@ -67,8 +72,6 @@ const RequestLeave = () => {
       },
       requestor_id: 3,
     };
-
-    console.log('data -> ', requestData);
 
     setisLoading(!isLoading);
     submitRequest(requestData);

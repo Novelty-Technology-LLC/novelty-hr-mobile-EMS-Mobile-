@@ -4,6 +4,7 @@ interface dataType {
   type: string;
   state: string;
   sender: string;
+  note: string;
 }
 
 export { dataType };
