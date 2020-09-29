@@ -23,15 +23,17 @@ import colors from '../../../assets/colors';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
-  status: Yup.string().required().label('status'),
-  description: Yup.string().required().label('description'),
+  type: Yup.string().required().label('type'),
+  note: Yup.string().required().label('note'),
   lead: Yup.string().required().label('lead'),
+  status: Yup.string().required().label('status'),
 });
 
 const initialValues = {
   date: '',
-  status: 'Paid time off',
-  description: '',
+  type: 'Paid time off',
+  status: 'pending',
+  note: '',
   lead: '',
 };
 
@@ -62,6 +64,8 @@ const RequestLeave = () => {
         endDate,
       },
     };
+
+    console.log('data -> ', requestData);
 
     setisLoading(!isLoading);
     submitRequest(requestData);
