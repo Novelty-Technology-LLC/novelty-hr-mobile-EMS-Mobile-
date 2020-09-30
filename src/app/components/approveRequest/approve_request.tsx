@@ -3,10 +3,14 @@ import { Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
+import getDay from './getDay';
+import getName from './getName';
 
 const ar = [1, 2];
 
 const Request = ({ data, style }: any) => {
+  const { startDate } = getDay(data);
+  const { name } = getName(data);
   return (
     <>
       {data && (
@@ -22,14 +26,7 @@ const Request = ({ data, style }: any) => {
                 }
               />
               <View style={style.senderView}>
-                <Text style={style.sender}>
-                  {data.user.first_name + data.user.last_name > 14
-                    ? data.user.first_name +
-                      ' ' +
-                      data.user.last_name.substr(0, 14 - 2) +
-                      '...'
-                    : data.user.first_name + ' ' + data.user.last_name}
-                </Text>
+                <Text style={style.sender}>{name}</Text>
                 <View style={style.dateView}>
                   <Text style={style.leaveType}>{data.type}</Text>
                 </View>
@@ -44,7 +41,7 @@ const Request = ({ data, style }: any) => {
                   </Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state="Requested">{data.leave_date.startDate}</State>
+                  <State state="Requested">{startDate}</State>
                 </View>
               </View>
             </View>
@@ -65,25 +62,14 @@ const Request = ({ data, style }: any) => {
                       />
                       <View style={style.senderView}>
                         <View style={style.teamWrapper}>
-                          <Text style={style.sender}>
-                            {data.user.first_name + data.user.last_name > 14
-                              ? data.user.first_name +
-                                '' +
-                                data.user.last_name.substr(0, 14 - 2) +
-                                '...'
-                              : data.user.first_name +
-                                ' ' +
-                                data.user.last_name}
-                          </Text>
+                          <Text style={style.sender}>{name}</Text>
                           <State state={data.status || data.state}>
                             {data.startDate}
                           </State>
                         </View>
                         <View style={style.teamLeadView}>
                           <Text style={style.teamLead}>Team Lead</Text>
-                          <Text style={style.text}>
-                            on {data.leave_date.startDate.substr(3, 8)}
-                          </Text>
+                          <Text style={style.text}>on {startDate}</Text>
                         </View>
                       </View>
                     </View>

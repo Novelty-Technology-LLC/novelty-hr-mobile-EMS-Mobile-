@@ -7,11 +7,13 @@ import { approveRequest as style } from '../../../assets/styles';
 import { button as Button } from '../../common';
 import Request from '../../components/approveRequest/approve_request';
 import getDay from '../../components/approveRequest/getDay';
+import getName from '../../components/approveRequest/getName';
 
 const ApproveRequest = ({ route }: any) => {
   const { first_name, last_name } = route.params.user;
 
-  let { dayRange } = getDay(route.params);
+  let { dayRange, day } = getDay(route.params);
+  let { name } = getName(route.params);
 
   const Approve = (res) => {
     route.params['state'] = res;
@@ -23,13 +25,10 @@ const ApproveRequest = ({ route }: any) => {
   return (
     <>
       <Header>
-        <Text style={headerText}>
-          {first_name + last_name > 14
-            ? first_name + ' ' + last_name.substr(0, 14 - 2) + '...'
-            : first_name + ' ' + last_name}
-          ,
+        <Text style={headerText}>{name},</Text>
+        <Text style={style.headerDate}>
+          {dayRange} ({day > 1 ? day + ' days' : (day = 1 + ' day')})
         </Text>
-        <Text style={style.headerDate}>{dayRange}</Text>
       </Header>
       <Request data={route.params} style={style} />
       <View style={style.buttonView}>
