@@ -2,6 +2,7 @@ export * from './global.styles';
 export * from './login/login.styles';
 export * from './theme';
 export * from './common/header.styles';
+export * from './common/loader.styles';
 export * from './common/header_txt.styles';
 export * from './leave_screen/days_remaining.styles';
 export * from './leave_screen/leave_dashboard.styles';

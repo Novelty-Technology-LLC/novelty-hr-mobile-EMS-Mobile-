@@ -9,17 +9,21 @@ import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import { AppIcon } from '../../common';
+import { AppIcon, Loader } from '../../common';
 import { getAllRequests } from '../../services';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const request = async () => {
-      const data = await getAllRequests();
-      setRequests(data);
+      setLoading(true);
+      getAllRequests().then((data) => {
+        setRequests(data);
+        setLoading(false);
+      });
     };
     request();
   }, []);
@@ -50,18 +54,22 @@ const OtherRequests = () => {
           </TouchableWithoutFeedback>
         </View>
       </View>
-      <FlatList
-        data={requests}
-        renderItem={(item) => (
-          <Request
-            item={item.item}
-            other={true}
-            recieved={true}
-            onPress={() => navigation.navigate('approveLeave', item.item)}
-          />
-        )}
-        keyExtractor={(item) => item.id}
-      />
+      {loading ? (
+        <Loader color="black" size={20} />
+      ) : (
+        <FlatList
+          data={requests}
+          renderItem={(item) => (
+            <Request
+              item={item.item}
+              other={true}
+              recieved={true}
+              onPress={() => navigation.navigate('approveLeave', item.item)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
       {toggle === 'toggle-switch' && <History other={true} data={requests} />}
     </View>
   );

@@ -8,7 +8,6 @@ import { approveRequest as style } from '../../../assets/styles';
 
 const RequestDetail = ({ route }: any) => {
   const { date } = route.params;
-  console.log('data -> ', route.params);
 
   return (
     <>
