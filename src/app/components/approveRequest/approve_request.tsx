@@ -7,8 +7,6 @@ import State from '../leave_screen/state';
 const ar = [1, 2];
 
 const Request = ({ data, style }: any) => {
-  console.log('data -> ', data);
-
   return (
     <>
       {data && (
