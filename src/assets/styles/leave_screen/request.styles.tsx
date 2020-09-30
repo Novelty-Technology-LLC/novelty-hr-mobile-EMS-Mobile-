@@ -53,7 +53,7 @@ const requestStyle = StyleSheet.create({
   },
   icon: {
     transform: [{ rotate: '-40deg' }],
-    backgroundColor: colors.primary,
+    backgroundColor: colors.requested,
     overflow: 'hidden',
     ...Platform.select({
       ios: {

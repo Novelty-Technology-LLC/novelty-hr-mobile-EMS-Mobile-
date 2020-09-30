@@ -20,7 +20,7 @@ const RequestWithImage = ({ item, onPress }: any) => {
           <Text style={style.name}>
             {item.user.first_name + ' ' + item.user.last_name}
           </Text>
-          <Text style={style.type}>{item.type.slice(0, 8)}</Text>
+          <Text style={style.type}>{item.type}</Text>
           <View style={style.date}>
             <AppIcon name="calendar" size={18} color={colors.secondary} />
             <View style={style.gap}></View>
@@ -29,7 +29,7 @@ const RequestWithImage = ({ item, onPress }: any) => {
                 '-' +
                 item.leave_date.endDate.slice(8, 10) +
                 ' '}
-              ({day + 'days'})
+              ({day + ' days'})
             </Text>
           </View>
         </View>
