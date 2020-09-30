@@ -26,9 +26,9 @@ const LeaveDashboard = () => {
   const getRequest = async () => {
     const userid = await getId();
     getMyRequests(userid)
-      .then((data) =>
-        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) })
-      )
+      .then((data) => {
+        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+      })
       .catch((err) => console.log('GetRequests error', err));
   };
   useEffect(() => {

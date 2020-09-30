@@ -47,7 +47,7 @@ const RequestLeave = () => {
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
-        dispatchRequest({ type: 'ADD', payload: data });
+        dispatchRequest({ type: 'ADD', payload: res.data.data });
         navigation.navigate('leaveList');
       })
       .catch((err) => console.log(err));
