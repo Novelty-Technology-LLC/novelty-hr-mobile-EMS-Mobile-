@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import {
   FlatList,
@@ -10,26 +10,19 @@ import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon } from '../../common';
+import { getAllRequests } from '../../services';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
-  const requests = [
-    {
-      id: 2,
-      date: 'Oct 28 (1 day)',
-      type: 'FLOATING',
-      state: 'Pending',
-      sender: 'Biren Gurung',
-    },
-    {
-      id: 3,
-      date: 'Oct 30 (1 day)',
-      type: 'PAID TIME OFF',
-      state: 'Denied',
-      sender: 'Biren Gurung',
-    },
-  ];
+  const [requests, setRequests] = useState([]);
+  useEffect(() => {
+    const request = async () => {
+      const data = await getAllRequests();
+      setRequests(data);
+    };
+    request();
+  }, []);
 
   return (
     <View style={otherRequestsStyle.container}>
@@ -67,9 +60,9 @@ const OtherRequests = () => {
             onPress={() => navigation.navigate('approveLeave', item.item)}
           />
         )}
-        keyExtractor={(item) => item.date}
+        keyExtractor={(item) => item.id}
       />
-      {toggle === 'toggle-switch' && <History other={true} />}
+      {toggle === 'toggle-switch' && <History other={true} data={requests} />}
     </View>
   );
 };

@@ -1,6 +1,17 @@
 import { api } from '../api/api';
 import { dataType } from '../interface';
 
+export const getAllRequests = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get('/leave');
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
 export const getMyRequests = (id: string) => {
   return new Promise(async (resolve, reject) => {
     try {

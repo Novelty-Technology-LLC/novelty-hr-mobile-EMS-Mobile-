@@ -4,10 +4,9 @@ import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
 import { button as Button } from '../../common';
-import { dataType } from '../../interface';
 
 interface requestPropType {
-  item: dataType;
+  item: any;
   other?: boolean;
   recieved?: boolean;
   onPress?: Function;
@@ -21,18 +20,24 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           style={style.container}
           onPress={() => onPress && !other && onPress()}
         >
-          <View>
-            <Text style={style.date}>{item.date}</Text>
-            <Text style={style.type}>{item.type}</Text>
+          <View style={style.dateView}>
+            <View>
+              <Text style={style.date}>{item.date}</Text>
+              <Text style={style.type}>{item.type}</Text>
+            </View>
+            <State state={item.state} />
           </View>
-          <State state={item.state} />
         </TouchableOpacity>
       ) : (
         <View style={style.container}>
           <RequestWithImage item={item} onPress={onPress} />
           {recieved ? (
             <View style={style.subcontainer}>
-              <Text style={style.days}>5 days ago</Text>
+              <Text style={style.days}>
+                {+new Date().toString().slice(8, 10) -
+                  +item.leave_date.startDate.slice(8, 10)}
+                days ago
+              </Text>
               <View style={style.buttonContainer}>
                 <View style={style.buttonView}>
                   <Button

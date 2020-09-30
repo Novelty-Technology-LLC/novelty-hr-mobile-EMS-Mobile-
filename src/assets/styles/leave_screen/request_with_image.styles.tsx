@@ -14,7 +14,7 @@ const requestWithImageStyle = StyleSheet.create({
     marginRight: normalize(10),
   },
   gap: {
-    paddingRight: 5,
+    paddingRight: normalize(0),
   },
   name: {
     fontSize: normalize(theme.size.base),
@@ -31,6 +31,12 @@ const requestWithImageStyle = StyleSheet.create({
     fontSize: normalize(theme.size.xs),
     color: colors.secondary,
     fontFamily: fonts.poppinsMedium,
+    textTransform: 'uppercase',
+  },
+  datetype: {
+    fontSize: normalize(theme.size.xs),
+    color: colors.secondary,
+    fontFamily: fonts.mulishBold,
   },
 });
 

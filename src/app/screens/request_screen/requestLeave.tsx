@@ -21,7 +21,7 @@ import * as Yup from 'yup';
 import { postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
-import { AuthContext, RequestContext } from '../../reducer';
+import { RequestContext } from '../../reducer';
 import { getId } from '../../utils';
 
 const validationSchema = Yup.object().shape({

@@ -8,8 +8,7 @@ const requestStyle = StyleSheet.create({
     paddingVertical: normalize(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: normalize(20),
-    paddingLeft: normalize(15),
+    marginLeft: normalize(13),
     marginRight: normalize(20),
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
@@ -27,6 +26,14 @@ const requestStyle = StyleSheet.create({
     fontSize: normalize(theme.size.xxs),
     fontFamily: fonts.mulishRegular,
     color: colors.fontGrey,
+  },
+  dateView: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingHorizontal: normalize(10),
   },
   date: {
     fontSize: normalize(theme.size.base),
@@ -79,14 +86,13 @@ const requestStyle = StyleSheet.create({
     marginTop: normalize(20),
   },
   buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
-
   buttonView: {
     alignItems: 'center',
     fontSize: normalize(theme.size.xs),
     justifyContent: 'center',
   },
   buttonApprove: {
-    paddingHorizontal: normalize(18),
+    paddingHorizontal: normalize(16),
     paddingVertical: normalize(10),
     color: colors.white,
     backgroundColor: colors.primary,
@@ -101,7 +107,7 @@ const requestStyle = StyleSheet.create({
     }),
   },
   buttonDeny: {
-    paddingHorizontal: normalize(20),
+    paddingHorizontal: normalize(19),
     paddingVertical: normalize(10),
     color: colors.primary,
     borderColor: colors.primary,
@@ -117,11 +123,9 @@ const requestStyle = StyleSheet.create({
     }),
   },
   subcontainer: {
-    width: normalize(200),
+    flex: 1,
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    paddingHorizontal: normalize(10),
-    paddingRight: normalize(18),
+    justifyContent: 'flex-end',
   },
   days: {
     color: colors.secondary,

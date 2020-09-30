@@ -58,10 +58,14 @@ const signInApple = async (dispatch: any) => {
     data.fullName['id'] = data.user;
 
     const userData = mapDataToObject(data.fullName);
-    await create(userData);
-
-    storeToken(data.identityToken);
-    dispatch({ type: 'SIGN_IN', token: data.identityToken });
+    create(userData)
+      .then(async (res: any) => {
+        await setId(res.data.data.toString());
+        dispatch({ type: 'STORE_ID', id: res.data.data });
+        storeToken(data.identityToken);
+        dispatch({ type: 'SIGN_IN', token: data.identityToken });
+      })
+      .catch((err) => console.log(err));
   } catch (error) {
     snackErrorBottom(error);
   }
