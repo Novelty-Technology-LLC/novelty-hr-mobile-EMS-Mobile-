@@ -40,6 +40,7 @@ const approveRequest = StyleSheet.create({
   sender: {
     fontSize: normalize(theme.size.base),
     fontFamily: fonts.mulishBold,
+    textTransform: 'capitalize',
   },
   dateView: {
     flexDirection: 'row',

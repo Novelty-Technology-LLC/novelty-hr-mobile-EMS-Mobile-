@@ -15,9 +15,12 @@ const Request = ({ data, style }: any) => {
             <View style={style.imageView}>
               <Image
                 style={style.image}
-                source={require('../../../assets/images/person.jpeg')}
+                source={
+                  data.user.image_url
+                    ? { uri: data.user.image_url }
+                    : require('../../../assets/images/person.jpeg')
+                }
               />
-
               <View style={style.senderView}>
                 <Text style={style.sender}>
                   {data.user.first_name + data.user.last_name > 14

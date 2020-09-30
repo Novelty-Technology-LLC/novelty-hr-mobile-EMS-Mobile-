@@ -36,11 +36,11 @@ const dateMapper = (start: string, end: string) => {
   return start.substring(8, start.length - 4) ===
     end.substring(8, end.length - 4)
     ? start.substring(4, start.length - 4) + '(1 day)'
-    : start.substring(4, start.length - 4) +
+    : start.substring(4, start.length - 5) +
         '-' +
         end.substring(8, end.length - 4) +
         `(${
-          parseInt(end.substring(8, 10)) - parseInt(start.substring(8, 10)) + 1
+          parseInt(end.substring(8, 10)) - parseInt(start.substring(8, 10))
         } days)`;
 };
 

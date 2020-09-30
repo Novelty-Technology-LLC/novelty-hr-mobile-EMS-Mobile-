@@ -20,6 +20,7 @@ const requestWithImageStyle = StyleSheet.create({
     fontSize: normalize(theme.size.base),
     color: colors.fontBlack,
     fontFamily: fonts.mulishBold,
+    textTransform: 'capitalize',
   },
   date: {
     paddingTop: normalize(5),

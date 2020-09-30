@@ -14,7 +14,11 @@ const RequestWithImage = ({ item, onPress }: any) => {
       <View style={style.row}>
         <Image
           style={style.image}
-          source={require('../../../assets/images/person.jpeg')}
+          source={
+            item.user.image_url
+              ? { uri: item.user.image_url }
+              : require('../../../assets/images/person.jpeg')
+          }
         />
         <View>
           <Text style={style.name}>

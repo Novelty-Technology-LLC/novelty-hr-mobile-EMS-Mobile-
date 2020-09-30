@@ -12,7 +12,7 @@ const Description = ({ handleChange }) => {
         <Textarea
           containerStyle={style.textareaContainer}
           style={style.textArea}
-          maxLength={120}
+          maxLength={250}
           placeholder={'Write a short note for your leave..'}
           placeholderTextColor={'#c7c7c7'}
           underlineColorAndroid={'transparent'}
