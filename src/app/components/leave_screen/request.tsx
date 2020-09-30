@@ -4,6 +4,7 @@ import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
 import { button as Button } from '../../common';
+import getDay from '../approveRequest/getDay';
 
 interface requestPropType {
   item: any;
@@ -13,6 +14,8 @@ interface requestPropType {
 }
 
 const Request = ({ item, other, recieved, onPress }: requestPropType) => {
+  let { day } = getDay(item);
+
   return (
     <>
       {!other ? (
@@ -25,7 +28,9 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               <Text style={style.date}>{item.date}</Text>
               <Text style={style.type}>{item.type}</Text>
             </View>
-            <State state={item.state} />
+            <View style={style.status}>
+              <State state={item.state} />
+            </View>
           </View>
         </TouchableOpacity>
       ) : (
@@ -34,10 +39,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           {recieved ? (
             <View style={style.subcontainer}>
               <Text style={style.days}>
-                {+new Date().toString().slice(8, 10) -
-                  +item.leave_date.startDate.slice(8, 10) +
-                  ' '}
-                days ago
+                {day > 1 ? day + ' days ago' : (day = 1 + ' day ago')}
               </Text>
               <View style={style.buttonContainer}>
                 <View style={style.buttonView}>

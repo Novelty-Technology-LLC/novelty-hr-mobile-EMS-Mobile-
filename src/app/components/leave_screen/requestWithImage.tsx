@@ -3,11 +3,10 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { requestWithImageStyle as style } from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { AppIcon } from '../../common';
+import getDay from '../approveRequest/getDay';
 
 const RequestWithImage = ({ item, onPress }: any) => {
-  let day =
-    +item.leave_date.endDate.slice(8, 10) -
-    +item.leave_date.startDate.slice(8, 10);
+  let { dayRange, dayType } = getDay(item);
 
   return (
     <TouchableOpacity onPress={() => onPress && onPress()}>
@@ -29,11 +28,8 @@ const RequestWithImage = ({ item, onPress }: any) => {
             <AppIcon name="calendar" size={18} color={colors.secondary} />
             <View style={style.gap}></View>
             <Text style={style.datetype}>
-              {item.leave_date.startDate.slice(3, 10) +
-                '-' +
-                item.leave_date.endDate.slice(8, 10) +
-                ' '}
-              ({day + ' days'})
+              {dayRange}(
+              {dayType > 1 ? dayType + ' days' : (dayType = 1 + ' day')})
             </Text>
           </View>
         </View>

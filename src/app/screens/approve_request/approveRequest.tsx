@@ -6,10 +6,12 @@ import { approveRequest as style } from '../../../assets/styles';
 
 import { button as Button } from '../../common';
 import Request from '../../components/approveRequest/approve_request';
+import getDay from '../../components/approveRequest/getDay';
 
 const ApproveRequest = ({ route }: any) => {
-  const { leave_date } = route.params;
   const { first_name, last_name } = route.params.user;
+
+  let { dayRange } = getDay(route.params);
 
   const Approve = (res) => {
     route.params['state'] = res;
@@ -27,7 +29,7 @@ const ApproveRequest = ({ route }: any) => {
             : first_name + ' ' + last_name}
           ,
         </Text>
-        <Text style={style.headerDate}>{leave_date.startDate}</Text>
+        <Text style={style.headerDate}>{dayRange}</Text>
       </Header>
       <Request data={route.params} style={style} />
       <View style={style.buttonView}>

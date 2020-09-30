@@ -35,6 +35,12 @@ const requestStyle = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: normalize(10),
   },
+  status: {
+    ...Platform.select({
+      ios: { marginTop: normalize(3) },
+      android: { marginTop: normalize(4) },
+    }),
+  },
   date: {
     fontSize: normalize(theme.size.base),
     color: colors.black,
@@ -50,8 +56,8 @@ const requestStyle = StyleSheet.create({
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,
+    marginTop: normalize(7),
   },
-
   icon: {
     transform: [{ rotate: '-40deg' }],
     backgroundColor: colors.requested,
@@ -84,7 +90,10 @@ const requestStyle = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: normalize(20),
+    ...Platform.select({
+      ios: { marginTop: normalize(20) },
+      android: { marginTop: normalize(25) },
+    }),
   },
   buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
   buttonView: {
