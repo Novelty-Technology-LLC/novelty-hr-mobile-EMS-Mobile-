@@ -6,6 +6,7 @@ interface userType {
   requestor_id: number;
   status: string;
   type: string;
+  user: object;
   createdAt: string;
   updatedAt: string;
 }
@@ -31,6 +32,8 @@ const mapDataToRequest = (requests: any) => {
         state: data.status,
         sender: data.requestor_id.toString(),
         note: data.note,
+        user: data.user,
+        leave_date: data.leave_date,
       };
       newRequests.push(newData);
     });
