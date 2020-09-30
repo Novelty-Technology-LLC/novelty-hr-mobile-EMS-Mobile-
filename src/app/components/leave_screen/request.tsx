@@ -35,7 +35,8 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
             <View style={style.subcontainer}>
               <Text style={style.days}>
                 {+new Date().toString().slice(8, 10) -
-                  +item.leave_date.startDate.slice(8, 10)}
+                  +item.leave_date.startDate.slice(8, 10) +
+                  ' '}
                 days ago
               </Text>
               <View style={style.buttonContainer}>

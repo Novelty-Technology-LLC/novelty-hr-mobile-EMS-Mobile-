@@ -47,13 +47,14 @@ const requestStyle = StyleSheet.create({
     paddingTop: normalize(theme.spacing.wide),
   },
   type: {
-    color: colors.secondary,
+    color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,
   },
+
   icon: {
     transform: [{ rotate: '-40deg' }],
-    backgroundColor: colors.primary,
+    backgroundColor: colors.requested,
     overflow: 'hidden',
     ...Platform.select({
       ios: {
@@ -92,8 +93,8 @@ const requestStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonApprove: {
-    paddingHorizontal: normalize(16),
-    paddingVertical: normalize(10),
+    paddingHorizontal: normalize(10),
+    paddingVertical: normalize(6),
     color: colors.white,
     backgroundColor: colors.primary,
     overflow: 'hidden',
@@ -107,8 +108,8 @@ const requestStyle = StyleSheet.create({
     }),
   },
   buttonDeny: {
-    paddingHorizontal: normalize(19),
-    paddingVertical: normalize(10),
+    paddingHorizontal: normalize(13),
+    paddingVertical: normalize(6),
     color: colors.primary,
     borderColor: colors.primary,
     borderWidth: 1,

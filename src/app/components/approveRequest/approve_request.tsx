@@ -72,7 +72,9 @@ const Request = ({ data, style }: any) => {
                                 ' ' +
                                 data.user.last_name}
                           </Text>
-                          <State state={data.status}>{data.startDate}</State>
+                          <State state={data.status || data.state}>
+                            {data.startDate}
+                          </State>
                         </View>
                         <View style={style.teamLeadView}>
                           <Text style={style.teamLead}>Team Lead</Text>

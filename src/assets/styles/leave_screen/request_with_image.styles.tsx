@@ -29,13 +29,13 @@ const requestWithImageStyle = StyleSheet.create({
   },
   type: {
     fontSize: normalize(theme.size.xs),
-    color: colors.secondary,
+    color: colors.fontGrey,
     fontFamily: fonts.poppinsMedium,
     textTransform: 'uppercase',
   },
   datetype: {
     fontSize: normalize(theme.size.xs),
-    color: colors.secondary,
+    color: colors.fontGrey,
     fontFamily: fonts.mulishBold,
   },
 });
