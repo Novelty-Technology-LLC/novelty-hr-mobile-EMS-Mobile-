@@ -80,6 +80,13 @@ const OtherRequests = () => {
           keyExtractor={(item) => item.id}
         />
       )}
+      {adminrequests.adminrequests.length < 1 && !loading && (
+        <View style={myRequestsStyle.emptyContainer}>
+          <Text style={myRequestsStyle.emptyText}>
+            There are not current Requests
+          </Text>
+        </View>
+      )}
       {toggle === 'toggle-switch' && <History other={true} data={requests} />}
     </View>
   );

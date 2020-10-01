@@ -23,10 +23,10 @@ export const getMyRequests = (id: string) => {
   });
 };
 
-export const getPastRequests = () => {
+export const getPastRequests = (id: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get('/leavequota');
+      let res = await api.get(`/leave/past/${id}`);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
