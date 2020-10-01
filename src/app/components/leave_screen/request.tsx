@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
+
 import { button as Button } from '../../common';
 import getDay from '../approveRequest/getDay';
 import colors from '../../../assets/colors';
@@ -43,26 +44,21 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                 {day > 1 ? day + ' days ago' : (day = 1 + ' day ago')}
               </Text>
               <View style={style.buttonContainer}>
-                <Button onPress={() => console.log('approve', item)}>
-                  <View style={style.buttonApprove}>
-                    <Text style={style.approve}>Approve</Text>
-                    {isLoading && (
-                      <ActivityIndicator size={'small'} color={colors.white} />
-                    )}
-                  </View>
-                </Button>
+                <View style={style.buttonView}>
+                  <ApproveDeny
+                    title="Approve"
+                    style={style.buttonApprove}
+                    item={item}
+                  />
+                </View>
                 <View style={style.buttonSpacer}></View>
-                <Button onPress={() => console.log('deny', item)}>
-                  <View style={style.buttonDeny}>
-                    <Text style={style.deny}>Deny</Text>
-                    {isLoading && (
-                      <ActivityIndicator
-                        size={'small'}
-                        color={colors.primary}
-                      />
-                    )}
-                  </View>
-                </Button>
+                <View style={style.buttonView}>
+                  <ApproveDeny
+                    title="Deny"
+                    style={style.buttonDeny}
+                    item={item}
+                  />
+                </View>
               </View>
             </View>
           ) : (
