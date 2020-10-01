@@ -10,6 +10,7 @@ class Teams extends Component {
   state = {
     lead: [],
   };
+
   render() {
     return (
       <View style={style.container}>
@@ -24,11 +25,21 @@ class Teams extends Component {
               return (
                 <TouchableOpacity
                   onPress={() => {
-                    let joined = [...new Set(this.state.lead.concat(val.name))];
-                    this.setState({ lead: joined }, () =>
-                      this.props.handleChange('lead')(
-                        JSON.stringify(this.state.lead)
-                      )
+                    if (val.selected) {
+                      val.selected = false;
+                    } else {
+                      val.selected = val.name;
+                    }
+                    this.setState(
+                      { lead: [...new Set(this.state.lead.concat(val))] },
+                      () =>
+                        this.props.handleChange('lead')(
+                          JSON.stringify(
+                            this.state.lead
+                              .filter((item) => item.selected)
+                              .map((item) => item.id)
+                          )
+                        )
                     );
                   }}
                 >
@@ -39,8 +50,8 @@ class Teams extends Component {
                         source={require('../../../assets/images/person.jpeg')}
                       />
                       {this.state.lead.map(
-                        (name) =>
-                          name === val.name && (
+                        (item) =>
+                          item.selected === val.name && (
                             <Icon
                               name="check-circle"
                               size={20}
@@ -69,57 +80,3 @@ class Teams extends Component {
 }
 
 export { Teams };
-
-/* <View style={style.container}>
-      <Text style={style.text}>Team Lead</Text>
-      <ScrollView
-        style={style.scrollView}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-      >
-        <View style={style.wrapper}>
-          {json.map((val, i) => {
-            return (
-              <FieldArray
-                name="lead"
-                render={(arrayHelpers) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      arrayHelpers.push(val.name);
-                      setstate([...new Set([...state, val.name])]);
-                    }}
-                  >
-                    <View style={style.main} key={i}>
-                      <View style={style.imageView}>
-                        <Image
-                          style={style.image}
-                          source={require('../../../assets/images/person.jpeg')}
-                        />
-                        {state.map(
-                          (name) =>
-                            name === val.name && (
-                              <Icon
-                                name="check-circle"
-                                size={20}
-                                color={colors.green}
-                              />
-                            )
-                        )}
-                      </View>
-                      <View style={style.spacing}></View>
-                      <View style={style.nameView}>
-                        <Text style={style.name}>
-                          {val.name.length > 14
-                            ? val.name.substring(0, 14 - 2) + '...'
-                            : val.name}
-                        </Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                )}
-              />
-            );
-          })}
-        </View>
-      </ScrollView>
-    </View>*/

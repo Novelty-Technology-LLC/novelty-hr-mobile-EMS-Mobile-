@@ -85,7 +85,6 @@ const RequestLeave = ({ route }: any) => {
     };
 
     setisLoading(!isLoading);
-    console.log(requestData);
     submitRequest(requestData);
   };
 
