@@ -41,6 +41,7 @@ const LeaveDashboard = () => {
   useEffect(() => {
     getData();
     getRequest();
+    console.log(state);
   }, []);
 
   return (
