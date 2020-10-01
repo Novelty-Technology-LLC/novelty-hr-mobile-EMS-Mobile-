@@ -10,6 +10,22 @@ class Teams extends Component {
   state = {
     lead: [],
   };
+  list = Object.assign(json);
+  data = [];
+
+  componentDidMount() {
+    this.setState({ lead: [...JSON.parse(this.props.defaultValue)] }, () => {
+      this.list.map((val) => {
+        this.state.lead.map((id) => {
+          if (id === val.id) {
+            val.selected = val.name;
+            this.data.push(val);
+          }
+        });
+      });
+      this.setState({ lead: [...this.state.lead].concat(this.data) });
+    });
+  }
 
   render() {
     return (
@@ -21,7 +37,7 @@ class Teams extends Component {
           showsHorizontalScrollIndicator={false}
         >
           <View style={style.wrapper}>
-            {json.map((val, i) => {
+            {this.list.map((val, i) => {
               return (
                 <TouchableOpacity
                   onPress={() => {
@@ -49,8 +65,8 @@ class Teams extends Component {
                         style={style.image}
                         source={require('../../../assets/images/person.jpeg')}
                       />
-                      {this.state.lead.map(
-                        (item) =>
+                      {this.state.lead.map((item) => {
+                        return (
                           item.selected === val.name && (
                             <View style={style.iconContainer}>
                               <Icon
@@ -60,7 +76,8 @@ class Teams extends Component {
                               />
                             </View>
                           )
-                      )}
+                        );
+                      })}
                     </View>
                     <View style={style.spacing}></View>
                     <View style={style.nameView}>

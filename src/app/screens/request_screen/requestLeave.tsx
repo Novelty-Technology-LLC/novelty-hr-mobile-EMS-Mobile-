@@ -124,7 +124,7 @@ const RequestLeave = ({ route }: any) => {
                   />
                   <Teams
                     handleChange={handleChange}
-                    // defaultValue={olddata && olddata.lead}
+                    defaultValue={olddata && olddata.lead}
                   />
                   <Leavetype
                     handleChange={handleChange}
