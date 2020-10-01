@@ -102,37 +102,46 @@ const RequestLeave = ({ route }: any) => {
             style={style.container}
             showsVerticalScrollIndicator={false}
           >
-            {({ handleChange, handleSubmit, values }) => (
-              <>
-                <Calander
-                  style={style.calendar}
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.leave_date}
-                />
-                <Teams
-                  handleChange={handleChange}
-                  // defaultValue={olddata && olddata.lead}
-                />
-                <Leavetype
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.type}
-                />
-                <Description
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.note}
-                />
-                <Button onPress={() => handleSubmit()}>
-                  <View style={style.buttonView}>
-                    <Text style={style.buttonText}>Submit Request</Text>
-                    {isLoading && (
-                      <ActivityIndicator size={30} color={colors.white} />
-                    )}
-                  </View>
-                </Button>
-              </>
-            )}
-          </Formik>
-        </ScrollView>
+            <Header>
+              <Text style={headerText}>Request Leave</Text>
+            </Header>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+              onSubmit={(values) => onSubmit(values)}
+            >
+              {({ handleChange, handleSubmit, values }) => (
+                <>
+                  <Calander
+                    style={style.calendar}
+                    handleChange={handleChange}
+                    defaultValue={olddata && olddata.leave_date}
+                  />
+                  <Teams
+                    handleChange={handleChange}
+                    // defaultValue={olddata && olddata.lead}
+                  />
+                  <Leavetype
+                    handleChange={handleChange}
+                    defaultValue={olddata && olddata.type}
+                  />
+                  <Description
+                    handleChange={handleChange}
+                    defaultValue={olddata && olddata.note}
+                  />
+                  <Button onPress={() => handleSubmit()}>
+                    <View style={style.buttonView}>
+                      <Text style={style.buttonText}>Submit Request</Text>
+                      {isLoading && (
+                        <ActivityIndicator size={30} color={colors.white} />
+                      )}
+                    </View>
+                  </Button>
+                </>
+              )}
+            </Formik>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </ApplicationProvider>
   );
