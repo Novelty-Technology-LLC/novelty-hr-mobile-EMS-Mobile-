@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
+import colors from '../../colors';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 
@@ -54,6 +55,14 @@ const teamStyle = StyleSheet.create({
   name: {
     fontSize: normalize(theme.size.sm),
     fontFamily: fonts.mulishRegular,
+  },
+  iconContainer: {
+    position: 'absolute',
+    right: 6,
+    top: 2,
+    zIndex: 2,
+    backgroundColor: colors.white,
+    borderRadius: normalize(30),
   },
 });
 

@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { RangeCalendar } from '@ui-kitten/components';
 
-const Calander = ({ style, handleChange }) => {
-  const [range, setrange] = useState('');
+interface calenderPropType {
+  style: object;
+  handleChange: Function;
+  defaultValue: object;
+}
+
+const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
+  const [range, setrange] = useState(
+    defaultValue
+      ? {
+          endDate: new Date(defaultValue.endDate),
+          startDate: new Date(defaultValue.startDate),
+        }
+      : ''
+  );
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
 
   useEffect(() => {
@@ -15,6 +28,7 @@ const Calander = ({ style, handleChange }) => {
       filter={filter}
       range={range}
       onSelect={(nextRange) => {
+        console.log(nextRange);
         newRange = Object.assign(nextRange);
         if (
           newRange.endDate &&

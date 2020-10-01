@@ -7,6 +7,7 @@ interface userType {
   status: string;
   type: string;
   user: object;
+  lead: Array<string>;
   createdAt: string;
   updatedAt: string;
 }
@@ -24,6 +25,7 @@ const mapDataToRequest = (requests: any) => {
         sender: data.requestor_id.toString(),
         note: data.note,
         user: data.user,
+        lead: data.lead,
         leave_date: data.leave_date,
       };
       newRequests.push(newData);
@@ -55,6 +57,7 @@ const mapObjectToRequest = (data: userType) => {
     sender: data.requestor_id.toString(),
     note: data.note,
     user: data.user,
+    lead: data.lead,
     leave_date: data.leave_date,
   };
   newRequest.push(newData);
