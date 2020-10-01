@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text } from 'react-native';
 import {
   FlatList,
@@ -11,21 +11,31 @@ import History from './history';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon, Loader } from '../../common';
 import { getAllRequests } from '../../services';
+import { getId, mapDataToRequest } from '../../utils';
+import { AdminRequestContext } from '../../reducer';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const request = async () => {
-      setLoading(true);
-      getAllRequests().then((data) => {
-        setRequests(data);
+  const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
+
+  const getAdminRequest = async () => {
+    setLoading(true);
+    const userid = await getId();
+    getAllRequests()
+      .then((data) => {
+        dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(data) });
         setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log('GetRequests error', err);
       });
-    };
-    request();
+  };
+  useEffect(() => {
+    getAdminRequest();
   }, []);
 
   return (
@@ -58,7 +68,7 @@ const OtherRequests = () => {
         <Loader color="black" size={20} />
       ) : (
         <FlatList
-          data={requests}
+          data={adminrequests.adminrequests}
           renderItem={(item) => (
             <Request
               item={item.item}

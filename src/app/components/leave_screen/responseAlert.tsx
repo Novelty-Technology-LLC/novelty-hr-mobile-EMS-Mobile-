@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text } from 'react-native';
 import Dialog from 'react-native-dialog';
 import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
@@ -7,6 +7,7 @@ import Textarea from 'react-native-textarea';
 import { dataType } from '../../interface';
 import { AppIcon } from '../../common';
 import colors from '../../../assets/colors';
+import { AdminRequestContext } from '../../reducer';
 
 const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const [showAlert, setShowAlert] = useState(true);
@@ -14,9 +15,12 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
+  const { dispatchAdmin } = useContext(AdminRequestContext);
 
   const onSubmit = () => {
     const newData = { ...item, note: note, action: action };
+    // console.log(newData);
+    dispatchAdmin({ type: 'DELETE', payload: newData.id });
     //to save leave approval in db
   };
   return (

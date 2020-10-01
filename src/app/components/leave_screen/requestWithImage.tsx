@@ -27,10 +27,7 @@ const RequestWithImage = ({ item, onPress }: any) => {
           <View style={style.date}>
             <AppIcon name="calendar" size={18} color={colors.secondary} />
             <View style={style.gap}></View>
-            <Text style={style.datetype}>
-              {dayRange}(
-              {dayType > 1 ? dayType + ' days' : (dayType = 1 + ' day')})
-            </Text>
+            <Text style={style.datetype}>{dayRange}</Text>
           </View>
         </View>
       </View>
