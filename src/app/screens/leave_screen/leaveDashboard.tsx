@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, ScrollView, Text } from 'react-native';
-import { header as Header } from '../../common';
+import { header as Header, Loader } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
@@ -15,6 +15,7 @@ const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const { state, dispatch } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
 
@@ -24,12 +25,17 @@ const LeaveDashboard = () => {
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
   const getRequest = async () => {
+    setLoading(true);
     const userid = await getId();
     getMyRequests(userid)
       .then((data) => {
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        setLoading(false);
       })
-      .catch((err) => console.log('GetRequests error', err));
+      .catch((err) => {
+        setLoading(false);
+        console.log('GetRequests error', err);
+      });
   };
   useEffect(() => {
     getData();
@@ -47,6 +53,7 @@ const LeaveDashboard = () => {
         <Text style={headerText}>Leave Application</Text>
       </Header>
       <ScrollView>
+        {daysDetails.length > 0 ? null : <Loader color="black" size={20} />}
         <View style={style.container}>
           {daysDetails &&
             daysDetails.length > 0 &&
@@ -75,7 +82,7 @@ const LeaveDashboard = () => {
             ADMIN
           </Text>
         </View>
-        {isAdmin ? <OtherRequests /> : <MyRequests />}
+        {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />
     </View>
