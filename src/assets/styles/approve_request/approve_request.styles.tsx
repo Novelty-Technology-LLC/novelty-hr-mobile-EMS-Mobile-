@@ -152,7 +152,7 @@ const approveRequest = StyleSheet.create({
     fontFamily: fonts.mulishBold,
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.primary,
-    paddingHorizontal: normalize(60),
+    paddingHorizontal: normalize(55),
     paddingVertical: normalize(13),
     ...Platform.select({
       ios: {
@@ -174,7 +174,7 @@ const approveRequest = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.primary,
     paddingVertical: normalize(13),
-    paddingHorizontal: normalize(60),
+    paddingHorizontal: normalize(55),
     ...Platform.select({
       ios: {
         borderRadius: normalize(5),

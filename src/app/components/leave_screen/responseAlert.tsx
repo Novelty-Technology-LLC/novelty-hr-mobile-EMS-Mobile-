@@ -8,18 +8,31 @@ import { dataType } from '../../interface';
 import { AppIcon } from '../../common';
 import colors from '../../../assets/colors';
 import { AdminRequestContext } from '../../reducer';
+import { updateRequest } from '../../services';
+import { getId } from '../../utils';
 
 const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const [showAlert, setShowAlert] = useState(true);
-  const [action, setAction] = useState(status);
+  let [action, setAction] = useState(status);
   const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatchAdmin } = useContext(AdminRequestContext);
 
-  const onSubmit = () => {
-    const newData = { ...item, note: note, action: action };
-    // console.log(newData);
+  const onSubmit = async () => {
+    const Id = await getId();
+
+    action === 'Approve' && (action = 'Approved');
+    action === 'Deny' && (action = 'Denied');
+
+    const newData = {
+      leave_id: item.id,
+      action,
+      note,
+      requested_to: Id,
+    };
+
+    await updateRequest(item.id, newData);
     dispatchAdmin({ type: 'DELETE', payload: newData.id });
     //to save leave approval in db
   };

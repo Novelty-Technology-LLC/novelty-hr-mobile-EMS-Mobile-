@@ -40,3 +40,6 @@ export default getDay = (item) => {
     startDate,
   };
 };
+
+export const responseDay = (date) =>
+  new Date(date.updatedAt).toString().substr(3, 7);

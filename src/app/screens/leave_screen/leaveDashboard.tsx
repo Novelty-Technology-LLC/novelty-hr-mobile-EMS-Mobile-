@@ -14,7 +14,7 @@ import { getLeaveQuota, getMyRequests, getPastRequests } from '../../services';
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);

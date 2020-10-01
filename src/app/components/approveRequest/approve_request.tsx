@@ -3,14 +3,13 @@ import { Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
-import getDay from './getDay';
-import getName from './getName';
+import getDay, { responseDay } from './getDay';
+import getName, { leadname } from './getName';
 
-const ar = [1, 2];
-
-const Request = ({ data, style }: any) => {
+const Request = ({ data, style, responses = [] }: any) => {
   const { startDate } = getDay(data);
   const { name } = getName(data);
+
   return (
     <>
       {data && (
@@ -52,32 +51,37 @@ const Request = ({ data, style }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <Text style={style.response}>Responses</Text>
-              {ar.map(() => (
-                <>
-                  <View style={style.main}>
-                    <View style={style.imageView}>
-                      <Image
-                        style={style.image}
-                        source={require('../../../assets/images/person.jpeg')}
-                      />
-                      <View style={style.senderView}>
-                        <View style={style.teamWrapper}>
-                          <Text style={style.sender}>{name}</Text>
-                          <State state={data.status || data.state}>
-                            {data.startDate}
-                          </State>
-                        </View>
-                        <View style={style.teamLeadView}>
-                          <Text style={style.teamLead}>Team Lead</Text>
-                          <Text style={style.text}>on {startDate}</Text>
+              {responses.length > 0 &&
+                responses.map((item) => (
+                  <>
+                    <View style={style.main}>
+                      <View style={style.imageView}>
+                        <Image
+                          style={style.image}
+                          source={
+                            item.user.image_url
+                              ? { uri: item.user.image_url }
+                              : require('../../../assets/images/person.jpeg')
+                          }
+                        />
+                        <View style={style.senderView}>
+                          <View style={style.teamWrapper}>
+                            <Text style={style.sender}>{leadname(item)}</Text>
+                            <State state={item.action} />
+                          </View>
+                          <View style={style.teamLeadView}>
+                            <Text style={style.teamLead}>Team Lead</Text>
+                            <Text style={style.text}>
+                              on {responseDay(item.user)}
+                            </Text>
+                          </View>
                         </View>
                       </View>
+                      <Text style={style.leadText}>{item.note}</Text>
                     </View>
-                    <Text style={style.leadText}>{data.note}</Text>
-                  </View>
-                  <View style={style.spacer} />
-                </>
-              ))}
+                    <View style={style.spacer} />
+                  </>
+                ))}
             </ScrollView>
           </View>
         </View>
