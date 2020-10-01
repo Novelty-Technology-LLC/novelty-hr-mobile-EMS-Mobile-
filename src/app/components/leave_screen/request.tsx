@@ -4,9 +4,8 @@ import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
 
-import { button as Button } from '../../common';
 import getDay from '../approveRequest/getDay';
-import colors from '../../../assets/colors';
+import { ApproveDeny } from './approveDeny';
 
 interface requestPropType {
   item: any;
@@ -17,7 +16,6 @@ interface requestPropType {
 
 const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   let { day } = getDay(item);
-  const [isLoading, setisLoading] = useState(false);
   return (
     <>
       {!other ? (
@@ -45,19 +43,11 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               </Text>
               <View style={style.buttonContainer}>
                 <View style={style.buttonView}>
-                  <ApproveDeny
-                    title="Approve"
-                    style={style.buttonApprove}
-                    item={item}
-                  />
+                  <ApproveDeny title="Approve" style={style} item={item} />
                 </View>
                 <View style={style.buttonSpacer}></View>
                 <View style={style.buttonView}>
-                  <ApproveDeny
-                    title="Deny"
-                    style={style.buttonDeny}
-                    item={item}
-                  />
+                  <ApproveDeny title="Deny" style={style} item={item} />
                 </View>
               </View>
             </View>

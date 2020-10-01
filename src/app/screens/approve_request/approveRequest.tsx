@@ -5,13 +5,11 @@ import { headerText } from '../../../assets/styles';
 import { approveRequest as style } from '../../../assets/styles';
 
 import Request from '../../components/approveRequest/approve_request';
-
 import { ApproveDeny } from '../../components';
-import ResponseModal from '../../components/approveRequest/responseModal';
+import getName from '../../components/approveRequest/getName';
 
 const ApproveRequest = ({ route }: any) => {
   const [showAlert, setShowAlert] = useState(false);
-  const [isLoading, setisLoading] = useState(false);
 
   let { dayRange, day } = getDay(route.params);
   let { name } = getName(route.params);
@@ -37,22 +35,9 @@ const ApproveRequest = ({ route }: any) => {
         </View>
       </Header>
       <Request data={route.params} style={style} />
-      <ResponseModal
-        item={route.params}
-        showAlert={showAlert}
-        setShowAlert={setShowAlert}
-      />
       <View style={style.buttonView}>
-        <ApproveDeny
-          title="Approve"
-          style={style.buttonApprove}
-          item={route.params}
-        />
-        <ApproveDeny
-          title="Deny"
-          style={style.buttonDeny}
-          item={route.params}
-        />
+        <ApproveDeny title="Approve" style={style} item={route.params} />
+        <ApproveDeny title="Deny" style={style} item={route.params} />
       </View>
     </>
   );
