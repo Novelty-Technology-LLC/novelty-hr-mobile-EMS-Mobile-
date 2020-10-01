@@ -4,8 +4,8 @@ import { header as Header } from '../../common/header';
 import { headerText } from '../../../assets/styles';
 import { approveRequest as style } from '../../../assets/styles';
 
-import { button as Button } from '../../common';
 import Request from '../../components/approveRequest/approve_request';
+import { ApproveDeny } from '../../components';
 
 const ApproveRequest = ({ route }: any) => {
   const { leave_date } = route.params;
@@ -31,15 +31,15 @@ const ApproveRequest = ({ route }: any) => {
       </Header>
       <Request data={route.params} style={style} />
       <View style={style.buttonView}>
-        <Button
+        <ApproveDeny
           title="Approve"
           style={style.buttonApprove}
-          onPress={() => Approve('Approved')}
+          item={route.params}
         />
-        <Button
+        <ApproveDeny
           title="Deny"
           style={style.buttonDeny}
-          onPress={() => Deny('Denied')}
+          item={route.params}
         />
       </View>
     </>

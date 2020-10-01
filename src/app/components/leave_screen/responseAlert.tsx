@@ -1,47 +1,26 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
 import Dialog from 'react-native-dialog';
-import colors from '../../../assets/colors';
-import {
-  deleteAlertStyle,
-  editAlertStyle as style,
-} from '../../../assets/styles';
+import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
-import State from './state';
 import Textarea from 'react-native-textarea';
-import { AppIcon } from '../../common';
 import { dataType } from '../../interface';
-import { updateRequest } from '../../services';
-import { RequestContext } from '../../reducer';
+import { AppIcon } from '../../common';
+import colors from '../../../assets/colors';
 
-const EditAlert = ({ item }: { item: dataType }) => {
-  const [showAlert, setShowAlert] = useState(false);
+const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
+  const [showAlert, setShowAlert] = useState(true);
+  const [action, setAction] = useState(status);
   const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
-  const { dispatchRequest } = useContext(RequestContext);
 
   const onSubmit = () => {
-    const newData = { ...item, note: note };
-
-    updateRequest(item.id, newData)
-      .then((data) => {
-        dispatchRequest({
-          type: 'UPDATE',
-          payload: { id: newData.id, data: newData },
-        });
-      })
-      .catch((err) => console.log(err));
+    const newData = { ...item, note: note, action: action };
+    //to save leave approval in db
   };
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => show()}
-        style={deleteAlertStyle.iconContainer}
-      >
-        <AppIcon name="square-edit-outline" color={colors.primary} size={13} />
-      </TouchableOpacity>
-      <View style={style.spacer}></View>
       <Dialog.Container
         visible={showAlert}
         contentStyle={style.dialogContainer}
@@ -55,7 +34,37 @@ const EditAlert = ({ item }: { item: dataType }) => {
           <RequestWithImage item={item} />
           <View style={style.gap}></View>
           <View style={style.stateView}>
-            <State state={item.state} />
+            <View style={requestStyle.rowAlign}>
+              {action === 'Approve' && (
+                <AppIcon
+                  name="check-circle"
+                  size={15}
+                  color={colors.green}
+                ></AppIcon>
+              )}
+              <Text
+                style={requestStyle.state}
+                onPress={() => setAction('Approve')}
+              >
+                Approve
+              </Text>
+            </View>
+            <View style={style.semigap}></View>
+            <View style={requestStyle.rowAlign}>
+              {action === 'Deny' && (
+                <AppIcon
+                  name="check-circle"
+                  size={15}
+                  color={colors.green}
+                ></AppIcon>
+              )}
+              <Text
+                style={requestStyle.state}
+                onPress={() => setAction('Deny')}
+              >
+                Deny
+              </Text>
+            </View>
           </View>
         </View>
         <View style={style.main}>
@@ -64,7 +73,6 @@ const EditAlert = ({ item }: { item: dataType }) => {
             containerStyle={style.textareaContainer}
             style={style.textArea}
             maxLength={120}
-            defaultValue={item.note}
             placeholder={'Write a short note for your response'}
             placeholderTextColor={'#c7c7c7'}
             underlineColorAndroid={'transparent'}
@@ -88,4 +96,4 @@ const EditAlert = ({ item }: { item: dataType }) => {
   );
 };
 
-export default EditAlert;
+export { EditAlert };

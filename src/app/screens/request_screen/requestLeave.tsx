@@ -40,7 +40,8 @@ const initialValues = {
   lead: '',
 };
 
-const RequestLeave = () => {
+const RequestLeave = ({ route }: any) => {
+  const data = route.params; //edit data
   const navigation = useNavigation();
   const { dispatchRequest } = useContext(RequestContext);
 

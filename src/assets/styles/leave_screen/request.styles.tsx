@@ -75,6 +75,10 @@ const requestStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  rowAlign: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   space: {
     ...Platform.select({
       ios: { paddingHorizontal: normalize(theme.spacing.wide) },

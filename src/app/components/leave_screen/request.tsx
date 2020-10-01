@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
-import { button as Button } from '../../common';
+import { ApproveDeny } from './approveDeny';
 
 interface requestPropType {
   item: any;
@@ -41,18 +41,18 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               </Text>
               <View style={style.buttonContainer}>
                 <View style={style.buttonView}>
-                  <Button
+                  <ApproveDeny
                     title="Approve"
                     style={style.buttonApprove}
-                    onPress={() => console.log('approve', item)}
+                    item={item}
                   />
                 </View>
                 <View style={style.buttonSpacer}></View>
                 <View style={style.buttonView}>
-                  <Button
+                  <ApproveDeny
                     title="Deny"
                     style={style.buttonDeny}
-                    onPress={() => console.log('deny', item)}
+                    item={item}
                   />
                 </View>
               </View>
