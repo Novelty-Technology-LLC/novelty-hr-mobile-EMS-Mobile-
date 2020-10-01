@@ -1,10 +1,10 @@
 import { api } from '../api/api';
 import { dataType } from '../interface';
 
-export const getAllRequests = () => {
+export const getAllRequests = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get('/leave');
+      let res = await api.get(`/leave/admin/${id}`);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

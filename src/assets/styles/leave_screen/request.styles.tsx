@@ -81,6 +81,10 @@ const requestStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  rowAlign: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   space: {
     ...Platform.select({
       ios: { paddingHorizontal: normalize(theme.spacing.wide) },
@@ -127,7 +131,7 @@ const requestStyle = StyleSheet.create({
     color: colors.primary,
     borderColor: colors.primary,
     borderWidth: 1,
-    borderRadius: normalize(4),
+    borderRadius: normalize(5),
   },
   subcontainer: {
     flex: 1,

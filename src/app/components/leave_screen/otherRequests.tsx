@@ -24,7 +24,7 @@ const OtherRequests = () => {
   const getAdminRequest = async () => {
     setLoading(true);
     const userid = await getId();
-    getAllRequests()
+    getAllRequests(userid)
       .then((data) => {
         dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(data) });
         setLoading(false);
