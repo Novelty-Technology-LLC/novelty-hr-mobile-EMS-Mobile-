@@ -32,18 +32,17 @@ const validationSchema = Yup.object().shape({
   status: Yup.string().required().label('status'),
 });
 
-const initialValues = {
-  date: '',
-  type: 'Paid time off',
-  status: 'Pending',
-  note: '',
-  lead: [],
-};
-
 const RequestLeave = ({ route }: any) => {
-  const data = route.params; //edit data
+  const olddata = route.params; //edit data
   const navigation = useNavigation();
   const { dispatchRequest } = useContext(RequestContext);
+  const initialValues = {
+    date: olddata ? olddata.date : '',
+    type: olddata ? olddata.type : 'Paid time off',
+    status: olddata ? olddata.state : 'Pending',
+    note: olddata ? olddata.note : '',
+    lead: olddata ? olddata.lead : [],
+  };
 
   const submitRequest = (data) => {
     postRequest(data)
@@ -52,6 +51,10 @@ const RequestLeave = ({ route }: any) => {
         navigation.navigate('leaveList');
       })
       .catch((err) => console.log(err));
+  };
+
+  const updateRequest = (data) => {
+    console.log(data);
   };
 
   const [isLoading, setisLoading] = useState(false);
@@ -78,8 +81,7 @@ const RequestLeave = ({ route }: any) => {
     };
 
     setisLoading(!isLoading);
-    console.log(requestData);
-    submitRequest(requestData);
+    olddata ? updateRequest(requestData) : submitRequest(requestData);
   };
 
   return (
@@ -99,10 +101,23 @@ const RequestLeave = ({ route }: any) => {
           >
             {({ handleChange, handleSubmit, values }) => (
               <>
-                <Calander style={style.calendar} handleChange={handleChange} />
-                <Teams handleChange={handleChange} />
-                <Leavetype handleChange={handleChange} />
-                <Description handleChange={handleChange} />
+                <Calander
+                  style={style.calendar}
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.leave_date}
+                />
+                <Teams
+                  handleChange={handleChange}
+                  // defaultValue={olddata && olddata.lead}
+                />
+                <Leavetype
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.type}
+                />
+                <Description
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.note}
+                />
                 <Button onPress={() => handleSubmit()}>
                   <View style={style.buttonView}>
                     <Text style={style.buttonText}>Submit Request</Text>

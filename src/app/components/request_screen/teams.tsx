@@ -10,6 +10,7 @@ class Teams extends Component {
   state = {
     lead: [],
   };
+
   render() {
     return (
       <View style={style.container}>
@@ -41,11 +42,13 @@ class Teams extends Component {
                       {this.state.lead.map(
                         (name) =>
                           name === val.name && (
-                            <Icon
-                              name="check-circle"
-                              size={20}
-                              color={colors.green}
-                            />
+                            <View style={style.iconContainer}>
+                              <Icon
+                                name="check-circle"
+                                size={20}
+                                color={colors.green}
+                              />
+                            </View>
                           )
                       )}
                     </View>

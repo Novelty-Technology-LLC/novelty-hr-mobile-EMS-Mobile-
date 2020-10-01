@@ -4,7 +4,13 @@ import Textarea from 'react-native-textarea';
 
 import { descriptionStyle as style } from '../../../assets/styles';
 
-const Description = ({ handleChange }) => {
+const Description = ({
+  handleChange,
+  defaultValue,
+}: {
+  handleChange: Function;
+  defaultValue?: string;
+}) => {
   return (
     <View>
       <View style={style.main}>
@@ -13,6 +19,7 @@ const Description = ({ handleChange }) => {
           containerStyle={style.textareaContainer}
           style={style.textArea}
           maxLength={250}
+          defaultValue={defaultValue}
           placeholder={'Write a short note for your leave..'}
           placeholderTextColor={'#c7c7c7'}
           underlineColorAndroid={'transparent'}

@@ -4,9 +4,16 @@ import { leaveType as style } from '../../../assets/styles';
 import color from '../../../assets/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function Leavetype({ handleChange }) {
-  const [type, setType] = useState(1);
-
+function Leavetype({
+  handleChange,
+  defaultValue,
+}: {
+  handleChange: Function;
+  defaultValue: string;
+}) {
+  const [type, setType] = useState(
+    defaultValue ? (defaultValue.toUpperCase() === 'PAID TIME OFF' ? 1 : 0) : 1
+  );
   return (
     <View style={style.container}>
       <View style={style.wrapper}>
