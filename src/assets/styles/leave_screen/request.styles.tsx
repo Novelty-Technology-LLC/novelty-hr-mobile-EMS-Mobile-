@@ -160,6 +160,9 @@ const requestStyle = StyleSheet.create({
       },
     }),
   },
+  rowAlign: {
+    flexDirection: 'row',
+  },
 });
 
 export { requestStyle };
