@@ -12,6 +12,7 @@ class Teams extends Component {
   };
 
   render() {
+    console.log('lead -> ', this.state.lead);
     return (
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>
@@ -51,7 +52,7 @@ class Teams extends Component {
                       />
                       {this.state.lead.map(
                         (item) =>
-                          item.name === val.name && (
+                          item.selected === val.name && (
                             <View style={style.iconContainer}>
                               <Icon
                                 name="check-circle"
