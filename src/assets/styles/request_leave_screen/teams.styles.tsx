@@ -37,6 +37,11 @@ const teamStyle = StyleSheet.create({
     alignItems: 'center',
   },
   spacing: { marginLeft: normalize(105) },
+  imageView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   image: {
     width: normalize(60),
     height: normalize(60),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Text, View, ActivityIndicator, TouchableOpacity } from 'react-native';
 
 interface buttonPropType {
@@ -7,12 +7,10 @@ interface buttonPropType {
   onPress: Function;
 }
 
-const button = ({ style, title, onPress }) => {
+const button = ({ children, onPress }) => {
   return (
     <>
-      <TouchableOpacity onPress={onPress}>
-        {title && <Text style={style}>{title}</Text>}
-      </TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>{children}</TouchableOpacity>
     </>
   );
 };

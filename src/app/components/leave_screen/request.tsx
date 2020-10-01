@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
 import { button as Button } from '../../common';
 import getDay from '../approveRequest/getDay';
+import colors from '../../../assets/colors';
 
 interface requestPropType {
   item: any;
@@ -15,7 +16,7 @@ interface requestPropType {
 
 const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   let { day } = getDay(item);
-
+  const [isLoading, setisLoading] = useState(false);
   return (
     <>
       {!other ? (
@@ -42,21 +43,26 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                 {day > 1 ? day + ' days ago' : (day = 1 + ' day ago')}
               </Text>
               <View style={style.buttonContainer}>
-                <View style={style.buttonView}>
-                  <Button
-                    title="Approve"
-                    style={style.buttonApprove}
-                    onPress={() => console.log('approve', item)}
-                  />
-                </View>
+                <Button onPress={() => console.log('approve', item)}>
+                  <View style={style.buttonApprove}>
+                    <Text style={style.approve}>Approve</Text>
+                    {isLoading && (
+                      <ActivityIndicator size={'small'} color={colors.white} />
+                    )}
+                  </View>
+                </Button>
                 <View style={style.buttonSpacer}></View>
-                <View style={style.buttonView}>
-                  <Button
-                    title="Deny"
-                    style={style.buttonDeny}
-                    onPress={() => console.log('deny', item)}
-                  />
-                </View>
+                <Button onPress={() => console.log('deny', item)}>
+                  <View style={style.buttonDeny}>
+                    <Text style={style.deny}>Deny</Text>
+                    {isLoading && (
+                      <ActivityIndicator
+                        size={'small'}
+                        color={colors.primary}
+                      />
+                    )}
+                  </View>
+                </Button>
               </View>
             </View>
           ) : (

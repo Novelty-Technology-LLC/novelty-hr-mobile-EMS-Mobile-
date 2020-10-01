@@ -95,42 +95,39 @@ const requestStyle = StyleSheet.create({
       android: { marginTop: normalize(25) },
     }),
   },
-  buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
-  buttonView: {
-    alignItems: 'center',
+  buttonSpacer: {
+    marginLeft: normalize(theme.spacing.wider),
+  },
+  approve: {
+    fontFamily: fonts.mulishBold,
     fontSize: normalize(theme.size.xs),
-    justifyContent: 'center',
+    color: colors.white,
+  },
+  deny: {
+    fontFamily: fonts.mulishBold,
+    fontSize: normalize(theme.size.xs),
+    color: colors.primary,
   },
   buttonApprove: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: normalize(10),
-    paddingVertical: normalize(6),
+    paddingVertical: normalize(8),
     color: colors.white,
     backgroundColor: colors.primary,
-    overflow: 'hidden',
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(6),
-      },
-    }),
+    borderRadius: normalize(4),
   },
   buttonDeny: {
-    paddingHorizontal: normalize(13),
-    paddingVertical: normalize(6),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: normalize(10),
+    paddingVertical: normalize(7),
     color: colors.primary,
     borderColor: colors.primary,
     borderWidth: 1,
-    overflow: 'hidden',
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(6),
-      },
-    }),
+    borderRadius: normalize(4),
   },
   subcontainer: {
     flex: 1,

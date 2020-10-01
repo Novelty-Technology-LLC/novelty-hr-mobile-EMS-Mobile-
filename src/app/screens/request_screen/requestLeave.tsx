@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required().label('note'),
-  lead: Yup.string().required().label('lead'),
+  lead: Yup.array().of(Yup.string()).required().label('lead'),
   status: Yup.string().required().label('status'),
 });
 
@@ -37,7 +37,7 @@ const initialValues = {
   type: 'Paid time off',
   status: 'Pending',
   note: '',
-  lead: '',
+  lead: [],
 };
 
 const RequestLeave = () => {
@@ -101,20 +101,14 @@ const RequestLeave = () => {
                 <Teams handleChange={handleChange} />
                 <Leavetype handleChange={handleChange} />
                 <Description handleChange={handleChange} />
-                <View style={style.buttonView}>
-                  <View>
-                    <Button
-                      style={style.buttonText}
-                      title={'Submit Request'}
-                      onPress={() => handleSubmit()}
-                    />
-                  </View>
-                  <View>
+                <Button onPress={() => handleSubmit()}>
+                  <View style={style.buttonView}>
+                    <Text style={style.buttonText}>Submit Request</Text>
                     {isLoading && (
-                      <ActivityIndicator size={30} color={colors.primary} />
+                      <ActivityIndicator size={30} color={colors.white} />
                     )}
                   </View>
-                </View>
+                </Button>
               </>
             )}
           </Formik>

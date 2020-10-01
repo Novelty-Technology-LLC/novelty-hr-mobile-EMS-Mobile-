@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { header as Header } from '../../common/header';
 import { headerText } from '../../../assets/styles';
 import { approveRequest as style } from '../../../assets/styles';
@@ -9,9 +9,11 @@ import Request from '../../components/approveRequest/approve_request';
 import getDay from '../../components/approveRequest/getDay';
 import getName from '../../components/approveRequest/getName';
 import ResponseModal from '../../components/approveRequest/responseModal';
+import colors from '../../../assets/colors';
 
 const ApproveRequest = ({ route }: any) => {
   const [showAlert, setShowAlert] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   let { dayRange, day } = getDay(route.params);
   let { name } = getName(route.params);
@@ -43,16 +45,20 @@ const ApproveRequest = ({ route }: any) => {
         setShowAlert={setShowAlert}
       />
       <View style={style.buttonView}>
-        <Button
-          title="Approve"
-          style={style.buttonApprove}
-          onPress={() => setShowAlert(!showAlert)}
-        />
-        <Button
-          title="Deny"
-          style={style.buttonDeny}
-          onPress={() => setShowAlert(!showAlert)}
-        />
+        <Button onPress={() => setShowAlert(!showAlert)}>
+          <View style={style.buttonApprove}>
+            <Text style={style.approve}>Approve</Text>
+            {isLoading && <ActivityIndicator size={30} color={colors.white} />}
+          </View>
+        </Button>
+        <Button onPress={() => setShowAlert(!showAlert)}>
+          <View style={style.buttonDeny}>
+            <Text style={style.deny}>Deny</Text>
+            {isLoading && (
+              <ActivityIndicator size={30} color={colors.primary} />
+            )}
+          </View>
+        </Button>
       </View>
     </>
   );

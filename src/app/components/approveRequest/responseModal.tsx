@@ -14,7 +14,7 @@ const EditAlert = ({ item, showAlert, setShowAlert }: any) => {
 
   const onSubmit = () => {};
   return (
-    <View>
+    <View style={{ backgroundColor: '#fff' }}>
       <View style={style.spacer}></View>
       <Dialog.Container
         visible={showAlert}

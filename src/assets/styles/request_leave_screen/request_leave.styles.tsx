@@ -16,31 +16,29 @@ const requestLeave = StyleSheet.create({
   },
   buttonView: {
     marginTop: normalize(23),
-    display: 'flex',
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: normalize(20),
-  },
-  buttonText: {
     backgroundColor: color.primary,
-    fontFamily: fonts.mulishBold,
-    paddingVertical: normalize(20),
-    color: color.white,
-    alignSelf: 'center',
+    paddingVertical: normalize(2),
+    marginHorizontal: normalize(19),
+    marginBottom: normalize(20),
     overflow: 'hidden',
-    fontSize: normalize(theme.size.base),
     ...Platform.select({
       ios: {
         borderRadius: normalize(4),
-        paddingHorizontal: normalize(105),
       },
       android: {
         borderRadius: normalize(5),
-        paddingHorizontal: normalize(115),
       },
     }),
+  },
+
+  buttonText: {
+    fontFamily: fonts.mulishBold,
+    paddingVertical: normalize(20),
+    color: color.white,
+    fontSize: normalize(theme.size.base),
   },
 });
 
