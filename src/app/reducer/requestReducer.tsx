@@ -21,8 +21,8 @@ const RequestReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [].concat(
-          ...prevState.requests,
-          mapObjectToRequest(action.payload)
+          mapObjectToRequest(action.payload),
+          ...prevState.requests
         ),
       };
 

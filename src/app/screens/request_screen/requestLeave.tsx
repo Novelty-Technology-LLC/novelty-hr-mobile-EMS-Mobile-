@@ -1,5 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Text, View, ActivityIndicator } from 'react-native';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+} from 'react-native';
 import { header as Header } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -84,36 +91,44 @@ const RequestLeave = ({ route }: any) => {
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <SafeAreaView style={style.container}>
-        <ScrollView
-          style={style.container}
-          showsVerticalScrollIndicator={false}
+        <KeyboardAvoidingView
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
         >
-          <Header>
-            <Text style={headerText}>Request Leave</Text>
-          </Header>
-          <Formik
-            validationSchema={validationSchema}
-            initialValues={initialValues}
-            onSubmit={(values) => onSubmit(values)}
+          <ScrollView
+            style={style.container}
+            showsVerticalScrollIndicator={false}
           >
-            {({ handleChange, handleSubmit, values }) => (
-              <>
-                <Calander style={style.calendar} handleChange={handleChange} />
-                <Teams handleChange={handleChange} />
-                <Leavetype handleChange={handleChange} />
-                <Description handleChange={handleChange} />
-                <Button onPress={() => handleSubmit()}>
-                  <View style={style.buttonView}>
-                    <Text style={style.buttonText}>Submit Request</Text>
-                    {isLoading && (
-                      <ActivityIndicator size={30} color={colors.white} />
-                    )}
-                  </View>
-                </Button>
-              </>
-            )}
-          </Formik>
-        </ScrollView>
+            <Header>
+              <Text style={headerText}>Request Leave</Text>
+            </Header>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+              onSubmit={(values) => onSubmit(values)}
+            >
+              {({ handleChange, handleSubmit, values }) => (
+                <>
+                  <Calander
+                    style={style.calendar}
+                    handleChange={handleChange}
+                  />
+                  <Teams handleChange={handleChange} />
+                  <Leavetype handleChange={handleChange} />
+                  <Description handleChange={handleChange} />
+                  <Button onPress={() => handleSubmit()}>
+                    <View style={style.buttonView}>
+                      <Text style={style.buttonText}>Submit Request</Text>
+                      {isLoading && (
+                        <ActivityIndicator size={30} color={colors.white} />
+                      )}
+                    </View>
+                  </Button>
+                </>
+              )}
+            </Formik>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </ApplicationProvider>
   );
