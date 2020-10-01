@@ -9,7 +9,7 @@ import colors from '../../../assets/colors';
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
 import { getId, mapDataToRequest, removeToken } from '../../utils';
-import { getLeaveQuota, getMyRequests } from '../../services';
+import { getLeaveQuota, getMyRequests, getPastRequests } from '../../services';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -24,6 +24,7 @@ const LeaveDashboard = () => {
       .then((data) => setDaysDetails(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
+
   const getRequest = async () => {
     setLoading(true);
     const userid = await getId();
