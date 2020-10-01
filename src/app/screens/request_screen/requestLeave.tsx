@@ -25,11 +25,11 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { postRequest } from '../../services';
+import { postRequest, updateRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
-import { getId } from '../../utils';
+import { getId, mapObjectToRequest } from '../../utils';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -60,8 +60,13 @@ const RequestLeave = ({ route }: any) => {
       .catch((err) => console.log(err));
   };
 
-  const updateRequest = (data) => {
-    console.log(data);
+  const updateReq = (data) => {
+    updateRequest(olddata.id, data)
+      .then((res) => {
+        dispatchRequest({ type: 'UPDATE', payload: res });
+        navigation.navigate('leaveList');
+      })
+      .catch((err) => console.log(err));
   };
 
   const [isLoading, setisLoading] = useState(false);
@@ -88,7 +93,7 @@ const RequestLeave = ({ route }: any) => {
     };
 
     setisLoading(!isLoading);
-    olddata ? updateRequest(requestData) : submitRequest(requestData);
+    olddata ? updateReq(requestData) : submitRequest(requestData);
   };
 
   return (

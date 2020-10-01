@@ -50,8 +50,8 @@ class Teams extends Component {
                         source={require('../../../assets/images/person.jpeg')}
                       />
                       {this.state.lead.map(
-                        (name) =>
-                          name === val.name && (
+                        (item) =>
+                          item.selected === val.name && (
                             <View style={style.iconContainer}>
                               <Icon
                                 name="check-circle"

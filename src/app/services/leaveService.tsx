@@ -60,7 +60,7 @@ export const updateRequest = (id: number, data: dataType) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.put(`/leave/${id}`, data);
-      resolve(res.data.result);
+      resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
     }

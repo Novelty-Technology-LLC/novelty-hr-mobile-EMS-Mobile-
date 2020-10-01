@@ -28,7 +28,6 @@ const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
       filter={filter}
       range={range}
       onSelect={(nextRange) => {
-        console.log(nextRange);
         newRange = Object.assign(nextRange);
         if (
           newRange.endDate &&
