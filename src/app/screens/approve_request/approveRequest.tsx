@@ -9,7 +9,6 @@ import { ApproveDeny } from '../../components';
 import getName from '../../components/approveRequest/getName';
 
 const ApproveRequest = ({ route }: any) => {
-  const [showAlert, setShowAlert] = useState(false);
   const [responses, setresponses] = useState([]);
 
   let { dayRange, day } = getDay(route.params);
