@@ -12,7 +12,6 @@ class Teams extends Component {
   };
 
   render() {
-    console.log('lead -> ', this.state.lead);
     return (
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>

@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
+
+import { useNavigation } from '@react-navigation/native';
 import { View, ScrollView, Text } from 'react-native';
 import { header as Header, Loader } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
@@ -12,6 +14,7 @@ import { getId, mapDataToRequest, removeToken } from '../../utils';
 import { getLeaveQuota, getMyRequests, getPastRequests } from '../../services';
 
 const LeaveDashboard = () => {
+  const navigation = useNavigation();
   const [isAdmin, setIsAdmin] = useState(false);
 
   const { dispatch } = useContext(AuthContext);

@@ -59,7 +59,7 @@ export const deleteRequest = (id: number) => {
 export const updateRequest = (id: number, data: dataType) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.put(`/leave/${id}`, data);
+      let res = await api.post(`/leave/${id}`, data);
       resolve(res.data.result);
     } catch (error) {
       reject({ success: false, message: error });

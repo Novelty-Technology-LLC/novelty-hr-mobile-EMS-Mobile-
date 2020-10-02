@@ -27,6 +27,7 @@ const mapDataToRequest = (requests: any) => {
         user: data.user,
         lead: data.lead,
         leave_date: data.leave_date,
+        createdAt: data.createdAt,
       };
       newRequests.push(newData);
     });
