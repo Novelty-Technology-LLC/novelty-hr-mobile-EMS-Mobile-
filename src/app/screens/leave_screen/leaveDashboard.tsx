@@ -43,9 +43,10 @@ const LeaveDashboard = () => {
         console.log('GetRequests error', err);
       });
   };
+
   const getisadmin = async () => {
-    const isapprover = await getIsApprover();
-    isapprover ? setIsAdmin(true) : setIsAdmin(false);
+    const isApprover = await getIsApprover();
+    +isApprover ? setIsAdmin(true) : setIsAdmin(false);
   };
 
   useEffect(() => {
@@ -81,22 +82,6 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: colors.white,
-          }}
-        >
-          <Text
-            style={{
-              color: isAdmin ? colors.primary : colors.secondary,
-            }}
-            onPress={() => setIsAdmin(!isAdmin)}
-          >
-            ADMIN
-          </Text>
-        </View> */}
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />

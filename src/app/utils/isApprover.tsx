@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const setIsApprover = async (id: number) => {
+export const setIsApprover = async (id: any) => {
   return await AsyncStorage.setItem('isapprover', id);
 };
 
