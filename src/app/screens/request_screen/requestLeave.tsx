@@ -25,7 +25,7 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { postRequest, updateRequest } from '../../services';
+import { editRequest, postRequest, updateRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
@@ -61,7 +61,7 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const updateReq = (data) => {
-    updateRequest(olddata.id, data)
+    editRequest(olddata.id, data)
       .then((res) => {
         dispatchRequest({ type: 'UPDATE', payload: res });
         navigation.navigate('leaveList');

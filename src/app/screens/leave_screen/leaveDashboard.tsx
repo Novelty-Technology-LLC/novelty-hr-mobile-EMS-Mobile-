@@ -51,6 +51,9 @@ const LeaveDashboard = () => {
   useEffect(() => {
     getData();
     getRequest();
+  }, []);
+
+  useEffect(() => {
     getisadmin();
   }, []);
 

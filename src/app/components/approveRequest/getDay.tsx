@@ -31,7 +31,7 @@ export default getDay = (item) => {
     item.leave_date.startDate.slice(3, 10) -
     +item.leave_date.endDate.slice(8, 10);
 
-  let startDate = item.leave_date.startDate.substr(3, 8);
+  let startDate = new Date(item.createdAt).toString().substr(3, 7);
 
   return {
     day,

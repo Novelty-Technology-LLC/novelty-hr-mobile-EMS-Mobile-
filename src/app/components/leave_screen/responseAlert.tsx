@@ -6,12 +6,14 @@ import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
 import { dataType } from '../../interface';
 import { AppIcon } from '../../common';
+import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { AdminRequestContext } from '../../reducer';
 import { updateRequest } from '../../services';
 import { getId } from '../../utils';
 
 const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
+  const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(true);
   let [action, setAction] = useState(status);
   const [note, setNote] = useState('');
@@ -32,10 +34,12 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       requested_to: Id,
     };
 
-    await updateRequest(item.id, newData);
+    updateRequest(item.id, newData);
+    navigation.navigate('leaveList');
     dispatchAdmin({ type: 'DELETE', payload: newData.id });
     //to save leave approval in db
   };
+
   return (
     <View>
       <Dialog.Container
