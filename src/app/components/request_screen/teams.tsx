@@ -14,17 +14,18 @@ class Teams extends Component {
   data = [];
 
   componentDidMount() {
-    this.setState({ lead: [...JSON.parse(this.props.defaultValue)] }, () => {
-      this.list.map((val) => {
-        this.state.lead.map((id) => {
-          if (id === val.id) {
-            val.selected = val.name;
-            this.data.push(val);
-          }
+    this.props.defaultValue &&
+      this.setState({ lead: [...JSON.parse(this.props.defaultValue)] }, () => {
+        this.list.map((val) => {
+          this.state.lead.map((id) => {
+            if (id === val.id) {
+              val.selected = val.name;
+              this.data.push(val);
+            }
+          });
         });
+        this.setState({ lead: [...this.state.lead].concat(this.data) });
       });
-      this.setState({ lead: [...this.state.lead].concat(this.data) });
-    });
   }
 
   render() {

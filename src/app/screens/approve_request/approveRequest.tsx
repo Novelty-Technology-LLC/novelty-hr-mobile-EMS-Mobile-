@@ -37,9 +37,7 @@ const ApproveRequest = ({ route }: any) => {
             <Text style={headerText}>{name},</Text>
           </Text>
           <Text>
-            <Text style={style.headerDate}>
-              {dayRange} ({day > 1 ? day + ' days' : (day = 1 + ' day')})
-            </Text>
+            <Text style={style.headerDate}>{dayRange}</Text>
           </Text>
         </View>
       </Header>

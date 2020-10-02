@@ -8,7 +8,7 @@ import appleAuth, {
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
 
-import { setId, storeToken } from '../utils';
+import { setId, setIsApprover, storeToken } from '../utils';
 import { create } from './userService';
 import { mapDataToObject } from '../utils';
 import { snackErrorBottom } from '../common';
@@ -22,10 +22,11 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
 
     const userData = mapDataToObject(userInfo.user);
-
+    console.log(userData);
     create(userData)
       .then(async ({ data }: any) => {
-        await setId(data.data.toString());
+        await setId(data.data.uuid.toString());
+        await setIsApprover(data.data.is_approver);
         dispatch({ type: 'STORE_ID', id: data.data });
         storeToken(userInfo.idToken);
         dispatch({ type: 'SIGN_IN', token: userInfo.idToken });

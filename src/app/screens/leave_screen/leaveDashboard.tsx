@@ -8,8 +8,13 @@ import { RequestButton } from '../../components/requestButton';
 import colors from '../../../assets/colors';
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
-import { getId, mapDataToRequest, removeToken } from '../../utils';
-import { getLeaveQuota, getMyRequests, getPastRequests } from '../../services';
+import {
+  getId,
+  getIsApprover,
+  mapDataToRequest,
+  removeToken,
+} from '../../utils';
+import { getLeaveQuota, getMyRequests } from '../../services';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -38,10 +43,15 @@ const LeaveDashboard = () => {
         console.log('GetRequests error', err);
       });
   };
+  const getisadmin = async () => {
+    const isapprover = await getIsApprover();
+    isapprover ? setIsAdmin(true) : setIsAdmin(false);
+  };
+
   useEffect(() => {
     getData();
     getRequest();
-    console.log(state);
+    getisadmin();
   }, []);
 
   return (

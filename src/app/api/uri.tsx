@@ -2,4 +2,4 @@ import { Platform } from 'react-native';
 export const BASE_URI =
   Platform.OS == 'ios'
     ? 'http://127.0.0.1:8080'
-    : ' http://0c9febc66096.ngrok.io';
+    : ' http://bee08272b619.ngrok.io';
