@@ -1,5 +1,12 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+} from 'react-native';
 import { header as Header } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -18,73 +25,128 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { postRequest } from '../../services';
+import { editRequest, postRequest, updateRequest } from '../../services';
+import colors from '../../../assets/colors';
+import { useNavigation } from '@react-navigation/native';
+import { RequestContext } from '../../reducer';
+import { getId, mapObjectToRequest } from '../../utils';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
+  type: Yup.string().required().label('type'),
+  note: Yup.string().required().label('note'),
+  lead: Yup.array().of(Yup.string()).required().label('lead'),
   status: Yup.string().required().label('status'),
-  description: Yup.string().required().label('description'),
-  lead: Yup.string().required().label('lead'),
 });
 
-const initialValues = {
-  date: '',
-  leaveType: 'Paid time off',
-  description: '',
-  lead: '',
-};
+const RequestLeave = ({ route }: any) => {
+  const olddata = route.params; //edit data
+  const navigation = useNavigation();
+  const { dispatchRequest } = useContext(RequestContext);
+  const initialValues = {
+    date: olddata ? olddata.date : '',
+    type: olddata ? olddata.type : 'Paid time off',
+    status: olddata ? olddata.state : 'Pending',
+    note: olddata ? olddata.note : '',
+    lead: olddata ? olddata.lead : [],
+  };
 
-const submitRequest = (data) => {
-  postRequest(data)
-    .then((data) => console.log('data posted'))
-    .catch((err) => console.log(err));
-};
+  const submitRequest = (data) => {
+    postRequest(data)
+      .then((res) => {
+        dispatchRequest({ type: 'ADD', payload: res.data.data });
+        navigation.navigate('leaveList');
+      })
+      .catch((err) => console.log(err));
+  };
 
-const RequestLeave = () => {
-  const onSubmit = (values: Object) => {
+  const updateReq = (data) => {
+    editRequest(olddata.id, data)
+      .then((res) => {
+        dispatchRequest({ type: 'UPDATE', payload: res });
+        navigation.navigate('leaveList');
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const [isLoading, setisLoading] = useState(false);
+  const onSubmit = async (values) => {
     const date = JSON.parse(values.date);
-    if (date['endDate'] === null) date['endDate'] = date['startDate'];
+    const startDate = new Date(date.startDate).toString().slice(0, 15);
+
+    let endDate = '';
+    if (date['endDate'] === null) {
+      endDate = startDate;
+    } else {
+      endDate = new Date(date.endDate).toString().slice(0, 15);
+    }
     delete values.date;
+    const userid = await getId();
 
     const requestData = {
       ...values,
-      leave_date: date,
+      leave_date: {
+        startDate,
+        endDate,
+      },
+      requestor_id: userid,
     };
-    submitRequest(requestData);
+
+    setisLoading(!isLoading);
+    olddata ? updateReq(requestData) : submitRequest(requestData);
   };
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <SafeAreaView style={style.container}>
-        <ScrollView
-          style={style.container}
-          showsVerticalScrollIndicator={false}
+        <KeyboardAvoidingView
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
         >
-          <Header>
-            <Text style={headerText}>Request Leave</Text>
-          </Header>
-          <Formik
-            validationSchema={validationSchema}
-            initialValues={initialValues}
-            onSubmit={(values) => onSubmit(values)}
+          <ScrollView
+            style={style.container}
+            showsVerticalScrollIndicator={false}
           >
-            {({ handleChange, handleSubmit, values }) => (
-              <>
-                <Calander style={style.calendar} handleChange={handleChange} />
-                <Teams handleChange={handleChange} />
-                <Leavetype handleChange={handleChange} />
-                <Description handleChange={handleChange} />
-                <View style={style.buttonView}>
-                  <Button
-                    style={style.buttonText}
-                    title={'Submit Request'}
-                    onPress={() => handleSubmit()}
+            <Header>
+              <Text style={headerText}>Request Leave</Text>
+            </Header>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={initialValues}
+              onSubmit={(values) => onSubmit(values)}
+            >
+              {({ handleChange, handleSubmit, values }) => (
+                <>
+                  <Calander
+                    style={style.calendar}
+                    handleChange={handleChange}
+                    defaultValue={olddata && olddata.leave_date}
                   />
-                </View>
-              </>
-            )}
-          </Formik>
-        </ScrollView>
+                  <Teams
+                    handleChange={handleChange}
+                    defaultValue={olddata && olddata.lead}
+                  />
+                  <Leavetype
+                    handleChange={handleChange}
+                    defaultValue={olddata && olddata.type}
+                  />
+                  <Description
+                    handleChange={handleChange}
+                    defaultValue={olddata && olddata.note}
+                  />
+                  <Button onPress={() => handleSubmit()}>
+                    <View style={style.buttonView}>
+                      <Text style={style.buttonText}>Submit Request</Text>
+                      {isLoading && (
+                        <ActivityIndicator size={30} color={colors.white} />
+                      )}
+                    </View>
+                  </Button>
+                </>
+              )}
+            </Formik>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </ApplicationProvider>
   );

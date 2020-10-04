@@ -14,4 +14,5 @@ export default {
   fontOrange: '#BF8B59',
   snow: '#fafafa',
   fontBlack: '#383838',
+  requested: '#EA8320',
 };

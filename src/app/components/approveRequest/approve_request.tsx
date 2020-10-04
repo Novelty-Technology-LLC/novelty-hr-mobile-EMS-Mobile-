@@ -1,83 +1,100 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
-
-const ar = [1, 2];
+import { getResponses } from '../../services';
+import getDay, { responseDay } from './getDay';
+import getName, { leadname } from './getName';
 
 const Request = ({ data, style }: any) => {
-  const { date, id, sender, state, type } = data;
+  const { startDate } = getDay(data);
+  const { name } = getName(data);
+  const [responses, setresponses] = useState([]);
+  useEffect(() => {
+    const getRequest = async () => {
+      const res = await getResponses(data.id);
+      setresponses(res);
+    };
+    getRequest();
+  }, []);
 
   return (
     <>
-      <View style={style.container}>
-        <View style={style.requestView}>
-          <View style={style.imageView}>
-            <Image
-              style={style.image}
-              source={require('../../../assets/images/person.jpeg')}
-            />
-            <View style={style.senderView}>
-              <Text style={style.sender}>{sender}</Text>
-              <View style={style.dateView}>
-                <Text style={style.leaveType}>Paid time off</Text>
+      {data && (
+        <View style={style.container}>
+          <View style={style.requestView}>
+            <View style={style.imageView}>
+              <Image
+                style={style.image}
+                source={
+                  data.user.image_url
+                    ? { uri: data.user.image_url }
+                    : require('../../../assets/images/person.jpeg')
+                }
+              />
+              <View style={style.senderView}>
+                <Text style={style.sender}>{name}</Text>
+                <View style={style.dateView}>
+                  <Text style={style.leaveType}>{data.type}</Text>
+                </View>
               </View>
             </View>
-          </View>
-          <View style={style.sectionView}>
-            <View style={style.sectionHeader}>
-              <View style={style.sectionDateView}>
-                <Icon style={style.calander} name="calendar" size={20} />
-                <Text style={style.sectionDate}>{date}</Text>
-              </View>
-              <View style={style.sendView}>
-                <State state="Requested">{date}</State>
-              </View>
-            </View>
-          </View>
-          <View style={style.sectionBody}>
-            <Text style={style.note}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </Text>
-          </View>
-        </View>
-        <View style={style.responseView}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Text style={style.response}>Responses</Text>
-            {ar.map(() => (
-              <>
-                <View style={style.main}>
-                  <View style={style.imageView}>
-                    <Image
-                      style={style.image}
-                      source={require('../../../assets/images/person.jpeg')}
-                    />
-                    <View style={style.senderView}>
-                      <View style={style.teamWrapper}>
-                        <Text style={style.sender}>{sender}</Text>
-                        <State state={state}>{date}</State>
-                      </View>
-                      <View style={style.teamLeadView}>
-                        <Text style={style.teamLead}>Team Lead</Text>
-                        <Text style={style.text}>on {date}</Text>
-                      </View>
-                    </View>
-                  </View>
-                  <Text style={style.leadText}>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
+            <View style={style.sectionView}>
+              <View style={style.sectionHeader}>
+                <View style={style.sectionDateView}>
+                  <Icon style={style.calander} name="calendar" size={20} />
+                  <Text style={style.sectionDate}>
+                    {data.leave_date.startDate}
                   </Text>
                 </View>
-                <View style={style.spacer} />
-              </>
-            ))}
-          </ScrollView>
+                <View style={style.sendView}>
+                  <State state="Requested">{startDate}</State>
+                </View>
+              </View>
+            </View>
+            <View style={style.sectionBody}>
+              <Text style={style.note}>{data.note}</Text>
+            </View>
+          </View>
+          <View style={style.responseView}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Text style={style.response}>Responses</Text>
+              {responses.length > 0 &&
+                responses.map((item) => (
+                  <>
+                    <View style={style.main}>
+                      <View style={style.imageView}>
+                        <Image
+                          style={style.image}
+                          source={
+                            item.user.image_url
+                              ? { uri: item.user.image_url }
+                              : require('../../../assets/images/person.jpeg')
+                          }
+                        />
+                        <View style={style.senderView}>
+                          <View style={style.teamWrapper}>
+                            <Text style={style.sender}>{leadname(item)}</Text>
+                            <State state={item.action} />
+                          </View>
+                          <View style={style.teamLeadView}>
+                            <Text style={style.teamLead}>Team Lead</Text>
+                            <Text style={style.text}>
+                              on {responseDay(item)}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                      <Text style={style.leadText}>{item.note}</Text>
+                    </View>
+                    <View style={style.spacer} />
+                  </>
+                ))}
+            </ScrollView>
+          </View>
         </View>
-      </View>
+      )}
     </>
   );
 };

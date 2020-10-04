@@ -40,6 +40,7 @@ const approveRequest = StyleSheet.create({
   sender: {
     fontSize: normalize(theme.size.base),
     fontFamily: fonts.mulishBold,
+    textTransform: 'capitalize',
   },
   dateView: {
     flexDirection: 'row',
@@ -141,17 +142,18 @@ const approveRequest = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: normalize(5),
     paddingHorizontal: normalize(20),
-    marginBottom: normalize(0),
   },
+  approve: { color: colors.white, fontFamily: fonts.mulishBold },
+  deny: { color: colors.primary, fontFamily: fonts.mulishBold },
   buttonApprove: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: fonts.mulishBold,
-    paddingHorizontal: normalize(55),
-    paddingVertical: normalize(15),
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.primary,
-    color: colors.white,
-    overflow: 'hidden',
-    fontWeight: '600',
+    paddingHorizontal: normalize(55),
+    paddingVertical: normalize(13),
     ...Platform.select({
       ios: {
         borderRadius: normalize(5),
@@ -162,15 +164,17 @@ const approveRequest = StyleSheet.create({
     }),
   },
   buttonDeny: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: fonts.mulishBold,
-    paddingHorizontal: normalize(55),
-    paddingVertical: normalize(15),
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.white,
     color: colors.primary,
     borderWidth: 1,
     borderColor: colors.primary,
-    fontWeight: '600',
+    paddingVertical: normalize(13),
+    paddingHorizontal: normalize(55),
     ...Platform.select({
       ios: {
         borderRadius: normalize(5),

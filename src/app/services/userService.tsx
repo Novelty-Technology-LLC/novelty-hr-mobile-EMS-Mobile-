@@ -4,8 +4,8 @@ const create = async (data: object) => {
   return new Promise((resolve, reject) => {
     api
       .post('/user/add', data)
-      .then(() => resolve())
-      .catch(() => reject());
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
   });
 };
 

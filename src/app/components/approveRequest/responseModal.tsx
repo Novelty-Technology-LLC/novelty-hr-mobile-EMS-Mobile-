@@ -1,28 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import Dialog from 'react-native-dialog';
-import colors from '../../../assets/colors';
-import {
-  deleteAlertStyle,
-  editAlertStyle as style,
-} from '../../../assets/styles';
-import RequestWithImage from './requestWithImage';
-import State from './state';
+
+import { editAlertStyle as style } from '../../../assets/styles';
+import RequestWithImage from '../../components/leave_screen/requestWithImage';
+import State from '../../components/leave_screen/state';
 import Textarea from 'react-native-textarea';
 import { AppIcon } from '../../common';
 
-const EditAlert = ({ item }: any) => {
-  const [showAlert, setShowAlert] = useState(false);
-  const show = () => setShowAlert(true);
+const EditAlert = ({ item, showAlert, setShowAlert }: any) => {
+  const [note, setNote] = useState('');
   const hide = () => setShowAlert(false);
+
+  const onSubmit = () => {};
   return (
-    <View>
-      <TouchableOpacity
-        onPress={() => show()}
-        style={deleteAlertStyle.iconContainer}
-      >
-        <AppIcon name="square-edit-outline" color={colors.primary} size={13} />
-      </TouchableOpacity>
+    <View style={{ backgroundColor: '#fff' }}>
       <View style={style.spacer}></View>
       <Dialog.Container
         visible={showAlert}
@@ -37,7 +29,15 @@ const EditAlert = ({ item }: any) => {
           <RequestWithImage item={item} />
           <View style={style.gap}></View>
           <View style={style.stateView}>
-            <State state={item.state} />
+            <View style={style.state}>
+              <State state={'Approved'} />
+              <AppIcon name="check-circle" style={style.icon} size={15} />
+            </View>
+            <View style={style.spaceTop}></View>
+            <View style={style.state}>
+              <State state={'Denied'} />
+              <AppIcon name="check-circle" size={15} style={style.icon} />
+            </View>
           </View>
         </View>
         <View style={style.main}>
@@ -45,17 +45,24 @@ const EditAlert = ({ item }: any) => {
           <Textarea
             containerStyle={style.textareaContainer}
             style={style.textArea}
-            maxLength={120}
+            maxLength={250}
             placeholder={'Write a short note for your response'}
             placeholderTextColor={'#c7c7c7'}
             underlineColorAndroid={'transparent'}
-            // onChangeText={}
+            onChangeText={(data: string) => setNote(data)}
           />
         </View>
         <View style={style.buttons}>
           <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
           <View style={style.buttonGap}></View>
-          <Dialog.Button label="SUBMIT" onPress={show} style={style.delete} />
+          <Dialog.Button
+            label="SUBMIT"
+            onPress={() => {
+              onSubmit();
+              hide();
+            }}
+            style={style.delete}
+          />
         </View>
       </Dialog.Container>
     </View>

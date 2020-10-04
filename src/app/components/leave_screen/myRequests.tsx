@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -10,13 +10,26 @@ import colors from '../../../assets/colors';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
-import { AppIcon } from '../../common';
+import { AppIcon, Loader } from '../../common';
+import { getId, mapDataToRequest } from '../../utils';
+import { getPastRequests } from '../../services';
 
-const MyRequests = () => {
+const MyRequests = ({ loading }: { loading: boolean }) => {
   const navigation = useNavigation();
+  const [pastrequests, setPastrequests] = useState(null);
   const { requests } = useContext(RequestContext);
 
   const [toggle, setToggle] = useState('toggle-switch');
+  const getPast = async () => {
+    const userid = await getId();
+    getPastRequests(userid)
+      .then((data) => setPastrequests(data))
+      .catch((err) => console.log('GetLeaveQuota error', err));
+  };
+
+  useEffect(() => {
+    getPast();
+  }, []);
 
   return (
     <View style={style.container}>
@@ -44,7 +57,7 @@ const MyRequests = () => {
           </TouchableWithoutFeedback>
         </View>
       </View>
-
+      {loading ? <Loader color="black" size={20} /> : null}
       {requests.requests[0] ? (
         <FlatList
           data={requests.requests}
@@ -60,12 +73,19 @@ const MyRequests = () => {
           keyExtractor={(item) => item.date}
         />
       ) : (
-        <View style={style.emptyContainer}>
-          <Text style={style.emptyText}>There are not current Requests</Text>
-        </View>
+        !loading && (
+          <View style={style.emptyContainer}>
+            <Text style={style.emptyText}>There are not current Requests</Text>
+          </View>
+        )
       )}
 
-      {toggle === 'toggle-switch' && <History />}
+      {toggle === 'toggle-switch' &&
+        (!pastrequests ? (
+          <Loader color="black" size={20} />
+        ) : (
+          <History requests={mapDataToRequest(pastrequests)} />
+        ))}
     </View>
   );
 };

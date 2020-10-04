@@ -14,12 +14,13 @@ const requestWithImageStyle = StyleSheet.create({
     marginRight: normalize(10),
   },
   gap: {
-    paddingRight: 5,
+    paddingRight: normalize(0),
   },
   name: {
     fontSize: normalize(theme.size.base),
     color: colors.fontBlack,
     fontFamily: fonts.mulishBold,
+    textTransform: 'capitalize',
   },
   date: {
     paddingTop: normalize(5),
@@ -29,8 +30,14 @@ const requestWithImageStyle = StyleSheet.create({
   },
   type: {
     fontSize: normalize(theme.size.xs),
-    color: colors.secondary,
+    color: colors.fontGrey,
     fontFamily: fonts.poppinsMedium,
+    textTransform: 'uppercase',
+  },
+  datetype: {
+    fontSize: normalize(theme.size.xs),
+    color: colors.fontGrey,
+    fontFamily: fonts.mulishBold,
   },
 });
 

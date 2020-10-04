@@ -8,8 +8,7 @@ const requestStyle = StyleSheet.create({
     paddingVertical: normalize(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: normalize(20),
-    paddingLeft: normalize(15),
+    marginLeft: normalize(13),
     marginRight: normalize(20),
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
@@ -28,6 +27,20 @@ const requestStyle = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     color: colors.fontGrey,
   },
+  dateView: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingHorizontal: normalize(10),
+  },
+  status: {
+    ...Platform.select({
+      ios: { marginTop: normalize(3) },
+      android: { marginTop: normalize(4) },
+    }),
+  },
   date: {
     fontSize: normalize(theme.size.base),
     color: colors.black,
@@ -40,13 +53,14 @@ const requestStyle = StyleSheet.create({
     paddingTop: normalize(theme.spacing.wide),
   },
   type: {
-    color: colors.secondary,
+    color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,
+    marginTop: normalize(7),
   },
   icon: {
     transform: [{ rotate: '-40deg' }],
-    backgroundColor: colors.primary,
+    backgroundColor: colors.requested,
     overflow: 'hidden',
     ...Platform.select({
       ios: {
@@ -67,6 +81,10 @@ const requestStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  rowAlign: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
   space: {
     ...Platform.select({
       ios: { paddingHorizontal: normalize(theme.spacing.wide) },
@@ -76,52 +94,49 @@ const requestStyle = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: normalize(20),
-  },
-  buttonSpacer: { marginLeft: normalize(theme.spacing.wider) },
-
-  buttonView: {
-    alignItems: 'center',
-    fontSize: normalize(theme.size.xs),
-    justifyContent: 'center',
-  },
-  buttonApprove: {
-    paddingHorizontal: normalize(18),
-    paddingVertical: normalize(10),
-    color: colors.white,
-    backgroundColor: colors.primary,
-    overflow: 'hidden',
     ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(6),
-      },
+      ios: { marginTop: normalize(20) },
+      android: { marginTop: normalize(25) },
     }),
   },
+  buttonSpacer: {
+    marginLeft: normalize(theme.spacing.wider),
+  },
+  approve: {
+    fontFamily: fonts.mulishBold,
+    fontSize: normalize(theme.size.xs),
+    color: colors.white,
+  },
+  deny: {
+    fontFamily: fonts.mulishBold,
+    fontSize: normalize(theme.size.xs),
+    color: colors.primary,
+  },
+  buttonApprove: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: normalize(10),
+    paddingVertical: normalize(8),
+    color: colors.white,
+    backgroundColor: colors.primary,
+    borderRadius: normalize(4),
+  },
   buttonDeny: {
-    paddingHorizontal: normalize(20),
-    paddingVertical: normalize(10),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: normalize(10),
+    paddingVertical: normalize(7),
     color: colors.primary,
     borderColor: colors.primary,
     borderWidth: 1,
-    overflow: 'hidden',
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(6),
-      },
-    }),
+    borderRadius: normalize(5),
   },
   subcontainer: {
-    width: normalize(200),
+    flex: 1,
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    paddingHorizontal: normalize(10),
-    paddingRight: normalize(18),
+    justifyContent: 'flex-end',
   },
   days: {
     color: colors.secondary,
@@ -148,6 +163,9 @@ const requestStyle = StyleSheet.create({
         padding: normalize(5),
       },
     }),
+  },
+  rowAlign: {
+    flexDirection: 'row',
   },
 });
 

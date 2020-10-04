@@ -1,4 +1,5 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { mapObjectToRequest } from '../utils';
 
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
@@ -9,35 +10,37 @@ const RequestReducer = (prevState, action) => {
           ...prevState.requests.filter((data) => data.id !== action.payload),
         ],
       };
+
+    case 'CHANGE':
+      return {
+        ...prevState,
+        requests: [...action.payload],
+      };
+
+    case 'ADD':
+      return {
+        ...prevState,
+        requests: [].concat(
+          mapObjectToRequest(action.payload),
+          ...prevState.requests
+        ),
+      };
+
+    case 'UPDATE':
+      return {
+        ...prevState,
+        requests: [].concat(
+          mapObjectToRequest(action.payload),
+          ...prevState.requests.filter((item) => item.id !== action.payload.id)
+        ),
+      };
   }
 };
 
 const RequestContext = React.createContext();
 
 const initialState = {
-  requests: [
-    {
-      id: 1,
-      date: 'Oct 20-24 (4 days)',
-      type: 'PAID TIME OFF',
-      state: 'Approved',
-      sender: 'Biren Gurung',
-    },
-    {
-      id: 2,
-      date: 'Oct 28 (1 day)',
-      type: 'FLOATING',
-      state: 'Pending',
-      sender: 'Biren Gurung',
-    },
-    {
-      id: 3,
-      date: 'Oct 30 (1 day)',
-      type: 'PAID TIME OFF',
-      state: 'Denied',
-      sender: 'Biren Gurung',
-    },
-  ],
+  requests: [],
 };
 
 const useRequest = () => {

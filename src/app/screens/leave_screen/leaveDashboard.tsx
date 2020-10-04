@@ -1,77 +1,106 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, ScrollView, Text } from 'react-native';
-import { header as Header } from '../../common';
-
+import { header as Header, Loader } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import colors from '../../../assets/colors';
-import { RequestContext, useRequest } from '../../reducer';
 import { headerText } from '../../../assets/styles';
-import { AuthContext } from '../../reducer';
-import { removeToken } from '../../utils';
-import { getLeaveQuota } from '../../services';
+import { AuthContext, RequestContext } from '../../reducer';
+import {
+  getId,
+  getIsApprover,
+  mapDataToRequest,
+  removeToken,
+} from '../../utils';
+import { getLeaveQuota, getMyRequests } from '../../services';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const { requests, dispatchRequest } = useRequest();
+
   const { dispatch } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
 
+  const getData = () => {
+    getLeaveQuota()
+      .then((data) => setDaysDetails(data))
+      .catch((err) => console.log('GetLeaveQuota error', err));
+  };
+
+  const getRequest = async () => {
+    setLoading(true);
+    const userid = await getId();
+    getMyRequests(userid)
+      .then((data) => {
+        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log('GetRequests error', err);
+      });
+  };
+  const getisadmin = async () => {
+    const isapprover = await getIsApprover();
+    isapprover ? setIsAdmin(true) : setIsAdmin(false);
+  };
+
   useEffect(() => {
-    const getData = () => {
-      getLeaveQuota()
-        .then((data) => setDaysDetails(data))
-        .catch((err) => console.log('GetLeaveQuota error', err));
-    };
     getData();
+    getRequest();
+  }, []);
+
+  useEffect(() => {
+    getisadmin();
   }, []);
 
   return (
-    <RequestContext.Provider value={{ requests, dispatchRequest }}>
-      <View style={style.mainContainer}>
-        <Header
-          onPress={() => {
-            removeToken();
-            dispatch({ type: 'SIGN_OUT' });
+    <View style={style.mainContainer}>
+      <Header
+        onPress={() => {
+          removeToken();
+          dispatch({ type: 'SIGN_OUT' });
+        }}
+      >
+        <Text style={headerText}>Leave Application</Text>
+      </Header>
+      <ScrollView>
+        {daysDetails.length > 0 ? null : <Loader color="black" size={20} />}
+        <View style={style.container}>
+          {daysDetails &&
+            daysDetails.length > 0 &&
+            daysDetails.map((daysDetail) => (
+              <DaysRemaining
+                key={daysDetail.id}
+                total={daysDetail.leave_total}
+                remaining={daysDetail.leave_used}
+                title={daysDetail.leave_type}
+              />
+            ))}
+        </View>
+        {/* <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: colors.white,
           }}
         >
-          <Text style={headerText}>Leave Application</Text>
-        </Header>
-        <ScrollView>
-          <View style={style.container}>
-            {daysDetails.length > 0 &&
-              daysDetails.map((daysDetail) => (
-                <DaysRemaining
-                  key={daysDetail.id}
-                  total={daysDetail.leave_total}
-                  remaining={daysDetail.leave_used}
-                  title={daysDetail.leave_type}
-                />
-              ))}
-          </View>
-          <View
+          <Text
             style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: colors.white,
+              color: isAdmin ? colors.primary : colors.secondary,
             }}
+            onPress={() => setIsAdmin(!isAdmin)}
           >
-            <Text
-              style={{
-                color: isAdmin ? colors.primary : colors.secondary,
-              }}
-              onPress={() => setIsAdmin(!isAdmin)}
-            >
-              ADMIN
-            </Text>
-          </View>
-          {isAdmin ? <OtherRequests /> : <MyRequests />}
-        </ScrollView>
-        <RequestButton />
-      </View>
-    </RequestContext.Provider>
+            ADMIN
+          </Text>
+        </View> */}
+        {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
+      </ScrollView>
+      <RequestButton />
+    </View>
   );
 };
 

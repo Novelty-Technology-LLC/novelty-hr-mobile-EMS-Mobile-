@@ -6,6 +6,7 @@ const headerText = {
   fontFamily: fonts.poppinsMedium,
   fontSize: normalize(theme.size.lg),
   color: color.primary,
+  textTransform: 'capitalize',
 };
 
 export { headerText };
