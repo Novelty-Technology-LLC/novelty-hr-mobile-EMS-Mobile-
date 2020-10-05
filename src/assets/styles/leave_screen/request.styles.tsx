@@ -95,8 +95,8 @@ const requestStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     ...Platform.select({
-      ios: { marginTop: normalize(20) },
-      android: { marginTop: normalize(25) },
+      ios: { marginTop: normalize(25) },
+      android: { marginTop: normalize(30) },
     }),
   },
   buttonSpacer: {
