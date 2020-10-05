@@ -11,18 +11,18 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { AppIcon, Loader } from '../../common';
-import { mapDataToRequest } from '../../utils';
+import { getUser, mapDataToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 
 const MyRequests = ({ loading }: { loading: boolean }) => {
   const navigation = useNavigation();
   const [pastrequests, setPastrequests] = useState(null);
-  const { state } = useContext(AuthContext);
   const { requests } = useContext(RequestContext);
 
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
-    getPastRequests(state.user.uuid)
+    const user = await getUser();
+    getPastRequests(JSON.parse(user).uuid)
       .then((data) => setPastrequests(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };

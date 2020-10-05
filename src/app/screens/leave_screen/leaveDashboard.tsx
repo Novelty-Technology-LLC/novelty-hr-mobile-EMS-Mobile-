@@ -14,7 +14,7 @@ import { getLeaveQuota, getMyRequests } from '../../services';
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
@@ -27,16 +27,17 @@ const LeaveDashboard = () => {
 
   const getRequest = async () => {
     setLoading(true);
-    state &&
-      getMyRequests(state.user.uuid)
-        .then((data) => {
-          dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log('GetRequests error', err);
-        });
+    const user = await getUser();
+    setIsAdmin(JSON.parse(user).is_approver ? true : false);
+    getMyRequests(JSON.parse(user).uuid)
+      .then((data) => {
+        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log('GetRequests error', err);
+      });
   };
   useEffect(() => {
     getData();
