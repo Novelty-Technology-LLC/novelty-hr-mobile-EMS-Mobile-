@@ -11,20 +11,20 @@ import History from './history';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon, Loader } from '../../common';
 import { getAllRequests } from '../../services';
-import { getId, mapDataToRequest } from '../../utils';
-import { AdminRequestContext } from '../../reducer';
+import { mapDataToRequest } from '../../utils';
+import { AdminRequestContext, AuthContext } from '../../reducer';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
 
   const getAdminRequest = async () => {
     setLoading(true);
-    const userid = await getId();
-    getAllRequests(userid)
+    getAllRequests(state.user.uuid)
       .then((data) => {
         dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(data) });
         setLoading(false);

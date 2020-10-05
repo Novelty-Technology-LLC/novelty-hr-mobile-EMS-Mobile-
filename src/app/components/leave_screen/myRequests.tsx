@@ -9,20 +9,20 @@ import Swipe from './swipe';
 import colors from '../../../assets/colors';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { RequestContext } from '../../reducer';
+import { AuthContext, RequestContext } from '../../reducer';
 import { AppIcon, Loader } from '../../common';
-import { getId, mapDataToRequest } from '../../utils';
+import { mapDataToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 
 const MyRequests = ({ loading }: { loading: boolean }) => {
   const navigation = useNavigation();
   const [pastrequests, setPastrequests] = useState(null);
+  const { state } = useContext(AuthContext);
   const { requests } = useContext(RequestContext);
 
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
-    const userid = await getId();
-    getPastRequests(userid)
+    getPastRequests(state.user.uuid)
       .then((data) => setPastrequests(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };

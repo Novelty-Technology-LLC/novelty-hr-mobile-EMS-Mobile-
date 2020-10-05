@@ -8,18 +8,13 @@ import { RequestButton } from '../../components/requestButton';
 import colors from '../../../assets/colors';
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
-import {
-  getId,
-  getIsApprover,
-  mapDataToRequest,
-  removeToken,
-} from '../../utils';
+import { getUser, mapDataToRequest, removeToken } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { dispatch } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
@@ -32,29 +27,20 @@ const LeaveDashboard = () => {
 
   const getRequest = async () => {
     setLoading(true);
-    const userid = await getId();
-    getMyRequests(userid)
-      .then((data) => {
-        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log('GetRequests error', err);
-      });
+    state &&
+      getMyRequests(state.user.uuid)
+        .then((data) => {
+          dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+          setLoading(false);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log('GetRequests error', err);
+        });
   };
-  const getisadmin = async () => {
-    const isapprover = await getIsApprover();
-    isapprover ? setIsAdmin(true) : setIsAdmin(false);
-  };
-
   useEffect(() => {
     getData();
     getRequest();
-  }, []);
-
-  useEffect(() => {
-    getisadmin();
   }, []);
 
   return (
@@ -81,7 +67,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <View
+        <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -96,7 +82,7 @@ const LeaveDashboard = () => {
           >
             ADMIN
           </Text>
-        </View> */}
+        </View>
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />

@@ -28,8 +28,7 @@ import * as Yup from 'yup';
 import { editRequest, postRequest, updateRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
-import { RequestContext } from '../../reducer';
-import { getId, mapObjectToRequest } from '../../utils';
+import { AuthContext, RequestContext } from '../../reducer';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -40,8 +39,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const RequestLeave = ({ route }: any) => {
-  const olddata = route.params; //edit data
+  const olddata = route.params;
   const navigation = useNavigation();
+  const { state } = useContext(AuthContext);
   const { dispatchRequest } = useContext(RequestContext);
   const initialValues = {
     date: olddata ? olddata.date : '',
@@ -81,7 +81,7 @@ const RequestLeave = ({ route }: any) => {
       endDate = new Date(date.endDate).toString().slice(0, 15);
     }
     delete values.date;
-    const userid = await getId();
+    const userid = state.user.uuid;
 
     const requestData = {
       ...values,
