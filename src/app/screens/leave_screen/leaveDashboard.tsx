@@ -21,9 +21,11 @@ const LeaveDashboard = () => {
 
   const getData = async () => {
     const user = await getUser();
-
     getLeaveQuota(JSON.parse(user).uuid)
-      .then((data) => setDaysDetails(data))
+      .then((data) => {
+        dispatchRequest({ type: 'QUOTAID', payload: data[0].id });
+        setDaysDetails(data);
+      })
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
@@ -42,6 +44,7 @@ const LeaveDashboard = () => {
         console.log('GetRequests error', err);
       });
   };
+
   useEffect(() => {
     getData();
     getRequest();

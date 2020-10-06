@@ -8,7 +8,11 @@ import { dataType } from '../../interface';
 import { AppIcon } from '../../common';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
-import { AdminRequestContext, AuthContext } from '../../reducer';
+import {
+  AdminRequestContext,
+  AuthContext,
+  RequestContext,
+} from '../../reducer';
 import { updateRequest } from '../../services';
 
 const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
@@ -20,6 +24,7 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const hide = () => setShowAlert(false);
   const { state } = useContext(AuthContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
+  const { requests } = useContext(RequestContext);
 
   const onSubmit = async () => {
     const Id = state.user.uuid;
@@ -32,6 +37,7 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       action,
       note,
       requested_to: Id,
+      quotaId: requests.quotaId,
     };
 
     updateRequest(item.id, newData);

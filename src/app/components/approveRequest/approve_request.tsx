@@ -15,7 +15,6 @@ const Request = ({ data, style, title = null }: any) => {
   const { startDate } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
-  const [approved, setapproved] = useState([]);
 
   useEffect(() => {
     const getRequest = async () => {
