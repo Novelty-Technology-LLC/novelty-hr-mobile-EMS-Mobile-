@@ -8,7 +8,7 @@ import appleAuth, {
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
 
-import { setId, setIsApprover, storeToken } from '../utils';
+import { setUser, setIsApprover, storeToken } from '../utils';
 import { create } from './userService';
 import { mapDataToObject } from '../utils';
 import { snackErrorBottom } from '../common';
@@ -22,13 +22,11 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
 
     const userData = mapDataToObject(userInfo.user);
-
     create(userData)
       .then(async ({ data }: any) => {
-        await setId(data.data.uuid.toString());
-        await setIsApprover(data.data.is_approver.toString());
-        dispatch({ type: 'STORE_ID', id: data.data });
-        storeToken(userInfo.idToken);
+        await setUser(data.data);
+        dispatch({ type: 'STORE_USER', user: data.data });
+        await storeToken(userInfo.idToken);
         dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
       })
       .catch((err) => console.log(err));
@@ -61,11 +59,7 @@ const signInApple = async (dispatch: any) => {
     const userData = mapDataToObject(data.fullName);
     create(userData)
       .then(async (res: any) => {
-        console.log('res apple -> ', res.data.data.is_approver);
-
-        await setId(res.data.data.uuid.toString());
-        await setIsApprover(res.data.data.is_approver.toString());
-        dispatch({ type: 'STORE_ID', id: res.data.data });
+        dispatch({ type: 'STORE_USER', user: res.data.data });
         storeToken(data.identityToken);
         dispatch({ type: 'SIGN_IN', token: data.identityToken });
       })

@@ -5,15 +5,10 @@ import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
-
+import colors from '../../../assets/colors';
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
-import {
-  getId,
-  getIsApprover,
-  mapDataToRequest,
-  removeToken,
-} from '../../utils';
+import { getUser, mapDataToRequest, removeToken } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
 
 const LeaveDashboard = () => {
@@ -32,9 +27,13 @@ const LeaveDashboard = () => {
 
   const getRequest = async () => {
     setLoading(true);
-    const userid = await getId();
-    getMyRequests(userid)
+    const user = await getUser();
+
+    setIsAdmin(JSON.parse(user).is_approver ? true : false);
+    getMyRequests(JSON.parse(user).uuid)
       .then((data) => {
+        console.log('get req data -> ', data);
+
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
         setLoading(false);
       })
@@ -43,19 +42,9 @@ const LeaveDashboard = () => {
         console.log('GetRequests error', err);
       });
   };
-
-  const getisadmin = async () => {
-    const isApprover = await getIsApprover();
-    +isApprover ? setIsAdmin(true) : setIsAdmin(false);
-  };
-
   useEffect(() => {
     getData();
     getRequest();
-  }, []);
-
-  useEffect(() => {
-    getisadmin();
   }, []);
 
   return (
@@ -81,6 +70,22 @@ const LeaveDashboard = () => {
                 title={daysDetail.leave_type}
               />
             ))}
+        </View>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: colors.white,
+          }}
+        >
+          <Text
+            style={{
+              color: isAdmin ? colors.primary : colors.secondary,
+            }}
+            onPress={() => setIsAdmin(!isAdmin)}
+          >
+            ADMIN
+          </Text>
         </View>
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>

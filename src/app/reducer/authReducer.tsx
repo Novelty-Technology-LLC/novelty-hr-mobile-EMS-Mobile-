@@ -22,10 +22,10 @@ const AuthReducer = (prevState, action) => {
         userToken: null,
       };
 
-    case 'STORE_ID':
+    case 'STORE_USER':
       return {
         ...prevState,
-        id: action.id,
+        user: Object.assign(action.user),
       };
   }
 };
@@ -36,7 +36,7 @@ const initialState = {
   isLoading: true,
   isSignout: false,
   userToken: null,
-  id: null,
+  user: null,
 };
 
 const useAuth = () => {

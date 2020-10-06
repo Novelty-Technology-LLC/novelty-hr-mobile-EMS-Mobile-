@@ -8,9 +8,8 @@ import { dataType } from '../../interface';
 import { AppIcon } from '../../common';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
-import { AdminRequestContext } from '../../reducer';
+import { AdminRequestContext, AuthContext } from '../../reducer';
 import { updateRequest } from '../../services';
-import { getId } from '../../utils';
 
 const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const navigation = useNavigation();
@@ -19,10 +18,11 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
+  const { state } = useContext(AuthContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
 
   const onSubmit = async () => {
-    const Id = await getId();
+    const Id = state.user.uuid;
 
     action === 'Approve' && (action = 'Approved');
     action === 'Deny' && (action = 'Denied');

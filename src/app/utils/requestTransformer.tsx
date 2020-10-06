@@ -15,7 +15,7 @@ interface userType {
 const mapDataToRequest = (requests: any) => {
   let newRequests: Array<dataType> = [];
 
-  requests &&
+  requests.length > 0 &&
     requests.map((data: userType, index: number) => {
       const newData: dataType = {
         id: data.id,
