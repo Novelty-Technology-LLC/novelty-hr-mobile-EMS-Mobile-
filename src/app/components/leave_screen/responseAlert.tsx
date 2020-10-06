@@ -37,6 +37,7 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       action,
       note,
       requested_to: Id,
+      quotaId: requests.quotaId,
     };
     updateRequest(item.id, newData);
     dispatchAdmin({
