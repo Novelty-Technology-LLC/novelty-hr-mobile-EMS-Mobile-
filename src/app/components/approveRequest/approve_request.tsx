@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, ActivityIndicatorBase } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
@@ -9,6 +9,7 @@ import getName, { leadname } from './getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 
+let ids = [];
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
   const { startDate } = getDay(data);
@@ -20,16 +21,16 @@ const Request = ({ data, style, title = null }: any) => {
     const getRequest = async () => {
       const res = await getResponses(data.id);
       const id = state.user.uuid;
-      setapproved(
-        res
-          .map((item) => {
-            return {
-              leave_id: item.leave_id,
-              userId: item.user.uuid,
-            };
-          })
-          .filter((item) => item.userId === id)
-      );
+
+      ids = res
+        .map((item) => {
+          return {
+            leave_id: item.leave_id,
+            userId: item.user.uuid,
+          };
+        })
+        .filter((item) => item.userId === id);
+
       setresponses(res);
     };
     getRequest();
@@ -110,13 +111,13 @@ const Request = ({ data, style, title = null }: any) => {
             </ScrollView>
           </View>
           {title === 'admin' ? (
-            approved.length < 1 ? (
+            ids.length < 1 ? (
               <View style={style.buttonView}>
                 <ApproveDeny title="Approve" style={style} item={data} />
                 <ApproveDeny title="Deny" style={style} item={data} />
               </View>
-            ) : approved[0].leave_id === data.id &&
-              approved[0].userId !== state.user.uuid ? (
+            ) : ids[0].leave_id === data.id &&
+              ids[0].userId !== state.user.uuid ? (
               <View style={style.buttonView}>
                 <ApproveDeny title="Approve" style={style} item={data} />
                 <ApproveDeny title="Deny" style={style} item={data} />
