@@ -7,12 +7,15 @@ import { getResponses } from '../../services';
 import getDay, { responseDay } from './getDay';
 import getName, { leadname } from './getName';
 import { AuthContext } from '../../reducer';
+import { ApproveDeny } from '../../components';
 
-const Request = ({ data, style, setapproved }: any) => {
+const Request = ({ data, style, title = null }: any) => {
+  const { state } = useContext(AuthContext);
   const { startDate } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
-  const { state } = useContext(AuthContext);
+  const [approved, setapproved] = useState([]);
+
   useEffect(() => {
     const getRequest = async () => {
       const res = await getResponses(data.id);
@@ -106,6 +109,20 @@ const Request = ({ data, style, setapproved }: any) => {
                 ))}
             </ScrollView>
           </View>
+          {title === 'admin' ? (
+            approved.length < 1 ? (
+              <View style={style.buttonView}>
+                <ApproveDeny title="Approve" style={style} item={data} />
+                <ApproveDeny title="Deny" style={style} item={data} />
+              </View>
+            ) : approved[0].leave_id === data.id &&
+              approved[0].userId !== state.user.uuid ? (
+              <View style={style.buttonView}>
+                <ApproveDeny title="Approve" style={style} item={data} />
+                <ApproveDeny title="Deny" style={style} item={data} />
+              </View>
+            ) : null
+          ) : null}
         </View>
       )}
     </>
