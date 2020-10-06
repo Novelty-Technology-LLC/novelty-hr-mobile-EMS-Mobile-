@@ -21,8 +21,6 @@ const ApproveRequest = ({ route }: any) => {
     Id();
   }, []);
 
-  console.log('approved -> ', approved);
-
   return (
     <>
       <Header>
