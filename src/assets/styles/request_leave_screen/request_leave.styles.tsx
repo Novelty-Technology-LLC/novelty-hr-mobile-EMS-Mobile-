@@ -12,7 +12,7 @@ const requestLeave = StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 0,
     borderBottomWidth: 1,
-    width: '100%',
+    width: 'auto',
   },
   buttonView: {
     marginTop: normalize(23),

@@ -5,7 +5,7 @@ import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
-import colors from '../../../assets/colors';
+
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest, removeToken } from '../../utils';

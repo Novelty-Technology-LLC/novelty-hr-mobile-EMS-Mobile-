@@ -60,7 +60,10 @@ const signInApple = async (dispatch: any) => {
     const userData = mapDataToObject(data.fullName);
     create(userData)
       .then(async (res: any) => {
-        await setId(res.data.data.toString());
+        console.log('res apple -> ', res.data.data.is_approver);
+
+        await setId(res.data.data.uuid.toString());
+        await setIsApprover(res.data.data.is_approver.toString());
         dispatch({ type: 'STORE_ID', id: res.data.data });
         storeToken(data.identityToken);
         dispatch({ type: 'SIGN_IN', token: data.identityToken });
