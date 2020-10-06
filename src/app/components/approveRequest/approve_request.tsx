@@ -6,7 +6,7 @@ import State from '../leave_screen/state';
 import { getResponses } from '../../services';
 import getDay, { responseDay } from './getDay';
 import getName, { leadname } from './getName';
-import { getId } from '../../utils';
+import { getUser } from '../../utils';
 
 const Request = ({ data, style, setapproved }: any) => {
   const { startDate } = getDay(data);
@@ -15,7 +15,7 @@ const Request = ({ data, style, setapproved }: any) => {
   useEffect(() => {
     const getRequest = async () => {
       const res = await getResponses(data.id);
-      const id = await getId();
+      const id = JSON.parse(await getUser()).uuid;
       setapproved(
         res
           .map((item) => {

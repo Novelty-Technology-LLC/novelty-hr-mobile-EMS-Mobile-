@@ -6,7 +6,7 @@ import { approveRequest as style } from '../../../assets/styles';
 import Request from '../../components/approveRequest/approve_request';
 import { ApproveDeny } from '../../components';
 import getName from '../../components/approveRequest/getName';
-import { getId } from '../../utils';
+import { getUser } from '../../utils';
 
 const ApproveRequest = ({ route }: any) => {
   let { dayRange, day } = getDay(route.params);
@@ -16,7 +16,9 @@ const ApproveRequest = ({ route }: any) => {
 
   useEffect(() => {
     const Id = async () => {
-      setid(await getId());
+      const data = await getUser();
+      setid(JSON.parse(data).uuid);
+      console.log(id);
     };
     Id();
   }, []);

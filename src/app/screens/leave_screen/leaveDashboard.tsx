@@ -10,6 +10,7 @@ import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest, removeToken } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
+import colors from '../../../assets/colors';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
