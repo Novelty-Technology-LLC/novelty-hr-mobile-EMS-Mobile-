@@ -8,7 +8,7 @@ import { dataType } from '../../interface';
 import { AppIcon } from '../../common';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
-import { AdminRequestContext, AuthContext } from '../../reducer';
+import { AuthContext } from '../../reducer';
 import { updateRequest } from '../../services';
 
 const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
@@ -19,7 +19,6 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { state } = useContext(AuthContext);
-  const { dispatchAdmin } = useContext(AdminRequestContext);
 
   const onSubmit = async () => {
     const Id = state.user.uuid;
@@ -33,11 +32,8 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       note,
       requested_to: Id,
     };
-
     updateRequest(item.id, newData);
     navigation.navigate('leaveList');
-    dispatchAdmin({ type: 'DELETE', payload: newData.id });
-    //to save leave approval in db
   };
 
   return (

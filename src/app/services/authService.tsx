@@ -24,7 +24,6 @@ const signInGoogle = async (dispatch: any) => {
     const userData = mapDataToObject(userInfo.user);
     create(userData)
       .then(async ({ data }: any) => {
-        console.log(data.data);
         await setUser(data.data);
         dispatch({ type: 'STORE_USER', user: data.data });
         await storeToken(userInfo.idToken);
@@ -60,8 +59,6 @@ const signInApple = async (dispatch: any) => {
     const userData = mapDataToObject(data.fullName);
     create(userData)
       .then(async (res: any) => {
-        console.log('res apple -> ', res.data.data.is_approver);
-
         await setId(res.data.data.uuid.toString());
         await setIsApprover(res.data.data.is_approver.toString());
         dispatch({ type: 'STORE_ID', id: res.data.data });

@@ -26,7 +26,10 @@ const OtherRequests = () => {
     setLoading(true);
     getAllRequests(state.user.uuid)
       .then((data) => {
-        dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        const pastreq = data.filter((item) => item.status !== 'Pending');
+        const myreq = data.filter((item) => item.status === 'Pending');
+        setRequests(mapDataToRequest(pastreq));
+        dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(myreq) });
         setLoading(false);
       })
       .catch((err) => {
@@ -87,7 +90,9 @@ const OtherRequests = () => {
           </Text>
         </View>
       )}
-      {toggle === 'toggle-switch' && <History other={true} data={requests} />}
+      {toggle === 'toggle-switch' && requests.length > 0 && (
+        <History other={true} requests={requests} />
+      )}
     </View>
   );
 };

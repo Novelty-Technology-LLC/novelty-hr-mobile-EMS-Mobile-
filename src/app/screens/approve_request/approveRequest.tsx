@@ -21,6 +21,7 @@ const ApproveRequest = ({ route }: any) => {
     };
     Id();
   }, []);
+  console.log('route', route.params);
 
   return (
     <>
