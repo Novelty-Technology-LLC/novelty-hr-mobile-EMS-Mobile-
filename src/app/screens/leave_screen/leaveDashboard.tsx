@@ -10,6 +10,7 @@ import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest, removeToken } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
+import colors from '../../../assets/colors';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -19,8 +20,9 @@ const LeaveDashboard = () => {
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
 
-  const getData = () => {
-    getLeaveQuota()
+  const getData = async () => {
+    const user = await getUser();
+    getLeaveQuota(JSON.parse(user).uuid)
       .then((data) => setDaysDetails(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };

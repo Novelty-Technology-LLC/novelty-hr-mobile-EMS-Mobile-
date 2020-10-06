@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,16 +6,17 @@ import State from '../leave_screen/state';
 import { getResponses } from '../../services';
 import getDay, { responseDay } from './getDay';
 import getName, { leadname } from './getName';
-import { getId } from '../../utils';
+import { AuthContext } from '../../reducer';
 
 const Request = ({ data, style, setapproved }: any) => {
   const { startDate } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
+  const { state } = useContext(AuthContext);
   useEffect(() => {
     const getRequest = async () => {
       const res = await getResponses(data.id);
-      const id = await getId();
+      const id = state.user.uuid;
       setapproved(
         res
           .map((item) => {
