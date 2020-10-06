@@ -19,8 +19,9 @@ const LeaveDashboard = () => {
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
 
-  const getData = () => {
-    getLeaveQuota()
+  const getData = async () => {
+    const user = await getUser();
+    getLeaveQuota(JSON.parse(user).uuid)
       .then((data) => setDaysDetails(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
