@@ -6,14 +6,26 @@ import State from '../leave_screen/state';
 import { getResponses } from '../../services';
 import getDay, { responseDay } from './getDay';
 import getName, { leadname } from './getName';
+import { getId } from '../../utils';
 
-const Request = ({ data, style }: any) => {
+const Request = ({ data, style, setapproved }: any) => {
   const { startDate } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
   useEffect(() => {
     const getRequest = async () => {
       const res = await getResponses(data.id);
+      const id = await getId();
+      setapproved(
+        res
+          .map((item) => {
+            return {
+              leave_id: item.leave_id,
+              userId: item.user.uuid,
+            };
+          })
+          .filter((item) => item.userId === id)
+      );
       setresponses(res);
     };
     getRequest();
