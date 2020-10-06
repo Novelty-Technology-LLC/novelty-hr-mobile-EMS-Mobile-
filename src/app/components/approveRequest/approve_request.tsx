@@ -110,18 +110,14 @@ const Request = ({ data, style, title = null }: any) => {
             </ScrollView>
           </View>
           {title === 'admin' ? (
-            ids.length < 1 ? (
+            ids.length > 0 &&
+            ids[0].leave_id === data.id &&
+            ids[0].userId === state.user.uuid ? null : (
               <View style={style.buttonView}>
                 <ApproveDeny title="Approve" style={style} item={data} />
                 <ApproveDeny title="Deny" style={style} item={data} />
               </View>
-            ) : ids[0].leave_id === data.id &&
-              ids[0].userId !== state.user.uuid ? (
-              <View style={style.buttonView}>
-                <ApproveDeny title="Approve" style={style} item={data} />
-                <ApproveDeny title="Deny" style={style} item={data} />
-              </View>
-            ) : null
+            )
           ) : null}
         </View>
       )}
