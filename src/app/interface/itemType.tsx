@@ -6,6 +6,7 @@ interface dataType {
   sender: string;
   note: string;
   user: object;
+  leave_approvals: Array<object>;
   lead: Array<string>;
   leave_date: { endDate: string; startDate: string };
 }

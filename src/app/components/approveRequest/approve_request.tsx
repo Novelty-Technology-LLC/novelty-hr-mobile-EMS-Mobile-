@@ -15,25 +15,24 @@ const Request = ({ data, style, title = null }: any) => {
   const { startDate } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
-  const [approved, setapproved] = useState([]);
+  const [approved, setapproved] = useState(false);
+
+  const checkReplied = () => {
+    data.leave_approvals &&
+      data.leave_approvals.map((item) => {
+        if (item.requested_to === state.user.uuid) {
+          setapproved(true);
+        }
+      });
+  };
 
   useEffect(() => {
     const getRequest = async () => {
       const res = await getResponses(data.id);
-      const id = state.user.uuid;
-
-      ids = res
-        .map((item) => {
-          return {
-            leave_id: item.leave_id,
-            userId: item.user.uuid,
-          };
-        })
-        .filter((item) => item.userId === id);
-
       setresponses(res);
     };
     getRequest();
+    checkReplied();
   }, []);
 
   return (
@@ -110,20 +109,12 @@ const Request = ({ data, style, title = null }: any) => {
                 ))}
             </ScrollView>
           </View>
-          {title === 'admin' ? (
-            ids.length < 1 ? (
-              <View style={style.buttonView}>
-                <ApproveDeny title="Approve" style={style} item={data} />
-                <ApproveDeny title="Deny" style={style} item={data} />
-              </View>
-            ) : ids[0].leave_id === data.id &&
-              ids[0].userId !== state.user.uuid ? (
-              <View style={style.buttonView}>
-                <ApproveDeny title="Approve" style={style} item={data} />
-                <ApproveDeny title="Deny" style={style} item={data} />
-              </View>
-            ) : null
-          ) : null}
+          {title === 'admin' && !approved && (
+            <View style={style.buttonView}>
+              <ApproveDeny title="Approve" style={style} item={data} />
+              <ApproveDeny title="Deny" style={style} item={data} />
+            </View>
+          )}
         </View>
       )}
     </>

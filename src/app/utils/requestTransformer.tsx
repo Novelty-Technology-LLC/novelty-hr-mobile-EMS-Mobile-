@@ -7,6 +7,7 @@ interface userType {
   status: string;
   type: string;
   user: object;
+  leave_approvals: Array<object>;
   lead: Array<string>;
   createdAt: string;
   updatedAt: string;
@@ -25,9 +26,9 @@ const mapDataToRequest = (requests: any) => {
         sender: data.requestor_id.toString(),
         note: data.note,
         user: data.user,
+        leave_approvals: data.leave_approvals,
         lead: data.lead,
         leave_date: data.leave_date,
-        createdAt: data.createdAt,
       };
       newRequests.push(newData);
     });
@@ -59,6 +60,7 @@ const mapObjectToRequest = (data: userType) => {
     note: data.note,
     user: data.user,
     lead: data.lead,
+    leave_approvals: data.leave_approvals,
     leave_date: data.leave_date,
   };
   newRequest.push(newData);

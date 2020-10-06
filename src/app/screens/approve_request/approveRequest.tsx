@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { header as Header } from '../../common/header';
 import { headerText } from '../../../assets/styles';
@@ -9,17 +9,6 @@ import getName from '../../components/approveRequest/getName';
 const ApproveRequest = ({ route }: any) => {
   let { dayRange } = getDay(route.params);
   let { name } = getName(route.params);
-  const [approved, setapproved] = useState([]);
-  const [id, setid] = useState(null);
-  const { state } = useContext(AuthContext);
-
-  useEffect(() => {
-    const Id = async () => {
-      setid(state.user.uuid);
-    };
-    Id();
-  }, []);
-  console.log('route', route.params);
 
   return (
     <>
@@ -32,7 +21,7 @@ const ApproveRequest = ({ route }: any) => {
           }}
         >
           <Text>
-            <Text style={headerText}>{name},</Text>
+            <Text style={headerText}>{name}</Text>
           </Text>
           <Text>
             <Text style={style.headerDate}>{dayRange}</Text>

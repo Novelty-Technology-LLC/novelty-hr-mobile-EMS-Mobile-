@@ -26,7 +26,7 @@ const AdminReducer = (prevState, action) => {
           ...prevState.adminrequests.filter(
             (item) => item.id !== action.payload.id
           ),
-          action.payload.data
+          action.payload
         ),
       };
   }

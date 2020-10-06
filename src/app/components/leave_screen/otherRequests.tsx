@@ -25,7 +25,7 @@ const OtherRequests = () => {
   const getAdminRequest = async () => {
     setLoading(true);
     getAllRequests(state.user.uuid)
-      .then((data) => {
+      .then((data: Array) => {
         const pastreq = data.filter((item) => item.status !== 'Pending');
         const myreq = data.filter((item) => item.status === 'Pending');
         setRequests(mapDataToRequest(pastreq));
