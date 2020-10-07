@@ -24,8 +24,12 @@ const OtherRequests = () => {
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
+    console.log('user -> ', user);
+
     getAllRequests(JSON.parse(user).uuid)
       .then((data: Array) => {
+        console.log('data -> in promise', data);
+
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'
         );

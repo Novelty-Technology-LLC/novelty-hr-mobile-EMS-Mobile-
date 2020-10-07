@@ -24,7 +24,7 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { editRequest, postRequest, updateRequest } from '../../services';
+import { editRequest, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
