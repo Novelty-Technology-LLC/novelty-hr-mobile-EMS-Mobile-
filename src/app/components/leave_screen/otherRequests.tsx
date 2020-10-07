@@ -34,7 +34,6 @@ const OtherRequests = () => {
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
-        console.log('reachgere', myreq, progressreq);
         progressreq.map(
           (req) =>
             req.leave_approvals &&
