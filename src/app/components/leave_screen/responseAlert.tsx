@@ -23,8 +23,8 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { state } = useContext(AuthContext);
-  const { dispatchRequest } = useContext(RequestContext);
-  const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
+  const { requests } = useContext(RequestContext);
+  const { dispatchAdmin } = useContext(AdminRequestContext);
 
   const onSubmit = async () => {
     const Id = state.user.uuid;
@@ -37,15 +37,13 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       action,
       note,
       requested_to: Id,
-      // quotaId: requests.quotaId,
+      quotaId: requests.quotaId,
     };
     updateRequest(item.id, newData);
+    item.state = 'In Progress';
     dispatchAdmin({
-      type: 'UPDATE',
-      payload: {
-        ...item,
-        leave_approvals: item.leave_approvals.concat(newData),
-      },
+      type: 'REPLY',
+      payload: item,
     });
     navigation.navigate('leaveList');
   };

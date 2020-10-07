@@ -38,6 +38,24 @@ const State = ({ state, children }: { state: string; children?: any }) => {
           </View>
         </>
       )}
+      {state === 'In Progress' && (
+        <>
+          <View style={style.main}>
+            <View style={style.wrapper}>
+              <View style={style.progress}>
+                <AppIcon
+                  name="timer-sand"
+                  size={Platform === 'ios' ? 10 : 12}
+                  color={colors.white}
+                />
+              </View>
+              <View style={style.space}></View>
+              <Text style={style.state}>{state}</Text>
+            </View>
+          </View>
+        </>
+      )}
+
       {state === 'Requested' && (
         <>
           <View style={style.main}>
