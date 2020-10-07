@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text } from 'react-native';
 import {
   FlatList,
@@ -9,27 +9,36 @@ import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import { AppIcon } from '../../common';
+import { AppIcon, Loader } from '../../common';
+import { getAllRequests } from '../../services';
+import { mapDataToRequest } from '../../utils';
+import { AdminRequestContext, AuthContext } from '../../reducer';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
-  const requests = [
-    {
-      id: 2,
-      date: 'Oct 28 (1 day)',
-      type: 'FLOATING',
-      state: 'Pending',
-      sender: 'Biren Gurung',
-    },
-    {
-      id: 3,
-      date: 'Oct 30 (1 day)',
-      type: 'PAID TIME OFF',
-      state: 'Denied',
-      sender: 'Biren Gurung',
-    },
-  ];
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { state } = useContext(AuthContext);
+  const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
+
+  const getAdminRequest = async () => {
+    setLoading(true);
+    getAllRequests(state.user.uuid)
+      .then((data: Array) => {
+        const pastreq = data.filter((item) => item.status !== 'Pending');
+        const myreq = data.filter((item) => item.status === 'Pending');
+        setRequests(mapDataToRequest(pastreq));
+        dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(myreq) });
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    getAdminRequest();
+  }, []);
 
   return (
     <View style={otherRequestsStyle.container}>
@@ -57,19 +66,32 @@ const OtherRequests = () => {
           </TouchableWithoutFeedback>
         </View>
       </View>
-      <FlatList
-        data={requests}
-        renderItem={(item) => (
-          <Request
-            item={item.item}
-            other={true}
-            recieved={true}
-            onPress={() => navigation.navigate('approveLeave', item.item)}
-          />
-        )}
-        keyExtractor={(item) => item.date}
-      />
-      {toggle === 'toggle-switch' && <History other={true} />}
+      {loading ? (
+        <Loader color="black" size={20} />
+      ) : (
+        <FlatList
+          data={adminrequests.adminrequests}
+          renderItem={(item) => (
+            <Request
+              item={item.item}
+              other={true}
+              recieved={true}
+              onPress={() => navigation.navigate('approveLeave', item.item)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
+      {adminrequests.adminrequests.length < 1 && !loading && (
+        <View style={myRequestsStyle.emptyContainer}>
+          <Text style={myRequestsStyle.emptyText}>
+            There are not current Requests
+          </Text>
+        </View>
+      )}
+      {toggle === 'toggle-switch' && requests.length > 0 && (
+        <History other={true} requests={requests} />
+      )}
     </View>
   );
 };

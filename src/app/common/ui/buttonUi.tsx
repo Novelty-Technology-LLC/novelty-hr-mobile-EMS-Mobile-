@@ -49,4 +49,4 @@ const buttonui = ({ name }: { name: string }) => {
   );
 };
 
-export default buttonui;
+export { buttonui };

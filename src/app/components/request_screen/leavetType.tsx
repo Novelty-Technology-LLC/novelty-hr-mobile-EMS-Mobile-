@@ -4,9 +4,16 @@ import { leaveType as style } from '../../../assets/styles';
 import color from '../../../assets/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function Leavetype({ handleChange }) {
-  const [type, setType] = useState(1);
-
+function Leavetype({
+  handleChange,
+  defaultValue,
+}: {
+  handleChange: Function;
+  defaultValue: string;
+}) {
+  const [type, setType] = useState(
+    defaultValue ? (defaultValue.toUpperCase() === 'PAID TIME OFF' ? 1 : 0) : 1
+  );
   return (
     <View style={style.container}>
       <View style={style.wrapper}>
@@ -14,7 +21,7 @@ function Leavetype({ handleChange }) {
         <View style={style.body}>
           <TouchableOpacity
             onPress={() => {
-              setType(1), handleChange('status')('Paid time off');
+              setType(1), handleChange('type')('Paid time off');
             }}
           >
             <View style={type == 1 ? style.paidView : style.floatingView}>
@@ -36,7 +43,7 @@ function Leavetype({ handleChange }) {
           <View style={style.spacer}></View>
           <TouchableOpacity
             onPress={() => {
-              setType(0), handleChange('status')('floating day');
+              setType(0), handleChange('type')('floating day');
             }}
           >
             <View style={type == 1 ? style.floatingView : style.paidView}>

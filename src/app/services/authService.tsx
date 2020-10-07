@@ -8,8 +8,8 @@ import appleAuth, {
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
 
-import { storeToken } from '../utils';
-import { create } from '../services';
+import { setUser, setIsApprover, storeToken } from '../utils';
+import { create } from './userService';
 import { mapDataToObject } from '../utils';
 import { snackErrorBottom } from '../common';
 
@@ -22,10 +22,17 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
 
     const userData = mapDataToObject(userInfo.user);
-    await create(userData);
-    storeToken(userInfo.idToken);
-    dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
+    create(userData)
+      .then(async ({ data }: any) => {
+        await setUser(data.data);
+        dispatch({ type: 'STORE_USER', user: data.data });
+        await storeToken(userInfo.idToken);
+        dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
+      })
+      .catch((err) => console.log(err));
   } catch (error) {
+    console.log('error -> ', error);
+
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
     snackErrorBottom(error);
@@ -52,10 +59,13 @@ const signInApple = async (dispatch: any) => {
     data.fullName['id'] = data.user;
 
     const userData = mapDataToObject(data.fullName);
-    await create(userData);
-
-    storeToken(data.identityToken);
-    dispatch({ type: 'SIGN_IN', token: data.identityToken });
+    create(userData)
+      .then(async (res: any) => {
+        dispatch({ type: 'STORE_USER', user: res.data.data });
+        storeToken(data.identityToken);
+        dispatch({ type: 'SIGN_IN', token: data.identityToken });
+      })
+      .catch((err) => console.log(err));
   } catch (error) {
     snackErrorBottom(error);
   }

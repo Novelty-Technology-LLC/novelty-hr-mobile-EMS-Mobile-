@@ -14,14 +14,14 @@ const DaysRemaining = ({ total, remaining, title }: DaysRemainingPropType) => {
     <View style={style.container}>
       <Text style={style.text}>
         <Text style={style.remaining}>
-          <AnimateNumber
+          {/* <AnimateNumber
             value={remaining}
             initial={-1}
             interval={120}
             countBy={1}
             timing="linear"
-          />
-          {/* {remaining} */}
+          /> */}
+          {total - remaining}
         </Text>
         <Text style={style.total}>/{total}</Text>
       </Text>

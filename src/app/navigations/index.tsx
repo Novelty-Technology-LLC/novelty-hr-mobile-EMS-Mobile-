@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { AuthContext, useAuth } from '../reducer';
-import { getToken } from '../utils';
+import { getUser, getToken } from '../utils';
 import { Text } from 'react-native-svg';
 import { Login } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,7 +18,12 @@ const RootNavigation = () => {
       try {
         let userToken = await getToken();
         dispatch({ type: 'RESTORE_TOKEN', token: userToken });
-      } catch (e) {}
+
+        const user = await getUser();
+        dispatch({ type: 'STORE_USER', user: JSON.parse(user) });
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     bootstrapAsync();

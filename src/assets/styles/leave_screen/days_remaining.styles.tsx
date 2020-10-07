@@ -30,6 +30,7 @@ const daysRemainingStyle = StyleSheet.create({
     fontSize: normalize(theme.size.sm),
     color: colors.black,
     fontFamily: fonts.PoppinsSemibold,
+    textTransform: 'capitalize',
   },
   footer: {
     fontSize: normalize(theme.size.xxs),

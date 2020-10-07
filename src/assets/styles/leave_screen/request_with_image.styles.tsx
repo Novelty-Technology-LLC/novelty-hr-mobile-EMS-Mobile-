@@ -6,6 +6,7 @@ const requestWithImageStyle = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'flex-start',
+    marginLeft: normalize(10),
   },
   image: {
     width: normalize(37),
@@ -14,23 +15,32 @@ const requestWithImageStyle = StyleSheet.create({
     marginRight: normalize(10),
   },
   gap: {
-    paddingRight: 5,
+    paddingRight: normalize(0),
   },
   name: {
     fontSize: normalize(theme.size.base),
     color: colors.fontBlack,
-    fontFamily: fonts.mulishBold,
+    fontFamily: fonts.mulishSemiBold,
+    textTransform: 'capitalize',
   },
   date: {
-    paddingTop: normalize(5),
+    paddingTop: normalize(10),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   type: {
     fontSize: normalize(theme.size.xs),
-    color: colors.secondary,
+    color: colors.fontGrey,
     fontFamily: fonts.poppinsMedium,
+    textTransform: 'uppercase',
+    fontWeight: 'normal',
+  },
+  datetype: {
+    fontSize: normalize(theme.size.xs),
+    color: colors.fontGrey,
+    fontFamily: fonts.mulishSemiBold,
+    paddingLeft: normalize(3),
   },
 });
 
