@@ -15,6 +15,14 @@ const teamStyle = StyleSheet.create({
     borderBottomWidth: 1,
   },
 
+  loading: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: normalize(180),
+  },
+
   text: {
     paddingTop: normalize(19),
     paddingLeft: normalize(18),

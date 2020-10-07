@@ -9,7 +9,6 @@ import getName, { leadname } from './getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 
-let ids = [];
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
   const { startDate } = getDay(data);
