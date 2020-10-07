@@ -90,6 +90,7 @@ const RequestLeave = ({ route }: any) => {
       },
       requestor_id: userid,
     };
+    console.log('req', requestData);
 
     setisLoading(!isLoading);
     olddata ? updateReq(requestData) : submitRequest(requestData);

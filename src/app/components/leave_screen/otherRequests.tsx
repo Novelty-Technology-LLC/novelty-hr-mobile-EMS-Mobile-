@@ -45,6 +45,7 @@ const OtherRequests = () => {
               }
             })
         );
+        console.log('data', myreq, pastreq, progressreq);
 
         dispatchAdmin({
           type: 'CHANGE',
