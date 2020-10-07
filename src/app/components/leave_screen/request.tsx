@@ -72,7 +72,9 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               )}
             </View>
           ) : (
-            <State state={item.state} />
+            <View style={style.pastState}>
+              <State state={item.state} />
+            </View>
           )}
         </View>
       )}

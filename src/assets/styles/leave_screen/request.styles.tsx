@@ -8,6 +8,7 @@ const requestStyle = StyleSheet.create({
     paddingVertical: normalize(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
     marginLeft: normalize(13),
     marginRight: normalize(20),
     backgroundColor: colors.snow,
@@ -57,6 +58,9 @@ const requestStyle = StyleSheet.create({
     fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,
     marginTop: normalize(7),
+  },
+  pastState: {
+    marginTop: normalize(3),
   },
   icon: {
     transform: [{ rotate: '-40deg' }],
