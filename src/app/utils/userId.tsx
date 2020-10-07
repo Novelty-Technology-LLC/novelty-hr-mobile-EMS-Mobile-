@@ -7,3 +7,7 @@ export const setUser = async (user: object) => {
 export const getUser = async () => {
   return await AsyncStorage.getItem('user');
 };
+
+export const removeUser = async () => {
+  return await AsyncStorage.removeItem('user');
+};

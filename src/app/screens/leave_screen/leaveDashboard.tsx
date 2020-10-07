@@ -8,7 +8,12 @@ import { RequestButton } from '../../components/requestButton';
 import colors from '../../../assets/colors';
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
-import { getUser, mapDataToRequest, removeToken } from '../../utils';
+import {
+  getUser,
+  mapDataToRequest,
+  removeToken,
+  removeUser,
+} from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
 
 const LeaveDashboard = () => {
@@ -53,6 +58,7 @@ const LeaveDashboard = () => {
     <View style={style.mainContainer}>
       <Header
         onPress={() => {
+          removeUser();
           removeToken();
           dispatch({ type: 'SIGN_OUT' });
         }}
