@@ -24,11 +24,10 @@ const Swipe = ({ item }: any) => {
             <AppIcon
               name="square-edit-outline"
               color={colors.primary}
-              size={20}
+              size={23}
             />
           </TouchableOpacity>
           <DeleteAlert item={item} />
-          <View style={editAlertStyle.spacer}></View>
         </>
       )}
     </View>

@@ -24,20 +24,18 @@ const OtherRequests = () => {
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
-    console.log('user -> ', user);
 
     getAllRequests(JSON.parse(user).uuid)
       .then((data: Array) => {
-        console.log('data -> in promise', data);
-
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'
         );
-        const myreq = data.filter((item) => item.status === 'Pending');
+        let myreq = data.filter((item) => item.status === 'Pending');
+
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
-
+        console.log('reachgere', myreq, progressreq);
         progressreq.map(
           (req) =>
             req.leave_approvals &&
