@@ -29,6 +29,7 @@ const mapDataToRequest = (requests: any) => {
         leave_approvals: data.leave_approvals,
         lead: data.lead,
         leave_date: data.leave_date,
+        createdAt: data.createdAt,
       };
       newRequests.push(newData);
     });
