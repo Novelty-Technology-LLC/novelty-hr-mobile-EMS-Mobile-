@@ -11,20 +11,20 @@ import History from './history';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon, Loader } from '../../common';
 import { getAllRequests } from '../../services';
-import { mapDataToRequest } from '../../utils';
+import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
-  const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
 
   const getAdminRequest = async () => {
     setLoading(true);
-    getAllRequests(state.user.uuid)
+    const user = await getUser();
+    getAllRequests(JSON.parse(user).uuid)
       .then((data: Array) => {
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'
@@ -46,7 +46,6 @@ const OtherRequests = () => {
             })
         );
 
-        setRequests(mapDataToRequest(pastreq));
         dispatchAdmin({
           type: 'CHANGE',
           payload: {
@@ -113,9 +112,10 @@ const OtherRequests = () => {
           </Text>
         </View>
       )}
-      {toggle === 'toggle-switch' && requests.length > 0 && (
-        <History other={true} requests={adminrequests.pastadminrequests} />
-      )}
+      {toggle === 'toggle-switch' &&
+        adminrequests.pastadminrequests.length > 0 && (
+          <History other={true} requests={adminrequests.pastadminrequests} />
+        )}
     </View>
   );
 };
