@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
-  Keyboard,
 } from 'react-native';
 import { header as Header } from '../../common';
 import * as eva from '@eva-design/eva';

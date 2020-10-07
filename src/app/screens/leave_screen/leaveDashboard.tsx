@@ -41,7 +41,6 @@ const LeaveDashboard = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log('GetRequests error', err);
       });
   };
 

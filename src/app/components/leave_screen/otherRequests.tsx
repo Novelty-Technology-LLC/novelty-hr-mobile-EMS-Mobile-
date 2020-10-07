@@ -58,7 +58,6 @@ const OtherRequests = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log('GetRequests error', err);
       });
   };
   useEffect(() => {
