@@ -4,8 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
 import { getResponses } from '../../services';
-import getDay, { responseDay } from './getDay';
-import getName, { leadname } from './getName';
+import getDay, { responseDay } from '../../utils/getDay';
+import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 

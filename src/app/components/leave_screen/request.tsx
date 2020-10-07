@@ -4,7 +4,7 @@ import { requestStyle as style } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import State from './state';
 
-import getDay from '../approveRequest/getDay';
+import getDay from '../../utils/getDay';
 import { ApproveDeny } from './approveDeny';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 

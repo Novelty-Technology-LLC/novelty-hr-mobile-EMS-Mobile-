@@ -3,8 +3,8 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { requestWithImageStyle as style } from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { AppIcon } from '../../common';
-import getDay from '../approveRequest/getDay';
-import getName from '../approveRequest/getName';
+import getDay from '../../utils/getDay';
+import getName from '../../utils/getName';
 
 const RequestWithImage = ({ item, onPress }: any) => {
   let { dayRange, dayType } = getDay(item);
