@@ -26,10 +26,34 @@ const OtherRequests = () => {
     setLoading(true);
     getAllRequests(state.user.uuid)
       .then((data: Array) => {
-        const pastreq = data.filter((item) => item.status !== 'Pending');
+        let pastreq = data.filter(
+          (item) => item.status === 'Approved' || item.status === 'Denied'
+        );
         const myreq = data.filter((item) => item.status === 'Pending');
+        const progressreq = data.filter(
+          (item) => item.status === 'In Progress'
+        );
+
+        progressreq.map(
+          (req) =>
+            req.leave_approvals &&
+            req.leave_approvals.map((item) => {
+              if (item.requested_to === state.user.uuid) {
+                pastreq = pastreq.concat(req);
+              } else {
+                myreq = myreq.concat(req);
+              }
+            })
+        );
+
         setRequests(mapDataToRequest(pastreq));
-        dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(myreq) });
+        dispatchAdmin({
+          type: 'CHANGE',
+          payload: {
+            my: mapDataToRequest(myreq),
+            past: mapDataToRequest(pastreq),
+          },
+        });
         setLoading(false);
       })
       .catch((err) => {
@@ -86,12 +110,12 @@ const OtherRequests = () => {
       {adminrequests.adminrequests.length < 1 && !loading && (
         <View style={myRequestsStyle.emptyContainer}>
           <Text style={myRequestsStyle.emptyText}>
-            There are not current Requests
+            There are no current requests
           </Text>
         </View>
       )}
       {toggle === 'toggle-switch' && requests.length > 0 && (
-        <History other={true} requests={requests} />
+        <History other={true} requests={adminrequests.pastadminrequests} />
       )}
     </View>
   );

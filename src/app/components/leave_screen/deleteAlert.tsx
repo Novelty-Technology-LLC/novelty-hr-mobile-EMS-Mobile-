@@ -23,7 +23,7 @@ const DeleteAlert = ({ item }: { item: dataType }) => {
   return (
     <>
       <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
-        <AppIcon name="delete" color={colors.tomato} size={15} />
+        <AppIcon name="delete" color={colors.tomato} size={20} />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}

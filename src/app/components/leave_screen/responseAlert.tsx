@@ -40,12 +40,10 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       // quotaId: requests.quotaId,
     };
     updateRequest(item.id, newData);
+    item.state = 'In Progress';
     dispatchAdmin({
-      type: 'UPDATE',
-      payload: {
-        ...item,
-        leave_approvals: item.leave_approvals.concat(newData),
-      },
+      type: 'REPLY',
+      payload: item,
     });
     navigation.navigate('leaveList');
   };

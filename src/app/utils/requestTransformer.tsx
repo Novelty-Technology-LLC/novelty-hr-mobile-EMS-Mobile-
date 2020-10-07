@@ -44,7 +44,7 @@ const dateMapper = (start: string, end: string) => {
         '-' +
         end.substring(8, end.length - 4) +
         `(${
-          parseInt(end.substring(8, 10)) - parseInt(start.substring(8, 10))
+          parseInt(end.substring(8, 10)) - parseInt(start.substring(8, 10)) + 1
         } days)`;
 };
 
