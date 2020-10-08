@@ -26,8 +26,6 @@ const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
     handleChange('date')(`${JSON.stringify(range)}`);
   }, [range]);
 
-  console.log('range -> in render', range);
-
   let newRange = null;
   return (
     <RangeCalendar
