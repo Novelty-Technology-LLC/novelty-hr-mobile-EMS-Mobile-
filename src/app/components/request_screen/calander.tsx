@@ -16,14 +16,19 @@ const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
         }
       : ''
   );
+
   const filter = (date) =>
-    date.getDay() !== 0 && date.getDay() !== 6 && new Date(date) > new Date();
+    date.getDay() !== 0 &&
+    date.getDay() !== 6 &&
+    date.getDate() > new Date().getDate() - 1;
 
   useEffect(() => {
     handleChange('date')(`${JSON.stringify(range)}`);
   }, [range]);
-  let newRange = null;
 
+  console.log('range -> in render', range);
+
+  let newRange = null;
   return (
     <RangeCalendar
       filter={filter}
