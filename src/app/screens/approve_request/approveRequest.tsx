@@ -12,7 +12,7 @@ const ApproveRequest = ({ route }: any) => {
 
   return (
     <>
-      <Header>
+      <Header icon={true}>
         <View
           style={{
             flexDirection: 'row',
@@ -21,7 +21,7 @@ const ApproveRequest = ({ route }: any) => {
           }}
         >
           <Text>
-            <Text style={headerText}>{name}</Text>
+            <Text style={headerText}>{name},</Text>
           </Text>
           <Text>
             <Text style={style.headerDate}>{dayRange}</Text>

@@ -9,7 +9,7 @@ const LeaveApproval = () => {
   const { dispatch } = useContext(AuthContext);
   return (
     <View>
-      <Header>
+      <Header icon={false}>
         <Text style={headerText}>Hello</Text>
       </Header>
       <Text

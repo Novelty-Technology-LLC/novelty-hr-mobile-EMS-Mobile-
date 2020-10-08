@@ -11,7 +11,7 @@ const RequestDetail = ({ route }: any) => {
 
   return (
     <>
-      <Header>
+      <Header icon={true}>
         <Text style={headerText}>{date}</Text>
       </Header>
       <Request data={route.params} style={style} />

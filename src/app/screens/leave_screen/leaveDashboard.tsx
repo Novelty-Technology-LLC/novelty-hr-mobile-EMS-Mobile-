@@ -6,20 +6,13 @@ import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
-import { AuthContext, RequestContext } from '../../reducer';
-import {
-  getUser,
-  mapDataToRequest,
-  removeToken,
-  removeUser,
-} from '../../utils';
+import { RequestContext } from '../../reducer';
+import { getUser, mapDataToRequest } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
-import colors from '../../../assets/colors';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { dispatch } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
@@ -55,13 +48,7 @@ const LeaveDashboard = () => {
 
   return (
     <View style={style.mainContainer}>
-      <Header
-        onPress={() => {
-          removeUser();
-          removeToken();
-          dispatch({ type: 'SIGN_OUT' });
-        }}
-      >
+      <Header icon={false}>
         <Text style={headerText}>Leave Application</Text>
       </Header>
       <ScrollView>

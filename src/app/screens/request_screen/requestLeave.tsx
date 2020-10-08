@@ -106,7 +106,7 @@ const RequestLeave = ({ route }: any) => {
             style={style.container}
             showsVerticalScrollIndicator={false}
           >
-            <Header>
+            <Header icon={true}>
               <Text style={headerText}>Request Leave</Text>
             </Header>
             <Formik
