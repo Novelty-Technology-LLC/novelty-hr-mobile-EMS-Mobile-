@@ -8,6 +8,13 @@ interface calenderPropType {
 }
 
 const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
+  const useCalendarState = (initialState = null) => {
+    const [date, setDate] = useState(initialState);
+    return { date, onSelect: setDate };
+  };
+
+  const filterCalendarState = useCalendarState();
+
   const [range, setrange] = useState(
     defaultValue
       ? {
@@ -20,7 +27,7 @@ const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
   const filter = (date) =>
     date.getDay() !== 0 &&
     date.getDay() !== 6 &&
-    date.getDate() > new Date().getDate() - 1;
+    date.getDate() > new Date().getDate();
 
   useEffect(() => {
     handleChange('date')(`${JSON.stringify(range)}`);
@@ -31,6 +38,7 @@ const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
     <RangeCalendar
       filter={filter}
       range={range}
+      {...filterCalendarState}
       onSelect={(nextRange) => {
         newRange = Object.assign(nextRange);
         if (
@@ -43,7 +51,7 @@ const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
         } else if (nextRange.endDate === null || nextRange.startDate === null) {
           setrange(nextRange);
         } else {
-          newRange.endDate = newRange.startDate = new Date();
+          newRange.startDate = newRange.endDate;
           setrange(newRange);
         }
       }}
