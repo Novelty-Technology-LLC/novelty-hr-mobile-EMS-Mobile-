@@ -78,7 +78,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <View
+        <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -93,7 +93,7 @@ const LeaveDashboard = () => {
           >
             ADMIN
           </Text>
-        </View> */}
+        </View>
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />

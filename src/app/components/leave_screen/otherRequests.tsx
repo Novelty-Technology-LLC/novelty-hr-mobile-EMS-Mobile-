@@ -39,9 +39,13 @@ const OtherRequests = () => {
             req.leave_approvals &&
             req.leave_approvals.map((item) => {
               if (item.requested_to === state.user.uuid) {
+                // pastreq = [req, ...pastreq];
                 pastreq = pastreq.concat(req);
+                pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               } else {
+                // myreq = [req, ...myreq];
                 myreq = myreq.concat(req);
+                myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               }
             })
         );
