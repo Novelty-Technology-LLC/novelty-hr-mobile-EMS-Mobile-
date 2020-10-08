@@ -5,7 +5,6 @@ import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
-import colors from '../../../assets/colors';
 import { headerText } from '../../../assets/styles';
 import { AuthContext, RequestContext } from '../../reducer';
 import {
@@ -28,7 +27,6 @@ const LeaveDashboard = () => {
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).uuid)
       .then((data) => {
-        dispatchRequest({ type: 'QUOTAID', payload: data[0].id });
         setDaysDetails(data);
       })
       .catch((err) => console.log('GetLeaveQuota error', err));
@@ -41,6 +39,8 @@ const LeaveDashboard = () => {
     setIsAdmin(JSON.parse(user).is_approver ? true : false);
     getMyRequests(JSON.parse(user).uuid)
       .then((data) => {
+        console.log('data -> ', data);
+
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
         setLoading(false);
       })

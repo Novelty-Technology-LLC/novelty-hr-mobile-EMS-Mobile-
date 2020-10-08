@@ -37,7 +37,7 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       action,
       note,
       requested_to: Id,
-      quotaId: requests.quotaId,
+      quotaId: item.sender,
     };
     updateRequest(item.id, newData);
     item.state = 'In Progress';
