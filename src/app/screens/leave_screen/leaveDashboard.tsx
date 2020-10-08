@@ -14,6 +14,7 @@ import {
   removeUser,
 } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
+import colors from '../../../assets/colors';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -39,8 +40,6 @@ const LeaveDashboard = () => {
     setIsAdmin(JSON.parse(user).is_approver ? true : false);
     getMyRequests(JSON.parse(user).uuid)
       .then((data) => {
-        console.log('data -> ', data);
-
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
         setLoading(false);
       })
@@ -79,7 +78,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <View
+        <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -94,7 +93,7 @@ const LeaveDashboard = () => {
           >
             ADMIN
           </Text>
-        </View> */}
+        </View>
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />

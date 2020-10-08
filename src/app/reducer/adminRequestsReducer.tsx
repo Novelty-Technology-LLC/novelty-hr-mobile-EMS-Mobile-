@@ -24,10 +24,10 @@ const AdminReducer = (prevState, action) => {
       return {
         ...prevState,
         adminrequests: [].concat(
+          action.payload,
           ...prevState.adminrequests.filter(
             (item) => item.id !== action.payload.id
-          ),
-          action.payload
+          )
         ),
       };
 
@@ -40,8 +40,8 @@ const AdminReducer = (prevState, action) => {
           )
         ),
         pastadminrequests: [].concat(
-          ...prevState.pastadminrequests,
-          action.payload
+          action.payload,
+          ...prevState.pastadminrequests
         ),
       };
   }
