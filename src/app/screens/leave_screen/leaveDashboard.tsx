@@ -64,7 +64,6 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-<<<<<<< HEAD
         {/* <View
           style={{
             alignItems: 'center',
@@ -81,14 +80,14 @@ const LeaveDashboard = () => {
             ADMIN
           </Text>
         </View> */}
-=======
-        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
->>>>>>> f307999c486066f1572a612b4c1bcf76d80a63e8
+
+        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />
     </View>
   );
 };
+
 
 export { LeaveDashboard };
