@@ -10,7 +10,7 @@ const Activity = () => {
   const { dispatch } = useContext(AuthContext);
   return (
     <View style={style.container}>
-      <Header icon={true}>
+      <Header>
         <Text style={headerText}>Activity</Text>
       </Header>
     </View>

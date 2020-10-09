@@ -17,7 +17,7 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
       {children}
       <View style={style.textView}>
         {icon && (
-          <TouchableWithoutFeedback onPress={onPress || navigation.goBack}>
+        
             <Icon
               name="logout"
               size={25}
@@ -28,7 +28,7 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
                 dispatch({ type: 'SIGN_OUT' });
               }}
             />
-          </TouchableWithoutFeedback>
+         
         )}
       </View>
     </View>

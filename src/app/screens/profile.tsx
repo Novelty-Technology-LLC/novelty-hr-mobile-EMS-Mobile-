@@ -7,10 +7,10 @@ import { tabHeader as Header } from '../common';
 import { AuthContext } from '../reducer';
 
 const Profile = () => {
-  const { dispatch } = useContext(AuthContext);
+ 
   return (
     <View style={style.container}>
-      <Header icon={true}>
+      <Header >
         <Text style={headerText}>Profile</Text>
       </Header>
     </View>

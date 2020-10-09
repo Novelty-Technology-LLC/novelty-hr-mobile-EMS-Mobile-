@@ -89,11 +89,12 @@ try {
   const day = parseInt(endDate.substring(8,10)) - parseInt(startDate.substring(8,10))
   const notValid = values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
   
+  
 
  if(notValid) {
    throw new Error('Selected day exceeds leave');
  }
- 
+
   delete values.date;
   const userid = state.user.uuid;
 
