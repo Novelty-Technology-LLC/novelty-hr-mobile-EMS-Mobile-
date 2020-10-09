@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, ScrollView, Text } from 'react-native';
-import { header as Header, Loader } from '../../common';
+import { header as Header, Loader, Admin } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
@@ -9,11 +9,9 @@ import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
-import colors from '../../../assets/colors';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-
   const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
   const [daysDetails, setDaysDetails] = useState([]);
@@ -66,6 +64,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
+<<<<<<< HEAD
         {/* <View
           style={{
             alignItems: 'center',
@@ -82,6 +81,9 @@ const LeaveDashboard = () => {
             ADMIN
           </Text>
         </View> */}
+=======
+        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+>>>>>>> f307999c486066f1572a612b4c1bcf76d80a63e8
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />
