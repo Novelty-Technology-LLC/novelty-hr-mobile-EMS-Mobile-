@@ -30,7 +30,7 @@ const mapDataToObject = (profile: any) => {
     join_date: new Date(),
     phone: '0123456789',
     is_active: 0,
-    is_approver: 0,
+    is_approver: 1,
     created_by: 'lovish hamal',
     updated_by: 'lovish hamal',
   };
