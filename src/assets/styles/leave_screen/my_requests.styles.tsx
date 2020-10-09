@@ -6,6 +6,7 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
+    marginTop: normalize(20),
   },
   header: {
     flexDirection: 'row',
@@ -22,7 +23,7 @@ const myRequestsStyle = StyleSheet.create({
   history: {
     fontFamily: fonts.poppinsMedium,
     color: colors.secondary,
-    fontSize: normalize(theme.size.xs),
+    fontSize: normalize(theme.size.base),
   },
   row: {
     flexDirection: 'row',
