@@ -29,6 +29,7 @@ const LeaveDashboard = () => {
     setLoading(true);
     const user = await getUser();
 
+
     setIsAdmin(JSON.parse(user).is_approver ? true : false);
     getMyRequests(JSON.parse(user).uuid)
       .then((data) => {
@@ -64,7 +65,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />

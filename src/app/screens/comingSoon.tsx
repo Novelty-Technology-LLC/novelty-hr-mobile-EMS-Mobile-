@@ -6,7 +6,6 @@ import { headerText } from '../../assets/styles';
 import { AuthContext } from '../reducer';
 
 const ComingSoon = () => {
-  const { dispatch } = useContext(AuthContext);
   return (
     <View style={style.container}>
       <Header icon={true}><Text style={headerText}>Setting</Text></Header>
