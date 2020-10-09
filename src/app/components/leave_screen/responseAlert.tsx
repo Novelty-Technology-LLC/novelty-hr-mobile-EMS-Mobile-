@@ -5,7 +5,7 @@ import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
 import { dataType } from '../../interface';
-import { AppIcon } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import {
@@ -46,6 +46,7 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
         payload: item,
       });
       navigation.navigate('leaveList');
+      snackBarMessage('Request replied');
     });
   };
 

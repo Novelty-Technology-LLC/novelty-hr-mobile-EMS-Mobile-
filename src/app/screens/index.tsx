@@ -5,3 +5,5 @@ export * from './request_screen/requestLeave';
 export * from './approve_request/approveRequest';
 export * from './request_detail_screen/requestDetail';
 export * from './comingSoon';
+export * from './profile';
+export * from './activity';

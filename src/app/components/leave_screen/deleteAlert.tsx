@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
 import { deleteRequest } from '../../services';
@@ -16,7 +16,10 @@ const DeleteAlert = ({ item }: { item: dataType }) => {
 
   const onDelete = () => {
     deleteRequest(item.id)
-      .then(() => dispatchRequest({ type: 'DELETE', payload: item.id }))
+      .then(() => {
+        snackBarMessage('Request deleted');
+        dispatchRequest({ type: 'DELETE', payload: item.id });
+      })
       .catch((err) => console.log(err));
   };
 

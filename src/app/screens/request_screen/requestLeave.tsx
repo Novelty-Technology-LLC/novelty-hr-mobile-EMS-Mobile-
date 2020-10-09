@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { header as Header } from '../../common';
+import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
@@ -55,6 +55,7 @@ const RequestLeave = ({ route }: any) => {
       .then((res) => {
         dispatchRequest({ type: 'ADD', payload: res.data.data });
         navigation.navigate('leaveList');
+        snackBarMessage('Request created');
       })
       .catch((err) => console.log(err));
   };
@@ -64,6 +65,7 @@ const RequestLeave = ({ route }: any) => {
       .then((res) => {
         dispatchRequest({ type: 'UPDATE', payload: res });
         navigation.navigate('leaveList');
+        snackBarMessage('Request updated');
       })
       .catch((err) => console.log(err));
   };
