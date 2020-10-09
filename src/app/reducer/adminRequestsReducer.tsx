@@ -16,17 +16,32 @@ const AdminReducer = (prevState, action) => {
     case 'CHANGE':
       return {
         ...prevState,
-        adminrequests: [...action.payload],
+        adminrequests: [...action.payload.my],
+        pastadminrequests: [...action.payload.past],
       };
 
     case 'UPDATE':
       return {
         ...prevState,
         adminrequests: [].concat(
+          action.payload,
           ...prevState.adminrequests.filter(
             (item) => item.id !== action.payload.id
-          ),
-          action.payload
+          )
+        ),
+      };
+
+    case 'REPLY':
+      return {
+        ...prevState,
+        adminrequests: [].concat(
+          ...prevState.adminrequests.filter(
+            (item) => item.id !== action.payload.id
+          )
+        ),
+        pastadminrequests: [].concat(
+          action.payload,
+          ...prevState.pastadminrequests
         ),
       };
   }
@@ -36,6 +51,7 @@ const AdminRequestContext = React.createContext();
 
 const initialState = {
   adminrequests: [],
+  pastadminrequests: [],
 };
 
 const useAdmin = () => {

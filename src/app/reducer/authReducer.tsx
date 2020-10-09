@@ -25,7 +25,7 @@ const AuthReducer = (prevState, action) => {
     case 'STORE_USER':
       return {
         ...prevState,
-        user: Object.assign(action.user),
+        user: action.user && Object.assign(action.user),
       };
   }
 };

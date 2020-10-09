@@ -37,17 +37,16 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
       action,
       note,
       requested_to: Id,
-      quotaId: requests.quotaId,
+      quotaId: item.sender,
     };
-    updateRequest(item.id, newData);
-    dispatchAdmin({
-      type: 'UPDATE',
-      payload: {
-        ...item,
-        leave_approvals: item.leave_approvals.concat(newData),
-      },
+    updateRequest(item.id, newData).then((data) => {
+      item.state = data.status;
+      dispatchAdmin({
+        type: 'REPLY',
+        payload: item,
+      });
+      navigation.navigate('leaveList');
     });
-    navigation.navigate('leaveList');
   };
 
   return (

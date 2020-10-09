@@ -24,7 +24,8 @@ export default getDay = (item) => {
         ) +
         `(${
           parseInt(item.leave_date.endDate.substring(8, 10)) -
-          parseInt(item.leave_date.startDate.substring(8, 10))
+          parseInt(item.leave_date.startDate.substring(8, 10)) +
+          1
         } days)`;
 
   let dayType =

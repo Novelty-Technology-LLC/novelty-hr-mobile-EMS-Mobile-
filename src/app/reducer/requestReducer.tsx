@@ -25,11 +25,6 @@ const RequestReducer = (prevState, action) => {
           ...prevState.requests
         ),
       };
-    case 'QUOTAID':
-      return {
-        ...prevState,
-        quotaId: action.payload,
-      };
     case 'UPDATE':
       return {
         ...prevState,
@@ -45,7 +40,6 @@ const RequestContext = React.createContext();
 
 const initialState = {
   requests: [],
-  quotaId: null,
 };
 
 const useRequest = () => {

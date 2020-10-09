@@ -15,14 +15,21 @@ const Swipe = ({ item }: any) => {
 
   return (
     <View style={style.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('requestLeave', item)}
-        style={deleteAlertStyle.iconContainer}
-      >
-        <AppIcon name="square-edit-outline" color={colors.primary} size={15} />
-      </TouchableOpacity>
-      <DeleteAlert item={item} />
-      <View style={editAlertStyle.spacer}></View>
+      {item.state !== 'In Progress' && (
+        <>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('requestLeave', item)}
+            style={deleteAlertStyle.iconContainer}
+          >
+            <AppIcon
+              name="square-edit-outline"
+              color={colors.primary}
+              size={23}
+            />
+          </TouchableOpacity>
+          <DeleteAlert item={item} />
+        </>
+      )}
     </View>
   );
 };

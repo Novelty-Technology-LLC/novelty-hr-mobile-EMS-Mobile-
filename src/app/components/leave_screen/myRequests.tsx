@@ -75,7 +75,7 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
       ) : (
         !loading && (
           <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>There are not current Requests</Text>
+            <Text style={style.emptyText}>There are no current requests</Text>
           </View>
         )
       )}

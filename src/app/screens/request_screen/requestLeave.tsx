@@ -24,7 +24,7 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { editRequest, postRequest, updateRequest } from '../../services';
+import { editRequest, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
@@ -97,56 +97,54 @@ const RequestLeave = ({ route }: any) => {
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-      <SafeAreaView style={style.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-          style={{ flex: 1 }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          style={style.container}
+          showsVerticalScrollIndicator={false}
         >
-          <ScrollView
-            style={style.container}
-            showsVerticalScrollIndicator={false}
+          <Header icon={true}>
+            <Text style={headerText}>Request Leave</Text>
+          </Header>
+          <Formik
+            validationSchema={validationSchema}
+            initialValues={initialValues}
+            onSubmit={(values) => onSubmit(values)}
           >
-            <Header>
-              <Text style={headerText}>Request Leave</Text>
-            </Header>
-            <Formik
-              validationSchema={validationSchema}
-              initialValues={initialValues}
-              onSubmit={(values) => onSubmit(values)}
-            >
-              {({ handleChange, handleSubmit, values }) => (
-                <>
-                  <Calander
-                    style={style.calendar}
-                    handleChange={handleChange}
-                    defaultValue={olddata && olddata.leave_date}
-                  />
-                  <Teams
-                    handleChange={handleChange}
-                    defaultValue={olddata && olddata.lead}
-                  />
-                  <Leavetype
-                    handleChange={handleChange}
-                    defaultValue={olddata && olddata.type}
-                  />
-                  <Description
-                    handleChange={handleChange}
-                    defaultValue={olddata && olddata.note}
-                  />
-                  <Button onPress={() => handleSubmit()}>
-                    <View style={style.buttonView}>
-                      <Text style={style.buttonText}>Submit Request</Text>
-                      {isLoading && (
-                        <ActivityIndicator size={30} color={colors.white} />
-                      )}
-                    </View>
-                  </Button>
-                </>
-              )}
-            </Formik>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+            {({ handleChange, handleSubmit, values }) => (
+              <>
+                <Calander
+                  style={style.calendar}
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.leave_date}
+                />
+                <Teams
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.lead}
+                />
+                <Leavetype
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.type}
+                />
+                <Description
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.note}
+                />
+                <Button onPress={() => handleSubmit()}>
+                  <View style={style.buttonView}>
+                    <Text style={style.buttonText}>Submit Request</Text>
+                    {isLoading && (
+                      <ActivityIndicator size={30} color={colors.white} />
+                    )}
+                  </View>
+                </Button>
+              </>
+            )}
+          </Formik>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ApplicationProvider>
   );
 };

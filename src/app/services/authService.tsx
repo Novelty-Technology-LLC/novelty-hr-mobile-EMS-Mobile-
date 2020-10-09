@@ -31,8 +31,6 @@ const signInGoogle = async (dispatch: any) => {
       })
       .catch((err) => console.log(err));
   } catch (error) {
-    console.log('error -> ', error);
-
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
     snackErrorBottom(error);
@@ -61,6 +59,7 @@ const signInApple = async (dispatch: any) => {
     const userData = mapDataToObject(data.fullName);
     create(userData)
       .then(async (res: any) => {
+        await setUser(res.data.data);
         dispatch({ type: 'STORE_USER', user: res.data.data });
         storeToken(data.identityToken);
         dispatch({ type: 'SIGN_IN', token: data.identityToken });

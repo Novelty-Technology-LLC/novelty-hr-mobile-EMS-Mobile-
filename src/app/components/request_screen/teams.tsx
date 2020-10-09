@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ActivityIndicator } from 'react-native';
 import { teamStyle as style } from '../../../assets/styles';
-import json from '../../../../fake.json';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getUser } from '../../utils';
@@ -13,27 +12,25 @@ class Teams extends Component {
     lead: [],
     teamLead: [],
   };
-  list = Object.assign(json);
+  list = [];
   data = [];
 
   async componentDidMount() {
     const userId = await getUser();
     getlead(JSON.parse(userId).uuid).then((data) =>
-      this.setState({ teamLead: data })
-    );
-
-    this.props.defaultValue &&
-      this.setState({ lead: [...JSON.parse(this.props.defaultValue)] }, () => {
-        this.list.map((val) => {
-          this.state.lead.map((id) => {
-            if (id === val.id) {
-              val.selected = val.name;
-              this.data.push(val);
-            }
+      this.setState({ teamLead: data }, () => {
+        this.props.defaultValue &&
+          this.state.teamLead.map((val) => {
+            JSON.parse(this.props.defaultValue).map((id) => {
+              if (id === val.lead_id) {
+                val.selected = val.name;
+                this.data.push(val);
+              }
+            });
           });
-        });
         this.setState({ lead: [...this.state.lead].concat(this.data) });
-      });
+      })
+    );
   }
 
   render() {

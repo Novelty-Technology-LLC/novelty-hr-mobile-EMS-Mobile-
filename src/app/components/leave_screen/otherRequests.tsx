@@ -11,25 +11,52 @@ import History from './history';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon, Loader } from '../../common';
 import { getAllRequests } from '../../services';
-import { mapDataToRequest } from '../../utils';
+import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
-  const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
 
   const getAdminRequest = async () => {
     setLoading(true);
-    getAllRequests(state.user.uuid)
+    const user = await getUser();
+
+    getAllRequests(JSON.parse(user).uuid)
       .then((data: Array) => {
-        const pastreq = data.filter((item) => item.status !== 'Pending');
-        const myreq = data.filter((item) => item.status === 'Pending');
-        setRequests(mapDataToRequest(pastreq));
-        dispatchAdmin({ type: 'CHANGE', payload: mapDataToRequest(myreq) });
+        let pastreq = data.filter(
+          (item) => item.status === 'Approved' || item.status === 'Denied'
+        );
+        let myreq = data.filter((item) => item.status === 'Pending');
+        const progressreq = data.filter(
+          (item) => item.status === 'In Progress'
+        );
+        progressreq.map(
+          (req) =>
+            req.leave_approvals &&
+            req.leave_approvals.map((item) => {
+              if (item.requested_to === state.user.uuid) {
+                // pastreq = [req, ...pastreq];
+                pastreq = pastreq.concat(req);
+                pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+              } else {
+                // myreq = [req, ...myreq];
+                myreq = myreq.concat(req);
+                myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+              }
+            })
+        );
+
+        dispatchAdmin({
+          type: 'CHANGE',
+          payload: {
+            my: mapDataToRequest(myreq),
+            past: mapDataToRequest(pastreq),
+          },
+        });
         setLoading(false);
       })
       .catch((err) => {
@@ -85,13 +112,14 @@ const OtherRequests = () => {
       {adminrequests.adminrequests.length < 1 && !loading && (
         <View style={myRequestsStyle.emptyContainer}>
           <Text style={myRequestsStyle.emptyText}>
-            There are not current Requests
+            There are no current requests
           </Text>
         </View>
       )}
-      {toggle === 'toggle-switch' && requests.length > 0 && (
-        <History other={true} requests={requests} />
-      )}
+      {toggle === 'toggle-switch' &&
+        adminrequests.pastadminrequests.length > 0 && (
+          <History other={true} requests={adminrequests.pastadminrequests} />
+        )}
     </View>
   );
 };

@@ -19,7 +19,7 @@ const editAlertStyle = StyleSheet.create({
   },
   gap: { flex: 1 },
   semigap: { paddingVertical: normalize(5) },
-  spacer: { paddingVertical: normalize(theme.spacing.wide) },
+  spacer: { paddingVertical: normalize(theme.spacing.wider) },
   spaceTop: { paddingTop: normalize(5) },
   titleView: {
     paddingBottom: normalize(15),

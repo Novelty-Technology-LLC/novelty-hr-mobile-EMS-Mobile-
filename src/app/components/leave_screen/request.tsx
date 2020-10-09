@@ -57,7 +57,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           {recieved ? (
             <View style={style.subcontainer}>
               <Text style={style.days}>
-                {day > 1 ? day + ' days ago' : (day = 1 + ' day ago')}
+                {day > 1 ? day + ' days ago' : (day = ' Today')}
               </Text>
               {!isReplied && (
                 <View style={style.buttonContainer}>
@@ -72,7 +72,9 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               )}
             </View>
           ) : (
-            <State state={item.state} />
+            <View style={style.pastState}>
+              <State state={item.state} />
+            </View>
           )}
         </View>
       )}
