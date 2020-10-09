@@ -28,6 +28,9 @@ class Teams extends Component {
               }
             });
           });
+      
+          
+        this.props.values.userQuota = data.length>0&&data[0].userLeaveQuota
         this.setState({ lead: [...this.state.lead].concat(this.data) });
       })
     );
