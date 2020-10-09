@@ -70,7 +70,7 @@ const RequestLeave = ({ route }: any) => {
   
 
   const [isLoading, setisLoading] = useState(false);
-  
+
   const onSubmit = async (values) => {
 
 try {
@@ -90,8 +90,8 @@ try {
 
  if(notValid) {
    throw new Error('Selected day exceeds leave');
-   
  }
+ 
   delete values.date;
   const userid = state.user.uuid;
 
