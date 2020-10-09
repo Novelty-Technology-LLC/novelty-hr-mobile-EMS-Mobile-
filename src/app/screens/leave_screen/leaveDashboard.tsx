@@ -9,6 +9,7 @@ import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
+import colors from '../../../assets/colors';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -65,7 +66,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <View
+        <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -80,7 +81,7 @@ const LeaveDashboard = () => {
           >
             ADMIN
           </Text>
-        </View> */}
+        </View>
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />

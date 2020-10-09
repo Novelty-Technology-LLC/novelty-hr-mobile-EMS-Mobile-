@@ -4,3 +4,4 @@ export * from './header';
 export * from './icon';
 export * from './ui/buttonUi';
 export * from './ui/loader';
+export * from './tabHeader'
