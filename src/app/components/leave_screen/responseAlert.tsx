@@ -15,13 +15,24 @@ import {
 } from '../../reducer';
 import { updateRequest } from '../../services';
 
-const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
+const EditAlert = ({
+  item,
+  status,
+  setShow,
+}: {
+  item: dataType;
+  status: string;
+  setShow: Function;
+}) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(true);
   let [action, setAction] = useState(status);
   const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
-  const hide = () => setShowAlert(false);
+  const hide = () => {
+    setShowAlert(false);
+    setShow(false);
+  };
   const { state } = useContext(AuthContext);
   const { requests } = useContext(RequestContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
