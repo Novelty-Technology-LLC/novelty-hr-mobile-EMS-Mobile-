@@ -25,12 +25,12 @@ const LeaveDashboard = () => {
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
+
   const getRequest = async () => {
     setLoading(true);
     const user = await getUser();
 
-
-    setIsAdmin(JSON.parse(user).is_approver ? true : false);
+    setIsAdmin(+JSON.parse(user).is_approver ? true : false);
     getMyRequests(JSON.parse(user).uuid)
       .then((data) => {
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
@@ -41,6 +41,7 @@ const LeaveDashboard = () => {
       });
   };
 
+  
   useEffect(() => {
     getData();
     getRequest();
