@@ -17,7 +17,7 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
 
   return (
     <View>
-      {show && <EditAlert item={item} status={title} />}
+      {show && <EditAlert item={item} status={title} setShow={setShow} />}
       <Button
         onPress={() => {
           setShow(true);
