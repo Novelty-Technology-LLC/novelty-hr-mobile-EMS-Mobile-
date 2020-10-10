@@ -10,6 +10,7 @@ import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
+
 import { ScrollView } from 'react-native-gesture-handler';
 import { requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
@@ -27,7 +28,6 @@ import { editRequest, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
-import { snackErrorBottom } from '../../common';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -69,52 +69,33 @@ const RequestLeave = ({ route }: any) => {
       })
       .catch((err) => console.log(err));
   };
-  
 
   const [isLoading, setisLoading] = useState(false);
-
   const onSubmit = async (values) => {
+    const date = JSON.parse(values.date);
+    const startDate = new Date(date.startDate).toString().slice(0, 15);
 
-try {
-    
-  const date = JSON.parse(values.date);
-  const startDate = new Date(date.startDate).toString().slice(0, 15);
+    let endDate = '';
+    if (date['endDate'] === null) {
+      endDate = startDate;
+    } else {
+      endDate = new Date(date.endDate).toString().slice(0, 15);
+    }
+    delete values.date;
+    const userid = state.user.uuid;
 
-  let endDate = '';
-  if (date['endDate'] === null) {
-    endDate = startDate;
-  } else {
-    endDate = new Date(date.endDate).toString().slice(0, 15);
-  }
-  const day = parseInt(endDate.substring(8,10)) - parseInt(startDate.substring(8,10))
-  const notValid = values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
-  
-  
+    const requestData = {
+      ...values,
+      leave_date: {
+        startDate,
+        endDate,
+      },
+      requestor_id: userid,
+    };
 
- if(notValid) {
-   throw new Error('Selected day exceeds leave');
- }
-
-  delete values.date;
-  const userid = state.user.uuid;
-
-  const requestData = {
-    ...values,
-    leave_date: {
-      startDate,
-      endDate,
-    },
-    requestor_id: userid,
+    setisLoading(!isLoading);
+    olddata ? updateReq(requestData) : submitRequest(requestData);
   };
-
-  setisLoading(!isLoading);
-  olddata ? updateReq(requestData) : submitRequest(requestData);
-} catch (error) {
-  snackErrorBottom(error)
-}
-  };
-
-
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -144,7 +125,6 @@ try {
                 <Teams
                   handleChange={handleChange}
                   defaultValue={olddata && olddata.lead}
-                  values={values}
                 />
                 <Leavetype
                   handleChange={handleChange}
@@ -172,6 +152,3 @@ try {
 };
 
 export { RequestLeave };
-
-
-
