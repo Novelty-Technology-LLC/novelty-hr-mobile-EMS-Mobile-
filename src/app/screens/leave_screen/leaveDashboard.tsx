@@ -29,7 +29,7 @@ const LeaveDashboard = () => {
     setLoading(true);
     const user = await getUser();
 
-    setIsAdmin(JSON.parse(user).is_approver ? true : false);
+    setIsAdmin(+JSON.parse(user).is_approver ? true : false);
     getMyRequests(JSON.parse(user).uuid)
       .then((data) => {
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
