@@ -31,8 +31,10 @@ class Teams extends Component {
         this.setState({ lead: [...this.state.lead].concat(this.data) });
       })
     );
+    
   }
 
+  
   render() {
     return (
       <View style={style.container}>

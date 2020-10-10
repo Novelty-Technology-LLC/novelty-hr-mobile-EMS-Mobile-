@@ -8,13 +8,6 @@ interface calenderPropType {
 }
 
 const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
-  const useCalendarState = (initialState = null) => {
-    const [date, setDate] = useState(initialState);
-    return { date, onSelect: setDate };
-  };
-
-  const filterCalendarState = useCalendarState();
-
   const [range, setrange] = useState(
     defaultValue
       ? {
@@ -24,37 +17,17 @@ const Calander = ({ style, handleChange, defaultValue }: calenderPropType) => {
       : ''
   );
 
-  const filter = (date) =>
-    date.getDay() !== 0 &&
-    date.getDay() !== 6 &&
-    date.getDate() > new Date().getDate();
+  const filter = (date) => date>new Date()
 
   useEffect(() => {
     handleChange('date')(`${JSON.stringify(range)}`);
   }, [range]);
 
-  let newRange = null;
   return (
     <RangeCalendar
       filter={filter}
       range={range}
-      {...filterCalendarState}
-      onSelect={(nextRange) => {
-        newRange = Object.assign(nextRange);
-        if (
-          nextRange.endDate &&
-          nextRange.startDate &&
-          nextRange.endDate.getDate() - nextRange.startDate.getDate() < 6 &&
-          nextRange.endDate.getDay() - nextRange.startDate.getDay() > 0
-        ) {
-          setrange(nextRange);
-        } else if (nextRange.endDate === null || nextRange.startDate === null) {
-          setrange(nextRange);
-        } else {
-          newRange.startDate = newRange.endDate;
-          setrange(newRange);
-        }
-      }}
+      onSelect={(nextRange) =>setrange(nextRange)}
       style={style}
       name="date"
     />
