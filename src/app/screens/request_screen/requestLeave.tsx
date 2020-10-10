@@ -27,6 +27,7 @@ import { editRequest, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
+import { snackErrorBottom } from '../../common';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
@@ -68,33 +69,52 @@ const RequestLeave = ({ route }: any) => {
       })
       .catch((err) => console.log(err));
   };
+  
 
   const [isLoading, setisLoading] = useState(false);
+
   const onSubmit = async (values) => {
-    const date = JSON.parse(values.date);
-    const startDate = new Date(date.startDate).toString().slice(0, 15);
 
-    let endDate = '';
-    if (date['endDate'] === null) {
-      endDate = startDate;
-    } else {
-      endDate = new Date(date.endDate).toString().slice(0, 15);
-    }
-    delete values.date;
-    const userid = state.user.uuid;
+try {
+    
+  const date = JSON.parse(values.date);
+  const startDate = new Date(date.startDate).toString().slice(0, 15);
 
-    const requestData = {
-      ...values,
-      leave_date: {
-        startDate,
-        endDate,
-      },
-      requestor_id: userid,
-    };
+  let endDate = '';
+  if (date['endDate'] === null) {
+    endDate = startDate;
+  } else {
+    endDate = new Date(date.endDate).toString().slice(0, 15);
+  }
+  const day = parseInt(endDate.substring(8,10)) - parseInt(startDate.substring(8,10))
+  const notValid = values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
+  
+  
 
-    setisLoading(!isLoading);
-    olddata ? updateReq(requestData) : submitRequest(requestData);
+ if(notValid) {
+   throw new Error('Selected day exceeds leave');
+ }
+
+  delete values.date;
+  const userid = state.user.uuid;
+
+  const requestData = {
+    ...values,
+    leave_date: {
+      startDate,
+      endDate,
+    },
+    requestor_id: userid,
   };
+
+  setisLoading(!isLoading);
+  olddata ? updateReq(requestData) : submitRequest(requestData);
+} catch (error) {
+  snackErrorBottom(error)
+}
+  };
+
+
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -124,6 +144,7 @@ const RequestLeave = ({ route }: any) => {
                 <Teams
                   handleChange={handleChange}
                   defaultValue={olddata && olddata.lead}
+                  values={values}
                 />
                 <Leavetype
                   handleChange={handleChange}
@@ -151,3 +172,6 @@ const RequestLeave = ({ route }: any) => {
 };
 
 export { RequestLeave };
+
+
+

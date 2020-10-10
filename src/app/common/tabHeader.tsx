@@ -27,14 +27,17 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
       {children}
       <View style={style.textView}>
         {icon && (
-          <Icon
-            name="logout"
-            size={25}
-            color={colors.primary}
-            onPress={() => {
-              show();
-            }}
-          />
+            <Icon
+              name="logout"
+              size={25}
+              color={colors.primary}
+              onPress={() => {
+                removeUser();
+                removeToken();
+                dispatch({ type: 'SIGN_OUT' });
+              }}
+            />
+        
         )}
       </View>
       <Dialog.Container
