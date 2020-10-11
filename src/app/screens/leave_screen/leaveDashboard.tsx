@@ -25,7 +25,6 @@ const LeaveDashboard = () => {
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
-
   const getRequest = async () => {
     setLoading(true);
     const user = await getUser();
@@ -41,7 +40,6 @@ const LeaveDashboard = () => {
       });
   };
 
-  
   useEffect(() => {
     getData();
     getRequest();
@@ -66,13 +64,12 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
+        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />
     </View>
   );
 };
-
 
 export { LeaveDashboard };
