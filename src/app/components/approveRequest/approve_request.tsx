@@ -109,8 +109,6 @@ const Request = ({ data, style, title = null }: any) => {
                 ))}
             </ScrollView>
           </View>
-         
-           
               {responses.length > 0 &&responses[0].pendingResponses.length>0&&
                 responses[0].pendingResponses.map((item) => (
                   <>
