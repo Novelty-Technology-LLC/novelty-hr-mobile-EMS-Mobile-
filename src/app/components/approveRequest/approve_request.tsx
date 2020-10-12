@@ -8,7 +8,7 @@ import getDay, { responseDay } from '../../utils/getDay';
 import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
-
+import { getUser } from '../../utils';
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -16,6 +16,7 @@ const Request = ({ data, style, title = null }: any) => {
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
   const [approved, setapproved] = useState(false);
+  const [id, setid] = useState(null)
 
   const checkReplied = () => {
     data.leave_approvals &&
@@ -29,6 +30,8 @@ const Request = ({ data, style, title = null }: any) => {
   useEffect(() => {
     const getRequest = async () => {
       const res = await getResponses(data.id);
+      const userId = await getUser();
+      setid(JSON.parse(userId))
       setresponses(res);
     };
     getRequest();
@@ -36,7 +39,7 @@ const Request = ({ data, style, title = null }: any) => {
   }, []);
 
 
-  
+
 
   return (
     <>
@@ -110,14 +113,12 @@ const Request = ({ data, style, title = null }: any) => {
                     <View style={style.spacer} />
                   </>
                 ))}
-            </ScrollView>
-          </View>
 
-            {data.state!=="Denied" &&<>  
+{data.state!=="Denied" &&<>  
             {responses.length > 0 &&responses[0].pendingResponses.length>0&&
                 responses[0].pendingResponses.map((item) => (
                   <>
-                   <View style={style.pendingresponseView}>
+                   {item.uuid !== id.uuid && <View style={style.pendingresponseView}>
                    <ScrollView showsVerticalScrollIndicator={false}>
               <Text style={style.response}>Pending Responses</Text>
                     <View style={style.main}>
@@ -143,9 +144,14 @@ const Request = ({ data, style, title = null }: any) => {
                     </View>
                     <View style={style.spacer} />
                     </ScrollView>
-          </View>
+          </View>}
                   </>
                 ))}</>}
+            </ScrollView>
+            
+          </View>
+
+     
           
           {title === 'admin' && !approved && (
             <View style={style.buttonView}>
