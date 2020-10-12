@@ -16,9 +16,7 @@ const QuotaItem = () => {
         Left={(props) => (
           <PlaceholderMedia isRound={true} style={styles.remain} />
         )}
-      >
-        {/* <PlaceholderLine width={30} style={styles.total} /> */}
-      </Placeholder>
+      ></Placeholder>
       <View style={styles.gap}></View>
       <Placeholder Animation={Fade}>
         <PlaceholderLine width={50} />

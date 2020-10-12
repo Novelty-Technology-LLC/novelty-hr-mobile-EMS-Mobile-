@@ -1,12 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import normalize from 'react-native-normalize';
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  Fade,
-} from 'rn-placeholder';
+import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder';
 
 const UserPlaceHolder = () => {
   return (
