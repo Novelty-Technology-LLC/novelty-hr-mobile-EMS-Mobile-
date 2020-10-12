@@ -60,6 +60,7 @@ const RequestLeave = ({ route }: any) => {
       .catch((err) => console.log(err));
   };
 
+  
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {

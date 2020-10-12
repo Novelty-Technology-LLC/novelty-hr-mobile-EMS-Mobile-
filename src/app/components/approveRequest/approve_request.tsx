@@ -35,6 +35,10 @@ const Request = ({ data, style, title = null }: any) => {
     checkReplied();
   }, []);
 
+
+  
+console.log('data -> ',data.state);
+
   return (
     <>
       {data && (
@@ -91,7 +95,7 @@ const Request = ({ data, style, title = null }: any) => {
                         />
                         <View style={style.senderView}>
                           <View style={style.teamWrapper}>
-                            <Text style={style.sender}>{leadname(item)}</Text>
+                            <Text style={style.sender}>{leadname(item.user)}</Text>
                             <State state={item.action} />
                           </View>
                           <View style={style.teamLeadView}>
@@ -109,6 +113,41 @@ const Request = ({ data, style, title = null }: any) => {
                 ))}
             </ScrollView>
           </View>
+          
+            {data.state!=="Denied" &&<>  
+            {responses.length > 0 &&responses[0].pendingResponses.length>0&&
+                responses[0].pendingResponses.map((item) => (
+                  <>
+                   <View style={style.pendingresponseView}>
+                   <ScrollView showsVerticalScrollIndicator={false}>
+              <Text style={style.response}>Pending Responses</Text>
+                    <View style={style.main}>
+                      <View style={style.imageView}>
+                        <Image
+                          style={style.image}
+                          source={
+                            item.image_url
+                              ? { uri: item.image_url }
+                              : require('../../../assets/images/person.jpeg')
+                          }
+                        />
+                        <View style={style.senderView}>
+                          <View style={style.teamWrapper}>
+                            <Text style={style.sender}>{leadname(item)}</Text>
+                            <State state={item.action} />
+                          </View>
+                          <View style={style.teamLeadView}>
+                            <Text style={style.teamLead}>Team Lead</Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={style.spacer} />
+                    </ScrollView>
+          </View>
+                  </>
+                ))}</>}
+          
           {title === 'admin' && !approved && (
             <View style={style.buttonView}>
               <ApproveDeny title="Approve" style={style} item={data} />

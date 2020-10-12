@@ -68,5 +68,4 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
   );
 };
 
-
 export { tabHeader };
