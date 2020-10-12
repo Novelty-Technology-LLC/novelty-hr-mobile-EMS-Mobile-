@@ -104,7 +104,7 @@ const approveRequest = StyleSheet.create({
   },
 
   pendingresponseView: {
-    flex: 0.5,
+    flex:0.5,
     marginTop: normalize(20),
     marginLeft: normalize(10),
   },

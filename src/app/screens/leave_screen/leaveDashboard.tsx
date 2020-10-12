@@ -64,30 +64,12 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: colors.white,
-          }}
-        >
-          <Text
-            style={{
-              color: isAdmin ? colors.primary : colors.secondary,
-            }}
-            onPress={() => setIsAdmin(!isAdmin)}
-          >
-            ADMIN
-          </Text>
-        </View> */}
-
-        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
+        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
         {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
       </ScrollView>
       <RequestButton />
     </View>
   );
 };
-
 
 export { LeaveDashboard };

@@ -60,6 +60,7 @@ const RequestLeave = ({ route }: any) => {
       .catch((err) => console.log(err));
   };
 
+  
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
@@ -87,9 +88,7 @@ try {
     endDate = new Date(date.endDate).toString().slice(0, 15);
   }
   const day = parseInt(endDate.substring(8,10)) - parseInt(startDate.substring(8,10))
-  const notValid = values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
-  
-  
+  const notValid = values.userQuota&&values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
 
  if(notValid) {
    throw new Error('Selected day exceeds leave');
