@@ -9,6 +9,9 @@ import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 import { getUser } from '../../utils';
+import { AdminPlaceHolder, LeadPlaceHolder } from '../loader';
+import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
+
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -17,6 +20,7 @@ const Request = ({ data, style, title = null }: any) => {
   const [responses, setresponses] = useState([]);
   const [approved, setapproved] = useState(false);
   const [id, setid] = useState(null)
+  const [loading, setLoading] = useState(false);
 
   const checkReplied = () => {
     data.leave_approvals &&
@@ -28,18 +32,17 @@ const Request = ({ data, style, title = null }: any) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const getRequest = async () => {
       const res = await getResponses(data.id);
       const userId = await getUser();
       setid(JSON.parse(userId))
       setresponses(res);
+      setLoading(false);
     };
     getRequest();
     checkReplied();
   }, []);
-
-
-
 
   return (
     <>
@@ -149,10 +152,7 @@ const Request = ({ data, style, title = null }: any) => {
                 ))}</>}
             </ScrollView>
             
-          </View>
-
-     
-          
+          </View>          
           {title === 'admin' && !approved && (
             <View style={style.buttonView}>
               <ApproveDeny title="Approve" style={style} item={data} />
@@ -164,5 +164,7 @@ const Request = ({ data, style, title = null }: any) => {
     </>
   );
 };
+
+
 
 export default Request;

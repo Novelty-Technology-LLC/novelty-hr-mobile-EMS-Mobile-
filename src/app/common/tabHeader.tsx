@@ -1,7 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { View, Text } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { removeToken, removeUser } from '../utils';
 import { headerStyle as style, deleteAlertStyle } from '../../assets/styles';
@@ -10,7 +8,6 @@ import { AuthContext } from '../reducer';
 import Dialog from 'react-native-dialog';
 
 const tabHeader = ({ onPress = null, icon = false, children }: any) => {
-  const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
