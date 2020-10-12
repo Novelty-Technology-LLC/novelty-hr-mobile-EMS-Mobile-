@@ -3,11 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { AuthContext, useAuth } from '../reducer';
 import { getUser, getToken } from '../utils';
-import { Text } from 'react-native-svg';
+import { loginStyle } from '../../assets/styles';
 import { Login } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabNavigator';
 import Invalid from '../screens/auth_screen/invalid';
+import LoginWrapper from '../screens/auth_screen/loginWrapper';
+import { Text, View } from 'react-native';
 
 const Root = createStackNavigator();
 
@@ -31,7 +33,13 @@ const RootNavigation = () => {
   }, []);
 
   if (state.isLoading) {
-    return <Text>Hello</Text>;
+    return (
+      <LoginWrapper>
+        <View style={loginStyle.buttonView}>
+          <Text style={loginStyle.buttonText}>Please wait ..</Text>
+        </View>
+      </LoginWrapper>
+    );
   } else {
     return (
       <NavigationContainer>

@@ -8,7 +8,7 @@ import appleAuth, {
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
 
-import { setUser, setIsApprover, storeToken } from '../utils';
+import { setUser, storeToken } from '../utils';
 import { create } from './userService';
 import { mapDataToObject } from '../utils';
 import { snackErrorBottom } from '../common';
@@ -19,8 +19,8 @@ const signInGoogle = async (dispatch: any) => {
     const userInfo: any = await GoogleSignin.signIn();
 
     if (!userInfo.idToken) throw new Error('Error while sign in');
+    dispatch({ type: 'RESET' });
     delete userInfo.user.name;
-
     const userData = mapDataToObject(userInfo.user);
     if (/@noveltytechnology.com\s*$/.test(userData.email)) {
       create(userData)
@@ -32,7 +32,6 @@ const signInGoogle = async (dispatch: any) => {
         })
         .catch((err) => console.log(err));
     } else {
-      console.log(userData.email, 'is not valid');
       dispatch({ type: 'INVALID' });
     }
   } catch (error) {

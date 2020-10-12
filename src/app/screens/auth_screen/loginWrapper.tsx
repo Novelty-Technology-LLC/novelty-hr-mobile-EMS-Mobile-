@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Platform } from 'react-native';
+import { Text, View } from 'react-native';
 import { loginStyle as style } from '../../../assets/styles';
 import { buttonui as Logo } from '../../common/ui/buttonUi';
 
