@@ -8,10 +8,8 @@ import getDay, { responseDay } from '../../utils/getDay';
 import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
-import { getUser } from '../../utils';
 import { AdminPlaceHolder, LeadPlaceHolder } from '../loader';
 import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
-
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -19,7 +17,6 @@ const Request = ({ data, style, title = null }: any) => {
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
   const [approved, setapproved] = useState(false);
-  const [id, setid] = useState(null)
   const [loading, setLoading] = useState(false);
 
   const checkReplied = () => {
@@ -35,8 +32,6 @@ const Request = ({ data, style, title = null }: any) => {
     setLoading(true);
     const getRequest = async () => {
       const res = await getResponses(data.id);
-      const userId = await getUser();
-      setid(JSON.parse(userId))
       setresponses(res);
       setLoading(false);
     };
@@ -85,6 +80,7 @@ const Request = ({ data, style, title = null }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <Text style={style.response}>Responses</Text>
+              {loading && <ResponsePlaceHolder />}
               {responses.length > 0 &&
                 responses.map((item) => (
                   <>
@@ -100,7 +96,9 @@ const Request = ({ data, style, title = null }: any) => {
                         />
                         <View style={style.senderView}>
                           <View style={style.teamWrapper}>
-                            <Text style={style.sender}>{leadname(item.user)}</Text>
+                            <Text style={style.sender}>
+                              {leadname(item.user)}
+                            </Text>
                             <State state={item.action} />
                           </View>
                           <View style={style.teamLeadView}>
@@ -116,43 +114,50 @@ const Request = ({ data, style, title = null }: any) => {
                     <View style={style.spacer} />
                   </>
                 ))}
-
-{data.state!=="Denied" &&<>  
-            {responses.length > 0 &&responses[0].pendingResponses.length>0&&
+                  {data.state !== 'Denied' && (
+            <>
+              {responses.length > 0 &&
+                responses[0].pendingResponses.length > 0 &&
                 responses[0].pendingResponses.map((item) => (
                   <>
-                   {item.uuid !== id.uuid && <View style={style.pendingresponseView}>
-                   <ScrollView showsVerticalScrollIndicator={false}>
-              <Text style={style.response}>Pending Responses</Text>
-                    <View style={style.main}>
-                      <View style={style.imageView}>
-                        <Image
-                          style={style.image}
-                          source={
-                            item.image_url
-                              ? { uri: item.image_url }
-                              : require('../../../assets/images/person.jpeg')
-                          }
-                        />
-                        <View style={style.senderView}>
-                          <View style={style.teamWrapper}>
-                            <Text style={style.sender}>{leadname(item)}</Text>
-                            <State state={item.action} />
-                          </View>
-                          <View style={style.teamLeadView}>
-                            <Text style={style.teamLead}>Team Lead</Text>
+                    <View style={style.pendingresponseView}>
+                      <ScrollView showsVerticalScrollIndicator={false}>
+                        <Text style={style.response}>Pending Responses</Text>
+                        <View style={style.main}>
+                          <View style={style.imageView}>
+                            <Image
+                              style={style.image}
+                              source={
+                                item.image_url
+                                  ? { uri: item.image_url }
+                                  : require('../../../assets/images/person.jpeg')
+                              }
+                            />
+                            <View style={style.senderView}>
+                              <View style={style.teamWrapper}>
+                                <Text style={style.sender}>
+                                  {leadname(item)}
+                                </Text>
+                                <State state={item.action} />
+                              </View>
+                              <View style={style.teamLeadView}>
+                                <Text style={style.teamLead}>Team Lead</Text>
+                              </View>
+                            </View>
                           </View>
                         </View>
-                      </View>
+                        <View style={style.spacer} />
+                      </ScrollView>
                     </View>
-                    <View style={style.spacer} />
-                    </ScrollView>
-          </View>}
                   </>
-                ))}</>}
+                ))}
+            </>
+          )}
             </ScrollView>
-            
-          </View>          
+          </View>
+
+        
+
           {title === 'admin' && !approved && (
             <View style={style.buttonView}>
               <ApproveDeny title="Approve" style={style} item={data} />
@@ -164,7 +169,6 @@ const Request = ({ data, style, title = null }: any) => {
     </>
   );
 };
-
 
 
 export default Request;
