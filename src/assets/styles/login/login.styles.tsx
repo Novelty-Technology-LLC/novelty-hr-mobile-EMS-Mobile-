@@ -36,6 +36,12 @@ const loginStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.lg),
   },
+
+  message: {
+    paddingHorizontal: normalize(70),
+    fontFamily: fonts.poppinsMedium,
+    fontSize: normalize(theme.size.lg),
+  },
   loginView: {
     display: 'flex',
     flexDirection: 'row',

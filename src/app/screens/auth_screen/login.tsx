@@ -6,6 +6,7 @@ import { loginStyle as style } from '../../../assets/styles';
 import { GoogleConfig } from '../../utils';
 import { signInApple, signInGoogle } from '../../services';
 import { buttonui as Logo } from '../../common/ui/buttonUi';
+import LoginWrapper from './loginWrapper';
 
 const Login = () => {
   const { dispatch } = useContext(AuthContext);
@@ -15,11 +16,7 @@ const Login = () => {
   }, []);
 
   return (
-    <View style={style.container}>
-      <View style={style.imageView}>
-        <Logo name="novelty" />
-        <Text style={style.imageText}>Novelty EMS</Text>
-      </View>
+    <LoginWrapper>
       <View style={style.buttonView}>
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
@@ -41,12 +38,7 @@ const Login = () => {
           )}
         </View>
       </View>
-      <View style={style.footerView}>
-        <Text style={style.footerText}>
-          Copyright 2020. Powered by Novelty Technology.
-        </Text>
-      </View>
-    </View>
+    </LoginWrapper>
   );
 };
 

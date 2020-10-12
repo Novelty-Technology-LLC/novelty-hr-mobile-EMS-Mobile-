@@ -7,6 +7,7 @@ import { Text } from 'react-native-svg';
 import { Login } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabNavigator';
+import Invalid from '../screens/auth_screen/invalid';
 
 const Root = createStackNavigator();
 
@@ -41,7 +42,11 @@ const RootNavigation = () => {
             }}
           >
             {state.userToken === null ? (
-              <Root.Screen name="login" component={Login} />
+              !state.isInvalid ? (
+                <Root.Screen name="login" component={Login} />
+              ) : (
+                <Root.Screen name="invalid" component={Invalid} />
+              )
             ) : (
               <Root.Screen name="tab" component={TabNavigator} />
             )}

@@ -27,6 +27,12 @@ const AuthReducer = (prevState, action) => {
         ...prevState,
         user: action.user && Object.assign(action.user),
       };
+
+    case 'INVALID':
+      return {
+        ...prevState,
+        isInvalid: true,
+      };
   }
 };
 
@@ -37,6 +43,7 @@ const initialState = {
   isSignout: false,
   userToken: null,
   user: null,
+  isInvalid: false,
 };
 
 const useAuth = () => {

@@ -22,14 +22,19 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
 
     const userData = mapDataToObject(userInfo.user);
-    create(userData)
-      .then(async ({ data }: any) => {
-        await setUser(data.data);
-        dispatch({ type: 'STORE_USER', user: data.data });
-        await storeToken(userInfo.idToken);
-        dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
-      })
-      .catch((err) => console.log(err));
+    if (/@noveltytechnology.com\s*$/.test(userData.email)) {
+      create(userData)
+        .then(async ({ data }: any) => {
+          await setUser(data.data);
+          dispatch({ type: 'STORE_USER', user: data.data });
+          await storeToken(userInfo.idToken);
+          dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log(userData.email, 'is not valid');
+      dispatch({ type: 'INVALID' });
+    }
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
