@@ -8,7 +8,8 @@ import getDay, { responseDay } from '../../utils/getDay';
 import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
-import { AdminPlaceHolder } from '../loader';
+import { AdminPlaceHolder, LeadPlaceHolder } from '../loader';
+import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -79,7 +80,7 @@ const Request = ({ data, style, title = null }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <Text style={style.response}>Responses</Text>
-              {loading && <AdminPlaceHolder />}
+              {loading && <ResponsePlaceHolder />}
               {responses.length > 0 &&
                 responses.map((item) => (
                   <>
