@@ -102,6 +102,12 @@ const approveRequest = StyleSheet.create({
     marginTop: normalize(20),
     marginLeft: normalize(10),
   },
+
+  pendingresponseView: {
+    flex: 0.5,
+    marginTop: normalize(20),
+    marginLeft: normalize(10),
+  },
   response: {
     color: colors.fontGrey,
     fontFamily: fonts.poppinsMedium,
