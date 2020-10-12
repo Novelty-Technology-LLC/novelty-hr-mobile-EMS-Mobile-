@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getUser } from '../../utils';
 import { getlead } from '../../services';
 import colors from '../../../assets/colors';
+import { LeadPlaceHolder } from '../loader';
 
 class Teams extends Component {
   state = {
@@ -28,9 +29,8 @@ class Teams extends Component {
               }
             });
           });
-      
-          
-        this.props.values.userQuota = data.length>0&&data[0].userLeaveQuota
+
+        this.props.values.userQuota = data.length > 0 && data[0].userLeaveQuota;
         this.setState({ lead: [...this.state.lead].concat(this.data) });
       })
     );
@@ -40,14 +40,14 @@ class Teams extends Component {
     return (
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>
-        <ScrollView
-          style={style.scrollView}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        >
-          <View style={style.wrapper}>
-            {this.state.teamLead.length > 0 ? (
-              this.state.teamLead.map((val, i) => {
+        {this.state.teamLead.length > 0 ? (
+          <ScrollView
+            style={style.scrollView}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View style={style.wrapper}>
+              {this.state.teamLead.map((val, i) => {
                 return (
                   <TouchableOpacity
                     onPress={() => {
@@ -100,14 +100,12 @@ class Teams extends Component {
                     </View>
                   </TouchableOpacity>
                 );
-              })
-            ) : (
-              <View style={style.loading}>
-                <ActivityIndicator size="large" color={colors.primary} />
-              </View>
-            )}
-          </View>
-        </ScrollView>
+              })}
+            </View>
+          </ScrollView>
+        ) : (
+          <LeadPlaceHolder />
+        )}
       </View>
     );
   }
