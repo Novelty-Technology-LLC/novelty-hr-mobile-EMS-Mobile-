@@ -7,7 +7,7 @@ import getDay from '../../utils/getDay';
 import getName from '../../utils/getName';
 
 const RequestWithImage = ({ item, onPress }: any) => {
-  let { dayRange, dayType } = getDay(item);
+  let { dayRange } = getDay(item);
   let { name } = getName(item);
 
   return (
