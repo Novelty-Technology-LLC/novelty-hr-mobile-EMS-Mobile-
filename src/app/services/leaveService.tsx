@@ -77,3 +77,14 @@ export const editRequest = (id: number, data: dataType) => {
     }
   });
 };
+
+export const checkRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/leave/check/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
