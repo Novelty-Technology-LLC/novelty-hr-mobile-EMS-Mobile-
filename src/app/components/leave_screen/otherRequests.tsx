@@ -4,7 +4,11 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
-import { myRequestsStyle, otherRequestsStyle } from '../../../assets/styles';
+import {
+  myRequestsStyle,
+  otherRequestsStyle,
+  historyStyle,
+} from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
@@ -13,6 +17,7 @@ import { AppIcon, Loader } from '../../common';
 import { getAllRequests } from '../../services';
 import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
+import { AdminPlaceHolder } from '../loader';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
@@ -94,7 +99,7 @@ const OtherRequests = () => {
         </View>
       </View>
       {loading ? (
-        <Loader color="black" size={20} />
+        <AdminPlaceHolder />
       ) : (
         <FlatList
           data={adminrequests.adminrequests}
@@ -115,6 +120,15 @@ const OtherRequests = () => {
             There are no current requests
           </Text>
         </View>
+      )}
+      {loading && (
+        <>
+          <View style={historyStyle.subcontainer}>
+            <Text style={historyStyle.header}>Past Requests</Text>
+            <View style={historyStyle.line}></View>
+          </View>
+          <AdminPlaceHolder />
+        </>
       )}
       {toggle === 'toggle-switch' &&
         adminrequests.pastadminrequests.length > 0 && (

@@ -9,6 +9,7 @@ import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
+import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 
 const LeaveDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -30,6 +31,7 @@ const LeaveDashboard = () => {
     const user = await getUser();
 
     setIsAdmin(+JSON.parse(user).is_approver ? true : false);
+
     getMyRequests(JSON.parse(user).uuid)
       .then((data) => {
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
@@ -51,7 +53,7 @@ const LeaveDashboard = () => {
         <Text style={headerText}>Leave Application</Text>
       </Header>
       <ScrollView>
-        {daysDetails.length > 0 ? null : <Loader color="black" size={20} />}
+        {daysDetails.length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
           {daysDetails &&
             daysDetails.length > 0 &&
