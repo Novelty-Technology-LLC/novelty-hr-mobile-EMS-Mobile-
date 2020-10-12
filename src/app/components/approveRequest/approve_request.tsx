@@ -10,6 +10,7 @@ import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 
 
+
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
   const { startDate } = getDay(data);
@@ -37,7 +38,6 @@ const Request = ({ data, style, title = null }: any) => {
 
 
   
-console.log('data -> ',data.state);
 
   return (
     <>
@@ -113,7 +113,7 @@ console.log('data -> ',data.state);
                 ))}
             </ScrollView>
           </View>
-          
+
             {data.state!=="Denied" &&<>  
             {responses.length > 0 &&responses[0].pendingResponses.length>0&&
                 responses[0].pendingResponses.map((item) => (
