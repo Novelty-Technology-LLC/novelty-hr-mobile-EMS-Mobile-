@@ -34,6 +34,7 @@ const Request = ({ data, style, title = null }: any) => {
     getRequest();
     checkReplied();
   }, []);
+  
 
   return (
     <>
@@ -76,6 +77,42 @@ const Request = ({ data, style, title = null }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <Text style={style.response}>Responses</Text>
+              {responses.length > 0 &&
+                responses.map((item) => (
+                  <>
+                    <View style={style.main}>
+                      <View style={style.imageView}>
+                        <Image
+                          style={style.image}
+                          source={
+                            item.user.image_url
+                              ? { uri: item.user.image_url }
+                              : require('../../../assets/images/person.jpeg')
+                          }
+                        />
+                        <View style={style.senderView}>
+                          <View style={style.teamWrapper}>
+                            <Text style={style.sender}>{leadname(item)}</Text>
+                            <State state={item.action} />
+                          </View>
+                          <View style={style.teamLeadView}>
+                            <Text style={style.teamLead}>Team Lead</Text>
+                            <Text style={style.text}>
+                              on {responseDay(item)}
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                      <Text style={style.leadText}>{item.note}</Text>
+                    </View>
+                    <View style={style.spacer} />
+                  </>
+                ))}
+            </ScrollView>
+          </View>
+          <View style={style.pendingresponseView}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Text style={style.response}>Pending Responses</Text>
               {responses.length > 0 &&
                 responses.map((item) => (
                   <>
