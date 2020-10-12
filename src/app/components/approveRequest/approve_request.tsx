@@ -35,6 +35,10 @@ const Request = ({ data, style, title = null }: any) => {
     checkReplied();
   }, []);
 
+
+  
+console.log('data -> ',data.state);
+
   return (
     <>
       {data && (
@@ -109,7 +113,9 @@ const Request = ({ data, style, title = null }: any) => {
                 ))}
             </ScrollView>
           </View>
-              {responses.length > 0 &&responses[0].pendingResponses.length>0&&
+          
+            {data.state!=="Denied" &&<>  
+            {responses.length > 0 &&responses[0].pendingResponses.length>0&&
                 responses[0].pendingResponses.map((item) => (
                   <>
                    <View style={style.pendingresponseView}>
@@ -140,7 +146,7 @@ const Request = ({ data, style, title = null }: any) => {
                     </ScrollView>
           </View>
                   </>
-                ))}
+                ))}</>}
           
           {title === 'admin' && !approved && (
             <View style={style.buttonView}>
