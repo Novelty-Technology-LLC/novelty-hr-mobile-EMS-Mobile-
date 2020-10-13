@@ -38,6 +38,7 @@ const AuthReducer = (prevState, action) => {
     case 'INVALID':
       return {
         ...prevState,
+        isLoading: false,
         isInvalid: true,
       };
   }

@@ -10,4 +10,3 @@ export const getResponses = (id) => {
     }
   });
 };
-
