@@ -39,6 +39,8 @@ const Request = ({ data, style, title = null }: any) => {
     checkReplied();
   }, []);
 
+ 
+  
   return (
     <>
       {data && (
@@ -79,11 +81,12 @@ const Request = ({ data, style, title = null }: any) => {
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              <Text style={style.response}>Responses</Text>
+             
               {loading && <ResponsePlaceHolder />}
-              {responses.length > 0 &&
+              {responses.length > 0 && JSON.parse(data.lead).length !==responses[0].pendingResponses.length&&
                 responses.map((item) => (
                   <>
+                   <Text style={style.response}>Responses</Text>
                     <View style={style.main}>
                       <View style={style.imageView}>
                         <Image
@@ -116,13 +119,13 @@ const Request = ({ data, style, title = null }: any) => {
                 ))}
                   {data.state !== 'Denied' && (
             <>
+            <View style={style.pendingresponseView}>
+                      <ScrollView showsVerticalScrollIndicator={false}>
+                      <Text style={style.response}>Pending Responses</Text>
               {responses.length > 0 &&
                 responses[0].pendingResponses.length > 0 &&
                 responses[0].pendingResponses.map((item) => (
                   <>
-                    <View style={style.pendingresponseView}>
-                      <ScrollView showsVerticalScrollIndicator={false}>
-                        <Text style={style.response}>Pending Responses</Text>
                         <View style={style.main}>
                           <View style={style.imageView}>
                             <Image
@@ -147,17 +150,15 @@ const Request = ({ data, style, title = null }: any) => {
                           </View>
                         </View>
                         <View style={style.spacer} />
-                      </ScrollView>
-                    </View>
+                      
                   </>
                 ))}
+                </ScrollView>
+                    </View>
             </>
           )}
             </ScrollView>
           </View>
-
-        
-
           {title === 'admin' && !approved && (
             <View style={style.buttonView}>
               <ApproveDeny title="Approve" style={style} item={data} />
