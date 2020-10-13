@@ -18,7 +18,7 @@ const Description = ({
         <Textarea
           containerStyle={style.textareaContainer}
           style={style.textArea}
-          maxLength={250}
+          maxLength={200}
           defaultValue={defaultValue}
           placeholder={'Write a short note for your leave..'}
           placeholderTextColor={'#c7c7c7'}

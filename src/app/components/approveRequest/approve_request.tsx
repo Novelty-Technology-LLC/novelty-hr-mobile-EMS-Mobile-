@@ -114,10 +114,7 @@ const Request = ({ data, style, title = null }: any) => {
                     <View style={style.spacer} />
                   </>
                 ))}
-            </ScrollView>
-          </View>
-
-          {data.state !== 'Denied' && (
+                  {data.state !== 'Denied' && (
             <>
               {responses.length > 0 &&
                 responses[0].pendingResponses.length > 0 &&
@@ -156,6 +153,10 @@ const Request = ({ data, style, title = null }: any) => {
                 ))}
             </>
           )}
+            </ScrollView>
+          </View>
+
+        
 
           {title === 'admin' && !approved && (
             <View style={style.buttonView}>
@@ -168,5 +169,6 @@ const Request = ({ data, style, title = null }: any) => {
     </>
   );
 };
+
 
 export default Request;
