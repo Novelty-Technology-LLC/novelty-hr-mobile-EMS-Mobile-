@@ -7,3 +7,4 @@ export * from './request_detail_screen/requestDetail';
 export * from './comingSoon';
 export * from './profile';
 export * from './activity';
+export * from './auth_screen/invalid';
