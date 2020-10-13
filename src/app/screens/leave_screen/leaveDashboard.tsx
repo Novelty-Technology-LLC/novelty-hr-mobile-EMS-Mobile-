@@ -66,7 +66,7 @@ const LeaveDashboard = () => {
             ))}
         </View>
         <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
-        {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
+        {/* {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />} */}
       </ScrollView>
       <RequestButton />
     </View>
