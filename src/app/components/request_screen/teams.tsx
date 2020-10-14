@@ -56,14 +56,20 @@ class Teams extends Component {
                       }
                       this.setState(
                         { lead: [...new Set(this.state.lead.concat(val))] },
-                        () =>
+                        () => {
                           this.props.handleChange('lead')(
                             JSON.stringify(
                               this.state.lead
                                 .filter((item) => item.selected)
-                                .map((item) => item.lead_id)
+                                .map((item) => item.uuid)
                             )
-                          )
+                          );
+                          console.log(
+                            this.state.lead
+                              .filter((item) => item.selected)
+                              .map((item) => item.email)
+                          );
+                        }
                       );
                     }}
                   >
@@ -90,9 +96,9 @@ class Teams extends Component {
                       <View style={style.spacing}></View>
                       <View style={style.nameView}>
                         <Text style={style.name}>
-                          {val.first_name.length > 14
+                          {val.first_name.length + val.last_name.length > 14
                             ? val.first_name.substring(0, 14 - 2) + '...'
-                            : val.first_name}
+                            : val.first_name + ' ' + val.last_name}
                         </Text>
                       </View>
                     </View>

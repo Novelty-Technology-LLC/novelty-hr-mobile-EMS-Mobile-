@@ -19,7 +19,7 @@ const LeaveDashboard = () => {
 
   const getData = async () => {
     const user = await getUser();
-    getLeaveQuota(JSON.parse(user).uuid)
+    getLeaveQuota(JSON.parse(user).id)
       .then((data) => {
         setDaysDetails(data);
       })

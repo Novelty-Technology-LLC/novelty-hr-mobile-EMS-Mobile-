@@ -51,16 +51,16 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const submitRequest = (data) => {
-    postRequest(data)
-      .then((res) => {
-        dispatchRequest({ type: 'ADD', payload: res.data.data });
-        navigation.navigate('leaveList');
-        snackBarMessage('Request created');
-      })
-      .catch((err) => console.log(err));
+    console.log(data);
+    // postRequest(data)
+    //   .then((res) => {
+    //     dispatchRequest({ type: 'ADD', payload: res.data.data });
+    //     navigation.navigate('leaveList');
+    //     snackBarMessage('Request created');
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
-  
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
@@ -70,50 +70,51 @@ const RequestLeave = ({ route }: any) => {
       })
       .catch((err) => console.log(err));
   };
-  
 
   const [isLoading, setisLoading] = useState(false);
 
   const onSubmit = async (values) => {
+    try {
+      const date = JSON.parse(values.date);
+      const startDate = new Date(date.startDate).toString().slice(0, 15);
 
-try {
-    
-  const date = JSON.parse(values.date);
-  const startDate = new Date(date.startDate).toString().slice(0, 15);
+      let endDate = '';
+      if (date['endDate'] === null) {
+        endDate = startDate;
+      } else {
+        endDate = new Date(date.endDate).toString().slice(0, 15);
+      }
+      const day =
+        parseInt(endDate.substring(8, 10)) -
+        parseInt(startDate.substring(8, 10));
+      const notValid =
+        values.userQuota &&
+        values.userQuota.some(
+          (item) => item.leave_type === values.type && item.leave_used < day + 1
+        );
 
-  let endDate = '';
-  if (date['endDate'] === null) {
-    endDate = startDate;
-  } else {
-    endDate = new Date(date.endDate).toString().slice(0, 15);
-  }
-  const day = parseInt(endDate.substring(8,10)) - parseInt(startDate.substring(8,10))
-  const notValid = values.userQuota&&values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
+      if (notValid) {
+        throw new Error('Selected day exceeds leave');
+      }
 
- if(notValid) {
-   throw new Error('Selected day exceeds leave');
- }
+      delete values.date;
+      const userid = state.user.uuid;
 
-  delete values.date;
-  const userid = state.user.uuid;
+      const requestData = {
+        ...values,
+        leave_date: {
+          startDate,
+          endDate,
+        },
+        requestor_id: userid,
+      };
 
-  const requestData = {
-    ...values,
-    leave_date: {
-      startDate,
-      endDate,
-    },
-    requestor_id: userid,
+      setisLoading(!isLoading);
+      olddata ? updateReq(requestData) : submitRequest(requestData);
+    } catch (error) {
+      snackErrorBottom(error);
+    }
   };
-
-  setisLoading(!isLoading);
-  olddata ? updateReq(requestData) : submitRequest(requestData);
-} catch (error) {
-  snackErrorBottom(error)
-}
-  };
-
-
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -129,7 +130,7 @@ try {
             <Text style={headerText}>Request Leave</Text>
           </Header>
           <Formik
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
@@ -171,6 +172,3 @@ try {
 };
 
 export { RequestLeave };
-
-
-
