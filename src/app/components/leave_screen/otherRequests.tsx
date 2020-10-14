@@ -30,7 +30,7 @@ const OtherRequests = () => {
     setLoading(true);
     const user = await getUser();
 
-    getAllRequests(JSON.parse(user).uuid)
+    getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'

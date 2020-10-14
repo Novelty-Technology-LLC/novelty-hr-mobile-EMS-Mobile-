@@ -61,13 +61,8 @@ class Teams extends Component {
                             JSON.stringify(
                               this.state.lead
                                 .filter((item) => item.selected)
-                                .map((item) => item.uuid)
+                                .map((item) => item.id)
                             )
-                          );
-                          console.log(
-                            this.state.lead
-                              .filter((item) => item.selected)
-                              .map((item) => item.email)
                           );
                         }
                       );

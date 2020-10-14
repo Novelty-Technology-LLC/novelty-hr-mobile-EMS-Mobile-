@@ -33,7 +33,7 @@ const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required().label('note'),
-  lead: Yup.array().of(Yup.string()).required().label('lead'),
+  lead: Yup.array().of(Yup.number()).required().label('lead'),
   status: Yup.string().required().label('status'),
 });
 
@@ -51,14 +51,13 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const submitRequest = (data) => {
-    console.log(data);
-    // postRequest(data)
-    //   .then((res) => {
-    //     dispatchRequest({ type: 'ADD', payload: res.data.data });
-    //     navigation.navigate('leaveList');
-    //     snackBarMessage('Request created');
-    //   })
-    //   .catch((err) => console.log(err));
+    postRequest(data)
+      .then((res) => {
+        dispatchRequest({ type: 'ADD', payload: res.data.data });
+        navigation.navigate('leaveList');
+        snackBarMessage('Request created');
+      })
+      .catch((err) => console.log(err));
   };
 
   const updateReq = (data) => {
@@ -98,7 +97,7 @@ const RequestLeave = ({ route }: any) => {
       }
 
       delete values.date;
-      const userid = state.user.uuid;
+      const userid = state.user.id;
 
       const requestData = {
         ...values,
@@ -130,7 +129,7 @@ const RequestLeave = ({ route }: any) => {
             <Text style={headerText}>Request Leave</Text>
           </Header>
           <Formik
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema}
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
