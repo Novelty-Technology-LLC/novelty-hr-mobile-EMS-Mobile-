@@ -43,7 +43,7 @@ const OtherRequests = () => {
           (req) =>
             req.leave_approvals &&
             req.leave_approvals.map((item) => {
-              if (item.requested_to === state.user.uuid) {
+              if (item.requested_to === state.user.id) {
                 pastreq = pastreq.concat(req);
                 pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               } else {

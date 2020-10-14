@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getlead } from '../../services';
 import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
+import { leadname } from '../../utils/getName';
 
 class Teams extends Component {
   state = {
@@ -91,9 +92,7 @@ class Teams extends Component {
                       <View style={style.spacing}></View>
                       <View style={style.nameView}>
                         <Text style={style.name}>
-                          {val.first_name.length + val.last_name.length > 14
-                            ? val.first_name.substring(0, 14 - 2) + '...'
-                            : val.first_name + ' ' + val.last_name}
+                         {leadname(val)}
                         </Text>
                       </View>
                     </View>

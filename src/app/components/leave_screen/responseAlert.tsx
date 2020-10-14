@@ -8,10 +8,7 @@ import { dataType } from '../../interface';
 import { AppIcon, snackBarMessage } from '../../common';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
-import {
-  AdminRequestContext,
-  AuthContext,
-} from '../../reducer';
+import { AdminRequestContext, AuthContext } from '../../reducer';
 import { updateRequest } from '../../services';
 
 const EditAlert = ({
@@ -35,9 +32,9 @@ const EditAlert = ({
   
   const { state } = useContext(AuthContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
-  
+
   const onSubmit = async () => {
-    const Id = state.user.uuid;
+    const Id = state.user.id;
 
     action === 'Approve' && (action = 'Approved');
     action === 'Deny' && (action = 'Denied');
@@ -59,7 +56,6 @@ const EditAlert = ({
       snackBarMessage('Request replied');
     });
   };
-
 
   return (
     <View>

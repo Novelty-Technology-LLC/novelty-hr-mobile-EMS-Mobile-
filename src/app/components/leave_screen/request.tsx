@@ -24,7 +24,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   const checkReplied = () => {
     item.leave_approvals &&
       item.leave_approvals.map((item) => {
-        if (item.requested_to === state.user.uuid) {
+        if (item.requested_to === state.user.id) {
           setIsReplied(true);
         }
       });

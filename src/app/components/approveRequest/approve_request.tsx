@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, ActivityIndicatorBase } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
@@ -21,7 +21,7 @@ const Request = ({ data, style, title = null }: any) => {
   const checkReplied = () => {
     data.leave_approvals &&
       data.leave_approvals.map((item) => {
-        if (item.requested_to === state.user.uuid) {
+        if (item.requested_to === state.user.id) {
           setapproved(true);
         }
       });
@@ -37,7 +37,6 @@ const Request = ({ data, style, title = null }: any) => {
     getRequest();
     checkReplied();
   }, []);
-
 
   return (
     <>
@@ -79,9 +78,10 @@ const Request = ({ data, style, title = null }: any) => {
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
-
               {loading && <ResponsePlaceHolder />}
-              {responses.length > 0 && JSON.parse(data.lead).length !== responses[0].pendingResponses.length &&
+              {responses.length > 0 &&
+                JSON.parse(data.lead).length !==
+                  responses[0].pendingResponses.length &&
                 responses.map((item) => (
                   <>
                     <Text style={style.response}>Responses</Text>
@@ -90,7 +90,7 @@ const Request = ({ data, style, title = null }: any) => {
                         <Image
                           style={style.image}
                           source={
-                            item.user.image_url!==undefined
+                            item.user.image_url
                               ? { uri: item.user.image_url }
                               : require('../../../assets/images/person.jpeg')
                           }
@@ -142,13 +142,14 @@ const Request = ({ data, style, title = null }: any) => {
                                     <State state={item.action} />
                                   </View>
                                   <View style={style.teamLeadView}>
-                                    <Text style={style.teamLead}>Team Lead</Text>
+                                    <Text style={style.teamLead}>
+                                      Team Lead
+                                    </Text>
                                   </View>
                                 </View>
                               </View>
                             </View>
                             <View style={style.spacer} />
-
                           </>
                         ))}
                     </ScrollView>
@@ -168,6 +169,5 @@ const Request = ({ data, style, title = null }: any) => {
     </>
   );
 };
-
 
 export default Request;
