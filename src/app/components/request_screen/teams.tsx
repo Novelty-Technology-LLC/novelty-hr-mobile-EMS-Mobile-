@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getlead } from '../../services';
 import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
+import { leadname } from '../../utils/getName';
 
 class Teams extends Component {
   state = {
@@ -33,8 +34,8 @@ class Teams extends Component {
       })
     );
   }
-  
-  render() {  
+
+  render() {
     return (
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>
@@ -72,7 +73,11 @@ class Teams extends Component {
                       <View style={style.imageView}>
                         <Image
                           style={style.image}
-                          source={require('../../../assets/images/person.jpeg')}
+                          source={
+                            val.image_url
+                              ? { uri: val.image_url }
+                              : require('../../../assets/images/person.jpeg')
+                          }
                         />
                         {this.state.lead.map((item) => {
                           return (
@@ -90,11 +95,7 @@ class Teams extends Component {
                       </View>
                       <View style={style.spacing}></View>
                       <View style={style.nameView}>
-                        <Text style={style.name}>
-                          {val.first_name.length + val.last_name.length > 14
-                            ? val.first_name.substring(0, 14 - 2) + '...'
-                            : val.first_name + ' ' + val.last_name}
-                        </Text>
+                        <Text style={style.name}>{leadname(val)}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>

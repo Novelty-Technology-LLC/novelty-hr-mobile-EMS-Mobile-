@@ -1,1 +1,1 @@
-export const BASE_URI = 'https://novelty-hr-api.herokuapp.com/';
+export const BASE_URI = 'http://fa696034481c.ngrok.io';
