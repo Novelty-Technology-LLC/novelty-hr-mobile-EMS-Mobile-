@@ -61,6 +61,7 @@ const signInApple = async (dispatch: any) => {
     data.fullName['id'] = data.user;
 
     const userData = mapDataToObject(data.fullName);
+    if (/@noveltytechnology.com\s*$/.test(userData.email)) {
     create(userData)
       .then(async (res: any) => {
         await setUser(res.data.data);
@@ -69,6 +70,9 @@ const signInApple = async (dispatch: any) => {
         dispatch({ type: 'SIGN_IN', token: data.identityToken });
       })
       .catch((err) => console.log(err));
+    }else {
+      dispatch({ type: 'INVALID' });
+    }
   } catch (error) {
     snackErrorBottom(error);
   }

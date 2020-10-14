@@ -33,8 +33,8 @@ class Teams extends Component {
       })
     );
   }
-
-  render() {
+  
+  render() {  
     return (
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Image, ActivityIndicatorBase } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
@@ -8,8 +8,8 @@ import getDay, { responseDay } from '../../utils/getDay';
 import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
-import { AdminPlaceHolder, LeadPlaceHolder } from '../loader';
 import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
+
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -39,8 +39,7 @@ const Request = ({ data, style, title = null }: any) => {
     checkReplied();
   }, []);
 
- 
-  
+
   return (
     <>
       {data && (
@@ -81,12 +80,12 @@ const Request = ({ data, style, title = null }: any) => {
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
-             
+
               {loading && <ResponsePlaceHolder />}
-              {responses.length > 0 && JSON.parse(data.lead).length !==responses[0].pendingResponses.length&&
+              {responses.length > 0 && JSON.parse(data.lead).length !== responses[0].pendingResponses.length &&
                 responses.map((item) => (
                   <>
-                   <Text style={style.response}>Responses</Text>
+                    <Text style={style.response}>Responses</Text>
                     <View style={style.main}>
                       <View style={style.imageView}>
                         <Image
@@ -117,46 +116,46 @@ const Request = ({ data, style, title = null }: any) => {
                     <View style={style.spacer} />
                   </>
                 ))}
-                  {data.state !== 'Denied' && (
-            <>
-            <View style={style.pendingresponseView}>
-                      <ScrollView showsVerticalScrollIndicator={false}>
+              {data.state !== 'Denied' && (
+                <>
+                  <View style={style.pendingresponseView}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                       <Text style={style.response}>Pending Responses</Text>
-              {responses.length > 0 &&
-                responses[0].pendingResponses.length > 0 &&
-                responses[0].pendingResponses.map((item) => (
-                  <>
-                        <View style={style.main}>
-                          <View style={style.imageView}>
-                            <Image
-                              style={style.image}
-                              source={
-                                item.image_url
-                                  ? { uri: item.image_url }
-                                  : require('../../../assets/images/person.jpeg')
-                              }
-                            />
-                            <View style={style.senderView}>
-                              <View style={style.teamWrapper}>
-                                <Text style={style.sender}>
-                                  {leadname(item)}
-                                </Text>
-                                <State state={item.action} />
-                              </View>
-                              <View style={style.teamLeadView}>
-                                <Text style={style.teamLead}>Team Lead</Text>
+                      {responses.length > 0 &&
+                        responses[0].pendingResponses.length > 0 &&
+                        responses[0].pendingResponses.map((item) => (
+                          <>
+                            <View style={style.main}>
+                              <View style={style.imageView}>
+                                <Image
+                                  style={style.image}
+                                  source={
+                                    item.image_url
+                                      ? { uri: item.image_url }
+                                      : require('../../../assets/images/person.jpeg')
+                                  }
+                                />
+                                <View style={style.senderView}>
+                                  <View style={style.teamWrapper}>
+                                    <Text style={style.sender}>
+                                      {leadname(item)}
+                                    </Text>
+                                    <State state={item.action} />
+                                  </View>
+                                  <View style={style.teamLeadView}>
+                                    <Text style={style.teamLead}>Team Lead</Text>
+                                  </View>
+                                </View>
                               </View>
                             </View>
-                          </View>
-                        </View>
-                        <View style={style.spacer} />
-                      
-                  </>
-                ))}
-                </ScrollView>
-                    </View>
-            </>
-          )}
+                            <View style={style.spacer} />
+
+                          </>
+                        ))}
+                    </ScrollView>
+                  </View>
+                </>
+              )}
             </ScrollView>
           </View>
           {title === 'admin' && !approved && (

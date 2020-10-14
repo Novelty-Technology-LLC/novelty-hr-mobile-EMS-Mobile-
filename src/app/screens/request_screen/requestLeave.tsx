@@ -75,7 +75,7 @@ const RequestLeave = ({ route }: any) => {
   const [isLoading, setisLoading] = useState(false);
 
   const onSubmit = async (values) => {
-
+    
 try {
     
   const date = JSON.parse(values.date);
@@ -87,6 +87,8 @@ try {
   } else {
     endDate = new Date(date.endDate).toString().slice(0, 15);
   }
+ 
+  
   const day = parseInt(endDate.substring(8,10)) - parseInt(startDate.substring(8,10))
   const notValid = values.userQuota&&values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
 
@@ -112,8 +114,6 @@ try {
   snackErrorBottom(error)
 }
   };
-
-
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
