@@ -17,7 +17,7 @@ const approveRequest = StyleSheet.create({
   },
   scrollView: { flex: 1 },
   requestView: {
-    flex: 0.6,
+   flex:0.6,
     flexDirection: 'column',
   },
   main: {
@@ -102,6 +102,10 @@ const approveRequest = StyleSheet.create({
     marginTop: normalize(20),
     marginLeft: normalize(10),
   },
+  pendingresponseView: {
+      flex:0.34,
+    marginTop: normalize(20),
+  },
   response: {
     color: colors.fontGrey,
     fontFamily: fonts.poppinsMedium,
@@ -135,7 +139,7 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   buttonView: {
-    flex: 0.3,
+    flex: 0.13,
     backgroundColor: colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',

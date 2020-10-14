@@ -22,18 +22,15 @@ const mapDataToObject = (profile: any) => {
     user: 'uuid',
   };
 
+
   const modified_object = renameKey(profile, replacement);
 
   return {
-    ...modified_object,
-    designation: 'employee',
-    join_date: new Date(),
-    phone: '0123456789',
-    is_active: 0,
-    is_approver: 1,
-    created_by: 'lovish hamal',
-    updated_by: 'lovish hamal',
+    uuid:modified_object.uuid,
+    image_url:modified_object.image_url,
+    email:modified_object.email
   };
 };
+
 
 export { mapDataToObject };

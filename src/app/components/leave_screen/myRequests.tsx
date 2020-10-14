@@ -2,17 +2,18 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-import { myRequestsStyle as style } from '../../../assets/styles';
+import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import History from './history';
 import { Request } from './request';
 import Swipe from './swipe';
 import colors from '../../../assets/colors';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { AuthContext, RequestContext } from '../../reducer';
-import { AppIcon, Loader } from '../../common';
+import { RequestContext } from '../../reducer';
+import { AppIcon } from '../../common';
 import { getUser, mapDataToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
+import { UserPlaceHolder } from '../loader';
 
 const MyRequests = ({ loading }: { loading: boolean }) => {
   const navigation = useNavigation();
@@ -22,7 +23,7 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
     const user = await getUser();
-    getPastRequests(JSON.parse(user).uuid)
+    getPastRequests(JSON.parse(user).id)
       .then((data) => setPastrequests(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
@@ -57,7 +58,8 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
           </TouchableWithoutFeedback>
         </View>
       </View>
-      {loading ? <Loader color="black" size={20} /> : null}
+      {loading ? <UserPlaceHolder /> : null}
+
       {requests.requests[0] ? (
         <FlatList
           data={requests.requests}
@@ -82,7 +84,13 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
 
       {toggle === 'toggle-switch' &&
         (!pastrequests ? (
-          <Loader color="black" size={20} />
+          <>
+            <View style={historyStyle.subcontainer}>
+              <Text style={historyStyle.header}>Past Requests</Text>
+              <View style={historyStyle.line}></View>
+            </View>
+            <UserPlaceHolder />
+          </>
         ) : (
           <History requests={mapDataToRequest(pastrequests)} />
         ))}

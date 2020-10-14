@@ -5,27 +5,36 @@ import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
 import { dataType } from '../../interface';
-import { AppIcon } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import {
   AdminRequestContext,
   AuthContext,
-  RequestContext,
 } from '../../reducer';
 import { updateRequest } from '../../services';
 
-const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
+const EditAlert = ({
+  item,
+  status,
+  setShow,
+}: {
+  item: dataType;
+  status: string;
+  setShow: Function;
+}) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(true);
   let [action, setAction] = useState(status);
   const [note, setNote] = useState('');
   const show = () => setShowAlert(true);
-  const hide = () => setShowAlert(false);
+  const hide = () => {
+    setShowAlert(false);
+    setShow(false);
+  };
   const { state } = useContext(AuthContext);
-  const { requests } = useContext(RequestContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
-
+  
   const onSubmit = async () => {
     const Id = state.user.uuid;
 
@@ -46,8 +55,10 @@ const EditAlert = ({ item, status }: { item: dataType; status: string }) => {
         payload: item,
       });
       navigation.navigate('leaveList');
+      snackBarMessage('Request replied');
     });
   };
+
 
   return (
     <View>

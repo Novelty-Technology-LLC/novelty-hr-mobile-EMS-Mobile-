@@ -8,7 +8,7 @@ import appleAuth, {
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
 
-import { setUser, setIsApprover, storeToken } from '../utils';
+import { setUser, storeToken } from '../utils';
 import { create } from './userService';
 import { mapDataToObject } from '../utils';
 import { snackErrorBottom } from '../common';
@@ -19,17 +19,21 @@ const signInGoogle = async (dispatch: any) => {
     const userInfo: any = await GoogleSignin.signIn();
 
     if (!userInfo.idToken) throw new Error('Error while sign in');
+    dispatch({ type: 'RESET' });
     delete userInfo.user.name;
-
     const userData = mapDataToObject(userInfo.user);
-    create(userData)
-      .then(async ({ data }: any) => {
-        await setUser(data.data);
-        dispatch({ type: 'STORE_USER', user: data.data });
-        await storeToken(userInfo.idToken);
-        dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
-      })
-      .catch((err) => console.log(err));
+    if (/@noveltytechnology.com\s*$/.test(userData.email)) {
+      create(userData)
+        .then(async ({ data }: any) => {
+          await setUser(data.data);
+          dispatch({ type: 'STORE_USER', user: data.data });
+          await storeToken(userInfo.idToken);
+          dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      dispatch({ type: 'INVALID' });
+    }
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
@@ -57,6 +61,7 @@ const signInApple = async (dispatch: any) => {
     data.fullName['id'] = data.user;
 
     const userData = mapDataToObject(data.fullName);
+    if (/@noveltytechnology.com\s*$/.test(userData.email)) {
     create(userData)
       .then(async (res: any) => {
         await setUser(res.data.data);
@@ -65,6 +70,9 @@ const signInApple = async (dispatch: any) => {
         dispatch({ type: 'SIGN_IN', token: data.identityToken });
       })
       .catch((err) => console.log(err));
+    }else {
+      dispatch({ type: 'INVALID' });
+    }
   } catch (error) {
     snackErrorBottom(error);
   }

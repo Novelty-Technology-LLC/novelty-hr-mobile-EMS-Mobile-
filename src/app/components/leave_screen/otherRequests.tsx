@@ -4,7 +4,11 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
-import { myRequestsStyle, otherRequestsStyle } from '../../../assets/styles';
+import {
+  myRequestsStyle,
+  otherRequestsStyle,
+  historyStyle,
+} from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
@@ -13,6 +17,7 @@ import { AppIcon, Loader } from '../../common';
 import { getAllRequests } from '../../services';
 import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
+import { AdminPlaceHolder } from '../loader';
 
 const OtherRequests = () => {
   const navigation = useNavigation();
@@ -25,7 +30,7 @@ const OtherRequests = () => {
     setLoading(true);
     const user = await getUser();
 
-    getAllRequests(JSON.parse(user).uuid)
+    getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'
@@ -39,11 +44,9 @@ const OtherRequests = () => {
             req.leave_approvals &&
             req.leave_approvals.map((item) => {
               if (item.requested_to === state.user.uuid) {
-                // pastreq = [req, ...pastreq];
                 pastreq = pastreq.concat(req);
                 pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               } else {
-                // myreq = [req, ...myreq];
                 myreq = myreq.concat(req);
                 myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               }
@@ -70,7 +73,7 @@ const OtherRequests = () => {
   return (
     <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
-        <Text style={myRequestsStyle.title}> Requests Recieved</Text>
+        <Text style={myRequestsStyle.title}> Requests Received</Text>
         <View style={myRequestsStyle.row}>
           <Text style={myRequestsStyle.history}> History</Text>
           <View style={myRequestsStyle.gap}></View>
@@ -94,7 +97,7 @@ const OtherRequests = () => {
         </View>
       </View>
       {loading ? (
-        <Loader color="black" size={20} />
+        <AdminPlaceHolder />
       ) : (
         <FlatList
           data={adminrequests.adminrequests}
@@ -115,6 +118,15 @@ const OtherRequests = () => {
             There are no current requests
           </Text>
         </View>
+      )}
+      {loading && (
+        <>
+          <View style={historyStyle.subcontainer}>
+            <Text style={historyStyle.header}>Past Requests</Text>
+            <View style={historyStyle.line}></View>
+          </View>
+          <AdminPlaceHolder />
+        </>
       )}
       {toggle === 'toggle-switch' &&
         adminrequests.pastadminrequests.length > 0 && (

@@ -11,8 +11,8 @@ const getName = (data) => {
 };
 
 export const leadname = (data) =>
-  data.user.first_name + data.user.last_name > 14
-    ? data.user.first_name + ' ' + data.user.last_name.substr(0, 14 - 2) + '...'
-    : data.user.first_name + ' ' + data.user.last_name;
+  data.first_name + data.last_name > 14
+    ? data.first_name + ' ' + data.last_name.substr(0, 14 - 2) + '...'
+    : data.first_name + ' ' + data.last_name;
 
 export default getName;
