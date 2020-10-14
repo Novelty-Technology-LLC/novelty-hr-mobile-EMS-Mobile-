@@ -23,7 +23,7 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
     const user = await getUser();
-    getPastRequests(JSON.parse(user).uuid)
+    getPastRequests(JSON.parse(user).id)
       .then((data) => setPastrequests(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };

@@ -33,7 +33,7 @@ const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required().label('note'),
-  lead: Yup.array().of(Yup.string()).required().label('lead'),
+  lead: Yup.array().of(Yup.number()).required().label('lead'),
   status: Yup.string().required().label('status'),
 });
 
@@ -60,7 +60,6 @@ const RequestLeave = ({ route }: any) => {
       .catch((err) => console.log(err));
   };
 
-  
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
@@ -70,50 +69,52 @@ const RequestLeave = ({ route }: any) => {
       })
       .catch((err) => console.log(err));
   };
-  
 
   const [isLoading, setisLoading] = useState(false);
 
   const onSubmit = async (values) => {
-    
-try {
-    
-  const date = JSON.parse(values.date);
-  const startDate = new Date(date.startDate).toString().slice(0, 15);
+    try {
+      const date = JSON.parse(values.date);
+      const startDate = new Date(date.startDate).toString().slice(0, 15);
 
-  let endDate = '';
-  if (date['endDate'] === null) {
-    endDate = startDate;
-  } else {
-    endDate = new Date(date.endDate).toString().slice(0, 15);
-  }
- 
-  
-  const day = parseInt(endDate.substring(8,10)) - parseInt(startDate.substring(8,10))
-  const notValid = values.userQuota&&values.userQuota.some((item)=>item.leave_type === values.type && item.leave_used<day+1)
+      let endDate = '';
+      if (date['endDate'] === null) {
+        endDate = startDate;
+      } else {
+        endDate = new Date(date.endDate).toString().slice(0, 15);
+      }
+      const day =
+        parseInt(endDate.substring(8, 10)) -
+        parseInt(startDate.substring(8, 10));
+      const notValid =
+        values.userQuota &&
+        values.userQuota.some(
+          (item) => item.leave_type === values.type && item.leave_used < day + 1
+        );
 
- if(notValid) {
-   throw new Error('Selected day exceeds leave');
- }
+      if (notValid) {
+        throw new Error('Selected day exceeds leave');
+      }
 
-  delete values.date;
-  const userid = state.user.uuid;
+      delete values.date;
+      const userid = state.user.id;
 
-  const requestData = {
-    ...values,
-    leave_date: {
-      startDate,
-      endDate,
-    },
-    requestor_id: userid,
+      const requestData = {
+        ...values,
+        leave_date: {
+          startDate,
+          endDate,
+        },
+        requestor_id: userid,
+      };
+
+      setisLoading(!isLoading);
+      olddata ? updateReq(requestData) : submitRequest(requestData);
+    } catch (error) {
+      snackErrorBottom(error);
+    }
   };
 
-  setisLoading(!isLoading);
-  olddata ? updateReq(requestData) : submitRequest(requestData);
-} catch (error) {
-  snackErrorBottom(error)
-}
-  };
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -171,6 +172,3 @@ try {
 };
 
 export { RequestLeave };
-
-
-
