@@ -29,6 +29,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
 
+
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
   type: Yup.string().required().label('type'),
@@ -41,7 +42,7 @@ const RequestLeave = ({ route }: any) => {
   const olddata = route.params;
   const navigation = useNavigation();
   const { state } = useContext(AuthContext);
-  const { dispatchRequest } = useContext(RequestContext);
+  const { dispatchRequest,requests } = useContext(RequestContext);
   const initialValues = {
     date: olddata ? olddata.date : '',
     type: olddata ? olddata.type : 'Paid time off',
@@ -83,22 +84,27 @@ const RequestLeave = ({ route }: any) => {
       } else {
         endDate = new Date(date.endDate).toString().slice(0, 15);
       }
+      
       const day =
         parseInt(endDate.substring(8, 10)) -
         parseInt(startDate.substring(8, 10));
+
+       /*quota is dispatched from context should be reomved if not needed */
+       //console.log('quota -> ',requests.quota);
+       
+        
       const notValid =
         values.userQuota &&
         values.userQuota.some(
-          (item) => item.leave_type === values.type && item.leave_used < day + 1
+          (item) => item.leave_type === values.type.toUpperCase() && item.leave_used < day + 1
         );
+
 
       if (notValid) {
         throw new Error('Selected day exceeds leave');
       }
-
       delete values.date;
       const userid = state.user.id;
-
 
       const requestData = {
         ...values,
@@ -108,7 +114,6 @@ const RequestLeave = ({ route }: any) => {
         },
         requestor_id: userid,
       };
-
       setisLoading(!isLoading);
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {
