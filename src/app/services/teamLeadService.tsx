@@ -1,14 +1,14 @@
 import { api } from '../api/api';
 
-const getlead = (id) => {
+const getlead = () => {
   return new Promise((resolve, reject) => {
     api
-      .get(`/teamlead/${id}`)
-      .then((res) => resolve(res.data.data))
+      .get(`/teamlead`)
+      .then((res) => {
+        resolve(res.data.data);
+      })
       .catch((err) => reject(err));
   });
 };
 
 export { getlead };
-
-

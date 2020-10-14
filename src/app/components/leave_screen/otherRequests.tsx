@@ -73,7 +73,7 @@ const OtherRequests = () => {
   return (
     <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
-        <Text style={myRequestsStyle.title}> Requests Recieved</Text>
+        <Text style={myRequestsStyle.title}> Requests Received</Text>
         <View style={myRequestsStyle.row}>
           <Text style={myRequestsStyle.history}> History</Text>
           <View style={myRequestsStyle.gap}></View>

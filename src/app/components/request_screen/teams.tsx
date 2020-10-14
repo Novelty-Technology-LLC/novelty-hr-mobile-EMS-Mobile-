@@ -3,7 +3,6 @@ import { View, Text, Image, ActivityIndicator } from 'react-native';
 import { teamStyle as style } from '../../../assets/styles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getUser } from '../../utils';
 import { getlead } from '../../services';
 import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
@@ -17,14 +16,13 @@ class Teams extends Component {
   data = [];
 
   async componentDidMount() {
-    const userId = await getUser();
-    getlead(JSON.parse(userId).uuid).then((data) =>
+    getlead().then((data) =>
       this.setState({ teamLead: data }, () => {
         this.props.defaultValue &&
           this.state.teamLead.map((val) => {
             JSON.parse(this.props.defaultValue).map((id) => {
               if (id === val.lead_id) {
-                val.selected = val.name;
+                val.selected = val.first_name;
                 this.data.push(val);
               }
             });
@@ -54,7 +52,7 @@ class Teams extends Component {
                       if (val.selected) {
                         val.selected = false;
                       } else {
-                        val.selected = val.name;
+                        val.selected = val.first_name;
                       }
                       this.setState(
                         { lead: [...new Set(this.state.lead.concat(val))] },
@@ -77,7 +75,7 @@ class Teams extends Component {
                         />
                         {this.state.lead.map((item) => {
                           return (
-                            item.selected === val.name && (
+                            item.selected === val.first_name && (
                               <View style={style.iconContainer}>
                                 <Icon
                                   name="check-circle"
@@ -92,9 +90,9 @@ class Teams extends Component {
                       <View style={style.spacing}></View>
                       <View style={style.nameView}>
                         <Text style={style.name}>
-                          {val.name.length > 14
-                            ? val.name.substring(0, 14 - 2) + '...'
-                            : val.name}
+                          {val.first_name.length > 14
+                            ? val.first_name.substring(0, 14 - 2) + '...'
+                            : val.first_name}
                         </Text>
                       </View>
                     </View>
