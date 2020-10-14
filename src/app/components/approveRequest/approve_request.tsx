@@ -10,7 +10,6 @@ import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
 
-
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
   const { startDate } = getDay(data);
@@ -91,7 +90,7 @@ const Request = ({ data, style, title = null }: any) => {
                         <Image
                           style={style.image}
                           source={
-                            item.user.image_url
+                            item.user.image_url!==undefined
                               ? { uri: item.user.image_url }
                               : require('../../../assets/images/person.jpeg')
                           }
