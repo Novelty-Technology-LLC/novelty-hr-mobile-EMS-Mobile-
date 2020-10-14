@@ -21,7 +21,7 @@ class Teams extends Component {
         this.props.defaultValue &&
           this.state.teamLead.map((val) => {
             JSON.parse(this.props.defaultValue).map((id) => {
-              if (id === val.lead_id) {
+              if (id === val.id) {
                 val.selected = val.first_name;
                 this.data.push(val);
               }
