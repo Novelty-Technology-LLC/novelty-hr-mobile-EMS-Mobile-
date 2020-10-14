@@ -115,13 +115,14 @@ const Request = ({ data, style, title = null }: any) => {
                     <View style={style.spacer} />
                   </>
                 ))}
-              {data.state !== 'Denied' && (
+              {data.state !== 'Denied' &&  (
                 <>
+                {responses.length > 0 &&
+                        responses[0].pendingResponses.length > 0 &&
                   <View style={style.pendingresponseView}>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                      <Text style={style.response}>Pending Responses</Text>
-                      {responses.length > 0 &&
-                        responses[0].pendingResponses.length > 0 &&
+                    <Text style={style.response}>Pending Responses</Text>
+                      {
                         responses[0].pendingResponses.map((item) => (
                           <>
                             <View style={style.main}>
@@ -154,7 +155,9 @@ const Request = ({ data, style, title = null }: any) => {
                         ))}
                     </ScrollView>
                   </View>
+}
                 </>
+                                
               )}
             </ScrollView>
           </View>
