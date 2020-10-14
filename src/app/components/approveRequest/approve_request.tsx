@@ -22,7 +22,7 @@ const Request = ({ data, style, title = null }: any) => {
   const checkReplied = () => {
     data.leave_approvals &&
       data.leave_approvals.map((item) => {
-        if (item.requested_to === state.user.uuid) {
+        if (item.requested_to === state.user.id) {
           setapproved(true);
         }
       });
@@ -39,8 +39,6 @@ const Request = ({ data, style, title = null }: any) => {
     checkReplied();
   }, []);
 
- 
-  
   return (
     <>
       {data && (
@@ -81,12 +79,13 @@ const Request = ({ data, style, title = null }: any) => {
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
-             
               {loading && <ResponsePlaceHolder />}
-              {responses.length > 0 && JSON.parse(data.lead).length !==responses[0].pendingResponses.length&&
+              {responses.length > 0 &&
+                JSON.parse(data.lead).length !==
+                  responses[0].pendingResponses.length &&
                 responses.map((item) => (
                   <>
-                   <Text style={style.response}>Responses</Text>
+                    <Text style={style.response}>Responses</Text>
                     <View style={style.main}>
                       <View style={style.imageView}>
                         <Image
@@ -117,46 +116,47 @@ const Request = ({ data, style, title = null }: any) => {
                     <View style={style.spacer} />
                   </>
                 ))}
-                  {data.state !== 'Denied' && (
-            <>
-            <View style={style.pendingresponseView}>
-                      <ScrollView showsVerticalScrollIndicator={false}>
+              {data.state !== 'Denied' && (
+                <>
+                  <View style={style.pendingresponseView}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                       <Text style={style.response}>Pending Responses</Text>
-              {responses.length > 0 &&
-                responses[0].pendingResponses.length > 0 &&
-                responses[0].pendingResponses.map((item) => (
-                  <>
-                        <View style={style.main}>
-                          <View style={style.imageView}>
-                            <Image
-                              style={style.image}
-                              source={
-                                item.image_url
-                                  ? { uri: item.image_url }
-                                  : require('../../../assets/images/person.jpeg')
-                              }
-                            />
-                            <View style={style.senderView}>
-                              <View style={style.teamWrapper}>
-                                <Text style={style.sender}>
-                                  {leadname(item)}
-                                </Text>
-                                <State state={item.action} />
-                              </View>
-                              <View style={style.teamLeadView}>
-                                <Text style={style.teamLead}>Team Lead</Text>
+                      {responses.length > 0 &&
+                        responses[0].pendingResponses.length > 0 &&
+                        responses[0].pendingResponses.map((item) => (
+                          <>
+                            <View style={style.main}>
+                              <View style={style.imageView}>
+                                <Image
+                                  style={style.image}
+                                  source={
+                                    item.image_url
+                                      ? { uri: item.image_url }
+                                      : require('../../../assets/images/person.jpeg')
+                                  }
+                                />
+                                <View style={style.senderView}>
+                                  <View style={style.teamWrapper}>
+                                    <Text style={style.sender}>
+                                      {leadname(item)}
+                                    </Text>
+                                    <State state={item.action} />
+                                  </View>
+                                  <View style={style.teamLeadView}>
+                                    <Text style={style.teamLead}>
+                                      Team Lead
+                                    </Text>
+                                  </View>
+                                </View>
                               </View>
                             </View>
-                          </View>
-                        </View>
-                        <View style={style.spacer} />
-                      
-                  </>
-                ))}
-                </ScrollView>
-                    </View>
-            </>
-          )}
+                            <View style={style.spacer} />
+                          </>
+                        ))}
+                    </ScrollView>
+                  </View>
+                </>
+              )}
             </ScrollView>
           </View>
           {title === 'admin' && !approved && (
@@ -170,6 +170,5 @@ const Request = ({ data, style, title = null }: any) => {
     </>
   );
 };
-
 
 export default Request;
