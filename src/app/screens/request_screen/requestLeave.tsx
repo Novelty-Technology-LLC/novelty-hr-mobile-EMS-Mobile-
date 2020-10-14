@@ -99,6 +99,7 @@ const RequestLeave = ({ route }: any) => {
       delete values.date;
       const userid = state.user.id;
 
+
       const requestData = {
         ...values,
         leave_date: {
@@ -114,6 +115,7 @@ const RequestLeave = ({ route }: any) => {
       snackErrorBottom(error);
     }
   };
+
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Image, ActivityIndicatorBase } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
@@ -8,7 +8,6 @@ import getDay, { responseDay } from '../../utils/getDay';
 import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
-import { AdminPlaceHolder, LeadPlaceHolder } from '../loader';
 import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
 
 const Request = ({ data, style, title = null }: any) => {
@@ -91,7 +90,7 @@ const Request = ({ data, style, title = null }: any) => {
                         <Image
                           style={style.image}
                           source={
-                            item.user.image_url
+                            item.user.image_url !== undefined
                               ? { uri: item.user.image_url }
                               : require('../../../assets/images/person.jpeg')
                           }
