@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Image, FlatList} from 'react-native';
+import { Text, View, Image, FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
@@ -9,7 +9,7 @@ import getName from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
-import Response from './response'
+import Response from './response';
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -80,7 +80,13 @@ const Request = ({ data, style, title = null }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {loading && <ResponsePlaceHolder />}
-<FlatList data={responses}  keyExtractor={item => item.index}  renderItem={(item)=><Response responses={item.item} style={style} data={data}/>}/>
+              <FlatList
+                data={responses}
+                keyExtractor={(item) => item.index}
+                renderItem={(item) => (
+                  <Response responses={item.item} style={style} data={data} />
+                )}
+              />
             </ScrollView>
           </View>
           {title === 'admin' && !approved && (
@@ -94,6 +100,5 @@ const Request = ({ data, style, title = null }: any) => {
     </>
   );
 };
-
 
 export default Request;
