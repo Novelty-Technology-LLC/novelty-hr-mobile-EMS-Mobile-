@@ -19,14 +19,13 @@ import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 
-const OtherRequests = () => {
+const OtherRequests = ({ refresh }: { refresh: number }) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
 
-  
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
@@ -69,7 +68,7 @@ const OtherRequests = () => {
   };
   useEffect(() => {
     getAdminRequest();
-  }, []);
+  }, [refresh]);
 
   return (
     <View style={otherRequestsStyle.container}>
@@ -101,7 +100,7 @@ const OtherRequests = () => {
         <AdminPlaceHolder />
       ) : (
         <FlatList
-        extraData={adminrequests.adminrequests}
+          extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
           renderItem={(item) => (
             <Request
