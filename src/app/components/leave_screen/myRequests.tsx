@@ -28,13 +28,15 @@ const MyRequests = ({
 
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
+    console.log('once in call');
+    
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
       .then((data) => setPastrequests(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
-  const getPastCallback = useCallback(() => getPast(), [refresh]);
+  const getPastCallback = useCallback(() => getPast(), []);
 
   useEffect(() => {
     getPastCallback()
