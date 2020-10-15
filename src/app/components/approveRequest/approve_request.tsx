@@ -79,12 +79,12 @@ const Request = ({ data, style, title = null }: any) => {
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              <Text style={style.response}>Responses</Text>
               {loading && <ResponsePlaceHolder />}
               {responses.length > 0 && JSON.parse(data.lead).length !== responses[0].pendingResponses.length &&
-                responses.map((item) => (
+              <>
+              <Text style={style.response}>Responses</Text>
+               { responses.map((item) => (
                   <>
-                   
                     <View style={style.main}>
                       <View style={style.imageView}>
                         <Image
@@ -114,7 +114,8 @@ const Request = ({ data, style, title = null }: any) => {
                     </View>
                     <View style={style.spacer} />
                   </>
-                ))}
+                ))}</>}
+               
               {data.state !== 'Denied' && (
                 <>
                   <View style={style.pendingresponseView}>
@@ -170,6 +171,7 @@ const Request = ({ data, style, title = null }: any) => {
     </>
   );
 };
+
 
 
 export default Request;

@@ -1,13 +1,15 @@
 import { WSnackBar } from 'react-native-smart-tip';
-
+import {fonts} from '../../assets/styles/theme'
 const snackErrorBottom = (err) => {
   const snackBarOpts = {
-    data: err.message.slice(0, 35),
+    data: err.message,
     position: WSnackBar.position.BOTTOM,
     duration: WSnackBar.duration.LONG,
     textColor: '#ff490b',
-    backgroundColor: '#050405',
+    fontFamily:fonts.PoppinsSemibold,
+    backgroundColor: '#fff',
     actionTextColor: '#ff490b',
+    fontWeight:700
   };
   return WSnackBar.show(snackBarOpts);
 };

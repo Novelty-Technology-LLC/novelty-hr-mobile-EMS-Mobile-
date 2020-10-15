@@ -94,9 +94,8 @@ const RequestLeave = ({ route }: any) => {
           (item) => item.leave_type === values.type.toUpperCase() && item.leave_used < day 
         );
 
-
       if (notValid) {
-        throw new Error('Selected day exceeds leave');
+        throw new Error(`Selected day exceeds ${values.type}`);
       }
       delete values.date;
       const userid = state.user.id;
