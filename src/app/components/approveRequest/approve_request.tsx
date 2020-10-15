@@ -78,43 +78,47 @@ const Request = ({ data, style, title = null }: any) => {
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              <Text style={style.response}>Responses</Text>
               {loading && <ResponsePlaceHolder />}
               {responses.length > 0 &&
                 JSON.parse(data.lead).length !==
-                  responses[0].pendingResponses.length &&
-                responses.map((item) => (
+                  responses[0].pendingResponses.length && (
                   <>
-                    <View style={style.main}>
-                      <View style={style.imageView}>
-                        <Image
-                          style={style.image}
-                          source={
-                            item.user.image_url !== undefined
-                              ? { uri: item.user.image_url }
-                              : require('../../../assets/images/person.jpeg')
-                          }
-                        />
-                        <View style={style.senderView}>
-                          <View style={style.teamWrapper}>
-                            <Text style={style.sender}>
-                              {leadname(item.user)}
-                            </Text>
-                            <State state={item.action} />
+                    <Text style={style.response}>Responses</Text>
+                    {responses.map((item) => (
+                      <>
+                        <View style={style.main}>
+                          <View style={style.imageView}>
+                            <Image
+                              style={style.image}
+                              source={
+                                item.user.image_url !== undefined
+                                  ? { uri: item.user.image_url }
+                                  : require('../../../assets/images/person.jpeg')
+                              }
+                            />
+                            <View style={style.senderView}>
+                              <View style={style.teamWrapper}>
+                                <Text style={style.sender}>
+                                  {leadname(item.user)}
+                                </Text>
+                                <State state={item.action} />
+                              </View>
+                              <View style={style.teamLeadView}>
+                                <Text style={style.teamLead}>Team Lead</Text>
+                                <Text style={style.text}>
+                                  on {responseDay(item)}
+                                </Text>
+                              </View>
+                            </View>
                           </View>
-                          <View style={style.teamLeadView}>
-                            <Text style={style.teamLead}>Team Lead</Text>
-                            <Text style={style.text}>
-                              on {responseDay(item)}
-                            </Text>
-                          </View>
+                          <Text style={style.leadText}>{item.note}</Text>
                         </View>
-                      </View>
-                      <Text style={style.leadText}>{item.note}</Text>
-                    </View>
-                    <View style={style.spacer} />
+                        <View style={style.spacer} />
+                      </>
+                    ))}
                   </>
-                ))}
+                )}
+
               {data.state !== 'Denied' && (
                 <>
                   <View style={style.pendingresponseView}>
