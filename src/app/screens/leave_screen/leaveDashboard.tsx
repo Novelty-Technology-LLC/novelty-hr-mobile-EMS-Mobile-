@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import React, { useState, useContext, useEffect ,useMemo} from 'react';
+import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { header as Header, Loader, Admin } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
@@ -12,6 +12,29 @@ import { getLeaveQuota, getMyRequests } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 
 const LeaveDashboard = () => {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [refresh, setRefresh] = useState(false);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefresh((prevState) => !prevState);
+    setRefreshing(true);
+    const user = await getUser();
+    getLeaveQuota(JSON.parse(user).id).then((data) => {
+      setDaysDetails(data);
+      dispatchRequest({ type: 'QUOTA', payload: data });
+      setRefreshing(false);
+    });
+    getMyRequests(JSON.parse(user).id)
+      .then((data) => {
+        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        setLoading(false);
+        setRefreshing(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+  }, []);
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
@@ -22,8 +45,11 @@ const LeaveDashboard = () => {
     getLeaveQuota(JSON.parse(user).id)
       .then((data) => {
         setDaysDetails(data);
+        dispatchRequest({ type: 'QUOTA', payload: data });
       })
-      .catch((err) => console.log('GetLeaveQuota error', err));
+      .catch((err) => console.log('GetLeaveQuota error', err))
+
+
   };
 
   const getRequest = async () => {
@@ -41,6 +67,8 @@ const LeaveDashboard = () => {
       });
   };
 
+
+
   useEffect(() => {
     getData();
     getRequest();
@@ -51,7 +79,11 @@ const LeaveDashboard = () => {
       <Header icon={false}>
         <Text style={headerText}>Leave Application</Text>
       </Header>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {daysDetails.length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
           {daysDetails &&
@@ -65,8 +97,12 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
-        {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
+        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
+        {isAdmin ? (
+          <OtherRequests refresh={refresh} />
+        ) : (
+          <MyRequests loading={loading} refresh={refresh} />
+        )}
       </ScrollView>
       <RequestButton />
     </View>
@@ -74,3 +110,4 @@ const LeaveDashboard = () => {
 };
 
 export { LeaveDashboard };
+

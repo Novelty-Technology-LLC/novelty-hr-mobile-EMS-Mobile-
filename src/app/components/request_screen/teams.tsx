@@ -6,35 +6,44 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getlead } from '../../services';
 import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
+import { leadname } from '../../utils/getName';
+import { getUser, HR_ID } from '../../utils';
 
 class Teams extends Component {
+  user = {};
   state = {
     lead: [],
     teamLead: [],
+    user: {},
   };
   list = [];
   data = [];
 
   async componentDidMount() {
-    getlead().then((data) =>
+    this.setState({ user: JSON.parse(await getUser()) });
+    getlead().then((data) => {
+      data = data.filter((item) => item.id !== this.state.user.id);
       this.setState({ teamLead: data }, () => {
-        this.props.defaultValue &&
-          this.state.teamLead.map((val) => {
+        this.state.teamLead.map((val) => {
+          if (this.props.defaultValue) {
             JSON.parse(this.props.defaultValue).map((id) => {
               if (id === val.id) {
                 val.selected = val.first_name;
                 this.data.push(val);
               }
             });
-          });
-
-        this.props.values.userQuota = data.length > 0 && data[0].userLeaveQuota;
+          } else {
+            if (HR_ID === val.id && this.state.user.id !== HR_ID) {
+              val.selected = val.first_name;
+              this.data.push(val);
+            }
+          }
+        });
         this.setState({ lead: [...this.state.lead].concat(this.data) });
-      })
-    );
+      });
+    });
   }
-  
-  render() {  
+  render() {
     return (
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>
@@ -49,30 +58,36 @@ class Teams extends Component {
                 return (
                   <TouchableOpacity
                     onPress={() => {
-                      if (val.selected) {
-                        val.selected = false;
-                      } else {
-                        val.selected = val.first_name;
-                      }
-                      this.setState(
-                        { lead: [...new Set(this.state.lead.concat(val))] },
-                        () => {
-                          this.props.handleChange('lead')(
-                            JSON.stringify(
-                              this.state.lead
-                                .filter((item) => item.selected)
-                                .map((item) => item.id)
-                            )
-                          );
+                      if (val.id !== HR_ID) {
+                        if (val.selected) {
+                          val.selected = false;
+                        } else {
+                          val.selected = val.first_name;
                         }
-                      );
+                        this.setState(
+                          { lead: [...new Set(this.state.lead.concat(val))] },
+                          () => {
+                            this.props.handleChange('lead')(
+                              JSON.stringify(
+                                this.state.lead
+                                  .filter((item) => item.selected)
+                                  .map((item) => item.id)
+                              )
+                            );
+                          }
+                        );
+                      }
                     }}
                   >
                     <View style={style.main} key={i}>
                       <View style={style.imageView}>
                         <Image
                           style={style.image}
-                          source={require('../../../assets/images/person.jpeg')}
+                          source={
+                            val.image_url
+                              ? { uri: val.image_url }
+                              : require('../../../assets/images/person.jpeg')
+                          }
                         />
                         {this.state.lead.map((item) => {
                           return (
@@ -90,11 +105,7 @@ class Teams extends Component {
                       </View>
                       <View style={style.spacing}></View>
                       <View style={style.nameView}>
-                        <Text style={style.name}>
-                          {val.first_name.length + val.last_name.length > 14
-                            ? val.first_name.substring(0, 14 - 2) + '...'
-                            : val.first_name + ' ' + val.last_name}
-                        </Text>
+                        <Text style={style.name}>{leadname(val)}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>

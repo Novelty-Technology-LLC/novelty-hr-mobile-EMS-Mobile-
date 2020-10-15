@@ -6,8 +6,8 @@ const snackBarMessage = (msg) => {
     data: msg,
     position: WSnackBar.position.BOTTOM,
     duration: WSnackBar.duration.LONG,
-    textColor: colors.green,
-    backgroundColor: '#050405',
+    textColor: colors.white,
+    backgroundColor: colors.green,
     actionTextColor: '#ff490b',
   };
   return WSnackBar.show(snackBarOpts);

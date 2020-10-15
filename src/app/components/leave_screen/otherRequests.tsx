@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import {
   FlatList,
@@ -19,7 +19,7 @@ import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 
-const OtherRequests = () => {
+const OtherRequests = ({ refresh }: any) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ const OtherRequests = () => {
           (req) =>
             req.leave_approvals &&
             req.leave_approvals.map((item) => {
-              if (item.requested_to === state.user.uuid) {
+              if (item.requested_to === state.user.id) {
                 pastreq = pastreq.concat(req);
                 pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               } else {
@@ -66,9 +66,10 @@ const OtherRequests = () => {
         setLoading(false);
       });
   };
+
   useEffect(() => {
     getAdminRequest();
-  }, []);
+  }, [refresh]);
 
   return (
     <View style={otherRequestsStyle.container}>
@@ -100,6 +101,7 @@ const OtherRequests = () => {
         <AdminPlaceHolder />
       ) : (
         <FlatList
+          extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
           renderItem={(item) => (
             <Request
@@ -128,12 +130,11 @@ const OtherRequests = () => {
           <AdminPlaceHolder />
         </>
       )}
-      {toggle === 'toggle-switch' &&
-        adminrequests.pastadminrequests.length > 0 && (
-          <History other={true} requests={adminrequests.pastadminrequests} />
-        )}
+      {toggle === 'toggle-switch' && (
+        <History other={true} requests={adminrequests.pastadminrequests} />
+      )}
     </View>
   );
 };
 
-export default OtherRequests;
+export default React.memo(OtherRequests);
