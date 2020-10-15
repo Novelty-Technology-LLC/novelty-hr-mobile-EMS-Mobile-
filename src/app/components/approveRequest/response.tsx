@@ -6,12 +6,10 @@ import  { leadname } from '../../utils/getName';
 import State from '../leave_screen/state'
 
 const response = ({responses,data,style}) => {
-
     return <>
         {
             JSON.parse(data.lead).length !==
               responses.pendingResponses.length &&
-          
               <>
 
                   <Text style={style.response}>Responses</Text>

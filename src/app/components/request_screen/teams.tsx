@@ -32,8 +32,8 @@ class Teams extends Component {
       })
     );
   }
-  
-  render() {  
+
+  render() {
     return (
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>
@@ -71,7 +71,11 @@ class Teams extends Component {
                       <View style={style.imageView}>
                         <Image
                           style={style.image}
-                          source={require('../../../assets/images/person.jpeg')}
+                          source={
+                            val.image_url
+                              ? { uri: val.image_url }
+                              : require('../../../assets/images/person.jpeg')
+                          }
                         />
                         {this.state.lead.map((item) => {
                           return (
@@ -89,9 +93,7 @@ class Teams extends Component {
                       </View>
                       <View style={style.spacing}></View>
                       <View style={style.nameView}>
-                        <Text style={style.name}>
-                         {leadname(val)}
-                        </Text>
+                        <Text style={style.name}>{leadname(val)}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>

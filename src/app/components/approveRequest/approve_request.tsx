@@ -80,7 +80,7 @@ const Request = ({ data, style, title = null }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {loading && <ResponsePlaceHolder />}
-<FlatList data={responses}  keyExtractor={item => item.index}  renderItem={(item)=><Response responses={item.item} style={style} data={data}/>}></FlatList>
+<FlatList data={responses}  keyExtractor={item => item.index}  renderItem={(item)=><Response responses={item.item} style={style} data={data}/>}/>
             </ScrollView>
           </View>
           {title === 'admin' && !approved && (
