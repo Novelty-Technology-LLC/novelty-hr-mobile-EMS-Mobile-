@@ -66,7 +66,6 @@ const response = ({responses,data,style}) => {
                                 <Text style={style.sender}>
                                   {leadname(item)}
                                 </Text>
-                                <State state={responses.action} />
                               </View>
                               <View style={style.teamLeadView}>
                                 <Text style={style.teamLead}>

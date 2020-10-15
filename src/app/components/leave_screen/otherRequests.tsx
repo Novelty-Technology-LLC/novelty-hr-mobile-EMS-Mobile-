@@ -26,6 +26,7 @@ const OtherRequests = () => {
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
 
+  
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
@@ -100,6 +101,7 @@ const OtherRequests = () => {
         <AdminPlaceHolder />
       ) : (
         <FlatList
+        extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
           renderItem={(item) => (
             <Request
