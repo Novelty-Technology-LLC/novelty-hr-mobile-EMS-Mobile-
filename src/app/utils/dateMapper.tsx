@@ -1,8 +1,8 @@
 export const dateMapper = (start: string, end: string) => {
   let startDate = new Date(start);
   let endDate = new Date(end);
-  let daysCount: number = 1;
-  while (startDate < endDate) {
+  let daysCount: number = 0;
+  while (startDate <= endDate) {
     var dayNo = startDate.getDay();
     startDate.setDate(startDate.getDate() + 1);
     if (dayNo && dayNo >= 1 && dayNo <= 5) {
