@@ -36,7 +36,7 @@ const signInGoogle = async (dispatch: any) => {
     }
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
-      error.message = 'Sign in cancled.';
+      error.message = 'Sign in cancelled.';
     snackErrorBottom(error);
   }
 };

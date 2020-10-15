@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Platform } from 'react-native';
+import { Text, View } from 'react-native';
 import { loginStyle as style } from '../../../assets/styles';
 import LoginWrapper from './loginWrapper';
 
@@ -8,7 +8,8 @@ const Invalid = () => {
     <LoginWrapper>
       <View style={style.buttonView}>
         <Text style={style.message}>
-          Please contact novelty hr team to get your account.
+          Seems like your account is not activated.
+          Please contact Novelty Technology.
         </Text>
       </View>
     </LoginWrapper>
