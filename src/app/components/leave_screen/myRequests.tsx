@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -15,7 +15,13 @@ import { getUser, mapDataToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 import { UserPlaceHolder } from '../loader';
 
-const MyRequests = ({ loading }: { loading: boolean }) => {
+const MyRequests = ({
+  loading,
+  refresh,
+}: {
+  loading: boolean;
+  refresh: number;
+}) => {
   const navigation = useNavigation();
   const [pastrequests, setPastrequests] = useState(null);
   const { requests } = useContext(RequestContext);
@@ -28,10 +34,13 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
-  useEffect(() => {
-    getPast();
-  }, []);
+  const getPastCallback = useCallback(() => getPast(), [refresh]);
 
+  useEffect(() => {
+    getPastCallback()
+  }, [refresh]);
+
+  
   return (
     <View style={style.container}>
       <View style={style.header}>

@@ -20,9 +20,7 @@ class Teams extends Component {
   data = [];
 
   async componentDidMount() {
-    this.setState({ user: JSON.parse(await getUser()) }, () => {
-      console.log(this.state.user.id);
-    });
+    this.setState({ user: JSON.parse(await getUser()) });
     getlead().then((data) => {
       data = data.filter((item) => item.id !== this.state.user.id);
       this.setState({ teamLead: data }, () => {

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text,RefreshControl } from 'react-native';
+import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { header as Header, Loader, Admin } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
@@ -12,28 +12,28 @@ import { getLeaveQuota, getMyRequests } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 
 const LeaveDashboard = () => {
-
   const [refreshing, setRefreshing] = React.useState(false);
+  const [refresh, setRefresh] = useState(false);
 
-  const onRefresh = React.useCallback(async() => {
+  const onRefresh = React.useCallback(async () => {
+    setRefresh((prevState) => !prevState);
     setRefreshing(true);
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).id).then((data) => {
       setDaysDetails(data);
       dispatchRequest({ type: 'QUOTA', payload: data });
-      setRefreshing(false);;
+      setRefreshing(false);
     });
     getMyRequests(JSON.parse(user).id)
-    .then((data) => {
-      dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
-      setLoading(false);
-      setRefreshing(false);;
-    })
-    .catch((err) => {
-      setLoading(false);
-    });
+      .then((data) => {
+        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        setLoading(false);
+        setRefreshing(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   }, []);
-  
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,8 +48,9 @@ const LeaveDashboard = () => {
         dispatchRequest({ type: 'QUOTA', payload: data });
       })
       .catch((err) => console.log('GetLeaveQuota error', err))
-  };
 
+
+  };
 
   const getRequest = async () => {
     setLoading(true);
@@ -71,15 +72,16 @@ const LeaveDashboard = () => {
     getRequest();
   }, []);
 
-  
   return (
-    <View style={style.mainContainer} >
+    <View style={style.mainContainer}>
       <Header icon={false}>
         <Text style={headerText}>Leave Application</Text>
       </Header>
-      <ScrollView refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-    }>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {daysDetails.length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
           {daysDetails &&
@@ -93,8 +95,12 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
-        {isAdmin ? <OtherRequests /> : <MyRequests loading={loading} />}
+        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
+        {isAdmin ? (
+          <OtherRequests refresh={refresh} />
+        ) : (
+          <MyRequests loading={loading} refresh={refresh} />
+        )}
       </ScrollView>
       <RequestButton />
     </View>

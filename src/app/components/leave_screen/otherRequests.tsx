@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import {
   FlatList,
@@ -26,13 +26,13 @@ const OtherRequests = () => {
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
 
-  
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
 
     getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
+        console.log('called');
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'
         );
@@ -67,6 +67,7 @@ const OtherRequests = () => {
         setLoading(false);
       });
   };
+
   useEffect(() => {
     getAdminRequest();
   }, []);
@@ -101,7 +102,7 @@ const OtherRequests = () => {
         <AdminPlaceHolder />
       ) : (
         <FlatList
-        extraData={adminrequests.adminrequests}
+          extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
           renderItem={(item) => (
             <Request
@@ -130,12 +131,11 @@ const OtherRequests = () => {
           <AdminPlaceHolder />
         </>
       )}
-      {toggle === 'toggle-switch' &&
-        adminrequests.pastadminrequests.length > 0 && (
-          <History other={true} requests={adminrequests.pastadminrequests} />
-        )}
+      {toggle === 'toggle-switch' && (
+        <History other={true} requests={adminrequests.pastadminrequests} />
+      )}
     </View>
   );
 };
 
-export default OtherRequests;
+export default React.memo(OtherRequests)
