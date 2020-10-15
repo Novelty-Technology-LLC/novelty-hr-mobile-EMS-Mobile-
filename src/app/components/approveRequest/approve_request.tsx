@@ -82,9 +82,10 @@ const Request = ({ data, style, title = null }: any) => {
               {responses.length > 0 &&
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length &&
-                responses.map((item) => (
+                responses.map((item,i) => (
                   <>
-                    <Text style={style.response}>Responses</Text>
+                    <View key={i}>
+                      <Text style={style.response}>Responses</Text>
                     <View style={style.main}>
                       <View style={style.imageView}>
                         <Image
@@ -112,7 +113,7 @@ const Request = ({ data, style, title = null }: any) => {
                       </View>
                       <Text style={style.leadText}>{item.note}</Text>
                     </View>
-                    <View style={style.spacer} />
+                    <View style={style.spacer} /></View>
                   </>
                 ))}
               {data.state !== 'Denied' &&  (
@@ -123,9 +124,9 @@ const Request = ({ data, style, title = null }: any) => {
                     <ScrollView showsVerticalScrollIndicator={false}>
                     <Text style={style.response}>Pending Responses</Text>
                       {
-                        responses[0].pendingResponses.map((item) => (
+                        responses[0].pendingResponses.map((item,i) => (
                           <>
-                            <View style={style.main}>
+                            <View style={style.main} key={i}>
                               <View style={style.imageView}>
                                 <Image
                                   style={style.image}

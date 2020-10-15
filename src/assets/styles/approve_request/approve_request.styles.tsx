@@ -126,6 +126,7 @@ const approveRequest = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xs),
     color: colors.fontGrey,
+    marginTop:normalize(2)
   },
   leadText: {
     fontFamily: fonts.mulishRegular,
