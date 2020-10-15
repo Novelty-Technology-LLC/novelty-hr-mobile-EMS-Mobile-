@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text } from 'react-native';
+import { View, ScrollView, Text,RefreshControl } from 'react-native';
 import { header as Header, Loader, Admin } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
@@ -11,7 +11,32 @@ import { getUser, mapDataToRequest } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 
+
 const LeaveDashboard = () => {
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(async() => {
+    setRefreshing(true);
+    const user = await getUser();
+    getLeaveQuota(JSON.parse(user).id).then((data) => {
+      setDaysDetails(data);
+      dispatchRequest({ type: 'QUOTA', payload: data });
+      setRefreshing(false);;
+    });
+    getMyRequests(JSON.parse(user).id)
+    .then((data) => {
+      dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+      setLoading(false);
+      setRefreshing(false);;
+    })
+    .catch((err) => {
+      setLoading(false);
+    });
+  }, []);
+  
+  
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
   const { dispatchRequest } = useContext(RequestContext);
@@ -25,6 +50,8 @@ const LeaveDashboard = () => {
         dispatchRequest({ type: 'QUOTA', payload: data });
       })
       .catch((err) => console.log('GetLeaveQuota error', err));
+
+     
   };
 
 
@@ -48,12 +75,15 @@ const LeaveDashboard = () => {
     getRequest();
   }, []);
 
+  
   return (
-    <View style={style.mainContainer}>
+    <View style={style.mainContainer} >
       <Header icon={false}>
         <Text style={headerText}>Leave Application</Text>
       </Header>
-      <ScrollView>
+      <ScrollView refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    }>
         {daysDetails.length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
           {daysDetails &&
