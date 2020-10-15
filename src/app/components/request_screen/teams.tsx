@@ -38,7 +38,6 @@ class Teams extends Component {
       })
     );
   }
-
   render() {
     return (
       <View style={style.container}>
