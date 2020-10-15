@@ -129,10 +129,9 @@ const OtherRequests = ({ refresh }: { refresh: number }) => {
           <AdminPlaceHolder />
         </>
       )}
-      {toggle === 'toggle-switch' &&
-        adminrequests.pastadminrequests.length > 0 && (
-          <History other={true} requests={adminrequests.pastadminrequests} />
-        )}
+      {toggle === 'toggle-switch' && (
+        <History other={true} requests={adminrequests.pastadminrequests} />
+      )}
     </View>
   );
 };
