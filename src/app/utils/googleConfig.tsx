@@ -2,7 +2,6 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 
 const GoogleConfig = () =>
   GoogleSignin.configure({
-    scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
     webClientId:
       '999740786889-dd4e9nd4ifq1md20n32lum3ajago6ckd.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
     iosClientId:
