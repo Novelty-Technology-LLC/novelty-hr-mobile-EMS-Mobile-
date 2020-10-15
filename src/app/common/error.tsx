@@ -5,11 +5,10 @@ const snackErrorBottom = (err) => {
     data: err.message,
     position: WSnackBar.position.BOTTOM,
     duration: WSnackBar.duration.LONG,
-    textColor: '#ff490b',
+    textColor: '#ffffff',
     fontFamily:fonts.PoppinsSemibold,
-    backgroundColor: '#fff',
-    actionTextColor: '#ff490b',
-    fontWeight:700
+    backgroundColor: '#ff3300',
+    actionTextColor: '#ffffff',
   };
   return WSnackBar.show(snackBarOpts);
 };
