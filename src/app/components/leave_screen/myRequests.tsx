@@ -15,7 +15,13 @@ import { getUser, mapDataToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 import { UserPlaceHolder } from '../loader';
 
-const MyRequests = ({ loading }: { loading: boolean }) => {
+const MyRequests = ({
+  loading,
+  refresh,
+}: {
+  loading: boolean;
+  refresh: number;
+}) => {
   const navigation = useNavigation();
   const [pastrequests, setPastrequests] = useState(null);
   const { requests } = useContext(RequestContext);
@@ -30,7 +36,7 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
 
   useEffect(() => {
     getPast();
-  }, []);
+  }, [refresh]);
 
   return (
     <View style={style.container}>
