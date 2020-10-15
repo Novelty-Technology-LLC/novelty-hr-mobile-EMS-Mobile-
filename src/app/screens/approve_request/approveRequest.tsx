@@ -20,12 +20,12 @@ const ApproveRequest = ({ route }: any) => {
             justifyContent: 'center',
           }}
         >
-          <Text>
+          <View>
             <Text style={headerText}>{name},</Text>
-          </Text>
-          <Text>
+          </View>
+          <View style={style.headerGap}>
             <Text style={style.headerDate}>{dayRange}</Text>
-          </Text>
+          </View>
         </View>
       </Header>
       <Request data={route.params} style={style} title="admin" />

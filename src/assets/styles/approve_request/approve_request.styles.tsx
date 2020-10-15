@@ -15,9 +15,12 @@ const approveRequest = StyleSheet.create({
     fontSize: normalize(theme.size.xs),
     marginLeft: normalize(theme.spacing.wider),
   },
+  headerGap: {
+    paddingLeft: normalize(6),
+  },
   scrollView: { flex: 1 },
   requestView: {
-   flex:0.6,
+    flex: 0.6,
     flexDirection: 'column',
   },
   main: {
@@ -103,7 +106,7 @@ const approveRequest = StyleSheet.create({
     marginLeft: normalize(10),
   },
   pendingresponseView: {
-      flex:0.34,
+    flex: 0.34,
     marginTop: normalize(20),
   },
   response: {
@@ -126,7 +129,7 @@ const approveRequest = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xs),
     color: colors.fontGrey,
-    marginTop:normalize(2)
+    marginTop: normalize(2),
   },
   leadText: {
     fontFamily: fonts.mulishRegular,
