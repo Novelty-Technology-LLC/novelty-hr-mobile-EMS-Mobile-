@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect ,useMemo} from 'react';
 import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { header as Header, Loader, Admin } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
@@ -67,6 +67,8 @@ const LeaveDashboard = () => {
       });
   };
 
+  const RequestMemo = useMemo(() => <MyRequests loading={loading} refresh={refresh} />, [])
+
   useEffect(() => {
     getData();
     getRequest();
@@ -99,7 +101,7 @@ const LeaveDashboard = () => {
         {isAdmin ? (
           <OtherRequests refresh={refresh} />
         ) : (
-          <MyRequests loading={loading} refresh={refresh} />
+         RequestMemo
         )}
       </ScrollView>
       <RequestButton />
@@ -108,3 +110,4 @@ const LeaveDashboard = () => {
 };
 
 export { LeaveDashboard };
+
