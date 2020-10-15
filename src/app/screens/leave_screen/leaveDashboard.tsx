@@ -11,7 +11,6 @@ import { getUser, mapDataToRequest } from '../../utils';
 import { getLeaveQuota, getMyRequests } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 
-
 const LeaveDashboard = () => {
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -35,7 +34,6 @@ const LeaveDashboard = () => {
     });
   }, []);
   
-  
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -49,9 +47,7 @@ const LeaveDashboard = () => {
         setDaysDetails(data);
         dispatchRequest({ type: 'QUOTA', payload: data });
       })
-      .catch((err) => console.log('GetLeaveQuota error', err));
-
-     
+      .catch((err) => console.log('GetLeaveQuota error', err))
   };
 
 
