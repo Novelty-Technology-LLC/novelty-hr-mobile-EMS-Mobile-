@@ -22,9 +22,11 @@ const LeaveDashboard = () => {
     getLeaveQuota(JSON.parse(user).id)
       .then((data) => {
         setDaysDetails(data);
+        dispatchRequest({ type: 'QUOTA', payload: data });
       })
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
+
 
   const getRequest = async () => {
     setLoading(true);

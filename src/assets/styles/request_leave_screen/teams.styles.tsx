@@ -54,7 +54,7 @@ const teamStyle = StyleSheet.create({
   image: {
     width: normalize(60),
     height: normalize(60),
-    borderRadius: normalize(25),
+    borderRadius: normalize(50),
     marginRight: normalize(10),
   },
   nameView: {
