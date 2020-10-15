@@ -7,17 +7,24 @@ import { getlead } from '../../services';
 import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
 import { leadname } from '../../utils/getName';
+import { getUser, HR_ID } from '../../utils';
 
 class Teams extends Component {
+  user = {};
   state = {
     lead: [],
     teamLead: [],
+    user: {},
   };
   list = [];
   data = [];
 
   async componentDidMount() {
-    getlead().then((data) =>
+    this.setState({ user: JSON.parse(await getUser()) }, () => {
+      console.log(this.state.user.id);
+    });
+    getlead().then((data) => {
+      data = data.filter((item) => item.id !== this.state.user.id);
       this.setState({ teamLead: data }, () => {
         this.state.teamLead.map((val) => {
           if (this.props.defaultValue) {
@@ -28,15 +35,15 @@ class Teams extends Component {
               }
             });
           } else {
-            // if (1029 === val.id) {
-            //   val.selected = val.first_name;
-            //   this.data.push(val);
-            // }
+            if (HR_ID === val.id && this.state.user.id !== HR_ID) {
+              val.selected = val.first_name;
+              this.data.push(val);
+            }
           }
         });
         this.setState({ lead: [...this.state.lead].concat(this.data) });
-      })
-    );
+      });
+    });
   }
   render() {
     return (
@@ -53,7 +60,7 @@ class Teams extends Component {
                 return (
                   <TouchableOpacity
                     onPress={() => {
-                      if (val.id !== 1029) {
+                      if (val.id !== HR_ID) {
                         if (val.selected) {
                           val.selected = false;
                         } else {

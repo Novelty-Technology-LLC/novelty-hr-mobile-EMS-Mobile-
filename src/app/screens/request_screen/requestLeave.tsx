@@ -28,6 +28,7 @@ import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
+import {dateMapper} from '../../utils'
 
 
 const validationSchema = Yup.object().shape({
@@ -85,18 +86,12 @@ const RequestLeave = ({ route }: any) => {
         endDate = new Date(date.endDate).toString().slice(0, 15);
       }
       
-      const day =
-        parseInt(endDate.substring(8, 10)) -
-        parseInt(startDate.substring(8, 10));
+     const day = dateMapper(startDate,endDate)
 
-       /*quota is dispatched from context should be reomved if not needed */
-       //console.log('quota -> ',requests.quota);
-       
-     
       const notValid =
-        values.userQuota &&
-        values.userQuota.some(
-          (item) => item.leave_type === values.type.toUpperCase() && item.leave_used < day + 1
+        requests.quota &&
+        requests.quota.some(
+          (item) => item.leave_type === values.type.toUpperCase() && item.leave_used < day 
         );
 
 
@@ -105,7 +100,6 @@ const RequestLeave = ({ route }: any) => {
       }
       delete values.date;
       const userid = state.user.id;
-
       const requestData = {
         ...values,
         leave_date: {
