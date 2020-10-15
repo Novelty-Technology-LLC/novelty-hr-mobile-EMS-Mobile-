@@ -19,7 +19,7 @@ import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 
-const OtherRequests = () => {
+const OtherRequests = ({ refresh }: any) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,6 @@ const OtherRequests = () => {
 
     getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
-        console.log('called');
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'
         );
@@ -70,7 +69,7 @@ const OtherRequests = () => {
 
   useEffect(() => {
     getAdminRequest();
-  }, []);
+  }, [refresh]);
 
   return (
     <View style={otherRequestsStyle.container}>
@@ -138,4 +137,4 @@ const OtherRequests = () => {
   );
 };
 
-export default React.memo(OtherRequests)
+export default React.memo(OtherRequests);
