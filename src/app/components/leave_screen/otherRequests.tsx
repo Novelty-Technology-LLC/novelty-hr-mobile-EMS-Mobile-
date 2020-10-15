@@ -71,7 +71,7 @@ const OtherRequests = ({ refresh }: { refresh: number }) => {
   const getAdminRequestCallback = useCallback(() => getAdminRequest(), []);
 
   useEffect(() => {
-    getAdminRequestCallback();
+    getAdminRequest();
   }, [refresh]);
 
   return (

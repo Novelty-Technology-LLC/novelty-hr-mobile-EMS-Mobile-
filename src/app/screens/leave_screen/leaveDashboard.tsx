@@ -93,7 +93,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
         {isAdmin ? (
           <OtherRequests refresh={refresh} />
         ) : (

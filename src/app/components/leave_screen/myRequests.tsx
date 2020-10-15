@@ -38,7 +38,7 @@ const MyRequests = ({
   const getPastCallback = useCallback(() => getPast(), [refresh]);
 
   useEffect(() => {
-    getPastCallback();
+    getPast();
   }, [refresh]);
 
   return (
