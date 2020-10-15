@@ -10,5 +10,3 @@ const response = ({ responses, data, style }) => {
 };
 
 export default response;
-
-export default response;
