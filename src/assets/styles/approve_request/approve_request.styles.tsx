@@ -15,6 +15,9 @@ const approveRequest = StyleSheet.create({
     fontSize: normalize(theme.size.xs),
     marginLeft: normalize(theme.spacing.wider),
   },
+  headerGap: {
+    paddingLeft: normalize(6),
+  },
   scrollView: { flex: 1 },
   requestView: {
     flex: 0.6,
@@ -40,6 +43,7 @@ const approveRequest = StyleSheet.create({
   sender: {
     fontSize: normalize(theme.size.base),
     fontFamily: fonts.mulishBold,
+    textTransform: 'capitalize',
   },
   dateView: {
     flexDirection: 'row',
@@ -101,6 +105,10 @@ const approveRequest = StyleSheet.create({
     marginTop: normalize(20),
     marginLeft: normalize(10),
   },
+  pendingresponseView: {
+    flex: 0.34,
+    marginTop: normalize(20),
+  },
   response: {
     color: colors.fontGrey,
     fontFamily: fonts.poppinsMedium,
@@ -121,6 +129,7 @@ const approveRequest = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xs),
     color: colors.fontGrey,
+    marginTop: normalize(2),
   },
   leadText: {
     fontFamily: fonts.mulishRegular,
@@ -134,24 +143,24 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   buttonView: {
-    flex: 0.1,
+    flex: 0.13,
     backgroundColor: colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     paddingBottom: normalize(5),
-    paddingHorizontal: normalize(20),
-    marginBottom: normalize(0),
   },
+  approve: { color: colors.white, fontFamily: fonts.mulishBold },
+  deny: { color: colors.primary, fontFamily: fonts.mulishBold },
   buttonApprove: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: fonts.mulishBold,
-    paddingHorizontal: normalize(55),
-    paddingVertical: normalize(15),
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.primary,
-    color: colors.white,
-    overflow: 'hidden',
-    fontWeight: '600',
+    paddingHorizontal: normalize(55),
+    paddingVertical: normalize(13),
     ...Platform.select({
       ios: {
         borderRadius: normalize(5),
@@ -162,15 +171,17 @@ const approveRequest = StyleSheet.create({
     }),
   },
   buttonDeny: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: fonts.mulishBold,
-    paddingHorizontal: normalize(55),
-    paddingVertical: normalize(15),
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.white,
     color: colors.primary,
     borderWidth: 1,
     borderColor: colors.primary,
-    fontWeight: '600',
+    paddingVertical: normalize(13),
+    paddingHorizontal: normalize(55),
     ...Platform.select({
       ios: {
         borderRadius: normalize(5),

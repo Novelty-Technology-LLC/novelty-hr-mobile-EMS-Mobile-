@@ -2,11 +2,14 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { AuthContext, useAuth } from '../reducer';
-import { getToken } from '../utils';
-import { Text } from 'react-native-svg';
+import { getUser, getToken } from '../utils';
+import { loginStyle } from '../../assets/styles';
 import { Login } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabNavigator';
+import Invalid from '../screens/auth_screen/invalid';
+import LoginWrapper from '../screens/auth_screen/loginWrapper';
+import { Text, View } from 'react-native';
 
 const Root = createStackNavigator();
 
@@ -18,14 +21,25 @@ const RootNavigation = () => {
       try {
         let userToken = await getToken();
         dispatch({ type: 'RESTORE_TOKEN', token: userToken });
-      } catch (e) {}
+
+        const user = await getUser();
+        dispatch({ type: 'STORE_USER', user: JSON.parse(user) });
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     bootstrapAsync();
   }, []);
 
   if (state.isLoading) {
-    return <Text>Hello</Text>;
+    return (
+      <LoginWrapper>
+        <View style={loginStyle.buttonView}>
+          <Text style={loginStyle.buttonText}>Please wait ..</Text>
+        </View>
+      </LoginWrapper>
+    );
   } else {
     return (
       <NavigationContainer>
@@ -36,7 +50,11 @@ const RootNavigation = () => {
             }}
           >
             {state.userToken === null ? (
-              <Root.Screen name="login" component={Login} />
+              !state.isInvalid ? (
+                <Root.Screen name="login" component={Login} />
+              ) : (
+                <Root.Screen name="invalid" component={Invalid} />
+              )
             ) : (
               <Root.Screen name="tab" component={TabNavigator} />
             )}

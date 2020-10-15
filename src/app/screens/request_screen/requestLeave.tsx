@@ -1,10 +1,15 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { header as Header } from '../../common';
+import React, { useContext, useState } from 'react';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
@@ -18,49 +23,108 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { postRequest } from '../../services';
+import { editRequest, postRequest } from '../../services';
+import colors from '../../../assets/colors';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext, RequestContext } from '../../reducer';
+import { snackErrorBottom } from '../../common';
+import {dateMapper} from '../../utils'
+
 
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
+  type: Yup.string().required().label('type'),
+  note: Yup.string().required().label('note'),
+  lead: Yup.array().of(Yup.number()).required().label('lead'),
   status: Yup.string().required().label('status'),
-  description: Yup.string().required().label('description'),
-  lead: Yup.string().required().label('lead'),
 });
 
-const initialValues = {
-  date: '',
-  leaveType: 'Paid time off',
-  description: '',
-  lead: '',
-};
+const RequestLeave = ({ route }: any) => {
+  const olddata = route.params;
+  const navigation = useNavigation();
+  const { state } = useContext(AuthContext);
+  const { dispatchRequest,requests } = useContext(RequestContext);
+  const initialValues = {
+    date: olddata ? olddata.date : '',
+    type: olddata ? olddata.type : 'Paid time off',
+    status: olddata ? olddata.state : 'Pending',
+    note: olddata ? olddata.note : '',
+    lead: olddata ? olddata.lead : [],
+  };
 
-const submitRequest = (data) => {
-  postRequest(data)
-    .then((data) => console.log('data posted'))
-    .catch((err) => console.log(err));
-};
+  const submitRequest = (data) => {
+    postRequest(data)
+      .then((res) => {
+        dispatchRequest({ type: 'ADD', payload: res.data.data });
+        navigation.navigate('leaveList');
+        snackBarMessage('Request created');
+      })
+      .catch((err) => console.log(err));
+  };
 
-const RequestLeave = () => {
-  const onSubmit = (values: Object) => {
-    const date = JSON.parse(values.date);
-    if (date['endDate'] === null) date['endDate'] = date['startDate'];
-    delete values.date;
+  const updateReq = (data) => {
+    editRequest(olddata.id, data)
+      .then((res) => {
+        dispatchRequest({ type: 'UPDATE', payload: res });
+        navigation.navigate('leaveList');
+        snackBarMessage('Request updated');
+      })
+      .catch((err) => console.log(err));
+  };
 
-    const requestData = {
-      ...values,
-      leave_date: date,
-    };
-    submitRequest(requestData);
+  const [isLoading, setisLoading] = useState(false);
+
+  const onSubmit = async (values) => {
+    try {
+      const date = JSON.parse(values.date);
+      const startDate = new Date(date.startDate).toString().slice(0, 15);
+
+      let endDate = '';
+      if (date['endDate'] === null) {
+        endDate = startDate;
+      } else {
+        endDate = new Date(date.endDate).toString().slice(0, 15);
+      }
+      
+     const day = dateMapper(startDate,endDate)
+
+      const notValid =
+        requests.quota &&
+        requests.quota.some(
+          (item) => item.leave_type === values.type.toUpperCase() && item.leave_used < day 
+        );
+
+      if (notValid) {
+        throw new Error(`Selected day exceeds ${values.type}`);
+      }
+      delete values.date;
+      const userid = state.user.id;
+      const requestData = {
+        ...values,
+        leave_date: {
+          startDate,
+          endDate,
+        },
+        requestor_id: userid,
+      };
+      setisLoading(!isLoading);
+      olddata ? updateReq(requestData) : submitRequest(requestData);
+    } catch (error) {
+      snackErrorBottom(error);
+    }
   };
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-      <SafeAreaView style={style.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
         <ScrollView
           style={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header>
+          <Header icon={true}>
             <Text style={headerText}>Request Leave</Text>
           </Header>
           <Formik
@@ -70,22 +134,37 @@ const RequestLeave = () => {
           >
             {({ handleChange, handleSubmit, values }) => (
               <>
-                <Calander style={style.calendar} handleChange={handleChange} />
-                <Teams handleChange={handleChange} />
-                <Leavetype handleChange={handleChange} />
-                <Description handleChange={handleChange} />
-                <View style={style.buttonView}>
-                  <Button
-                    style={style.buttonText}
-                    title={'Submit Request'}
-                    onPress={() => handleSubmit()}
-                  />
-                </View>
+                <Calander
+                  style={style.calendar}
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.leave_date}
+                />
+                <Teams
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.lead}
+                  values={values}
+                />
+                <Leavetype
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.type}
+                />
+                <Description
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.note}
+                />
+                <Button onPress={() => handleSubmit()}>
+                  <View style={style.buttonView}>
+                    <Text style={style.buttonText}>Submit Request</Text>
+                    {isLoading && (
+                      <ActivityIndicator size={30} color={colors.white} />
+                    )}
+                  </View>
+                </Button>
               </>
             )}
           </Formik>
         </ScrollView>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     </ApplicationProvider>
   );
 };

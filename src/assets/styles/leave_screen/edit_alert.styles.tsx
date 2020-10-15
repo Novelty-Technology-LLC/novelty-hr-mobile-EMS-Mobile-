@@ -18,11 +18,22 @@ const editAlertStyle = StyleSheet.create({
     paddingTop: normalize(20),
   },
   gap: { flex: 1 },
-  spacer: { paddingVertical: normalize(theme.spacing.wide) },
+  semigap: { paddingVertical: normalize(5) },
+  spacer: { paddingVertical: normalize(theme.spacing.wider) },
+  spaceTop: { paddingTop: normalize(5) },
   titleView: {
     paddingBottom: normalize(15),
   },
+  state: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: normalize(5),
+  },
+  icon: { marginLeft: normalize(5), color: colors.green },
   stateView: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
     ...Platform.select({
       ios: { paddingTop: normalize(2) },
       android: {

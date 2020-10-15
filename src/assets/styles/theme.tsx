@@ -13,6 +13,7 @@ const fonts = {
   poppinsRegular: Platform.OS === 'ios' ? 'Poppins-Regular' : 'poppins.regular',
   mulishRegular: 'Mulish-Regular',
   mulishBold: 'Mulish-Bold',
+  mulishSemiBold: 'Mulish-SemiBold',
 };
 
 const theme = {

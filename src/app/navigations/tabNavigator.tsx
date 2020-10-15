@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenStack from './screenStack';
 import colors from '../../assets/colors';
-import { ComingSoon } from '../screens';
+import { ComingSoon, Activity, Profile } from '../screens';
 import { AppIcon } from '../common';
 
 const Tab = createBottomTabNavigator();
@@ -27,7 +27,7 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Activity"
-          component={ComingSoon}
+          component={Activity}
           options={{
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="timer" color={color} size={size} />
@@ -36,7 +36,7 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={ComingSoon}
+          component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="account" color={color} size={size} />

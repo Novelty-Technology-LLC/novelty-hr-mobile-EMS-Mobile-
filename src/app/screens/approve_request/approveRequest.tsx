@@ -1,41 +1,34 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { header as Header } from '../../common/header';
 import { headerText } from '../../../assets/styles';
 import { approveRequest as style } from '../../../assets/styles';
-
-import { button as Button } from '../../common';
 import Request from '../../components/approveRequest/approve_request';
+import getName from '../../utils/getName';
 
 const ApproveRequest = ({ route }: any) => {
-  const { date, id, sender, state, type } = route.params;
-
-  const Approve = (res) => {
-    route.params['state'] = res;
-  };
-  const Deny = (res) => {
-    route.params['state'] = res;
-  };
+  let { dayRange } = getDay(route.params);
+  let { name } = getName(route.params);
 
   return (
     <>
-      <Header>
-        <Text style={headerText}>{sender},</Text>
-        <Text style={style.headerDate}>{date}</Text>
+      <Header icon={true}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <View>
+            <Text style={headerText}>{name},</Text>
+          </View>
+          <View style={style.headerGap}>
+            <Text style={style.headerDate}>{dayRange}</Text>
+          </View>
+        </View>
       </Header>
-      <Request data={route.params} style={style} />
-      <View style={style.buttonView}>
-        <Button
-          title="Approve"
-          style={style.buttonApprove}
-          onPress={() => Approve('Approved')}
-        />
-        <Button
-          title="Deny"
-          style={style.buttonDeny}
-          onPress={() => Deny('Denied')}
-        />
-      </View>
+      <Request data={route.params} style={style} title="admin" />
     </>
   );
 };

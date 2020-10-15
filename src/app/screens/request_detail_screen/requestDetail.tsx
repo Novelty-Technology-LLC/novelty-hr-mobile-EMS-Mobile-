@@ -8,9 +8,10 @@ import { approveRequest as style } from '../../../assets/styles';
 
 const RequestDetail = ({ route }: any) => {
   const { date } = route.params;
+
   return (
     <>
-      <Header>
+      <Header icon={true}>
         <Text style={headerText}>{date}</Text>
       </Header>
       <Request data={route.params} style={style} />

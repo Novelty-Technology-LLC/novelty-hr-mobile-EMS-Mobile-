@@ -3,19 +3,30 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
+import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
+import { deleteRequest } from '../../services';
 
-const DeleteAlert = ({ item }: any) => {
+const DeleteAlert = ({ item }: { item: dataType }) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatchRequest } = useContext(RequestContext);
 
+  const onDelete = () => {
+    deleteRequest(item.id)
+      .then(() => {
+        snackBarMessage('Request deleted');
+        dispatchRequest({ type: 'DELETE', payload: item.id });
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
-        <AppIcon name="delete" color={colors.tomato} size={13} />
+        <AppIcon name="delete" color={colors.tomato} size={23} />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}
@@ -35,7 +46,7 @@ const DeleteAlert = ({ item }: any) => {
           <Dialog.Button
             label="DELETE"
             onPress={() => {
-              dispatchRequest({ type: 'DELETE', payload: item.id });
+              onDelete();
               hide();
             }}
             style={style.delete}

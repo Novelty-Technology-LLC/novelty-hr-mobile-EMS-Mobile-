@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-import { myRequestsStyle as style } from '../../../assets/styles';
+import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import History from './history';
 import { Request } from './request';
 import Swipe from './swipe';
@@ -11,13 +11,36 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
 import { AppIcon } from '../../common';
+import { getUser, mapDataToRequest } from '../../utils';
+import { getPastRequests } from '../../services';
+import { UserPlaceHolder } from '../loader';
 
-const MyRequests = () => {
+const MyRequests = ({
+  loading,
+  refresh,
+}: {
+  loading: boolean;
+  refresh: number;
+}) => {
   const navigation = useNavigation();
+  const [pastrequests, setPastrequests] = useState(null);
   const { requests } = useContext(RequestContext);
 
   const [toggle, setToggle] = useState('toggle-switch');
+  const getPast = async () => {
+    const user = await getUser();
+    getPastRequests(JSON.parse(user).id)
+      .then((data) => setPastrequests(data))
+      .catch((err) => console.log('GetLeaveQuota error', err));
+  };
 
+  const getPastCallback = useCallback(() => getPast(), []);
+
+  useEffect(() => {
+    getPastCallback()
+  }, [refresh]);
+
+  
   return (
     <View style={style.container}>
       <View style={style.header}>
@@ -44,6 +67,7 @@ const MyRequests = () => {
           </TouchableWithoutFeedback>
         </View>
       </View>
+      {loading ? <UserPlaceHolder /> : null}
 
       {requests.requests[0] ? (
         <FlatList
@@ -60,12 +84,25 @@ const MyRequests = () => {
           keyExtractor={(item) => item.date}
         />
       ) : (
-        <View style={style.emptyContainer}>
-          <Text style={style.emptyText}>There are not current Requests</Text>
-        </View>
+        !loading && (
+          <View style={style.emptyContainer}>
+            <Text style={style.emptyText}>There are no current requests</Text>
+          </View>
+        )
       )}
 
-      {toggle === 'toggle-switch' && <History />}
+      {toggle === 'toggle-switch' &&
+        (!pastrequests ? (
+          <>
+            <View style={historyStyle.subcontainer}>
+              <Text style={historyStyle.header}>Past Requests</Text>
+              <View style={historyStyle.line}></View>
+            </View>
+            <UserPlaceHolder />
+          </>
+        ) : (
+          <History requests={mapDataToRequest(pastrequests)} />
+        ))}
     </View>
   );
 };

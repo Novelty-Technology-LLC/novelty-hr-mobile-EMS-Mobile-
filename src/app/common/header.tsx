@@ -7,15 +7,17 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import color from '../../assets/colors';
 import { headerStyle as style } from '../../assets/styles';
 
-const header = ({ onPress = null, children }: any) => {
+const header = ({ onPress = null, icon = false, children }: any) => {
   const navigation = useNavigation();
 
   return (
     <View style={style.container}>
       <View style={style.textView}>
-        <TouchableWithoutFeedback onPress={onPress || navigation.goBack}>
-          <Icon name="chevron-left" size={30} color={color.primary} />
-        </TouchableWithoutFeedback>
+        {icon && (
+          <TouchableWithoutFeedback onPress={onPress || navigation.goBack}>
+            <Icon name="chevron-left" size={30} color={color.primary} />
+          </TouchableWithoutFeedback>
+        )}
         {children}
       </View>
     </View>

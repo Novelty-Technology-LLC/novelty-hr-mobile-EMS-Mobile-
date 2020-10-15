@@ -9,6 +9,12 @@ const AuthReducer = (prevState, action) => {
         isLoading: false,
       };
 
+    case 'RESET':
+      return {
+        ...prevState,
+        isLoading: true,
+      };
+
     case 'SIGN_IN':
       return {
         ...prevState,
@@ -21,6 +27,20 @@ const AuthReducer = (prevState, action) => {
         isSignout: true,
         userToken: null,
       };
+
+    case 'STORE_USER':
+      return {
+        ...prevState,
+        isLoading: false,
+        user: action.user && Object.assign(action.user),
+      };
+
+    case 'INVALID':
+      return {
+        ...prevState,
+        isLoading: false,
+        isInvalid: true,
+      };
   }
 };
 
@@ -30,6 +50,8 @@ const initialState = {
   isLoading: true,
   isSignout: false,
   userToken: null,
+  user: null,
+  isInvalid: false,
 };
 
 const useAuth = () => {
