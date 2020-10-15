@@ -67,7 +67,7 @@ const LeaveDashboard = () => {
       });
   };
 
-  const RequestMemo = useMemo(() => <MyRequests loading={loading} refresh={refresh} />, [])
+
 
   useEffect(() => {
     getData();
@@ -101,7 +101,7 @@ const LeaveDashboard = () => {
         {isAdmin ? (
           <OtherRequests refresh={refresh} />
         ) : (
-         RequestMemo
+          <MyRequests loading={loading} refresh={refresh} />
         )}
       </ScrollView>
       <RequestButton />
