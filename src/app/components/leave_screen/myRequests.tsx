@@ -27,7 +27,7 @@ const MyRequests = ({
   const { requests } = useContext(RequestContext);
 
   const [toggle, setToggle] = useState('toggle-switch');
-  const getPast = async () => 
+  const getPast = async () => {
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
       .then((data) => setPastrequests(data))
