@@ -19,15 +19,21 @@ class Teams extends Component {
   async componentDidMount() {
     getlead().then((data) =>
       this.setState({ teamLead: data }, () => {
-        this.props.defaultValue &&
-          this.state.teamLead.map((val) => {
+        this.state.teamLead.map((val) => {
+          if (this.props.defaultValue) {
             JSON.parse(this.props.defaultValue).map((id) => {
               if (id === val.id) {
                 val.selected = val.first_name;
                 this.data.push(val);
               }
             });
-          });
+          } else {
+            if (1029 === val.id) {
+              val.selected = val.first_name;
+              this.data.push(val);
+            }
+          }
+        });
         this.setState({ lead: [...this.state.lead].concat(this.data) });
       })
     );
@@ -48,23 +54,25 @@ class Teams extends Component {
                 return (
                   <TouchableOpacity
                     onPress={() => {
-                      if (val.selected) {
-                        val.selected = false;
-                      } else {
-                        val.selected = val.first_name;
-                      }
-                      this.setState(
-                        { lead: [...new Set(this.state.lead.concat(val))] },
-                        () => {
-                          this.props.handleChange('lead')(
-                            JSON.stringify(
-                              this.state.lead
-                                .filter((item) => item.selected)
-                                .map((item) => item.id)
-                            )
-                          );
+                      if (val.id !== 1029) {
+                        if (val.selected) {
+                          val.selected = false;
+                        } else {
+                          val.selected = val.first_name;
                         }
-                      );
+                        this.setState(
+                          { lead: [...new Set(this.state.lead.concat(val))] },
+                          () => {
+                            this.props.handleChange('lead')(
+                              JSON.stringify(
+                                this.state.lead
+                                  .filter((item) => item.selected)
+                                  .map((item) => item.id)
+                              )
+                            );
+                          }
+                        );
+                      }
                     }}
                   >
                     <View style={style.main} key={i}>

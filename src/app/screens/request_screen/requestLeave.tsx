@@ -121,7 +121,6 @@ const RequestLeave = ({ route }: any) => {
     }
   };
 
-
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <KeyboardAvoidingView
@@ -178,4 +177,3 @@ const RequestLeave = ({ route }: any) => {
 };
 
 export { RequestLeave };
-
