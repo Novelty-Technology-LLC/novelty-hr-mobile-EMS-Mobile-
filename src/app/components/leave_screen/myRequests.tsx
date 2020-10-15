@@ -34,7 +34,7 @@ const MyRequests = ({
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
-  const getPastCallback = useCallback(() => getPast(), [refresh]);
+  const getPastCallback = useCallback(() => getPast(), []);
 
   useEffect(() => {
     getPastCallback()
