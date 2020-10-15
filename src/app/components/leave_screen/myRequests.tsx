@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -28,14 +28,17 @@ const MyRequests = ({
 
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
+    console.log('call');
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
       .then((data) => setPastrequests(data))
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
+  const getPastCallback = useCallback(() => getPast(), [refresh]);
+
   useEffect(() => {
-    getPast();
+    getPastCallback();
   }, [refresh]);
 
   return (

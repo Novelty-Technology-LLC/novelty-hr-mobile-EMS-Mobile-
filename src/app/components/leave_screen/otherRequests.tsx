@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import {
   FlatList,
@@ -32,6 +32,7 @@ const OtherRequests = ({ refresh }: { refresh: number }) => {
 
     getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
+        console.log('called');
         let pastreq = data.filter(
           (item) => item.status === 'Approved' || item.status === 'Denied'
         );
@@ -66,8 +67,11 @@ const OtherRequests = ({ refresh }: { refresh: number }) => {
         setLoading(false);
       });
   };
+
+  const getAdminRequestCallback = useCallback(() => getAdminRequest(), []);
+
   useEffect(() => {
-    getAdminRequest();
+    getAdminRequestCallback();
   }, [refresh]);
 
   return (
