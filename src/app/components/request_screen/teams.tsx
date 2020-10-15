@@ -28,10 +28,10 @@ class Teams extends Component {
               }
             });
           } else {
-            if (1029 === val.id) {
-              val.selected = val.first_name;
-              this.data.push(val);
-            }
+            // if (1029 === val.id) {
+            //   val.selected = val.first_name;
+            //   this.data.push(val);
+            // }
           }
         });
 
