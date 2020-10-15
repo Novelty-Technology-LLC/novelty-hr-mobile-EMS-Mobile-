@@ -13,10 +13,10 @@ import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
-  const [refresh, setRefresh] = useState(0);
+  const [refresh, setRefresh] = useState(false);
 
   const onRefresh = React.useCallback(async () => {
-    setRefresh(1);
+    setRefresh((prevState) => !prevState);
     setRefreshing(true);
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).id).then((data) => {
@@ -93,7 +93,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
         {isAdmin ? (
           <OtherRequests refresh={refresh} />
         ) : (

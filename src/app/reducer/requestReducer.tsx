@@ -4,12 +4,10 @@ import { mapObjectToRequest } from '../utils';
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
     case 'QUOTA':
-      console.log('action -> ',action.payload);
-      
       return {
         ...prevState,
-       quota:action.payload
-      }
+        quota: action.payload,
+      };
     case 'DELETE':
       return {
         ...prevState,
@@ -47,7 +45,7 @@ const RequestContext = React.createContext();
 
 const initialState = {
   requests: [],
-  quota:[]
+  quota: [],
 };
 
 const useRequest = () => {
