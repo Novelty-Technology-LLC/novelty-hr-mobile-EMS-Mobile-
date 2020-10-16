@@ -22,6 +22,9 @@ const daysRemainingStyle = StyleSheet.create({
     fontSize: normalize(theme.size.base),
     fontFamily: fonts.mulishRegular,
   },
+  gap: {
+    paddingHorizontal: normalize(3),
+  },
   text: {
     fontSize: normalize(theme.size.xl),
     color: color.primary,
@@ -33,8 +36,8 @@ const daysRemainingStyle = StyleSheet.create({
     textTransform: 'capitalize',
   },
   footer: {
-    fontSize: normalize(theme.size.xxs),
-    color: color.secondary,
+    fontSize: normalize(theme.size.xs),
+    color: color.fontGrey,
     fontFamily: fonts.poppinsRegular,
   },
 });

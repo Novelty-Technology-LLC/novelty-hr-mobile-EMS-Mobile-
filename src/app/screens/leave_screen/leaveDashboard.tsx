@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect ,useMemo} from 'react';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { header as Header, Loader, Admin } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
@@ -47,9 +47,7 @@ const LeaveDashboard = () => {
         setDaysDetails(data);
         dispatchRequest({ type: 'QUOTA', payload: data });
       })
-      .catch((err) => console.log('GetLeaveQuota error', err))
-
-
+      .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
   const getRequest = async () => {
@@ -66,8 +64,6 @@ const LeaveDashboard = () => {
         setLoading(false);
       });
   };
-
-
 
   useEffect(() => {
     getData();
@@ -97,7 +93,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
+        <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
         {isAdmin ? (
           <OtherRequests refresh={refresh} />
         ) : (
@@ -110,4 +106,3 @@ const LeaveDashboard = () => {
 };
 
 export { LeaveDashboard };
-

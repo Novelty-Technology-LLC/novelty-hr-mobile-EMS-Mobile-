@@ -120,7 +120,6 @@ const Request = ({ data, style, title = null }: any) => {
                     ))}
                   </>
                 )}
-
               {data.state !== 'Denied' && (
                 <>
                   <View style={style.pendingresponseView}>

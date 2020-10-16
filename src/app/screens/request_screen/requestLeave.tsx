@@ -11,7 +11,7 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import { ScrollView } from 'react-native-gesture-handler';
-import { requestLeave as style } from '../../../assets/styles';
+import { approveRequest, requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
 import {
   Calander,
@@ -30,6 +30,7 @@ import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
 import {dateMapper} from '../../utils'
 
+
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
   type: Yup.string().required().label('type'),
@@ -42,7 +43,7 @@ const RequestLeave = ({ route }: any) => {
   const olddata = route.params;
   const navigation = useNavigation();
   const { state } = useContext(AuthContext);
-  const { dispatchRequest,requests } = useContext(RequestContext);
+  const { dispatchRequest, requests } = useContext(RequestContext);
   const initialValues = {
     date: olddata ? olddata.date : '',
     type: olddata ? olddata.type : 'Paid time off',
@@ -84,13 +85,15 @@ const RequestLeave = ({ route }: any) => {
       } else {
         endDate = new Date(date.endDate).toString().slice(0, 15);
       }
-      
-     const day = dateMapper(startDate,endDate)
+
+      const day = dateMapper(startDate, endDate);
 
       const notValid =
         requests.quota &&
         requests.quota.some(
-          (item) => item.leave_type === values.type.toUpperCase() && item.leave_used < day 
+          (item) =>
+            item.leave_type === values.type.toUpperCase() &&
+            item.leave_used < day
         );
 
       if (notValid) {
@@ -124,7 +127,9 @@ const RequestLeave = ({ route }: any) => {
           showsVerticalScrollIndicator={false}
         >
           <Header icon={true}>
-            <Text style={headerText}>Request Leave</Text>
+            <View style={approveRequest.headContainer}>
+              <Text style={headerText}>Request Leave</Text>
+            </View>
           </Header>
           <Formik
             validationSchema={validationSchema}

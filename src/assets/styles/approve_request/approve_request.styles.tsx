@@ -9,6 +9,12 @@ const approveRequest = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: normalize(20),
   },
+  headContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: normalize(10),
+  },
   headerDate: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
