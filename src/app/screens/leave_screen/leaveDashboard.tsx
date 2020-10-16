@@ -93,11 +93,8 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {isAdmin ? (
-          <OtherRequests refresh={refresh} />
-        ) : (
-          <MyRequests loading={loading} refresh={refresh} />
-        )}
+        <MyRequests loading={loading} refresh={refresh} />
+        {isAdmin && <OtherRequests refresh={refresh} />}
       </ScrollView>
       <RequestButton />
     </View>
