@@ -25,6 +25,7 @@ const descriptionStyle = StyleSheet.create({
     height: normalize(130),
     textAlignVertical: 'top',
   },
+  error:{paddingTop:normalize(5),color:'red'}
 });
 
 export { descriptionStyle };
