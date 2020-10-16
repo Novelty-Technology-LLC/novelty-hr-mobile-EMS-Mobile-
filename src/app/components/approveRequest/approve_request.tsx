@@ -86,9 +86,9 @@ const Request = ({ data, style, title = null }: any) => {
                   responses[0].pendingResponses.length && (
                   <>
                     <Text style={style.response}>Responses</Text>
-                    {responses[0].responses.map((item) => (
+                    {responses[0].responses.map((item,i) => (
                       <>
-                        <View style={style.main}>
+                        <View style={style.main} key ={i.toString()}>
                           <View style={style.imageView}>
                             <Image
                               style={style.image}
@@ -131,9 +131,9 @@ const Request = ({ data, style, title = null }: any) => {
                             <Text style={style.response}>
                               Pending Responses
                             </Text>
-                            {responses[0].pendingResponses.map((item) => (
+                            {responses[0].pendingResponses.map((item,i) => (
                               <>
-                                <View style={style.main}>
+                                <View style={style.main} key={i.toString()}>
                                   <View style={style.imageView}>
                                     <Image
                                       style={style.image}
