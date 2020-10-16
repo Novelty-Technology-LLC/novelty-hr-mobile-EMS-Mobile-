@@ -13,13 +13,7 @@ const ApproveRequest = ({ route }: any) => {
   return (
     <>
       <Header icon={true}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <View style={style.headContainer}>
           <View>
             <Text style={headerText}>{name},</Text>
           </View>
