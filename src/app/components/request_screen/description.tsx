@@ -28,11 +28,11 @@ const Description = ({
           placeholder={'Write a short note for your leave..'}
           placeholderTextColor={'#c7c7c7'}
           underlineColorAndroid={'transparent'}
-          name="description"
+          name="note"
+          label="note"
           onChangeText={handleChange('note')}
         />
-         {error.note && touched.note &&  <Text style={style.error}>{error.note}.</Text>}
-      
+         {error.note && touched.note &&  <Text style={style.error}>{error.note} *</Text>}
       </View>
      
     </View>

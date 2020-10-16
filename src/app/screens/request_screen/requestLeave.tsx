@@ -32,9 +32,12 @@ import {dateMapper} from '../../utils'
 
 
 const validationSchema = Yup.object().shape({
-  date: Yup.object().required().label('date'),
+  date : Yup.object().shape({
+   startDate: Yup.date().nullable(),
+    endDate: Yup.date().nullable()
+  }).required('Date is a required field'),
   type: Yup.string().required().label('type'),
-  note: Yup.string().required().label('note'),
+  note: Yup.string().required('Note is a required field').label('note'),
   lead: Yup.array().of(Yup.number()).required().label('lead'),
   status: Yup.string().required().label('status'),
 });
@@ -139,9 +142,11 @@ const RequestLeave = ({ route }: any) => {
             {({ handleChange, handleSubmit, values ,errors,touched}) => (
               <>
                 <Calander
-                  style={style.calendar}
+                  style={style}
                   handleChange={handleChange}
                   defaultValue={olddata && olddata.leave_date}
+                  error={errors}
+                  touched={touched}
                 />
                 <Teams
                   handleChange={handleChange}
