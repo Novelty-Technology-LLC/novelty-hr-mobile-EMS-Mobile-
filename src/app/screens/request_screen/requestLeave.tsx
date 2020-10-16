@@ -28,8 +28,7 @@ import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
-import {dateMapper} from '../../utils'
-
+import { dateMapper } from '../../utils';
 
 const validationSchema = Yup.object().shape({
   date : Yup.object().shape({
@@ -139,7 +138,7 @@ const RequestLeave = ({ route }: any) => {
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
-            {({ handleChange, handleSubmit, values ,errors,touched}) => (
+            {({ handleChange, handleSubmit, values, errors, touched }) => (
               <>
                 <Calander
                   style={style}
