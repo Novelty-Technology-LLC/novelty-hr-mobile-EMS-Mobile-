@@ -13,6 +13,7 @@ import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
   const { startDate } = getDay(data);
+  const {dayRange} = getDay(data)
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
   const [approved, setapproved] = useState(false);
@@ -66,7 +67,7 @@ const Request = ({ data, style, title = null }: any) => {
                 <View style={style.sectionDateView}>
                   <Icon style={style.calander} name="calendar" size={20} />
                   <Text style={style.sectionDate}>
-                    {data.leave_date.startDate}
+                    {dayRange}
                   </Text>
                 </View>
                 <View style={style.sendView}>

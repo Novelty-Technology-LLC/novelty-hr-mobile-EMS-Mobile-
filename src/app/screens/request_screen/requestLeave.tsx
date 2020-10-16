@@ -136,7 +136,7 @@ const RequestLeave = ({ route }: any) => {
             initialValues={initialValues}
             onSubmit={(values) => onSubmit(values)}
           >
-            {({ handleChange, handleSubmit, values }) => (
+            {({ handleChange, handleSubmit, values ,errors,touched}) => (
               <>
                 <Calander
                   style={style.calendar}
@@ -155,6 +155,8 @@ const RequestLeave = ({ route }: any) => {
                 <Description
                   handleChange={handleChange}
                   defaultValue={olddata && olddata.note}
+                  error={errors}
+                  touched={touched}
                 />
                 <Button onPress={() => handleSubmit()}>
                   <View style={style.buttonView}>
