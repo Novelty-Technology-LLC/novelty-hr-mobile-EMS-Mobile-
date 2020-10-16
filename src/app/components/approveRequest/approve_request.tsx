@@ -31,13 +31,15 @@ const Request = ({ data, style, title = null }: any) => {
     setLoading(true);
     const getRequest = async () => {
       const res = await getResponses(data.id);
-      setresponses(res);
+      setresponses(res);      
       setLoading(false);
     };
     getRequest();
     checkReplied();
   }, []);
 
+
+  
   return (
     <>
       {data && (
@@ -79,14 +81,14 @@ const Request = ({ data, style, title = null }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {loading && <ResponsePlaceHolder />}
-              {responses.length > 0 &&
+              {responses.length > 0 && 
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
                     <Text style={style.response}>Responses</Text>
-                    {responses.map((item) => (
+                    {responses[0].responses.map((item,i) => (
                       <>
-                        <View style={style.main}>
+                        <View style={style.main} key ={i.toString()}>
                           <View style={style.imageView}>
                             <Image
                               style={style.image}
@@ -129,9 +131,9 @@ const Request = ({ data, style, title = null }: any) => {
                             <Text style={style.response}>
                               Pending Responses
                             </Text>
-                            {responses[0].pendingResponses.map((item) => (
+                            {responses[0].pendingResponses.map((item,i) => (
                               <>
-                                <View style={style.main}>
+                                <View style={style.main} key={i.toString()}>
                                   <View style={style.imageView}>
                                     <Image
                                       style={style.image}
