@@ -31,13 +31,15 @@ const Request = ({ data, style, title = null }: any) => {
     setLoading(true);
     const getRequest = async () => {
       const res = await getResponses(data.id);
-      setresponses(res);
+      setresponses(res);      
       setLoading(false);
     };
     getRequest();
     checkReplied();
   }, []);
 
+
+  
   return (
     <>
       {data && (
@@ -79,12 +81,12 @@ const Request = ({ data, style, title = null }: any) => {
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {loading && <ResponsePlaceHolder />}
-              {responses.length > 0 &&
+              {responses.length > 0 && 
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
                     <Text style={style.response}>Responses</Text>
-                    {responses.map((item) => (
+                    {responses[0].responses.map((item) => (
                       <>
                         <View style={style.main}>
                           <View style={style.imageView}>

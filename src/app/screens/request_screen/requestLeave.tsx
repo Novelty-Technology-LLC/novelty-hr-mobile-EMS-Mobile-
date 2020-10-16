@@ -30,7 +30,6 @@ import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
 import {dateMapper} from '../../utils'
 
-
 const validationSchema = Yup.object().shape({
   date: Yup.object().required().label('date'),
   type: Yup.string().required().label('type'),
