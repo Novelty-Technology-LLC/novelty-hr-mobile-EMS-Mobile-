@@ -29,7 +29,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
 import { dateMapper } from '../../utils';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 const validationSchema = Yup.object().shape({
   date : Yup.object().shape({
    startDate: Yup.date().nullable(),
@@ -119,15 +119,14 @@ const RequestLeave = ({ route }: any) => {
   };
 
   return (
+   
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
-        <ScrollView
+      
+        {/* <ScrollView
           style={style.container}
           showsVerticalScrollIndicator={false}
-        >
+        >       */}
+        <KeyboardAwareScrollView style={style.container} scrollEnabled={true} enableOnAndroid={true} enableAutomaticScroll={(Platform.OS === 'ios')} extraScrollHeight={Platform.OS === "ios" ?80:100} showsVerticalScrollIndicator={false}>
           <Header icon={true}>
             <View style={approveRequest.headContainer}>
               <Text style={headerText}>Request Leave</Text>
@@ -173,9 +172,12 @@ const RequestLeave = ({ route }: any) => {
               </>
             )}
           </Formik>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </KeyboardAwareScrollView>
+        {/* </ScrollView> */}
+        
     </ApplicationProvider>
+   
+   
   );
 };
 
