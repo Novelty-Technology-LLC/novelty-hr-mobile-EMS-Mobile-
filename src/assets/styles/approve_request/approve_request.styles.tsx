@@ -129,17 +129,16 @@ const approveRequest = StyleSheet.create({
   teamLeadView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    marginTop:normalize(2),
   },
   teamLead: {
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xs),
     color: colors.fontGrey,
-    marginTop: normalize(2),
   },
   leadText: {
     fontFamily: fonts.mulishRegular,
-    marginTop: normalize(15),
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
   },
@@ -147,6 +146,7 @@ const approveRequest = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xxs),
     color: colors.fontGrey,
+    
   },
   buttonView: {
     flex: 0.13,
