@@ -45,6 +45,7 @@ class Teams extends Component {
   }
   render() {
     return (
+      <>
       <View style={style.container}>
         <Text style={style.text}>Team Lead</Text>
         {this.state.teamLead.length > 0 ? (
@@ -111,12 +112,16 @@ class Teams extends Component {
                   </TouchableOpacity>
                 );
               })}
+             
             </View>
           </ScrollView>
         ) : (
           <LeadPlaceHolder />
         )}
+      
       </View>
+     {this.props.error.lead && this.props.touched.lead &&  <Text style={style.error}>Please select your lead.</Text>}
+      </>
     );
   }
 }

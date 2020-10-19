@@ -37,7 +37,7 @@ const validationSchema = Yup.object().shape({
   }).required('Date is a required field'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required('Note is a required field').label('note'),
-  lead: Yup.array().of(Yup.number()).required().label('lead'),
+  lead: Yup.array().of(Yup.number()).min(2).required().label('lead'),
   status: Yup.string().required().label('status'),
 });
 
@@ -150,6 +150,8 @@ const RequestLeave = ({ route }: any) => {
                   handleChange={handleChange}
                   defaultValue={olddata && olddata.lead}
                   values={values}
+                  error={errors}
+                  touched={touched}
                 />
                 <Leavetype
                   handleChange={handleChange}
