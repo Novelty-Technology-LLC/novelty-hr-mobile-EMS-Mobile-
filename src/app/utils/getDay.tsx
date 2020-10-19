@@ -2,8 +2,7 @@ import { dateStringMapper } from './dateMapper';
 
 export default getDay = (item) => {
   let day =
-    +new Date().toString().slice(8, 10) -
-    +item.leave_date.startDate.slice(8, 10);
+  new Date(item.leave_date.startDate).toString().substr(3, 7);
 
   let dayRange = dateStringMapper(
     item.leave_date.startDate,
