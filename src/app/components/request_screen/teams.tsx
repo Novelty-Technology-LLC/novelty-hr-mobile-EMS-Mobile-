@@ -33,7 +33,7 @@ class Teams extends Component {
               }
             });
           } else {
-            if (HR_ID === val.id && this.state.user.id !== HR_ID) {
+            if (val.is_default_approver === '1') {
               val.selected = val.first_name;
               this.data.push(val);
             }
@@ -59,7 +59,7 @@ class Teams extends Component {
                 return (
                   <TouchableOpacity
                     onPress={() => {
-                      if (val.id !== HR_ID) {
+                      if (val.is_default_approver !== '1') {
                         if (val.selected) {
                           val.selected = false;
                         } else {
