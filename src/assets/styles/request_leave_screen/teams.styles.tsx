@@ -27,6 +27,9 @@ const teamStyle = StyleSheet.create({
     paddingTop:normalize(10),
     marginLeft:normalize(17)
   },
+  required:{
+    color:color.red
+  },
   text: {
     paddingTop: normalize(19),
     paddingLeft: normalize(18),

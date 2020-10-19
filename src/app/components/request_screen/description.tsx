@@ -19,7 +19,7 @@ const Description = ({
   return (
     <View>
       <View style={style.main}>
-        <Text style={style.text}>Write a note</Text>
+        <Text style={style.text}>Write a note <Text style={style.required}>*</Text></Text>
         <Textarea
           containerStyle={style.textareaContainer}
           style={style.textArea}
@@ -32,9 +32,8 @@ const Description = ({
           label="note"
           onChangeText={handleChange('note')}
         />
-         {error.note && touched.note &&  <Text style={style.error}>{error.note} *</Text>}
+         {error.note && touched.note &&  <Text style={style.error}>{error.note}</Text>}
       </View>
-     
     </View>
   );
 };

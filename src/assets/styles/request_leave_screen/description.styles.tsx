@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
-import colors from '../../colors';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 
@@ -26,8 +25,8 @@ const descriptionStyle = StyleSheet.create({
   textArea: {
     height: normalize(130),
     textAlignVertical: 'top',
-  },
-  error:{paddingTop:normalize(10),color:colors.red}
+  },required:{color:color.red},
+  error:{paddingTop:normalize(10),color:color.red}
 });
 
 export { descriptionStyle };
