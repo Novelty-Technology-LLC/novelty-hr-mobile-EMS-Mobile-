@@ -133,7 +133,7 @@ const RequestLeave = ({ route }: any) => {
         enableOnAndroid={true}
         enableAutomaticScroll={true}
         extraScrollHeight={Platform.OS === 'ios' ? 100 : normalize(80)}
-        extraHeight={Platform.OS === 'android' ? normalize(140) : 50}
+        extraHeight={Platform.OS === 'android' ? normalize(130) : 50}
         showsVerticalScrollIndicator={false}
       >
         <Header icon={true}>
