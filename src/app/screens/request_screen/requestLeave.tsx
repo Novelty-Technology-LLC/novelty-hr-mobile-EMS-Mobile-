@@ -31,6 +31,7 @@ import { snackErrorBottom } from '../../common';
 import { dateMapper } from '../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import normalize from 'react-native-normalize';
+
 const validationSchema = Yup.object().shape({
   date: Yup.object()
     .shape({
@@ -49,6 +50,8 @@ const RequestLeave = ({ route }: any) => {
   const navigation = useNavigation();
   const { state } = useContext(AuthContext);
   const { dispatchRequest, requests } = useContext(RequestContext);
+  const [isLoading, setisLoading] = useState(false);
+
   const initialValues = {
     date: olddata ? olddata.date : '',
     type: olddata ? olddata.type : 'Paid time off',
@@ -76,8 +79,6 @@ const RequestLeave = ({ route }: any) => {
       })
       .catch((err) => console.log(err));
   };
-
-  const [isLoading, setisLoading] = useState(false);
 
   const onSubmit = async (values) => {
     try {
@@ -132,8 +133,8 @@ const RequestLeave = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 100 : normalize(80)}
-        extraHeight={Platform.OS === 'android' ? normalize(140) : 50}
+        extraScrollHeight={Platform.OS === 'ios' ? 100 :80}
+        extraHeight={Platform.OS === 'android' ? 140 : 50}
         showsVerticalScrollIndicator={false}
       >
         <Header icon={true}>
