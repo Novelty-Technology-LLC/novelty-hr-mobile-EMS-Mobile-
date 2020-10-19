@@ -30,11 +30,14 @@ import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
 import { dateMapper } from '../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import normalize from 'react-native-normalize';
 const validationSchema = Yup.object().shape({
-  date : Yup.object().shape({
-   startDate: Yup.date().nullable(),
-    endDate: Yup.date().nullable()
-  }).required('Date is a required field'),
+  date: Yup.object()
+    .shape({
+      startDate: Yup.date().nullable(),
+      endDate: Yup.date().nullable(),
+    })
+    .required('Date is a required field'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required('Note is a required field').label('note'),
   lead: Yup.array().of(Yup.number()).min(2).required().label('lead'),
@@ -119,67 +122,70 @@ const RequestLeave = ({ route }: any) => {
   };
 
   return (
-   
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-      
-        {/* <ScrollView
+      {/* <ScrollView
           style={style.container}
           showsVerticalScrollIndicator={false}
         >       */}
-        <KeyboardAwareScrollView style={style.container} scrollEnabled={true} enableOnAndroid={true} enableAutomaticScroll={(Platform.OS === 'ios')} extraScrollHeight={Platform.OS === "ios" ?80:100} showsVerticalScrollIndicator={false}>
-          <Header icon={true}>
-            <View style={approveRequest.headContainer}>
-              <Text style={headerText}>Request Leave</Text>
-            </View>
-          </Header>
-          <Formik
-            validationSchema={validationSchema}
-            initialValues={initialValues}
-            onSubmit={(values) => onSubmit(values)}
-          >
-            {({ handleChange, handleSubmit, values, errors, touched }) => (
-              <>
-                <Calander
-                  style={style}
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.leave_date}
-                  error={errors}
-                  touched={touched}
-                />
-                <Teams
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.lead}
-                  values={values}
-                  error={errors}
-                  touched={touched}
-                />
-                <Leavetype
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.type}
-                />
-                <Description
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.note}
-                  error={errors}
-                  touched={touched}
-                />
-                <Button onPress={() => handleSubmit()}>
-                  <View style={style.buttonView}>
-                    <Text style={style.buttonText}>Submit Request</Text>
-                    {isLoading && (
-                      <ActivityIndicator size={30} color={colors.white} />
-                    )}
-                  </View>
-                </Button>
-              </>
-            )}
-          </Formik>
-          </KeyboardAwareScrollView>
-        {/* </ScrollView> */}
-        
+      <KeyboardAwareScrollView
+        style={style.container}
+        scrollEnabled={true}
+        enableOnAndroid={true}
+        enableAutomaticScroll={true}
+        extraScrollHeight={Platform.OS === 'ios' ? 80 : normalize(100)}
+        extraHeight={Platform.OS === 'android' ? normalize(130) : 0}
+        showsVerticalScrollIndicator={false}
+      >
+        <Header icon={true}>
+          <View style={approveRequest.headContainer}>
+            <Text style={headerText}>Request Leave</Text>
+          </View>
+        </Header>
+        <Formik
+          validationSchema={validationSchema}
+          initialValues={initialValues}
+          onSubmit={(values) => onSubmit(values)}
+        >
+          {({ handleChange, handleSubmit, values, errors, touched }) => (
+            <>
+              <Calander
+                style={style}
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.leave_date}
+                error={errors}
+                touched={touched}
+              />
+              <Teams
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.lead}
+                values={values}
+                error={errors}
+                touched={touched}
+              />
+              <Leavetype
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.type}
+              />
+              <Description
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.note}
+                error={errors}
+                touched={touched}
+              />
+              <Button onPress={() => handleSubmit()}>
+                <View style={style.buttonView}>
+                  <Text style={style.buttonText}>Submit Request</Text>
+                  {isLoading && (
+                    <ActivityIndicator size={30} color={colors.white} />
+                  )}
+                </View>
+              </Button>
+            </>
+          )}
+        </Formik>
+      </KeyboardAwareScrollView>
+      {/* </ScrollView> */}
     </ApplicationProvider>
-   
-   
   );
 };
 
