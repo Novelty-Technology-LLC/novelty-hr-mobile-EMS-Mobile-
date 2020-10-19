@@ -32,7 +32,7 @@ const approveRequest = StyleSheet.create({
   main: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingBottom: normalize(15),
+    paddingBottom: normalize(10),
   },
   imageView: {
     paddingTop: normalize(15),
@@ -138,15 +138,17 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   leadText: {
+    paddingTop:normalize(9),
     fontFamily: fonts.mulishRegular,
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
+    textTransform:"capitalize"
   },
   text: {
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xxs),
     color: colors.fontGrey,
-    
+  
   },
   buttonView: {
     flex: 0.13,
