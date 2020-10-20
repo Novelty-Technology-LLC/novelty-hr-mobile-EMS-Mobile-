@@ -59,6 +59,9 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               <Text style={style.days}>
                 {day > 1 ? day + ' days ago' : (day = ' Today')}
               </Text>
+              <View style={style.status}>
+                <State state={item.state} />
+              </View>
               {!isReplied && (
                 <View style={style.buttonContainer}>
                   <View style={style.buttonView}>

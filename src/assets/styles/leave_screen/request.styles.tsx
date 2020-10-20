@@ -41,6 +41,7 @@ const requestStyle = StyleSheet.create({
       ios: { marginTop: normalize(3) },
       android: { marginTop: normalize(4) },
     }),
+    paddingTop: normalize(5),
   },
   date: {
     fontSize: normalize(theme.size.base),
@@ -99,8 +100,8 @@ const requestStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     ...Platform.select({
-      ios: { marginTop: normalize(25) },
-      android: { marginTop: normalize(30) },
+      ios: { marginTop: normalize(15) },
+      android: { marginTop: normalize(15) },
     }),
   },
   buttonSpacer: {

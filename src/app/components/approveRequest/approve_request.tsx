@@ -58,6 +58,9 @@ const Request = ({ data, style, title = null }: any) => {
                   <Text style={style.leaveType}>{data.type}</Text>
                 </View>
               </View>
+              <View style={style.sendView}>
+                <State state={data.state} />
+              </View>
             </View>
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
