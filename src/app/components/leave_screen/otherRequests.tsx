@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text } from 'react-native';
 import {
   FlatList,
@@ -13,7 +13,7 @@ import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import { AppIcon, Loader } from '../../common';
+import { AppIcon } from '../../common';
 import { getAllRequests } from '../../services';
 import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';

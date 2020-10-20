@@ -4,7 +4,6 @@ import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
-import { ScrollView } from 'react-native-gesture-handler';
 import { approveRequest, requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
 import {
@@ -114,7 +113,7 @@ const RequestLeave = ({ route }: any) => {
       snackErrorBottom(error);
     }
   };
-  
+
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       {/* <ScrollView

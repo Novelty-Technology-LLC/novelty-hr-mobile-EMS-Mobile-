@@ -2,11 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import colors from '../../../assets/colors';
-import {
-  deleteAlertStyle,
-  editAlertStyle,
-  swipeStyle as style,
-} from '../../../assets/styles';
+import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles';
 import { AppIcon } from '../../common';
 import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
