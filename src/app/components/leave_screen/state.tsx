@@ -18,7 +18,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
         <>
           <View style={style.row}><AppIcon name="alert-circle" size={18} color={colors.tomato} />
           <View style={style.space}></View>
-          <Text style={style.state}>{state}</Text></View>
+          <Text style={style.deny}>{state}</Text></View>
         </>
       )}
       {state === 'Pending' && (
