@@ -3,10 +3,9 @@ import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles';
-import { AppIcon } from '../../common';
+import { Alert, AppIcon } from '../../common';
 import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
-import Dialog from 'react-native-dialog';
 
 const Swipe = ({ item }: any) => {
   const navigation = useNavigation();
@@ -42,25 +41,9 @@ const Swipe = ({ item }: any) => {
           <DeleteAlert item={item} />
         </>
       )}
-      <Dialog.Container
-        visible={showAlert}
-        contentStyle={deleteAlertStyle.dialogContainer}
-      >
-        <View style={deleteAlertStyle.container}>
-          <View style={deleteAlertStyle.main}>
-            <Dialog.Title style={deleteAlertStyle.text1}>
-              Your request just got reviewed.You cannot edit now
-            </Dialog.Title>
-          </View>
-        </View>
-        <View style={deleteAlertStyle.buttons}>
-          <Dialog.Button
-            label="OK"
-            onPress={() => hide()}
-            style={deleteAlertStyle.delete}
-          />
-        </View>
-      </Dialog.Container>
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
+        Your request just got reviewed.You cannot edit now.
+      </Alert>
     </View>
   );
 };

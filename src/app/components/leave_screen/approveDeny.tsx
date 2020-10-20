@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import { button as Button } from '../../common';
+import { Alert, button as Button } from '../../common';
 import { dataType } from '../../interface';
 import { EditAlert } from './responseAlert';
 import colors from '../../../assets/colors';
 import { checkRequest } from '../../services';
-import Dialog from 'react-native-dialog';
-import { deleteAlertStyle } from '../../../assets/styles';
 
 interface approveDenyPropType {
   title: string;
@@ -22,25 +20,9 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
   return (
     <View>
       {show && <EditAlert item={item} status={title} setShow={setShow} />}
-      <Dialog.Container
-        visible={showAlert}
-        contentStyle={deleteAlertStyle.dialogContainer}
-      >
-        <View style={deleteAlertStyle.container}>
-          <View style={deleteAlertStyle.main}>
-            <Dialog.Title style={deleteAlertStyle.text1}>
-              This request just got deleted.
-            </Dialog.Title>
-          </View>
-        </View>
-        <View style={deleteAlertStyle.buttons}>
-          <Dialog.Button
-            label="OK"
-            onPress={() => setShowAlert(false)}
-            style={deleteAlertStyle.delete}
-          />
-        </View>
-      </Dialog.Container>
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
+        This request just got deleted.
+      </Alert>
 
       <Button
         onPress={() => {
