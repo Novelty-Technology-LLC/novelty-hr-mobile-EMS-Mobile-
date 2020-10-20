@@ -4,7 +4,7 @@ import colors from '../../assets/colors';
 const snackBarMessage = (msg) => {
   const snackBarOpts = {
     data: msg,
-    position: WSnackBar.position.BOTTOM,
+    position: WSnackBar.position.TOP,
     duration: WSnackBar.duration.LONG,
     textColor: colors.white,
     backgroundColor: colors.green,
