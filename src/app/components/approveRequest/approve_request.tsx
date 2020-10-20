@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
 import { getResponses } from '../../services';
-import getDay, { responseDay } from '../../utils/getDay';
+import getDay, { responseDay ,startDate} from '../../utils/getDay';
 import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
@@ -12,7 +12,6 @@ import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
-  const { startDate } = getDay(data);
   const {dayRange} = getDay(data)
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
@@ -38,8 +37,6 @@ const Request = ({ data, style, title = null }: any) => {
     getRequest();
     checkReplied();
   }, []);
-
-
   
   return (
     <>
@@ -71,7 +68,7 @@ const Request = ({ data, style, title = null }: any) => {
                   </Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state="Requested">{startDate}</State>
+              <State state="Requested">{startDate(data)}</State>
                 </View>
               </View>
             </View>

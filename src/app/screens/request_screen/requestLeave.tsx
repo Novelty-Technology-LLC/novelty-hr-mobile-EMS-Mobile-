@@ -119,7 +119,7 @@ const RequestLeave = ({ route }: any) => {
       snackErrorBottom(error);
     }
   };
-
+  
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       {/* <ScrollView
