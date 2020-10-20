@@ -1,10 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  Platform,
-} from 'react-native';
+import { Text, View, ActivityIndicator, Platform } from 'react-native';
 import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
