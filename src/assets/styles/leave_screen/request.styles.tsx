@@ -77,6 +77,11 @@ const requestStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
+    ...Platform.select({
+      android:{
+        paddingTop:normalize(5)
+      }
+    })
   },
   row: {
     flexDirection: 'row',
