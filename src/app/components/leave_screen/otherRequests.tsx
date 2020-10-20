@@ -75,27 +75,29 @@ const OtherRequests = ({ refresh }: any) => {
     <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
         <Text style={myRequestsStyle.title}> Requests Received</Text>
-        <View style={myRequestsStyle.row}>
-          <Text style={myRequestsStyle.history}> History</Text>
-          <View style={myRequestsStyle.gap}></View>
-          <TouchableWithoutFeedback
-            onPress={() =>
-              setToggle(
-                toggle === 'toggle-switch'
-                  ? 'toggle-switch-off'
-                  : 'toggle-switch'
-              )
-            }
-          >
-            <AppIcon
-              name={toggle}
-              color={
-                toggle === 'toggle-switch' ? colors.primary : colors.secondary
+        {adminrequests.pastadminrequests > 0 && (
+          <View style={myRequestsStyle.row}>
+            <Text style={myRequestsStyle.history}> History</Text>
+            <View style={myRequestsStyle.gap}></View>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                setToggle(
+                  toggle === 'toggle-switch'
+                    ? 'toggle-switch-off'
+                    : 'toggle-switch'
+                )
               }
-              size={40}
-            />
-          </TouchableWithoutFeedback>
-        </View>
+            >
+              <AppIcon
+                name={toggle}
+                color={
+                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
+                }
+                size={40}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        )}
       </View>
       {loading ? (
         <AdminPlaceHolder />
@@ -117,7 +119,7 @@ const OtherRequests = ({ refresh }: any) => {
       {adminrequests.adminrequests.length < 1 && !loading && (
         <View style={myRequestsStyle.emptyContainer}>
           <Text style={myRequestsStyle.emptyText}>
-            There are no current requests
+            You don't have received any requests.
           </Text>
         </View>
       )}

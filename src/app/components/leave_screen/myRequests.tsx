@@ -37,35 +37,36 @@ const MyRequests = ({
   const getPastCallback = useCallback(() => getPast(), []);
 
   useEffect(() => {
-    getPastCallback()
+    getPastCallback();
   }, [refresh]);
 
-  
   return (
     <View style={style.container}>
       <View style={style.header}>
         <Text style={style.title}>My Requests</Text>
-        <View style={style.row}>
-          <Text style={style.history}> History</Text>
-          <View style={style.gap}></View>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              setToggle(
-                toggle === 'toggle-switch'
-                  ? 'toggle-switch-off'
-                  : 'toggle-switch'
-              );
-            }}
-          >
-            <AppIcon
-              name={toggle}
-              color={
-                toggle === 'toggle-switch' ? colors.primary : colors.secondary
-              }
-              size={35}
-            />
-          </TouchableWithoutFeedback>
-        </View>
+        {pastrequests.length > 0 && (
+          <View style={style.row}>
+            <Text style={style.history}> History</Text>
+            <View style={style.gap}></View>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setToggle(
+                  toggle === 'toggle-switch'
+                    ? 'toggle-switch-off'
+                    : 'toggle-switch'
+                );
+              }}
+            >
+              <AppIcon
+                name={toggle}
+                color={
+                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
+                }
+                size={35}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        )}
       </View>
       {loading ? <UserPlaceHolder /> : null}
 
@@ -86,7 +87,7 @@ const MyRequests = ({
       ) : (
         !loading && (
           <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>There are no current requests</Text>
+            <Text style={style.emptyText}>You don't have current requests</Text>
           </View>
         )
       )}

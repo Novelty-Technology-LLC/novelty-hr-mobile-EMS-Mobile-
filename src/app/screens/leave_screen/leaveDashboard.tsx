@@ -16,8 +16,6 @@ const LeaveDashboard = () => {
   const [refresh, setRefresh] = useState(false);
 
   const onRefresh = React.useCallback(async () => {
-    console.log('only on refresh');
-    
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
     const user = await getUser();

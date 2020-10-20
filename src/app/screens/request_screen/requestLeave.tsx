@@ -131,7 +131,7 @@ const RequestLeave = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 100 :70}
+        extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
         extraHeight={Platform.OS === 'android' ? 140 : 50}
         showsVerticalScrollIndicator={false}
       >
