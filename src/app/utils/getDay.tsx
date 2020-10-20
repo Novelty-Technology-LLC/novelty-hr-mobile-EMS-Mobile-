@@ -23,4 +23,4 @@ export default getDay = (item) => {
 export const responseDay = (date) =>
   new Date(date.updatedAt).toString().substr(3, 7);
 
-export const startDate = (item)=>new Date(item.user.createdAt).toString().substr(3, 7);
+export const startDate = (item)=>new Date(item.createdAt).toString().substr(3, 7);
