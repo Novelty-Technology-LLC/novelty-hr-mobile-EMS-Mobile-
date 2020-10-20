@@ -24,7 +24,7 @@ const History = ({ requests, other }: any) => {
               onPress={() => navigation.navigate('requestDetail', item.item)}
             />
           )}
-          keyExtractor={(item) => item.date}
+          keyExtractor={(item) => item.id}
         />
       ) : (
         <View style={myRequestsStyle.emptyContainer}>
