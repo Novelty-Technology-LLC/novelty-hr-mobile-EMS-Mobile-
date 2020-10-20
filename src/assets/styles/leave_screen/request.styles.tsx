@@ -21,7 +21,7 @@ const requestStyle = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
-  wrapper: { flexDirection: 'row' },
+  wrapper: { flexDirection: 'row' ,alignItems:'center',justifyContent:'space-between'},
   requestDate: {
     marginTop: normalize(theme.spacing.wide),
     fontSize: normalize(theme.size.xxs),
@@ -77,7 +77,13 @@ const requestStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
-  },denyStat: {
+    ...Platform.select({
+      android:{
+        marginTop:normalize(5)
+      }
+    })
+  },
+  denyStat: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
