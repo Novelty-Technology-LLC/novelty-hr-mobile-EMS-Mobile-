@@ -6,7 +6,8 @@ import { deleteAlertStyle as style } from '../../../assets/styles';
 import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
-import { deleteRequest } from '../../services';
+import { deleteRequest, getLeaveQuota } from '../../services';
+import { getUser } from '../../utils';
 
 const DeleteAlert = ({ item }: { item: dataType }) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -16,9 +17,15 @@ const DeleteAlert = ({ item }: { item: dataType }) => {
 
   const onDelete = () => {
     deleteRequest(item.id)
-      .then(() => {
-        snackBarMessage('Request deleted');
-        dispatchRequest({ type: 'DELETE', payload: item.id });
+      .then(async () => {
+        const user = await getUser();
+        getLeaveQuota(JSON.parse(user).id)
+          .then((data) => {
+            dispatchRequest({ type: 'QUOTA', payload: data });
+            dispatchRequest({ type: 'DELETE', payload: item.id });
+            snackBarMessage('Request deleted');
+          })
+          .catch((err) => console.log('GetLeaveQuota error', err));
       })
       .catch((err) => console.log(err));
   };

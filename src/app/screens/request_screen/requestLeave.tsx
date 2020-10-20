@@ -1,10 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  Platform,
-} from 'react-native';
+import { Text, View, ActivityIndicator, Platform } from 'react-native';
 import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -21,7 +16,7 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { editRequest, postRequest } from '../../services';
+import { editRequest, getLeaveQuota, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
@@ -60,9 +55,14 @@ const RequestLeave = ({ route }: any) => {
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
-        dispatchRequest({ type: 'ADD', payload: res.data.data });
-        navigation.navigate('leaveList');
-        snackBarMessage('Request created');
+        getLeaveQuota(state.user.id)
+          .then((data) => {
+            dispatchRequest({ type: 'QUOTA', payload: data });
+            dispatchRequest({ type: 'ADD', payload: res.data.data });
+            navigation.navigate('leaveList');
+            snackBarMessage('Request created');
+          })
+          .catch((err) => console.log('GetLeaveQuota error', err));
       })
       .catch((err) => console.log(err));
   };
@@ -78,7 +78,6 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const onSubmit = async (values) => {
-    
     try {
       const date = JSON.parse(values.date);
       const startDate = new Date(date.startDate).toString().slice(0, 15);
@@ -131,7 +130,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
         extraHeight={Platform.OS === 'android' ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={'none'}
       >
         <Header icon={true}>
