@@ -13,15 +13,14 @@ export default getDay = (item) => {
     item.leave_date.startDate.slice(3, 10) -
     +item.leave_date.endDate.slice(8, 10);
 
-  let startDate = new Date(item.createdAt).toString().substr(3, 7);
-
   return {
     day,
     dayRange,
     dayType,
-    startDate,
   };
 };
 
 export const responseDay = (date) =>
   new Date(date.updatedAt).toString().substr(3, 7);
+
+export const startDate = (item)=>new Date(item.user.createdAt).toString().substr(3, 7);
