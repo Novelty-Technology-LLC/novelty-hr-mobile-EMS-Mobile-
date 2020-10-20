@@ -38,7 +38,7 @@ const signInGoogle = async (dispatch: any) => {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
     error.message = 'Sign in cancled.';
     if(error.message === "NETWORK_ERROR") 
-      error.message = 'Please connect to network.';
+      error.message = 'Please connect to a network.';
     snackErrorBottom(error);
   }
 };
@@ -76,6 +76,8 @@ const signInApple = async (dispatch: any) => {
       dispatch({ type: 'INVALID' });
     }
   } catch (error) {
+    if(error.message === "NETWORK_ERROR") 
+    error.message = 'Please connect to a network.';
     snackErrorBottom(error);
   }
 };
