@@ -111,6 +111,7 @@ const RequestLeave = ({ route }: any) => {
           startDate,
           endDate,
         },
+        day,
         requestor_id: userid,
       };
       setisLoading(!isLoading);
