@@ -34,7 +34,7 @@ const validationSchema = Yup.object().shape({
     .required('Date is a required field'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required('Note is a required field').label('note'),
-  lead: Yup.array().of(Yup.number()).min(1).label('lead'),
+  lead: Yup.array().of(Yup.number()).label('lead'),
   status: Yup.string().required().label('status'),
 });
 
@@ -114,7 +114,7 @@ const RequestLeave = ({ route }: any) => {
       snackErrorBottom(error);
     }
   };
-  
+
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       {/* <ScrollView

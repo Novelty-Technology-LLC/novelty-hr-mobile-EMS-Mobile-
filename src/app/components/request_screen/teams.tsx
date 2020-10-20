@@ -125,9 +125,9 @@ class Teams extends Component {
             <LeadPlaceHolder />
           )}
         </View>
-        {this.props.error.lead && this.props.touched.lead && (
+        {/* {this.props.error.lead && this.props.touched.lead && (
           <Text style={style.error}>Please select your lead.</Text>
-        )}
+        )} */}
       </>
     );
   }

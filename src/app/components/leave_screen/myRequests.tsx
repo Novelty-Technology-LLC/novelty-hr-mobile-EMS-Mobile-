@@ -82,7 +82,7 @@ const MyRequests = ({
               />
             </Swipeable>
           )}
-          keyExtractor={(item) => item.date}
+          keyExtractor={(item) => item.id}
         />
       ) : (
         !loading && (
