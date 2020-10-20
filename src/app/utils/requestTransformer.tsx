@@ -54,6 +54,7 @@ const mapObjectToRequest = (data: userType) => {
     lead: data.lead,
     leave_approvals: data.leave_approvals,
     leave_date: data.leave_date,
+    createdAt:data.createdAt
   };
   newRequest.push(newData);
 
