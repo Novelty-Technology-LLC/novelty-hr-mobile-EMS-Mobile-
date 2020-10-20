@@ -25,14 +25,14 @@ function Leavetype({
             }}
           >
             <View style={type == 1 ? style.paidView : style.floatingView}>
-              {type === 1 && (
+              <View style={style.icon}>{type === 1 && (
                 <Icon
                   name="check-circle"
                   color={color.primary}
                   size={17}
                   style={{ marginRight: 6 }}
                 />
-              )}
+              )}</View>
               <Text
                 style={type == 0 ? style.buttonTextFloat : style.buttonTextPaid}
               >
@@ -47,14 +47,14 @@ function Leavetype({
             }}
           >
             <View style={type == 1 ? style.floatingView : style.paidView}>
-              {type === 0 && (
+            <View style={style.icon}>{type === 0 && (
                 <Icon
                   name="check-circle"
                   color={color.primary}
                   size={17}
                   style={{ marginRight: 6 }}
                 />
-              )}
+              )}</View>
               <Text
                 style={type == 1 ? style.buttonTextFloat : style.buttonTextPaid}
               >

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ActivityIndicator } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { teamStyle as style } from '../../../assets/styles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,7 +7,7 @@ import { getlead } from '../../services';
 import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
 import { leadname } from '../../utils/getName';
-import { getUser, HR_ID } from '../../utils';
+import { getUser } from '../../utils';
 
 class Teams extends Component {
   user = {};
@@ -47,6 +47,7 @@ class Teams extends Component {
       });
     });
   }
+
   render() {
     return (
       <>

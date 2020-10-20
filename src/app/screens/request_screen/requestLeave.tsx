@@ -1,11 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import { Text, View, ActivityIndicator, Platform } from 'react-native';
 import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -40,7 +34,7 @@ const validationSchema = Yup.object().shape({
     .required('Date is a required field'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required('Note is a required field').label('note'),
-  lead: Yup.array().of(Yup.number()).label('lead'),
+  lead: Yup.array().of(Yup.number()).min(1).label('lead'),
   status: Yup.string().required().label('status'),
 });
 
@@ -159,8 +153,6 @@ const RequestLeave = ({ route }: any) => {
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.lead}
                 values={values}
-                error={errors}
-                touched={touched}
               />
               <Leavetype
                 handleChange={handleChange}
