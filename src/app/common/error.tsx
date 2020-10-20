@@ -3,7 +3,7 @@ import {fonts} from '../../assets/styles/theme'
 const snackErrorBottom = (err) => {
   const snackBarOpts = {
     data: err.message,
-    position: WSnackBar.position.BOTTOM,
+    position: WSnackBar.position.TOP,
     duration: WSnackBar.duration.LONG,
     textColor: '#ffffff',
     fontFamily:fonts.PoppinsSemibold,
