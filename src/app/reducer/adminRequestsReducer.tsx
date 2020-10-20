@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
-import { mapObjectToRequest } from '../utils';
+import React, { useReducer } from 'react';
 
 const AdminReducer = (prevState, action) => {
   switch (action.type) {

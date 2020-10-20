@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect ,useMemo} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, ScrollView, Text, RefreshControl } from 'react-native';
-import { header as Header, Loader, Admin } from '../../common';
+import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
@@ -20,7 +20,6 @@ const LeaveDashboard = () => {
     setRefreshing(true);
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).id).then((data) => {
-      setDaysDetails(data);
       dispatchRequest({ type: 'QUOTA', payload: data });
       setRefreshing(false);
     });
@@ -37,19 +36,15 @@ const LeaveDashboard = () => {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { dispatchRequest } = useContext(RequestContext);
-  const [daysDetails, setDaysDetails] = useState([]);
+  const { requests, dispatchRequest } = useContext(RequestContext);
 
   const getData = async () => {
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).id)
       .then((data) => {
-        setDaysDetails(data);
         dispatchRequest({ type: 'QUOTA', payload: data });
       })
-      .catch((err) => console.log('GetLeaveQuota error', err))
-
-
+      .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
   const getRequest = async () => {
@@ -67,8 +62,6 @@ const LeaveDashboard = () => {
       });
   };
 
-
-
   useEffect(() => {
     getData();
     getRequest();
@@ -84,11 +77,11 @@ const LeaveDashboard = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {daysDetails.length > 0 ? null : <QuotaPlaceHolder />}
+        {requests.quota.length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
-          {daysDetails &&
-            daysDetails.length > 0 &&
-            daysDetails.map((daysDetail) => (
+          {requests.quota &&
+            requests.quota.length > 0 &&
+            requests.quota.map((daysDetail) => (
               <DaysRemaining
                 key={daysDetail.id}
                 total={daysDetail.leave_total}
@@ -97,12 +90,8 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
-        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
-        {isAdmin ? (
-          <OtherRequests refresh={refresh} />
-        ) : (
-          <MyRequests loading={loading} refresh={refresh} />
-        )}
+        <MyRequests loading={loading} refresh={refresh} />
+        {isAdmin && <OtherRequests refresh={refresh} />}
       </ScrollView>
       <RequestButton />
     </View>
@@ -110,4 +99,3 @@ const LeaveDashboard = () => {
 };
 
 export { LeaveDashboard };
-

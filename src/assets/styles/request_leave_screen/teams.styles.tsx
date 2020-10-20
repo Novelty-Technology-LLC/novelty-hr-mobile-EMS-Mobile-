@@ -22,7 +22,6 @@ const teamStyle = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: normalize(180),
   },
-
   text: {
     paddingTop: normalize(19),
     paddingLeft: normalize(18),

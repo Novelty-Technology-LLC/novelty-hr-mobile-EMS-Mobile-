@@ -37,6 +37,8 @@ const signInGoogle = async (dispatch: any) => {
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
+    if (error.message === "NETWORK_ERROR")
+      error.message = 'Please connect to a network.';
     snackErrorBottom(error);
   }
 };
@@ -62,18 +64,20 @@ const signInApple = async (dispatch: any) => {
 
     const userData = mapDataToObject(data.fullName);
     if (/@noveltytechnology.com\s*$/.test(userData.email)) {
-    create(userData)
-      .then(async (res: any) => {
-        await setUser(res.data.data);
-        dispatch({ type: 'STORE_USER', user: res.data.data });
-        storeToken(data.identityToken);
-        dispatch({ type: 'SIGN_IN', token: data.identityToken });
-      })
-      .catch((err) => console.log(err));
-    }else {
+      create(userData)
+        .then(async (res: any) => {
+          await setUser(res.data.data);
+          dispatch({ type: 'STORE_USER', user: res.data.data });
+          storeToken(data.identityToken);
+          dispatch({ type: 'SIGN_IN', token: data.identityToken });
+        })
+        .catch((err) => console.log(err));
+    } else {
       dispatch({ type: 'INVALID' });
     }
   } catch (error) {
+    if (error.message === "NETWORK_ERROR")
+      error.message = 'Please connect to a network.';
     snackErrorBottom(error);
   }
 };

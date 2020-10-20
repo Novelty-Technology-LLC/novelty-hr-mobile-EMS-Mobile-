@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { header as Header } from '../../common';
 
-import { headerText } from '../../../assets/styles';
+import { approveRequest, headerText } from '../../../assets/styles';
 import Request from '../../components/approveRequest/approve_request';
 import { approveRequest as style } from '../../../assets/styles';
 
@@ -12,7 +12,9 @@ const RequestDetail = ({ route }: any) => {
   return (
     <>
       <Header icon={true}>
-        <Text style={headerText}>{date}</Text>
+        <View style={approveRequest.headContainer}>
+          <Text style={headerText}>{date}</Text>
+        </View>
       </Header>
       <Request data={route.params} style={style} />
     </>
