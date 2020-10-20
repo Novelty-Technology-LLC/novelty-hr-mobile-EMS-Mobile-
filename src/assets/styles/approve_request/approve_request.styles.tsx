@@ -39,6 +39,7 @@ const approveRequest = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  statusView:{flexDirection:'row',alignItems:'center',justifyContent:'space-between'},
   image: {
     width: normalize(40),
     height: normalize(40),
