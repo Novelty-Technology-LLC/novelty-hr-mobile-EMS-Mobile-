@@ -119,7 +119,7 @@ const OtherRequests = ({ refresh }: any) => {
       {adminrequests.adminrequests.length < 1 && !loading && (
         <View style={myRequestsStyle.emptyContainer}>
           <Text style={myRequestsStyle.emptyText}>
-            You don't have received any requests.
+            You have not received any request.
           </Text>
         </View>
       )}

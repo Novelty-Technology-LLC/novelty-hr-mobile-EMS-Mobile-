@@ -65,6 +65,7 @@ class Teams extends Component {
                 {this.state.teamLead.map((val, i) => {
                   return (
                     <TouchableOpacity
+                      key={val.id}
                       onPress={() => {
                         if (val.is_default_approver !== '1') {
                           if (val.selected) {
