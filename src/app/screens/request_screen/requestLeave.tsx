@@ -25,7 +25,7 @@ import { editRequest, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
-import { snackErrorBottom } from '../../common';
+import { snackErrorTop } from '../../common';
 import { dateMapper } from '../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -116,7 +116,7 @@ const RequestLeave = ({ route }: any) => {
       setisLoading(!isLoading);
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {
-      snackErrorBottom(error);
+      snackErrorTop(error);
     }
   };
   
@@ -130,8 +130,8 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
         extraHeight={Platform.OS === 'android' ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='always'
-        keyboardDismissMode={'interactive'}
+        keyboardShouldPersistTaps='handled'
+        keyboardDismissMode={'none'}
       >
         <Header icon={true}>
           <View style={approveRequest.headContainer}>
