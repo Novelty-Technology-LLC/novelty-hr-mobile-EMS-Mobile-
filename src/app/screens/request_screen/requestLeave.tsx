@@ -1,5 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { Text, View, ActivityIndicator, Platform } from 'react-native';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  Platform,
+} from 'react-native';
 import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -33,8 +38,8 @@ const validationSchema = Yup.object().shape({
     .required('Date is a required field'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required('Note is a required field').label('note'),
-  lead: Yup.array().of(Yup.number()).min(1).label('lead'),
-  status: Yup.string().required().label('status'),
+  lead: Yup.array().of(Yup.number()).label('lead'),
+  status: Yup.string().label('status'),
 });
 
 const RequestLeave = ({ route }: any) => {
@@ -73,6 +78,7 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const onSubmit = async (values) => {
+    
     try {
       const date = JSON.parse(values.date);
       const startDate = new Date(date.startDate).toString().slice(0, 15);
@@ -116,10 +122,6 @@ const RequestLeave = ({ route }: any) => {
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-      {/* <ScrollView
-          style={style.container}
-          showsVerticalScrollIndicator={false}
-        >       */}
       <KeyboardAwareScrollView
         style={style.container}
         scrollEnabled={true}
@@ -128,6 +130,8 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
         extraHeight={Platform.OS === 'android' ? 140 : 50}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps='always'
+        keyboardDismissMode={'interactive'}
       >
         <Header icon={true}>
           <View style={approveRequest.headContainer}>
@@ -175,7 +179,6 @@ const RequestLeave = ({ route }: any) => {
           )}
         </Formik>
       </KeyboardAwareScrollView>
-      {/* </ScrollView> */}
     </ApplicationProvider>
   );
 };

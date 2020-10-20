@@ -19,7 +19,7 @@ const Description = ({
   return (
     <View>
       <View style={style.main}>
-        <Text style={style.text}>Write a note *</Text>
+        <Text style={style.text}>Write a note*</Text>
         <Textarea
           containerStyle={style.textareaContainer}
           style={style.textArea}
