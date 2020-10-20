@@ -31,17 +31,14 @@ const requestStyle = StyleSheet.create({
   dateView: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
     paddingHorizontal: normalize(10),
   },
   status: {
-    ...Platform.select({
-      ios: { marginTop: normalize(3) },
-      android: { marginTop: normalize(4) },
-    }),
-    paddingTop: normalize(5),
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between'
   },
   date: {
     fontSize: normalize(theme.size.base),

@@ -42,13 +42,11 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           onPress={() => onPress && !other && onPress()}
         >
           <View style={style.dateView}>
-            <View>
-              <Text style={style.date}>{item.date}</Text>
-              <Text style={style.type}>{item.type}</Text>
-            </View>
             <View style={style.status}>
+            <Text style={style.date}>{item.date}</Text>
               <State state={item.state} />
             </View>
+              <Text style={style.type}>{item.type}</Text>
           </View>
         </TouchableOpacity>
       ) : (
