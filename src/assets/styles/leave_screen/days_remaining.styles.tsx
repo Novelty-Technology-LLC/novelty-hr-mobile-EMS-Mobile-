@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import color from '../../colors';
@@ -23,7 +23,14 @@ const daysRemainingStyle = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
   },
   gap: {
-    paddingHorizontal: normalize(3),
+   ...Platform.select({
+     android:{
+      paddingHorizontal: normalize(4),
+     },
+     ios:{
+      paddingHorizontal: normalize(2),
+     }
+   })
   },
   text: {
     fontSize: normalize(theme.size.xl),
