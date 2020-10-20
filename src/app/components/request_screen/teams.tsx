@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ActivityIndicator } from 'react-native';
+import { View, Text, Image} from 'react-native';
 import { teamStyle as style } from '../../../assets/styles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,7 +7,7 @@ import { getlead } from '../../services';
 import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
 import { leadname } from '../../utils/getName';
-import { getUser, HR_ID } from '../../utils';
+import { getUser } from '../../utils';
 
 class Teams extends Component {
   user = {};
@@ -43,11 +43,12 @@ class Teams extends Component {
       });
     });
   }
+  
   render() {
     return (
       <>
       <View style={style.container}>
-        <Text style={style.text}>Team Lead <Text style={style.required}>*</Text></Text>
+        <Text style={style.text}>Team Lead *</Text>
         {this.state.teamLead.length > 0 ? (
           <ScrollView
             style={style.scrollView}
@@ -120,7 +121,6 @@ class Teams extends Component {
         )}
       
       </View>
-     {this.props.error.lead && this.props.touched.lead &&  <Text style={style.error}>Please select your lead.</Text>}
       </>
     );
   }

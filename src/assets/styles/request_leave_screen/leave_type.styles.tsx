@@ -1,11 +1,11 @@
 import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import color from '../../colors';
+
 import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
-  container: { borderBottomWidth: 1, borderBottomColor: color.border },
+  container: { borderBottomWidth: 1, borderBottomColor: colors.border },
   wrapper: {
     flex: 1,
     display: 'flex',
@@ -29,15 +29,15 @@ const leaveType = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: normalize(15),
-    backgroundColor: color.buttonOrange,
+    backgroundColor: colors.buttonOrange,
     borderRadius: normalize(3),
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(25),
+        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(35),
+        paddingHorizontal: normalize(30),
         borderRadius: normalize(4),
       },
     }),
@@ -57,18 +57,27 @@ const leaveType = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: normalize(15),
-    backgroundColor: color.buttonGrey,
+    backgroundColor: colors.buttonGrey,
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(25),
+        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(35),
+        paddingHorizontal: normalize(30),
         borderRadius: normalize(4),
       },
     }),
   },
+
+  icon:{height:20,width:25,...Platform.select({
+    android:{
+      marginTop:normalize(5)
+    },
+    ios:{
+      marginTop:normalize(2)
+    }
+  })},
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
     fontSize: normalize(theme.size.normal),

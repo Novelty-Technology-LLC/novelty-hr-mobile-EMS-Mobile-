@@ -34,7 +34,7 @@ const Calander = ({ style, handleChange, defaultValue,error,touched}: calenderPr
       name="date"
       label="date"
     />
-{error.date && touched.date && <Text style={style.error}>Date is a required field *</Text>}
+{error.date && touched.date && <Text style={style.error}>Date is a required field</Text>}
   </>
 };
 
