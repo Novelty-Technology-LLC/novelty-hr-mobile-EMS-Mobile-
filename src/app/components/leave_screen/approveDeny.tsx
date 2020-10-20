@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import { button as Button } from '../../common';
+import { Alert, button as Button } from '../../common';
 import { dataType } from '../../interface';
 import { EditAlert } from './responseAlert';
 import colors from '../../../assets/colors';
+import { checkRequest } from '../../services';
 
 interface approveDenyPropType {
   title: string;
@@ -14,13 +15,20 @@ interface approveDenyPropType {
 const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
   const [show, setShow] = useState(false);
   const [isLoading, setisLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   return (
     <View>
       {show && <EditAlert item={item} status={title} setShow={setShow} />}
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
+        This request just got deleted.
+      </Alert>
+
       <Button
         onPress={() => {
-          setShow(true);
+          checkRequest(item.id)
+            .then((res) => setShow(true))
+            .catch((err) => setShowAlert(true));
         }}
       >
         <View

@@ -23,7 +23,9 @@ const DaysRemaining = ({ total, remaining, title }: DaysRemainingPropType) => {
           />
           {/* {remaining} */}
         </Text>
-        <Text style={style.total}>/{total}</Text>
+        <Text style={style.total}>/</Text>
+        <View style={style.gap}></View>
+        <Text style={style.total}>{total}</Text>
       </Text>
       <Text style={style.title}>{title}</Text>
       <Text style={style.footer}>REMAINING</Text>

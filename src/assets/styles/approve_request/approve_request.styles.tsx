@@ -9,6 +9,12 @@ const approveRequest = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: normalize(20),
   },
+  headContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: normalize(10),
+  },
   headerDate: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
@@ -26,7 +32,7 @@ const approveRequest = StyleSheet.create({
   main: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingBottom: normalize(15),
+    paddingBottom: normalize(10),
   },
   imageView: {
     paddingTop: normalize(15),
@@ -123,24 +129,26 @@ const approveRequest = StyleSheet.create({
   teamLeadView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    marginTop:normalize(2),
   },
   teamLead: {
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xs),
     color: colors.fontGrey,
-    marginTop: normalize(2),
   },
   leadText: {
+    paddingTop:normalize(9),
     fontFamily: fonts.mulishRegular,
-    marginTop: normalize(15),
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
+    textTransform:"capitalize"
   },
   text: {
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xxs),
     color: colors.fontGrey,
+  
   },
   buttonView: {
     flex: 0.13,

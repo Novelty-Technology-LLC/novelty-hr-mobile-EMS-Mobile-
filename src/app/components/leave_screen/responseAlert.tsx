@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text } from 'react-native';
 import Dialog from 'react-native-dialog';
 import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
@@ -29,7 +29,7 @@ const EditAlert = ({
     setShowAlert(false);
     setShow(false);
   };
-  
+
   const { state } = useContext(AuthContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
 

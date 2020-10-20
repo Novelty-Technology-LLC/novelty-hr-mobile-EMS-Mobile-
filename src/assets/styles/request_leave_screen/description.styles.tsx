@@ -3,6 +3,7 @@ import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 
+
 const descriptionStyle = StyleSheet.create({
   main: {
     marginTop: normalize(20),
@@ -25,6 +26,7 @@ const descriptionStyle = StyleSheet.create({
     height: normalize(130),
     textAlignVertical: 'top',
   },
+  error:{paddingTop:normalize(10),color:color.red}
 });
 
 export { descriptionStyle };

@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { mapDataToObject } from './transformer';
 
 const getToken = async () => {
   return await AsyncStorage.getItem('token');
