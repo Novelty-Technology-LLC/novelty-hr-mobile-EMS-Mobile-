@@ -39,6 +39,7 @@ const approveRequest = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  statusView:{flexDirection:'row',alignItems:'center',justifyContent:'space-between'},
   image: {
     width: normalize(40),
     height: normalize(40),
@@ -69,6 +70,7 @@ const approveRequest = StyleSheet.create({
   sendView: {
     flexDirection: 'column',
     alignItems: 'flex-end',
+    alignSelf: 'flex-start',
   },
   send: {
     color: colors.white,
@@ -130,7 +132,7 @@ const approveRequest = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop:normalize(2),
+    marginTop: normalize(2),
   },
   teamLead: {
     fontFamily: fonts.mulishRegular,
@@ -138,17 +140,16 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   leadText: {
-    paddingTop:normalize(9),
+    paddingTop: normalize(9),
     fontFamily: fonts.mulishRegular,
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
-    textTransform:"capitalize"
+    textTransform: 'capitalize',
   },
   text: {
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xxs),
     color: colors.fontGrey,
-  
   },
   buttonView: {
     flex: 0.13,

@@ -31,16 +31,14 @@ const requestStyle = StyleSheet.create({
   dateView: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
     paddingHorizontal: normalize(10),
   },
   status: {
-    ...Platform.select({
-      ios: { marginTop: normalize(3) },
-      android: { marginTop: normalize(4) },
-    }),
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between'
   },
   date: {
     fontSize: normalize(theme.size.base),
@@ -79,6 +77,15 @@ const requestStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
+  },denyStat: {
+    fontFamily: fonts.poppinsMedium,
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.xs),
+    ...Platform.select({
+      android:{
+        paddingTop:normalize(5)
+      }
+    })
   },
   row: {
     flexDirection: 'row',
@@ -99,8 +106,8 @@ const requestStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     ...Platform.select({
-      ios: { marginTop: normalize(25) },
-      android: { marginTop: normalize(30) },
+      ios: { marginTop: normalize(15) },
+      android: { marginTop: normalize(15) },
     }),
   },
   buttonSpacer: {
