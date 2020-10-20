@@ -7,7 +7,6 @@ import { ComingSoon, tabHeader as Header } from '../common';
 import { AuthContext } from '../reducer';
 
 const Activity = () => {
-  const { dispatch } = useContext(AuthContext);
   return (
     <View style={style.container}>
       <Header>

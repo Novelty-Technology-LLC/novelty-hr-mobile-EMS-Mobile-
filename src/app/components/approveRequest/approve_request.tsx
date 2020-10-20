@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Image, FlatList } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
 import { getResponses } from '../../services';
-import getDay, { responseDay } from '../../utils/getDay';
+import getDay, { responseDay, startDate } from '../../utils/getDay';
 import getName, { leadname } from '../../utils/getName';
 import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
@@ -12,7 +12,7 @@ import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
-  const { startDate } = getDay(data);
+  const { dayRange } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
   const [approved, setapproved] = useState(false);
@@ -63,12 +63,10 @@ const Request = ({ data, style, title = null }: any) => {
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
                   <Icon style={style.calander} name="calendar" size={20} />
-                  <Text style={style.sectionDate}>
-                    {data.leave_date.startDate}
-                  </Text>
+                  <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state="Requested">{startDate}</State>
+                  <State state="Requested">{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -84,9 +82,9 @@ const Request = ({ data, style, title = null }: any) => {
                   responses[0].pendingResponses.length && (
                   <>
                     <Text style={style.response}>Responses</Text>
-                    {responses.map((item) => (
+                    {responses[0].responses.map((item, i) => (
                       <>
-                        <View style={style.main}>
+                        <View style={style.main} key={i.toString()}>
                           <View style={style.imageView}>
                             <Image
                               style={style.image}
@@ -118,7 +116,6 @@ const Request = ({ data, style, title = null }: any) => {
                     ))}
                   </>
                 )}
-
               {data.state !== 'Denied' && (
                 <>
                   <View style={style.pendingresponseView}>
@@ -129,9 +126,9 @@ const Request = ({ data, style, title = null }: any) => {
                             <Text style={style.response}>
                               Pending Responses
                             </Text>
-                            {responses[0].pendingResponses.map((item) => (
+                            {responses[0].pendingResponses.map((item, i) => (
                               <>
-                                <View style={style.main}>
+                                <View style={style.main} key={i.toString()}>
                                   <View style={style.imageView}>
                                     <Image
                                       style={style.image}
