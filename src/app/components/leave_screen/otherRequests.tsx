@@ -75,7 +75,7 @@ const OtherRequests = ({ refresh }: any) => {
     <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
         <Text style={myRequestsStyle.title}> Requests Received</Text>
-        {adminrequests.pastadminrequests > 0 && (
+        {adminrequests.pastadminrequests.length > 0 && (
           <View style={myRequestsStyle.row}>
             <Text style={myRequestsStyle.history}> History</Text>
             <View style={myRequestsStyle.gap}></View>

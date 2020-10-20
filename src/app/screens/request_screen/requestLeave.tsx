@@ -30,7 +30,6 @@ import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorBottom } from '../../common';
 import { dateMapper } from '../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import normalize from 'react-native-normalize';
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -41,7 +40,7 @@ const validationSchema = Yup.object().shape({
     .required('Date is a required field'),
   type: Yup.string().required().label('type'),
   note: Yup.string().required('Note is a required field').label('note'),
-  lead: Yup.array().of(Yup.number()).min(2).required().label('lead'),
+  lead: Yup.array().of(Yup.number()).label('lead'),
   status: Yup.string().required().label('status'),
 });
 

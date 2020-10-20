@@ -39,92 +39,97 @@ class Teams extends Component {
             }
           }
         });
-        this.setState({ lead: [...this.state.lead].concat(this.data) });
+        this.setState({ lead: [...this.state.lead].concat(this.data) }, () => {
+          this.props.handleChange('lead')(
+            JSON.stringify(this.state.lead.map((item) => item.id))
+          );
+        });
       });
     });
   }
   render() {
     return (
       <>
-      <View style={style.container}>
-        <Text style={style.text}>Team Lead <Text style={style.required}>*</Text></Text>
-        {this.state.teamLead.length > 0 ? (
-          <ScrollView
-            style={style.scrollView}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          >
-            <View style={style.wrapper}>
-              {this.state.teamLead.map((val, i) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      if (val.is_default_approver !== '1') {
-                        if (val.selected) {
-                          val.selected = false;
-                        } else {
-                          val.selected = val.first_name;
+        <View style={style.container}>
+          <Text style={style.text}>
+            Team Lead <Text style={style.required}>*</Text>
+          </Text>
+          {this.state.teamLead.length > 0 ? (
+            <ScrollView
+              style={style.scrollView}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <View style={style.wrapper}>
+                {this.state.teamLead.map((val, i) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        if (val.is_default_approver !== '1') {
+                          if (val.selected) {
+                            val.selected = false;
+                          } else {
+                            val.selected = val.first_name;
+                          }
+                          this.setState(
+                            { lead: [...new Set(this.state.lead.concat(val))] },
+                            () => {
+                              this.props.handleChange('lead')(
+                                JSON.stringify(
+                                  this.state.lead
+                                    .filter((item) => item.selected)
+                                    .map((item) => item.id)
+                                )
+                              );
+                            }
+                          );
                         }
-                        this.setState(
-                          { lead: [...new Set(this.state.lead.concat(val))] },
-                          () => {
-                            this.props.handleChange('lead')(
-                              JSON.stringify(
-                                this.state.lead
-                                  .filter((item) => item.selected)
-                                  .map((item) => item.id)
+                      }}
+                    >
+                      <View style={style.main} key={i}>
+                        <View style={style.imageView}>
+                          <Image
+                            style={style.image}
+                            source={
+                              val.image_url
+                                ? { uri: val.image_url }
+                                : require('../../../assets/images/person.jpeg')
+                            }
+                          />
+                          {this.state.lead.map((item) => {
+                            return (
+                              item.selected === val.first_name && (
+                                <View style={style.iconContainer}>
+                                  <Icon
+                                    name="check-circle"
+                                    size={20}
+                                    color={colors.green}
+                                  />
+                                </View>
                               )
                             );
-                          }
-                        );
-                      }
-                    }}
-                  >
-                    <View style={style.main} key={i}>
-                      <View style={style.imageView}>
-                        <Image
-                          style={style.image}
-                          source={
-                            val.image_url
-                              ? { uri: val.image_url }
-                              : require('../../../assets/images/person.jpeg')
-                          }
-                        />
-                        {this.state.lead.map((item) => {
-                          return (
-                            item.selected === val.first_name && (
-                              <View style={style.iconContainer}>
-                                <Icon
-                                  name="check-circle"
-                                  size={20}
-                                  color={colors.green}
-                                />
-                              </View>
-                            )
-                          );
-                        })}
+                          })}
+                        </View>
+                        <View style={style.spacing}></View>
+                        <View style={style.nameView}>
+                          <Text style={style.name}>{leadname(val)}</Text>
+                        </View>
                       </View>
-                      <View style={style.spacing}></View>
-                      <View style={style.nameView}>
-                        <Text style={style.name}>{leadname(val)}</Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-             
-            </View>
-          </ScrollView>
-        ) : (
-          <LeadPlaceHolder />
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </ScrollView>
+          ) : (
+            <LeadPlaceHolder />
+          )}
+        </View>
+        {this.props.error.lead && this.props.touched.lead && (
+          <Text style={style.error}>Please select your lead.</Text>
         )}
-      
-      </View>
-     {this.props.error.lead && this.props.touched.lead &&  <Text style={style.error}>Please select your lead.</Text>}
       </>
     );
   }
 }
-
 
 export { Teams };

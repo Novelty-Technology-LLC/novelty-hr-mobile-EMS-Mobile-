@@ -23,7 +23,7 @@ const MyRequests = ({
   refresh: number;
 }) => {
   const navigation = useNavigation();
-  const [pastrequests, setPastrequests] = useState(null);
+  const [pastrequests, setPastrequests] = useState([]);
   const { requests } = useContext(RequestContext);
 
   const [toggle, setToggle] = useState('toggle-switch');
