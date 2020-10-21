@@ -12,7 +12,7 @@ const Activity = () => {
       <Header>
         <Text style={headerText}>Activity</Text>
       </Header>
-      <ComingSoon />
+      <ComingSoon>COMING SOON</ComingSoon>
     </View>
   );
 };
