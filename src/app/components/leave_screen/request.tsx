@@ -62,13 +62,9 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               </View>
               {!isReplied && (
                 <View style={style.buttonContainer}>
-                  <View style={style.buttonView}>
                     <ApproveDeny title="Approve" style={style} item={item} />
-                  </View>
                   <View style={style.buttonSpacer}></View>
-                  <View style={style.buttonView}>
                     <ApproveDeny title="Deny" style={style} item={item} />
-                  </View>
                 </View>
               )}
             </View>
