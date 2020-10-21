@@ -248,6 +248,7 @@
 		10F699DFBA7C07EF1D88189C774E43F9 /* MacAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA84127C16FC0C67D0CB5219A2DFB51F /* MacAddress.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		1101E0D664F28A14CC2B004E4F1ABFCF /* StringKeyedMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DA012B7DD1D4AC340937FBFBE990D0 /* StringKeyedMap.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1109436AE16F77DF4A35BB388317F6D0 /* RCTInspector.h in Headers */ = {isa = PBXBuildFile; fileRef = EF0FBAA96E53ADACE962FCB431C81662 /* RCTInspector.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		1114C3B717DDE041BD5DEF83E89C720F /* RCTView+SafeAreaCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 214613980CBEDDB753B6AF04E7A954B5 /* RCTView+SafeAreaCompat.m */; };
 		113EA8D10DDDDDBA37BA9965FEDF8C4E /* FrameFlags.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BD0A80EDFA24ED56B03AFE287686EB /* FrameFlags.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0  -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		116AEC25A972B4C9683D8E5ED3C6C41A /* RNSVGLineManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CB1A2B90D85A4935F1C0504D80CDFCDD /* RNSVGLineManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1177E485BE3B7EB418364C6E41B23923 /* RCTConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CB22AC02DDCFE9DC99F516E809CF818 /* RCTConstants.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -305,7 +306,6 @@
 		17200CABA8663723786524ED8CEAF1AA /* FlipperKitNetworkPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 25F961C328851E08F75114FBA487FE5D /* FlipperKitNetworkPlugin.mm */; settings = {COMPILER_FLAGS = "-DDEBUG=1 -DFLIPPER_OSS=1 -DFB_SONARKIT_ENABLED=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0"; }; };
 		173EFBD9209646E1A705B053082C9F6F /* REAClockNodes.m in Sources */ = {isa = PBXBuildFile; fileRef = A709A1A5054DDBFF9F593711D728C460 /* REAClockNodes.m */; };
 		1755ADCC8D3AB8B3FDA9329EC6E45ADD /* RCTNativeAnimatedNodesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 593A068EA1E3720F4A316BE279B0C3D5 /* RCTNativeAnimatedNodesManager.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-nullability-completeness"; }; };
-		17C9F63079A7777BDF392197B7DAF65F /* RNCSafeAreaViewEdges.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B8BE0E924B794D3A20DE9DB926E05 /* RNCSafeAreaViewEdges.m */; };
 		17D81E52C72089A9C461660AB42A2118 /* RCTWrapperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 759C1F53EE5A293CEC3DF44C34495409 /* RCTWrapperViewController.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		17FDBF022A28411A6AB132D58C31B644 /* RNSVGPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DCFAC74B625F0107B92EC4F093BF89 /* RNSVGPattern.m */; };
 		181E80EC1E1BE57B29DB547F4C381556 /* FBCxxFollyDynamicConvert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55607F4D0CA9148047690A7F1E1E4E3D /* FBCxxFollyDynamicConvert.mm */; settings = {COMPILER_FLAGS = "-DDEBUG=1 -DFLIPPER_OSS=1 -DFB_SONARKIT_ENABLED=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0"; }; };
@@ -349,6 +349,7 @@
 		1DFAA0AD47D882539E4611C370A493F5 /* PolyException.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E3380360EDA78095E29A6749DF73B3 /* PolyException.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1E5BF1909338E82566FB0FF6691A91FE /* RCTBaseTextInputViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6198C1C44E86C113191778ADDA9F06E3 /* RCTBaseTextInputViewManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1E9E9841ECD43A7B59D4B9C4A24373CD /* RNSScreenContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA821DBF0F4EF8D395BE17F5D54136F /* RNSScreenContainer.m */; };
+		1EABAD844A74806F69D68D6D85F803F4 /* RNCSafeAreaProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = D8917B4E11DF0AB41EDB45A93F559AFF /* RNCSafeAreaProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1EE15FD788604DDC8671F699BC30CFF7 /* FlipperPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 654C7D6A5221B173B7DB756A0D7D1569 /* FlipperPlugin.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1EF6F199A7A70194DC0AA32B40F5D308 /* RCTAppearance.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B4BF5ADABA45F9158FB32E3FAC0C86 /* RCTAppearance.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1F01BEEB7C41536B35A58B02622BF3C5 /* FlipperConnectionImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F8435D14050C13ACD00594961EB90F /* FlipperConnectionImpl.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -383,6 +384,8 @@
 		236C28ABC76EB983884C82C51358317F /* RCTBackedTextInputViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F3DB4F3C0DAFDF960792DF0CA8A894 /* RCTBackedTextInputViewProtocol.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		236E7F2B216E90EC6090DC918D8F3FDE /* OIDScopeUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F43059700912DCBDC8CA84A31DBC3EE3 /* OIDScopeUtilities.m */; };
 		23A2E7C5C030CE8BA253DAF46971B445 /* SysResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD1EF1817758A65A0AEEC765D0FD30 /* SysResource.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
+		23C5DDC4808AF4BF0E3FBCCABA287648 /* RNCSafeAreaViewMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F754333E13DE651D231E8EB84D2ED /* RNCSafeAreaViewMode.m */; };
+		23C680CB3BF85A178560A81F871DAEA2 /* RNCSafeAreaProviderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F174FB452A309C76D311D56F06CDA1 /* RNCSafeAreaProviderManager.m */; };
 		23C759731FEDC9299B8FEC7A23E00839 /* Yoga-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 38102DF9957181BCBDE037B3F0BF9B0F /* Yoga-internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		23D4164FAA0F6C6740867495E560E9BB /* TimerFD.h in Headers */ = {isa = PBXBuildFile; fileRef = D31C01E4ED3359A2918C5EC614355ADD /* TimerFD.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		24139C2E59C349369ACF7E6C9ECCEBAB /* FlipperConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF4DDFA20163AD700F5A154ECAFF113 /* FlipperConnection.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -430,6 +433,7 @@
 		29FAED3C976D24EDFAC7B96B7A392D06 /* SanitizeLeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB90AF9D0F2289871D3BEC4D182AECBE /* SanitizeLeak.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		2A16146947DC31639C0598C08F1911FF /* SSLContext.h in Headers */ = {isa = PBXBuildFile; fileRef = F69ABCCBD48696F9585D92C289C27194 /* SSLContext.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2A204D47A24166C3E4911434BBEC385F /* Framer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D85AAA532ACACE63FE1441B5528CE82 /* Framer.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2A297E0ACA942EAB4A64A52D314D91AD /* RNCSafeAreaViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3686C24DA126641F7CE4BC6886121453 /* RNCSafeAreaViewManager.m */; };
 		2A9FBA8F9C5B691D88BAC3CFFE3342B1 /* RCTBaseTextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEECB922F6A97ECB3D3B4DB47188C7E2 /* RCTBaseTextInputView.m */; };
 		2AD8E50351AC6AE9914983B2F9ADEC46 /* CertificateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F4E73DE78BEDAE9A0120FF33743367 /* CertificateUtils.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2AE06AA5101C8DA3A829AC0538765D5F /* RNSVGTSpanManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA3028B4D19B664DE794D7BF2188C8A /* RNSVGTSpanManager.m */; };
@@ -463,6 +467,7 @@
 		2EA3D7DD14FE4FDFEA4002EE5E4E0A5E /* StaticSingletonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 26DD16047DB6F57B3B403E1CBBB48569 /* StaticSingletonManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2EAAE42E61F2331EE86F1D9C0E41AAF3 /* RCTImageEditingManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0620CAF12ACC499C0CC3AF1E760642F1 /* RCTImageEditingManager.mm */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-nullability-completeness"; }; };
 		2EF9EB1A3A802E6EC904F10E5A43380C /* RNSVGFontData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC1D2D5837C79A29749B197B0957747 /* RNSVGFontData.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2F268DA9A79928C6E9CDAA7CB4B63B02 /* RNCSafeAreaViewMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E137703B467FF3BDF086612A59C53 /* RNCSafeAreaViewMode.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2F444EE8079B01082406831BB5AC7217 /* RCTBlobManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A87CA37586AF3D2E3287E11B563E09B /* RCTBlobManager.mm */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-nullability-completeness"; }; };
 		2F6825999D65CC5A27E544A528EF6BDC /* Range.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F0824F65AA2782599A7CD2A819E3EF3 /* Range.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2F7808F68DD5B246C773EFFB45C102C0 /* OIDEndSessionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 621F345B74A02732D5EBF228E2064B9B /* OIDEndSessionRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -532,7 +537,6 @@
 		3868B40C4DDFC2739AF9CBF030C90BC8 /* RCTImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D531B8A71441D9E229F1D56AB2E3FC9 /* RCTImageCache.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		389BCB6375803B7908C77C34BF53A25D /* ScheduledFrameTransport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8218FBDE9084AE4AC8E88E0B7C6D8C79 /* ScheduledFrameTransport.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0  -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		38A55294237413D2FFC8A75181BD7857 /* RCTSegmentedControlManager.h in Headers */ = {isa = PBXBuildFile; fileRef = FA631CB1A67AEC78262A8DA03669DB6A /* RCTSegmentedControlManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		38F35E24D856E9519A212722C0D13E59 /* RNCAsyncStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD687D910069264B34A53D01A086D2 /* RNCAsyncStorage.m */; };
 		3907F174E6E05E2914C2C8880C2ED8F7 /* SanitizeThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F81D594B88A917636E7B497F16C02C0 /* SanitizeThread.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		3914B2671C95BC312B9B4A3883741613 /* MessageQueueThread.h in Headers */ = {isa = PBXBuildFile; fileRef = ED359257209FBE0C51D3925480E8A0F0 /* MessageQueueThread.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		395BF8DFFDA6020B22A3562D972F09FA /* InlineExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77099BD0E28261D6AA37312A0C3ABE08 /* InlineExecutor.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
@@ -560,7 +564,6 @@
 		3C11E1EAA45D73A2AF9D70E5B5DBA921 /* utilities.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0E803BAA23B4433FCCA962F009C22577 /* utilities.cc */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
 		3C17B6C191187D7856C9ED0E2CF4B55D /* RCTCxxUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A536E79BF9A12C4446D4C0A7446633 /* RCTCxxUtils.mm */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		3C3D0549BFECFA5EA98EC55ABEBCFA93 /* RCTInvalidating.h in Headers */ = {isa = PBXBuildFile; fileRef = 34DE4E9285134E3670F6CF2F8386C3B9 /* RCTInvalidating.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3C52279D222791B4251C03AF8205D902 /* RNCSafeAreaViewLocalData.m in Sources */ = {isa = PBXBuildFile; fileRef = C63B7D3E69C25FD08B38A0730670C90E /* RNCSafeAreaViewLocalData.m */; };
 		3C5B3B12CDADB06234BB844093E77B44 /* RCTConvert.h in Headers */ = {isa = PBXBuildFile; fileRef = 05609164F49E4756B6CF9B04308D90D9 /* RCTConvert.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3C766293FB7619D510FF59F15B150FAD /* RNPinchHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E817AC22ED8F59E42F3D22851F943D0 /* RNPinchHandler.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3CAFBBD745B89540D3EFBE818CC204F1 /* RCTImagePlugins.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A104CA1A82160DE892ADA65B8A652F2 /* RCTImagePlugins.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -569,7 +572,6 @@
 		3D2265F8471A40D146C1EC0FC8FF61E8 /* LockTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = E643B741A7C16DA7E4C3C943B5922BB2 /* LockTraits.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3D40E2363692AF5A76AD4C0656351B80 /* RCTLayoutAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 861CEB04E379DDDE4EF2CCB2E26C5E64 /* RCTLayoutAnimation.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		3D47AA3B99C813351863E8F45B36B38E /* RNSVGPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A30507604669FA7196FA7DA72619693 /* RNSVGPath.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		3D6B17E830FAC8972A903412ABC93839 /* RNCSafeAreaViewMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F754333E13DE651D231E8EB84D2ED /* RNCSafeAreaViewMode.m */; };
 		3D7A891B4E792D1EF23AEA214DABE67F /* Singleton-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DA64D2C43DE87D959B5EAAE465F408F /* Singleton-inl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3D8F0778D2D03B13805B46BBD2194668 /* MallocImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = A42FA0B248C0EA1E1F2C4A797FF67C2E /* MallocImpl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3DA8530B25B43F74E862B018894718B1 /* bignum.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DD8360448F113F0D323C6611F40FF4A /* bignum.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -596,7 +598,7 @@
 		4017B616C8D14FD693D1F545382B5241 /* FKUserDefaultsSwizzleUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 387743B47B593FCFE48A152F844AD5E2 /* FKUserDefaultsSwizzleUtility.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		402B90D786E1F888AC719399EE455338 /* RNSVGUseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D37D7835476E79A1A210BD605A9D1BB /* RNSVGUseManager.m */; };
 		40782DCC7AA39E0E984416B602A576D0 /* GTMKeychain_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EACF1B8F6FD747701093F6DE522C57 /* GTMKeychain_iOS.m */; };
-		40D3D7F8A9A20E8AF9968CED7BA360DC /* RNCSafeAreaProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = D8917B4E11DF0AB41EDB45A93F559AFF /* RNCSafeAreaProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		40B382061C67AA2BE4A85923D8204D09 /* RNCSafeAreaShadowView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8678507E202C06C9A6AB9E15E8B461F0 /* RNCSafeAreaShadowView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		40D4BFB8EE204CE390964FB8DE92C636 /* NativeToJsBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E65EBF759A60175C3481A7D96D63A175 /* NativeToJsBridge.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		410DF2B6F0A5D4EA4BDC584A1F83A7CE /* logging.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4DF34043145EA233E8C18B33B5E800F6 /* logging.cc */; settings = {COMPILER_FLAGS = "-Wno-shorten-64-to-32"; }; };
 		412512DFE06BF80C29382028C8AD6410 /* bignum.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E7AA2B64C164A73F950674B249A7235 /* bignum.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -609,8 +611,8 @@
 		4280A2CE689E5C853DF3ED1DE2B480B6 /* REAJSCallNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC10A78997DAB44A0E55868315B130 /* REAJSCallNode.m */; };
 		4298F56B1E4215967E5347F795B4E4F5 /* RCTClipboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9CE7D83C6E6A34F6205A666B918C97F1 /* RCTClipboard.mm */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-nullability-completeness"; }; };
 		42B8D4E858A8D5BB6F2BD1D69B57C183 /* RNGoogleSignin-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC254C3BD18BECBFADB9BF03041FB54 /* RNGoogleSignin-dummy.m */; };
-		42B9C64402F7F76D826CBC8B924AC777 /* RCTView+SafeAreaCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 214613980CBEDDB753B6AF04E7A954B5 /* RCTView+SafeAreaCompat.m */; };
 		430D99BCC2D7F6EDA625809600645DF7 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82F39EAF1CA3C571F3A755BA7800E200 /* FileUtil.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
+		430E699E019D35202E96442C959FA8DC /* RNCAsyncStorageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 914313E921DDF2325CBA8E8CE124A541 /* RNCAsyncStorageDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		430F5B8744D4A0757A1AC08C9AF971C8 /* RCTDecayAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CFC21E2BEFA253D0CAC7461622627E4 /* RCTDecayAnimation.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		431822DB1A55BE48B6A94D93A34F4E7A /* ThreadCachedInts.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CB0D557A96D901B38F0FD942110F450 /* ThreadCachedInts.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		43257EDD3ABAC707DC50D80D5600D91C /* SanitizeThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E1FE2E8A8F3E5727D78839E99FD551A /* SanitizeThread.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -644,6 +646,7 @@
 		462BACB2C7E6398FD7CBA86B9BDBBF27 /* RCTDevLoadingViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = F31BC9179EB207EAFC8340BFE491ACB2 /* RCTDevLoadingViewProtocol.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		46BDF403CA01682D1AADFA5DB27DC87D /* Yoga-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0216F6DDE82662577790919B75EA64C5 /* Yoga-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		46C49B31E9B120FDE115F2F2A9E000CB /* F14Defaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 446276FE5E9AF4C7EBAF6020851AAB93 /* F14Defaults.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		46C6DD6276814041D4EA5005A0E2207D /* RNCSafeAreaView.h in Headers */ = {isa = PBXBuildFile; fileRef = C03B6E4F9779A427B1340B9B6C894360 /* RNCSafeAreaView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		46D18929E6825E93B7F249489AE6B71F /* decorator.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F54352AE7D27D83628549022930D55D /* decorator.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		46DBF5CA4D4A82B24DA1B2605CD4CE50 /* OIDAuthStateChangeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A85EF64C852A16935058614A9CF607 /* OIDAuthStateChangeDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		46E05F193E956922F0466D51E6C2AD6B /* ProxyLockable.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E6EB6062147729B161D7D12F9844B2 /* ProxyLockable.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -755,6 +758,7 @@
 		536C7C7E082F8AD3A822F8BC432C9C44 /* Flowable_FromObservable.h in Headers */ = {isa = PBXBuildFile; fileRef = 054AB01111B02297ABD992FE42934FB9 /* Flowable_FromObservable.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		538FB35232F2E4814E2F33DDD8C41336 /* RCTSurfaceRootShadowView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AC7EC97884DF310EE0E4383EC345DCE /* RCTSurfaceRootShadowView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		53A63942571DB0383C24172F59169EEC /* FunctionScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = BC072D68934A000FE22A448077C76AE7 /* FunctionScheduler.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		53EBFA1B8C597A67BD278CF2A7A64927 /* RNCAsyncStorage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F70F7B18BD4FD4C0D6743662529A5F /* RNCAsyncStorage-dummy.m */; };
 		544B081213B8082DDF90CE63877A4003 /* RCTPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 806761749F2B82D35822679C832D7804 /* RCTPlatform.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		546BC1DABBB5E96748051AAE611E1605 /* FKPortForwardingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BD1AA4AED52502FCE8054FD1067327 /* FKPortForwardingServer.m */; settings = {COMPILER_FLAGS = "-DDEBUG=1 -DFLIPPER_OSS=1 -DFB_SONARKIT_ENABLED=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0"; }; };
 		54D32ACB99BE7C43326EF5949D4D3C50 /* SKHiddenWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC231393297281736938428E51FF8E4 /* SKHiddenWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -809,6 +813,7 @@
 		5BE5937858296B952C47C0FF595EAFF6 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 095C82C9350087D44EB8D31379DF710A /* EventHandler.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5BEC9825060E6AC2A18C2820ADFCE6F7 /* RCTBorderDrawing.h in Headers */ = {isa = PBXBuildFile; fileRef = B4658BD51F47D634BE2EC62A314F1E09 /* RCTBorderDrawing.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5C06E36CD574FBE8FCDF4DB23632E79F /* REANode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F489AF9891E6E54A83DF74FCB7871F6 /* REANode.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		5C376AF5A4914DBCE85773BE1E2BDF68 /* react-native-safe-area-context-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEDCB21848A89693553BEC75B21ECAE /* react-native-safe-area-context-dummy.m */; };
 		5C46841CF5F539F668E0D64720905929 /* ProtocolVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = AB6B2EB1570A95FAFD89FFEA6E3D8054 /* ProtocolVersion.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5C5C347D40BB054BAC1936A8BAB97B8C /* TestObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4874297089C914C0204AD7A65B51C6D8 /* TestObserver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5C79F59A8DBC029980BBAC2F5F82ED68 /* ApplyTuple.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E69205E667E16F4980F400E4B97AA48 /* ApplyTuple.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -822,7 +827,6 @@
 		5D6209208FD37EDC3B65C39494B519A3 /* ScopeGuard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A39BA757D7C88467D700C8A01631C184 /* ScopeGuard.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		5D783A28D42B69ED3918F66F820C8701 /* double-conversion.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1ABA58A949EB37C7AEDBAC3033105F83 /* double-conversion.cc */; settings = {COMPILER_FLAGS = "-Wno-unreachable-code"; }; };
 		5DBC7689043770D40C6BC3F5471CE075 /* Flipper-Folly-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D23DFA215E512BA7268D0CD327BFA3B0 /* Flipper-Folly-dummy.m */; };
-		5DC27AEDBD9E3EE36BF2FE1912926BAF /* RNCSafeAreaShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 966FBFDFAA44D41603004658E93F4C85 /* RNCSafeAreaShadowView.m */; };
 		5DFFD74F6A074A1B3B3AA556F132A036 /* Phase.h in Headers */ = {isa = PBXBuildFile; fileRef = E295AE89255381175E5DE2CD6C7E16EA /* Phase.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5E04A1579FA1879AD7F90CC74D42B54B /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 24248CBE185D1121D69D99B75D203FB6 /* Event.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5E066559779B48DE4A7699E6B124C701 /* SKNamed.h in Headers */ = {isa = PBXBuildFile; fileRef = F8DB2B905CECC1AD2DBA803D81A28022 /* SKNamed.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -904,7 +908,6 @@
 		6545B20097DEF5E9AD8FCE3384FD824E /* RCTFPSGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DDF9C823C0B11339E48F183BEFAE6B /* RCTFPSGraph.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-nullability-completeness"; }; };
 		6557075639645D9B80E1AA0D60659311 /* experiments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A946064EB3BF593481D19406ADD855A5 /* experiments.cpp */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c++1y -fPIC -fno-objc-arc"; }; };
 		65DA0A1930B8026312A8FAA01E9B545B /* TimeoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 663F7A2E157A813D2BE114417A4AB26C /* TimeoutManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		65F20C115C7320F488D580742E04DC93 /* RNCSafeAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445F9F9BA915E32D08D42E10C4271988 /* RNCSafeAreaView.m */; };
 		660A25F4DF9D480F41899DF88D698D96 /* Promise-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C1ABD3866024227F4CACA2EEAE789C5 /* Promise-inl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		66389E61AA7179E44F1F03B8B3D6218C /* ThreadCachedLists.h in Headers */ = {isa = PBXBuildFile; fileRef = 859804AD932D06C2B6C36683EAC39458 /* ThreadCachedLists.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		66461FCE36880BD3496945D2A2870456 /* FBReactNativeSpec-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E04FE8159D8D90DB07BC836ADECE924 /* FBReactNativeSpec-dummy.m */; };
@@ -941,6 +944,7 @@
 		6A82680CDA20A51EF2DBE4A93FBE7970 /* RCTExceptionsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C59DD2D5AC7508B9DA6A0A4B5A4FADA /* RCTExceptionsManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6A93A1751ED8BF128C46A90FFAD047A9 /* Checksum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E325FFA8718E7BCCA9AF0EE111D7845D /* Checksum.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		6A93D5CAFC49B17A78B17BF41EFD92C5 /* RequestResponseResponder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DE9DD49AB4EECE2F238AAC68DDD084A1 /* RequestResponseResponder.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0  -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
+		6A96FC2BF82B038A5792E6B3E9029B91 /* RNCAsyncStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAD687D910069264B34A53D01A086D2 /* RNCAsyncStorage.m */; };
 		6AA4C6C92E294E2DFB6C7C03B6B7E3B6 /* AppAuthCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DDB4C16063E8186E7F7E7965331457F /* AppAuthCore.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6AAB53314E04A823BB25D688FC6E80BC /* SKScrollViewDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = E08932ED615540815C19FAB5D6B40D73 /* SKScrollViewDescriptor.m */; settings = {COMPILER_FLAGS = "-DDEBUG=1 -DFLIPPER_OSS=1 -DFB_SONARKIT_ENABLED=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0"; }; };
 		6ABED168F396767E341AC4A301EDA4B7 /* RCTClipboard.h in Headers */ = {isa = PBXBuildFile; fileRef = B5713350382152048BDFE54F7939AEA9 /* RCTClipboard.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -955,7 +959,6 @@
 		6BAB744EC4B8699B73D9BFAB9DB5F4EA /* RCTTouchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = E72FA046ECD7FD59AF405BEF9E7724AF /* RCTTouchHandler.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		6C08A0BFBF534C1009FFA73AFE11B35E /* RCTDevLoadingViewSetEnabled.m in Sources */ = {isa = PBXBuildFile; fileRef = 914D673C9C36251AA3830173F8E99234 /* RCTDevLoadingViewSetEnabled.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		6C0CD12543348D1A1FA69B5771A4E9C0 /* ConcurrentBitSet.h in Headers */ = {isa = PBXBuildFile; fileRef = F8C6D82B702CDEDD61C1A19C70D59EBC /* ConcurrentBitSet.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		6CA4114F7B18865EB558884C622ECAA5 /* RCTView+SafeAreaCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A176AFC01769E86FC339245D9C4E52C /* RCTView+SafeAreaCompat.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6CB03A3B3220949D3CC998B3D0020404 /* React-Core-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E529E30016323EC99FB85EFA705ED6D4 /* React-Core-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6D16844C8F96A2DD292833AA84CD155F /* REAPropsNode.m in Sources */ = {isa = PBXBuildFile; fileRef = B98871F96EDBE18DB14C3F9C68CB881B /* REAPropsNode.m */; };
 		6D35AB896CC748B13AC4B3C3972EE181 /* REAAllTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 373A582AB2155A1021601AF1269A077F /* REAAllTransitions.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1108,6 +1111,7 @@
 		7DF9DB5FD128BB853BDC3FDB2C01A4A0 /* FlipperDiagnosticsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 243F46B9841228544B22C0ACB9224A7A /* FlipperDiagnosticsViewController.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7E0CA27C3705C9834B8B549B6ADCE3DA /* RCTTextViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A8268D01A4099735693F889156F61DD /* RCTTextViewManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7E519067C41C04ECC014B67592300C57 /* RCTActivityIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 07E2D734817982C63D839CAE77922D86 /* RCTActivityIndicatorView.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7E64D55BD6423C561CB6E270B673838F /* RNCSafeAreaProviderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3381E55063E575FC42C501E104732E9E /* RNCSafeAreaProviderManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7E796C7B6B601FA5CFA6D5154D7B17C1 /* REATransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C9780864108AB765F74167285E3AE /* REATransition.m */; };
 		7EA6DC2FF302A777BE42B7D367780340 /* Uri-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C1D6C0689A478F9496484B4BFA8725 /* Uri-inl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7EEF00755EBC34ACD363765FBE0439F8 /* Subprocess.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A4B068628DAB6E7EC18AB8DD4D752BD /* Subprocess.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1145,7 +1149,6 @@
 		815B83603B90041A4555DEFAD5027E6B /* RNSVGSolidColorBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 944CDD8B3FA8A9C9A0ABA015050CC2DD /* RNSVGSolidColorBrush.m */; };
 		81787F84E50FC9FB23AEA8CAA8ACAECE /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 067D98F4E29E388F3A098F0450DCA666 /* Subscription.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8197BF731063C42D316581660FB1949E /* ParallelMap-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = C422CABB2D19F5528666A8D37F33A46A /* ParallelMap-inl.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		819836474963B13AE93DBA37FF26CF91 /* RNCAsyncStorage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F70F7B18BD4FD4C0D6743662529A5F /* RNCAsyncStorage-dummy.m */; };
 		819B3F5BA1914F37C501EA745C47B5A9 /* RCTMultipartStreamReader.m in Sources */ = {isa = PBXBuildFile; fileRef = CB53BDAD24F8B592399E5CD05C4033E4 /* RCTMultipartStreamReader.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		81A826455233C411039C346387DF6785 /* RNSVGTextPath.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA8AF47F20FE1FA3EC1A2016D7C6DE6 /* RNSVGTextPath.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		81B4D80D5C847DCB67D1EDDD487309BD /* RCTAccessibilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F37AAC4E34CC1A5DE170562407D4AC5C /* RCTAccessibilityManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1171,7 +1174,6 @@
 		83B004DA720135B1BF76AFEFB04941CD /* ThreadWheelTimekeeper.h in Headers */ = {isa = PBXBuildFile; fileRef = C01062829EF235CC81340E76A8362D8B /* ThreadWheelTimekeeper.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		83B8C769FF404B817F0944EE31B04ADE /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = ACBC557BFBF856ED2C8D0A2E7CDC45FC /* Subscription.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		83CAC7409E471DB6F5AF5782E6C91D4C /* UIColor+SKSonarValueCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4623107FD365611812B96E590A2512F4 /* UIColor+SKSonarValueCoder.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		83D981D69D42BD8850D6FE8DD2D18CB8 /* RNCSafeAreaProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D2ED03EF1458DA67AF84DC81E53432 /* RNCSafeAreaProvider.m */; };
 		83E0923601F85EFB714C0FA6EB44B349 /* RCTInspectorDevServerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = B94FB9DEF9E5288D58F274B96BE2FB30 /* RCTInspectorDevServerHelper.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		842ADA04B918B7D890DCBFD9B2A55236 /* SerialExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D3D31B4F6FBBB82E7632912E7D83199 /* SerialExecutor.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		84477351219F8F90B38A30F79A787210 /* RCTUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9759F8B2F2FFCC6D6EF244E728EC6069 /* RCTUIUtils.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
@@ -1203,12 +1205,12 @@
 		87BB2E809760D697A0FC674E288691B7 /* FramedReader.h in Headers */ = {isa = PBXBuildFile; fileRef = AA30B43B66F3D9633FD4F59F99450A47 /* FramedReader.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		87CB66C902F11F7A98F8495131A29A63 /* RNSScreenStackHeaderConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 61403F90551E51EBE3E4F91D68DB4E22 /* RNSScreenStackHeaderConfig.m */; };
 		87D0A2F4E4C0B1913EB00E7BE4A0C272 /* ScopedEventBaseThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0BF24F14DCAB2A6F12DEC3B4234F3A41 /* ScopedEventBaseThread.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
+		87E7DABDAF7DB410E9751CB573F36D0D /* RNCSafeAreaShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 966FBFDFAA44D41603004658E93F4C85 /* RNCSafeAreaShadowView.m */; };
 		87F541BE733AE45616191E59027C9C6B /* RCTProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = BD525C10773D4604DF1620235FDD304B /* RCTProfile.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8824D1213779C3B2D30D11BCD5762D07 /* YGStyle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D146E609E883080F6A342DAAEBD9731 /* YGStyle.cpp */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c++1y -fPIC -fno-objc-arc"; }; };
 		883B8994DFFA76C3796437C577999A5C /* PropagateConst.h in Headers */ = {isa = PBXBuildFile; fileRef = 3147E5E8CA9ED300B23B18D4E0EE9857 /* PropagateConst.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		88504E7A7D637DCFA43D97877F8EFE7F /* AsyncSSLSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A64DF397E09B8F4081DF43F75C4B6F3 /* AsyncSSLSocket.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		8862DAE15DF1BDE6748FF4D7D982A4F7 /* UICollectionView+SKInvalidation.h in Headers */ = {isa = PBXBuildFile; fileRef = D5E64D00C21D2369EC3A196838D2AD44 /* UICollectionView+SKInvalidation.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		887C97BFF8FE6AAB23F2B7A4F365901E /* react-native-safe-area-context-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEDCB21848A89693553BEC75B21ECAE /* react-native-safe-area-context-dummy.m */; };
 		8883909D62F7A72DA953D3A1BF62423E /* StreamResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D2AED2A70EE05C5CD8B5D8F984C1801 /* StreamResponder.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		88D87C044DEABC67EF9949BB59B27945 /* RCTComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = B6A6C744BEE9B8CC01C1A34B90F75245 /* RCTComponent.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		88F4562E7B7A74EB42A0D703DE61E367 /* SerialExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5200B274ED2C5388747BFAA44D226B9C /* SerialExecutor.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1229,7 +1231,6 @@
 		8B7F53E1F49B6F05DA5E58635A38251A /* RCTFrameAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 930C1D087FB3410C58CD5088C2D9DDFE /* RCTFrameAnimation.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8B88E7F8A631F31066E694EB10EFB2F7 /* DistributedMutexSpecializations.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A7D745D800A124AF118E6842C540A1C /* DistributedMutexSpecializations.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8B8D4C0957F5F13A692CA6B1E94E28C5 /* Parallel-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A544552F52C79678025FE6C1CBE8049 /* Parallel-inl.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8BA01965AE0F888BE823F704AB0EB6A7 /* RNCSafeAreaProviderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3381E55063E575FC42C501E104732E9E /* RNCSafeAreaProviderManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8BE39088D500E0F6A6554373534D781F /* AtomicUtil-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 687FABB47388E425A41B0154A4702B1B /* AtomicUtil-inl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8BEBFAC679699D94E3B51A63ECBB20E8 /* RNSVGDefsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B48129F7E04C766E3A8270244A14455 /* RNSVGDefsManager.m */; };
 		8BF171DCD18BD6CA7333B53ED122EDF2 /* RCTSurfaceStage.h in Headers */ = {isa = PBXBuildFile; fileRef = 89BD06C4AE1BA89128CE89E2194D7FD3 /* RCTSurfaceStage.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1277,7 +1278,6 @@
 		904F991CD92B472945F145302062DB96 /* ConnectionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = DE6E4E08217A0FC1AED785BC6DA76CC0 /* ConnectionSet.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		90544C74C36B85E098F17E2974C49C2E /* REAModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 3323747E7A044748AA0F23EAC0B6B47B /* REAModule.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		905873241B5AF3ED7969719250E32487 /* RNGestureHandlerButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A4FB90A756D9E52CA814E9621E7B2CA /* RNGestureHandlerButton.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9062E6AF8DE81E533095420BDE289902 /* RNCSafeAreaShadowView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8678507E202C06C9A6AB9E15E8B461F0 /* RNCSafeAreaShadowView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		906844B36BE813F1185F2328AC300FF1 /* log_severity.h in Headers */ = {isa = PBXBuildFile; fileRef = 712FD8D5A7A6BA33E32565B7C65C11C8 /* log_severity.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		90CE7DA8504A8FD51526C135FF016A60 /* EnableSharedFromThis.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA63BD190544FDBC250A110E269304C /* EnableSharedFromThis.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		90F746C285B0567933E2B81347A454CD /* GTMAppAuthFetcherAuthorization.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B01F77ECC9E9E469BC8E193CEFE764 /* GTMAppAuthFetcherAuthorization.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1285,6 +1285,7 @@
 		910913F489CE6B46078C3A8AB6C29FA3 /* RCTLayoutAnimationGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8570E34842CCC352513B7EA8F32B4 /* RCTLayoutAnimationGroup.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		91091CCB5F0AF07C30BFAF48F12DAD0B /* LockFreeRingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = F3CC5AB29837D58E38E3DA000952E644 /* LockFreeRingBuffer.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		91120FD448EE81E0C09AEAD69229E47C /* MPMCPipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 22EE3FA5D0318BA9FC45AF82CCD642C9 /* MPMCPipeline.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		91291DCFFE56038ECC19BE4DAD18DA25 /* RNCAsyncStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 358C9D20B0FCAE17A279E686090B2145 /* RNCAsyncStorage.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		915A214B222AECCBEB5B128D21CFEC81 /* RSocketResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = B28BD93A0C81144617C3A1AB8EC475FF /* RSocketResponder.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		915A4A7EDF26CED07E1D1434EB1E82E9 /* RCTTiming.mm in Sources */ = {isa = PBXBuildFile; fileRef = C502962FB79D2D605DB67FB49ED86CE8 /* RCTTiming.mm */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-nullability-completeness"; }; };
 		91639B0173BEEBA23C27AD70A2199921 /* EventBaseThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F642D2F79591B65D2697A5F9E3DE2F22 /* EventBaseThread.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
@@ -1301,7 +1302,6 @@
 		92AAF1338EC7BB7B33E8BA77B3CDFE7B /* RNSVGRadialGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7C0FE9B711868FA0CB5793E5CCEA50 /* RNSVGRadialGradient.m */; };
 		92BE081BD2EF683E5FD4A7055560C1D6 /* RCTBundleURLProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A0A0934077E71487096BEBDCFCBB81A /* RCTBundleURLProvider.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		92BF33555D8935183F58A7B6F8210343 /* Hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B65FDF7157C0B773C749CC8FA0D7829 /* Hardware.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		92E0F28150B20AB70F5302620AA6AB4D /* RNCSafeAreaViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C80C712D852E689E8C8158DFF45969F0 /* RNCSafeAreaViewManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		92F22C6A1C5543C01988F3D6A1B500BE /* REATransition.h in Headers */ = {isa = PBXBuildFile; fileRef = B0A2A8D99849DC6662FB1467920081E0 /* REATransition.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		932DFBE82888E3A89719BE2899D5A3EC /* GTMSessionFetcherService.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB619D16377440CC29AAB7C03908011 /* GTMSessionFetcherService.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		933752F38D070BD138C35C48B9B68E90 /* OIDExternalUserAgentIOSCustomBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = E945AE6F5616BD6C0843A19C4555847B /* OIDExternalUserAgentIOSCustomBrowser.m */; };
@@ -1424,7 +1424,6 @@
 		A0EE08AF810FCE7DB820A739D02AB67D /* ScheduledFrameProcessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4880DDE9E1D9EFD57167ADC51C360C74 /* ScheduledFrameProcessor.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A0F9483A648148A7CC53D86C1AC483FD /* ieee.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B6419BA6CA01562437A403DDCB5EED /* ieee.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A0FAE449176EBFE3A02B4271BE408616 /* DiscriminatedPtrDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A5A3139D7E1D4FB63FAB503CDDCDED1 /* DiscriminatedPtrDetail.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A108D0C39E6723A4722696896373F561 /* RNCAsyncStorageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 914313E921DDF2325CBA8E8CE124A541 /* RNCAsyncStorageDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A14B5D14385164E09EB9EA1761A080AC /* StaticConst.h in Headers */ = {isa = PBXBuildFile; fileRef = 75EE8D587BFC5F8669011F6536D2D0C5 /* StaticConst.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A177E3934753FCDD558087D07F4221DA /* ExecutorWithPriority.h in Headers */ = {isa = PBXBuildFile; fileRef = FBBD61B890D3DE9F8606E64D940502E9 /* ExecutorWithPriority.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A17B63F3360399C51F0F359083CE0F1C /* OIDScopes.m in Sources */ = {isa = PBXBuildFile; fileRef = A893A23DBE4351ACD6ED396FD2DF2669 /* OIDScopes.m */; };
@@ -1452,6 +1451,7 @@
 		A32C104A0FDEBB3C01E0585C58BEB889 /* LifoSem.h in Headers */ = {isa = PBXBuildFile; fileRef = A7BC7D2EFA4BFAF6F3007E3DA4AFF92B /* LifoSem.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A3612A0123E1735883BA10BA48667EC4 /* SKDescriptorMapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56ADF7C2BE796477F5EEA549F7E3AD59 /* SKDescriptorMapper.mm */; settings = {COMPILER_FLAGS = "-DDEBUG=1 -DFLIPPER_OSS=1 -DFB_SONARKIT_ENABLED=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0"; }; };
 		A38C0C3E72CFD9AC1EF78EDBDCBF05C2 /* SocketOptionMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4160EB56C1C965EA6E73A04CA3F4F02B /* SocketOptionMap.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
+		A3B53D61B16677E7A3612514D4FD598C /* RCTView+SafeAreaCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A176AFC01769E86FC339245D9C4E52C /* RCTView+SafeAreaCompat.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A3C53BE15A214408F2185F059BF5D49C /* RCTUITextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 771F3733CF3E01B76EF59431A9CC1470 /* RCTUITextField.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A3D5D33060D68C6D46240B2866BD48E4 /* TcpConnectionAcceptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D710DD7625E035B13CF491199DA33EB8 /* TcpConnectionAcceptor.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0  -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		A3D7043154F557EA3B933A9F6ABE2EB1 /* OIDTokenResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 72652AEF4B4A14D138083D6DB836421B /* OIDTokenResponse.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1529,7 +1529,6 @@
 		AC85753BF7FD18DB4643931EFEA85DDE /* EnvUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EEC35DC9668638D6445CAD7992AD247 /* EnvUtil.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		ACB89F1ABC64067E7020A080C0760FC8 /* ChecksumDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = D385D05987E8BC9D07242389E5C548C6 /* ChecksumDetail.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AD0DA245B890349D01A915A669A813DC /* REASetNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E42F77FE06581ABA0D3F3B32B4156162 /* REASetNode.m */; };
-		AD15E974D8793EA9FA3799E5793CC334 /* RNCSafeAreaViewEdges.h in Headers */ = {isa = PBXBuildFile; fileRef = B1248AB091A0B6ADAB385BD0AD768C16 /* RNCSafeAreaViewEdges.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AD18928D1B3C90B6C54D11A9962403FE /* JsArgumentHelpers-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 565EF07B449E10BDFFCB2A75AA06B371 /* JsArgumentHelpers-inl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AD286DD85230750A6CCB5018B44C9680 /* RSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = B7B807D631F8690B53AFB6D0AEE05B9F /* RSocket.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		AD36FDE720F3F5957FE0BC8D002AF83C /* RCTTextTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = F2451BFDE2353A653675508298DB7DC0 /* RCTTextTransform.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1619,6 +1618,7 @@
 		B93E4547440E3EB9F2C1AC1040707938 /* RCTVibration.mm in Sources */ = {isa = PBXBuildFile; fileRef = F80D48C502E7998A8CF25210C42885DE /* RCTVibration.mm */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-nullability-completeness"; }; };
 		B956322FAF5DA866F3262C231320B673 /* RCTDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 1923D802B2421E37862E9DDC65DB3899 /* RCTDisplayLink.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B956B8CC3730C751BC4A804D9311738D /* Portability.h in Headers */ = {isa = PBXBuildFile; fileRef = 01CB98F9F3E5239DBA8B66A6805F3DB1 /* Portability.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B96E07783FCED21E0C6440F99C39F2BE /* RNCSafeAreaViewLocalData.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC631BE1A9A8AB015384F87AA5F7953 /* RNCSafeAreaViewLocalData.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B97C30083A8C102A6C315344271E126A /* ObservableOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = B9D8A434AA2AAC9D78E1D78412D8988A /* ObservableOperator.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BA23E26A6FE67DF05C0127BED671D96C /* RCTNativeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = CFDC3765BCAD714FF1982299A1509C5B /* RCTNativeModule.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BA43202DD24705D725AE8CBDB9F97971 /* UninitializedMemoryHacks.h in Headers */ = {isa = PBXBuildFile; fileRef = D613C60F8BF311C65E71AF3022D09E9D /* UninitializedMemoryHacks.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1635,6 +1635,7 @@
 		BC11548956D246BE4BCBFA924EDD187F /* ChannelRequester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3187DC2931DF398048143E0B9386501B /* ChannelRequester.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0  -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		BC43436B7A389099FB30A0648616EAB0 /* OIDClientMetadataParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 163D39DD94C1FCD5045B4C12BDC9B61E /* OIDClientMetadataParameters.m */; };
 		BC4E844B5C1235A0C2995CC36755EFC9 /* Fingerprint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16C9CD175169202BB97FE711051EC6F9 /* Fingerprint.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
+		BC6165D6AECA365A15E98F5F6C1635A2 /* RNCSafeAreaViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C80C712D852E689E8C8158DFF45969F0 /* RNCSafeAreaViewManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BCD4CEEFE12B4E2C4A356974A39EA7D1 /* FlipperResponderImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CEDD1D889717CE2849141CAD0AEAC0A /* FlipperResponderImpl.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BCEF996B27A575F09C4D0132F272FDE8 /* FlowableOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C87F5A34E199B37671B63A353853FE /* FlowableOperator.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BD218BA9BDED0E40F254DF0CFDAE2560 /* RNSVGCircleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E87591A7E4B6F2CB4F1A0D2A174BF823 /* RNSVGCircleManager.m */; };
@@ -1750,7 +1751,6 @@
 		CD96C55E5D178016CA0E292383D1B097 /* UTF8String.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DB80D5ED6B9B81809506D773B27C595 /* UTF8String.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CDA81EF8A27116015FC71471E7D2A276 /* CacheLocality.h in Headers */ = {isa = PBXBuildFile; fileRef = 682A859E904E48AD815E74C568EC71DF /* CacheLocality.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CDAEF99ABB3A9A8A6D6C0283278E8EB3 /* RCTJSInvokerModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 935A0281558D0056C69B66B69874B9FE /* RCTJSInvokerModule.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		CE535CDEB9D6DBBB9E70C19F3BE1369E /* RNCSafeAreaViewMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E2E137703B467FF3BDF086612A59C53 /* RNCSafeAreaViewMode.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CE5A684B9B36B8E6ED03E89B58236C36 /* YGFloatOptional.h in Headers */ = {isa = PBXBuildFile; fileRef = C306913E6CE29A0FCDF209FB21AA1072 /* YGFloatOptional.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CE79FE0D33DE6ED83EC2ABC1CB4B20FB /* RCTTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB58DCA7624D110E4D1A1EC7DA9406F /* RCTTextView.m */; };
 		CE993B7A720202BD3F52F2F25C64631C /* MicroLock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01E50F843C430336D21CEAC650B01569 /* MicroLock.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
@@ -1765,7 +1765,6 @@
 		CF98A77B3979132315D4B41FDE68835C /* FKUserDefaultsSwizzleUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = DB0EFEAAAD83440C722C7CBF8F0CEAE9 /* FKUserDefaultsSwizzleUtility.m */; settings = {COMPILER_FLAGS = "-DDEBUG=1 -DFLIPPER_OSS=1 -DFB_SONARKIT_ENABLED=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0"; }; };
 		CFB195728626BAF880E516A88CD06D76 /* AsyncTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = A85B1A9CED0D2C91846FD32B0C5EA1B0 /* AsyncTrace.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D0031012C7DB45862D444B387FDE838D /* CString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DD4BB6A4B67F22CED51ABDF2095DB3D /* CString.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_PTHREAD=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
-		D017A2D31E3E20C791F6F44D7A01B8A6 /* RNCSafeAreaProviderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F174FB452A309C76D311D56F06CDA1 /* RNCSafeAreaProviderManager.m */; };
 		D028F9254E9F48B91DBF16AA09C4C4C3 /* React-RCTImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE33913FD18DCA26EE91D2852872ADB /* React-RCTImage-dummy.m */; };
 		D075149899EA0924C713EE70D89EDDD7 /* Observable.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CB33F5FE4D458828EF519B2B5ACBB30 /* Observable.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D0A1285841D877AACCCA66740BE11382 /* RCTProgressViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE909F3BB46A37B6205B4EDACE8FDD13 /* RCTProgressViewManager.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
@@ -1835,7 +1834,6 @@
 		D882F86D714E9FA5F95652F2B452F032 /* Builtins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FD79D7EB8AE8C11E8667889E2B80F38 /* Builtins.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		D898AF6B8B000D9995A74330338A8005 /* UnboundedQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = C5057E43D73DBDA9181F94F56AD11966 /* UnboundedQueue.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D8D9BDA9999B48664BC9366EB6C950C2 /* Semaphore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0974879B4BB0C01ADAB95847F4D2901 /* Semaphore.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
-		D8F0C0DA31A17B805ED9F1CF41673F8A /* RNCSafeAreaView.h in Headers */ = {isa = PBXBuildFile; fileRef = C03B6E4F9779A427B1340B9B6C894360 /* RNCSafeAreaView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D8FFB84AAF8B54A34E45C1B85E84A329 /* MallocImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C87FB16EBDDADA7BA1A5FBAD74A6858 /* MallocImpl.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		D9347E70DE762CE58832C075B55C6C07 /* AtomicSharedPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7B7D2600DD1EE83D2AE0D0E651ACBD /* AtomicSharedPtr.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D942F947E98B998E31292371B94924C1 /* RNFlingHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = A487B675962345325343B408CEE066F0 /* RNFlingHandler.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -1987,6 +1985,7 @@
 		ECE6B11D338ADF9238F3368B6B596E16 /* RNAppleAuthButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E87247C33A102A2D7759FF9BF89E1A9 /* RNAppleAuthButtonView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		ED0B5FFCE28F7338F5478A58E29E43FA /* RCTTextAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 4175B38513C207DC7C964967B917A62B /* RCTTextAttributes.m */; };
 		ED160089F936431DBCD4AE2836B01AFE /* ExceptionWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C9868064265143C0590FFCA402EFAA5 /* ExceptionWrapper.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		ED3A76FD662E3C0F9E85B0A3D26D3B32 /* RNCSafeAreaViewLocalData.m in Sources */ = {isa = PBXBuildFile; fileRef = C63B7D3E69C25FD08B38A0730670C90E /* RNCSafeAreaViewLocalData.m */; };
 		ED4EB8735DB3991856F023C960DCF69C /* RCTParserUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 830E9E9488EC903447D0C460CFD6A5A3 /* RCTParserUtils.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		ED7AEB9932F6E45F153925D58E2A8467 /* AsyncTrace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5BD8F8B7EE0D5B64E2DE92F62D709982 /* AsyncTrace.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		ED7B30F612E22662D53F8784FE3BA966 /* MethodCall.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE1E96289C117BC5DB4E5DD67AA546C /* MethodCall.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -2003,6 +2002,7 @@
 		EE4CCF012336407763D1F200CD7EE2DF /* Cursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 255ACE812263821E7BA47B4494614836 /* Cursor.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		EE5AD70E8B391A48DEDC4EE4C6EE4F4F /* RCTTurboModule.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05D61ED7D5125DCD1F438001A6B0F2 /* RCTTurboModule.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		EEA07292F616CB19C9423FB4A3DD6EBB /* RNSVGUnits.h in Headers */ = {isa = PBXBuildFile; fileRef = F921B4C5A40A44B8D660A570089D4787 /* RNSVGUnits.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EEB9C2CCECDA41E4F3CA03BCA26C3740 /* RNCSafeAreaViewEdges.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C3B8BE0E924B794D3A20DE9DB926E05 /* RNCSafeAreaViewEdges.m */; };
 		EEC3810D4C8F2ADA22D2A910C2CC3A98 /* RCTModuleMethod.mm in Sources */ = {isa = PBXBuildFile; fileRef = F84A7B6125C65E16229D4C392FCCF4A8 /* RCTModuleMethod.mm */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		EEEF524042849508572F7E8F75A77FEB /* StringKeyedUnorderedSet.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C7B5D298583FA7904B3711F6CB8D9A /* StringKeyedUnorderedSet.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		EF0D49453CB9A5DD8D46ABD613F05ED8 /* Init.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A5A363F6A8229EE37EF7E414AEB06FB /* Init.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -2013,6 +2013,7 @@
 		EF43B17BFB471608ABEF9D543051F247 /* GTMSessionFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CC761379781B42C3E96D19F1AD42CE9 /* GTMSessionFetcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		EF651E5664A2BEB28D3D630E4A8AFAA3 /* GTMOAuth2KeychainCompatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 948F2FB543B0D1A739B6442907551E9D /* GTMOAuth2KeychainCompatibility.m */; };
 		EF97BEB378B80FFDB78E28AFC838C5F8 /* FlipperInitConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 06ECC9FAA6D70D1C0AD70795B57EAF07 /* FlipperInitConfig.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EFE529101166603A85CD19BFC14CE377 /* RNCSafeAreaProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D2ED03EF1458DA67AF84DC81E53432 /* RNCSafeAreaProvider.m */; };
 		EFECD8372DA575478258670959CCFECD /* Malloc.h in Headers */ = {isa = PBXBuildFile; fileRef = CE64A076472677D7127893110A41DF30 /* Malloc.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F02C80E50A42C5C5D22B26EC7C971239 /* RNPinchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D38BA6BE4EBD28DE2D9DAFC6EEE0A8EA /* RNPinchHandler.m */; };
 		F036F92B06A1D33ECB4AC2FD1ACEEF48 /* YGConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06E275D54697FBADDBA29B903F968965 /* YGConfig.cpp */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c++1y -fPIC -fno-objc-arc"; }; };
@@ -2047,6 +2048,7 @@
 		F3579553EA66B76DC01489F4576B8EC5 /* RCTRawTextViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B32115100F48A910FC9367854D668A /* RCTRawTextViewManager.m */; };
 		F39DB78BB1D31158FCBA9B86F7BB7A9D /* PicoSpinLock.h in Headers */ = {isa = PBXBuildFile; fileRef = 32555A6B73487F1DF178F157AEF96831 /* PicoSpinLock.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F3BBC68660C948014D104CA4023FA13E /* StaticTracepoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C5E068746BB2959C0E4CA72712D1182 /* StaticTracepoint.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F3C3701E51E208AD37625153A17829CF /* RNCSafeAreaViewEdges.h in Headers */ = {isa = PBXBuildFile; fileRef = B1248AB091A0B6ADAB385BD0AD768C16 /* RNCSafeAreaViewEdges.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F41B5C869375AC71A5A2AADFA794973D /* RSocketParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B11314DB63CCD89FC6EA468D0327AA /* RSocketParameters.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0  -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		F41BF73675910E0978E7D1AF948D3CEC /* RNSVGLinearGradientManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9D41FFB4BDF99A792F2423D460C95D /* RNSVGLinearGradientManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F43E41A7B514E3045E57BA0ADC84BE10 /* RCTBaseTextShadowView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A642E0250A5BC3C9FA92808D118C6AC /* RCTBaseTextShadowView.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -2074,7 +2076,6 @@
 		F738210AB4EECCE2D8617F8F06BD1652 /* RAMBundleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CA9EDAFE50CC561D5810439E1AABBC /* RAMBundleRegistry.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F73AB7B61199B0343C380C9A736D80F6 /* RCTAsyncLocalStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = A05B639C9540478CAE35E4E70FD9F613 /* RCTAsyncLocalStorage.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F77249A523B79EA3FC662364F42B2E6A /* RNSVGMask.h in Headers */ = {isa = PBXBuildFile; fileRef = 79DC140A8A213DB38E3951603C0282BB /* RNSVGMask.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F7792BF3636610713062788116665BF3 /* RNCSafeAreaViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3686C24DA126641F7CE4BC6886121453 /* RNCSafeAreaViewManager.m */; };
 		F7A3876A951EDB0204E06058D402BC8B /* React-Core-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0C643A9D2DDB4954751DCDC743FF3 /* React-Core-dummy.m */; };
 		F7D1A587F1C235937C3D4E9D5D40773B /* jsi.h in Headers */ = {isa = PBXBuildFile; fileRef = BF5BAFFD2CCAE170F884466E9A7163C3 /* jsi.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F809068D34F7639A3B29092E895E1B79 /* OIDEndSessionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16621FD258BEB3F86C387DA81E87BE8B /* OIDEndSessionRequest.m */; };
@@ -2101,8 +2102,6 @@
 		FABA4A9C190403F8BBC9BC2C2F9423BA /* F14Set.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A51B9738D59146AD2976653EECF8156 /* F14Set.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FAC68A2364FC07AD1B7A518A0E30BB65 /* JSDeltaBundleClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 957C55C6ACADF03EC5706D98E6AE110A /* JSDeltaBundleClient.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		FB3D3538ACBA09340276F92D1FFE6DD8 /* CancellationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 57F1B9DFF73508433F32D6403B1508BB /* CancellationToken.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FB72FD83F67C894AD142EB1845000CF2 /* RNCAsyncStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 358C9D20B0FCAE17A279E686090B2145 /* RNCAsyncStorage.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FB9DEAA3FF6C672E354650B1ECAF88D1 /* RNCSafeAreaViewLocalData.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC631BE1A9A8AB015384F87AA5F7953 /* RNCSafeAreaViewLocalData.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FBA5137622B95DDB1CF2483EF7706469 /* Merge.h in Headers */ = {isa = PBXBuildFile; fileRef = 3168DB9A442D428E19E22038023D1C1A /* Merge.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FBAC3945C3C35BA221A473A74FAE780C /* GTMSessionFetcherLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = C5AF3CECB64AF728071657492D6BBA26 /* GTMSessionFetcherLogging.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FBB2A16C80762C6FEBDD54C4E198E869 /* RCTModalHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E376F27C4CC04EB377CB2B0D3F7410A /* RCTModalHostViewController.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
@@ -2130,6 +2129,7 @@
 		FEB49F44A602EFD538EDAE4DCCB97635 /* Frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6872751AF657CB25316E6535B3B63B3 /* Frame.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0  -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		FEC9DE8D663D0103023B206FC0971841 /* RCTModuleData.h in Headers */ = {isa = PBXBuildFile; fileRef = 82D45E2AD7C815DE23CC59E54AB139DF /* RCTModuleData.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FEE833026C990409F3C88F25B9BE917B /* AsyncSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0DBB479CB75631C4E71D1FE027A3C47 /* AsyncSocket.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
+		FEEBE253C58BACB669C8D31E52C88C37 /* RNCSafeAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445F9F9BA915E32D08D42E10C4271988 /* RNCSafeAreaView.m */; };
 		FEF814DE1CBC44D075C512085235F674 /* RNSVGViewBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 512B6FEF613A7618243111592ACA3B0B /* RNSVGViewBox.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FF022B4327CA200A6BAD804E21F7943A /* YogaKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B714845D33E848E7E03AA7FA7E19A /* YogaKit-dummy.m */; };
 		FF2634BA7E18FF59D124AB871B988BD9 /* RCTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B110221F3AA6A4B1E05E1FCE7B99FCB /* RCTUtils.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
@@ -2211,6 +2211,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D0EFEFB685D97280256C559792236873;
 			remoteInfo = glog;
+		};
+		0F9F1D63D66E4DE8F19498D4CA28BDA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ACAA9BE580DD31A5CB9D97C45D9492D;
+			remoteInfo = "React-Core";
 		};
 		0FD6A4ED78388214475895E97458EB68 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2323,13 +2330,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = C3496D0495E700CF08A90C41EA8FA4BB;
 			remoteInfo = FBReactNativeSpec;
-		};
-		1B209875BE1A2519F69D4DFF0948FFAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1BEE828C124E6416179B904A9F66D794;
-			remoteInfo = React;
 		};
 		1CB7C812A3ABD08B1848797BEBC2B7F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2989,13 +2989,6 @@
 			remoteGlobalIDString = D0EFEFB685D97280256C559792236873;
 			remoteInfo = glog;
 		};
-		7CBA093BB5F4F39B712F2AF488BEEC02 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1BEE828C124E6416179B904A9F66D794;
-			remoteInfo = React;
-		};
 		7CFBF32A43B842E4F6FA4064D75AA412 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -3228,6 +3221,13 @@
 			remoteInfo = RNSVG;
 		};
 		97C5742CB56519463F9BDD22F1DA34FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ACAA9BE580DD31A5CB9D97C45D9492D;
+			remoteInfo = "React-Core";
+		};
+		9AE49792ADBA47BA702FF4B6C543E00D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -6251,13 +6251,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		10528A71B397AE90D0E7E8C4978CC6DC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		14717285DA203B4622D0A2B3A21FD39B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -6328,6 +6321,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		38C0D24DAA3BF53DE900D821E0460687 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E3EF29BB8E24D8FFF2483706117BB78 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -6371,6 +6371,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6434F00738CF391ED25AF4D7733C74E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6604DB18DC88DCF57DDE85C75DB0FF74 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6525,13 +6532,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DE4017F61429DB6551C50619DF0F5FA7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F28874E19D1005DE4580E71D01B5D07D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -11577,19 +11577,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		453A037142982EFFEF3272C7147213A2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3B53D61B16677E7A3612514D4FD598C /* RCTView+SafeAreaCompat.h in Headers */,
+				1EABAD844A74806F69D68D6D85F803F4 /* RNCSafeAreaProvider.h in Headers */,
+				7E64D55BD6423C561CB6E270B673838F /* RNCSafeAreaProviderManager.h in Headers */,
+				40B382061C67AA2BE4A85923D8204D09 /* RNCSafeAreaShadowView.h in Headers */,
+				46C6DD6276814041D4EA5005A0E2207D /* RNCSafeAreaView.h in Headers */,
+				F3C3701E51E208AD37625153A17829CF /* RNCSafeAreaViewEdges.h in Headers */,
+				B96E07783FCED21E0C6440F99C39F2BE /* RNCSafeAreaViewLocalData.h in Headers */,
+				BC6165D6AECA365A15E98F5F6C1635A2 /* RNCSafeAreaViewManager.h in Headers */,
+				2F268DA9A79928C6E9CDAA7CB4B63B02 /* RNCSafeAreaViewMode.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		496609E8F641334AD309918D04F1FE3E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5975E94A821922BCC9093DA0954E2007 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FB72FD83F67C894AD142EB1845000CF2 /* RNCAsyncStorage.h in Headers */,
-				A108D0C39E6723A4722696896373F561 /* RNCAsyncStorageDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11736,22 +11743,6 @@
 			files = (
 				96FEB9F17F3553A3EACC3D455D3DD5EE /* RCTConvertHelpers.h in Headers */,
 				EBA14ECF6325AE246FF34646A5D8CA77 /* RCTTypedModuleConstants.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8CE945DCFFE2D8FA28B9F913B59565FF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6CA4114F7B18865EB558884C622ECAA5 /* RCTView+SafeAreaCompat.h in Headers */,
-				40D3D7F8A9A20E8AF9968CED7BA360DC /* RNCSafeAreaProvider.h in Headers */,
-				8BA01965AE0F888BE823F704AB0EB6A7 /* RNCSafeAreaProviderManager.h in Headers */,
-				9062E6AF8DE81E533095420BDE289902 /* RNCSafeAreaShadowView.h in Headers */,
-				D8F0C0DA31A17B805ED9F1CF41673F8A /* RNCSafeAreaView.h in Headers */,
-				AD15E974D8793EA9FA3799E5793CC334 /* RNCSafeAreaViewEdges.h in Headers */,
-				FB9DEAA3FF6C672E354650B1ECAF88D1 /* RNCSafeAreaViewLocalData.h in Headers */,
-				92E0F28150B20AB70F5302620AA6AB4D /* RNCSafeAreaViewManager.h in Headers */,
-				CE535CDEB9D6DBBB9E70C19F3BE1369E /* RNCSafeAreaViewMode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12343,6 +12334,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EAB2452B626D5EA3914F215831B293A8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91291DCFFE56038ECC19BE4DAD18DA25 /* RNCAsyncStorage.h in Headers */,
+				430E699E019D35202E96442C959FA8DC /* RNCAsyncStorageDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13118,16 +13118,16 @@
 		};
 		89F573A6B1292B3B2296B2206BFDC3D7 /* RNCAsyncStorage */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E755D7171EE28A0BD3F13C7FB6B31334 /* Build configuration list for PBXNativeTarget "RNCAsyncStorage" */;
+			buildConfigurationList = C1A3A3799318F33AF34D880030FEB2E6 /* Build configuration list for PBXNativeTarget "RNCAsyncStorage" */;
 			buildPhases = (
-				5975E94A821922BCC9093DA0954E2007 /* Headers */,
-				32C10B386D5EC00648469CEA23658E10 /* Sources */,
-				F28874E19D1005DE4580E71D01B5D07D /* Frameworks */,
+				EAB2452B626D5EA3914F215831B293A8 /* Headers */,
+				9F0A60FC92C9CF1401AA9D6EAA3D39DA /* Sources */,
+				6604DB18DC88DCF57DDE85C75DB0FF74 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C5A0E011AD4DDD3DB47BE2A057285067 /* PBXTargetDependency */,
+				333C831198AFB6B002AA30D1538825B2 /* PBXTargetDependency */,
 			);
 			name = RNCAsyncStorage;
 			productName = RNCAsyncStorage;
@@ -13306,16 +13306,16 @@
 		};
 		BD9A27D8398DEB3205D3F8937B0672A0 /* react-native-safe-area-context */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3CA06B300CC116BE49202F8E1F82A5F8 /* Build configuration list for PBXNativeTarget "react-native-safe-area-context" */;
+			buildConfigurationList = E0EA22F4F8D75D9CB59AD5C9DB234AE5 /* Build configuration list for PBXNativeTarget "react-native-safe-area-context" */;
 			buildPhases = (
-				8CE945DCFFE2D8FA28B9F913B59565FF /* Headers */,
-				2D1F7E55C4C79B8B5D2F36B78D89B6A6 /* Sources */,
-				10528A71B397AE90D0E7E8C4978CC6DC /* Frameworks */,
+				453A037142982EFFEF3272C7147213A2 /* Headers */,
+				18BDB7C11FC4A8B41251BEFB3C9190AA /* Sources */,
+				38C0D24DAA3BF53DE900D821E0460687 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				BE7D0958FA0D61A89ADF1137F78DA078 /* PBXTargetDependency */,
+				630F65227D26151426BF239D2E79EB7D /* PBXTargetDependency */,
 			);
 			name = "react-native-safe-area-context";
 			productName = "react-native-safe-area-context";
@@ -13798,6 +13798,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		18BDB7C11FC4A8B41251BEFB3C9190AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1114C3B717DDE041BD5DEF83E89C720F /* RCTView+SafeAreaCompat.m in Sources */,
+				5C376AF5A4914DBCE85773BE1E2BDF68 /* react-native-safe-area-context-dummy.m in Sources */,
+				EFE529101166603A85CD19BFC14CE377 /* RNCSafeAreaProvider.m in Sources */,
+				23C680CB3BF85A178560A81F871DAEA2 /* RNCSafeAreaProviderManager.m in Sources */,
+				87E7DABDAF7DB410E9751CB573F36D0D /* RNCSafeAreaShadowView.m in Sources */,
+				FEEBE253C58BACB669C8D31E52C88C37 /* RNCSafeAreaView.m in Sources */,
+				EEB9C2CCECDA41E4F3CA03BCA26C3740 /* RNCSafeAreaViewEdges.m in Sources */,
+				ED3A76FD662E3C0F9E85B0A3D26D3B32 /* RNCSafeAreaViewLocalData.m in Sources */,
+				2A297E0ACA942EAB4A64A52D314D91AD /* RNCSafeAreaViewManager.m in Sources */,
+				23C5DDC4808AF4BF0E3FBCCABA287648 /* RNCSafeAreaViewMode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1980B70B7C49F53729BA2AC7AF04A0D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -13964,32 +13981,6 @@
 				17D81E52C72089A9C461660AB42A2118 /* RCTWrapperViewController.m in Sources */,
 				F7A3876A951EDB0204E06058D402BC8B /* React-Core-dummy.m in Sources */,
 				FF44B3ADE76F9674DBC6EEB03A12D916 /* UIView+React.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D1F7E55C4C79B8B5D2F36B78D89B6A6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				42B9C64402F7F76D826CBC8B924AC777 /* RCTView+SafeAreaCompat.m in Sources */,
-				887C97BFF8FE6AAB23F2B7A4F365901E /* react-native-safe-area-context-dummy.m in Sources */,
-				83D981D69D42BD8850D6FE8DD2D18CB8 /* RNCSafeAreaProvider.m in Sources */,
-				D017A2D31E3E20C791F6F44D7A01B8A6 /* RNCSafeAreaProviderManager.m in Sources */,
-				5DC27AEDBD9E3EE36BF2FE1912926BAF /* RNCSafeAreaShadowView.m in Sources */,
-				65F20C115C7320F488D580742E04DC93 /* RNCSafeAreaView.m in Sources */,
-				17C9F63079A7777BDF392197B7DAF65F /* RNCSafeAreaViewEdges.m in Sources */,
-				3C52279D222791B4251C03AF8205D902 /* RNCSafeAreaViewLocalData.m in Sources */,
-				F7792BF3636610713062788116665BF3 /* RNCSafeAreaViewManager.m in Sources */,
-				3D6B17E830FAC8972A903412ABC93839 /* RNCSafeAreaViewMode.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		32C10B386D5EC00648469CEA23658E10 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				819836474963B13AE93DBA37FF26CF91 /* RNCAsyncStorage-dummy.m in Sources */,
-				38F35E24D856E9519A212722C0D13E59 /* RNCAsyncStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14382,6 +14373,15 @@
 				0624F9F469C1A35824EB3F7741FE174A /* OIDTokenUtilities.m in Sources */,
 				8A5BDB2C46E7DFBFB56BD77A595D038E /* OIDURLQueryComponent.m in Sources */,
 				3EB93FA6FAE2916553E5B0083A429979 /* OIDURLSessionProvider.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F0A60FC92C9CF1401AA9D6EAA3D39DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53EBFA1B8C597A67BD278CF2A7A64927 /* RNCAsyncStorage-dummy.m in Sources */,
+				6A96FC2BF82B038A5792E6B3E9029B91 /* RNCAsyncStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -15122,6 +15122,12 @@
 			target = 8627999EF1D5E93E13DAFF580DA8CDCF /* GTMAppAuth */;
 			targetProxy = CFBE3CB2F286EF0D95A2ACDEBE0C1014 /* PBXContainerItemProxy */;
 		};
+		333C831198AFB6B002AA30D1538825B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "React-Core";
+			target = 7ACAA9BE580DD31A5CB9D97C45D9492D /* React-Core */;
+			targetProxy = 9AE49792ADBA47BA702FF4B6C543E00D /* PBXContainerItemProxy */;
+		};
 		3483CE6A36AB8FE0D7DE4A6690AAE2EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RNVectorIcons;
@@ -15343,6 +15349,12 @@
 			name = glog;
 			target = D0EFEFB685D97280256C559792236873 /* glog */;
 			targetProxy = AB84CA9CF1BA657AB418E686EC1FA1AE /* PBXContainerItemProxy */;
+		};
+		630F65227D26151426BF239D2E79EB7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "React-Core";
+			target = 7ACAA9BE580DD31A5CB9D97C45D9492D /* React-Core */;
+			targetProxy = 0F9F1D63D66E4DE8F19498D4CA28BDA8 /* PBXContainerItemProxy */;
 		};
 		63D7F15F3F84CE1D7897DA20F6CE6F43 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -15818,12 +15830,6 @@
 			target = A4F685BE3CAC127BDCE4E0DBBD88D191 /* Folly */;
 			targetProxy = EF35D916FEB5C7D4563D576974DC8374 /* PBXContainerItemProxy */;
 		};
-		BE7D0958FA0D61A89ADF1137F78DA078 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = React;
-			target = 1BEE828C124E6416179B904A9F66D794 /* React */;
-			targetProxy = 7CBA093BB5F4F39B712F2AF488BEEC02 /* PBXContainerItemProxy */;
-		};
 		BF9BF0CDEA697B8AF2D71C6FF954AC77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RCTRequired;
@@ -15883,12 +15889,6 @@
 			name = RNCMaskedView;
 			target = 1A0445474DA11CA659C4BCC5AB64B1BF /* RNCMaskedView */;
 			targetProxy = D2429D37B251094E0A215C2AE8130707 /* PBXContainerItemProxy */;
-		};
-		C5A0E011AD4DDD3DB47BE2A057285067 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = React;
-			target = 1BEE828C124E6416179B904A9F66D794 /* React */;
-			targetProxy = 1B209875BE1A2519F69D4DFF0948FFAC /* PBXContainerItemProxy */;
 		};
 		C6C6858C37A497170A770DE62B2B6680 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -16303,6 +16303,30 @@
 			};
 			name = Debug;
 		};
+		06B9C9891849335246715D83F7ABCDC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D91D820363DD70E13568E2EED9197F4B /* react-native-safe-area-context.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-safe-area-context/react-native-safe-area-context-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = react_native_safe_area_context;
+				PRODUCT_NAME = "react-native-safe-area-context";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		0813BC0B176EB974C8D3509ACF3CB2E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8F9528AB2CDE2CA122BF1C8F0CF7599C /* Flipper.debug.xcconfig */;
@@ -16628,6 +16652,30 @@
 			};
 			name = Release;
 		};
+		214BF30EC519AF373B79F64E64A09166 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 000C530EAC7D7228FF7C7864FCC21788 /* RNCAsyncStorage.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/RNCAsyncStorage/RNCAsyncStorage-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = RNCAsyncStorage;
+				PRODUCT_NAME = RNCAsyncStorage;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		250B8A3943036C155791E00A9DCFFF2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 931C81C0C4A4610C1BC7723474145CAF /* RNReanimated.debug.xcconfig */;
@@ -16702,6 +16750,31 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		2A7B49779074E2BD73FBEF99C9846CCD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0F50DC39D2787C9F98574506BC2F93B /* RNCAsyncStorage.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/RNCAsyncStorage/RNCAsyncStorage-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = RNCAsyncStorage;
+				PRODUCT_NAME = RNCAsyncStorage;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		2BA2C71BD76402EF94CFA2C0020025F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -17478,30 +17551,6 @@
 			};
 			name = Debug;
 		};
-		850337AFDD5E1D67EA86CCC68B1D1C29 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000C530EAC7D7228FF7C7864FCC21788 /* RNCAsyncStorage.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/RNCAsyncStorage/RNCAsyncStorage-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = RNCAsyncStorage;
-				PRODUCT_NAME = RNCAsyncStorage;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
 		853AE44C76ED5D64D42458FDC75D4695 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F20CCBDA55327A7F25869521429F3B31 /* RNCMaskedView.debug.xcconfig */;
@@ -17738,6 +17787,31 @@
 			};
 			name = Release;
 		};
+		9A192E39059A93CC7BA6D5594A97FFC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26B9E2FA76DEE8DC935BE49A674410BC /* react-native-safe-area-context.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-safe-area-context/react-native-safe-area-context-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = react_native_safe_area_context;
+				PRODUCT_NAME = "react-native-safe-area-context";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		9A1B96465F9F49AF42C11A5A18B3DD07 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A4E757E7C372F96A0F87E98F31A07147 /* Pods-noveltyhrmobile.debug.xcconfig */;
@@ -17930,31 +18004,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		A96970AE91B5FEAE124966D7FD729588 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26B9E2FA76DEE8DC935BE49A674410BC /* react-native-safe-area-context.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-safe-area-context/react-native-safe-area-context-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = react_native_safe_area_context;
-				PRODUCT_NAME = "react-native-safe-area-context";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		A988A0925FC9BF99FCD1284F5D13F068 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -18312,31 +18361,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		BA0CBF970980B17236286C2B0E11B845 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0F50DC39D2787C9F98574506BC2F93B /* RNCAsyncStorage.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/RNCAsyncStorage/RNCAsyncStorage-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = RNCAsyncStorage;
-				PRODUCT_NAME = RNCAsyncStorage;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		BADA3543146BDFA32FC2825C0C0163BE /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -18815,30 +18839,6 @@
 			};
 			name = Debug;
 		};
-		F5C0BB233A222D2EC73CF7874F6A2EED /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D91D820363DD70E13568E2EED9197F4B /* react-native-safe-area-context.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-safe-area-context/react-native-safe-area-context-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = react_native_safe_area_context;
-				PRODUCT_NAME = "react-native-safe-area-context";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
 		F77A6D379CE31BA968B0E69123066811 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 794803E0344BEF5D92EB3B95A2D4A4F2 /* FlipperKit.debug.xcconfig */;
@@ -19106,15 +19106,6 @@
 			buildConfigurations = (
 				853AE44C76ED5D64D42458FDC75D4695 /* Debug */,
 				FF36262F2570D56DEE21899AB4C85F3B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3CA06B300CC116BE49202F8E1F82A5F8 /* Build configuration list for PBXNativeTarget "react-native-safe-area-context" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F5C0BB233A222D2EC73CF7874F6A2EED /* Debug */,
-				A96970AE91B5FEAE124966D7FD729588 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -19389,6 +19380,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		C1A3A3799318F33AF34D880030FEB2E6 /* Build configuration list for PBXNativeTarget "RNCAsyncStorage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				214BF30EC519AF373B79F64E64A09166 /* Debug */,
+				2A7B49779074E2BD73FBEF99C9846CCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CA13B89288F197784B8889C47C03E3AA /* Build configuration list for PBXNativeTarget "React-Core-AccessibilityResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -19452,20 +19452,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E0EA22F4F8D75D9CB59AD5C9DB234AE5 /* Build configuration list for PBXNativeTarget "react-native-safe-area-context" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06B9C9891849335246715D83F7ABCDC2 /* Debug */,
+				9A192E39059A93CC7BA6D5594A97FFC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E2400DAFA5212617654DA4462D904C41 /* Build configuration list for PBXNativeTarget "Pods-noveltyhrmobile-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B6305850F8430AB835C3E95560FA9C8A /* Debug */,
 				868EE8245D38C6BACF745B07E84E0D33 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E755D7171EE28A0BD3F13C7FB6B31334 /* Build configuration list for PBXNativeTarget "RNCAsyncStorage" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				850337AFDD5E1D67EA86CCC68B1D1C29 /* Debug */,
-				BA0CBF970980B17236286C2B0E11B845 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
