@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { settingStyle as style } from '../../assets/styles';
 
-const ComingSoon = () => {
+const ComingSoon = ({ children }: any) => {
   return (
     <View style={style.comingSoonContainer}>
-      <Text style={style.comingSoonText}>COMING SOON</Text>
+      <Text style={style.comingSoonText}>{children}</Text>
     </View>
   );
 };
