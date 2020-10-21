@@ -123,7 +123,7 @@ const requestStyle = StyleSheet.create({
     }),
   },
   buttonSpacer: {
-    marginLeft: normalize(theme.spacing.wider),
+    marginLeft: normalize(12),
   },
   approve: {
     fontFamily: fonts.mulishBold,
