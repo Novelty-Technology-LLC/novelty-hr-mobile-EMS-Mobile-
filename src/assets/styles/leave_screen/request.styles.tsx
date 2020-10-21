@@ -38,7 +38,8 @@ const requestStyle = StyleSheet.create({
   status: {
     flexDirection:'row',
     alignItems:'center',
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    marginTop:normalize(3)
   },
   date: {
     fontSize: normalize(theme.size.base),
@@ -58,7 +59,7 @@ const requestStyle = StyleSheet.create({
     marginTop: normalize(7),
   },
   pastState: {
-    marginTop: normalize(3),
+    marginTop: normalize(2.5),
   },
   icon: {
     transform: [{ rotate: '-40deg' }],
@@ -72,7 +73,8 @@ const requestStyle = StyleSheet.create({
       android: { padding: normalize(5), borderRadius: normalize(14) },
     }),
   },
-  stateView: { flexDirection: 'column' },
+  stateView: { marginTop:normalize(3) },
+  stateViewAdmin: { marginTop:normalize(10) },
   state: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,

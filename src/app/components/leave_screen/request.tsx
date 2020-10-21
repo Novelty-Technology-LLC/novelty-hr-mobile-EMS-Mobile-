@@ -44,7 +44,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           <View style={style.dateView}>
             <View style={style.status}>
             <Text style={style.date}>{item.date}</Text>
-              <State state={item.state} />
+              <View><State style={style.stateView} state={item.state} /></View>
             </View>
               <Text style={style.type}>{item.type}</Text>
           </View>
