@@ -73,7 +73,11 @@ const requestStyle = StyleSheet.create({
       android: { padding: normalize(5), borderRadius: normalize(14) },
     }),
   },
-  stateView: { marginTop:normalize(3) },
+  stateView: { ...Platform.select({
+    android:{marginTop:normalize(5)},ios:{
+      marginTop:normalize(4)
+    }
+  }) },
   stateViewAdmin: { marginTop:normalize(10) },
   state: {
     fontFamily: fonts.poppinsMedium,
