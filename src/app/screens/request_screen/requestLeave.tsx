@@ -116,6 +116,9 @@ const RequestLeave = ({ route }: any) => {
       setisLoading(!isLoading);
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {
+      if(!error.message.includes('Selected day exceeds'))
+      error.message = "Unkonown error occured"
+      
       snackErrorTop(error);
     }
   };

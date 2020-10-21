@@ -10,7 +10,7 @@ const Profile = () => {
       <Header>
         <Text style={headerText}>Profile</Text>
       </Header>
-      <ComingSoon />
+      <ComingSoon>COMING SOON</ComingSoon>
     </View>
   );
 };

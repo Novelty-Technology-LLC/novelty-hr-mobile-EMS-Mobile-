@@ -39,6 +39,14 @@ const approveRequest = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  stateView:{...Platform.select({
+    android:{
+      marginTop:normalize(4)
+    },
+    ios:{
+      marginTop:normalize(2)
+    }
+  })},
   statusView:{flexDirection:'row',alignItems:'center',justifyContent:'space-between'},
   image: {
     width: normalize(40),

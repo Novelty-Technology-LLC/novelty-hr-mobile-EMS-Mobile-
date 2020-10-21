@@ -38,7 +38,8 @@ const requestStyle = StyleSheet.create({
   status: {
     flexDirection:'row',
     alignItems:'center',
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    marginTop:normalize(3)
   },
   date: {
     fontSize: normalize(theme.size.base),
@@ -58,7 +59,7 @@ const requestStyle = StyleSheet.create({
     marginTop: normalize(7),
   },
   pastState: {
-    marginTop: normalize(3),
+    marginTop: normalize(2.5),
   },
   icon: {
     transform: [{ rotate: '-40deg' }],
@@ -72,7 +73,12 @@ const requestStyle = StyleSheet.create({
       android: { padding: normalize(5), borderRadius: normalize(14) },
     }),
   },
-  stateView: { flexDirection: 'column' },
+  stateView: { ...Platform.select({
+    android:{marginTop:normalize(5)},ios:{
+      marginTop:normalize(4)
+    }
+  }) },
+  stateViewAdmin: { marginTop:normalize(10) },
   state: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
@@ -117,7 +123,7 @@ const requestStyle = StyleSheet.create({
     }),
   },
   buttonSpacer: {
-    marginLeft: normalize(theme.spacing.wider),
+    marginLeft: normalize(12),
   },
   approve: {
     fontFamily: fonts.mulishBold,
