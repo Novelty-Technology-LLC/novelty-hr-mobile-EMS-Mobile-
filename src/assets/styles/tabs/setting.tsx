@@ -22,6 +22,7 @@ const settingStyle = StyleSheet.create({
   comingSoonText: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.xl),
+    textAlign: 'center',
   },
 });
 
