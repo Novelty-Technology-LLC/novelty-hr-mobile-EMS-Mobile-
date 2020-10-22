@@ -70,9 +70,14 @@ const RequestLeave = ({ route }: any) => {
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
-        dispatchRequest({ type: 'UPDATE', payload: res });
-        navigation.navigate('leaveList');
-        snackBarMessage('Request updated');
+        getLeaveQuota(state.user.id)
+          .then((data) => {
+            dispatchRequest({ type: 'QUOTA', payload: data });
+            dispatchRequest({ type: 'UPDATE', payload: res });
+            navigation.navigate('leaveList');
+            snackBarMessage('Request updated');
+          })
+          .catch((err) => console.log('GetLeaveQuota error', err));
       })
       .catch((err) => console.log(err));
   };
@@ -88,8 +93,17 @@ const RequestLeave = ({ route }: any) => {
       } else {
         endDate = new Date(date.endDate).toString().slice(0, 15);
       }
-
-      const day = dateMapper(startDate, endDate);
+      let day = 0;
+      if (olddata) {
+        let oldday = dateMapper(
+          olddata.leave_date.startDate,
+          olddata.leave_date.endDate
+        );
+        day = dateMapper(startDate, endDate);
+        day = day - oldday;
+      } else {
+        day = dateMapper(startDate, endDate);
+      }
 
       const notValid =
         requests.quota &&
@@ -116,9 +130,9 @@ const RequestLeave = ({ route }: any) => {
       setisLoading(!isLoading);
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {
-      if(!error.message.includes('Selected day exceeds'))
-      error.message = "Unkonown error occured"
-      
+      if (!error.message.includes('Selected day exceeds'))
+        error.message = 'Unkonown error occured';
+
       snackErrorTop(error);
     }
   };
