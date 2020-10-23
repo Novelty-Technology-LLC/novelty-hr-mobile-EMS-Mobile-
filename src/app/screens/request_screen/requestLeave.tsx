@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Text, View, ActivityIndicator, Platform } from 'react-native';
+import { Text, View, ActivityIndicator, Platform, Keyboard } from 'react-native';
 import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -51,12 +51,13 @@ const RequestLeave = ({ route }: any) => {
     note: olddata ? olddata.note : '',
     lead: olddata ? olddata.lead : [],
   };
-
+  
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
         getLeaveQuota(state.user.id)
           .then((data) => {
+          Keyboard.dismiss()
             dispatchRequest({ type: 'QUOTA', payload: data });
             dispatchRequest({ type: 'ADD', payload: res.data.data });
             navigation.navigate('leaveList');
