@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { getToken } from '../utils';
-import { BASE_URI } from './uri';
+import { BASE_URI, COSMIC_URI } from './uri';
 
 export const api = axios.create({
   baseURL: BASE_URI,
+});
+
+export const cosmic_api = axios.create({
+  baseURL: COSMIC_URI,
 });
 
 api.interceptors.request.use(

@@ -79,6 +79,14 @@ const loginStyle = StyleSheet.create({
     fontFamily: fonts.poppinsRegular,
     fontSize: normalize(theme.size.xs),
   },
+  textInput: {
+    borderBottomWidth: 1,
+    borderBottomColor: color.black,
+    padding: normalize(10)
+  },
+  formWrapper: {
+    width: '90%'
+  }
 });
 
 export { loginStyle };

@@ -23,14 +23,7 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
     const userData = mapDataToObject(userInfo.user);
     if (/@noveltytechnology.com\s*$/.test(userData.email)) {
-      create(userData)
-        .then(async ({ data }: any) => {
-          await setUser(data.data);
-          dispatch({ type: 'STORE_USER', user: data.data });
-          await storeToken(userInfo.idToken);
-          dispatch({ type: 'SIGN_IN', token: userInfo.idToken });
-        })
-        .catch((err) => console.log(err));
+      createUser(dispatch, userData, userInfo.idToken);
     } else {
       dispatch({ type: 'INVALID' });
     }
@@ -43,10 +36,20 @@ const signInGoogle = async (dispatch: any) => {
   }
 };
 
+const createUser = (dispatch:any, user:any, token:any) => {
+  create(user)
+  .then(async ({ data }: any) => {
+    await setUser(data.data);
+    dispatch({ type: 'STORE_USER', user: data.data });
+    await storeToken(token);
+    dispatch({ type: 'SIGN_IN', token});
+  })
+  .catch((err) => console.log(err));
+}
+
 const signInApple = async (dispatch: any) => {
   try {
     if (!appleAuth.isSupported) throw new Error('Apple signin not supported');
-
     const data: any = await appleAuth.performRequest({
       requestedOperation: AppleAuthRequestOperation.LOGIN,
       requestedScopes: [
@@ -82,4 +85,4 @@ const signInApple = async (dispatch: any) => {
   }
 };
 
-export { signInGoogle, signInApple };
+export { signInGoogle, signInApple , createUser};
