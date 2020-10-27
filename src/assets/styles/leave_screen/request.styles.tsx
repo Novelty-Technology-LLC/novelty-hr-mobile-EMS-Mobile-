@@ -74,7 +74,7 @@ const requestStyle = StyleSheet.create({
     }),
   },
   stateView: { ...Platform.select({
-    android:{marginTop:normalize(5)},ios:{
+    android:{marginTop:normalize(7)},ios:{
       marginTop:normalize(4)
     }
   }) },
