@@ -17,7 +17,7 @@ const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
 
   const onDelete = () => {
     other
-      ? cancelLeave(item.id)
+      ? cancelLeave(item.id).then((data) => console.log('data', data))
       : deleteRequest(item.id)
           .then(async () => {
             const user = await getUser();
