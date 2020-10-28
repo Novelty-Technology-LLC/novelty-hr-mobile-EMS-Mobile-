@@ -23,14 +23,18 @@ const MyRequests = ({
   refresh: number;
 }) => {
   const navigation = useNavigation();
-  const [pastrequests, setPastrequests] = useState([]);
-  const { requests } = useContext(RequestContext);
+  const { requests, dispatchRequest } = useContext(RequestContext);
 
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
-      .then((data) => setPastrequests(data))
+      .then((data) => {
+        dispatchRequest({
+          type: 'CHANGEPAST',
+          payload: mapDataToRequest(data),
+        });
+      })
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
@@ -44,7 +48,7 @@ const MyRequests = ({
     <View style={style.container}>
       <View style={style.header}>
         <Text style={style.title}>My Requests</Text>
-        {pastrequests.length > 0 && (
+        {requests.pastrequests.length > 0 && (
           <View style={style.row}>
             <Text style={style.history}> History</Text>
             <View style={style.gap}></View>
@@ -93,7 +97,7 @@ const MyRequests = ({
       )}
 
       {toggle === 'toggle-switch' &&
-        (!pastrequests ? (
+        (!requests.pastrequests ? (
           <>
             <View style={historyStyle.subcontainer}>
               <Text style={historyStyle.header}>Past Requests</Text>
@@ -102,7 +106,7 @@ const MyRequests = ({
             <UserPlaceHolder />
           </>
         ) : (
-          <History requests={mapDataToRequest(pastrequests)} />
+          <History requests={requests.pastrequests} />
         ))}
     </View>
   );

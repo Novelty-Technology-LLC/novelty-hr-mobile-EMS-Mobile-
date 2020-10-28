@@ -8,6 +8,13 @@ const RequestReducer = (prevState, action) => {
         ...prevState,
         quota: action.payload,
       };
+
+    case 'UPDATEQUOTA':
+      return {
+        ...prevState,
+        quota: action.payload,
+      };
+
     case 'DELETE':
       return {
         ...prevState,
@@ -20,6 +27,12 @@ const RequestReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [...action.payload],
+      };
+
+    case 'CHANGEPAST':
+      return {
+        ...prevState,
+        pastrequests: [...action.payload],
       };
 
     case 'ADD':
@@ -38,6 +51,17 @@ const RequestReducer = (prevState, action) => {
           ...prevState.requests.filter((item) => item.id !== action.payload.id)
         ),
       };
+
+    case 'CANCEL':
+      return {
+        ...prevState,
+        pastrequests: [].concat(
+          mapObjectToRequest(action.payload),
+          ...prevState.pastrequests.filter(
+            (item) => item.id !== action.payload.id
+          )
+        ),
+      };
   }
 };
 
@@ -46,6 +70,7 @@ const RequestContext = React.createContext();
 const initialState = {
   requests: [],
   quota: [],
+  pastrequests: [],
 };
 
 const useRequest = () => {
