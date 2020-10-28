@@ -24,7 +24,6 @@ const Login = () => {
   }
 
   const submitLogin = (values: any) => {
-    console.log('login value', values);
     if (values.EmailAddress === 'dev@noveltytechnology.com' && values.Password === 'testPassword') {
       console.log('authenticated');
       const user = {
