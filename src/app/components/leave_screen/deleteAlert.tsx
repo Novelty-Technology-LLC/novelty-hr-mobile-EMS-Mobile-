@@ -16,18 +16,21 @@ const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
   const { dispatchRequest } = useContext(RequestContext);
 
   const onDelete = () => {
-    deleteRequest(item.id)
-      .then(async () => {
-        const user = await getUser();
-        getLeaveQuota(JSON.parse(user).id)
-          .then((data) => {
-            dispatchRequest({ type: 'QUOTA', payload: data });
-            dispatchRequest({ type: 'DELETE', payload: item.id });
-            snackBarMessage('Request deleted');
+    other
+      ? //cancel here
+        console.log('cencel')
+      : deleteRequest(item.id)
+          .then(async () => {
+            const user = await getUser();
+            getLeaveQuota(JSON.parse(user).id)
+              .then((data) => {
+                dispatchRequest({ type: 'QUOTA', payload: data });
+                dispatchRequest({ type: 'DELETE', payload: item.id });
+                snackBarMessage('Request deleted');
+              })
+              .catch((err) => console.log('GetLeaveQuota error', err));
           })
-          .catch((err) => console.log('GetLeaveQuota error', err));
-      })
-      .catch((err) => console.log(err));
+          .catch((err) => console.log(err));
   };
 
   return (
