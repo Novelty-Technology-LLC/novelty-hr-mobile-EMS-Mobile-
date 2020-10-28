@@ -57,7 +57,7 @@ const RequestLeave = ({ route }: any) => {
       .then((res) => {
         getLeaveQuota(state.user.id)
           .then((data) => {
-          Keyboard.dismiss()
+            Keyboard.dismiss()
             dispatchRequest({ type: 'QUOTA', payload: data });
             dispatchRequest({ type: 'ADD', payload: res.data.data });
             navigation.navigate('leaveList');
