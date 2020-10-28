@@ -9,12 +9,12 @@ const Description = ({
   handleChange,
   defaultValue,
   error,
-  touched
+  touched,
 }: {
   handleChange: Function;
   defaultValue?: string;
-  error:any
-  touched:any
+  error: any;
+  touched: any;
 }) => {
   return (
     <View>
@@ -32,7 +32,9 @@ const Description = ({
           label="note"
           onChangeText={handleChange('note')}
         />
-         {error.note && touched.note &&  <Text style={style.error}>{error.note}</Text>}
+        {error.note && touched.note && (
+          <Text style={style.error}>{error.note}</Text>
+        )}
       </View>
     </View>
   );
