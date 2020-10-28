@@ -10,7 +10,6 @@ const RequestReducer = (prevState, action) => {
       };
 
     case 'UPDATEQUOTA':
-      console.log(requests.quota);
       return {
         ...prevState,
         quota: [].concat(

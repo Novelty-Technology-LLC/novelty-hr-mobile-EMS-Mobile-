@@ -92,7 +92,7 @@ export const checkRequest = (id: number) => {
 export const cancelLeave = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.delete(`/leave/cancel/${id}`);
+      let res = await api.put(`/leave/cancel/${id}`);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
