@@ -9,6 +9,13 @@ const swipeStyle = StyleSheet.create({
     paddingVertical: normalize(8),
     marginRight: normalize(10),
   },
+  othercontainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: normalize(15),
+    paddingVertical: normalize(8),
+    marginRight: normalize(10),
+  },
 });
 
 export { swipeStyle };

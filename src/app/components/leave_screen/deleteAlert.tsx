@@ -6,34 +6,42 @@ import { deleteAlertStyle as style } from '../../../assets/styles';
 import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
-import { deleteRequest, getLeaveQuota } from '../../services';
+import { deleteRequest, getLeaveQuota, cancelLeave } from '../../services';
 import { getUser } from '../../utils';
 
-const DeleteAlert = ({ item }: { item: dataType }) => {
+const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatchRequest } = useContext(RequestContext);
 
   const onDelete = () => {
-    deleteRequest(item.id)
-      .then(async () => {
-        const user = await getUser();
-        getLeaveQuota(JSON.parse(user).id)
-          .then((data) => {
-            dispatchRequest({ type: 'QUOTA', payload: data });
-            dispatchRequest({ type: 'DELETE', payload: item.id });
-            snackBarMessage('Request deleted');
+    other
+      ? cancelLeave(item.id)
+      : deleteRequest(item.id)
+          .then(async () => {
+            const user = await getUser();
+            getLeaveQuota(JSON.parse(user).id)
+              .then((data) => {
+                dispatchRequest({ type: 'QUOTA', payload: data });
+                dispatchRequest({ type: 'DELETE', payload: item.id });
+                snackBarMessage('Request deleted');
+              })
+              .catch((err) => console.log('GetLeaveQuota error', err));
           })
-          .catch((err) => console.log('GetLeaveQuota error', err));
-      })
-      .catch((err) => console.log(err));
+          .catch((err) => console.log(err));
   };
+
+  const cancel = () => {};
 
   return (
     <>
       <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
-        <AppIcon name="delete" color={colors.tomato} size={23} />
+        <AppIcon
+          name={other ? 'close-circle' : 'delete'}
+          color={colors.tomato}
+          size={23}
+        />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}
@@ -43,15 +51,19 @@ const DeleteAlert = ({ item }: { item: dataType }) => {
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Dialog.Title style={style.text1}>
-              Delete the request ?
+              {other ? 'Cancel' : 'Delete'} the request ?
             </Dialog.Title>
             <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
           </View>
         </View>
         <View style={style.buttons}>
-          <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
           <Dialog.Button
-            label="DELETE"
+            label={other ? 'NO' : 'CANCEL'}
+            onPress={hide}
+            style={style.cancel}
+          />
+          <Dialog.Button
+            label={other ? 'YES' : 'DELETE'}
             onPress={() => {
               onDelete();
               hide();

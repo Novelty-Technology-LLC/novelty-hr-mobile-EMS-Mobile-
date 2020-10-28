@@ -7,7 +7,7 @@ import { Alert, AppIcon } from '../../common';
 import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
 
-const Swipe = ({ item }: any) => {
+const Swipe = ({ item, other }: any) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -24,7 +24,15 @@ const Swipe = ({ item }: any) => {
       .catch((err) => console.log(err));
   };
 
-  return (
+  return other ? (
+    <View style={style.othercontainer}>
+      {item.state === 'Approved' && (
+        <>
+          <DeleteAlert item={item} other={other} />
+        </>
+      )}
+    </View>
+  ) : (
     <View style={style.container}>
       {item.state !== 'In Progress' && (
         <>
