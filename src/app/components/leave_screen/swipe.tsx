@@ -26,11 +26,11 @@ const Swipe = ({ item, other }: any) => {
 
   return other ? (
     <View style={style.othercontainer}>
-      {/* {item.state === 'Approved' && ( */}
-      <>
-        <DeleteAlert item={item} other={other} />
-      </>
-      {/* )} */}
+      {item.state === 'Approved' && (
+        <>
+          <DeleteAlert item={item} other={other} />
+        </>
+      )}
     </View>
   ) : (
     <View style={style.container}>
