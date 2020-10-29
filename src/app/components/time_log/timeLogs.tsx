@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ScrollView } from 'react-native';
+import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import colors from '../../../assets/colors';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
@@ -12,24 +12,36 @@ import { TimeLog } from './timelog';
 const TimeLogs = () => {
   const [toggle, setToggle] = useState('toggle-switch');
   const [timelogs, setTimelogs] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
 
   const getTimeLogs = async () => {
+    setLoading(true);
+    setTimelogs([]);
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
         setLoading(false);
         setTimelogs(res);
+        setRefreshing(false);
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     getTimeLogs();
-  }, []);
+  }, [refreshing]);
 
   return (
-    <ScrollView style={style.container}>
+    <ScrollView
+      style={style.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={() => setRefreshing(true)}
+        />
+      }
+    >
       <View style={style.header}>
         <Text style={style.title}>This Week</Text>
         {timelogs.length > 0 && (
