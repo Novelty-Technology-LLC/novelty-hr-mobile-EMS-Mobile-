@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage } from '../../common';
+import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
@@ -19,17 +19,17 @@ const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
     const user = await getUser();
 
     if (other) {
-      if (item) {
-        console.log(item);
+      if (new Date(item.leave_date.startDate) > new Date()) {
+        cancelLeave(item.id)
+          .then((data) => {
+            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+            dispatchRequest({ type: 'CANCEL', payload: data.leave });
+            snackBarMessage('Request Cancelled');
+          })
+          .catch((err) => console.log(err));
+      } else {
+        snackErrorBottom({ message: 'You cannot cancel request now' });
       }
-
-      cancelLeave(item.id)
-        .then((data) => {
-          dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
-          dispatchRequest({ type: 'CANCEL', payload: data.leave });
-          snackBarMessage('Request Cancelled');
-        })
-        .catch((err) => console.log(err));
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
