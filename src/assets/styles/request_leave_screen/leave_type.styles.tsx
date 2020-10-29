@@ -22,8 +22,15 @@ const leaveType = StyleSheet.create({
   body: {
     width: '100%',
     flexDirection: 'row',
+    // justifyContent: 'space-between',
     paddingTop: normalize(20),
+    flexWrap: 'wrap',
   },
+  button: {
+    width: '48%',
+    marginBottom: normalize(15),
+  },
+
   paidView: {
     display: 'flex',
     flexDirection: 'row',
@@ -48,10 +55,11 @@ const leaveType = StyleSheet.create({
         paddingHorizontal: normalize(theme.spacing.button),
       },
       android: {
-        paddingHorizontal: normalize(theme.spacing.button),
+        paddingHorizontal: normalize(8),
       },
     }),
   },
+
   floatingView: {
     display: 'flex',
     flexDirection: 'row',
@@ -70,14 +78,18 @@ const leaveType = StyleSheet.create({
     }),
   },
 
-  icon:{height:20,width:25,...Platform.select({
-    android:{
-      marginTop:normalize(5)
-    },
-    ios:{
-      marginTop:normalize(2)
-    }
-  })},
+  icon: {
+    height: 20,
+    width: 25,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+      ios: {
+        marginTop: normalize(2),
+      },
+    }),
+  },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
     fontSize: normalize(theme.size.normal),

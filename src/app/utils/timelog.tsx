@@ -6,7 +6,7 @@ export const createdDay = (date) => {
 };
 
 export const getHrs = (time) => {
-  let hr = Math.round(time / 60);
+  let hr = Math.floor(time / 60);
   let mins = time % 60;
   if (mins < 10) {
     mins = '0' + mins;

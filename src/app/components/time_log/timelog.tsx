@@ -4,8 +4,6 @@ import { timeLogStyle as style } from '../../../assets/styles';
 import { createdDay, getHrs } from '../../utils';
 
 const TimeLog = ({ item }: any) => {
-  //   let { day } = getDay(item);
-
   return (
     <>
       <TouchableOpacity style={style.container} onPress={() => {}}>

@@ -21,3 +21,4 @@ export * from './request_leave_screen/description.styles';
 export * from './approve_request/approve_request.styles';
 export * from './tabs/setting';
 export * from './time_log/timelog.styles';
+export * from './time_log/calendar.styles';
