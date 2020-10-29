@@ -17,21 +17,28 @@ const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
 
   const onDelete = async () => {
     const user = await getUser();
-    other
-      ? cancelLeave(item.id)
-          .then((data) => {
-            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
-            dispatchRequest({ type: 'CANCEL', payload: data.leave });
-            snackBarMessage('Request Cancelled');
-          })
-          .catch((err) => console.log(err))
-      : deleteRequest(item.id)
-          .then(async (data) => {
-            dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
-            dispatchRequest({ type: 'DELETE', payload: item.id });
-            snackBarMessage('Request deleted');
-          })
-          .catch((err) => console.log(err));
+
+    if (other) {
+      if (item) {
+        console.log(item);
+      }
+
+      cancelLeave(item.id)
+        .then((data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+          dispatchRequest({ type: 'CANCEL', payload: data.leave });
+          snackBarMessage('Request Cancelled');
+        })
+        .catch((err) => console.log(err));
+    } else {
+      deleteRequest(item.id)
+        .then(async (data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
+          dispatchRequest({ type: 'DELETE', payload: item.id });
+          snackBarMessage('Request deleted');
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (

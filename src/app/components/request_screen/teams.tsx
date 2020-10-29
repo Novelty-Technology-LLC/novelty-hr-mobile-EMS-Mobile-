@@ -22,7 +22,7 @@ class Teams extends Component {
   async componentDidMount() {
     this.setState({ user: JSON.parse(await getUser()) });
     getlead().then((data) => {
-      // data = data.filter((item) => item.id !== this.state.user.id);
+      data = data.filter((item) => item.id !== this.state.user.id);
       this.setState({ teamLead: data }, () => {
         this.state.teamLead.map((val) => {
           if (this.props.defaultValue) {
