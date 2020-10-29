@@ -12,10 +12,12 @@ const RequestReducer = (prevState, action) => {
     case 'UPDATEQUOTA':
       return {
         ...prevState,
-        quota: [].concat(
-          action.payload,
-          ...prevState.requests.filter((data) => data.id !== action.payload.id)
-        ),
+        quota: []
+          .concat(
+            action.payload,
+            ...prevState.quota.filter((data) => data.id !== action.payload.id)
+          )
+          .sort((a, b) => (a.leave_type > b.leave_type ? 1 : -1)),
       };
 
     case 'DELETE':

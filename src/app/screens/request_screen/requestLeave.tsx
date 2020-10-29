@@ -61,15 +61,11 @@ const RequestLeave = ({ route }: any) => {
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
-        getLeaveQuota(state.user.id)
-          .then((data) => {
-            Keyboard.dismiss();
-            dispatchRequest({ type: 'QUOTA', payload: data });
-            dispatchRequest({ type: 'ADD', payload: res.data.data });
-            navigation.navigate('leaveList');
-            snackBarMessage('Request created');
-          })
-          .catch((err) => console.log('GetLeaveQuota error', err));
+        Keyboard.dismiss();
+        dispatchRequest({ type: 'UPDATEQUOTA', payload: res.data.data.quota });
+        dispatchRequest({ type: 'ADD', payload: res.data.data.leave });
+        navigation.navigate('leaveList');
+        snackBarMessage('Request created');
       })
       .catch((err) => console.log(err));
   };
@@ -77,14 +73,10 @@ const RequestLeave = ({ route }: any) => {
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
-        getLeaveQuota(state.user.id)
-          .then((data) => {
-            dispatchRequest({ type: 'QUOTA', payload: data });
-            dispatchRequest({ type: 'UPDATE', payload: res });
-            navigation.navigate('leaveList');
-            snackBarMessage('Request updated');
-          })
-          .catch((err) => console.log('GetLeaveQuota error', err));
+        dispatchRequest({ type: 'UPDATEQUOTA', payload: res.quota });
+        dispatchRequest({ type: 'UPDATE', payload: res.leave });
+        navigation.navigate('leaveList');
+        snackBarMessage('Request updated');
       })
       .catch((err) => console.log(err));
   };

@@ -6,7 +6,7 @@ import { deleteAlertStyle as style } from '../../../assets/styles';
 import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
-import { deleteRequest, getLeaveQuota, cancelLeave } from '../../services';
+import { deleteRequest, cancelLeave } from '../../services';
 import { getUser } from '../../utils';
 
 const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
@@ -20,29 +20,19 @@ const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
     other
       ? cancelLeave(item.id)
           .then((data) => {
-            getLeaveQuota(JSON.parse(user).id)
-              .then((res) => {
-                dispatchRequest({ type: 'QUOTA', payload: res });
-                dispatchRequest({ type: 'CANCEL', payload: data.leave });
-                snackBarMessage('Request Cancelled');
-              })
-              .catch((err) => console.log('GetLeaveQuota error', err));
+            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+            dispatchRequest({ type: 'CANCEL', payload: data.leave });
+            snackBarMessage('Request Cancelled');
           })
           .catch((err) => console.log(err))
       : deleteRequest(item.id)
-          .then(async () => {
-            getLeaveQuota(JSON.parse(user).id)
-              .then((data) => {
-                dispatchRequest({ type: 'QUOTA', payload: data });
-                dispatchRequest({ type: 'DELETE', payload: item.id });
-                snackBarMessage('Request deleted');
-              })
-              .catch((err) => console.log('GetLeaveQuota error', err));
+          .then(async (data) => {
+            dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
+            dispatchRequest({ type: 'DELETE', payload: item.id });
+            snackBarMessage('Request deleted');
           })
           .catch((err) => console.log(err));
   };
-
-  const cancel = () => {};
 
   return (
     <>
