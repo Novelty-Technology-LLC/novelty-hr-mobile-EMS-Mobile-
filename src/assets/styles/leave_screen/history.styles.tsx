@@ -15,6 +15,9 @@ const historyStyle = StyleSheet.create({
   container: {
     paddingBottom: normalize(40),
   },
+  timelogcontainer: {
+    paddingBottom: normalize(100),
+  },
   subcontainer: {
     flexDirection: 'row',
     marginRight: normalize(20),
