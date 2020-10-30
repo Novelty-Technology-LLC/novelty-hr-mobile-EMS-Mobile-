@@ -33,7 +33,7 @@ const Projects = ({
   return (
     <View style={style.container}>
       <View style={style.wrapper}>
-        <Text style={style.text}>Choose Leave Type *</Text>
+        <Text style={style.text}>Choose a Project *</Text>
         {loading && <ProjectPlaceHolder />}
         <View style={style.body}>
           {projects &&

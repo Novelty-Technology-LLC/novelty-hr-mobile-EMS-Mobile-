@@ -9,14 +9,13 @@ const calenderStyle = StyleSheet.create({
     borderBottomWidth: 1,
   },
   main: {
-    height: normalize(130),
-    paddingTop: normalize(theme.size.lg),
+    height: normalize(110),
+    paddingTop: normalize(theme.size.xxs),
     paddingBottom: normalize(theme.size.xxs),
   },
   header: {
     fontFamily: fonts.poppinsMedium,
     color: colors.black,
-    paddingBottom: normalize(theme.size.logo),
     fontSize: normalize(theme.size.lg),
   },
   highlight: {

@@ -17,3 +17,14 @@ export const getHrs = (time) => {
 export const isPast = (item) => {
   return new Date().getDate() - new Date(item.log_date).getDate() >= 7;
 };
+
+const getWeek = (date) => {
+  let onejan = new Date(new Date(date).getFullYear(), 0, 1);
+  return Math.ceil(((date - onejan) / 86400000 + onejan.getDay() + 1) / 7);
+};
+
+export const isThisWeek = (item) => {
+  return getWeek(new Date(item.log_date)) === getWeek(new Date())
+    ? true
+    : false;
+};

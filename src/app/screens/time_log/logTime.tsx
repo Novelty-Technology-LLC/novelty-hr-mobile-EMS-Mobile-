@@ -10,7 +10,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { getUser, isPast } from '../../utils';
+import { getUser, isThisWeek } from '../../utils';
 import { postTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
@@ -42,12 +42,11 @@ const LogTime = () => {
     values.user_id = JSON.parse(user).id;
     postTimeLog(values)
       .then((data) => {
-        console.log(data);
         dispatchTimeLog({
           type: 'ADD',
           payload: {
-            present: isPast(data) ? null : data,
-            past: isPast(data) ? data : null,
+            present: isThisWeek(data) ? data : null,
+            past: isThisWeek(data) ? null : data,
           },
         });
         setIsLoading(false);
@@ -86,6 +85,7 @@ const LogTime = () => {
             <Projects handleChange={handleChange} error={errors} />
             <Description
               handleChange={handleChange}
+              timelog={true}
               // defaultValue={olddata && olddata.note}
               error={errors}
               touched={touched}

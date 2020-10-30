@@ -6,7 +6,7 @@ import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { AppIcon } from '../../common';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
-import { getUser, isPast } from '../../utils';
+import { getUser, isThisWeek } from '../../utils';
 import { UserPlaceHolder } from '../loader';
 import { TimeLog } from './timelog';
 
@@ -22,8 +22,8 @@ const TimeLogs = () => {
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
         setLoading(false);
-        let thisw = res.filter((item) => !isPast(item));
-        let pastw = res.filter((item) => isPast(item));
+        let thisw = res.filter((item) => isThisWeek(item));
+        let pastw = res.filter((item) => !isThisWeek(item));
         dispatchTimeLog({
           type: 'CHANGE',
           payload: {

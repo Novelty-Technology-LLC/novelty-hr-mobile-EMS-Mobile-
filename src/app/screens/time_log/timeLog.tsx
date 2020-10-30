@@ -12,7 +12,7 @@ const TimeLog = () => {
         <Text style={headerText}>Time Log</Text>
       </Header>
       <View>
-        <Text>Time Log</Text>
+        {/* <Text>Time Log</Text> */}
         <TimeLogs />
       </View>
       <RequestButton screen="logtime" />

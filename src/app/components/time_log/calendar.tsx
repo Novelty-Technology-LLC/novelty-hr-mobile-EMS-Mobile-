@@ -20,7 +20,7 @@ const Calendar = ({ handleChange }: { handleChange: Function }) => {
           borderHighlightColor: 'white',
         }}
         style={style.main}
-        numDaysInWeek={5}
+        numDaysInWeek={6}
         calendarHeaderStyle={style.header}
         calendarColor={colors.white}
         dateNumberStyle={style.number}
@@ -31,9 +31,11 @@ const Calendar = ({ handleChange }: { handleChange: Function }) => {
         }}
         disabledDateNameStyle={{ color: 'grey' }}
         disabledDateNumberStyle={{ color: 'grey' }}
-        iconContainer={{ flex: 0.1 }}
+        iconContainer={{ display: 'none' }}
         selectedDate={new Date()}
-        onDateSelected={(data) => handleChange('log_date')(data.toJSON())}
+        onDateSelected={(data) => {
+          handleChange('log_date')(data.toJSON());
+        }}
         datesBlacklist={datesBlacklistFunc}
       />
     </View>

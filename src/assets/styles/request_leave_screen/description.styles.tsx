@@ -42,7 +42,7 @@ const descriptionStyle = StyleSheet.create({
     opacity: 0.8,
   },
   colon: {
-    fontSize: normalize(30),
+    fontSize: normalize(15),
     paddingHorizontal: normalize(10),
   },
   row: {

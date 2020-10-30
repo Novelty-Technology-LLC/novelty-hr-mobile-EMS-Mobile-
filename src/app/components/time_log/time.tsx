@@ -4,7 +4,6 @@ import {
   calenderStyle,
   descriptionStyle as style,
 } from '../../../assets/styles';
-import TimePicker from 'react-native-simple-time-picker';
 
 const Time = ({
   handleChange,
@@ -36,6 +35,7 @@ const Time = ({
             handleChange('duration')((data * 60 + parseInt(mins)).toString());
           }}
         />
+        <Text style={style.colon}>HRS</Text>
         <Text style={style.colon}>:</Text>
         <TextInput
           style={[style.textArea, style.textinputTime]}
@@ -54,14 +54,8 @@ const Time = ({
             );
           }}
         />
+        <Text style={style.colon}>MINS</Text>
       </View>
-      {/* <TimePicker
-        selectedHours={hours}
-        selectedMinutes={mins}
-        hoursUnit={'(hrs)'}
-        minutesUnit={'(mins)'}
-        onChange={(hours, minutes) => console.log({ hours, minutes })}
-      /> */}
 
       {error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>
