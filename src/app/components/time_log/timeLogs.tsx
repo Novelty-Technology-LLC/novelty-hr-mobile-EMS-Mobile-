@@ -11,18 +11,29 @@ import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
   const [toggle, setToggle] = useState('toggle-switch');
-  const [timelogs, setTimelogs] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const [thisweek, setThisweek] = useState([]);
+  const [pastweeks, setPastweeks] = useState([]);
 
   const getTimeLogs = async () => {
     setLoading(true);
-    setTimelogs([]);
+    setThisweek([]);
+    setPastweeks([]);
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
         setLoading(false);
-        setTimelogs(res);
+        let thisw = res.filter(
+          (item) => new Date().getDate() - new Date(item.log_date).getDate() < 7
+        );
+        setThisweek(thisw);
+        let pastw = res.filter(
+          (item) =>
+            new Date().getDate() - new Date(item.log_date).getDate() >= 7
+        );
+        setPastweeks(pastw);
+
         setRefreshing(false);
       })
       .catch((err) => console.log(err));
@@ -44,7 +55,7 @@ const TimeLogs = () => {
     >
       <View style={style.header}>
         <Text style={style.title}>This Week</Text>
-        {timelogs.length > 0 && (
+        {pastweeks.length > 0 && (
           <View style={style.row}>
             <Text style={style.history}>Past Weeks</Text>
             <View style={style.gap}></View>
@@ -69,9 +80,9 @@ const TimeLogs = () => {
         )}
       </View>
       {loading ? <UserPlaceHolder /> : null}
-      {timelogs[0] ? (
+      {thisweek[0] ? (
         <FlatList
-          data={timelogs}
+          data={thisweek}
           renderItem={(item) => <TimeLog item={item.item} />}
           keyExtractor={(item) => item.id}
         />
@@ -84,18 +95,19 @@ const TimeLogs = () => {
       )}
       <View style={historyStyle.timelogcontainer}>
         <View style={historyStyle.subcontainer}>
-          <Text style={historyStyle.header}>Past Requests</Text>
+          <Text style={historyStyle.header}>Past Weeks</Text>
           <View style={historyStyle.line}></View>
         </View>
         {loading ? <UserPlaceHolder /> : null}
-        {toggle === 'toggle-switch' && timelogs[0] ? (
+        {toggle === 'toggle-switch' && pastweeks[0] ? (
           <FlatList
-            data={timelogs}
+            data={pastweeks}
             renderItem={(item) => <TimeLog item={item.item} />}
             keyExtractor={(item) => item.id}
           />
         ) : (
-          !loading && (
+          !loading &&
+          !pastweeks[0] && (
             <View style={style.emptyContainer}>
               <Text style={style.emptyText}>You don't have past logs.</Text>
             </View>

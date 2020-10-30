@@ -1,7 +1,7 @@
 import { min } from 'react-native-reanimated';
 
 export const createdDay = (date) => {
-  let newdate = new Date(date.createdAt).toString();
+  let newdate = new Date(date.log_date).toString();
   return newdate.substr(3, 7) + ', ' + newdate.substr(0, 3);
 };
 

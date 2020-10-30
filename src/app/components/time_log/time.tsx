@@ -25,22 +25,34 @@ const Time = ({
           style={[style.textArea, style.textinputTime]}
           placeholderTextColor={'#c7c7c7'}
           placeholder={'HH'}
+          maxLength={2}
           underlineColorAndroid={'transparent'}
           keyboardType="numeric"
           name="hrs"
           label="hrs"
-          onChangeText={(data) => handleChange('duration')(data)}
+          onChangeText={(data) => {
+            let intdata = data === '' ? 0 : data;
+            setHours(intdata);
+            handleChange('duration')((data * 60 + parseInt(mins)).toString());
+          }}
         />
         <Text style={style.colon}>:</Text>
         <TextInput
           style={[style.textArea, style.textinputTime]}
           placeholderTextColor={'#c7c7c7'}
           placeholder={'MM'}
+          maxLength={2}
           underlineColorAndroid={'transparent'}
           keyboardType="numeric"
           name="mins"
           label="mins"
-          onChangeText={(data) => handleChange('duration')(data)}
+          onChangeText={(data) => {
+            let intdata = data === '' ? 0 : data;
+            setMins(intdata);
+            handleChange('duration')(
+              (hours * 60 + parseInt(intdata)).toString()
+            );
+          }}
         />
       </View>
       {/* <TimePicker
