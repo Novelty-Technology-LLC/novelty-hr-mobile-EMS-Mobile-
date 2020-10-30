@@ -191,10 +191,20 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
+   
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation(project(":react-native-community_google-signin"))
+
+
+    implementation "com.google.android.gms:play-services-base:17.5.0"
+    implementation "com.google.firebase:firebase-core:16.0.9"
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
