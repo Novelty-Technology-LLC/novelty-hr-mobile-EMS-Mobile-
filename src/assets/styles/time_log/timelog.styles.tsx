@@ -24,6 +24,7 @@ const timeLogStyle = StyleSheet.create({
     paddingHorizontal: normalize(15),
   },
   date: {
+    width: '75%',
     fontSize: normalize(theme.size.base),
     color: colors.black,
     fontFamily: fonts.mulishBold,

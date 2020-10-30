@@ -13,3 +13,7 @@ export const getHrs = (time) => {
   }
   return hr + 'h' + mins + "'";
 };
+
+export const isPast = (item) => {
+  return new Date().getDate() - new Date(item.log_date).getDate() >= 7;
+};

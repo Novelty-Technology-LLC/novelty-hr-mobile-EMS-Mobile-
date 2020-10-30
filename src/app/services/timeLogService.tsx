@@ -16,7 +16,7 @@ export const postTimeLog = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.post('/timelog', data);
-      resolve(res);
+      resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
     }

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import colors from '../../../assets/colors';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { AppIcon } from '../../common';
+import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
-import { getUser } from '../../utils';
+import { getUser, isPast } from '../../utils';
 import { UserPlaceHolder } from '../loader';
 import { TimeLog } from './timelog';
 
@@ -13,27 +14,23 @@ const TimeLogs = () => {
   const [toggle, setToggle] = useState('toggle-switch');
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
-  const [thisweek, setThisweek] = useState([]);
-  const [pastweeks, setPastweeks] = useState([]);
+  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
   const getTimeLogs = async () => {
     setLoading(true);
-    setThisweek([]);
-    setPastweeks([]);
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
         setLoading(false);
-        let thisw = res.filter(
-          (item) => new Date().getDate() - new Date(item.log_date).getDate() < 7
-        );
-        setThisweek(thisw);
-        let pastw = res.filter(
-          (item) =>
-            new Date().getDate() - new Date(item.log_date).getDate() >= 7
-        );
-        setPastweeks(pastw);
-
+        let thisw = res.filter((item) => !isPast(item));
+        let pastw = res.filter((item) => isPast(item));
+        dispatchTimeLog({
+          type: 'CHANGE',
+          payload: {
+            present: thisw,
+            past: pastw,
+          },
+        });
         setRefreshing(false);
       })
       .catch((err) => console.log(err));
@@ -55,7 +52,7 @@ const TimeLogs = () => {
     >
       <View style={style.header}>
         <Text style={style.title}>This Week</Text>
-        {pastweeks.length > 0 && (
+        {timelogs.past.length > 0 && (
           <View style={style.row}>
             <Text style={style.history}>Past Weeks</Text>
             <View style={style.gap}></View>
@@ -79,10 +76,11 @@ const TimeLogs = () => {
           </View>
         )}
       </View>
-      {loading ? <UserPlaceHolder /> : null}
-      {thisweek[0] ? (
+      {loading ? (
+        <UserPlaceHolder />
+      ) : timelogs.present[0] ? (
         <FlatList
-          data={thisweek}
+          data={timelogs.present}
           renderItem={(item) => <TimeLog item={item.item} />}
           keyExtractor={(item) => item.id}
         />
@@ -93,21 +91,24 @@ const TimeLogs = () => {
           </View>
         )
       )}
+
       <View style={historyStyle.timelogcontainer}>
-        <View style={historyStyle.subcontainer}>
-          <Text style={historyStyle.header}>Past Weeks</Text>
-          <View style={historyStyle.line}></View>
-        </View>
-        {loading ? <UserPlaceHolder /> : null}
-        {toggle === 'toggle-switch' && pastweeks[0] ? (
+        {toggle === 'toggle-switch' && (
+          <View style={historyStyle.subcontainer}>
+            <Text style={historyStyle.header}>Past Weeks</Text>
+            <View style={historyStyle.line}></View>
+          </View>
+        )}
+        {loading ? (
+          <UserPlaceHolder />
+        ) : toggle === 'toggle-switch' && timelogs.past[0] ? (
           <FlatList
-            data={pastweeks}
+            data={timelogs.past}
             renderItem={(item) => <TimeLog item={item.item} />}
             keyExtractor={(item) => item.id}
           />
         ) : (
-          !loading &&
-          !pastweeks[0] && (
+          !timelogs.past[0] && (
             <View style={style.emptyContainer}>
               <Text style={style.emptyText}>You don't have past logs.</Text>
             </View>

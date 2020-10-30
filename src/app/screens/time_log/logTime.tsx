@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, Platform, ActivityIndicator } from 'react-native';
 import { headerText, requestLeave } from '../../../assets/styles';
 import { header as Header } from '../../common';
@@ -10,10 +10,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { getUser } from '../../utils';
+import { getUser, isPast } from '../../utils';
 import { postTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
+import { TimeLogContext } from '../../reducer';
 
 const initialValues = {
   log_date: new Date().toJSON(),
@@ -25,7 +26,6 @@ const initialValues = {
 
 const validationSchema = Yup.object().shape({
   log_date: Yup.date().nullable().required('Date is a required field'),
-  task: Yup.string().required('Task is required').label('task'),
   duration: Yup.string().required('Time is required').label('duration'),
   project_id: Yup.number().required('Project is required').label('project_id'),
   note: Yup.string().required('Note is a required field').label('note'),
@@ -34,12 +34,22 @@ const validationSchema = Yup.object().shape({
 const LogTime = () => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
+  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+
   const onSubmit = async (values) => {
     setIsLoading(true);
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
     postTimeLog(values)
       .then((data) => {
+        console.log(data);
+        dispatchTimeLog({
+          type: 'ADD',
+          payload: {
+            present: isPast(data) ? null : data,
+            past: isPast(data) ? data : null,
+          },
+        });
         setIsLoading(false);
         navigation.navigate('timelog');
       })
@@ -68,11 +78,6 @@ const LogTime = () => {
         {({ handleChange, handleSubmit, values, errors, touched }) => (
           <>
             <Calendar handleChange={handleChange} />
-            <Task
-              handleChange={handleChange}
-              error={errors}
-              touched={touched}
-            />
             <Time
               handleChange={handleChange}
               error={errors}
