@@ -26,6 +26,12 @@ const leaveType = StyleSheet.create({
     paddingTop: normalize(20),
     flexWrap: 'wrap',
   },
+  requestBody: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   button: {
     width: '48%',
     marginBottom: normalize(15),
