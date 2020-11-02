@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import colors from '../../../assets/colors';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { AppIcon } from '../../common';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
 import { getUser, isThisWeek } from '../../utils';
+import Swipe from '../leave_screen/swipe';
 import { UserPlaceHolder } from '../loader';
 import { TimeLog } from './timelog';
 
@@ -81,7 +83,11 @@ const TimeLogs = () => {
       ) : timelogs.present[0] ? (
         <FlatList
           data={timelogs.present}
-          renderItem={(item) => <TimeLog item={item.item} />}
+          renderItem={(item) => (
+            <Swipeable renderRightActions={() => <Swipe timelog={true} />}>
+              <TimeLog item={item.item} />
+            </Swipeable>
+          )}
           keyExtractor={(item) => item.id}
         />
       ) : (
