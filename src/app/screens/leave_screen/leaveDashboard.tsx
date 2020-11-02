@@ -8,9 +8,11 @@ import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
-import { getLeaveQuota, getMyRequests } from '../../services';
+import { getLeaveQuota, getMyRequests, Alert } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import { SetLocalNotification } from '../../utils/pushNotification';
+import messaging from '@react-native-firebase/messaging';
+import PushNotification from 'react-native-push-notification';
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -24,6 +26,7 @@ const LeaveDashboard = () => {
       dispatchRequest({ type: 'QUOTA', payload: data });
       setRefreshing(false);
     });
+
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
@@ -67,6 +70,28 @@ const LeaveDashboard = () => {
     getData();
     getRequest();
   }, []);
+
+  /*optional */
+
+  useEffect(() => {
+    async function requestUserPermission() {
+      const authStatus = await messaging().requestPermission();
+      const enabled =
+        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+      if (enabled) {
+        messaging.getToken((token) => console.log('FCM token -> ', token));
+      }
+    }
+    requestUserPermission();
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    return unsubscribe;
+  }, []);
+  /*opt*/
 
   return (
     <View style={style.mainContainer}>

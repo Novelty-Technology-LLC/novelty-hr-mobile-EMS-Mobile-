@@ -4,7 +4,7 @@ import { View, StyleSheet, Button, Alert } from 'react-native';
 PushNotification.configure({
   // (required) Called when a remote or local notification is opened or received
   onNotification: function (notification) {
-    console.log('notif recieved -> ');
+    console.log('got new notif');
   },
 });
 

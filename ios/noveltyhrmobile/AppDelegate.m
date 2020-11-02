@@ -3,6 +3,9 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <UserNotifications/UserNotifications.h>
+#import <RNCPushNotificationIOS.h>
+#import <Firebase.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -11,8 +14,6 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
-#import <UserNotifications/UserNotifications.h>
-#import <RNCPushNotificationIOS.h>
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -28,6 +29,9 @@ static void InitializeFlipper(UIApplication *application) {
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure];
+  }
   // Define UNUserNotificationCenter
   UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
   center.delegate = self;
@@ -51,8 +55,8 @@ static void InitializeFlipper(UIApplication *application) {
     [self.window makeKeyAndVisible];
     return YES;
   }
-
   return YES;
+
 }
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
@@ -85,7 +89,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 {
   [RNCPushNotificationIOS didReceiveNotificationResponse:response];
 }
-
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG
