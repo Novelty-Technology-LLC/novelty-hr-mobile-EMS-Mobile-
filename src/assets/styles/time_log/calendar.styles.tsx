@@ -23,7 +23,7 @@ const calenderStyle = StyleSheet.create({
     backgroundColor: colors.buttonOrange,
     borderRadius: normalize(theme.size.logo),
     paddingVertical: normalize(4),
-    paddingHorizontal: normalize(6),
+    paddingHorizontal: normalize(10),
     fontSize: normalize(20),
   },
   number: {

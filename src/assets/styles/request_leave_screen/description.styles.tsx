@@ -7,7 +7,7 @@ const descriptionStyle = StyleSheet.create({
   main: {
     marginTop: normalize(20),
     marginLeft: normalize(20),
-    paddingBottom: normalize(20),
+    paddingBottom: normalize(10),
   },
   text: {
     fontFamily: fonts.poppinsMedium,
@@ -32,9 +32,9 @@ const descriptionStyle = StyleSheet.create({
     opacity: 0.8,
   },
   textinputTime: {
-    height: normalize(50),
+    height: normalize(60),
     width: normalize(80),
-    marginTop: normalize(10),
+    marginVertical: normalize(10),
     paddingHorizontal: normalize(28),
     paddingVertical: normalize(15),
     borderRadius: normalize(4),

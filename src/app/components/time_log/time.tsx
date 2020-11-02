@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text } from 'react-native';
 import {
   calenderStyle,
   descriptionStyle as style,
 } from '../../../assets/styles';
+import { Picker } from 'react-native-wheel-datepicker';
 
 const Time = ({
   handleChange,
@@ -20,43 +21,28 @@ const Time = ({
     <View style={[style.main, calenderStyle.container]}>
       <Text style={style.text}>Time *</Text>
       <View style={style.row}>
-        <TextInput
+        <Picker
           style={[style.textArea, style.textinputTime]}
-          placeholderTextColor={'#c7c7c7'}
-          placeholder={'HH'}
-          maxLength={2}
-          underlineColorAndroid={'transparent'}
-          keyboardType="numeric"
-          name="hrs"
-          label="hrs"
-          onChangeText={(data) => {
-            let intdata = data === '' ? 0 : data;
+          selectedValue={1}
+          pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+          onValueChange={(intdata: number) => {
             setHours(intdata);
-            handleChange('duration')((data * 60 + parseInt(mins)).toString());
+            handleChange('duration')((intdata * 60 + mins).toString());
           }}
         />
         <Text style={style.colon}>HRS</Text>
         <Text style={style.colon}>:</Text>
-        <TextInput
+        <Picker
           style={[style.textArea, style.textinputTime]}
-          placeholderTextColor={'#c7c7c7'}
-          placeholder={'MM'}
-          maxLength={2}
-          underlineColorAndroid={'transparent'}
-          keyboardType="numeric"
-          name="mins"
-          label="mins"
-          onChangeText={(data) => {
-            let intdata = data === '' ? 0 : data;
+          selectedValue={1}
+          pickerData={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]}
+          onValueChange={(intdata: number) => {
             setMins(intdata);
-            handleChange('duration')(
-              (hours * 60 + parseInt(intdata)).toString()
-            );
+            handleChange('duration')((hours * 60 + intdata).toString());
           }}
         />
         <Text style={style.colon}>MINS</Text>
       </View>
-
       {error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>
       )}
