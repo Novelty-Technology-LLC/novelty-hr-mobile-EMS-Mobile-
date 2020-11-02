@@ -1,5 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Text, View, ActivityIndicator, Platform } from 'react-native';
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  Platform,
+  Keyboard,
+} from 'react-native';
 import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -46,7 +52,7 @@ const RequestLeave = ({ route }: any) => {
 
   const initialValues = {
     date: olddata ? olddata.date : '',
-    type: olddata ? olddata.type : 'Paid time off',
+    type: olddata ? olddata.type : 'PAID TIME OFF',
     status: olddata ? olddata.state : 'Pending',
     note: olddata ? olddata.note : '',
     lead: olddata ? olddata.lead : [],
@@ -55,14 +61,11 @@ const RequestLeave = ({ route }: any) => {
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
-        getLeaveQuota(state.user.id)
-          .then((data) => {
-            dispatchRequest({ type: 'QUOTA', payload: data });
-            dispatchRequest({ type: 'ADD', payload: res.data.data });
-            navigation.navigate('leaveList');
-            snackBarMessage('Request created');
-          })
-          .catch((err) => console.log('GetLeaveQuota error', err));
+        Keyboard.dismiss();
+        dispatchRequest({ type: 'UPDATEQUOTA', payload: res.data.data.quota });
+        dispatchRequest({ type: 'ADD', payload: res.data.data.leave });
+        navigation.navigate('leaveList');
+        snackBarMessage('Request created');
       })
       .catch((err) => console.log(err));
   };
@@ -70,7 +73,8 @@ const RequestLeave = ({ route }: any) => {
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
-        dispatchRequest({ type: 'UPDATE', payload: res });
+        dispatchRequest({ type: 'UPDATEQUOTA', payload: res.quota });
+        dispatchRequest({ type: 'UPDATE', payload: res.leave });
         navigation.navigate('leaveList');
         snackBarMessage('Request updated');
       })
@@ -88,8 +92,17 @@ const RequestLeave = ({ route }: any) => {
       } else {
         endDate = new Date(date.endDate).toString().slice(0, 15);
       }
-
-      const day = dateMapper(startDate, endDate);
+      let day = 0;
+      if (olddata) {
+        let oldday = dateMapper(
+          olddata.leave_date.startDate,
+          olddata.leave_date.endDate
+        );
+        day = dateMapper(startDate, endDate);
+        day = day - oldday;
+      } else {
+        day = dateMapper(startDate, endDate);
+      }
 
       const notValid =
         requests.quota &&
@@ -116,9 +129,9 @@ const RequestLeave = ({ route }: any) => {
       setisLoading(!isLoading);
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {
-      if(!error.message.includes('Selected day exceeds'))
-      error.message = "Unkonown error occured"
-      
+      if (!error.message.includes('Selected day exceeds'))
+        error.message = 'Unkonown error occured';
+
       snackErrorTop(error);
     }
   };

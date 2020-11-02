@@ -2,8 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { historyStyle as style, myRequestsStyle } from '../../../assets/styles';
 import { Request } from './request';
+import Swipe from './swipe';
 
 const History = ({ requests, other }: any) => {
   const navigation = useNavigation();
@@ -17,13 +19,29 @@ const History = ({ requests, other }: any) => {
       {requests.length > 0 ? (
         <FlatList
           data={requests}
-          renderItem={(item) => (
-            <Request
-              item={item.item}
-              other={other}
-              onPress={() => navigation.navigate('requestDetail', item.item)}
-            />
-          )}
+          renderItem={(item) =>
+            other ? (
+              <Request
+                item={item.item}
+                other={other}
+                onPress={() => navigation.navigate('requestDetail', item.item)}
+              />
+            ) : (
+              <Swipeable
+                renderRightActions={() => (
+                  <Swipe item={item.item} other={true} />
+                )}
+              >
+                <Request
+                  item={item.item}
+                  other={other}
+                  onPress={() =>
+                    navigation.navigate('requestDetail', item.item)
+                  }
+                />
+              </Swipeable>
+            )
+          }
           keyExtractor={(item) => item.id}
         />
       ) : (

@@ -53,15 +53,16 @@ const Request = ({ data, style, title = null }: any) => {
                 }
               />
               <View style={style.senderView}>
-              <View style={style.statusView}>
-              <Text style={style.sender}>{name}</Text>
-                <View style={style.stateView}><State state={data.state} /></View>
-              </View>
+                <View style={style.statusView}>
+                  <Text style={style.sender}>{name}</Text>
+                  <View style={style.stateView}>
+                    <State state={data.state} />
+                  </View>
+                </View>
                 <View style={style.dateView}>
                   <Text style={style.leaveType}>{data.type}</Text>
                 </View>
               </View>
-              
             </View>
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>

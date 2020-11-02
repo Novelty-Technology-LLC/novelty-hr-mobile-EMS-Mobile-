@@ -43,10 +43,12 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
         >
           <View style={style.dateView}>
             <View style={style.status}>
-            <Text style={style.date}>{item.date}</Text>
-              <View style={style.stateView}><State state={item.state} /></View>
+              <Text style={style.date}>{item.date}</Text>
+              <View style={style.stateView}>
+                <State state={item.state} />
+              </View>
             </View>
-              <Text style={style.type}>{item.type}</Text>
+            <Text style={style.type}>{item.type}</Text>
           </View>
         </TouchableOpacity>
       ) : (
@@ -62,9 +64,9 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               </View>
               {!isReplied && (
                 <View style={style.buttonContainer}>
-                    <ApproveDeny title="Approve" style={style} item={item} />
+                  <ApproveDeny title="Approve" style={style} item={item} />
                   <View style={style.buttonSpacer}></View>
-                    <ApproveDeny title="Deny" style={style} item={item} />
+                  <ApproveDeny title="Deny" style={style} item={item} />
                 </View>
               )}
             </View>

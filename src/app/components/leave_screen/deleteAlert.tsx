@@ -3,37 +3,60 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage } from '../../common';
+import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
-import { deleteRequest, getLeaveQuota } from '../../services';
+import { deleteRequest, cancelLeave } from '../../services';
 import { getUser } from '../../utils';
 
-const DeleteAlert = ({ item }: { item: dataType }) => {
+const DeleteAlert = ({
+  item,
+  other,
+  timelog,
+}: {
+  item: dataType;
+  other: boolean;
+  timelog?: boolean;
+}) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatchRequest } = useContext(RequestContext);
 
-  const onDelete = () => {
-    deleteRequest(item.id)
-      .then(async () => {
-        const user = await getUser();
-        getLeaveQuota(JSON.parse(user).id)
+  const onDelete = async () => {
+    const user = await getUser();
+
+    if (other) {
+      if (new Date(item.leave_date.startDate) > new Date()) {
+        cancelLeave(item.id)
           .then((data) => {
-            dispatchRequest({ type: 'QUOTA', payload: data });
-            dispatchRequest({ type: 'DELETE', payload: item.id });
-            snackBarMessage('Request deleted');
+            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+            dispatchRequest({ type: 'CANCEL', payload: data.leave });
+            snackBarMessage('Request Cancelled');
           })
-          .catch((err) => console.log('GetLeaveQuota error', err));
-      })
-      .catch((err) => console.log(err));
+          .catch((err) => console.log(err));
+      } else {
+        snackErrorBottom({ message: 'You cannot cancel request now' });
+      }
+    } else {
+      deleteRequest(item.id)
+        .then(async (data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
+          dispatchRequest({ type: 'DELETE', payload: item.id });
+          snackBarMessage('Request deleted');
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
     <>
       <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
-        <AppIcon name="delete" color={colors.tomato} size={23} />
+        <AppIcon
+          name={other ? 'close-circle' : 'delete'}
+          color={colors.tomato}
+          size={23}
+        />
       </TouchableOpacity>
       <Dialog.Container
         visible={showAlert}
@@ -43,15 +66,19 @@ const DeleteAlert = ({ item }: { item: dataType }) => {
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Dialog.Title style={style.text1}>
-              Delete the request ?
+              {other ? 'Cancel' : 'Delete'} the request ?
             </Dialog.Title>
             <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
           </View>
         </View>
         <View style={style.buttons}>
-          <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
           <Dialog.Button
-            label="DELETE"
+            label={other ? 'NO' : 'CANCEL'}
+            onPress={hide}
+            style={style.cancel}
+          />
+          <Dialog.Button
+            label={other ? 'YES' : 'DELETE'}
             onPress={() => {
               onDelete();
               hide();

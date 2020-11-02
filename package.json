@@ -24,6 +24,7 @@
     "formik": "^2.1.5",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-calendar-strip": "^2.0.9",
     "react-native-countup": "0.0.2",
     "react-native-dialog": "^5.6.0",
     "react-native-dynamic": "^1.0.0",
@@ -39,6 +40,7 @@
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-textarea": "^1.0.4",
     "react-native-vector-icons": "^7.1.0",
+    "react-native-wheel-datepicker": "^2.2.3",
     "rn-placeholder": "^3.0.3",
     "uuid": "^8.3.0",
     "yup": "^0.29.3"
