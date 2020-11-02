@@ -29,6 +29,20 @@ const TimeLogReducer = (prevState, action) => {
         present: [...action.payload.present],
         past: [...action.payload.past],
       };
+
+    case 'DELETE':
+      return {
+        ...prevState,
+        present: [
+          ...prevState.present.filter((data) => data.id !== action.payload),
+        ],
+        past: [...prevState.past.filter((data) => data.id !== action.payload)],
+      };
+
+    case 'EDIT':
+      return {
+        ...prevState,
+      };
   }
 };
 

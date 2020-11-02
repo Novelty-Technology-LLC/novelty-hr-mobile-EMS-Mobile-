@@ -5,7 +5,7 @@ import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
 import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
 import { dataType } from '../../interface';
-import { RequestContext } from '../../reducer';
+import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
 import { deleteTimeLog } from '../../services/timeLogService';
 import { getUser } from '../../utils';
@@ -25,8 +25,9 @@ const DeleteAlert = ({
 
   const onDelete = async () => {
     const user = await getUser();
+    const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+
     if (!timelog) {
-      const { dispatchRequest } = useContext(RequestContext);
       if (other) {
         if (new Date(item.leave_date.startDate) > new Date()) {
           cancelLeave(item.id)
@@ -48,13 +49,16 @@ const DeleteAlert = ({
           })
           .catch((err) => console.log(err));
       }
+    } else {
+      // const { dispatchRequest } = useContext(RequestContext);
+      console.log(timelog);
+      // deleteTimeLog(item.id)
+      //   .then((data) => {
+      // dispatchTimeLog({ type: 'DELETE', payload: item.id });
+      snackBarMessage('TimeLog deleted');
+      // })
+      // .catch((err) => console.log(err));
     }
-  };
-
-  const onLogDelete = () => {
-    deleteTimeLog(item.id)
-      .then((data) => console.log('deleted', data))
-      .catch((err) => console.log(err));
   };
 
   return (
@@ -90,7 +94,7 @@ const DeleteAlert = ({
           <Dialog.Button
             label={other ? 'YES' : 'DELETE'}
             onPress={() => {
-              timelog ? onLogDelete() : onDelete();
+              onDelete();
               hide();
             }}
             style={style.delete}
