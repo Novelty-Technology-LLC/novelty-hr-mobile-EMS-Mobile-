@@ -44,6 +44,14 @@ const LogTime = ({ route }: any) => {
     if (olddata) {
       editTimeLog(olddata.id, values)
         .then((data) => {
+          console.log(data);
+          dispatchTimeLog({
+            type: 'EDIT',
+            payload: {
+              present: isThisWeek(data) ? data : null,
+              past: isThisWeek(data) ? null : data,
+            },
+          });
           navigation.navigate('timelog');
           setIsLoading(false);
         })

@@ -22,43 +22,41 @@ const DeleteAlert = ({
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
+  const { dispatchTimeLog } = useContext(TimeLogContext);
+  const { dispatchRequest } = useContext(RequestContext);
 
   const onDelete = async () => {
     const user = await getUser();
-    const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
-
-    if (!timelog) {
-      if (other) {
-        if (new Date(item.leave_date.startDate) > new Date()) {
-          cancelLeave(item.id)
-            .then((data) => {
-              dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
-              dispatchRequest({ type: 'CANCEL', payload: data.leave });
-              snackBarMessage('Request Cancelled');
-            })
-            .catch((err) => console.log(err));
-        } else {
-          snackErrorBottom({ message: 'You cannot cancel request now' });
-        }
-      } else {
-        deleteRequest(item.id)
-          .then(async (data) => {
-            dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
-            dispatchRequest({ type: 'DELETE', payload: item.id });
-            snackBarMessage('Request deleted');
+    if (other) {
+      if (new Date(item.leave_date.startDate) > new Date()) {
+        cancelLeave(item.id)
+          .then((data) => {
+            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+            dispatchRequest({ type: 'CANCEL', payload: data.leave });
+            snackBarMessage('Request Cancelled');
           })
           .catch((err) => console.log(err));
+      } else {
+        snackErrorBottom({ message: 'You cannot cancel request now' });
       }
     } else {
-      // const { dispatchRequest } = useContext(RequestContext);
-      console.log(timelog);
-      // deleteTimeLog(item.id)
-      //   .then((data) => {
-      // dispatchTimeLog({ type: 'DELETE', payload: item.id });
-      snackBarMessage('TimeLog deleted');
-      // })
-      // .catch((err) => console.log(err));
+      deleteRequest(item.id)
+        .then(async (data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
+          dispatchRequest({ type: 'DELETE', payload: item.id });
+          snackBarMessage('Request deleted');
+        })
+        .catch((err) => console.log(err));
     }
+  };
+
+  const onTimeLogDelete = () => {
+    deleteTimeLog(item.id)
+      .then(() => {
+        dispatchTimeLog({ type: 'DELETE', payload: item.id });
+        snackBarMessage('TimeLog deleted');
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -78,9 +76,7 @@ const DeleteAlert = ({
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Dialog.Title style={style.text1}>
-              {timelog
-                ? 'Delete the timelog?'
-                : (other ? 'Cancel' : 'Delete') + ' the request ?'}
+              {other ? 'Cancel' : 'Delete'} the request ?
             </Dialog.Title>
             <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
           </View>
@@ -94,7 +90,7 @@ const DeleteAlert = ({
           <Dialog.Button
             label={other ? 'YES' : 'DELETE'}
             onPress={() => {
-              onDelete();
+              timelog ? onTimeLogDelete() : onDelete();
               hide();
             }}
             style={style.delete}
