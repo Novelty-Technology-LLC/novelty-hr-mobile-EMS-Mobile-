@@ -120,7 +120,7 @@ const LeaveDashboard = () => {
         {isAdmin && <OtherRequests refresh={refresh} />}
         <Text onPress={() => SetLocalNotification()}>Notfy</Text>
       </ScrollView>
-      <RequestButton />
+      <RequestButton screen="requestLeave" />
     </View>
   );
 };

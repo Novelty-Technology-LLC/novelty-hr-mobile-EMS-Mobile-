@@ -18,7 +18,7 @@ function Leavetype({
     <View style={style.container}>
       <View style={style.wrapper}>
         <Text style={style.text}>Choose Leave Type</Text>
-        <View style={style.body}>
+        <View style={style.requestBody}>
           <TouchableOpacity
             onPress={() => {
               setType(1), handleChange('type')('PAID TIME OFF');

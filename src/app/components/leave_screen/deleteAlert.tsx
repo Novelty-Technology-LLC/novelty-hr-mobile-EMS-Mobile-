@@ -3,36 +3,51 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage } from '../../common';
+import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext } from '../../reducer';
-import { deleteRequest, getLeaveQuota, cancelLeave } from '../../services';
+import { deleteRequest, cancelLeave } from '../../services';
 import { getUser } from '../../utils';
 
-const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
+const DeleteAlert = ({
+  item,
+  other,
+  timelog,
+}: {
+  item: dataType;
+  other: boolean;
+  timelog?: boolean;
+}) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatchRequest } = useContext(RequestContext);
 
-  const onDelete = () => {
-    other
-      ? cancelLeave(item.id).then((data) => console.log('data', data))
-      : deleteRequest(item.id)
-          .then(async () => {
-            const user = await getUser();
-            getLeaveQuota(JSON.parse(user).id)
-              .then((data) => {
-                dispatchRequest({ type: 'QUOTA', payload: data });
-                dispatchRequest({ type: 'DELETE', payload: item.id });
-                snackBarMessage('Request deleted');
-              })
-              .catch((err) => console.log('GetLeaveQuota error', err));
+  const onDelete = async () => {
+    const user = await getUser();
+
+    if (other) {
+      if (new Date(item.leave_date.startDate) > new Date()) {
+        cancelLeave(item.id)
+          .then((data) => {
+            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+            dispatchRequest({ type: 'CANCEL', payload: data.leave });
+            snackBarMessage('Request Cancelled');
           })
           .catch((err) => console.log(err));
+      } else {
+        snackErrorBottom({ message: 'You cannot cancel request now' });
+      }
+    } else {
+      deleteRequest(item.id)
+        .then(async (data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
+          dispatchRequest({ type: 'DELETE', payload: item.id });
+          snackBarMessage('Request deleted');
+        })
+        .catch((err) => console.log(err));
+    }
   };
-
-  const cancel = () => {};
 
   return (
     <>
