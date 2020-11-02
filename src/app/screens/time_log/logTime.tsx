@@ -11,48 +11,58 @@ import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { getUser, isThisWeek } from '../../utils';
-import { postTimeLog } from '../../services/timeLogService';
+import { editTimeLog, postTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 
-const initialValues = {
-  log_date: new Date().toJSON(),
-  task: '',
-  duration: '',
-  project_id: 0,
-  note: '',
-};
-
-const validationSchema = Yup.object().shape({
-  log_date: Yup.date().nullable().required('Date is a required field'),
-  duration: Yup.string().required('Time is required').label('duration'),
-  project_id: Yup.number().required('Project is required').label('project_id'),
-  note: Yup.string().required('Note is a required field').label('note'),
-});
-
-const LogTime = () => {
+const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
+  const olddata = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
+  const initialValues = {
+    log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
+    duration: olddata ? olddata.duration : '',
+    project_id: olddata ? olddata.project.id : 0,
+    note: olddata ? olddata.note : '',
+  };
+
+  const validationSchema = Yup.object().shape({
+    log_date: Yup.date().nullable().required('Date is a required field'),
+    duration: Yup.string().required('Time is required').label('duration'),
+    project_id: Yup.number()
+      .required('Project is required')
+      .label('project_id'),
+    note: Yup.string().required('Note is a required field').label('note'),
+  });
   const onSubmit = async (values) => {
     setIsLoading(true);
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
-    postTimeLog(values)
-      .then((data) => {
-        dispatchTimeLog({
-          type: 'ADD',
-          payload: {
-            present: isThisWeek(data) ? data : null,
-            past: isThisWeek(data) ? null : data,
-          },
-        });
-        setIsLoading(false);
-        navigation.navigate('timelog');
-      })
-      .catch((err) => console.log(err));
+    if (olddata) {
+      editTimeLog(olddata.id, values)
+        .then((data) => {
+          navigation.navigate('timelog');
+          setIsLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      postTimeLog(values)
+        .then((data) => {
+          dispatchTimeLog({
+            type: 'ADD',
+            payload: {
+              present: isThisWeek(data) ? data : null,
+              past: isThisWeek(data) ? null : data,
+            },
+          });
+          setIsLoading(false);
+          navigation.navigate('timelog');
+        })
+        .catch((err) => console.log(err));
+    }
   };
   return (
     <KeyboardAwareScrollView
@@ -76,17 +86,25 @@ const LogTime = () => {
       >
         {({ handleChange, handleSubmit, values, errors, touched }) => (
           <>
-            <Calendar handleChange={handleChange} />
+            <Calendar
+              handleChange={handleChange}
+              defaultValue={olddata && olddata.log_date}
+            />
             <Time
               handleChange={handleChange}
+              defaultValue={olddata && olddata.duration}
               error={errors}
               touched={touched}
             />
-            <Projects handleChange={handleChange} error={errors} />
+            <Projects
+              handleChange={handleChange}
+              error={errors}
+              defaultValue={olddata && olddata.project_id}
+            />
             <Description
               handleChange={handleChange}
               timelog={true}
-              // defaultValue={olddata && olddata.note}
+              defaultValue={olddata && olddata.note}
               error={errors}
               touched={touched}
             />

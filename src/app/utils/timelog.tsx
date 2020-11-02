@@ -14,6 +14,13 @@ export const getHrs = (time) => {
   return hr + 'h' + mins + "'";
 };
 
+export const getHrsMins = (time) => {
+  let hr = Math.floor(time / 60);
+  let mins = time % 60;
+
+  return { hr, mins };
+};
+
 export const isPast = (item) => {
   return new Date().getDate() - new Date(item.log_date).getDate() >= 7;
 };

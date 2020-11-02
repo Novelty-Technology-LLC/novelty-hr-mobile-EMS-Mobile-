@@ -84,7 +84,11 @@ const TimeLogs = () => {
         <FlatList
           data={timelogs.present}
           renderItem={(item) => (
-            <Swipeable renderRightActions={() => <Swipe timelog={true} />}>
+            <Swipeable
+              renderRightActions={() => (
+                <Swipe timelog={true} item={item.item} />
+              )}
+            >
               <TimeLog item={item.item} />
             </Swipeable>
           )}
@@ -110,7 +114,15 @@ const TimeLogs = () => {
         ) : toggle === 'toggle-switch' && timelogs.past[0] ? (
           <FlatList
             data={timelogs.past}
-            renderItem={(item) => <TimeLog item={item.item} />}
+            renderItem={(item) => (
+              <Swipeable
+                renderRightActions={() => (
+                  <Swipe timelog={true} item={item.item} />
+                )}
+              >
+                <TimeLog item={item.item} />
+              </Swipeable>
+            )}
             keyExtractor={(item) => item.id}
           />
         ) : (

@@ -9,9 +9,11 @@ import { ProjectPlaceHolder } from '../loader';
 const Projects = ({
   handleChange,
   error,
+  defaultValue,
 }: {
   handleChange: Function;
   error: any;
+  defaultValue: number;
 }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,8 +30,7 @@ const Projects = ({
     getPojects();
   }, []);
 
-  const [type, setType] = useState(0);
-  // defaultValue ? (defaultValue.toUpperCase() === 'PAID TIME OFF' ? 1 : 0) : 1
+  const [type, setType] = useState(defaultValue ? defaultValue : 0);
   return (
     <View style={style.container}>
       <View style={style.wrapper}>
