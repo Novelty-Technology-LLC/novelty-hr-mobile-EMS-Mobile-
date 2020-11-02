@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { timeLogStyle as style } from '../../../assets/styles';
 import { createdDay, getHrs } from '../../utils';
 
 const TimeLog = ({ item }: any) => {
   return (
     <>
-      <TouchableOpacity style={style.container} onPress={() => {}}>
+      <View style={style.container}>
         <View style={style.dateView}>
           <View style={style.rowAlign}>
             <Text style={style.date}>{item.note}</Text>
@@ -17,7 +17,7 @@ const TimeLog = ({ item }: any) => {
             <Text style={style.cdate}>{createdDay(item)}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     </>
   );
 };

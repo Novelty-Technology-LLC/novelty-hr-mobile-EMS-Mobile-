@@ -7,7 +7,7 @@ import { Alert, AppIcon } from '../../common';
 import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
 
-const Swipe = ({ item, other }: any) => {
+const Swipe = ({ item, other, timelog }: any) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -32,6 +32,16 @@ const Swipe = ({ item, other }: any) => {
         </>
       )}
     </View>
+  ) : timelog ? (
+    <>
+      <TouchableOpacity
+        onPress={() => onEdit()}
+        style={deleteAlertStyle.iconContainer}
+      >
+        <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
+      </TouchableOpacity>
+      {/* <DeleteAlert timelog={timelog} /> */}
+    </>
   ) : (
     <View style={style.container}>
       {item.state !== 'In Progress' && (

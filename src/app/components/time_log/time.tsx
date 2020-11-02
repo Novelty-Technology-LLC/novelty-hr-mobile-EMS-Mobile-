@@ -34,7 +34,7 @@ const Time = ({
         <Text style={style.colon}>:</Text>
         <Picker
           style={[style.textArea, style.textinputTime]}
-          selectedValue={1}
+          selectedValue={5}
           pickerData={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]}
           onValueChange={(intdata: number) => {
             setMins(intdata);

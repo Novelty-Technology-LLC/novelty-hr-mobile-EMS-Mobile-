@@ -9,7 +9,15 @@ import { RequestContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
 import { getUser } from '../../utils';
 
-const DeleteAlert = ({ item, other }: { item: dataType; other: boolean }) => {
+const DeleteAlert = ({
+  item,
+  other,
+  timelog,
+}: {
+  item: dataType;
+  other: boolean;
+  timelog?: boolean;
+}) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
