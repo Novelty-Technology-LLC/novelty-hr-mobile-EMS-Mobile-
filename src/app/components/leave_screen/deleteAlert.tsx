@@ -30,7 +30,6 @@ const DeleteAlert = ({
       if (new Date(item.leave_date.startDate) > new Date()) {
         cancelLeave(item.id)
           .then((data) => {
-            console.log(data.leave);
             dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
             dispatchRequest({ type: 'CANCEL', payload: data.leave });
             snackBarMessage('Request Cancelled');
