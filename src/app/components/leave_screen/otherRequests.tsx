@@ -33,12 +33,17 @@ const OtherRequests = ({ refresh }: any) => {
     getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
-          (item) => item.status === 'Approved' || item.status === 'Denied'
+          (item) =>
+            item.status === 'Approved' ||
+            item.status === 'Denied' ||
+            item.status === 'Cancelled'
         );
         let myreq = data.filter((item) => item.status === 'Pending');
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
+        console.log('myreq', myreq);
+        console.log('past', pastreq);
         progressreq.map(
           (req) =>
             req.leave_approvals &&

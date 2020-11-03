@@ -33,10 +33,10 @@ class Teams extends Component {
               }
             });
           } else {
-            // if (val.is_default_approver === '1') {
-            //   val.selected = val.first_name;
-            //   this.data.push(val);
-            // }
+            if (val.is_default_approver === '1') {
+              val.selected = val.first_name;
+              this.data.push(val);
+            }
           }
         });
         this.setState({ lead: [...this.state.lead].concat(this.data) }, () => {
