@@ -8,7 +8,8 @@ const Invalid = () => {
     <LoginWrapper>
       <View style={style.buttonView}>
         <Text style={style.message}>
-          Please contact novelty hr team to get your account.
+          Seems like your account is not activated.
+          Please contact Novelty Technology.
         </Text>
       </View>
     </LoginWrapper>

@@ -47,9 +47,9 @@ const Swipe = ({ item, other, timelog }: any) => {
       <DeleteAlert item={item} other={false} timelog={timelog} />
     </View>
   ) : (
-    <View style={style.container}>
-      {item.state !== 'In Progress' && (
-        <>
+    <>
+      {item.state !== 'In Progress' ? (
+        <View style={style.container}>
           <TouchableOpacity
             onPress={() => onEdit()}
             style={deleteAlertStyle.iconContainer}
@@ -61,12 +61,16 @@ const Swipe = ({ item, other, timelog }: any) => {
             />
           </TouchableOpacity>
           <DeleteAlert item={item} />
-        </>
+        </View>
+      ) : (
+        <View style={style.othercontainer}>
+          <DeleteAlert item={item} other={true} />
+        </View>
       )}
       <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
         Your request just got reviewed.You cannot edit now.
       </Alert>
-    </View>
+    </>
   );
 };
 
