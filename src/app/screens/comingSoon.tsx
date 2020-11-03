@@ -8,13 +8,14 @@ import { AuthContext } from '../reducer';
 
 const ComingSoon = () => {
   const { state } = useContext(AuthContext);
+  console.log('state-? ', state);
 
   return (
     <View style={style.container}>
       <Header icon={true}>
         <Text style={headerText}>Setting</Text>
       </Header>
-      <Soon>Welcome to Novelty EMS, {state.user.email}</Soon>
+      {/* <Soon>Welcome to Novelty EMS, {JSON.parse(state).user.email}</Soon> */}
     </View>
   );
 };
