@@ -41,6 +41,12 @@ const timeLogStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     marginTop: normalize(7),
   },
+  rdate: {
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.md),
+    fontFamily: fonts.poppinsMedium,
+    marginTop: normalize(7),
+  },
   duration: {
     fontSize: normalize(theme.size.md),
     color: colors.primary,

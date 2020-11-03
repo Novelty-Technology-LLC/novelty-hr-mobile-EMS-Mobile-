@@ -47,7 +47,6 @@ export const logMapper = (logs) => {
   logs.map((log) => {
     let log_date = log.log_date;
     let oldLog = data[0] && data[0][log_date];
-    console.log('call', log);
     if (!isEmpty(data)) {
       for (const key in data) {
         if (data[log_date]) {
@@ -62,7 +61,5 @@ export const logMapper = (logs) => {
       data[log_date] = [].concat(log);
     }
   });
-  for (const key in data) {
-    console.log('ddd', key, data[key].length);
-  }
+  return data;
 };

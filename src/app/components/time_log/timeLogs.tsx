@@ -10,12 +10,14 @@ import { getAllTimeLogs } from '../../services/timeLogService';
 import { getUser, isThisWeek, logMapper } from '../../utils';
 import Swipe from '../leave_screen/swipe';
 import { UserPlaceHolder } from '../loader';
+import { RepeatTimeLog } from './repeatTimeLog';
 import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
   const [toggle, setToggle] = useState('toggle-switch');
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const [repeatTimeLogs, setRepeatTimeLogs] = useState([]);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
   const getTimeLogs = async () => {
@@ -26,7 +28,7 @@ const TimeLogs = () => {
         setLoading(false);
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
-        logMapper(pastw);
+        setRepeatTimeLogs(logMapper(pastw));
         dispatchTimeLog({
           type: 'CHANGE',
           payload: {
@@ -53,6 +55,10 @@ const TimeLogs = () => {
         />
       }
     >
+      {repeatTimeLogs &&
+        Object.entries(repeatTimeLogs).map(([key, value]) => (
+          <RepeatTimeLog key={key} value={value} />
+        ))}
       <View style={style.header}>
         <Text style={style.title}>This Week</Text>
         {timelogs.past.length > 0 && (
