@@ -21,7 +21,11 @@ const requestStyle = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
-  wrapper: { flexDirection: 'row' ,alignItems:'center',justifyContent:'space-between'},
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   requestDate: {
     marginTop: normalize(theme.spacing.wide),
     fontSize: normalize(theme.size.xxs),
@@ -36,10 +40,10 @@ const requestStyle = StyleSheet.create({
     paddingHorizontal: normalize(10),
   },
   status: {
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between',
-    marginTop:normalize(3)
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: normalize(3),
   },
   date: {
     fontSize: normalize(theme.size.base),
@@ -73,31 +77,34 @@ const requestStyle = StyleSheet.create({
       android: { padding: normalize(5), borderRadius: normalize(14) },
     }),
   },
-  stateView: { ...Platform.select({
-    android:{marginTop:normalize(7)},ios:{
-      marginTop:normalize(4)
-    }
-  }) },
-  stateViewAdmin: { marginTop:normalize(10) },
+  stateView: {
+    ...Platform.select({
+      android: { marginTop: normalize(7) },
+      ios: {
+        marginTop: normalize(4),
+      },
+    }),
+  },
+  stateViewAdmin: { marginTop: normalize(10) },
   state: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     ...Platform.select({
-      android:{
-        marginTop:normalize(5)
-      }
-    })
+      android: {
+        marginTop: normalize(5),
+      },
+    }),
   },
   denyStat: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     ...Platform.select({
-      android:{
-        paddingTop:normalize(5)
-      }
-    })
+      android: {
+        paddingTop: normalize(5),
+      },
+    }),
   },
   row: {
     flexDirection: 'row',
@@ -106,7 +113,8 @@ const requestStyle = StyleSheet.create({
   },
   rowAlign: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   space: {
     ...Platform.select({
@@ -186,9 +194,6 @@ const requestStyle = StyleSheet.create({
         padding: normalize(5),
       },
     }),
-  },
-  rowAlign: {
-    flexDirection: 'row',
   },
 });
 
