@@ -102,7 +102,7 @@ const Login = () => {
             <Logo name="google" />
           </TouchableOpacity>
 
-          {/* {Platform.OS === 'ios' && (
+          {Platform.OS === 'ios' && (
             <View style={style.iconView}>
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}
@@ -110,7 +110,7 @@ const Login = () => {
                 <Logo name="apple" />
               </TouchableOpacity>
             </View>
-          )} */}
+          )}
         </View>
       </View>
     </LoginWrapper>
