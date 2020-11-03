@@ -40,7 +40,7 @@ export const logMapper = (logs) => {
     let log_date = log.log_date;
     let oldLog = data[0] && data[0][log_date];
     console.log('old', oldLog);
-    console.log('date', typeof log_date);
+    data[0] && console.log('date', Object.keys(data[0]));
     data.push({ [log_date]: [].concat(log) });
     // data[0] && console.log('old', data[0][log_date.toString()], log_date);
     // data.map((item) => {
@@ -51,5 +51,5 @@ export const logMapper = (logs) => {
     //   }
     // });
   });
-  console.log('dd', data[0]['2020-10-29']);
+  console.log('dd', Object.keys(data), data);
 };
