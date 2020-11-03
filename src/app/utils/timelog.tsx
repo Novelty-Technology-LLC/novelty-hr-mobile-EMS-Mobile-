@@ -1,5 +1,3 @@
-import { min } from 'react-native-reanimated';
-
 export const createdDay = (date) => {
   let newdate = new Date(date.log_date).toString();
   return newdate.substr(3, 7) + ', ' + newdate.substr(0, 3);
@@ -12,6 +10,13 @@ export const getHrs = (time) => {
     mins = '0' + mins;
   }
   return hr + 'h' + mins + "'";
+};
+
+export const getHrsMins = (time) => {
+  let hr = Math.floor(time / 60);
+  let mins = time % 60;
+
+  return { hr, mins };
 };
 
 export const isPast = (item) => {
@@ -27,4 +32,37 @@ export const isThisWeek = (item) => {
   return getWeek(new Date(item.log_date)) === getWeek(new Date())
     ? true
     : false;
+};
+
+function isEmpty(obj) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
+  }
+
+  return true;
+}
+
+export const logMapper = (logs) => {
+  let data = {};
+  logs.map((log) => {
+    let log_date = log.log_date;
+    let oldLog = data[0] && data[0][log_date];
+    console.log('call', log);
+    if (!isEmpty(data)) {
+      for (const key in data) {
+        if (data[log_date]) {
+          data[log_date] = [].concat(...data[log_date], log);
+          break;
+        } else {
+          data[log_date] = [].concat(log);
+          break;
+        }
+      }
+    } else {
+      data[log_date] = [].concat(log);
+    }
+  });
+  for (const key in data) {
+    console.log('ddd', key, data[key].length);
+  }
 };

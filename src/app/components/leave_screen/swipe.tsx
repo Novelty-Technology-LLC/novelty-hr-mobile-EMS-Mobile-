@@ -24,6 +24,10 @@ const Swipe = ({ item, other, timelog }: any) => {
       .catch((err) => console.log(err));
   };
 
+  const onLogEdit = () => {
+    navigation.navigate('logtime', item);
+  };
+
   return other ? (
     <View style={style.othercontainer}>
       {item.state === 'Approved' && (
@@ -33,15 +37,15 @@ const Swipe = ({ item, other, timelog }: any) => {
       )}
     </View>
   ) : timelog ? (
-    <>
+    <View style={style.container}>
       <TouchableOpacity
-        onPress={() => onEdit()}
+        onPress={() => onLogEdit()}
         style={deleteAlertStyle.iconContainer}
       >
         <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
       </TouchableOpacity>
-      {/* <DeleteAlert timelog={timelog} /> */}
-    </>
+      <DeleteAlert item={item} other={false} timelog={timelog} />
+    </View>
   ) : (
     <>
       {item.state !== 'In Progress' ? (

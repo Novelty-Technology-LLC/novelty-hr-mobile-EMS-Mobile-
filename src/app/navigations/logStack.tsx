@@ -1,23 +1,31 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TimeLog, LogTime } from '../screens';
-import { TimeLogContext, useTimeLog } from '../reducer';
+import {
+  RequestContext,
+  TimeLogContext,
+  useRequest,
+  useTimeLog,
+} from '../reducer';
 
 const LogStack = createStackNavigator();
 
 const LogNav = () => {
   const { timelogs, dispatchTimeLog } = useTimeLog();
+  const { requests, dispatchRequest } = useRequest();
 
   return (
     <TimeLogContext.Provider value={{ timelogs, dispatchTimeLog }}>
-      <LogStack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <LogStack.Screen name="timelog" component={TimeLog} />
-        <LogStack.Screen name="logtime" component={LogTime} />
-      </LogStack.Navigator>
+      <RequestContext.Provider value={{ requests, dispatchRequest }}>
+        <LogStack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <LogStack.Screen name="timelog" component={TimeLog} />
+          <LogStack.Screen name="logtime" component={LogTime} />
+        </LogStack.Navigator>
+      </RequestContext.Provider>
     </TimeLogContext.Provider>
   );
 };
