@@ -84,6 +84,7 @@ const RequestLeave = ({ route }: any) => {
   const onSubmit = async (values) => {
     try {
       const date = JSON.parse(values.date);
+
       const startDate = new Date(date.startDate).toString().slice(0, 15);
 
       let endDate = '';
@@ -116,7 +117,9 @@ const RequestLeave = ({ route }: any) => {
         throw new Error(`Selected day exceeds ${values.type}`);
       }
       delete values.date;
+
       const userid = state.user.id;
+      console.log('reached -> ', userid);
       const requestData = {
         ...values,
         leave_date: {
@@ -126,6 +129,7 @@ const RequestLeave = ({ route }: any) => {
         day,
         requestor_id: userid,
       };
+
       setisLoading(!isLoading);
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {

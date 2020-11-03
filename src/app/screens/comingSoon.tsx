@@ -8,6 +8,7 @@ import { AuthContext } from '../reducer';
 
 const ComingSoon = () => {
   const { state } = useContext(AuthContext);
+
   return (
     <View style={style.container}>
       <Header icon={true}>

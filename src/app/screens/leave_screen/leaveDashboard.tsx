@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl } from 'react-native';
+import { View, ScrollView, Text, RefreshControl, Alert } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
@@ -8,11 +8,10 @@ import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
-import { getLeaveQuota, getMyRequests, Alert } from '../../services';
+import { getLeaveQuota, getMyRequests } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import { SetLocalNotification } from '../../utils/pushNotification';
 import messaging from '@react-native-firebase/messaging';
-import PushNotification from 'react-native-push-notification';
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -67,31 +66,24 @@ const LeaveDashboard = () => {
   };
 
   useEffect(() => {
+    requestUserPermission();
     getData();
     getRequest();
   }, []);
 
-  /*optional */
+  async function requestUserPermission() {
+    const token = await messaging().getToken();
+    console.log('token -> ', token);
 
-  useEffect(() => {
-    async function requestUserPermission() {
-      const authStatus = await messaging().requestPermission();
-      const enabled =
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-      if (enabled) {
-        messaging.getToken((token) => console.log('FCM token -> ', token));
-      }
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
     }
-    requestUserPermission();
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-
-    return unsubscribe;
-  }, []);
-  /*opt*/
+  }
 
   return (
     <View style={style.mainContainer}>
