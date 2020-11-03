@@ -9,10 +9,12 @@ import { ProjectPlaceHolder } from '../loader';
 const Projects = ({
   handleChange,
   error,
+  touched,
   defaultValue,
 }: {
   handleChange: Function;
   error: any;
+  touched: any;
   defaultValue: number;
 }) => {
   const [projects, setProjects] = useState([]);
@@ -78,8 +80,8 @@ const Projects = ({
               </>
             ))}
         </View>
-        {error.project && (
-          <Text style={descriptionStyle.error}>{error.project}</Text>
+        {error.project_id && touched.project_id && (
+          <Text style={descriptionStyle.error}>{error.project_id}</Text>
         )}
       </View>
     </View>

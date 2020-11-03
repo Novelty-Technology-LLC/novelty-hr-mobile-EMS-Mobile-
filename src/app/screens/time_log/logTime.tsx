@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, Platform, ActivityIndicator } from 'react-native';
 import { headerText, requestLeave } from '../../../assets/styles';
-import { header as Header } from '../../common';
+import { header as Header, snackBarMessage } from '../../common';
 import { Description } from '../../components/request_screen';
 import { Calendar, Task } from '../../components/time_log';
 import Time from '../../components/time_log/time';
@@ -25,7 +25,7 @@ const LogTime = ({ route }: any) => {
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
     duration: olddata ? olddata.duration : '',
-    project_id: olddata ? olddata.project.id : 0,
+    project_id: olddata ? olddata.project.id : '',
     note: olddata ? olddata.note : '',
   };
 
@@ -44,7 +44,6 @@ const LogTime = ({ route }: any) => {
     if (olddata) {
       editTimeLog(olddata.id, values)
         .then((data) => {
-          console.log(data);
           dispatchTimeLog({
             type: 'EDIT',
             payload: {
@@ -54,6 +53,7 @@ const LogTime = ({ route }: any) => {
           });
           navigation.navigate('timelog');
           setIsLoading(false);
+          snackBarMessage('TimeLog updated');
         })
         .catch((err) => console.log(err));
     } else {
@@ -68,6 +68,7 @@ const LogTime = ({ route }: any) => {
           });
           setIsLoading(false);
           navigation.navigate('timelog');
+          snackBarMessage('TimeLog posted');
         })
         .catch((err) => console.log(err));
     }
@@ -107,6 +108,7 @@ const LogTime = ({ route }: any) => {
             <Projects
               handleChange={handleChange}
               error={errors}
+              touched={touched}
               defaultValue={olddata && olddata.project_id}
             />
             <Description
