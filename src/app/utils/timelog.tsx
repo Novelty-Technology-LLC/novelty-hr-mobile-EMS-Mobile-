@@ -1,5 +1,3 @@
-import { min } from 'react-native-reanimated';
-
 export const createdDay = (date) => {
   let newdate = new Date(date.log_date).toString();
   return newdate.substr(3, 7) + ', ' + newdate.substr(0, 3);
@@ -34,4 +32,24 @@ export const isThisWeek = (item) => {
   return getWeek(new Date(item.log_date)) === getWeek(new Date())
     ? true
     : false;
+};
+
+export const logMapper = (logs) => {
+  let data = [];
+  logs.map((log) => {
+    let log_date = log.log_date;
+    let oldLog = data[0] && data[0][log_date];
+    console.log('old', oldLog);
+    console.log('date', typeof log_date);
+    data.push({ [log_date]: [].concat(log) });
+    // data[0] && console.log('old', data[0][log_date.toString()], log_date);
+    // data.map((item) => {
+    //   if (log_date in item) {
+    //     console.log('exits');
+    //     return;
+    //   } else {
+    //   }
+    // });
+  });
+  console.log('dd', data[0]['2020-10-29']);
 };

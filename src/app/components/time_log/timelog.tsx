@@ -12,6 +12,7 @@ const TimeLog = ({ item }: any) => {
             <Text style={style.date}>{item.note}</Text>
             <Text style={style.duration}>{getHrs(item.duration)}</Text>
           </View>
+
           <View style={style.rowAlign}>
             <Text style={style.type}>{item.project.name.toUpperCase()}</Text>
             <Text style={style.cdate}>{createdDay(item)}</Text>
