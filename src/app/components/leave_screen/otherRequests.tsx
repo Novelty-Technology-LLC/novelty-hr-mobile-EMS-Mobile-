@@ -33,7 +33,10 @@ const OtherRequests = ({ refresh }: any) => {
     getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
-          (item) => item.status === 'Approved' || item.status === 'Denied'
+          (item) =>
+            item.status === 'Approved' ||
+            item.status === 'Denied' ||
+            item.status === 'Cancelled'
         );
         let myreq = data.filter((item) => item.status === 'Pending');
         const progressreq = data.filter(
@@ -132,7 +135,7 @@ const OtherRequests = ({ refresh }: any) => {
           <AdminPlaceHolder />
         </>
       )}
-      {toggle === 'toggle-switch' && (
+      {toggle === 'toggle-switch' && !loading && (
         <History other={true} requests={adminrequests.pastadminrequests} />
       )}
     </View>

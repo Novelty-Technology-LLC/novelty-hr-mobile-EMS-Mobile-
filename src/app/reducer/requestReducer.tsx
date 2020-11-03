@@ -60,6 +60,9 @@ const RequestReducer = (prevState, action) => {
     case 'CANCEL':
       return {
         ...prevState,
+        requests: [].concat(
+          ...prevState.requests.filter((item) => item.id !== action.payload.id)
+        ),
         pastrequests: [].concat(
           mapObjectToRequest(action.payload),
           ...prevState.pastrequests.filter(
