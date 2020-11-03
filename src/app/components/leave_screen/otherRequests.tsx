@@ -42,8 +42,6 @@ const OtherRequests = ({ refresh }: any) => {
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
-        console.log('myreq', myreq);
-        console.log('past', pastreq);
         progressreq.map(
           (req) =>
             req.leave_approvals &&
@@ -137,7 +135,7 @@ const OtherRequests = ({ refresh }: any) => {
           <AdminPlaceHolder />
         </>
       )}
-      {toggle === 'toggle-switch' && (
+      {toggle === 'toggle-switch' && !loading && (
         <History other={true} requests={adminrequests.pastadminrequests} />
       )}
     </View>

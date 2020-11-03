@@ -31,7 +31,7 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
               if (res === 'Pending' || res === 'In Progress') {
                 setShow(true);
               } else {
-                snackErrorBottom({ message: `request got ${res}` });
+                snackErrorBottom({ message: `Request got ${res}` });
               }
             })
             .catch((err) => setShowAlert(true));
