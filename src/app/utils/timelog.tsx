@@ -34,22 +34,35 @@ export const isThisWeek = (item) => {
     : false;
 };
 
+function isEmpty(obj) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
+  }
+
+  return true;
+}
+
 export const logMapper = (logs) => {
-  let data = [];
+  let data = {};
   logs.map((log) => {
     let log_date = log.log_date;
     let oldLog = data[0] && data[0][log_date];
-    console.log('old', oldLog);
-    data[0] && console.log('date', Object.keys(data[0]));
-    data.push({ [log_date]: [].concat(log) });
-    // data[0] && console.log('old', data[0][log_date.toString()], log_date);
-    // data.map((item) => {
-    //   if (log_date in item) {
-    //     console.log('exits');
-    //     return;
-    //   } else {
-    //   }
-    // });
+    console.log('call', log);
+    if (!isEmpty(data)) {
+      for (const key in data) {
+        if (data[log_date]) {
+          data[log_date] = [].concat(...data[log_date], log);
+          break;
+        } else {
+          data[log_date] = [].concat(log);
+          break;
+        }
+      }
+    } else {
+      data[log_date] = [].concat(log);
+    }
   });
-  console.log('dd', Object.keys(data), data);
+  for (const key in data) {
+    console.log('ddd', key, data[key].length);
+  }
 };
