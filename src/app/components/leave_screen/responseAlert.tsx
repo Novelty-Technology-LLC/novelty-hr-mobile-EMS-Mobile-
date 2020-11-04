@@ -45,6 +45,7 @@ const EditAlert = ({
       note,
       requested_to: Id,
       quotaId: item.sender,
+      notification_token: item.user.notification_token,
     };
     updateRequest(item.id, newData).then((data) => {
       item.state = data.status;

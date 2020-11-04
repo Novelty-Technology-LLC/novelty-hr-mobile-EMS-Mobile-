@@ -73,6 +73,7 @@ const LeaveDashboard = () => {
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
+
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||

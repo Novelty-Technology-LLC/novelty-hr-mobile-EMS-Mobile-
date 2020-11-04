@@ -6796,11 +6796,6 @@ react-native-countup@0.0.2:
   dependencies:
     react-timer-mixin "^0.13.3"
 
-react-native-device-info@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-7.0.2.tgz#dcfebd8e879e2a1973156597eba4d6777e67945f"
-  integrity sha512-3jzEzzX0Zo5rm+fClPFp3OGUnRPjK0w4X6RCNZtuaNbwMG+Vm3BLcU69dv+UfkYMrCo5JSKV6lA2fG25qq2tuA==
-
 react-native-dialog@^5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/react-native-dialog/-/react-native-dialog-5.6.0.tgz#8c36a1e9f397eba0cea88821ebcf92f029236a1a"
