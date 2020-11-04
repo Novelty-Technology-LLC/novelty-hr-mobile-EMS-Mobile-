@@ -57,7 +57,11 @@ const TimeLogs = () => {
     >
       {repeatTimeLogs &&
         Object.entries(repeatTimeLogs).map(([key, value]) => (
-          <RepeatTimeLog key={key} value={value} />
+          <Swipeable
+            renderRightActions={() => <Swipe value={value} timelog={true} />}
+          >
+            <RepeatTimeLog key={key} value={value} />
+          </Swipeable>
         ))}
       <View style={style.header}>
         <Text style={style.title}>This Week</Text>

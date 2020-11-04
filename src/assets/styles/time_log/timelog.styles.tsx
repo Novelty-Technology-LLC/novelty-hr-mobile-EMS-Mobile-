@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
@@ -43,7 +43,7 @@ const timeLogStyle = StyleSheet.create({
   },
   rdate: {
     color: colors.fontGrey,
-    fontSize: normalize(theme.size.md),
+    fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,
     marginTop: normalize(7),
   },

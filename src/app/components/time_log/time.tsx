@@ -14,8 +14,8 @@ const Time = ({
   defaultValue,
 }: {
   handleChange: Function;
-  error: any;
-  touched: any;
+  error?: any;
+  touched?: any;
   defaultValue?: string;
 }) => {
   const [hours, setHours] = useState(0);
@@ -31,7 +31,9 @@ const Time = ({
           pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
           onValueChange={(intdata: number) => {
             setHours(intdata);
-            handleChange('duration')((intdata * 60 + mins).toString());
+            error
+              ? handleChange('duration')((intdata * 60 + mins).toString())
+              : handleChange((intdata * 60 + mins).toString());
           }}
         />
         <Text style={style.colon}>HRS</Text>
@@ -39,15 +41,17 @@ const Time = ({
         <Picker
           style={[style.textArea, style.textinputTime]}
           selectedValue={defaultValue ? getHrsMins(defaultValue).mins : 5}
-          pickerData={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]}
+          pickerData={[0, 15, 30, 45]}
           onValueChange={(intdata: number) => {
             setMins(intdata);
-            handleChange('duration')((hours * 60 + intdata).toString());
+            error
+              ? handleChange('duration')((hours * 60 + intdata).toString())
+              : handleChange((hours * 60 + intdata).toString());
           }}
         />
         <Text style={style.colon}>MINS</Text>
       </View>
-      {error.duration && touched.duration && (
+      {error && touched && error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>
       )}
     </View>

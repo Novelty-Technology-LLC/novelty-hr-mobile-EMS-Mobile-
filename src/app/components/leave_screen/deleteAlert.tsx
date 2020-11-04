@@ -14,10 +14,12 @@ const DeleteAlert = ({
   item,
   other,
   timelog,
+  edittimelog,
 }: {
   item: dataType;
   other: boolean;
   timelog?: boolean;
+  edittimelog?: boolean;
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -90,7 +92,11 @@ const DeleteAlert = ({
           <Dialog.Button
             label={other ? 'YES' : 'DELETE'}
             onPress={() => {
-              timelog ? onTimeLogDelete() : onDelete();
+              edittimelog
+                ? console.log('edd')
+                : timelog
+                ? onTimeLogDelete()
+                : onDelete();
               hide();
             }}
             style={style.delete}

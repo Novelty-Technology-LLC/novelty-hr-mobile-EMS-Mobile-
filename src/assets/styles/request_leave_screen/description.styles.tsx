@@ -22,6 +22,15 @@ const descriptionStyle = StyleSheet.create({
     backgroundColor: color.grey,
     opacity: 0.8,
   },
+  editlogContainer: {
+    height: normalize(100),
+    width: normalize(280),
+    marginTop: normalize(10),
+    padding: normalize(10),
+    borderRadius: normalize(4),
+    backgroundColor: color.grey,
+    opacity: 0.8,
+  },
   textinputContainer: {
     height: normalize(60),
     width: normalize(340),

@@ -3,14 +3,14 @@ import { View, Text, Platform, ActivityIndicator } from 'react-native';
 import { headerText, requestLeave } from '../../../assets/styles';
 import { header as Header, snackBarMessage } from '../../common';
 import { Description } from '../../components/request_screen';
-import { Calendar, Task } from '../../components/time_log';
+import { Calendar, Task, Tasks } from '../../components/time_log';
 import Time from '../../components/time_log/time';
 import { button as Button } from '../../common';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { getUser, isThisWeek } from '../../utils';
+import { getUser, isThisWeek, totalHours } from '../../utils';
 import { editTimeLog, postTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
@@ -18,14 +18,15 @@ import { TimeLogContext } from '../../reducer';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
-  const olddata = route.params;
+  const olddatas = route.params.value;
+  const olddata = route.params.item;
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
   const initialValues = {
-    log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
-    duration: olddata ? olddata.duration : '',
-    project_id: olddata ? olddata.project.id : '',
+    log_date: olddata ? new Date(olddatas[0].log_date) : new Date().toJSON(),
+    duration: olddata ? totalHours(olddatas) : '',
+    project_id: olddata ? olddatas[0].project_id : '',
     note: olddata ? olddata.note : '',
   };
 
@@ -73,6 +74,7 @@ const LogTime = ({ route }: any) => {
         .catch((err) => console.log(err));
     }
   };
+
   return (
     <KeyboardAwareScrollView
       style={requestLeave.container}
@@ -97,11 +99,11 @@ const LogTime = ({ route }: any) => {
           <>
             <Calendar
               handleChange={handleChange}
-              defaultValue={olddata && olddata.log_date}
+              defaultValue={olddatas && olddatas[0].log_date}
             />
             <Time
               handleChange={handleChange}
-              defaultValue={olddata && olddata.duration}
+              defaultValue={olddatas && totalHours(olddatas)}
               error={errors}
               touched={touched}
             />
@@ -109,15 +111,19 @@ const LogTime = ({ route }: any) => {
               handleChange={handleChange}
               error={errors}
               touched={touched}
-              defaultValue={olddata && olddata.project_id}
+              defaultValue={olddatas && olddatas[0].project_id}
             />
-            <Description
-              handleChange={handleChange}
-              timelog={true}
-              defaultValue={olddata && olddata.note}
-              error={errors}
-              touched={touched}
-            />
+            {olddatas ? (
+              <Tasks value={olddatas} />
+            ) : (
+              <Description
+                handleChange={handleChange}
+                timelog={true}
+                defaultValue={olddata && olddata.note}
+                error={errors}
+                touched={touched}
+              />
+            )}
             <Button onPress={() => handleSubmit()}>
               <View style={requestLeave.buttonView}>
                 <Text style={requestLeave.buttonText}>Submit</Text>

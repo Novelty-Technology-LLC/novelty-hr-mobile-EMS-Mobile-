@@ -3,31 +3,19 @@ import { View, Text, TextInput } from 'react-native';
 import {
   calenderStyle,
   descriptionStyle as style,
+  timeLogStyle,
 } from '../../../assets/styles';
+import { getHrs } from '../../utils';
 
-const Task = ({
-  handleChange,
-  error,
-  touched,
-}: {
-  handleChange: Function;
-  error: any;
-  touched: any;
-}) => {
+const Task = ({ item }: any) => {
   return (
-    <View style={[style.main, calenderStyle.container]}>
-      <Text style={style.text}>Task *</Text>
-      <TextInput
-        style={[style.textArea, style.textinputContainer]}
-        placeholderTextColor={'#c7c7c7'}
-        underlineColorAndroid={'transparent'}
-        name="task"
-        label="task"
-        onChangeText={(data) => handleChange('task')(data)}
-      />
-      {error.task && touched.task && (
-        <Text style={style.error}>{error.task}</Text>
-      )}
+    <View style={timeLogStyle.container}>
+      <View style={timeLogStyle.dateView}>
+        <View style={timeLogStyle.rowAlign}>
+          <Text style={timeLogStyle.date}>{item.note}</Text>
+          <Text style={timeLogStyle.duration}>{getHrs(item.duration)}</Text>
+        </View>
+      </View>
     </View>
   );
 };

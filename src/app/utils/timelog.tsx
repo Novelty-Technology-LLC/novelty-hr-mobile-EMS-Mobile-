@@ -45,11 +45,11 @@ function isEmpty(obj) {
 export const logMapper = (logs) => {
   let data = {};
   logs.map((log) => {
-    let log_date = log.log_date;
+    let log_date = log.log_date + log.project.id;
     let oldLog = data[0] && data[0][log_date];
     if (!isEmpty(data)) {
       for (const key in data) {
-        if (data[log_date]) {
+        if (data[log_date] && data[log_date][0].project.id === log.project.id) {
           data[log_date] = [].concat(...data[log_date], log);
           break;
         } else {
@@ -62,4 +62,9 @@ export const logMapper = (logs) => {
     }
   });
   return data;
+};
+
+export const totalHours = (item) => {
+  const total = item.reduce((acc, curr) => acc + curr.duration, 0);
+  return total;
 };
