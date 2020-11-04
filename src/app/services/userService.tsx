@@ -9,6 +9,13 @@ const create = async (data: object) => {
   });
 };
 
-const get = () => {};
+const store = (data) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post('/user/storeToken', data)
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+};
 
-export { create, get };
+export { create, store };

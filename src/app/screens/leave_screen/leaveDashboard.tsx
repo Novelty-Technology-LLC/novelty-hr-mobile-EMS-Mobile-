@@ -8,7 +8,7 @@ import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
-import { getLeaveQuota, getMyRequests } from '../../services';
+import { getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import { SetLocalNotification } from '../../utils/pushNotification';
 import messaging from '@react-native-firebase/messaging';
@@ -73,15 +73,20 @@ const LeaveDashboard = () => {
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
-    console.log('token -> ', token);
-
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
+    let user = await getUser();
+    user = JSON.parse(user).uuid;
+
+    const data = {
+      uuid: user,
+      notification_token: token,
+    };
     if (enabled) {
-      console.log('Authorization status:', authStatus);
+      store(data);
     }
   }
 
