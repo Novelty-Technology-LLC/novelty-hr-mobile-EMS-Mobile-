@@ -38,7 +38,6 @@ const Login = () => {
       values.EmailAddress === 'dev@noveltytechnology.com' &&
       values.Password === 'testPassword'
     ) {
-      console.log('authenticated');
       const user = {
         email: 'dev@noveltytechnology.com',
         image_url:
@@ -46,6 +45,7 @@ const Login = () => {
         uuid: '113798347975576059462',
         idToken: 'alive',
       };
+
       createUser(dispatch, user, user.idToken);
     } else {
       Keyboard.dismiss();
