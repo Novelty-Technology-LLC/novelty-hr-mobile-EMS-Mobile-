@@ -30,8 +30,6 @@ const EditAlert = ({
     setShow(false);
   };
 
-  console.log('item -> ', item);
-
   const { state } = useContext(AuthContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
 

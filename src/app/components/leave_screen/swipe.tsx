@@ -57,11 +57,17 @@ const Swipe = ({ item, value, other, timelog, edittimelog }: any) => {
       >
         <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
       </TouchableOpacity>
-      <DeleteAlert item={item} edittimelog={edittimelog} other={false} />
+      <DeleteAlert
+        item={item}
+        edittimelog={edittimelog}
+        other={false}
+        value={value}
+      />
       <EditLogAlert
         showAlert={showAlert}
         setShowAlert={setShowAlert}
-        item={item}
+        def={item}
+        item={value}
       />
     </View>
   ) : (

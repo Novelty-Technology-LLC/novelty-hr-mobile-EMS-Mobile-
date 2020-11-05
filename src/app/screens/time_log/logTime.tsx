@@ -15,6 +15,7 @@ import { editTimeLog, postTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
+import UUIDGenerator from 'react-native-uuid-generator';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -23,26 +24,43 @@ const LogTime = ({ route }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
+  const getNote = (olddata) => {
+    if (isThisWeek(olddata)) {
+      return timelogs.present.filter((log) => log.id === olddata.id)[0].note;
+    } else {
+      return timelogs.past.filter((log) => log.id === olddata.id)[0].note;
+    }
+  };
+
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
     duration: olddata ? totalHours(olddata) : '',
     project_id: olddata ? olddata.project_id : '',
-    note: olddata ? olddata.note : '',
+    note: olddata ? getNote(olddata) : '',
   };
 
-  const validationSchema = Yup.object().shape({
-    log_date: Yup.date().nullable().required('Date is a required field'),
-    duration: Yup.string().required('Time is required').label('duration'),
-    project_id: Yup.number()
-      .required('Project is required')
-      .label('project_id'),
-    note: Yup.string().required('Note is a required field').label('note'),
-  });
+  const validationSchema = olddata
+    ? Yup.object().shape({
+        log_date: Yup.date().nullable().required('Date is a required field'),
+        duration: Yup.string().required('Time is required').label('duration'),
+        project_id: Yup.number()
+          .required('Project is required')
+          .label('project_id'),
+      })
+    : Yup.object().shape({
+        log_date: Yup.date().nullable().required('Date is a required field'),
+        duration: Yup.string().required('Time is required').label('duration'),
+        project_id: Yup.number()
+          .required('Project is required')
+          .label('project_id'),
+        note: Yup.string().required('Note is a required field').label('note'),
+      });
   const onSubmit = async (values) => {
     setIsLoading(true);
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
     if (olddata) {
+      values.note = getNote(olddata);
       editTimeLog(olddata.id, values)
         .then((data) => {
           dispatchTimeLog({
@@ -58,26 +76,59 @@ const LogTime = ({ route }: any) => {
         })
         .catch((err) => console.log(err));
     } else {
-      values.note = [
-        {
-          task: values.note,
-          time: values.duration,
-        },
-      ];
-      postTimeLog(values)
-        .then((data) => {
-          dispatchTimeLog({
-            type: 'ADD',
-            payload: {
-              present: isThisWeek(data) ? data : null,
-              past: isThisWeek(data) ? null : data,
-            },
-          });
-          setIsLoading(false);
-          navigation.navigate('timelog');
-          snackBarMessage('TimeLog posted');
-        })
-        .catch((err) => console.log(err));
+      const uuid = await UUIDGenerator.getRandomUUID();
+      const note = {
+        id: uuid,
+        task: values.note,
+        time: values.duration,
+      };
+      const pastData =
+        timelogs.present.filter(
+          (log) =>
+            new Date(log.log_date).toDateString() ===
+              new Date(values.log_date).toDateString() &&
+            log.project_id == values.project_id
+        ) ||
+        timelogs.past.filter(
+          (log) =>
+            new Date(log.log_date).toDateString() ===
+              new Date(values.log_date).toDateString() &&
+            log.project_id == values.project_id
+        );
+
+      if (pastData.length > 0) {
+        pastData[0].note = [].concat(note, ...pastData[0].note);
+        editTimeLog(pastData[0].id, pastData[0])
+          .then((data) => {
+            dispatchTimeLog({
+              type: 'EDIT',
+              payload: {
+                present: isThisWeek(data) ? data : null,
+                past: isThisWeek(data) ? null : data,
+              },
+            });
+            navigation.navigate('timelog');
+            setIsLoading(false);
+            snackBarMessage('TimeLog updated');
+          })
+          .catch((err) => console.log(err));
+      } else {
+        values.note = [note];
+        postTimeLog(values)
+          .then((data) => {
+            dispatchTimeLog({
+              type: 'ADD',
+              payload: {
+                present: isThisWeek(data) ? data : null,
+                past: isThisWeek(data) ? null : data,
+              },
+            });
+            setIsLoading(false);
+            navigation.navigate('timelog');
+            snackBarMessage('TimeLog posted');
+          })
+          .catch((err) => console.log(err));
+      }
     }
   };
 
@@ -120,7 +171,7 @@ const LogTime = ({ route }: any) => {
               defaultValue={olddata && olddata.project_id}
             />
             {olddata ? (
-              <Tasks value={olddata.note} />
+              <Tasks value={olddata} handleChange={handleChange} />
             ) : (
               <Description
                 handleChange={handleChange}

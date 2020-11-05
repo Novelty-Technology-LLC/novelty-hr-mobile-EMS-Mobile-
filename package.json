@@ -47,6 +47,7 @@
     "react-native-svg-transformer": "^0.14.3",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-textarea": "^1.0.4",
+    "react-native-uuid-generator": "^6.1.1",
     "react-native-vector-icons": "^7.1.0",
     "react-native-wheel-datepicker": "^2.2.3",
     "rn-placeholder": "^3.0.3",

@@ -7,18 +7,20 @@ import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
-import { deleteTimeLog } from '../../services/timeLogService';
-import { getUser } from '../../utils';
+import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
+import { getUser, isThisWeek } from '../../utils';
 
 const DeleteAlert = ({
   item,
   other,
+  value,
   timelog,
   edittimelog,
 }: {
   item: dataType;
   other: boolean;
   timelog?: boolean;
+  value?: object;
   edittimelog?: boolean;
 }) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -26,6 +28,18 @@ const DeleteAlert = ({
   const hide = () => setShowAlert(false);
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const { dispatchRequest } = useContext(RequestContext);
+
+  const onTaskDelete = () => {
+    value.note = value.note.filter((val) => val.id !== item.id);
+    dispatchTimeLog({
+      type: 'EDIT',
+      payload: {
+        present: isThisWeek(value) ? value : null,
+        past: isThisWeek(value) ? null : value,
+      },
+    });
+    snackBarMessage(`task deleted`);
+  };
 
   const onDelete = async () => {
     const user = await getUser();
@@ -78,7 +92,8 @@ const DeleteAlert = ({
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Dialog.Title style={style.text1}>
-              {other ? 'Cancel' : 'Delete'} the request ?
+              {other ? 'Cancel' : 'Delete'} the{' '}
+              {edittimelog ? 'task ' : timelog ? 'timelog' : 'request'} ?
             </Dialog.Title>
             <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
           </View>
@@ -93,7 +108,7 @@ const DeleteAlert = ({
             label={other ? 'YES' : 'DELETE'}
             onPress={() => {
               edittimelog
-                ? console.log('edd')
+                ? onTaskDelete()
                 : timelog
                 ? onTimeLogDelete()
                 : onDelete();

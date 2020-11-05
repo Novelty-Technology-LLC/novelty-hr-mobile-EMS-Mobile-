@@ -8,7 +8,7 @@ import { AppIcon } from '../../common';
 import colors from '../../../assets/colors';
 import { EditLogAlert } from '../time_log/editLog';
 
-const Tasks = ({ value }) => {
+const Tasks = ({ value, handleChange }: any) => {
   const [showAlert, setShowAlert] = useState(false);
 
   return (
@@ -19,14 +19,27 @@ const Tasks = ({ value }) => {
           <AppIcon name="plus" color={colors.black} size={20} />
         </TouchableOpacity>
       </View>
-      {value.map((item) => (
+      {value.note.map((item) => (
         <Swipeable
-          renderRightActions={() => <Swipe edittimelog={true} item={item} />}
+          key={item.id}
+          renderRightActions={() => (
+            <Swipe
+              edittimelog={true}
+              item={item}
+              value={value}
+              handleChange={handleChange}
+            />
+          )}
         >
           <Task item={item} />
         </Swipeable>
       ))}
-      <EditLogAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+      <EditLogAlert
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+        item={value}
+        handleChange={handleChange}
+      />
     </View>
   );
 };
