@@ -45,7 +45,6 @@ const Login = () => {
         uuid: '113798347975576059462',
         idToken: 'alive',
       };
-
       createUser(dispatch, user, user.idToken);
     } else {
       Keyboard.dismiss();

@@ -30,11 +30,14 @@ const EditAlert = ({
     setShow(false);
   };
 
+  console.log('item -> ', item);
+
   const { state } = useContext(AuthContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
 
   const onSubmit = async () => {
     const Id = state.user.id;
+    const first_name = state.user.first_name;
 
     action === 'Approve' && (action = 'Approved');
     action === 'Deny' && (action = 'Denied');
@@ -46,6 +49,8 @@ const EditAlert = ({
       requested_to: Id,
       quotaId: item.sender,
       notification_token: item.user.notification_token,
+      lead_name: first_name,
+      user_name: item.user.first_name,
     };
     updateRequest(item.id, newData).then((data) => {
       item.state = data.status;
