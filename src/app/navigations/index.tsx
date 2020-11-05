@@ -40,8 +40,19 @@ const RootNavigation = () => {
       </LoginWrapper>
     );
   } else {
+    const deepLinking = {
+      prefixes: ['noveltyhrmobile://'],
+      config: {
+        leaveList: {
+          path: 'leaveList',
+          params: {
+            leave_id: null,
+          },
+        },
+      },
+    };
     return (
-      <NavigationContainer>
+      <NavigationContainer linking={deepLinking}>
         <AuthContext.Provider value={{ state, dispatch }}>
           <Root.Navigator
             screenOptions={{
