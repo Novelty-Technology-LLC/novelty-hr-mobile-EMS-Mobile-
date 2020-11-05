@@ -5,6 +5,9 @@ import {
   descriptionStyle as style,
 } from '../../../assets/styles';
 
+import { Picker } from 'react-native-wheel-datepicker';
+import { getHrsMins } from '../../utils';
+
 const Time = ({
   handleChange,
   error,
