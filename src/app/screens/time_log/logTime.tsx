@@ -82,19 +82,28 @@ const LogTime = ({ route }: any) => {
         task: values.note,
         time: values.duration,
       };
-      const pastData =
-        timelogs.present.filter(
-          (log) =>
-            new Date(log.log_date).toDateString() ===
-              new Date(values.log_date).toDateString() &&
-            log.project_id == values.project_id
-        ) ||
-        timelogs.past.filter(
+      let pastData;
+      if (isThisWeek(values)) {
+        pastData = timelogs.present.filter(
           (log) =>
             new Date(log.log_date).toDateString() ===
               new Date(values.log_date).toDateString() &&
             log.project_id == values.project_id
         );
+      } else {
+        pastData = timelogs.past.filter(
+          (log) =>
+            new Date(log.log_date).toDateString() ===
+              new Date(values.log_date).toDateString() &&
+            log.project_id == values.project_id
+        );
+        timelogs.past.map((log) =>
+          console.log(
+            new Date(log.log_date).toDateString(),
+            new Date(values.log_date).toDateString()
+          )
+        );
+      }
 
       if (pastData.length > 0) {
         pastData[0].note = [].concat(note, ...pastData[0].note);

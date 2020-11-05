@@ -41,7 +41,7 @@ const Calendar = ({
         selectedDate={defaultValue ? new Date(defaultValue) : new Date()}
         onDateSelected={(date) => {
           let result = new Date(date);
-          result.setDate(result.getDate() + 1);
+          // result.setDate(result.getDate() + 1);
           handleChange('log_date')(result.toJSON());
         }}
         datesBlacklist={datesBlacklistFunc}
