@@ -38,7 +38,6 @@ const Login = () => {
       values.EmailAddress === 'dev@noveltytechnology.com' &&
       values.Password === 'testPassword'
     ) {
-      console.log('authenticated');
       const user = {
         email: 'dev@noveltytechnology.com',
         image_url:

@@ -73,6 +73,7 @@ const LeaveDashboard = () => {
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
+
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -115,7 +116,7 @@ const LeaveDashboard = () => {
         </View>
         <MyRequests loading={loading} refresh={refresh} />
         {isAdmin && <OtherRequests refresh={refresh} />}
-        <Text onPress={() => SetLocalNotification()}>Notfy</Text>
+        {/* <Text onPress={() => SetLocalNotification()}>Notfy</Text> */}
       </ScrollView>
       <RequestButton screen="requestLeave" />
     </View>
