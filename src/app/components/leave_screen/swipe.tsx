@@ -26,7 +26,7 @@ const Swipe = ({ item, value, other, timelog, edittimelog }: any) => {
   };
 
   const onLogEdit = () => {
-    navigation.navigate('logtime', { value });
+    navigation.navigate('logtime', item);
   };
 
   return other ? (

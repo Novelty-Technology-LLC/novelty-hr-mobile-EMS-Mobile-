@@ -18,15 +18,15 @@ import { TimeLogContext } from '../../reducer';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
-  const olddatas = route.params.value;
-  const olddata = route.params.item;
+  const olddatas = route.params;
+  const olddata = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
   const initialValues = {
-    log_date: olddata ? new Date(olddatas[0].log_date) : new Date().toJSON(),
-    duration: olddata ? totalHours(olddatas) : '',
-    project_id: olddata ? olddatas[0].project_id : '',
+    log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
+    duration: olddata ? totalHours(olddata) : '',
+    project_id: olddata ? olddata.project_id : '',
     note: olddata ? olddata.note : '',
   };
 
@@ -58,6 +58,12 @@ const LogTime = ({ route }: any) => {
         })
         .catch((err) => console.log(err));
     } else {
+      values.note = [
+        {
+          task: values.note,
+          time: values.duration,
+        },
+      ];
       postTimeLog(values)
         .then((data) => {
           dispatchTimeLog({
@@ -99,11 +105,11 @@ const LogTime = ({ route }: any) => {
           <>
             <Calendar
               handleChange={handleChange}
-              defaultValue={olddatas && olddatas[0].log_date}
+              defaultValue={olddata && olddata.log_date}
             />
             <Time
               handleChange={handleChange}
-              defaultValue={olddatas && totalHours(olddatas)}
+              defaultValue={olddata && totalHours(olddata)}
               error={errors}
               touched={touched}
             />
@@ -111,10 +117,10 @@ const LogTime = ({ route }: any) => {
               handleChange={handleChange}
               error={errors}
               touched={touched}
-              defaultValue={olddatas && olddatas[0].project_id}
+              defaultValue={olddata && olddata.project_id}
             />
-            {olddatas ? (
-              <Tasks value={olddatas} />
+            {olddata ? (
+              <Tasks value={olddata.note} />
             ) : (
               <Description
                 handleChange={handleChange}

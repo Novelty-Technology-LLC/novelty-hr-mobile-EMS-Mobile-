@@ -28,7 +28,7 @@ const TimeLogs = () => {
         setLoading(false);
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
-        setRepeatTimeLogs(logMapper(pastw));
+        // setRepeatTimeLogs(logMapper(thisw));
         dispatchTimeLog({
           type: 'CHANGE',
           payload: {
@@ -55,14 +55,14 @@ const TimeLogs = () => {
         />
       }
     >
-      {repeatTimeLogs &&
+      {/* {repeatTimeLogs &&
         Object.entries(repeatTimeLogs).map(([key, value]) => (
           <Swipeable
             renderRightActions={() => <Swipe value={value} timelog={true} />}
           >
             <RepeatTimeLog key={key} value={value} />
           </Swipeable>
-        ))}
+        ))} */}
       <View style={style.header}>
         <Text style={style.title}>This Week</Text>
         {timelogs.past.length > 0 && (

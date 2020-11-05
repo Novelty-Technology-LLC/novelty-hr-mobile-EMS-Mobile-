@@ -12,28 +12,28 @@ const EditLogAlert = ({
 }: {
   showAlert: boolean;
   setShowAlert: Function;
-  item: object;
+  item?: object;
 }) => {
-  const [time, setTime] = useState(item.duration);
-  const [note, setNote] = useState(item.note);
+  const [time, setTime] = useState(item ? item.time : 0);
+  const [note, setNote] = useState(item ? item.task : '');
 
   return (
     <Dialog.Container
       visible={showAlert}
       contentStyle={deleteAlertStyle.dialogContainer}
     >
-      <Time handleChange={setTime} defaultValue={item.duration} />
+      <Time handleChange={setTime} defaultValue={item && item.time} />
 
       <Description
         handleChange={setNote}
         editlog={true}
         timelog={true}
-        defaultValue={item.note}
+        defaultValue={item && item.task}
       />
 
       <View style={deleteAlertStyle.buttons}>
         <Dialog.Button
-          label="UPDATE"
+          label={item ? 'UPDATE' : 'ADD'}
           onPress={() => console.log({ time, note })}
           style={deleteAlertStyle.delete}
         />

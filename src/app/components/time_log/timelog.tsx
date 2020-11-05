@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { timeLogStyle as style } from '../../../assets/styles';
-import { createdDay, getHrs } from '../../utils';
+import { createdDay, getHrs, totalHours } from '../../utils';
 
 const TimeLog = ({ item }: any) => {
   return (
@@ -9,8 +9,8 @@ const TimeLog = ({ item }: any) => {
       <View style={style.container}>
         <View style={style.dateView}>
           <View style={style.rowAlign}>
-            <Text style={style.date}>{item.note}</Text>
-            <Text style={style.duration}>{getHrs(item.duration)}</Text>
+            <Text style={style.date}>Tasks: {item.note.length}</Text>
+            <Text style={style.duration}>{getHrs(totalHours(item))}</Text>
           </View>
 
           <View style={style.rowAlign}>

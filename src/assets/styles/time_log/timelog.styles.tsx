@@ -16,6 +16,7 @@ const timeLogStyle = StyleSheet.create({
     borderRadius: 2,
     marginVertical: 7,
   },
+  pad: { paddingRight: normalize(20) },
   dateView: {
     flex: 1,
     display: 'flex',

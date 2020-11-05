@@ -65,6 +65,6 @@ export const logMapper = (logs) => {
 };
 
 export const totalHours = (item) => {
-  const total = item.reduce((acc, curr) => acc + curr.duration, 0);
+  const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
   return total;
 };
