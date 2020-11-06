@@ -16,12 +16,14 @@ const DeleteAlert = ({
   value,
   timelog,
   edittimelog,
+  onPress,
 }: {
   item: dataType;
   other: boolean;
   timelog?: boolean;
   value?: object;
   edittimelog?: boolean;
+  onPress?: Function;
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -65,7 +67,13 @@ const DeleteAlert = ({
 
   return (
     <>
-      <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          show();
+          onPress();
+        }}
+        style={style.iconContainer}
+      >
         <AppIcon
           name={other ? 'close-circle' : 'delete'}
           color={colors.tomato}

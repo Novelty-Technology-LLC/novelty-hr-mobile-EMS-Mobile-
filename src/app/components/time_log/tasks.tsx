@@ -13,6 +13,7 @@ import TaskContext from './taskContext';
 const Tasks = ({ value, handleChange }: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
+  let row: Array<any> = [];
 
   return (
     <View style={descriptionStyle.main}>
@@ -22,15 +23,17 @@ const Tasks = ({ value, handleChange }: any) => {
           <AppIcon name="plus" color={colors.black} size={20} />
         </TouchableOpacity>
       </View>
-      {tasks.map((item) => (
+      {tasks.map((item, index) => (
         <Swipeable
           key={item.id}
+          ref={(ref) => (row[index] = ref)}
           renderRightActions={() => (
             <Swipe
               edittimelog={true}
               item={item}
               value={value}
               handleChange={handleChange}
+              onPress={() => row[index].close()}
             />
           )}
         >

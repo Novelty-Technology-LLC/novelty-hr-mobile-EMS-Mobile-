@@ -8,7 +8,7 @@ import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
 import { DeleteLog, EditLogAlert } from '../time_log';
 
-const Swipe = ({ item, value, other, timelog, edittimelog }: any) => {
+const Swipe = ({ item, value, other, timelog, edittimelog, onPress }: any) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -26,6 +26,7 @@ const Swipe = ({ item, value, other, timelog, edittimelog }: any) => {
   };
 
   const onLogEdit = () => {
+    onPress();
     navigation.navigate('logtime', item);
   };
 
@@ -45,19 +46,25 @@ const Swipe = ({ item, value, other, timelog, edittimelog }: any) => {
       >
         <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
       </TouchableOpacity>
-      <DeleteAlert item={item} other={false} timelog={timelog} />
+      <DeleteAlert
+        item={item}
+        other={false}
+        timelog={timelog}
+        onPress={onPress}
+      />
     </View>
   ) : edittimelog ? (
     <View style={style.tlcontainer}>
       <TouchableOpacity
         onPress={() => {
+          onPress();
           show();
         }}
         style={deleteAlertStyle.iconContainer}
       >
         <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
       </TouchableOpacity>
-      <DeleteLog item={item} value={value} />
+      <DeleteLog item={item} value={value} onPress={onPress} />
       <EditLogAlert
         showAlert={showAlert}
         setShowAlert={setShowAlert}

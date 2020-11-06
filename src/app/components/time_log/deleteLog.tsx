@@ -7,7 +7,15 @@ import { AppIcon } from '../../common';
 import { dataType } from '../../interface';
 import TaskContext from './taskContext';
 
-const DeleteLog = ({ item, value }: { item: dataType; value: object }) => {
+const DeleteLog = ({
+  item,
+  value,
+  onPress,
+}: {
+  item: dataType;
+  value: object;
+  onPress: Function;
+}) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
@@ -19,7 +27,13 @@ const DeleteLog = ({ item, value }: { item: dataType; value: object }) => {
 
   return (
     <>
-      <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          show();
+          onPress();
+        }}
+        style={style.iconContainer}
+      >
         <AppIcon name="delete" color={colors.tomato} size={23} />
       </TouchableOpacity>
       <Dialog.Container
