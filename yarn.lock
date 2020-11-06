@@ -868,11 +868,6 @@
     stream-events "^1.0.1"
     xdg-basedir "^4.0.0"
 
-"@gregfrench/react-native-wheel-picker@^1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@gregfrench/react-native-wheel-picker/-/react-native-wheel-picker-1.2.8.tgz#a973eb3f9859f9f5cd35936aa09312ff4831e89b"
-  integrity sha512-qUYoU1JmZ8+kzqL/wKy39qCiQcGXo4j27bxT6P7TCfXkBCERMBKfxJMFKF4rWLYEM/b6QlS4w1QA7akYL9eH/w==
-
 "@grpc/grpc-js@~1.1.1":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.1.8.tgz#2845f0fc3d1bfbb150ed7a78a76bdf41b126d367"
@@ -1405,6 +1400,11 @@
   version "7.9.2"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-7.9.2.tgz#f5946ce0da4c1454df4701de7284d52a4ccc8d5b"
   integrity sha512-xK9oRkQAxJ5+9e3W9EUnxqhecA2iwZb4OCYPWyO5BzldIMa1B4UdYLHDHU8oYpgsefqS51bPDdczC0yn+/8RTA==
+
+"@react-native-picker/picker@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.9.2.tgz#c5e35f97d7982d2971ee3d74b1ba8ecf4b716627"
+  integrity sha512-eNMf5uF67CsiJ9SDzofSWKu9Gh2PDyPbCSXuUJ09tkRgcOefDx6DyQnXCOPCd+8vxC1DzJKVAgLy+s425jUIeA==
 
 "@react-navigation/bottom-tabs@^5.9.0":
   version "5.9.2"
@@ -6957,10 +6957,10 @@ react-native-vector-icons@^7.1.0:
     prop-types "^15.7.2"
     yargs "^15.0.2"
 
-react-native-wheel-datepicker@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/react-native-wheel-datepicker/-/react-native-wheel-datepicker-2.2.3.tgz#2a93f25819b9478033229f0e715c56de92b78fba"
-  integrity sha512-tnZJZbqdyaRFXBXuHFrijtcr4gxOPbUdtvM3XfceHvVGSKQVoBuaDYRFVe4qTdrR4+6c/OOgUFfRu3nYFSHReQ==
+react-native-wheel-pick@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-pick/-/react-native-wheel-pick-1.1.0.tgz#9607ee1aca85f0de8bd840bf913393eae480a889"
+  integrity sha512-zk6FIx6t930jr4BWR8A49vMxiX7SUqn+IULZ67m4ulycb4Ixc02SnBAx/lBpk/LPLpFT0+SKzGXhLZShiM74Ww==
   dependencies:
     moment "^2.19.1"
 
