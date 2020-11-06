@@ -33,24 +33,25 @@ const Time = ({
       <Text style={style.text}>Time *</Text>
       <View style={style.row}>
         {Platform.OS === 'android' ? (
-          <AndroidPicker
-            style={[style.textArea, style.textinputTime]}
-            selectedValue={defaultValue ? getHrsMins(defaultValue).hr : 1}
-            pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-            onValueChange={(intdata: number) => {
-              setHours(intdata);
-              error
-                ? handleChange('duration')((intdata * 60 + mins).toString())
-                : handleChange((intdata * 60 + mins).toString());
-            }}
-          />
+          <>
+            <AndroidPicker
+              style={[style.textArea, style.textinputTime]}
+              selectedValue={defaultValue ? getHrsMins(defaultValue).hr : 1}
+              pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+              onValueChange={(intdata: number) => {
+                setHours(intdata);
+                error
+                  ? handleChange('duration')((intdata * 60 + mins).toString())
+                  : handleChange((intdata * 60 + mins).toString());
+              }}
+            />
+            <Text style={style.colon}>HRS</Text>
+          </>
         ) : (
           <Picker
             selectedValue={hours}
-            style={{ height: 200, width: 125 }}
+            style={style.iospicker}
             onValueChange={(intdata: number) => {
-              console.log('set -> ', (intdata * 60 + mins).toString());
-
               setHours(intdata);
               error
                 ? handleChange('duration')((intdata * 60 + mins).toString())
@@ -58,38 +59,40 @@ const Time = ({
             }}
           >
             <Picker.Item label="1 hr" value={1} />
-            <Picker.Item label="2 hr" value="2" />
-            <Picker.Item label="3 hr" value="3" />
-            <Picker.Item label="4 hr" value="4" />
-            <Picker.Item label="5 hr" value="5" />
-            <Picker.Item label="6 hr" value="6" />
-            <Picker.Item label="7 hr" value="7" />
-            <Picker.Item label="8 hr" value="8" />
-            <Picker.Item label="9 hr" value="9" />
-            <Picker.Item label="10 hr" value="10" />
-            <Picker.Item label="11 hr" value="11" />
-            <Picker.Item label="12 hr" value="12" />
+            <Picker.Item label="2 hrs" value={2} />
+            <Picker.Item label="3 hrs" value={3} />
+            <Picker.Item label="4 hrs" value={4} />
+            <Picker.Item label="5 hrs" value={5} />
+            <Picker.Item label="6 hrs" value={6} />
+            <Picker.Item label="7 hrs" value={7} />
+            <Picker.Item label="8 hrs" value={8} />
+            <Picker.Item label="9 hrs" value={9} />
+            <Picker.Item label="10 hrs" value={10} />
+            <Picker.Item label="11 hrs" value={11} />
+            <Picker.Item label="12 hrs" value={12} />
           </Picker>
         )}
 
-        <Text style={style.colon}>HRS</Text>
         <Text style={style.colon}>:</Text>
         {Platform.OS === 'android' ? (
-          <AndroidPicker
-            style={[style.textArea, style.textinputTime]}
-            selectedValue={defaultValue ? getHrsMins(defaultValue).mins : 5}
-            pickerData={[0, 15, 30, 45]}
-            onValueChange={(intdata: number) => {
-              setMins(intdata);
-              error
-                ? handleChange('duration')((hours * 60 + intdata).toString())
-                : handleChange((hours * 60 + intdata).toString());
-            }}
-          />
+          <>
+            <AndroidPicker
+              style={[style.textArea, style.textinputTime]}
+              selectedValue={defaultValue ? getHrsMins(defaultValue).mins : 5}
+              pickerData={[0, 15, 30, 45]}
+              onValueChange={(intdata: number) => {
+                setMins(intdata);
+                error
+                  ? handleChange('duration')((hours * 60 + intdata).toString())
+                  : handleChange((hours * 60 + intdata).toString());
+              }}
+            />
+            <Text style={style.colon}>MINS</Text>
+          </>
         ) : (
           <Picker
             selectedValue={mins}
-            style={{ height: 200, width: 125 }}
+            style={style.iospicker}
             onValueChange={(intdata: number) => {
               setMins(intdata);
               error
@@ -98,13 +101,11 @@ const Time = ({
             }}
           >
             <Picker.Item label="0 min" value={0} />
-            <Picker.Item label="15 min" value={15} />
-            <Picker.Item label="30 min" value="30" />
-            <Picker.Item label="45 min" value="45" />
+            <Picker.Item label="15 mins" value={15} />
+            <Picker.Item label="30 mins" value={30} />
+            <Picker.Item label="45 mins" value={45} />
           </Picker>
         )}
-
-        <Text style={style.colon}>MINS</Text>
       </View>
       {error && touched && error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>

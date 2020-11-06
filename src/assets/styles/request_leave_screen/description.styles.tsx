@@ -53,6 +53,7 @@ const descriptionStyle = StyleSheet.create({
     backgroundColor: color.grey,
     opacity: 0.8,
   },
+  iospicker: { height: 200, width: 125 },
   colon: {
     fontSize: normalize(18),
     paddingHorizontal: normalize(10),
