@@ -12,17 +12,21 @@ const Time = ({
   error,
   touched,
   defaultValue,
+  edit,
 }: {
   handleChange: Function;
   error?: any;
   touched?: any;
   defaultValue?: string;
+  edit?: boolean;
 }) => {
   const [hours, setHours] = useState(0);
   const [mins, setMins] = useState(0);
 
   return (
-    <View style={[style.main, calenderStyle.container]}>
+    <View
+      style={[edit ? style.alertmain : style.main, calenderStyle.container]}
+    >
       <Text style={style.text}>Time *</Text>
       <View style={style.row}>
         <Picker

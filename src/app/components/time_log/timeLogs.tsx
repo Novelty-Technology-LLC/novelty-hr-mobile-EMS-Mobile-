@@ -16,7 +16,6 @@ const TimeLogs = () => {
   const [toggle, setToggle] = useState('toggle-switch');
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
-  const [repeatTimeLogs, setRepeatTimeLogs] = useState([]);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
   const getTimeLogs = async () => {

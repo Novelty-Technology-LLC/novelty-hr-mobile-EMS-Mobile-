@@ -21,9 +21,9 @@ const calenderStyle = StyleSheet.create({
   highlight: {
     color: colors.primary,
     backgroundColor: colors.buttonOrange,
-    borderRadius: normalize(theme.size.logo),
-    paddingVertical: normalize(4),
-    paddingHorizontal: normalize(8),
+    borderRadius: normalize(30),
+    paddingVertical: normalize(5),
+    paddingHorizontal: normalize(10),
     fontSize: normalize(20),
   },
   number: {

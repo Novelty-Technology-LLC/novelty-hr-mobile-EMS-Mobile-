@@ -7,8 +7,8 @@ import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
-import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
-import { getUser, isThisWeek } from '../../utils';
+import { deleteTimeLog } from '../../services/timeLogService';
+import { getUser } from '../../utils';
 
 const DeleteAlert = ({
   item,
@@ -28,18 +28,6 @@ const DeleteAlert = ({
   const hide = () => setShowAlert(false);
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const { dispatchRequest } = useContext(RequestContext);
-
-  const onTaskDelete = () => {
-    value.note = value.note.filter((val) => val.id !== item.id);
-    dispatchTimeLog({
-      type: 'EDIT',
-      payload: {
-        present: isThisWeek(value) ? value : null,
-        past: isThisWeek(value) ? null : value,
-      },
-    });
-    snackBarMessage(`task deleted`);
-  };
 
   const onDelete = async () => {
     const user = await getUser();
@@ -107,11 +95,7 @@ const DeleteAlert = ({
           <Dialog.Button
             label={other ? 'YES' : 'DELETE'}
             onPress={() => {
-              edittimelog
-                ? onTaskDelete()
-                : timelog
-                ? onTimeLogDelete()
-                : onDelete();
+              timelog ? onTimeLogDelete() : onDelete();
               hide();
             }}
             style={style.delete}

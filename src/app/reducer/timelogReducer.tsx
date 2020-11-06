@@ -41,6 +41,14 @@ const TimeLogReducer = (prevState, action) => {
 
     case 'EDIT':
       if (action.payload.present) {
+        console.log(
+          'ddd',
+          [].concat(
+            ...prevState.past.filter(
+              (data) => data.id !== action.payload.present.id
+            )
+          ).length
+        );
         return {
           ...prevState,
           present: []
@@ -53,10 +61,20 @@ const TimeLogReducer = (prevState, action) => {
             .sort((a, b) =>
               new Date(a.log_date) < new Date(b.log_date) ? 1 : -1
             ),
+          // past: [].concat(
+          //   ...prevState.past.filter(
+          //     (data) => data.id !== action.payload.present.id
+          //   )
+          // ),
         };
       } else if (action.payload.past) {
         return {
           ...prevState,
+          // present: [].concat(
+          //   ...prevState.present.filter(
+          //     (data) => data.id !== action.payload.past.id
+          //   )
+          // ),
           past: []
             .concat(
               action.payload.past,

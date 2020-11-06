@@ -9,6 +9,9 @@ const descriptionStyle = StyleSheet.create({
     marginLeft: normalize(20),
     paddingBottom: normalize(10),
   },
+  alertmain: {
+    marginLeft: normalize(20),
+  },
   text: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),

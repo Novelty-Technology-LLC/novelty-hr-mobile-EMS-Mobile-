@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Platform, ActivityIndicator } from 'react-native';
 import { headerText, requestLeave } from '../../../assets/styles';
 import { header as Header, snackBarMessage } from '../../common';
@@ -16,13 +16,14 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import UUIDGenerator from 'react-native-uuid-generator';
+import TaskContext from '../../components/time_log/taskContext';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
-  const olddatas = route.params;
   const olddata = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const [tasks, setTasks] = useState(olddata.note);
 
   const getNote = (olddata) => {
     if (isThisWeek(olddata)) {
@@ -60,7 +61,7 @@ const LogTime = ({ route }: any) => {
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
     if (olddata) {
-      values.note = getNote(olddata);
+      values.note = tasks;
       editTimeLog(olddata.id, values)
         .then((data) => {
           dispatchTimeLog({
@@ -96,12 +97,6 @@ const LogTime = ({ route }: any) => {
             new Date(log.log_date).toDateString() ===
               new Date(values.log_date).toDateString() &&
             log.project_id == values.project_id
-        );
-        timelogs.past.map((log) =>
-          console.log(
-            new Date(log.log_date).toDateString(),
-            new Date(values.log_date).toDateString()
-          )
         );
       }
 
@@ -142,66 +137,70 @@ const LogTime = ({ route }: any) => {
   };
 
   return (
-    <KeyboardAwareScrollView
-      style={requestLeave.container}
-      scrollEnabled={true}
-      enableOnAndroid={true}
-      enableAutomaticScroll={true}
-      extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
-      extraHeight={Platform.OS === 'android' ? 140 : 50}
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps="handled"
-      keyboardDismissMode={'none'}
-    >
-      <Header icon={true}>
-        <Text style={headerText}> Log Time</Text>
-      </Header>
-      <Formik
-        validationSchema={validationSchema}
-        initialValues={initialValues}
-        onSubmit={(values) => onSubmit(values)}
+    <TaskContext.Provider value={{ tasks, setTasks }}>
+      <KeyboardAwareScrollView
+        style={requestLeave.container}
+        scrollEnabled={true}
+        enableOnAndroid={true}
+        enableAutomaticScroll={true}
+        extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
+        extraHeight={Platform.OS === 'android' ? 140 : 50}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode={'none'}
       >
-        {({ handleChange, handleSubmit, values, errors, touched }) => (
-          <>
-            <Calendar
-              handleChange={handleChange}
-              defaultValue={olddata && olddata.log_date}
-            />
-            <Time
-              handleChange={handleChange}
-              defaultValue={olddata && totalHours(olddata)}
-              error={errors}
-              touched={touched}
-            />
-            <Projects
-              handleChange={handleChange}
-              error={errors}
-              touched={touched}
-              defaultValue={olddata && olddata.project_id}
-            />
-            {olddata ? (
-              <Tasks value={olddata} handleChange={handleChange} />
-            ) : (
-              <Description
+        <Header icon={true}>
+          <Text style={headerText}> Log Time</Text>
+        </Header>
+        <Formik
+          validationSchema={validationSchema}
+          initialValues={initialValues}
+          onSubmit={(values) => onSubmit(values)}
+        >
+          {({ handleChange, handleSubmit, values, errors, touched }) => (
+            <>
+              <Calendar
                 handleChange={handleChange}
-                timelog={true}
-                defaultValue={olddata && olddata.note}
+                defaultValue={olddata && olddata.log_date}
+              />
+              {!olddata && (
+                <Time
+                  handleChange={handleChange}
+                  defaultValue={olddata && totalHours(olddata)}
+                  error={errors}
+                  touched={touched}
+                />
+              )}
+              <Projects
+                handleChange={handleChange}
                 error={errors}
                 touched={touched}
+                defaultValue={olddata && olddata.project_id}
               />
-            )}
-            <Button onPress={() => handleSubmit()}>
-              <View style={requestLeave.buttonView}>
-                <Text style={requestLeave.buttonText}>Submit</Text>
-                {isLoading && (
-                  <ActivityIndicator size={30} color={colors.white} />
-                )}
-              </View>
-            </Button>
-          </>
-        )}
-      </Formik>
-    </KeyboardAwareScrollView>
+              {olddata ? (
+                <Tasks value={olddata} handleChange={handleChange} />
+              ) : (
+                <Description
+                  handleChange={handleChange}
+                  timelog={true}
+                  defaultValue={olddata && olddata.note}
+                  error={errors}
+                  touched={touched}
+                />
+              )}
+              <Button onPress={() => handleSubmit()}>
+                <View style={requestLeave.buttonView}>
+                  <Text style={requestLeave.buttonText}>Submit</Text>
+                  {isLoading && (
+                    <ActivityIndicator size={30} color={colors.white} />
+                  )}
+                </View>
+              </Button>
+            </>
+          )}
+        </Formik>
+      </KeyboardAwareScrollView>
+    </TaskContext.Provider>
   );
 };
 

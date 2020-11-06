@@ -2,12 +2,10 @@ import React, { useContext, useState } from 'react';
 import { View } from 'react-native';
 import Dialog from 'react-native-dialog';
 import { deleteAlertStyle } from '../../../assets/styles';
-import { snackBarMessage } from '../../common';
-import { TimeLogContext } from '../../reducer';
-import { isThisWeek } from '../../utils';
 import { Description } from '../request_screen';
 import Time from './time';
 import UUIDGenerator from 'react-native-uuid-generator';
+import TaskContext from './taskContext';
 
 const EditLogAlert = ({
   showAlert,
@@ -22,28 +20,22 @@ const EditLogAlert = ({
 }) => {
   const [time, setTime] = useState(def ? def.time : 60);
   const [note, setNote] = useState(def ? def.task : '');
-  const { dispatchTimeLog } = useContext(TimeLogContext);
+  const { tasks, setTasks } = useContext(TaskContext);
 
   const onSubmit = async (values) => {
     const uuid = await UUIDGenerator.getRandomUUID();
     values.id = uuid;
+    let task;
     if (def) {
-      item.note = [].concat(
+      task = [].concat(
         values,
-        ...item.note.filter((val) => val.id !== def.id, values)
+        ...tasks.filter((val) => val.id !== def.id, values)
       );
     } else {
-      item.note = [].concat(values, ...item.note);
+      task = [].concat(values, ...tasks);
     }
+    setTasks(task);
     setShowAlert(false);
-    dispatchTimeLog({
-      type: 'EDIT',
-      payload: {
-        present: isThisWeek(item) ? item : null,
-        past: isThisWeek(item) ? null : item,
-      },
-    });
-    snackBarMessage(`task ${def ? 'updated' : 'added'}`);
   };
 
   return (
@@ -51,7 +43,7 @@ const EditLogAlert = ({
       visible={showAlert}
       contentStyle={deleteAlertStyle.dialogContainer}
     >
-      <Time handleChange={setTime} defaultValue={def && def.time} />
+      <Time handleChange={setTime} defaultValue={def && def.time} edit={true} />
 
       <Description
         handleChange={setNote}

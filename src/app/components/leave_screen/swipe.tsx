@@ -6,7 +6,7 @@ import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles';
 import { Alert, AppIcon } from '../../common';
 import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
-import { EditLogAlert } from '../time_log';
+import { DeleteLog, EditLogAlert } from '../time_log';
 
 const Swipe = ({ item, value, other, timelog, edittimelog }: any) => {
   const navigation = useNavigation();
@@ -57,12 +57,7 @@ const Swipe = ({ item, value, other, timelog, edittimelog }: any) => {
       >
         <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
       </TouchableOpacity>
-      <DeleteAlert
-        item={item}
-        edittimelog={edittimelog}
-        other={false}
-        value={value}
-      />
+      <DeleteLog item={item} value={value} />
       <EditLogAlert
         showAlert={showAlert}
         setShowAlert={setShowAlert}

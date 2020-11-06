@@ -24,6 +24,13 @@ const timeLogStyle = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: normalize(15),
   },
+  total: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: normalize(20),
+    borderTopWidth: normalize(3),
+  },
   date: {
     width: '75%',
     fontSize: normalize(theme.size.base),
