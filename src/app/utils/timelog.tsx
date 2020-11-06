@@ -1,5 +1,5 @@
 export const createdDay = (date) => {
-  let newdate = new Date(date.log_date).toString();
+  let newdate = new Date(date.log_date).toDateString();
   return newdate.substr(3, 7) + ', ' + newdate.substr(0, 3);
 };
 

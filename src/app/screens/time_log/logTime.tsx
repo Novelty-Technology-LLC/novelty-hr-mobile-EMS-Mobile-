@@ -27,9 +27,15 @@ const LogTime = ({ route }: any) => {
 
   const getNote = (olddata) => {
     if (isThisWeek(olddata)) {
-      return timelogs.present.filter((log) => log.id === olddata.id)[0].note;
+      return (
+        timelogs.present.filter((log) => log.id === olddata.id)[0] &&
+        timelogs.present.filter((log) => log.id === olddata.id)[0].note
+      );
     } else {
-      return timelogs.past.filter((log) => log.id === olddata.id)[0].note;
+      return (
+        timelogs.past.filter((log) => log.id === olddata.id)[0] &&
+        timelogs.past.filter((log) => log.id === olddata.id)[0].note
+      );
     }
   };
 
