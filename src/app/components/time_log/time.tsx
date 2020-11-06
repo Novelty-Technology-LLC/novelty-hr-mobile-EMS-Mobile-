@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import {
   calenderStyle,
   descriptionStyle as style,
 } from '../../../assets/styles';
-import { Picker } from 'react-native-wheel-pick';
+
+import { Picker } from '@react-native-picker/picker';
+import { Picker as AndroidPicker } from 'react-native-wheel-pick';
+
 import { getHrsMins } from '../../utils';
 
 const Time = ({
@@ -29,30 +32,78 @@ const Time = ({
     >
       <Text style={style.text}>Time *</Text>
       <View style={style.row}>
-        <Picker
-          style={[style.textArea, style.textinputTime]}
-          selectedValue={defaultValue ? getHrsMins(defaultValue).hr : 1}
-          pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-          onValueChange={(intdata: number) => {
-            setHours(intdata);
-            error
-              ? handleChange('duration')((intdata * 60 + mins).toString())
-              : handleChange((intdata * 60 + mins).toString());
-          }}
-        />
+        {Platform.OS === 'android' ? (
+          <AndroidPicker
+            style={[style.textArea, style.textinputTime]}
+            selectedValue={defaultValue ? getHrsMins(defaultValue).hr : 1}
+            pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+            onValueChange={(intdata: number) => {
+              setHours(intdata);
+              error
+                ? handleChange('duration')((intdata * 60 + mins).toString())
+                : handleChange((intdata * 60 + mins).toString());
+            }}
+          />
+        ) : (
+          <Picker
+            selectedValue={hours}
+            style={{ height: 200, width: 125 }}
+            onValueChange={(intdata: number) => {
+              console.log('set -> ', (intdata * 60 + mins).toString());
+
+              setHours(intdata);
+              error
+                ? handleChange('duration')((intdata * 60 + mins).toString())
+                : handleChange((intdata * 60 + mins).toString());
+            }}
+          >
+            <Picker.Item label="1 hr" value={1} />
+            <Picker.Item label="2 hr" value="2" />
+            <Picker.Item label="3 hr" value="3" />
+            <Picker.Item label="4 hr" value="4" />
+            <Picker.Item label="5 hr" value="5" />
+            <Picker.Item label="6 hr" value="6" />
+            <Picker.Item label="7 hr" value="7" />
+            <Picker.Item label="8 hr" value="8" />
+            <Picker.Item label="9 hr" value="9" />
+            <Picker.Item label="10 hr" value="10" />
+            <Picker.Item label="11 hr" value="11" />
+            <Picker.Item label="12 hr" value="12" />
+          </Picker>
+        )}
+
         <Text style={style.colon}>HRS</Text>
         <Text style={style.colon}>:</Text>
-        <Picker
-          style={[style.textArea, style.textinputTime]}
-          selectedValue={defaultValue ? getHrsMins(defaultValue).mins : 5}
-          pickerData={[0, 15, 30, 45]}
-          onValueChange={(intdata: number) => {
-            setMins(intdata);
-            error
-              ? handleChange('duration')((hours * 60 + intdata).toString())
-              : handleChange((hours * 60 + intdata).toString());
-          }}
-        />
+        {Platform.OS === 'android' ? (
+          <AndroidPicker
+            style={[style.textArea, style.textinputTime]}
+            selectedValue={defaultValue ? getHrsMins(defaultValue).mins : 5}
+            pickerData={[0, 15, 30, 45]}
+            onValueChange={(intdata: number) => {
+              setMins(intdata);
+              error
+                ? handleChange('duration')((hours * 60 + intdata).toString())
+                : handleChange((hours * 60 + intdata).toString());
+            }}
+          />
+        ) : (
+          <Picker
+            selectedValue={mins}
+            style={{ height: 200, width: 125 }}
+            onValueChange={(intdata: number) => {
+              setMins(intdata);
+              error
+                ? handleChange('duration')((hours * 60 + intdata).toString())
+                : handleChange((hours * 60 + intdata).toString());
+            }}
+          >
+            <Picker.Item label="0 min" value={0} />
+            <Picker.Item label="15 min" value={15} />
+            <Picker.Item label="30 min" value="30" />
+            <Picker.Item label="45 min" value="45" />
+          </Picker>
+        )}
+
         <Text style={style.colon}>MINS</Text>
       </View>
       {error && touched && error.duration && touched.duration && (
