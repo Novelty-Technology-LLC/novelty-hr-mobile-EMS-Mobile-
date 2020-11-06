@@ -26,7 +26,6 @@ const TimeLogs = () => {
         setLoading(false);
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
-        logMapper(pastw);
         dispatchTimeLog({
           type: 'CHANGE',
           payload: {
@@ -42,6 +41,9 @@ const TimeLogs = () => {
   useEffect(() => {
     getTimeLogs();
   }, [refreshing]);
+
+  let row: Array<any> = [];
+  let row2: Array<any> = [];
 
   return (
     <ScrollView
@@ -86,8 +88,13 @@ const TimeLogs = () => {
           data={timelogs.present}
           renderItem={(item) => (
             <Swipeable
+              ref={(ref) => (row[item.index] = ref)}
               renderRightActions={() => (
-                <Swipe timelog={true} item={item.item} />
+                <Swipe
+                  timelog={true}
+                  item={item.item}
+                  onPress={() => row[item.index].close()}
+                />
               )}
             >
               <TimeLog item={item.item} />
@@ -117,8 +124,13 @@ const TimeLogs = () => {
             data={timelogs.past}
             renderItem={(item) => (
               <Swipeable
+                ref={(ref) => (row2[item.index] = ref)}
                 renderRightActions={() => (
-                  <Swipe timelog={true} item={item.item} />
+                  <Swipe
+                    timelog={true}
+                    item={item.item}
+                    onPress={() => row2[item.index].close()}
+                  />
                 )}
               >
                 <TimeLog item={item.item} />

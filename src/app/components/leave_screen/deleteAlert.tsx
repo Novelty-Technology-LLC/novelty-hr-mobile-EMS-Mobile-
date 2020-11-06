@@ -13,11 +13,17 @@ import { getUser } from '../../utils';
 const DeleteAlert = ({
   item,
   other,
+  value,
   timelog,
+  edittimelog,
+  onPress,
 }: {
   item: dataType;
   other: boolean;
   timelog?: boolean;
+  value?: object;
+  edittimelog?: boolean;
+  onPress?: Function;
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -61,7 +67,13 @@ const DeleteAlert = ({
 
   return (
     <>
-      <TouchableOpacity onPress={() => show()} style={style.iconContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          show();
+          onPress();
+        }}
+        style={style.iconContainer}
+      >
         <AppIcon
           name={other ? 'close-circle' : 'delete'}
           color={colors.tomato}
@@ -76,7 +88,8 @@ const DeleteAlert = ({
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Dialog.Title style={style.text1}>
-              {other ? 'Cancel' : 'Delete'} the request ?
+              {other ? 'Cancel' : 'Delete'} the{' '}
+              {edittimelog ? 'task ' : timelog ? 'timelog' : 'request'} ?
             </Dialog.Title>
             <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
           </View>

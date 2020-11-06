@@ -39,8 +39,17 @@ const Calendar = ({
         disabledDateNumberStyle={{ color: 'grey' }}
         iconContainer={{ display: 'none' }}
         selectedDate={defaultValue ? new Date(defaultValue) : new Date()}
-        onDateSelected={(data) => {
-          handleChange('log_date')(data.toJSON());
+        onDateSelected={(date) => {
+          let result = new Date(date);
+          const resDate =
+            result.getFullYear() +
+            '-' +
+            (parseInt(result.getMonth()) + 1) +
+            '-' +
+            `${
+              result.getDate() > 9 ? result.getDate() : '0' + result.getDate()
+            }`;
+          handleChange('log_date')(resDate);
         }}
         datesBlacklist={datesBlacklistFunc}
       />

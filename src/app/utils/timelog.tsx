@@ -1,5 +1,5 @@
 export const createdDay = (date) => {
-  let newdate = new Date(date.log_date).toString();
+  let newdate = new Date(date.log_date).toDateString();
   return newdate.substr(3, 7) + ', ' + newdate.substr(0, 3);
 };
 
@@ -45,12 +45,11 @@ function isEmpty(obj) {
 export const logMapper = (logs) => {
   let data = {};
   logs.map((log) => {
-    let log_date = log.log_date;
+    let log_date = log.log_date + log.project.id;
     let oldLog = data[0] && data[0][log_date];
-    console.log('call', log);
     if (!isEmpty(data)) {
       for (const key in data) {
-        if (data[log_date]) {
+        if (data[log_date] && data[log_date][0].project.id === log.project.id) {
           data[log_date] = [].concat(...data[log_date], log);
           break;
         } else {
@@ -62,7 +61,10 @@ export const logMapper = (logs) => {
       data[log_date] = [].concat(log);
     }
   });
-  for (const key in data) {
-    console.log('ddd', key, data[key].length);
-  }
+  return data;
+};
+
+export const totalHours = (item) => {
+  const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
+  return total;
 };

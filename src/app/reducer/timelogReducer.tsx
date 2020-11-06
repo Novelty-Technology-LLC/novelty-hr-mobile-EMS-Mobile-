@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { log } from 'react-native-reanimated';
 
 const TimeLogReducer = (prevState, action) => {
   switch (action.type) {
@@ -43,6 +44,9 @@ const TimeLogReducer = (prevState, action) => {
       if (action.payload.present) {
         return {
           ...prevState,
+          past: prevState.past.filter(
+            (data) => data.id !== action.payload.present.id
+          ),
           present: []
             .concat(
               action.payload.present,
@@ -57,6 +61,9 @@ const TimeLogReducer = (prevState, action) => {
       } else if (action.payload.past) {
         return {
           ...prevState,
+          present: prevState.present.filter(
+            (data) => data.id !== action.payload.past.id
+          ),
           past: []
             .concat(
               action.payload.past,
