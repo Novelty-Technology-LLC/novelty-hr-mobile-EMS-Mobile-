@@ -21,7 +21,6 @@ const RootNavigation = () => {
       try {
         let userToken = await getToken();
         dispatch({ type: 'RESTORE_TOKEN', token: userToken });
-
         const user = await getUser();
         dispatch({ type: 'STORE_USER', user: JSON.parse(user) });
       } catch (e) {
@@ -41,8 +40,19 @@ const RootNavigation = () => {
       </LoginWrapper>
     );
   } else {
+    const deepLinking = {
+      prefixes: ['noveltyhrmobile://'],
+      config: {
+        leaveList: {
+          path: 'leaveList',
+          params: {
+            leave_id: null,
+          },
+        },
+      },
+    };
     return (
-      <NavigationContainer>
+      <NavigationContainer linking={deepLinking}>
         <AuthContext.Provider value={{ state, dispatch }}>
           <Root.Navigator
             screenOptions={{

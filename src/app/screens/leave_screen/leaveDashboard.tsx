@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl } from 'react-native';
+import { View, ScrollView, Text, RefreshControl, Linking } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
@@ -8,10 +8,12 @@ import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
-import { getLeaveQuota, getMyRequests } from '../../services';
+import { getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
+import { SetLocalNotification } from '../../utils/pushNotification';
+import messaging from '@react-native-firebase/messaging';
 
-const LeaveDashboard = () => {
+const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -23,6 +25,7 @@ const LeaveDashboard = () => {
       dispatchRequest({ type: 'QUOTA', payload: data });
       setRefreshing(false);
     });
+
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
         dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
@@ -63,9 +66,37 @@ const LeaveDashboard = () => {
   };
 
   useEffect(() => {
+    requestUserPermission();
     getData();
     getRequest();
+
+    messaging().onNotificationOpenedApp((remoteMessage) => {
+      Linking.openURL(
+        `noveltyhrmobile://leaveList/${JSON.parse(remoteMessage.data.leave_id)}`
+      );
+    });
   }, []);
+
+  async function requestUserPermission() {
+    const token = await messaging().getToken();
+
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    let user = await getUser();
+    let notifcation_token = JSON.parse(user).notification_token;
+    user = JSON.parse(user).uuid;
+
+    const data = {
+      uuid: user,
+      notification_token: token,
+    };
+    if (enabled && notifcation_token !== token) {
+      store(data);
+    }
+  }
 
   return (
     <View style={style.mainContainer}>
@@ -91,7 +122,10 @@ const LeaveDashboard = () => {
             ))}
         </View>
         <MyRequests loading={loading} refresh={refresh} />
-        {isAdmin && <OtherRequests refresh={refresh} />}
+        {isAdmin && (
+          <OtherRequests refresh={refresh} params={route.params?.screen} />
+        )}
+        {/* <Text onPress={() => SetLocalNotification()}>Notfy</Text> */}
       </ScrollView>
       <RequestButton screen="requestLeave" />
     </View>

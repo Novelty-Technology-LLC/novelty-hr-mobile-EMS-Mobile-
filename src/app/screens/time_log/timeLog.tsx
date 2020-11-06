@@ -11,12 +11,11 @@ const TimeLog = () => {
       <Header>
         <Text style={headerText}>Time Log</Text>
       </Header>
-      <ComingSoon>COMING SOON</ComingSoon>
-      {/* <View>
-        {/* <Text>Time Log</Text> 
+      <View>
+        {/* <Text>Time Log</Text>*/}
         <TimeLogs />
       </View>
-      <RequestButton screen="logtime" /> */}
+      <RequestButton screen="logtime" />
     </View>
   );
 };

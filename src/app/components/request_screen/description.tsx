@@ -4,19 +4,22 @@ import { View, Text } from 'react-native';
 import Textarea from 'react-native-textarea';
 
 import { descriptionStyle as style } from '../../../assets/styles';
+import { editTimeLog } from '../../services/timeLogService';
 
 const Description = ({
   handleChange,
   defaultValue,
   timelog,
+  editlog,
   error,
   touched,
 }: {
   handleChange: Function;
   defaultValue?: string;
   timelog?: boolean;
-  error: any;
-  touched: any;
+  editlog?: boolean;
+  error?: any;
+  touched?: any;
 }) => {
   return (
     <View>
@@ -25,7 +28,9 @@ const Description = ({
           {timelog ? 'Task in brief *' : 'Write a note *'}
         </Text>
         <Textarea
-          containerStyle={style.textareaContainer}
+          containerStyle={
+            error ? style.textareaContainer : style.editlogContainer
+          }
           style={style.textArea}
           maxLength={200}
           defaultValue={defaultValue}
@@ -38,9 +43,9 @@ const Description = ({
           underlineColorAndroid={'transparent'}
           name="note"
           label="note"
-          onChangeText={handleChange('note')}
+          onChangeText={error ? handleChange('note') : handleChange}
         />
-        {error.note && touched.note && (
+        {error && touched && error.note && touched.note && (
           <Text style={style.error}>{error.note}</Text>
         )}
       </View>

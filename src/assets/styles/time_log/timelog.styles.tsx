@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
@@ -16,12 +16,20 @@ const timeLogStyle = StyleSheet.create({
     borderRadius: 2,
     marginVertical: 7,
   },
+  pad: { paddingRight: normalize(20) },
   dateView: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     paddingHorizontal: normalize(15),
+  },
+  total: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: normalize(20),
+    borderTopWidth: normalize(3),
   },
   date: {
     width: '75%',
@@ -36,6 +44,12 @@ const timeLogStyle = StyleSheet.create({
     marginTop: normalize(7),
   },
   cdate: {
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.xs),
+    fontFamily: fonts.poppinsMedium,
+    marginTop: normalize(7),
+  },
+  rdate: {
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,

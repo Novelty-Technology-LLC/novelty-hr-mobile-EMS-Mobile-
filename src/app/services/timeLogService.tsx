@@ -22,3 +22,25 @@ export const postTimeLog = (data: object) => {
     }
   });
 };
+
+export const editTimeLog = (id: number, data: object) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.put(`/timelog/${id}`, data);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+export const deleteTimeLog = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.delete(`/timelog/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};

@@ -30,22 +30,22 @@ const signInGoogle = async (dispatch: any) => {
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
       error.message = 'Sign in cancled.';
-    if (error.message === "NETWORK_ERROR")
+    if (error.message === 'NETWORK_ERROR')
       error.message = 'Please connect to a network.';
     snackErrorBottom(error);
   }
 };
 
-const createUser = (dispatch:any, user:any, token:any) => {
+const createUser = (dispatch: any, user: any, token: any) => {
   create(user)
-  .then(async ({ data }: any) => {
-    await setUser(data.data);
-    dispatch({ type: 'STORE_USER', user: data.data });
-    await storeToken(token);
-    dispatch({ type: 'SIGN_IN', token});
-  })
-  .catch((err) => console.log(err));
-}
+    .then(async ({ data }: any) => {
+      await setUser(data.data);
+      dispatch({ type: 'STORE_USER', user: data.data });
+      await storeToken(token);
+      dispatch({ type: 'SIGN_IN', token });
+    })
+    .catch((err) => console.log(err));
+};
 
 const signInApple = async (dispatch: any) => {
   try {
@@ -79,10 +79,10 @@ const signInApple = async (dispatch: any) => {
       dispatch({ type: 'INVALID' });
     }
   } catch (error) {
-    if (error.message === "NETWORK_ERROR")
+    if (error.message === 'NETWORK_ERROR')
       error.message = 'Please connect to a network.';
     snackErrorBottom(error);
   }
 };
 
-export { signInGoogle, signInApple , createUser};
+export { signInGoogle, signInApple, createUser };
