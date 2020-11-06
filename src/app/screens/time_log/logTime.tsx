@@ -23,7 +23,7 @@ const LogTime = ({ route }: any) => {
   const olddata = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
-  const [tasks, setTasks] = useState(olddata.note);
+  const [tasks, setTasks] = useState(olddata ? olddata.note : []);
 
   const getNote = (olddata) => {
     if (isThisWeek(olddata)) {
