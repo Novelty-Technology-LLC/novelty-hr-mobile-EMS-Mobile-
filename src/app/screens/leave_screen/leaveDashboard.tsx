@@ -80,13 +80,14 @@ const LeaveDashboard = () => {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
     let user = await getUser();
+    let notifcation_token = JSON.parse(user).notification_token;
     user = JSON.parse(user).uuid;
 
     const data = {
       uuid: user,
       notification_token: token,
     };
-    if (enabled) {
+    if (enabled && notifcation_token !== token) {
       store(data);
     }
   }
