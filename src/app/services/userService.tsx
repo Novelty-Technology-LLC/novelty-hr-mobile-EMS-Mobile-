@@ -5,10 +5,17 @@ const create = async (data: object) => {
     api
       .post('/user/add', data)
       .then((data) => resolve(data))
+      .catch((err) => console.log('err - > ', err));
+  });
+};
+
+const store = (data) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post('/user/storeToken', data)
+      .then((data) => resolve(data))
       .catch((err) => reject(err));
   });
 };
 
-const get = () => {};
-
-export { create, get };
+export { create, store };

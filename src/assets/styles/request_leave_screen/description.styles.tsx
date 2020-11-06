@@ -9,6 +9,9 @@ const descriptionStyle = StyleSheet.create({
     marginLeft: normalize(20),
     paddingBottom: normalize(10),
   },
+  alertmain: {
+    marginLeft: normalize(20),
+  },
   text: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),
@@ -16,6 +19,15 @@ const descriptionStyle = StyleSheet.create({
   textareaContainer: {
     height: normalize(140),
     width: normalize(340),
+    marginTop: normalize(10),
+    padding: normalize(10),
+    borderRadius: normalize(4),
+    backgroundColor: color.grey,
+    opacity: 0.8,
+  },
+  editlogContainer: {
+    height: normalize(100),
+    width: normalize(280),
     marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),

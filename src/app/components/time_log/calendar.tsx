@@ -4,7 +4,13 @@ import CalendarStrip from 'react-native-calendar-strip';
 import colors from '../../../assets/colors';
 import { calenderStyle as style } from '../../../assets/styles';
 
-const Calendar = ({ handleChange }: { handleChange: Function }) => {
+const Calendar = ({
+  handleChange,
+  defaultValue,
+}: {
+  handleChange: Function;
+  defaultValue?: Date;
+}) => {
   const datesBlacklistFunc = (date) => {
     return date.isoWeekday() === 6 || date.isoWeekday() === 7;
   };
@@ -32,9 +38,18 @@ const Calendar = ({ handleChange }: { handleChange: Function }) => {
         disabledDateNameStyle={{ color: 'grey' }}
         disabledDateNumberStyle={{ color: 'grey' }}
         iconContainer={{ display: 'none' }}
-        selectedDate={new Date()}
-        onDateSelected={(data) => {
-          handleChange('log_date')(data.toJSON());
+        selectedDate={defaultValue ? new Date(defaultValue) : new Date()}
+        onDateSelected={(date) => {
+          let result = new Date(date);
+          const resDate =
+            result.getFullYear() +
+            '-' +
+            (parseInt(result.getMonth()) + 1) +
+            '-' +
+            `${
+              result.getDate() > 9 ? result.getDate() : '0' + result.getDate()
+            }`;
+          handleChange('log_date')(resDate);
         }}
         datesBlacklist={datesBlacklistFunc}
       />

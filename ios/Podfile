@@ -6,7 +6,10 @@ platform :ios, '10.0'
 target 'noveltyhrmobile' do
   config = use_native_modules!
   pod 'GoogleSignIn'
+  pod 'Firebase/Messaging'
   use_react_native!(:path => config["reactNativePath"])
+
+  pod 'react-native-uuid-generator', :path => '../node_modules/react-native-uuid-generator'
 
   target 'noveltyhrmobileTests' do
     inherit! :complete

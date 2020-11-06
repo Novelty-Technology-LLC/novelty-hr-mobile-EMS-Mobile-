@@ -1,7 +1,7 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import { color, fonts, theme } from '../theme';
+import { fonts, theme } from '../theme';
 
 const calenderStyle = StyleSheet.create({
   container: {
@@ -21,8 +21,8 @@ const calenderStyle = StyleSheet.create({
   highlight: {
     color: colors.primary,
     backgroundColor: colors.buttonOrange,
-    borderRadius: normalize(theme.size.logo),
-    paddingVertical: normalize(4),
+    borderRadius: normalize(30),
+    paddingVertical: normalize(5),
     paddingHorizontal: normalize(10),
     fontSize: normalize(20),
   },
