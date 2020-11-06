@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import {
   calenderStyle,
   descriptionStyle as style,
 } from '../../../assets/styles';
-import { Picker } from 'react-native-wheel-datepicker';
+import { Picker } from 'react-native-wheel-pick';
 import { getHrsMins } from '../../utils';
 
 const Time = ({
