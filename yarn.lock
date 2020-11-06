@@ -868,6 +868,11 @@
     stream-events "^1.0.1"
     xdg-basedir "^4.0.0"
 
+"@gregfrench/react-native-wheel-picker@^1.2.8":
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/@gregfrench/react-native-wheel-picker/-/react-native-wheel-picker-1.2.8.tgz#a973eb3f9859f9f5cd35936aa09312ff4831e89b"
+  integrity sha512-qUYoU1JmZ8+kzqL/wKy39qCiQcGXo4j27bxT6P7TCfXkBCERMBKfxJMFKF4rWLYEM/b6QlS4w1QA7akYL9eH/w==
+
 "@grpc/grpc-js@~1.1.1":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.1.8.tgz#2845f0fc3d1bfbb150ed7a78a76bdf41b126d367"
@@ -6047,7 +6052,7 @@ mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@>=2.0.0:
+moment@>=2.0.0, moment@^2.19.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -6951,6 +6956,13 @@ react-native-vector-icons@^7.1.0:
     lodash.template "^4.5.0"
     prop-types "^15.7.2"
     yargs "^15.0.2"
+
+react-native-wheel-datepicker@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-datepicker/-/react-native-wheel-datepicker-2.2.3.tgz#2a93f25819b9478033229f0e715c56de92b78fba"
+  integrity sha512-tnZJZbqdyaRFXBXuHFrijtcr4gxOPbUdtvM3XfceHvVGSKQVoBuaDYRFVe4qTdrR4+6c/OOgUFfRu3nYFSHReQ==
+  dependencies:
+    moment "^2.19.1"
 
 react-native@0.63.3:
   version "0.63.3"
