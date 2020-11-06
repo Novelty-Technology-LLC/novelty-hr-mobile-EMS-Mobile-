@@ -1,11 +1,9 @@
 import PushNotification from 'react-native-push-notification';
-import { View, StyleSheet, Button, Alert } from 'react-native';
+import { View, StyleSheet, Button, Alert, Linking } from 'react-native';
 
 PushNotification.configure({
   // (required) Called when a remote or local notification is opened or received
-  onNotification: function (notification) {
-    console.log('got new notif');
-  },
+  onNotification: function (notification) {},
 });
 
 export const SetLocalNotification = () => {
