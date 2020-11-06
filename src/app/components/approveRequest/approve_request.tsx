@@ -30,8 +30,6 @@ const Request = ({ data, style, title = null }: any) => {
   useEffect(() => {
     setLoading(true);
     const getRequest = async () => {
-      console.log('adata.id -> ', data.id);
-
       const res = await getResponses(data.id);
       setresponses(res);
       setLoading(false);

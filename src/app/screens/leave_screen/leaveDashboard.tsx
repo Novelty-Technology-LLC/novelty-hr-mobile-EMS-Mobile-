@@ -71,11 +71,6 @@ const LeaveDashboard = ({ route }) => {
     getRequest();
 
     messaging().onNotificationOpenedApp((remoteMessage) => {
-      console.log(
-        'remote message -> ',
-        JSON.parse(remoteMessage.data.leave_id)
-      );
-
       Linking.openURL(
         `noveltyhrmobile://leaveList/${JSON.parse(remoteMessage.data.leave_id)}`
       );
