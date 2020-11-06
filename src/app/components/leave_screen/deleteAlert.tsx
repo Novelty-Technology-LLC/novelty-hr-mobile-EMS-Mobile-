@@ -70,7 +70,7 @@ const DeleteAlert = ({
       <TouchableOpacity
         onPress={() => {
           show();
-          onPress();
+          onPress && onPress();
         }}
         style={style.iconContainer}
       >

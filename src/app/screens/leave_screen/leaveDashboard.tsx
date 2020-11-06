@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl, Alert } from 'react-native';
+import { View, ScrollView, Text, RefreshControl, Linking } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
@@ -13,7 +13,7 @@ import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import { SetLocalNotification } from '../../utils/pushNotification';
 import messaging from '@react-native-firebase/messaging';
 
-const LeaveDashboard = () => {
+const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -69,6 +69,12 @@ const LeaveDashboard = () => {
     requestUserPermission();
     getData();
     getRequest();
+
+    messaging().onNotificationOpenedApp((remoteMessage) => {
+      Linking.openURL(
+        `noveltyhrmobile://leaveList/${JSON.parse(remoteMessage.data.leave_id)}`
+      );
+    });
   }, []);
 
   async function requestUserPermission() {
@@ -116,7 +122,9 @@ const LeaveDashboard = () => {
             ))}
         </View>
         <MyRequests loading={loading} refresh={refresh} />
-        {isAdmin && <OtherRequests refresh={refresh} />}
+        {isAdmin && (
+          <OtherRequests refresh={refresh} params={route.params?.screen} />
+        )}
         {/* <Text onPress={() => SetLocalNotification()}>Notfy</Text> */}
       </ScrollView>
       <RequestButton screen="requestLeave" />

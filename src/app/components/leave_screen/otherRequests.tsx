@@ -18,8 +18,9 @@ import { getAllRequests } from '../../services';
 import { getUser, mapDataToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
+import { getLeave } from '../../services';
 
-const OtherRequests = ({ refresh }: any) => {
+const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [loading, setLoading] = useState(false);
@@ -63,6 +64,7 @@ const OtherRequests = ({ refresh }: any) => {
             past: mapDataToRequest(pastreq),
           },
         });
+
         setLoading(false);
       })
       .catch((err) => {
@@ -73,6 +75,16 @@ const OtherRequests = ({ refresh }: any) => {
   useEffect(() => {
     getAdminRequest();
   }, [refresh]);
+
+  useEffect(() => {
+    const get = async () => {
+      if (+params) {
+        const data = await getLeave(+params);
+        navigation.navigate('approveLeave', data[0]);
+      }
+    };
+    get();
+  }, [params]);
 
   return (
     <View style={otherRequestsStyle.container}>
