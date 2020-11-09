@@ -118,9 +118,6 @@ const RequestLeave = ({ route }: any) => {
       }
       delete values.date;
 
-      const userid = state.user.id;
-      const user_name = state.user.first_name;
-
       const requestData = {
         ...values,
         leave_date: {
@@ -128,8 +125,9 @@ const RequestLeave = ({ route }: any) => {
           endDate,
         },
         day,
-        requestor_id: userid,
-        requestor_name: user_name,
+        requestor_id: state.user.id,
+        requestor_name: state.user.first_name,
+        uuid: state.user.uuid,
       };
 
       setisLoading(!isLoading);

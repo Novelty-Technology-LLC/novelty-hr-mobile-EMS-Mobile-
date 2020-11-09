@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
+
 import {
   myRequestsStyle,
   otherRequestsStyle,
@@ -15,7 +16,7 @@ import History from './history';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon } from '../../common';
 import { getAllRequests } from '../../services';
-import { getUser, mapDataToRequest } from '../../utils';
+import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 import { getLeave } from '../../services';
@@ -74,12 +75,13 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
 
   useEffect(() => {
     getAdminRequest();
-  }, [refresh]);
+  }, [refresh, params]);
 
   useEffect(() => {
     const get = async () => {
       if (+params) {
-        const data = await getLeave(+params);
+        let data = await getLeave(+params);
+        data = mapObjectToRequest(data[0]);
         navigation.navigate('approveLeave', data[0]);
       }
     };
