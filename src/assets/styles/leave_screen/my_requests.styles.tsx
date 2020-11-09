@@ -6,7 +6,7 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    marginTop: normalize(20),
+    // marginTop: normalize(20),
   },
   header: {
     flexDirection: 'row',
@@ -43,6 +43,7 @@ const myRequestsStyle = StyleSheet.create({
   emptyText: {
     color: colors.secondary,
   },
+  bgap: { paddingVertical: normalize(60) },
 });
 
 export { myRequestsStyle };

@@ -7,9 +7,11 @@ import { calenderStyle as style } from '../../../assets/styles';
 const Calendar = ({
   handleChange,
   defaultValue,
+  other,
 }: {
   handleChange: Function;
   defaultValue?: Date;
+  other?: boolean;
 }) => {
   const datesBlacklistFunc = (date) => {
     return date.isoWeekday() === 6 || date.isoWeekday() === 7;
@@ -49,9 +51,13 @@ const Calendar = ({
             `${
               result.getDate() > 9 ? result.getDate() : '0' + result.getDate()
             }`;
-          handleChange('log_date')(resDate);
+          if (other) {
+            handleChange(resDate);
+          } else {
+            handleChange('log_date')(resDate);
+          }
         }}
-        datesBlacklist={datesBlacklistFunc}
+        // datesBlacklist={datesBlacklistFunc}
       />
     </View>
   );

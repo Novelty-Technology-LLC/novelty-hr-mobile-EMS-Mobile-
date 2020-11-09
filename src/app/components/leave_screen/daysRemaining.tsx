@@ -17,7 +17,7 @@ const DaysRemaining = ({
   timelog,
 }: DaysRemainingPropType) => {
   return (
-    <View style={style.container}>
+    <View style={timelog ? style.logcontainer : style.container}>
       <Text style={style.text}>
         <Text style={style.remaining}>
           <AnimateNumber
@@ -33,6 +33,7 @@ const DaysRemaining = ({
         <View style={style.gap}></View>
         <Text style={style.total}>{total}</Text>
       </Text>
+      <Text style={style.title}>{timelog ? ' Hours' : ''}</Text>
       <Text style={style.title}>{title}</Text>
       {!timelog && <Text style={style.footer}>REMAINING</Text>}
     </View>

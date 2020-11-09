@@ -2,21 +2,35 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import normalize from 'react-native-normalize';
 import colors from '../../../assets/colors';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { AppIcon } from '../../common';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
-import { getUser, isThisWeek, logMapper } from '../../utils';
+import {
+  getUser,
+  getWeek,
+  isThisWeek,
+  logMapper,
+  totalWeekHours,
+} from '../../utils';
+import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { UserPlaceHolder } from '../loader';
+import { Calendar } from './calendar';
 import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
   const [toggle, setToggle] = useState('toggle-switch');
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const [date, setDate] = useState('');
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const [logs, setLogs] = useState([]);
+  const pastweek = timelogs.past.filter(
+    (item) => getWeek(new Date(item.log_date)) === getWeek(new Date()) - 1
+  );
 
   const getTimeLogs = async () => {
     setLoading(true);
@@ -42,6 +56,18 @@ const TimeLogs = () => {
     getTimeLogs();
   }, [refreshing]);
 
+  useEffect(() => {
+    setLogs(
+      timelogs.past
+        .concat(timelogs.present)
+        .filter(
+          (item) =>
+            new Date(item.log_date).toDateString() ===
+            new Date(date === '' ? new Date() : date).toDateString()
+        )
+    );
+  }, [timelogs]);
+
   let row: Array<any> = [];
   let row2: Array<any> = [];
 
@@ -55,7 +81,38 @@ const TimeLogs = () => {
         />
       }
     >
-      <View style={style.header}>
+      <View style={{ flexDirection: 'row' }}>
+        <DaysRemaining
+          total={40}
+          remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
+          title={'This Week'}
+          timelog={true}
+        />
+        <DaysRemaining
+          total={40}
+          remaining={Math.floor(totalWeekHours(pastweek) / 60)}
+          title={'Past Week'}
+          timelog={true}
+        />
+      </View>
+
+      <Calendar
+        handleChange={(date) => {
+          setDate(date);
+          setLogs(
+            timelogs.past
+              .concat(timelogs.present)
+              .filter(
+                (item) =>
+                  new Date(item.log_date).toDateString() ===
+                  new Date(date).toDateString()
+              )
+          );
+        }}
+        other={true}
+      />
+
+      {/* <View style={style.header}>
         <Text style={style.title}>This Week</Text>
         {timelogs.past.length > 0 && (
           <View style={style.row}>
@@ -80,12 +137,12 @@ const TimeLogs = () => {
             </TouchableWithoutFeedback>
           </View>
         )}
-      </View>
+      </View> */}
       {loading ? (
         <UserPlaceHolder />
-      ) : timelogs.present[0] ? (
+      ) : logs[0] ? (
         <FlatList
-          data={timelogs.present}
+          data={logs}
           renderItem={(item) => (
             <Swipeable
               ref={(ref) => (row[item.index] = ref)}
@@ -105,12 +162,13 @@ const TimeLogs = () => {
       ) : (
         !loading && (
           <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>You don't have logs this week.</Text>
+            <Text style={style.emptyText}>You don't have logs this day.</Text>
           </View>
         )
       )}
+      <View style={style.bgap}></View>
 
-      <View style={historyStyle.timelogcontainer}>
+      {/* <View style={historyStyle.timelogcontainer}>
         {toggle === 'toggle-switch' && (
           <View style={historyStyle.subcontainer}>
             <Text style={historyStyle.header}>Past Weeks</Text>
@@ -145,7 +203,7 @@ const TimeLogs = () => {
             </View>
           )
         )}
-      </View>
+      </View> */}
     </ScrollView>
   );
 };
