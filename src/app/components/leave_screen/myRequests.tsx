@@ -24,6 +24,7 @@ const MyRequests = ({
 }) => {
   const navigation = useNavigation();
   const { requests, dispatchRequest } = useContext(RequestContext);
+  let row: Array<any> = [];
 
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
@@ -78,7 +79,15 @@ const MyRequests = ({
         <FlatList
           data={requests.requests}
           renderItem={(item) => (
-            <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
+            <Swipeable
+              ref={(ref) => (row[item.index] = ref)}
+              renderRightActions={() => (
+                <Swipe
+                  item={item.item}
+                  onPress={() => row[item.index].close()}
+                />
+              )}
+            >
               <Request
                 item={item.item}
                 other={false}
