@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { RangeCalendar } from '@ui-kitten/components';
 import { Text } from 'react-native';
+import { dateStringMapper } from '../../utils';
+import { timeLogStyle } from '../../../assets/styles';
 interface calenderPropType {
   style: object;
   handleChange: Function;
@@ -33,6 +35,17 @@ const Calander = ({
 
   return (
     <>
+      {range.startDate && (
+        <Text style={timeLogStyle.rldate}>
+          Total :{' '}
+          {dateStringMapper(
+            new Date(range.startDate).toString().substring(0, 15),
+            range.endDate
+              ? new Date(range.endDate).toString().substring(0, 15)
+              : new Date(range.startDate).toString().substring(0, 15)
+          )}
+        </Text>
+      )}
       <RangeCalendar
         filter={filter}
         range={range}

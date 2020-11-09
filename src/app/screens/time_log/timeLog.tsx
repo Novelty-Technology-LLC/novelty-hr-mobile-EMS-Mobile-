@@ -9,7 +9,7 @@ const TimeLog = () => {
   return (
     <View style={leaveDashboardStyle.mainContainer}>
       <Header>
-        <Text style={headerText}>Time Log</Text>
+        <Text style={headerText}>TIME LOG</Text>
       </Header>
       <View>
         {/* <Text>Time Log</Text>*/}
