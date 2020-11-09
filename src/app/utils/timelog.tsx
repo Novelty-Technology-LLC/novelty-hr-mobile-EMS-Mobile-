@@ -68,3 +68,8 @@ export const totalHours = (item) => {
   const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
   return total;
 };
+
+export const totalWeekHours = (item) => {
+  const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
+  return total;
+};
