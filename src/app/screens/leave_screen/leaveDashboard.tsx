@@ -10,7 +10,6 @@ import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest } from '../../utils';
 import { getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
-import { SetLocalNotification } from '../../utils/pushNotification';
 import messaging from '@react-native-firebase/messaging';
 
 const LeaveDashboard = ({ route }) => {
