@@ -70,12 +70,31 @@ const LeaveDashboard = ({ route }) => {
     getRequest();
 
     messaging().onNotificationOpenedApp((remoteMessage) => {
-      Linking.openURL(
-        `noveltyhrmobile://leaveList/${JSON.parse(
-          remoteMessage.data.leave_id
-        )}/&uuid=${JSON.parse(remoteMessage.data.uuid)}`
-      );
+      if (remoteMessage) {
+        Linking.openURL(
+          `noveltyhrmobile://leaveList/${JSON.parse(
+            remoteMessage.data.leave_id
+          )}`
+        );
+      }
     });
+  }, []);
+
+  useEffect(() => {
+    const initialNotification = () => {
+      messaging()
+        .getInitialNotification()
+        .then((remoteMessage) => {
+          if (remoteMessage) {
+            Linking.openURL(
+              `noveltyhrmobile://leaveList/${JSON.parse(
+                remoteMessage.data.leave_id
+              )}`
+            );
+          }
+        });
+    };
+    initialNotification();
   }, []);
 
   async function requestUserPermission() {
@@ -99,7 +118,6 @@ const LeaveDashboard = ({ route }) => {
       store(data);
     }
   }
-  console.log('params -> ', route);
 
   return (
     <View style={style.mainContainer}>
