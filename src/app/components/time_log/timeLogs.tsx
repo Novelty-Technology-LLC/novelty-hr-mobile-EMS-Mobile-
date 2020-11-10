@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import normalize from 'react-native-normalize';
-import colors from '../../../assets/colors';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
-import { AppIcon } from '../../common';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
 import {
@@ -18,7 +14,7 @@ import {
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
-import { Calendar } from './calendar';
+import { DaySelect } from './daySelect';
 import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
@@ -87,20 +83,20 @@ const TimeLogs = () => {
         <View style={{ flexDirection: 'row' }}>
           <DaysRemaining
             total={40}
-            remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
-            title={'This Week'}
+            remaining={Math.floor(totalWeekHours(pastweek) / 60)}
+            title={'Past Week'}
             timelog={true}
           />
           <DaysRemaining
             total={40}
-            remaining={Math.floor(totalWeekHours(pastweek) / 60)}
-            title={'Past Week'}
+            remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
+            title={'This Week'}
             timelog={true}
           />
         </View>
       )}
 
-      <Calendar
+      <DaySelect
         handleChange={(date) => {
           setDate(date);
           setLogs(
@@ -113,7 +109,6 @@ const TimeLogs = () => {
               )
           );
         }}
-        other={true}
       />
 
       {/* <View style={style.header}>
