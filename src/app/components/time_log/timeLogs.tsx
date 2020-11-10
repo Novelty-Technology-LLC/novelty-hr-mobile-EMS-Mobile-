@@ -17,7 +17,7 @@ import {
 } from '../../utils';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
-import { UserPlaceHolder } from '../loader';
+import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
 import { Calendar } from './calendar';
 import { TimeLog } from './timelog';
 
@@ -81,20 +81,24 @@ const TimeLogs = () => {
         />
       }
     >
-      <View style={{ flexDirection: 'row' }}>
-        <DaysRemaining
-          total={40}
-          remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
-          title={'This Week'}
-          timelog={true}
-        />
-        <DaysRemaining
-          total={40}
-          remaining={Math.floor(totalWeekHours(pastweek) / 60)}
-          title={'Past Week'}
-          timelog={true}
-        />
-      </View>
+      {loading ? (
+        <QuotaPlaceHolder />
+      ) : (
+        <View style={{ flexDirection: 'row' }}>
+          <DaysRemaining
+            total={40}
+            remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
+            title={'This Week'}
+            timelog={true}
+          />
+          <DaysRemaining
+            total={40}
+            remaining={Math.floor(totalWeekHours(pastweek) / 60)}
+            title={'Past Week'}
+            timelog={true}
+          />
+        </View>
+      )}
 
       <Calendar
         handleChange={(date) => {
