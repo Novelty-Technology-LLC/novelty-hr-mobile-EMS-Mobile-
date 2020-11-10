@@ -39,6 +39,7 @@ const calenderStyle = StyleSheet.create({
   },
   modalCalender: {
     paddingTop: 0,
+    marginTop: 0,
   },
 });
 
