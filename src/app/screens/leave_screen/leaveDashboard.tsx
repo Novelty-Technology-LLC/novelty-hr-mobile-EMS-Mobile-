@@ -71,7 +71,9 @@ const LeaveDashboard = ({ route }) => {
 
     messaging().onNotificationOpenedApp((remoteMessage) => {
       Linking.openURL(
-        `noveltyhrmobile://leaveList/${JSON.parse(remoteMessage.data.leave_id)}`
+        `noveltyhrmobile://leaveList/${JSON.parse(
+          remoteMessage.data.leave_id
+        )}/&uuid=${JSON.parse(remoteMessage.data.uuid)}`
       );
     });
   }, []);
@@ -92,11 +94,12 @@ const LeaveDashboard = ({ route }) => {
       uuid: user,
       notification_token: token,
     };
-    return;
+
     if (enabled && notifcation_token !== token) {
       store(data);
     }
   }
+  console.log('params -> ', route);
 
   return (
     <View style={style.mainContainer}>
