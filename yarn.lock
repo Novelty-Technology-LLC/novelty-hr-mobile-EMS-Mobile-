@@ -1788,6 +1788,11 @@
   resolved "https://registry.yarnpkg.com/@ui-kitten/metro-config/-/metro-config-5.0.0.tgz#28d60d781def017e6def3b96ce0d1594d44efb2e"
   integrity sha512-ImnpqdzNzZOgOHbrK27RgObzhMKT5iw2ZSqAZmEHUaVQexOwHlA1yBCHI2TnhuwtqiRsgYOW0zQywr05CnCPpQ==
 
+"@ui-kitten/moment@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@ui-kitten/moment/-/moment-5.0.0.tgz#b4dd043c649321b7b1316aa0c82e588d82a5b9eb"
+  integrity sha512-yM9nozxtD8bup5FXp5/CiA4ioDry8xlNX3WCved8GTrAeXiDkNuPomrmO8LC+3xYvJ+5gpNmXUkr7qKHiMkzEA==
+
 abab@^2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
