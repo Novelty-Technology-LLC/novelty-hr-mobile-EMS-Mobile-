@@ -12,6 +12,9 @@ const TimeLog = ({ item }: any) => {
             <Text style={style.date}>Tasks: {item.note.length}</Text>
             <Text style={style.duration}>{getHrs(totalHours(item))}</Text>
           </View>
+          {/* {item.note.map((i) => (
+            <Text style={style.date}>- {i.task}</Text>
+          ))} */}
 
           <View style={style.rowAlign}>
             <Text style={style.type}>{item.project.name.toUpperCase()}</Text>

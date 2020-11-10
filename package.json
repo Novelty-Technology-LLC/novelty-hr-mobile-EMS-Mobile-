@@ -25,6 +25,7 @@
     "@types/react-native-push-notification": "^5.0.5",
     "@types/yup": "^0.29.8",
     "@ui-kitten/components": "^5.0.0",
+    "@ui-kitten/moment": "^5.0.0",
     "axios": "^0.20.0",
     "firebase-admin": "^9.3.0",
     "formik": "^2.1.5",

@@ -8,6 +8,12 @@ const calenderStyle = StyleSheet.create({
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
   },
+  icon: {
+    alignItems: 'center',
+    width: '10%',
+    paddingHorizontal: normalize(4),
+    paddingVertical: normalize(10),
+  },
   main: {
     height: normalize(110),
     paddingTop: normalize(theme.size.xxs),
@@ -30,6 +36,9 @@ const calenderStyle = StyleSheet.create({
     color: colors.black,
     fontWeight: 'normal',
     fontSize: normalize(20),
+  },
+  modalCalender: {
+    paddingTop: 0,
   },
 });
 
