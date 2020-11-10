@@ -62,7 +62,9 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
           }}
           modal={true}
         />
-        <Dialog.Button label="ok" onPress={() => setVisible(false)} />
+        <View style={style.align}>
+          <Dialog.Button label="ok" onPress={() => setVisible(false)} />
+        </View>
       </Dialog.Container>
     </ApplicationProvider>
   );

@@ -27,7 +27,7 @@ const descriptionStyle = StyleSheet.create({
   },
   editlogContainer: {
     height: normalize(100),
-    width: normalize(280),
+    width: '93%',
     marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
@@ -61,6 +61,7 @@ const descriptionStyle = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   textArea: {
     height: normalize(130),

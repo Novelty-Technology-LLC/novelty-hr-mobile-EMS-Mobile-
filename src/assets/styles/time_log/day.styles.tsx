@@ -12,7 +12,7 @@ const dayStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
   },
   container: {
-    width: '27%',
+    width: '28%',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: normalize(5),
@@ -35,7 +35,7 @@ const dayStyle = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     paddingVertical: normalize(15),
-    paddingLeft: normalize(15),
+    paddingHorizontal: '3%',
   },
 });
 

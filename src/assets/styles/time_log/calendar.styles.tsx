@@ -10,9 +10,8 @@ const calenderStyle = StyleSheet.create({
   },
   icon: {
     alignItems: 'center',
+    justifyContent: 'center',
     width: '10%',
-    paddingHorizontal: normalize(4),
-    paddingVertical: normalize(10),
   },
   main: {
     height: normalize(110),
@@ -38,9 +37,12 @@ const calenderStyle = StyleSheet.create({
     fontSize: normalize(20),
   },
   modalCalender: {
+    width: '95%',
+    alignItems: 'center',
     paddingTop: 0,
     marginTop: 0,
   },
+  align: { alignSelf: 'flex-end' },
 });
 
 export { calenderStyle };
