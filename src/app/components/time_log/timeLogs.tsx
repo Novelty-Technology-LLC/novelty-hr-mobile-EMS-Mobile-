@@ -132,7 +132,7 @@ const TimeLogs = () => {
           </View>
         )
       )}
-      <View style={style.header}>
+      <View style={style.logheader}>
         <Text style={style.title}>This Week</Text>
       </View>
 

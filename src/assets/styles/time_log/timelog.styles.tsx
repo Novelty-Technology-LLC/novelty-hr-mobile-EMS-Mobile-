@@ -43,6 +43,7 @@ const timeLogStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
     paddingRight: normalize(25),
     alignSelf: 'flex-end',
+    marginTop: normalize(10),
   },
   type: {
     color: colors.fontGrey,

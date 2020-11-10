@@ -15,6 +15,13 @@ const myRequestsStyle = StyleSheet.create({
     paddingBottom: normalize(20),
     marginHorizontal: normalize(20),
   },
+  logheader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: normalize(20),
+    marginHorizontal: normalize(20),
+  },
   title: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.lg),
