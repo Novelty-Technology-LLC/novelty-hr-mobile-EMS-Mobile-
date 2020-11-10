@@ -9,10 +9,10 @@ const calenderStyle = StyleSheet.create({
     borderBottomWidth: 1,
   },
   icon: {
-    position: 'absolute',
-    top: normalize(15),
-    right: normalize(30),
-    zIndex: 3,
+    alignItems: 'center',
+    width: '10%',
+    paddingHorizontal: normalize(4),
+    paddingVertical: normalize(10),
   },
   main: {
     height: normalize(110),

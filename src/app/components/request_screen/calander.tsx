@@ -6,7 +6,7 @@ import { MomentDateService } from '@ui-kitten/moment';
 import { dateStringMapper } from '../../utils';
 import { timeLogStyle } from '../../../assets/styles';
 interface calenderPropType {
-  style: object;
+  style?: object;
   handleChange: Function;
   defaultValue?: object;
   error?: any;

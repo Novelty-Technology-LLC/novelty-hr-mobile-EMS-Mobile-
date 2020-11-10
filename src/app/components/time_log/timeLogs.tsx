@@ -4,13 +4,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
-import {
-  getUser,
-  getWeek,
-  isThisWeek,
-  logMapper,
-  totalWeekHours,
-} from '../../utils';
+import { getUser, getWeek, isThisWeek, totalWeekHours } from '../../utils';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
@@ -18,7 +12,6 @@ import { DaySelect } from './daySelect';
 import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
-  const [toggle, setToggle] = useState('toggle-switch');
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState('');
@@ -111,32 +104,6 @@ const TimeLogs = () => {
         }}
       />
 
-      {/* <View style={style.header}>
-        <Text style={style.title}>This Week</Text>
-        {timelogs.past.length > 0 && (
-          <View style={style.row}>
-            <Text style={style.history}>Past Weeks</Text>
-            <View style={style.gap}></View>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                setToggle(
-                  toggle === 'toggle-switch'
-                    ? 'toggle-switch-off'
-                    : 'toggle-switch'
-                );
-              }}
-            >
-              <AppIcon
-                name={toggle}
-                color={
-                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
-                }
-                size={40}
-              />
-            </TouchableWithoutFeedback>
-          </View>
-        )}
-      </View> */}
       {loading ? (
         <UserPlaceHolder />
       ) : logs[0] ? (
@@ -165,20 +132,16 @@ const TimeLogs = () => {
           </View>
         )
       )}
-      <View style={style.bgap}></View>
+      <View style={style.header}>
+        <Text style={style.title}>This Week</Text>
+      </View>
 
-      {/* <View style={historyStyle.timelogcontainer}>
-        {toggle === 'toggle-switch' && (
-          <View style={historyStyle.subcontainer}>
-            <Text style={historyStyle.header}>Past Weeks</Text>
-            <View style={historyStyle.line}></View>
-          </View>
-        )}
+      <View style={historyStyle.timelogcontainer}>
         {loading ? (
           <UserPlaceHolder />
-        ) : toggle === 'toggle-switch' && timelogs.past[0] ? (
+        ) : timelogs.present[0] ? (
           <FlatList
-            data={timelogs.past}
+            data={timelogs.present}
             renderItem={(item) => (
               <Swipeable
                 ref={(ref) => (row2[item.index] = ref)}
@@ -196,13 +159,13 @@ const TimeLogs = () => {
             keyExtractor={(item) => item.id}
           />
         ) : (
-          !timelogs.past[0] && (
+          !timelogs.present[0] && (
             <View style={style.emptyContainer}>
               <Text style={style.emptyText}>You don't have past logs.</Text>
             </View>
           )
         )}
-      </View> */}
+      </View>
     </ScrollView>
   );
 };

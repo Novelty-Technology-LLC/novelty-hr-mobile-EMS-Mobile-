@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import colors from '../../../assets/colors';
-import { calenderStyle as style, requestLeave } from '../../../assets/styles';
+import { calenderStyle as style } from '../../../assets/styles';
 
 const Calendar = ({
   handleChange,
@@ -16,7 +16,6 @@ const Calendar = ({
   const datesBlacklistFunc = (date) => {
     return date.isoWeekday() === 6 || date.isoWeekday() === 7;
   };
-  const [visible, setVisible] = useState(false);
   const [date, setDate] = useState(
     defaultValue ? new Date(defaultValue) : new Date()
   );
