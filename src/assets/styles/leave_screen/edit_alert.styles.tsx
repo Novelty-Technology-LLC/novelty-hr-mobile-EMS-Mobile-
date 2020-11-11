@@ -84,7 +84,7 @@ const editAlertStyle = StyleSheet.create({
   },
   textArea: {
     height: normalize(130),
-    textAlignVertical: 'top',
+    // textAlignVertical: 'top',
     padding: normalize(15),
   },
 });

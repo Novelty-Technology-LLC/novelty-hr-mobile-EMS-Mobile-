@@ -12,6 +12,13 @@ const daysRemainingStyle = StyleSheet.create({
     borderBottomColor: color.border,
     borderBottomWidth: 1,
   },
+  logcontainer: {
+    width: '50%',
+    alignItems: 'center',
+    paddingBottom: normalize(20),
+    borderBottomColor: color.border,
+    borderBottomWidth: 1,
+  },
   remaining: {
     fontWeight: '300',
     fontSize: normalize(theme.size.xxl),
@@ -23,14 +30,14 @@ const daysRemainingStyle = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
   },
   gap: {
-   ...Platform.select({
-     android:{
-      paddingHorizontal: normalize(4),
-     },
-     ios:{
-      paddingHorizontal: normalize(2),
-     }
-   })
+    ...Platform.select({
+      android: {
+        paddingHorizontal: normalize(4),
+      },
+      ios: {
+        paddingHorizontal: normalize(2),
+      },
+    }),
   },
   text: {
     fontSize: normalize(theme.size.xl),

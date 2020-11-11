@@ -23,7 +23,7 @@ export const isPast = (item) => {
   return new Date().getDate() - new Date(item.log_date).getDate() >= 7;
 };
 
-const getWeek = (date) => {
+export const getWeek = (date) => {
   let onejan = new Date(new Date(date).getFullYear(), 0, 1);
   return Math.ceil(((date - onejan) / 86400000 + onejan.getDay() + 1) / 7);
 };
@@ -66,5 +66,10 @@ export const logMapper = (logs) => {
 
 export const totalHours = (item) => {
   const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
+  return total;
+};
+
+export const totalWeekHours = (item) => {
+  const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
   return total;
 };

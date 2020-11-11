@@ -6,13 +6,20 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    marginTop: normalize(20),
+    // marginTop: normalize(20),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: normalize(20),
+    marginHorizontal: normalize(20),
+  },
+  logheader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: normalize(20),
     marginHorizontal: normalize(20),
   },
   title: {
@@ -43,6 +50,7 @@ const myRequestsStyle = StyleSheet.create({
   emptyText: {
     color: colors.secondary,
   },
+  bgap: { paddingVertical: normalize(60) },
 });
 
 export { myRequestsStyle };

@@ -14,6 +14,7 @@ const Swipe = ({ item, value, other, timelog, edittimelog, onPress }: any) => {
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const onEdit = () => {
+    onPress();
     checkRequest(item.id)
       .then((res) => {
         if (res === 'Pending') {
@@ -34,7 +35,7 @@ const Swipe = ({ item, value, other, timelog, edittimelog, onPress }: any) => {
     <View style={style.othercontainer}>
       {item.state === 'Approved' && (
         <>
-          <DeleteAlert item={item} other={other} />
+          <DeleteAlert item={item} other={other} onPress={onPress} />
         </>
       )}
     </View>
@@ -86,11 +87,11 @@ const Swipe = ({ item, value, other, timelog, edittimelog, onPress }: any) => {
               size={23}
             />
           </TouchableOpacity>
-          <DeleteAlert item={item} />
+          <DeleteAlert item={item} onPress={onPress} />
         </View>
       ) : (
         <View style={style.othercontainer}>
-          <DeleteAlert item={item} other={true} />
+          <DeleteAlert item={item} other={true} onPress={onPress} />
         </View>
       )}
       <Alert showAlert={showAlert} setShowAlert={setShowAlert}>

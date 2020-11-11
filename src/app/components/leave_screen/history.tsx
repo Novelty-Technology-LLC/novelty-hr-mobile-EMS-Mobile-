@@ -9,6 +9,7 @@ import Swipe from './swipe';
 
 const History = ({ requests, other }: any) => {
   const navigation = useNavigation();
+  let row: Array<any> = [];
 
   return (
     <View style={style.container}>
@@ -28,8 +29,13 @@ const History = ({ requests, other }: any) => {
               />
             ) : (
               <Swipeable
+                ref={(ref) => (row[item.index] = ref)}
                 renderRightActions={() => (
-                  <Swipe item={item.item} other={true} />
+                  <Swipe
+                    item={item.item}
+                    other={true}
+                    onPress={() => row[item.index].close()}
+                  />
                 )}
               >
                 <Request

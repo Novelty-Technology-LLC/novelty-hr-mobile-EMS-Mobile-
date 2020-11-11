@@ -51,7 +51,7 @@ const deleteAlertStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
     ...Platform.select({
       ios: {
-        marginLeft: normalize(110),
+        alignSelf: 'center',
       },
       android: {
         marginRight: normalize(10),

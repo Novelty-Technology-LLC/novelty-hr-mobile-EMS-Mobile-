@@ -57,7 +57,7 @@ const leaveType = StyleSheet.create({
   spacer: {
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(theme.spacing.button),
+        paddingHorizontal: normalize(5),
       },
       android: {
         paddingHorizontal: normalize(8),

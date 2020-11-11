@@ -37,6 +37,14 @@ const timeLogStyle = StyleSheet.create({
     color: colors.black,
     fontFamily: fonts.mulishBold,
   },
+  rldate: {
+    fontSize: normalize(theme.size.base),
+    color: colors.black,
+    fontFamily: fonts.mulishBold,
+    paddingRight: normalize(25),
+    alignSelf: 'flex-end',
+    marginTop: normalize(10),
+  },
   type: {
     color: colors.fontGrey,
     fontSize: normalize(theme.size.sm),
