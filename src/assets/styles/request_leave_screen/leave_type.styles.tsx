@@ -18,6 +18,7 @@ const leaveType = StyleSheet.create({
   text: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),
+    marginBottom: normalize(15),
   },
   body: {
     width: '100%',
