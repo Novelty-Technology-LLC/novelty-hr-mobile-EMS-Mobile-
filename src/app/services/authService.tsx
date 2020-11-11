@@ -85,4 +85,13 @@ const signInApple = async (dispatch: any) => {
   }
 };
 
-export { signInGoogle, signInApple, createUser };
+const signOutGoogle = async () => {
+  try {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { signInGoogle, signInApple, signOutGoogle, createUser };

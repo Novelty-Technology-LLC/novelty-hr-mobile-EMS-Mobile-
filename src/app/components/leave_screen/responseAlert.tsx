@@ -36,7 +36,6 @@ const EditAlert = ({
   const onSubmit = async () => {
     action === 'Approve' && (action = 'Approved');
     action === 'Deny' && (action = 'Denied');
-    console.log('leaveData .quota -> ', item.sender);
 
     const newData = {
       leave_id: item.id,
