@@ -1,15 +1,18 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { dayStyle as style } from '../../../assets/styles';
+import { AppIcon } from '../../common';
 
 const Day = ({
   title,
   select,
   onPress,
+  modal,
 }: {
   title: string;
   select: boolean;
   onPress: Function;
+  modal?: boolean;
 }) => {
   return (
     <TouchableOpacity
@@ -21,6 +24,15 @@ const Day = ({
       >
         {title}
       </Text>
+      {modal && (
+        <View style={style.gap}>
+          <AppIcon
+            name="calendar"
+            size={25}
+            color={!select ? style.selectText.color : style.unselectText.color}
+          />
+        </View>
+      )}
     </TouchableOpacity>
   );
 };

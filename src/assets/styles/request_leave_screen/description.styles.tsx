@@ -68,6 +68,7 @@ const descriptionStyle = StyleSheet.create({
     textAlignVertical: 'top',
   },
   error: { paddingTop: normalize(10), color: color.red },
+  dark: {},
 });
 
 export { descriptionStyle };

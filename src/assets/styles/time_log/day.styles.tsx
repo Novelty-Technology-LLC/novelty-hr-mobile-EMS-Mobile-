@@ -12,7 +12,7 @@ const dayStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
   },
   container: {
-    width: '28%',
+    width: '32%',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: normalize(5),
@@ -22,12 +22,14 @@ const dayStyle = StyleSheet.create({
   },
   selectView: {
     backgroundColor: colors.buttonGrey,
+    flexDirection: 'row',
   },
   selectText: {
     color: colors.fontGrey,
   },
   unselectView: {
     backgroundColor: colors.buttonOrange,
+    flexDirection: 'row',
   },
   unselectText: {
     color: colors.fontOrange,
@@ -36,6 +38,9 @@ const dayStyle = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: normalize(15),
     paddingHorizontal: '3%',
+  },
+  gap: {
+    paddingHorizontal: normalize(8),
   },
 });
 

@@ -35,9 +35,10 @@ const Time = ({
         {Platform.OS === 'android' ? (
           <>
             <AndroidPicker
-              style={[style.textArea, style.textinputTime]}
+              style={[style.textArea, style.textinputTime, style.dark]}
               selectedValue={defaultValue ? getHrsMins(defaultValue).hr : 1}
               pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+              itemSpace={25}
               onValueChange={(intdata: number) => {
                 setHours(intdata);
                 error
@@ -80,6 +81,7 @@ const Time = ({
               style={[style.textArea, style.textinputTime]}
               selectedValue={defaultValue ? getHrsMins(defaultValue).mins : 5}
               pickerData={[0, 15, 30, 45]}
+              itemSpace={25}
               onValueChange={(intdata: number) => {
                 setMins(intdata);
                 error

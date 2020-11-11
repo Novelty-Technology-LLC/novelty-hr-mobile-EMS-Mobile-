@@ -181,7 +181,7 @@ const LogTime = ({ route }: any) => {
                 handleChange={handleChange}
                 error={errors}
                 touched={touched}
-                defaultValue={olddata && olddata.project_id}
+                defaultValue={olddata && olddata.project.name}
               />
               {olddata ? (
                 <Tasks value={olddata} handleChange={handleChange} />
