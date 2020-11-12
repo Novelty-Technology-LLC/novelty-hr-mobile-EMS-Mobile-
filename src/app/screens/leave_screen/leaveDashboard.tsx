@@ -71,19 +71,22 @@ const LeaveDashboard = ({ route }) => {
   };
 
   useEffect(() => {
-    requestUserPermission();
-    getData();
-    getRequest();
+    const runFunction = () => {
+      requestUserPermission();
+      getData();
+      getRequest();
 
-    messaging().onNotificationOpenedApp((remoteMessage) => {
-      if (remoteMessage) {
-        Linking.openURL(
-          `noveltyhrmobile://leaveList/${JSON.parse(
-            remoteMessage.data.leave_id
-          )}`
-        );
-      }
-    });
+      messaging().onNotificationOpenedApp((remoteMessage) => {
+        if (remoteMessage) {
+          Linking.openURL(
+            `noveltyhrmobile://leaveList/${JSON.parse(
+              remoteMessage.data.leave_id
+            )}`
+          );
+        }
+      });
+    };
+    runFunction();
   }, []);
 
   useEffect(() => {
@@ -119,7 +122,7 @@ const LeaveDashboard = ({ route }) => {
       uuid: user,
       notification_token: token,
     };
-    return;
+
     if (enabled && notifcation_token !== token) {
       store(data);
     }
