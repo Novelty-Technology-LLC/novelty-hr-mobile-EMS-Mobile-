@@ -7,19 +7,23 @@ import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
-import { getUser, mapDataToRequest } from '../../utils';
-import { getLeaveQuota, getMyRequests, store } from '../../services';
+import { getUser, mapDataToRequest, setUser } from '../../utils';
+import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
     const user = await getUser();
+    const newuser = await get(+JSON.parse(user).id);
+    setIsAdmin(+newuser.is_approver === 1 ? true : false);
+    setUser(newuser);
     getLeaveQuota(JSON.parse(user).id).then((data) => {
       dispatchRequest({ type: 'QUOTA', payload: data });
       setRefreshing(false);
@@ -36,7 +40,6 @@ const LeaveDashboard = ({ route }) => {
       });
   }, []);
 
-  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
 

@@ -79,10 +79,22 @@ const signInApple = async (dispatch: any) => {
       dispatch({ type: 'INVALID' });
     }
   } catch (error) {
-    if (error.message === 'NETWORK_ERROR')
+    if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
+    } else {
+      error.message = 'Unkon error occured';
+    }
     snackErrorBottom(error);
   }
 };
 
-export { signInGoogle, signInApple, createUser };
+const signOutGoogle = async () => {
+  try {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { signInGoogle, signInApple, signOutGoogle, createUser };

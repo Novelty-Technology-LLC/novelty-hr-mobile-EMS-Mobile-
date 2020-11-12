@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts } from '../theme';
@@ -12,7 +12,7 @@ const dayStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
   },
   container: {
-    width: '28%',
+    width: Platform.OS === 'ios' ? '30%' : '31.5%',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: normalize(5),
@@ -22,12 +22,14 @@ const dayStyle = StyleSheet.create({
   },
   selectView: {
     backgroundColor: colors.buttonGrey,
+    flexDirection: 'row',
   },
   selectText: {
     color: colors.fontGrey,
   },
   unselectView: {
     backgroundColor: colors.buttonOrange,
+    flexDirection: 'row',
   },
   unselectText: {
     color: colors.fontOrange,
@@ -35,7 +37,10 @@ const dayStyle = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     paddingVertical: normalize(15),
-    paddingHorizontal: '3%',
+    marginHorizontal: '2%',
+  },
+  gap: {
+    paddingHorizontal: normalize(8),
   },
 });
 

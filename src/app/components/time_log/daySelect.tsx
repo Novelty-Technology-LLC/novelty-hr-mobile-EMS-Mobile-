@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { AppIcon } from '../../common';
+import { View } from 'react-native';
 import { calenderStyle as style, dayStyle } from '../../../assets/styles';
 import Dialog from 'react-native-dialog';
 import { Calander as MCalendar } from '../request_screen/calander';
@@ -46,12 +45,11 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
           onPress={() => {
             setDate(new Date(modalDate));
             handleChange(new Date(modalDate));
+            setVisible(true);
             setIndex(3);
           }}
+          modal={true}
         />
-        <TouchableOpacity style={style.icon} onPress={() => setVisible(true)}>
-          <AppIcon name="calendar" size={25} />
-        </TouchableOpacity>
       </View>
       <Dialog.Container visible={visible} contentStyle={style.modalCalender}>
         <MCalendar
@@ -59,12 +57,11 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
             setModalDate(data);
             setDate(data);
             handleChange(data);
+            setIndex(3);
+            setVisible(false);
           }}
           modal={true}
         />
-        <View style={style.align}>
-          <Dialog.Button label="ok" onPress={() => setVisible(false)} />
-        </View>
       </Dialog.Container>
     </ApplicationProvider>
   );

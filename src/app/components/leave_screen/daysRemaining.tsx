@@ -34,7 +34,7 @@ const DaysRemaining = ({
         <Text style={style.total}>{total}</Text>
       </Text>
       <Text style={style.title}>{timelog ? ' Hours' : ''}</Text>
-      <Text style={style.title}>{title}</Text>
+      <Text style={timelog ? style.footer : style.title}>{title}</Text>
       {!timelog && <Text style={style.footer}>REMAINING</Text>}
     </View>
   );

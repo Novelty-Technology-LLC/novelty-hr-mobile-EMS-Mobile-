@@ -12,11 +12,13 @@ import {
   signInGoogle,
   getLogin,
   createUser,
+  signOutGoogle,
 } from '../../services';
 import { buttonui as Logo } from '../../common/ui/buttonUi';
 import LoginWrapper from './loginWrapper';
 import { Formik } from 'formik';
 import { button as Button, snackErrorTop } from '../../common';
+import { useNavigation } from '@react-navigation/native';
 
 let AuthModel = {
   EmailAddress: '',
@@ -24,10 +26,11 @@ let AuthModel = {
 };
 
 const Login = () => {
+  const navigation = useNavigation();
   const [showLoginForm, setLoginForm] = useState(
     Platform.OS === 'ios' ? true : false
   );
-  const { dispatch } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   const fetchLogin = async () => {
     const login = await getLogin();
     setLoginForm(login?.metadata?.show_login ?? false);
@@ -52,12 +55,31 @@ const Login = () => {
     }
   };
 
+  const navigate = () => {
+    if (state.isLoading) {
+      return navigation.navigate('loading');
+    } else {
+      if (state.userToken !== null) {
+        return navigation.navigate('tab');
+      } else if (state.isInvalid) {
+        signOutGoogle();
+        return navigation.navigate('invalid');
+      } else if (state.userToken === null) {
+        return navigation.navigate('login');
+      }
+    }
+  };
+
   useEffect(() => {
     if (Platform.OS === 'ios') {
       fetchLogin();
     }
     GoogleConfig();
   }, []);
+
+  useEffect(() => {
+    navigate();
+  }, [state]);
 
   return (
     <LoginWrapper>
@@ -116,7 +138,7 @@ const Login = () => {
             <Logo name="google" />
           </TouchableOpacity>
 
-          {/* {Platform.OS === 'ios' && (
+          {Platform.OS === 'ios' && (
             <View style={style.iconView}>
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}
@@ -124,7 +146,7 @@ const Login = () => {
                 <Logo name="apple" />
               </TouchableOpacity>
             </View>
-          )} */}
+          )}
         </View>
       </View>
     </LoginWrapper>
