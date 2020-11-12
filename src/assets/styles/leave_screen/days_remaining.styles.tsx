@@ -8,7 +8,7 @@ const daysRemainingStyle = StyleSheet.create({
   container: {
     width: '50%',
     alignItems: 'center',
-    paddingBottom: normalize(40),
+    paddingBottom: normalize(20),
     borderBottomColor: color.border,
     borderBottomWidth: 1,
   },

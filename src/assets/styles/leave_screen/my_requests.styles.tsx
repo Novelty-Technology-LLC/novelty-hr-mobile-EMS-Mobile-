@@ -6,7 +6,6 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    // marginTop: normalize(20),
   },
   header: {
     flexDirection: 'row',
@@ -14,6 +13,7 @@ const myRequestsStyle = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: normalize(20),
     marginHorizontal: normalize(20),
+    marginTop: normalize(20),
   },
   logheader: {
     flexDirection: 'row',
