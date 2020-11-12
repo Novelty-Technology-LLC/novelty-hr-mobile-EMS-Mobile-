@@ -15,10 +15,12 @@ const EditAlert = ({
   item,
   status,
   setShow,
+  setisLoading,
 }: {
   item: dataType;
   status: string;
   setShow: Function;
+  setisLoading: Function;
 }) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(true);
@@ -34,9 +36,6 @@ const EditAlert = ({
   const { dispatchAdmin } = useContext(AdminRequestContext);
 
   const onSubmit = async () => {
-    const Id = state.user.id;
-    const first_name = state.user.first_name;
-
     action === 'Approve' && (action = 'Approved');
     action === 'Deny' && (action = 'Denied');
 
@@ -44,12 +43,14 @@ const EditAlert = ({
       leave_id: item.id,
       action,
       note,
-      requested_to: Id,
+      requested_to: state.user.id,
       quotaId: item.sender,
       notification_token: item.user.notification_token,
-      lead_name: first_name,
+      lead_name: state.user.first_name,
       user_name: item.user.first_name,
+      uuid: state.user.uuid,
     };
+    setisLoading(true);
     updateRequest(item.id, newData).then((data) => {
       item.state = data.status;
       dispatchAdmin({
@@ -57,6 +58,7 @@ const EditAlert = ({
         payload: item,
       });
       navigation.navigate('leaveList');
+      setisLoading(true);
       snackBarMessage('Request replied');
     });
   };

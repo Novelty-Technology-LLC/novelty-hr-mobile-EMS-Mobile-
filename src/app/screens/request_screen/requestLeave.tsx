@@ -61,10 +61,10 @@ const RequestLeave = ({ route }: any) => {
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
-        Keyboard.dismiss();
         dispatchRequest({ type: 'UPDATEQUOTA', payload: res.data.data.quota });
         dispatchRequest({ type: 'ADD', payload: res.data.data.leave });
         navigation.navigate('leaveList');
+        setisLoading(false);
         snackBarMessage('Request created');
       })
       .catch((err) => console.log(err));
@@ -77,6 +77,7 @@ const RequestLeave = ({ route }: any) => {
         dispatchRequest({ type: 'UPDATE', payload: res.leave });
         navigation.navigate('leaveList');
         snackBarMessage('Request updated');
+        setisLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -118,9 +119,6 @@ const RequestLeave = ({ route }: any) => {
       }
       delete values.date;
 
-      const userid = state.user.id;
-      const user_name = state.user.first_name;
-
       const requestData = {
         ...values,
         leave_date: {
@@ -128,11 +126,13 @@ const RequestLeave = ({ route }: any) => {
           endDate,
         },
         day,
-        requestor_id: userid,
-        requestor_name: user_name,
+        requestor_id: state.user.id,
+        requestor_name: state.user.first_name,
+        uuid: state.user.uuid,
       };
 
-      setisLoading(!isLoading);
+      setisLoading(true);
+      Keyboard.dismiss();
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {
       if (!error.message.includes('Selected day exceeds'))
@@ -189,7 +189,7 @@ const RequestLeave = ({ route }: any) => {
                 error={errors}
                 touched={touched}
               />
-              <Button onPress={() => handleSubmit()}>
+              <Button onPress={() => handleSubmit()} disabled={isLoading}>
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>Submit Request</Text>
                   {isLoading && (

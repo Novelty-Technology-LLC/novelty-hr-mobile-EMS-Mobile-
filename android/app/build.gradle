@@ -132,8 +132,8 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "1.0.5"
+        versionCode 14
+        versionName "1.2.0"
     }
     splits {
         abi {
@@ -201,6 +201,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:16.0.9"
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation project(':react-native-wheel-picker-android')
 
 
 

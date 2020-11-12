@@ -4,8 +4,12 @@ import {
   calenderStyle,
   descriptionStyle as style,
 } from '../../../assets/styles';
-import { Picker } from 'react-native-wheel-pick';
-import { getHrsMins } from '../../utils';
+
+import {
+  WheelPicker,
+  TimePicker,
+  DatePicker,
+} from 'react-native-wheel-picker-android';
 
 const Time = ({
   handleChange,
@@ -20,8 +24,23 @@ const Time = ({
   defaultValue?: string;
   edit?: boolean;
 }) => {
-  const [hours, setHours] = useState(0);
+  const [hours, setHours] = useState('');
   const [mins, setMins] = useState(0);
+  const hrdata = [
+    '1 hr',
+    '2 hrs',
+    '3 hrs',
+    '4 hrs',
+    '5 hrs',
+    '6 hrs',
+    '7 hrs',
+    '8 hrs',
+    '9 hrs',
+    '10 hrs',
+    '11 hrs',
+    '12 hrs',
+  ];
+  const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 
   return (
     <View
@@ -29,31 +48,34 @@ const Time = ({
     >
       <Text style={style.text}>Time *</Text>
       <View style={style.row}>
-        <Picker
-          style={[style.textArea, style.textinputTime]}
-          selectedValue={defaultValue ? getHrsMins(defaultValue).hr : 1}
-          pickerData={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-          onValueChange={(intdata: number) => {
+        <WheelPicker
+          style={style.iospicker}
+          onItemSelected={(index) => {
+            const intdata = parseInt(hrdata[index].split(' ')[0]);
             setHours(intdata);
             error
               ? handleChange('duration')((intdata * 60 + mins).toString())
               : handleChange((intdata * 60 + mins).toString());
           }}
+          data={hrdata}
+          selectedItemTextSize={24}
         />
-        <Text style={style.colon}>HRS</Text>
-        <Text style={style.colon}>:</Text>
-        <Picker
-          style={[style.textArea, style.textinputTime]}
-          selectedValue={defaultValue ? getHrsMins(defaultValue).mins : 5}
-          pickerData={[0, 15, 30, 45]}
-          onValueChange={(intdata: number) => {
+        <View>
+          <Text style={style.colon}>:</Text>
+        </View>
+
+        <WheelPicker
+          style={style.iospicker}
+          onItemSelected={(index) => {
+            const intdata = parseInt(mindata[index].split(' ')[0]);
             setMins(intdata);
             error
               ? handleChange('duration')((hours * 60 + intdata).toString())
               : handleChange((hours * 60 + intdata).toString());
           }}
+          data={mindata}
+          selectedItemTextSize={24}
         />
-        <Text style={style.colon}>MINS</Text>
       </View>
       {error && touched && error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>

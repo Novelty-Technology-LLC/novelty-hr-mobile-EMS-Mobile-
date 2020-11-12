@@ -40,8 +40,9 @@ const Tasks = ({ value, handleChange }: any) => {
           <Task item={item} />
         </Swipeable>
       ))}
+
       <View style={timeLogStyle.dateView}>
-        <View style={timeLogStyle.total}>
+        <View style={[timeLogStyle.total, timeLogStyle.gap]}>
           <Text style={timeLogStyle.date}>Total</Text>
           <Text style={timeLogStyle.duration}>
             {getHrs(totalHours({ note: tasks }))}

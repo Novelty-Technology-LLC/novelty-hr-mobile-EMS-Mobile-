@@ -15,9 +15,14 @@ const leaveType = StyleSheet.create({
     paddingTop: normalize(20),
     paddingBottom: normalize(20),
   },
+  padNone: {
+    paddingBottom: normalize(0),
+    marginBottom: normalize(0),
+  },
   text: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),
+    marginBottom: normalize(15),
   },
   body: {
     width: '100%',
@@ -57,7 +62,7 @@ const leaveType = StyleSheet.create({
   spacer: {
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(theme.spacing.button),
+        paddingHorizontal: normalize(5),
       },
       android: {
         paddingHorizontal: normalize(8),

@@ -27,7 +27,7 @@ const descriptionStyle = StyleSheet.create({
   },
   editlogContainer: {
     height: normalize(100),
-    width: normalize(280),
+    width: '93%',
     marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
@@ -53,19 +53,22 @@ const descriptionStyle = StyleSheet.create({
     backgroundColor: color.grey,
     opacity: 0.8,
   },
+  iospicker: { height: 200, width: 125 },
   colon: {
-    fontSize: normalize(18),
-    paddingHorizontal: normalize(10),
+    fontSize: normalize(24),
+    paddingHorizontal: normalize(20),
+    paddingTop: normalize(60),
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'center',
   },
   textArea: {
     height: normalize(130),
     textAlignVertical: 'top',
   },
   error: { paddingTop: normalize(10), color: color.red },
+  dark: {},
 });
 
 export { descriptionStyle };

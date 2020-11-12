@@ -1,22 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import colors from '../../../assets/colors';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
-import { AppIcon } from '../../common';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
-import { getUser, isThisWeek, logMapper } from '../../utils';
+import { getUser, getWeek, isThisWeek, totalWeekHours } from '../../utils';
+import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
-import { UserPlaceHolder } from '../loader';
+import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
+import { DaySelect } from './daySelect';
 import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
-  const [toggle, setToggle] = useState('toggle-switch');
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const [date, setDate] = useState('');
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const [logs, setLogs] = useState([]);
+  const pastweek = timelogs.past.filter(
+    (item) => getWeek(new Date(item.log_date)) === getWeek(new Date()) - 1
+  );
 
   const getTimeLogs = async () => {
     setLoading(true);
@@ -42,6 +45,18 @@ const TimeLogs = () => {
     getTimeLogs();
   }, [refreshing]);
 
+  useEffect(() => {
+    setLogs(
+      timelogs.past
+        .concat(timelogs.present)
+        .filter(
+          (item) =>
+            new Date(item.log_date).toDateString() ===
+            new Date(date === '' ? new Date() : date).toDateString()
+        )
+    );
+  }, [timelogs]);
+
   let row: Array<any> = [];
   let row2: Array<any> = [];
 
@@ -55,37 +70,45 @@ const TimeLogs = () => {
         />
       }
     >
-      <View style={style.header}>
-        <Text style={style.title}>This Week</Text>
-        {timelogs.past.length > 0 && (
-          <View style={style.row}>
-            <Text style={style.history}>Past Weeks</Text>
-            <View style={style.gap}></View>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                setToggle(
-                  toggle === 'toggle-switch'
-                    ? 'toggle-switch-off'
-                    : 'toggle-switch'
-                );
-              }}
-            >
-              <AppIcon
-                name={toggle}
-                color={
-                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
-                }
-                size={40}
-              />
-            </TouchableWithoutFeedback>
-          </View>
-        )}
-      </View>
+      {loading ? (
+        <QuotaPlaceHolder />
+      ) : (
+        <View style={{ flexDirection: 'row' }}>
+          <DaysRemaining
+            total={40}
+            remaining={Math.floor(totalWeekHours(pastweek) / 60)}
+            title={'Past Week'}
+            timelog={true}
+          />
+          <DaysRemaining
+            total={40}
+            remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
+            title={'This Week'}
+            timelog={true}
+          />
+        </View>
+      )}
+
+      <DaySelect
+        handleChange={(date) => {
+          setDate(date);
+          setLogs(
+            timelogs.past
+              .concat(timelogs.present)
+              .filter(
+                (item) =>
+                  new Date(item.log_date).toDateString() ===
+                  new Date(date).toDateString()
+              )
+          );
+        }}
+      />
+
       {loading ? (
         <UserPlaceHolder />
-      ) : timelogs.present[0] ? (
+      ) : logs[0] ? (
         <FlatList
-          data={timelogs.present}
+          data={logs}
           renderItem={(item) => (
             <Swipeable
               ref={(ref) => (row[item.index] = ref)}
@@ -105,23 +128,20 @@ const TimeLogs = () => {
       ) : (
         !loading && (
           <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>You don't have logs this week.</Text>
+            <Text style={style.emptyText}>You don't have logs this day.</Text>
           </View>
         )
       )}
+      <View style={style.logheader}>
+        <Text style={style.title}>This Week</Text>
+      </View>
 
       <View style={historyStyle.timelogcontainer}>
-        {toggle === 'toggle-switch' && (
-          <View style={historyStyle.subcontainer}>
-            <Text style={historyStyle.header}>Past Weeks</Text>
-            <View style={historyStyle.line}></View>
-          </View>
-        )}
         {loading ? (
           <UserPlaceHolder />
-        ) : toggle === 'toggle-switch' && timelogs.past[0] ? (
+        ) : timelogs.present[0] ? (
           <FlatList
-            data={timelogs.past}
+            data={timelogs.present}
             renderItem={(item) => (
               <Swipeable
                 ref={(ref) => (row2[item.index] = ref)}
@@ -139,7 +159,7 @@ const TimeLogs = () => {
             keyExtractor={(item) => item.id}
           />
         ) : (
-          !timelogs.past[0] && (
+          !timelogs.present[0] && (
             <View style={style.emptyContainer}>
               <Text style={style.emptyText}>You don't have past logs.</Text>
             </View>
