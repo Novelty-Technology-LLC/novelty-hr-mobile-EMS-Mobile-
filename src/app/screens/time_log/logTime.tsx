@@ -199,7 +199,14 @@ const LogTime = ({ route }: any) => {
                 <View
                   style={[
                     requestLeave.buttonView,
-                    { marginBottom: normalize(90) },
+                    { ...Platform.select({
+                      android:{
+                        marginBottom: normalize(90) 
+                      },
+                      ios:{
+                        marginBottom: normalize(0) 
+                      }
+                    })},
                   ]}
                 >
                   <Text style={requestLeave.buttonText}>Submit</Text>

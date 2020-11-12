@@ -132,7 +132,7 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 14
+        versionCode 17
         versionName "1.2.0"
     }
     splits {
