@@ -15,6 +15,10 @@ const leaveType = StyleSheet.create({
     paddingTop: normalize(20),
     paddingBottom: normalize(20),
   },
+  padNone: {
+    paddingBottom: normalize(0),
+    marginBottom: normalize(0),
+  },
   text: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),
