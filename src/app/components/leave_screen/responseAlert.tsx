@@ -15,10 +15,12 @@ const EditAlert = ({
   item,
   status,
   setShow,
+  setisLoading,
 }: {
   item: dataType;
   status: string;
   setShow: Function;
+  setisLoading: Function;
 }) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(true);
@@ -48,6 +50,7 @@ const EditAlert = ({
       user_name: item.user.first_name,
       uuid: state.user.uuid,
     };
+    setisLoading(true);
     updateRequest(item.id, newData).then((data) => {
       item.state = data.status;
       dispatchAdmin({
@@ -55,6 +58,7 @@ const EditAlert = ({
         payload: item,
       });
       navigation.navigate('leaveList');
+      setisLoading(true);
       snackBarMessage('Request replied');
     });
   };
