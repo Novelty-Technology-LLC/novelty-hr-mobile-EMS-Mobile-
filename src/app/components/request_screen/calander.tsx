@@ -56,6 +56,7 @@ const Calander = ({
       )}
       {modal ? (
         <Calendar
+          style={{ marginTop: -38}}
           dateService={dateService}
           date={date}
           onSelect={(nextRange) => {
