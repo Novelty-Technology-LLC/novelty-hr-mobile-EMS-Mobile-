@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import {
   calenderStyle,
@@ -10,6 +10,7 @@ import {
   TimePicker,
   DatePicker,
 } from 'react-native-wheel-picker-android';
+import { getHrsMins } from '../../utils';
 
 const Time = ({
   handleChange,
@@ -41,6 +42,14 @@ const Time = ({
     '12 hrs',
   ];
   const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
+
+  useEffect(() => {
+    if (defaultValue) {
+      const time = getHrsMins(defaultValue);
+      setHrIndex(time.hr - 1);
+      setMinIndex(time.mins / 15);
+    }
+  }, []);
 
   return (
     <View
