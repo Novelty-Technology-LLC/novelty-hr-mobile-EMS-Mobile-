@@ -37,16 +37,16 @@ const Projects = ({
   const [type, setType] = useState(0);
   return (
     <View style={style.container}>
-      <View style={style.wrapper}>
+      <View style={[style.wrapper, defaultValue ? style.padNone : null]}>
         {loading && <ProjectPlaceHolder />}
         {defaultValue ? (
           <Text style={style.text}>
-            Selected Project :{' '}
+            Project :{' '}
             <Text style={{ color: colors.primary }}>{defaultValue}</Text>
           </Text>
         ) : (
           <>
-            <Text style={style.text}>Choose a Project *</Text>
+            <Text style={[style.text, style.padNone]}>Choose a Project *</Text>
             <View style={style.body}>
               {projects &&
                 projects.map((project, index) => (

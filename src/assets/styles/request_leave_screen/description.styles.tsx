@@ -55,12 +55,12 @@ const descriptionStyle = StyleSheet.create({
   },
   iospicker: { height: 200, width: 125 },
   colon: {
-    fontSize: normalize(18),
-    paddingHorizontal: normalize(10),
+    fontSize: normalize(24),
+    paddingHorizontal: normalize(20),
+    paddingTop: normalize(60),
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   textArea: {

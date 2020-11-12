@@ -19,7 +19,7 @@ const Invalid = () => {
         style={style.login}
         onPress={() => navigation.navigate('login')}
       >
-        <Text style={style.buttonText}>Login again</Text>
+        <Text style={style.buttonText}>Login with other email</Text>
       </TouchableOpacity>
     </LoginWrapper>
   );

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts } from '../theme';
@@ -12,7 +12,7 @@ const dayStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
   },
   container: {
-    width: '30%',
+    width: Platform.OS === 'ios' ? '30%' : '31.5%',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: normalize(5),
@@ -40,7 +40,7 @@ const dayStyle = StyleSheet.create({
     marginHorizontal: '2%',
   },
   gap: {
-    // paddingHorizontal: normalize(8),
+    paddingHorizontal: normalize(8),
   },
 });
 
