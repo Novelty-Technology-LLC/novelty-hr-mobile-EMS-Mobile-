@@ -4,7 +4,7 @@ import { calenderStyle as style, dayStyle } from '../../../assets/styles';
 import Dialog from 'react-native-dialog';
 import { Calander as MCalendar } from '../request_screen/calander';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
+import { ApplicationProvider, Layout } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import Day from './day';
 
@@ -52,16 +52,25 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
         />
       </View>
       <Dialog.Container visible={visible} contentStyle={style.modalCalender}>
-        <MCalendar
-          handleChange={(data) => {
-            setModalDate(data);
-            setDate(data);
-            handleChange(data);
-            setIndex(3);
-            setVisible(false);
+        <Layout
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 4,
+            borderColor: 'white',
           }}
-          modal={true}
-        />
+        >
+          <MCalendar
+            handleChange={(data) => {
+              setModalDate(data);
+              setDate(data);
+              handleChange(data);
+              setIndex(3);
+              setVisible(false);
+            }}
+            modal={true}
+          />
+        </Layout>
       </Dialog.Container>
     </ApplicationProvider>
   );
