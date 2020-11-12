@@ -53,7 +53,10 @@ const Time = ({
 
   return (
     <View
-      style={[edit ? style.alertmain : style.main, calenderStyle.container]}
+      style={[
+        edit ? style.modalPickerContainer : style.pickerContainer,
+        calenderStyle.container,
+      ]}
     >
       <Text style={style.text}>Time *</Text>
       <View style={style.row}>
@@ -71,7 +74,7 @@ const Time = ({
           data={hrdata}
           selectedItemTextSize={24}
         />
-        <View>
+        <View style={style.timeSeparator}>
           <Text style={style.colon}>:</Text>
         </View>
 

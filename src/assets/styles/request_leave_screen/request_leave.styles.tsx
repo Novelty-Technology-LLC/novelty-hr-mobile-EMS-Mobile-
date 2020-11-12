@@ -14,10 +14,10 @@ const requestLeave = StyleSheet.create({
     borderBottomWidth: 1,
     width: 'auto',
   },
-  error:{
-    color:color.red,
-    paddingTop:normalize(10),
-    marginLeft:normalize(17)
+  error: {
+    color: color.red,
+    paddingTop: normalize(10),
+    marginLeft: normalize(17),
   },
   buttonView: {
     marginTop: normalize(23),
