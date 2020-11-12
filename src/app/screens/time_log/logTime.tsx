@@ -17,6 +17,7 @@ import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from '../../components/time_log/taskContext';
+import normalize from 'react-native-normalize';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -195,7 +196,12 @@ const LogTime = ({ route }: any) => {
                 />
               )}
               <Button onPress={() => handleSubmit()}>
-                <View style={requestLeave.buttonView}>
+                <View
+                  style={[
+                    requestLeave.buttonView,
+                    { marginBottom: normalize(90) },
+                  ]}
+                >
                   <Text style={requestLeave.buttonText}>Submit</Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />

@@ -33,6 +33,7 @@ const deleteAlertStyle = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    paddingHorizontal: normalize(15),
 
     ...Platform.select({
       ios: {

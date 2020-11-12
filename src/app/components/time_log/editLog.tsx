@@ -54,14 +54,14 @@ const EditLogAlert = ({
 
       <View style={deleteAlertStyle.buttons}>
         <Dialog.Button
-          label={def ? 'UPDATE' : 'ADD'}
-          onPress={() => onSubmit({ task: note, time })}
-          style={deleteAlertStyle.delete}
-        />
-        <Dialog.Button
           label="CANCEL"
           onPress={() => setShowAlert(false)}
           style={deleteAlertStyle.cancel}
+        />
+        <Dialog.Button
+          label={def ? 'UPDATE' : 'ADD'}
+          onPress={() => onSubmit({ task: note, time })}
+          style={deleteAlertStyle.delete}
         />
       </View>
     </Dialog.Container>
