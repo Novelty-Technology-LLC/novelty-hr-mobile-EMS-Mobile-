@@ -2,7 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, ScrollView, Text, RefreshControl, Linking } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
-import { leaveDashboardStyle as style } from '../../../assets/styles';
+import {
+  headerStyle,
+  leaveDashboardStyle as style,
+} from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
@@ -68,19 +71,22 @@ const LeaveDashboard = ({ route }) => {
   };
 
   useEffect(() => {
-    requestUserPermission();
-    getData();
-    getRequest();
+    const runFunction = () => {
+      requestUserPermission();
+      getData();
+      getRequest();
 
-    messaging().onNotificationOpenedApp((remoteMessage) => {
-      if (remoteMessage) {
-        Linking.openURL(
-          `noveltyhrmobile://leaveList/${JSON.parse(
-            remoteMessage.data.leave_id
-          )}`
-        );
-      }
-    });
+      messaging().onNotificationOpenedApp((remoteMessage) => {
+        if (remoteMessage) {
+          Linking.openURL(
+            `noveltyhrmobile://leaveList/${JSON.parse(
+              remoteMessage.data.leave_id
+            )}`
+          );
+        }
+      });
+    };
+    runFunction();
   }, []);
 
   useEffect(() => {
@@ -116,7 +122,7 @@ const LeaveDashboard = ({ route }) => {
       uuid: user,
       notification_token: token,
     };
-    return;
+
     if (enabled && notifcation_token !== token) {
       store(data);
     }
@@ -149,9 +155,9 @@ const LeaveDashboard = ({ route }) => {
         {isAdmin && (
           <OtherRequests refresh={refresh} params={route.params?.screen} />
         )}
-        {/* <Text onPress={() => SetLocalNotification()}>Notfy</Text> */}
       </ScrollView>
       <RequestButton screen="requestLeave" />
+      {/* <Text onPress={() => SetLocalNotification()}>Notfy</Text> */}
     </View>
   );
 };
