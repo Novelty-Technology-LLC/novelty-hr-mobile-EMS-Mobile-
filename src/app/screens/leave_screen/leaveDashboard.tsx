@@ -68,19 +68,22 @@ const LeaveDashboard = ({ route }) => {
   };
 
   useEffect(() => {
-    requestUserPermission();
-    getData();
-    getRequest();
+    const runFunction = () => {
+      requestUserPermission();
+      getData();
+      getRequest();
 
-    messaging().onNotificationOpenedApp((remoteMessage) => {
-      if (remoteMessage) {
-        Linking.openURL(
-          `noveltyhrmobile://leaveList/${JSON.parse(
-            remoteMessage.data.leave_id
-          )}`
-        );
-      }
-    });
+      messaging().onNotificationOpenedApp((remoteMessage) => {
+        if (remoteMessage) {
+          Linking.openURL(
+            `noveltyhrmobile://leaveList/${JSON.parse(
+              remoteMessage.data.leave_id
+            )}`
+          );
+        }
+      });
+    };
+    runFunction();
   }, []);
 
   useEffect(() => {
