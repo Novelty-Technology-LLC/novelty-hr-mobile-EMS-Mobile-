@@ -119,7 +119,7 @@ const LeaveDashboard = ({ route }) => {
       uuid: user,
       notification_token: token,
     };
-    return;
+
     if (enabled && notifcation_token !== token) {
       store(data);
     }
