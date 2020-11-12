@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
@@ -9,8 +9,18 @@ const descriptionStyle = StyleSheet.create({
     marginLeft: normalize(20),
     paddingBottom: normalize(10),
   },
+  pickerContainer: {
+    marginHorizontal: normalize(20),
+    height: '15%',
+    marginVertical: normalize(10),
+  },
+  modalPickerContainer: {
+    marginHorizontal: normalize(20),
+    height: '31%',
+    marginVertical: normalize(10),
+  },
   alertmain: {
-    marginLeft: normalize(20),
+    marginHorizontal: normalize(20),
   },
   text: {
     fontFamily: fonts.poppinsMedium,
@@ -53,15 +63,27 @@ const descriptionStyle = StyleSheet.create({
     backgroundColor: color.grey,
     opacity: 0.8,
   },
-  iospicker: { height: 200, width: 125 },
+  iospicker: {
+    width: '40%',
+    ...Platform.select({
+      android: {
+        height: '200%',
+      },
+    }),
+  },
+  timeSeparator: {
+    width: '10%',
+  },
   colon: {
     fontSize: normalize(24),
     paddingHorizontal: normalize(20),
-    paddingTop: normalize(60),
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+    height: '70%',
+    overflow: 'hidden',
   },
   textArea: {
     height: normalize(130),
