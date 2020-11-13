@@ -14,7 +14,7 @@ const Calendar = ({
   other?: boolean;
 }) => {
   const datesBlacklistFunc = (date) => {
-    return date.isoWeekday() === 6 || date.isoWeekday() === 7;
+    return new Date(date) > new Date();
   };
   const [date, setDate] = useState(
     defaultValue ? new Date(defaultValue) : new Date()
@@ -61,7 +61,7 @@ const Calendar = ({
             handleChange('log_date')(resDate);
           }
         }}
-        // datesBlacklist={datesBlacklistFunc}
+        datesBlacklist={datesBlacklistFunc}
       />
     </View>
   );

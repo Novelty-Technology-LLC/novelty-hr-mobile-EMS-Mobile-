@@ -35,6 +35,7 @@ const Calander = ({
   const dateService = new MomentDateService();
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
+  const modalfilter = (date) => new Date(date) < new Date();
 
   useEffect(() => {
     if (!modal) {
@@ -61,6 +62,7 @@ const Calander = ({
             marginTop: -38,
             ...Platform.select({ android: { marginBottom: -15 } }),
           }}
+          filter={modalfilter}
           dateService={dateService}
           date={date}
           onSelect={(nextRange) => {

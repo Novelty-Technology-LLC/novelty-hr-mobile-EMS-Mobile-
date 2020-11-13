@@ -5,11 +5,7 @@ import {
   descriptionStyle as style,
 } from '../../../assets/styles';
 
-import {
-  WheelPicker,
-  TimePicker,
-  DatePicker,
-} from 'react-native-wheel-picker-android';
+import { WheelPicker } from 'react-native-wheel-picker-android';
 import { getHrsMins } from '../../utils';
 
 const Time = ({
@@ -93,9 +89,9 @@ const Time = ({
           selectedItemTextSize={24}
         />
       </View>
-      {error && touched && error.duration && touched.duration && (
+      {/* {error && touched && error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>
-      )}
+      )} */}
     </View>
   );
 };
