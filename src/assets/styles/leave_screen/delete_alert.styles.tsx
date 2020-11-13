@@ -70,6 +70,7 @@ const deleteAlertStyle = StyleSheet.create({
     padding: normalize(8),
     borderRadius: normalize(50),
   },
+  error: { marginHorizontal: normalize(20), color: 'red' },
 });
 
 export { deleteAlertStyle };

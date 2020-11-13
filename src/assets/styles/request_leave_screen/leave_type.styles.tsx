@@ -45,6 +45,7 @@ const leaveType = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: normalize(15),
     backgroundColor: colors.buttonOrange,
     borderRadius: normalize(3),
@@ -54,7 +55,6 @@ const leaveType = StyleSheet.create({
         borderRadius: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(30),
         borderRadius: normalize(4),
       },
     }),
@@ -74,6 +74,7 @@ const leaveType = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: normalize(15),
     backgroundColor: colors.buttonGrey,
     ...Platform.select({
@@ -82,7 +83,6 @@ const leaveType = StyleSheet.create({
         borderRadius: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(30),
         borderRadius: normalize(4),
       },
     }),
@@ -116,6 +116,17 @@ const leaveType = StyleSheet.create({
   },
   buttonFloat: {
     fontSize: normalize(theme.size.sm),
+  },
+
+  moreContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

@@ -5,11 +5,7 @@ import {
   descriptionStyle as style,
 } from '../../../assets/styles';
 
-import {
-  WheelPicker,
-  TimePicker,
-  DatePicker,
-} from 'react-native-wheel-picker-android';
+import { WheelPicker } from 'react-native-wheel-picker-android';
 import { getHrsMins } from '../../utils';
 
 const Time = ({
@@ -41,6 +37,7 @@ const Time = ({
     '11 hrs',
     '12 hrs',
   ];
+
   const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 
   useEffect(() => {
@@ -48,6 +45,8 @@ const Time = ({
       const time = getHrsMins(defaultValue);
       setHrIndex(time.hr - 1);
       setMinIndex(time.mins / 15);
+    } else {
+      error ? handleChange('duration')('60') : handleChange('60');
     }
   }, []);
 
@@ -93,9 +92,9 @@ const Time = ({
           selectedItemTextSize={24}
         />
       </View>
-      {error && touched && error.duration && touched.duration && (
+      {/* {error && touched && error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>
-      )}
+      )} */}
     </View>
   );
 };

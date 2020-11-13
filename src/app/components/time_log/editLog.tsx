@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import Dialog from 'react-native-dialog';
 import { deleteAlertStyle } from '../../../assets/styles';
 import { Description } from '../request_screen';
 import Time from './time';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from './taskContext';
+import normalize from 'react-native-normalize';
 
 const EditLogAlert = ({
   showAlert,
@@ -19,7 +20,8 @@ const EditLogAlert = ({
   def?: { id: string; time: number; task: string };
 }) => {
   const [time, setTime] = useState(def ? def.time : 60);
-  const [note, setNote] = useState(def ? def.task : '');
+  const [note, setNote] = useState(def ? def.task : 'a');
+  const [error, setError] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
 
   const onSubmit = async (values) => {
@@ -38,6 +40,14 @@ const EditLogAlert = ({
     setShowAlert(false);
   };
 
+  useEffect(() => {
+    if (note === '') {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [note]);
+
   return (
     <Dialog.Container
       visible={showAlert}
@@ -51,6 +61,9 @@ const EditLogAlert = ({
         timelog={true}
         defaultValue={def && def.task}
       />
+      {error && (
+        <Text style={deleteAlertStyle.error}>task description is required</Text>
+      )}
 
       <View style={deleteAlertStyle.buttons}>
         <Dialog.Button
@@ -60,7 +73,7 @@ const EditLogAlert = ({
         />
         <Dialog.Button
           label={def ? 'UPDATE' : 'ADD'}
-          onPress={() => onSubmit({ task: note, time })}
+          onPress={() => !error && onSubmit({ task: note, time })}
           style={deleteAlertStyle.delete}
         />
       </View>

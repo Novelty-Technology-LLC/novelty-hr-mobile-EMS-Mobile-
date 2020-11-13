@@ -17,7 +17,6 @@ import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from '../../components/time_log/taskContext';
-import normalize from 'react-native-normalize';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -61,10 +60,13 @@ const LogTime = ({ route }: any) => {
         project_id: Yup.number()
           .required('Project is required')
           .label('project_id'),
-        note: Yup.string().required('Note is a required field').label('note'),
+        note: Yup.string()
+          .required('Task description is a required')
+          .label('note'),
       });
   const onSubmit = async (values) => {
     setIsLoading(true);
+    values.duration = totalHours({ note: tasks });
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
     if (olddata) {
@@ -136,7 +138,7 @@ const LogTime = ({ route }: any) => {
             });
             setIsLoading(false);
             navigation.navigate('timelog');
-            snackBarMessage('TimeLog posted');
+            snackBarMessage('Time logged');
           })
           .catch((err) => console.log(err));
       }
@@ -145,6 +147,9 @@ const LogTime = ({ route }: any) => {
 
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
+      <Header icon={true}>
+        <Text style={headerText}> Log Time</Text>
+      </Header>
       <KeyboardAwareScrollView
         style={requestLeave.container}
         scrollEnabled={true}
@@ -156,9 +161,6 @@ const LogTime = ({ route }: any) => {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode={'none'}
       >
-        <Header icon={true}>
-          <Text style={headerText}> Log Time</Text>
-        </Header>
         <Formik
           validationSchema={validationSchema}
           initialValues={initialValues}
@@ -197,17 +199,7 @@ const LogTime = ({ route }: any) => {
               )}
               <Button onPress={() => handleSubmit()}>
                 <View
-                  style={[
-                    requestLeave.buttonView,
-                    { ...Platform.select({
-                      android:{
-                        marginBottom: normalize(90) 
-                      },
-                      ios:{
-                        marginBottom: normalize(0) 
-                      }
-                    })},
-                  ]}
+                  style={[requestLeave.buttonView, requestLeave.logButtonView]}
                 >
                   <Text style={requestLeave.buttonText}>Submit</Text>
                   {isLoading && (
