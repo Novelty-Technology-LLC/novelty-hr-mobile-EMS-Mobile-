@@ -22,7 +22,7 @@ const EditLogAlert = ({
   const [note, setNote] = useState(def ? def.task : '');
   const [error, setError] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
-  let touched = false;
+  const [touched, setTouched] = useState(false);
 
   const onSubmit = async (values) => {
     const uuid = await UUIDGenerator.getRandomUUID();
@@ -58,8 +58,8 @@ const EditLogAlert = ({
 
       <Description
         handleChange={(data) => {
+          setTouched(true);
           setNote(data);
-          touched = true;
         }}
         editlog={true}
         timelog={true}
@@ -72,12 +72,21 @@ const EditLogAlert = ({
       <View style={deleteAlertStyle.buttons}>
         <Dialog.Button
           label="CANCEL"
-          onPress={() => setShowAlert(false)}
+          onPress={() => {
+            setTouched(false);
+            setShowAlert(false);
+          }}
           style={deleteAlertStyle.cancel}
         />
         <Dialog.Button
           label={def ? 'UPDATE' : 'ADD'}
-          onPress={() => !error && onSubmit({ task: note, time })}
+          onPress={() => {
+            if (!error) {
+              onSubmit({ task: note, time });
+            } else {
+              setTouched(true);
+            }
+          }}
           style={deleteAlertStyle.delete}
         />
       </View>
