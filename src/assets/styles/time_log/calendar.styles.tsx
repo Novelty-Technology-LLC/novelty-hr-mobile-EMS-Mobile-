@@ -37,9 +37,8 @@ const calenderStyle = StyleSheet.create({
     fontSize: normalize(20),
   },
   modalCalender: {
-    width: '90%',
+    width: '82%',
     alignItems: 'center',
-    paddingTop: 0,
   },
   align: { alignSelf: 'flex-end' },
 });

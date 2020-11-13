@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import {
   calenderStyle,
   descriptionStyle as style,
 } from '../../../assets/styles';
 
-import {
-  WheelPicker,
-  TimePicker,
-  DatePicker,
-} from 'react-native-wheel-picker-android';
+import { WheelPicker } from 'react-native-wheel-picker-android';
+import { getHrsMins } from '../../utils';
 
 const Time = ({
   handleChange,
@@ -24,8 +21,8 @@ const Time = ({
   defaultValue?: string;
   edit?: boolean;
 }) => {
-  const [hours, setHours] = useState('');
-  const [mins, setMins] = useState(0);
+  const [hrIndex, setHrIndex] = useState(0);
+  const [minIndex, setMinIndex] = useState(0);
   const hrdata = [
     '1 hr',
     '2 hrs',
@@ -43,17 +40,30 @@ const Time = ({
 
   const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 
+  useEffect(() => {
+    if (defaultValue) {
+      const time = getHrsMins(defaultValue);
+      setHrIndex(time.hr - 1);
+      setMinIndex(time.mins / 15);
+    }
+  }, []);
+
   return (
     <View
-      style={[edit ? style.alertmain : style.main, calenderStyle.container]}
+      style={[
+        edit ? style.modalPickerContainer : style.pickerContainer,
+        calenderStyle.container,
+      ]}
     >
       <Text style={style.text}>Time *</Text>
       <View style={style.row}>
         <WheelPicker
+          selectedItem={hrIndex}
           style={style.iospicker}
           onItemSelected={(index) => {
+            setHrIndex(index);
             const intdata = parseInt(hrdata[index].split(' ')[0]);
-            setHours(intdata);
+            const mins = parseInt(mindata[minIndex].split(' ')[0]);
             error
               ? handleChange('duration')((intdata * 60 + mins).toString())
               : handleChange((intdata * 60 + mins).toString());
@@ -61,26 +71,28 @@ const Time = ({
           data={hrdata}
           selectedItemTextSize={24}
         />
-        <View>
+        <View style={style.timeSeparator}>
           <Text style={style.colon}>:</Text>
         </View>
 
         <WheelPicker
+          selectedItem={minIndex}
           style={style.iospicker}
           onItemSelected={(index) => {
+            setMinIndex(index);
             const intdata = parseInt(mindata[index].split(' ')[0]);
-            setMins(intdata);
+            const hrs = parseInt(hrdata[hrIndex].split(' ')[0]);
             error
-              ? handleChange('duration')((hours * 60 + intdata).toString())
-              : handleChange((hours * 60 + intdata).toString());
+              ? handleChange('duration')((hrs * 60 + intdata).toString())
+              : handleChange((hrs * 60 + intdata).toString());
           }}
           data={mindata}
           selectedItemTextSize={24}
         />
       </View>
-      {error && touched && error.duration && touched.duration && (
+      {/* {error && touched && error.duration && touched.duration && (
         <Text style={style.error}>{error.duration}</Text>
-      )}
+      )} */}
     </View>
   );
 };

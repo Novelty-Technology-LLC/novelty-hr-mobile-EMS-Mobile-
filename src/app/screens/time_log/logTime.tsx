@@ -17,6 +17,7 @@ import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from '../../components/time_log/taskContext';
+import normalize from 'react-native-normalize';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -135,7 +136,7 @@ const LogTime = ({ route }: any) => {
             });
             setIsLoading(false);
             navigation.navigate('timelog');
-            snackBarMessage('TimeLog posted');
+            snackBarMessage('Time logged');
           })
           .catch((err) => console.log(err));
       }
@@ -144,6 +145,9 @@ const LogTime = ({ route }: any) => {
 
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
+      <Header icon={true}>
+        <Text style={headerText}> Log Time</Text>
+      </Header>
       <KeyboardAwareScrollView
         style={requestLeave.container}
         scrollEnabled={true}
@@ -155,9 +159,6 @@ const LogTime = ({ route }: any) => {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode={'none'}
       >
-        <Header icon={true}>
-          <Text style={headerText}> Log Time</Text>
-        </Header>
         <Formik
           validationSchema={validationSchema}
           initialValues={initialValues}
@@ -195,7 +196,21 @@ const LogTime = ({ route }: any) => {
                 />
               )}
               <Button onPress={() => handleSubmit()}>
-                <View style={requestLeave.buttonView}>
+                <View
+                  style={[
+                    requestLeave.buttonView,
+                    {
+                      ...Platform.select({
+                        android: {
+                          marginBottom: normalize(90),
+                        },
+                        ios: {
+                          marginBottom: normalize(0),
+                        },
+                      }),
+                    },
+                  ]}
+                >
                   <Text style={requestLeave.buttonText}>Submit</Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />

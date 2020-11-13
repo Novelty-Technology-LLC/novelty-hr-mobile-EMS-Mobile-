@@ -144,6 +144,11 @@ const RequestLeave = ({ route }: any) => {
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+      <Header icon={true}>
+        <View style={approveRequest.headContainer}>
+          <Text style={headerText}>Request Leave</Text>
+        </View>
+      </Header>
       <KeyboardAwareScrollView
         style={style.container}
         scrollEnabled={true}
@@ -155,11 +160,6 @@ const RequestLeave = ({ route }: any) => {
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode={'none'}
       >
-        <Header icon={true}>
-          <View style={approveRequest.headContainer}>
-            <Text style={headerText}>Request Leave</Text>
-          </View>
-        </Header>
         <Formik
           validationSchema={validationSchema}
           initialValues={initialValues}

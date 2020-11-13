@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { RangeCalendar, Calendar } from '@ui-kitten/components';
-import { Text } from 'react-native';
+import { Platform, Text } from 'react-native';
 import moment from 'moment';
 import { MomentDateService } from '@ui-kitten/moment';
 import { dateStringMapper } from '../../utils';
 import { timeLogStyle } from '../../../assets/styles';
+import normalize from 'react-native-normalize';
 interface calenderPropType {
   style?: object;
   handleChange: Function;
@@ -34,6 +35,7 @@ const Calander = ({
   const dateService = new MomentDateService();
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
+  const modalfilter = (date) => new Date(date) < new Date();
 
   useEffect(() => {
     if (!modal) {
@@ -56,6 +58,11 @@ const Calander = ({
       )}
       {modal ? (
         <Calendar
+          style={{
+            marginTop: -38,
+            ...Platform.select({ android: { marginBottom: -15 } }),
+          }}
+          filter={modalfilter}
           dateService={dateService}
           date={date}
           onSelect={(nextRange) => {
