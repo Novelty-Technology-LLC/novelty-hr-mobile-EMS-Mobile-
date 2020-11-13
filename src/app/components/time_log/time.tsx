@@ -40,6 +40,7 @@ const Time = ({
     '11 hrs',
     '12 hrs',
   ];
+
   const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 
   return (
