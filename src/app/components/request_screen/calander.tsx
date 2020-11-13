@@ -5,7 +5,6 @@ import moment from 'moment';
 import { MomentDateService } from '@ui-kitten/moment';
 import { dateStringMapper } from '../../utils';
 import { timeLogStyle } from '../../../assets/styles';
-import normalize from 'react-native-normalize';
 interface calenderPropType {
   style?: object;
   handleChange: Function;
@@ -58,10 +57,7 @@ const Calander = ({
       )}
       {modal ? (
         <Calendar
-          style={{
-            marginTop: -38,
-            ...Platform.select({ android: { marginBottom: -15 } }),
-          }}
+          style={timeLogStyle.modalCalender}
           filter={modalfilter}
           dateService={dateService}
           date={date}

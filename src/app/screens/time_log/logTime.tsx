@@ -197,19 +197,7 @@ const LogTime = ({ route }: any) => {
               )}
               <Button onPress={() => handleSubmit()}>
                 <View
-                  style={[
-                    requestLeave.buttonView,
-                    {
-                      ...Platform.select({
-                        android: {
-                          marginBottom: normalize(90),
-                        },
-                        ios: {
-                          marginBottom: normalize(0),
-                        },
-                      }),
-                    },
-                  ]}
+                  style={[requestLeave.buttonView, requestLeave.logButtonView]}
                 >
                   <Text style={requestLeave.buttonText}>Submit</Text>
                   {isLoading && (
