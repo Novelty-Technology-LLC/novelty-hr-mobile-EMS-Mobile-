@@ -116,6 +116,7 @@ const LeaveDashboard = ({ route }) => {
 
     let user = await getUser();
     let notifcation_token = JSON.parse(user).notification_token;
+
     user = JSON.parse(user).uuid;
 
     const data = {
