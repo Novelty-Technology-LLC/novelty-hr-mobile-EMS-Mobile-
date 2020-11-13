@@ -6,7 +6,6 @@ import { Description } from '../request_screen';
 import Time from './time';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from './taskContext';
-import normalize from 'react-native-normalize';
 
 const EditLogAlert = ({
   showAlert,
@@ -20,9 +19,10 @@ const EditLogAlert = ({
   def?: { id: string; time: number; task: string };
 }) => {
   const [time, setTime] = useState(def ? def.time : 60);
-  const [note, setNote] = useState(def ? def.task : 'a');
+  const [note, setNote] = useState(def ? def.task : '');
   const [error, setError] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
+  let touched = false;
 
   const onSubmit = async (values) => {
     const uuid = await UUIDGenerator.getRandomUUID();
@@ -38,6 +38,7 @@ const EditLogAlert = ({
     }
     setTasks(task);
     setShowAlert(false);
+    setNote('');
   };
 
   useEffect(() => {
@@ -56,12 +57,15 @@ const EditLogAlert = ({
       <Time handleChange={setTime} defaultValue={def && def.time} edit={true} />
 
       <Description
-        handleChange={setNote}
+        handleChange={(data) => {
+          setNote(data);
+          touched = true;
+        }}
         editlog={true}
         timelog={true}
         defaultValue={def && def.task}
       />
-      {error && (
+      {error && touched && (
         <Text style={deleteAlertStyle.error}>task description is required</Text>
       )}
 

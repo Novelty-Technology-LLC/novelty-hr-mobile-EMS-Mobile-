@@ -41,7 +41,7 @@ const LogTime = ({ route }: any) => {
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
-    duration: olddata ? totalHours(olddata) : '',
+    duration: olddata ? totalHours(olddata) : '60',
     project_id: olddata ? olddata.project_id : '',
     note: olddata ? getNote(olddata) : '',
   };
@@ -66,11 +66,12 @@ const LogTime = ({ route }: any) => {
       });
   const onSubmit = async (values) => {
     setIsLoading(true);
-    values.duration = totalHours({ note: tasks });
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
     if (olddata) {
       values.note = tasks;
+      values.duration = totalHours({ note: tasks });
+
       editTimeLog(olddata.id, values)
         .then((data) => {
           dispatchTimeLog({
