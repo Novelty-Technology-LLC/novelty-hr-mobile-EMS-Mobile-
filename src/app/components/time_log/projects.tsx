@@ -54,7 +54,6 @@ const Projects = ({
   return (
     <View style={style.container}>
       <View style={[style.wrapper, defaultValue ? style.padNone : null]}>
-        {loading && <ProjectPlaceHolder />}
         {defaultValue ? (
           <Text style={style.text}>
             Project :{' '}
@@ -93,6 +92,7 @@ const Projects = ({
                 </TouchableOpacity>
               </View>
             </View>
+            {loading && <ProjectPlaceHolder />}
             <View style={style.body}>
               {projects &&
                 projects.map((project, index) => (
