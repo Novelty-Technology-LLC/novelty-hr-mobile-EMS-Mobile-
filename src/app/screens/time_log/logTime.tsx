@@ -17,7 +17,6 @@ import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from '../../components/time_log/taskContext';
-import normalize from 'react-native-normalize';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -61,10 +60,13 @@ const LogTime = ({ route }: any) => {
         project_id: Yup.number()
           .required('Project is required')
           .label('project_id'),
-        note: Yup.string().required('Note is a required field').label('note'),
+        note: Yup.string()
+          .required('Task description is a required')
+          .label('note'),
       });
   const onSubmit = async (values) => {
     setIsLoading(true);
+    values.duration = totalHours({ note: tasks });
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
     if (olddata) {

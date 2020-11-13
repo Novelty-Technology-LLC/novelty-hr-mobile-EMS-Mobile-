@@ -44,6 +44,8 @@ const Time = ({
       const time = getHrsMins(defaultValue);
       setHrIndex(time.hr - 1);
       setMinIndex(time.mins / 15);
+    } else {
+      error ? handleChange('duration')('60') : handleChange('60');
     }
   }, []);
 
