@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
@@ -87,6 +87,10 @@ const timeLogStyle = StyleSheet.create({
   rowAlign: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  modalCalender: {
+    marginTop: -38,
+    ...Platform.select({ android: { marginBottom: -15 } }),
   },
 });
 

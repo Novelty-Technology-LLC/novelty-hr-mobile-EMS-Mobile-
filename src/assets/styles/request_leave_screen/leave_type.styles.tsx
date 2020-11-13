@@ -117,6 +117,17 @@ const leaveType = StyleSheet.create({
   buttonFloat: {
     fontSize: normalize(theme.size.sm),
   },
+
+  moreContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
 
 export { leaveType };
