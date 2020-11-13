@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { leaveType as style } from '../../../assets/styles';
+import { leaveType, leaveType as style } from '../../../assets/styles';
 import color from '../../../assets/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -23,6 +23,7 @@ function Leavetype({
             onPress={() => {
               setType(1), handleChange('type')('PAID TIME OFF');
             }}
+            style={leaveType.button}
           >
             <View style={type == 1 ? style.paidView : style.floatingView}>
               <View style={style.icon}>
@@ -47,6 +48,7 @@ function Leavetype({
             onPress={() => {
               setType(0), handleChange('type')('FLOATING DAY');
             }}
+            style={leaveType.button}
           >
             <View style={type == 1 ? style.floatingView : style.paidView}>
               <View style={style.icon}>

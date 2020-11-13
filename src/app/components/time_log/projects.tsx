@@ -33,7 +33,7 @@ const Projects = ({
       .then((data) => {
         setLoading(false);
         setAllprojects(data);
-        setProjects(allprojects.filter((item, id) => id < 4));
+        setProjects(data.filter((item, id) => id < 4));
       })
       .catch((err) => console.log(err));
   };
