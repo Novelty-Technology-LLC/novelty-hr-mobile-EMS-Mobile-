@@ -200,7 +200,12 @@ const LogTime = ({ route }: any) => {
               )}
               <Button onPress={() => handleSubmit()}>
                 <View
-                  style={[requestLeave.buttonView, requestLeave.logButtonView]}
+                  style={[
+                    requestLeave.buttonView,
+                    olddata
+                      ? requestLeave.editLogButtonView
+                      : requestLeave.logButtonView,
+                  ]}
                 >
                   <Text style={requestLeave.buttonText}>Submit</Text>
                   {isLoading && (

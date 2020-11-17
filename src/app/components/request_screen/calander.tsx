@@ -3,7 +3,7 @@ import { RangeCalendar, Calendar } from '@ui-kitten/components';
 import { Platform, Text } from 'react-native';
 import moment from 'moment';
 import { MomentDateService } from '@ui-kitten/moment';
-import { dateStringMapper } from '../../utils';
+import { dateStringMapper, getDateWithOutTimeZone } from '../../utils';
 import { timeLogStyle } from '../../../assets/styles';
 interface calenderPropType {
   style?: object;

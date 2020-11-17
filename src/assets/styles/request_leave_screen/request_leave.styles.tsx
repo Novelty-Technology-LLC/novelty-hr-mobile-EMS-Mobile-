@@ -48,6 +48,9 @@ const requestLeave = StyleSheet.create({
       },
     }),
   },
+  editLogButtonView: {
+    marginBottom: normalize(20),
+  },
 
   buttonText: {
     fontFamily: fonts.mulishBold,
