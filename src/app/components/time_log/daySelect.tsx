@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { calenderStyle as style, dayStyle } from '../../../assets/styles';
 import Dialog from 'react-native-dialog';
