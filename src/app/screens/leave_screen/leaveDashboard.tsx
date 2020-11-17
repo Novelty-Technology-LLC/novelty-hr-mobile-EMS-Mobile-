@@ -152,13 +152,16 @@ const LeaveDashboard = ({ route }) => {
               />
             ))}
         </View>
-        <MyRequests loading={loading} refresh={refresh} />
+        <MyRequests
+          loading={loading}
+          refresh={refresh}
+          params={+route.params?.screen}
+        />
         {isAdmin && (
           <OtherRequests refresh={refresh} params={route.params?.screen} />
         )}
       </ScrollView>
       <RequestButton screen="requestLeave" />
-      {/* <Text onPress={() => SetLocalNotification()}>Notfy</Text> */}
     </View>
   );
 };

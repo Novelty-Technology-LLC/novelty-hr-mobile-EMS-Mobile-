@@ -11,16 +11,19 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
 import { AppIcon } from '../../common';
-import { getUser, mapDataToRequest } from '../../utils';
+import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 import { UserPlaceHolder } from '../loader';
+import { getLeave } from '../../services';
 
 const MyRequests = ({
   loading,
   refresh,
+  params,
 }: {
   loading: boolean;
   refresh: number;
+  params: number;
 }) => {
   const navigation = useNavigation();
   const { requests, dispatchRequest } = useContext(RequestContext);
@@ -44,6 +47,17 @@ const MyRequests = ({
   useEffect(() => {
     getPastCallback();
   }, [refresh]);
+
+  useEffect(() => {
+    const get = async () => {
+      if (params) {
+        let data = await getLeave(+params);
+        data = mapObjectToRequest(data[0]);
+        navigation.navigate('requestDetail', data[0]);
+      }
+    };
+    get();
+  }, [params]);
 
   return (
     <View style={style.container}>
