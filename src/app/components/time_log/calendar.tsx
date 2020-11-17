@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import colors from '../../../assets/colors';
 import { calenderStyle as style } from '../../../assets/styles';
+import { getDateWithOutTimeZone } from '../../utils';
+import moment from 'moment';
 
 const Calendar = ({
   handleChange,
@@ -45,7 +47,7 @@ const Calendar = ({
         iconContainer={{ display: 'none' }}
         selectedDate={date}
         onDateSelected={(date) => {
-          let result = new Date(date);
+          let result = getDateWithOutTimeZone(new Date(date));
           setDate(result);
           const resDate =
             result.getFullYear() +

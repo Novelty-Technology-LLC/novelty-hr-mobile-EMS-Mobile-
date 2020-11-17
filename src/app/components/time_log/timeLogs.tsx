@@ -92,6 +92,7 @@ const TimeLogs = () => {
       <DaySelect
         handleChange={(date) => {
           setDate(date);
+
           setLogs(
             timelogs.past
               .concat(timelogs.present)
@@ -142,20 +143,7 @@ const TimeLogs = () => {
         ) : timelogs.present[0] ? (
           <FlatList
             data={timelogs.present}
-            renderItem={(item) => (
-              <Swipeable
-                ref={(ref) => (row2[item.index] = ref)}
-                renderRightActions={() => (
-                  <Swipe
-                    timelog={true}
-                    item={item.item}
-                    onPress={() => row2[item.index].close()}
-                  />
-                )}
-              >
-                <TimeLog item={item.item} />
-              </Swipeable>
-            )}
+            renderItem={(item) => <TimeLog item={item.item} />}
             keyExtractor={(item) => item.id}
           />
         ) : (

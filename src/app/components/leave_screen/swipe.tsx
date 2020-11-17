@@ -41,12 +41,6 @@ const Swipe = ({ item, value, other, timelog, edittimelog, onPress }: any) => {
     </View>
   ) : timelog ? (
     <View style={style.container}>
-      <TouchableOpacity
-        onPress={() => onLogEdit()}
-        style={deleteAlertStyle.iconContainer}
-      >
-        <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
-      </TouchableOpacity>
       <DeleteAlert
         item={item}
         other={false}
