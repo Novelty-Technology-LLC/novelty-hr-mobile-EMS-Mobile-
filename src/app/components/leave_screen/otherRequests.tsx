@@ -74,7 +74,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
 
   useEffect(() => {
     getAdminRequest();
-  }, [refresh]);
+  }, [refresh, params]);
 
   useEffect(() => {
     const get = async () => {
