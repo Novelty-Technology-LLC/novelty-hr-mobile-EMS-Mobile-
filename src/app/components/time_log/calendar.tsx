@@ -4,6 +4,7 @@ import CalendarStrip from 'react-native-calendar-strip';
 import colors from '../../../assets/colors';
 import { calenderStyle as style } from '../../../assets/styles';
 import moment from 'moment';
+import { momentdate } from '../../utils/momentDate';
 
 const Calendar = ({
   handleChange,
@@ -15,8 +16,13 @@ const Calendar = ({
   other?: boolean;
 }) => {
   const datesBlacklistFunc = (date) => {
-    return new Date(date) > new Date();
+    if (defaultValue) {
+      return momentdate(date, 'llll') !== momentdate(defaultValue, 'llll');
+    } else {
+      return new Date(date) > new Date();
+    }
   };
+
   const [date, setDate] = useState(
     defaultValue ? moment(defaultValue).format('l') : moment().format('l')
   );
