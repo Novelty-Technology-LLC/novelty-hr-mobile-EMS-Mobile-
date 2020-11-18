@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import colors from '../../../assets/colors';
 import { calenderStyle as style } from '../../../assets/styles';
+import moment from 'moment';
+import { momentdate } from '../../utils/momentDate';
 
 const Calendar = ({
   handleChange,
@@ -14,11 +16,31 @@ const Calendar = ({
   other?: boolean;
 }) => {
   const datesBlacklistFunc = (date) => {
-    return new Date(date) > new Date();
+    if (defaultValue) {
+      return momentdate(date, 'llll') !== momentdate(defaultValue, 'llll');
+    } else {
+      return new Date(date) > new Date();
+    }
   };
+
   const [date, setDate] = useState(
-    defaultValue ? new Date(defaultValue) : new Date()
+    defaultValue ? moment(defaultValue).format('l') : moment().format('l')
   );
+
+  const onDateSelect = (date: any) => {
+    const result = moment(date).format();
+    setDate(result);
+    const resDate = moment(result).format('L');
+    if (other) {
+      handleChange(resDate);
+    } else {
+      handleChange('log_date')(resDate);
+    }
+  };
+
+  useEffect(() => {
+    onDateSelect(date);
+  }, []);
 
   return (
     <View style={style.container}>
@@ -45,21 +67,7 @@ const Calendar = ({
         iconContainer={{ display: 'none' }}
         selectedDate={date}
         onDateSelected={(date) => {
-          let result = new Date(date);
-          setDate(result);
-          const resDate =
-            result.getFullYear() +
-            '-' +
-            (parseInt(result.getMonth()) + 1) +
-            '-' +
-            `${
-              result.getDate() > 9 ? result.getDate() : '0' + result.getDate()
-            }`;
-          if (other) {
-            handleChange(resDate);
-          } else {
-            handleChange('log_date')(resDate);
-          }
+          onDateSelect(date);
         }}
         datesBlacklist={datesBlacklistFunc}
       />

@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-let { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const headerStyle = StyleSheet.create({
   container: {

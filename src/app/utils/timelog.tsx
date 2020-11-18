@@ -1,6 +1,8 @@
+import { momentdate } from './momentDate';
+
 export const createdDay = (date) => {
-  let newdate = new Date(date.log_date).toDateString();
-  return newdate.substr(3, 7) + ', ' + newdate.substr(0, 3);
+  let newdate = momentdate(date.log_date, 'llll');
+  return newdate.substr(4, 7) + ', ' + newdate.substr(0, 3);
 };
 
 export const getHrs = (time) => {
@@ -72,4 +74,14 @@ export const totalHours = (item) => {
 export const totalWeekHours = (item) => {
   const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
   return total;
+};
+
+export const getDateWithOutTimeZone = (date) => {
+  return new Date(
+    date.getFullYear() +
+      '-' +
+      (parseInt(date.getMonth()) + 1) +
+      '-' +
+      `${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`
+  );
 };
