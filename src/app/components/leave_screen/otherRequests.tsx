@@ -20,6 +20,7 @@ import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 import { getLeave } from '../../services';
+import Reactotron from 'reactotron-react-native';
 
 const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
@@ -44,19 +45,22 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
-        progressreq.map(
-          (req) =>
-            req.leave_approvals &&
-            req.leave_approvals.map((item) => {
-              if (item.requested_to === state.user.id) {
-                pastreq = pastreq.concat(req);
-                pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-              } else {
-                myreq = myreq.concat(req);
-                myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-              }
-            })
-        );
+        progressreq.map((req) => {
+          req.leave_approvals.map((item) => {
+            if (item.requested_to === state.user.id) {
+              pastreq = pastreq.concat(req);
+              pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+            }
+          });
+          const past = [].concat(pastreq.find((item) => item.id === req.id));
+
+          if (past[0]) {
+            console.log('here', past);
+            // myreq = myreq.concat(req);
+            // myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+          }
+        });
+        // console.log('here', pastreq.find((item) => item.id === req.id).id);
 
         dispatchAdmin({
           type: 'CHANGE',
@@ -75,7 +79,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
 
   useEffect(() => {
     getAdminRequest();
-  }, [refresh, params]);
+  }, [refresh]);
 
   useEffect(() => {
     const get = async () => {
