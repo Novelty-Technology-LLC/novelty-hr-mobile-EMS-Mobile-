@@ -45,13 +45,12 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
           (item) => item.status === 'In Progress'
         );
         progressreq.map((req) => {
-          req.leave_approvals &&
-            req.leave_approvals.length.map((item) => {
-              if (item.requested_to === state.user.id) {
-                pastreq = pastreq.concat(req);
-                pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-              }
-            });
+          for (let i = 0; i < req.leave_approvals.length; i++) {
+            if (req.leave_approvals[i].requested_to === state.user.id) {
+              pastreq = pastreq.concat(req);
+              pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+            }
+          }
           const common = pastreq.map((item) => item.id);
           if (common.includes(req.id)) return;
           myreq = myreq.concat(req);
