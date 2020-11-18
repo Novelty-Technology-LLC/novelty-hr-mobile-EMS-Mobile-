@@ -57,7 +57,7 @@ const MyRequests = ({
       }
     };
     get();
-  }, [params]);
+  }, []);
 
   return (
     <View style={style.container}>
