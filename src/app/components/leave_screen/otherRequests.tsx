@@ -45,22 +45,23 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
-        progressreq.map((req) => {
-          req.leave_approvals.map((item) => {
-            if (item.requested_to === state.user.id) {
-              pastreq = pastreq.concat(req);
-              pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-            }
-          });
-          const past = [].concat(pastreq.find((item) => item.id === req.id));
+        progressreq.map(
+          (req) =>
+            req.leave_approvals &&
+            req.leave_approvals.map((item) => {
+              if (item.requested_to === state.user.id) {
+                pastreq = pastreq.concat(req);
+                pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+              } else {
+                const common = progressreq.map((item) => item.id);
 
-          if (past[0]) {
-            console.log('here', past);
-            // myreq = myreq.concat(req);
-            // myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-          }
-        });
-        // console.log('here', pastreq.find((item) => item.id === req.id).id);
+                if (common.includes(req.id)) return;
+
+                myreq = myreq.concat(req);
+                myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+              }
+            })
+        );
 
         dispatchAdmin({
           type: 'CHANGE',
