@@ -2,7 +2,7 @@ import { momentdate } from './momentDate';
 
 export const createdDay = (date) => {
   let newdate = momentdate(date.log_date, 'llll');
-  return newdate.substr(3, 8) + ', ' + newdate.substr(0, 3);
+  return newdate.substr(4, 7) + ', ' + newdate.substr(0, 3);
 };
 
 export const getHrs = (time) => {

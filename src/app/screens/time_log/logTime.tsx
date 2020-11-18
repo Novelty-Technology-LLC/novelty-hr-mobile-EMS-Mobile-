@@ -3,14 +3,19 @@ import { View, Text, Platform, ActivityIndicator } from 'react-native';
 import { headerText, requestLeave } from '../../../assets/styles';
 import { header as Header, snackBarMessage } from '../../common';
 import { Description } from '../../components/request_screen';
-import { Calendar, Task, Tasks } from '../../components/time_log';
+import { Calendar, Tasks } from '../../components/time_log';
 import Time from '../../components/time_log/time';
 import { button as Button } from '../../common';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { getUser, isThisWeek, totalHours } from '../../utils';
+import {
+  getDateWithOutTimeZone,
+  getUser,
+  isThisWeek,
+  totalHours,
+} from '../../utils';
 import { editTimeLog, postTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
@@ -98,20 +103,23 @@ const LogTime = ({ route }: any) => {
         pastData = timelogs.present.filter(
           (log) =>
             new Date(log.log_date).toDateString() ===
-              new Date(values.log_date).toDateString() &&
-            log.project_id == values.project_id
+              getDateWithOutTimeZone(
+                new Date(values.log_date)
+              ).toDateString() && log.project_id == values.project_id
         );
       } else {
         pastData = timelogs.past.filter(
           (log) =>
             new Date(log.log_date).toDateString() ===
-              new Date(values.log_date).toDateString() &&
-            log.project_id == values.project_id
+              getDateWithOutTimeZone(
+                new Date(values.log_date)
+              ).toDateString() && log.project_id == values.project_id
         );
       }
 
       if (pastData.length > 0) {
         pastData[0].note = [].concat(note, ...pastData[0].note);
+        pastData[0].duration = totalHours(pastData[0]);
         editTimeLog(pastData[0].id, pastData[0])
           .then((data) => {
             dispatchTimeLog({
@@ -156,8 +164,8 @@ const LogTime = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
-        extraHeight={Platform.OS === 'android' ? 140 : 50}
+        extraScrollHeight={Platform.OS === 'ios' ? 100 : 100}
+        extraHeight={Platform.OS === 'android' ? 160 : 50}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode={'none'}
@@ -198,7 +206,7 @@ const LogTime = ({ route }: any) => {
                   touched={touched}
                 />
               )}
-              <Button onPress={() => handleSubmit()}>
+              <Button onPress={() => !isLoading && handleSubmit()}>
                 <View
                   style={[
                     requestLeave.buttonView,
