@@ -119,6 +119,7 @@ const LogTime = ({ route }: any) => {
 
       if (pastData.length > 0) {
         pastData[0].note = [].concat(note, ...pastData[0].note);
+        pastData[0].duration = totalHours(pastData[0]);
         editTimeLog(pastData[0].id, pastData[0])
           .then((data) => {
             dispatchTimeLog({
@@ -205,7 +206,7 @@ const LogTime = ({ route }: any) => {
                   touched={touched}
                 />
               )}
-              <Button onPress={() => handleSubmit()}>
+              <Button onPress={() => !isLoading && handleSubmit()}>
                 <View
                   style={[
                     requestLeave.buttonView,
