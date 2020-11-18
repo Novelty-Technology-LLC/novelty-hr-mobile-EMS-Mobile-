@@ -52,10 +52,13 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
                 pastreq = pastreq.concat(req);
                 pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               } else {
-                const common = progressreq.map((item) => item.id);
-
-                if (common.includes(req.id)) return;
-
+                if (req.status === 'In Progress') {
+                  const common = progressreq.map((item) => item.id);
+                  if (common.includes(req.id)) return;
+                  myreq = myreq.concat(req);
+                  myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+                  return;
+                }
                 myreq = myreq.concat(req);
                 myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
               }
