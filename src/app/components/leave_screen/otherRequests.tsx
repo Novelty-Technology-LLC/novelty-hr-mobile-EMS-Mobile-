@@ -20,7 +20,6 @@ import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 import { getLeave } from '../../services';
-import Reactotron from 'reactotron-react-native';
 
 const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
@@ -45,23 +44,26 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
-        progressreq.map(
-          (req) =>
-            req.leave_approvals &&
-            req.leave_approvals.map((item) => {
-              if (item.requested_to === state.user.id) {
-                pastreq = pastreq.concat(req);
-                pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-              } else {
-                const common = progressreq.map((item) => item.id);
+        progressreq.map((req) => {
+          console.log(req);
+          // req.leave_approvals &&
+          for (let i = 0; i < req.leave_approvals.length; i++) {
+            console.log('hhhh', req.leave_approvals[i]);
+            // if (req.leave_approvals[i].requested_to === state.user.id) {
+            //   pastreq = pastreq.concat(req);
+            //   pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+            //   continue;
+            // } else {
+            //   // const common = pastreq.map((item) => item.id);
+            //   // console.log('rrrr', common.includes(req.id));
+            //   // if (common.includes(req.id)) return;
 
-                if (common.includes(req.id)) return;
-
-                myreq = myreq.concat(req);
-                myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-              }
-            })
-        );
+            //   myreq = myreq.concat(req);
+            //   myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+            // }
+          }
+        });
+        // );
 
         dispatchAdmin({
           type: 'CHANGE',
