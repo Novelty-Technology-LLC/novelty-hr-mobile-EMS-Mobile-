@@ -92,7 +92,6 @@ const TimeLogs = () => {
       <DaySelect
         handleChange={(date) => {
           setDate(date);
-
           setLogs(
             timelogs.past
               .concat(timelogs.present)
