@@ -1,7 +1,7 @@
-import moment from 'moment';
+import { momentdate } from './momentDate';
 
 export const createdDay = (date) => {
-  let newdate = moment(date.log_date).format('llll');
+  let newdate = momentdate(date.log_date, 'llll');
   return newdate.substr(3, 8) + ', ' + newdate.substr(0, 3);
 };
 

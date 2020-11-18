@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { calenderStyle as style, dayStyle } from '../../../assets/styles';
 import Dialog from 'react-native-dialog';
@@ -8,7 +8,7 @@ import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import Day from './day';
 import { getDateWithOutTimeZone } from '../../utils';
-import moment from 'moment';
+import { momentdate } from '../../utils/momentDate';
 
 const DaySelect = ({ handleChange }: { handleChange: Function }) => {
   const [visible, setVisible] = useState(false);
@@ -22,6 +22,10 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
   const isSelected = (newdate) => {
     return newdate.toDateString() === new Date(date).toDateString();
   };
+
+  useEffect(() => {
+    handleChange(today);
+  }, []);
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -45,7 +49,7 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
           }}
         />
         <Day
-          title={moment(modalDate).format('lll').substring(0, 6)}
+          title={momentdate(modalDate, 'lll').split(',')[0]}
           select={isSelected(new Date(modalDate)) && index === 3}
           onPress={() => {
             setDate(new Date(modalDate));
