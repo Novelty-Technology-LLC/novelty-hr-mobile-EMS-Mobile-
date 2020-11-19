@@ -21,6 +21,8 @@ import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
+import { getCurrentRouteName, navigationRef } from '../../utils/navigation';
+import { useRoute } from '@react-navigation/native';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -94,7 +96,14 @@ const LeaveDashboard = ({ route }) => {
       });
     };
     runFunction();
-    BackHandler.addEventListener('hardwareBackPress', BackHandler.exitApp);
+  }, []);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      if (getCurrentRouteName() === 'leaveList') {
+        BackHandler.exitApp();
+      }
+    });
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
     };
