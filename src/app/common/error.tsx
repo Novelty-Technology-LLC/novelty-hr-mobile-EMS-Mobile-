@@ -1,4 +1,3 @@
-import { WSnackBar } from 'react-native-smart-tip';
 import colors from '../../assets/colors';
 import { fonts } from '../../assets/styles/theme';
 import Snackbar from 'react-native-snackbar';
