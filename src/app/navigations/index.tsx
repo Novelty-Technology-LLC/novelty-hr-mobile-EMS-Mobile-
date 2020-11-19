@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabNavigator';
 import Invalid from '../screens/auth_screen/invalid';
 import Loading from '../screens/auth_screen/loading';
+import { navigationRef } from '../utils/navigation';
 
 const Root = createStackNavigator();
 
@@ -40,7 +41,7 @@ const RootNavigation = () => {
     },
   };
   return (
-    <NavigationContainer linking={deepLinking}>
+    <NavigationContainer linking={deepLinking} ref={navigationRef}>
       <AuthContext.Provider value={{ state, dispatch }}>
         <Root.Navigator
           screenOptions={{

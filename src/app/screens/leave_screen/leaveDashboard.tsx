@@ -1,5 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl, Linking } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  RefreshControl,
+  Linking,
+  BackHandler,
+} from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import {
@@ -14,6 +21,8 @@ import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
+import { getCurrentRouteName, navigationRef } from '../../utils/navigation';
+import { useRoute } from '@react-navigation/native';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -87,6 +96,17 @@ const LeaveDashboard = ({ route }) => {
       });
     };
     runFunction();
+  }, []);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      if (getCurrentRouteName() === 'leaveList') {
+        BackHandler.exitApp();
+      }
+    });
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
+    };
   }, []);
 
   useEffect(() => {
