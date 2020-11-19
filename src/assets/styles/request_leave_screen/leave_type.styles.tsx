@@ -13,7 +13,6 @@ const leaveType = StyleSheet.create({
     alignItems: 'flex-start',
     marginHorizontal: normalize(20),
     paddingTop: normalize(20),
-    paddingBottom: normalize(20),
   },
   padNone: {
     paddingBottom: normalize(0),
@@ -41,6 +40,11 @@ const leaveType = StyleSheet.create({
     marginBottom: normalize(15),
   },
 
+  projectbutton: {
+    width: '32%',
+    marginBottom: normalize(15),
+  },
+
   paidView: {
     display: 'flex',
     flexDirection: 'row',
@@ -62,10 +66,10 @@ const leaveType = StyleSheet.create({
   spacer: {
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(5),
+        paddingHorizontal: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(8),
+        paddingHorizontal: normalize(5),
       },
     }),
   },
@@ -100,14 +104,24 @@ const leaveType = StyleSheet.create({
       },
     }),
   },
+  timelogicon: {
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+      ios: {
+        marginTop: normalize(2),
+      },
+    }),
+  },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.md),
     color: colors.fontOrange,
   },
   buttonTextFloat: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.md),
     color: colors.fontGrey,
   },
   buttonPaid: {

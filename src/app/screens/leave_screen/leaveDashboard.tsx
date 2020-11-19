@@ -9,10 +9,7 @@ import {
 } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
-import {
-  headerStyle,
-  leaveDashboardStyle as style,
-} from '../../../assets/styles';
+import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
@@ -21,8 +18,7 @@ import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
-import { getCurrentRouteName, navigationRef } from '../../utils/navigation';
-import { useRoute } from '@react-navigation/native';
+import { getCurrentRouteName } from '../../utils/navigation';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);

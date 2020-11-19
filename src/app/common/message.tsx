@@ -1,16 +1,15 @@
-import { WSnackBar } from 'react-native-smart-tip';
 import colors from '../../assets/colors';
+import Snackbar from 'react-native-snackbar';
+import { fonts } from '../../assets/styles';
 
 const snackBarMessage = (msg) => {
-  const snackBarOpts = {
-    data: msg,
-    position: WSnackBar.position.TOP,
-    duration: WSnackBar.duration.LONG,
+  Snackbar.show({
+    text: msg,
     textColor: colors.white,
     backgroundColor: colors.green,
-    actionTextColor: '#ff490b',
-  };
-  return WSnackBar.show(snackBarOpts);
+    fontFamily: fonts.mulishBold,
+    duration: Snackbar.LENGTH_LONG,
+  });
 };
 
 export { snackBarMessage };
