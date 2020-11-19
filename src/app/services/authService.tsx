@@ -29,7 +29,7 @@ const signInGoogle = async (dispatch: any) => {
     }
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED)
-      error.message = 'Sign in cancled.';
+      error.message = 'Sign in Canceled.';
     if (error.message === 'NETWORK_ERROR')
       error.message = 'Please connect to a network.';
     snackErrorBottom(error);

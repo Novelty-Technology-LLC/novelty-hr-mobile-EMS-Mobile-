@@ -2,7 +2,8 @@ import { momentdate } from './momentDate';
 
 export const createdDay = (date) => {
   let newdate = momentdate(date.log_date, 'llll');
-  return newdate.substr(4, 7) + ', ' + newdate.substr(0, 3);
+  let splittedDate = newdate.split(',');
+  return splittedDate[1] + ', ' + splittedDate[0];
 };
 
 export const getHrs = (time) => {

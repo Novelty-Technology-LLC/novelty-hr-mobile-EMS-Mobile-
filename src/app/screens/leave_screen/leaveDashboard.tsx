@@ -1,5 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl, Linking } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  RefreshControl,
+  Linking,
+  BackHandler,
+} from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import {
@@ -87,6 +94,10 @@ const LeaveDashboard = ({ route }) => {
       });
     };
     runFunction();
+    BackHandler.addEventListener('hardwareBackPress', BackHandler.exitApp);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
+    };
   }, []);
 
   useEffect(() => {
