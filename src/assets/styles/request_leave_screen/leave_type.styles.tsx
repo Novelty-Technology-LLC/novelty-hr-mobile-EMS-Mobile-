@@ -105,12 +105,6 @@ const leaveType = StyleSheet.create({
     }),
   },
   timelogicon: {
-    position: 'absolute',
-    zIndex: normalize(2),
-    top: normalize(-1),
-    right: normalize(-5),
-    height: normalize(20),
-    width: normalize(25),
     ...Platform.select({
       android: {
         marginTop: normalize(5),
@@ -122,12 +116,12 @@ const leaveType = StyleSheet.create({
   },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.md),
     color: colors.fontOrange,
   },
   buttonTextFloat: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.md),
     color: colors.fontGrey,
   },
   buttonPaid: {

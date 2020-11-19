@@ -112,16 +112,16 @@ const Projects = ({
                             : style.floatingView
                         }
                       >
-                        <View style={style.timelogicon}>
-                          {type === project.id && (
+                        {type === project.id && (
+                          <View style={style.timelogicon}>
                             <Icon
                               name="check-circle"
                               color={color.primary}
                               size={17}
-                              style={{ marginRight: 6 }}
+                              style={{ marginRight: 3 }}
                             />
-                          )}
-                        </View>
+                          </View>
+                        )}
                         <Text
                           style={
                             type === project.id
