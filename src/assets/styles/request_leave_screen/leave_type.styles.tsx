@@ -37,7 +37,7 @@ const leaveType = StyleSheet.create({
   },
 
   button: {
-    width: '48%',
+    width: '32%',
     marginBottom: normalize(15),
   },
 
@@ -62,10 +62,10 @@ const leaveType = StyleSheet.create({
   spacer: {
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(5),
+        paddingHorizontal: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(8),
+        paddingHorizontal: normalize(5),
       },
     }),
   },
@@ -91,6 +91,22 @@ const leaveType = StyleSheet.create({
   icon: {
     height: 20,
     width: 25,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+      ios: {
+        marginTop: normalize(2),
+      },
+    }),
+  },
+  timelogicon: {
+    position: 'absolute',
+    zIndex: normalize(2),
+    top: normalize(-1),
+    right: normalize(-5),
+    height: normalize(20),
+    width: normalize(25),
     ...Platform.select({
       android: {
         marginTop: normalize(5),

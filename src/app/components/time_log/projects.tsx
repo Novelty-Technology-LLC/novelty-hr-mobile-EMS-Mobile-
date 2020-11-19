@@ -112,7 +112,7 @@ const Projects = ({
                             : style.floatingView
                         }
                       >
-                        <View style={style.icon}>
+                        <View style={style.timelogicon}>
                           {type === project.id && (
                             <Icon
                               name="check-circle"
@@ -133,7 +133,7 @@ const Projects = ({
                         </Text>
                       </View>
                     </TouchableOpacity>
-                    {index % 2 === 0 && <View style={style.spacer}></View>}
+                    {index % 3 !== 2 && <View style={style.spacer}></View>}
                   </>
                 ))}
             </View>
