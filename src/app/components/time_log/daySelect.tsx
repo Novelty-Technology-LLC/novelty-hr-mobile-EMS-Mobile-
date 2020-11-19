@@ -60,7 +60,11 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
           modal={true}
         />
       </View>
-      <Dialog.Container visible={visible} contentStyle={style.modalCalender}>
+      <Dialog.Container
+        visible={visible}
+        contentStyle={style.modalCalender}
+        onBackdropPress={() => setVisible(false)}
+      >
         <MCalendar
           handleChange={(data) => {
             setModalDate(data);
