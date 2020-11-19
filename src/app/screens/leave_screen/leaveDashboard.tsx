@@ -1,11 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl, Linking } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  RefreshControl,
+  Linking,
+  BackHandler,
+} from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
-import {
-  headerStyle,
-  leaveDashboardStyle as style,
-} from '../../../assets/styles';
+import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
@@ -14,6 +18,7 @@ import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
+import { getCurrentRouteName } from '../../utils/navigation';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -87,6 +92,17 @@ const LeaveDashboard = ({ route }) => {
       });
     };
     runFunction();
+  }, []);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      if (getCurrentRouteName() === 'leaveList') {
+        BackHandler.exitApp();
+      }
+    });
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
+    };
   }, []);
 
   useEffect(() => {

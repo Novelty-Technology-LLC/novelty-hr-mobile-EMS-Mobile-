@@ -13,7 +13,6 @@ const leaveType = StyleSheet.create({
     alignItems: 'flex-start',
     marginHorizontal: normalize(20),
     paddingTop: normalize(20),
-    paddingBottom: normalize(20),
   },
   padNone: {
     paddingBottom: normalize(0),
@@ -41,6 +40,18 @@ const leaveType = StyleSheet.create({
     marginBottom: normalize(15),
   },
 
+  projectbutton: {
+    ...Platform.select({
+      ios: {
+        width: '31%',
+      },
+      android: {
+        width: '32%',
+      },
+    }),
+    marginBottom: normalize(15),
+  },
+
   paidView: {
     display: 'flex',
     flexDirection: 'row',
@@ -51,7 +62,6 @@ const leaveType = StyleSheet.create({
     borderRadius: normalize(3),
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
@@ -62,10 +72,10 @@ const leaveType = StyleSheet.create({
   spacer: {
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(5),
+        paddingHorizontal: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(8),
+        paddingHorizontal: normalize(5),
       },
     }),
   },
@@ -79,7 +89,6 @@ const leaveType = StyleSheet.create({
     backgroundColor: colors.buttonGrey,
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
@@ -91,6 +100,16 @@ const leaveType = StyleSheet.create({
   icon: {
     height: 20,
     width: 25,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+      ios: {
+        marginTop: normalize(2),
+      },
+    }),
+  },
+  timelogicon: {
     ...Platform.select({
       android: {
         marginTop: normalize(5),

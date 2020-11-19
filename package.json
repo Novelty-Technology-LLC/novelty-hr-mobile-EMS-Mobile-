@@ -42,7 +42,8 @@
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
-    "react-native-smart-tip": "^2.2.1",
+    "react-native-snackbar": "^2.2.4",
+    "react-native-snackbar-component": "^1.1.11",
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-swipe-gestures": "^1.0.5",
@@ -69,7 +70,6 @@
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-test-renderer": "16.13.1",
-    "reactotron-react-native": "^5.0.0",
     "typescript": "^3.8.3"
   },
   "jest": {
