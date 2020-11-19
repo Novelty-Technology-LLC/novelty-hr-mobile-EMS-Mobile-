@@ -1,8 +1,25 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { mapObjectToRequest } from '../utils';
 
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
+    case 'QUOTA':
+      return {
+        ...prevState,
+        quota: action.payload,
+      };
+
+    case 'UPDATEQUOTA':
+      return {
+        ...prevState,
+        quota: []
+          .concat(
+            action.payload,
+            ...prevState.quota.filter((data) => data.id !== action.payload.id)
+          )
+          .sort((a, b) => (a.leave_type > b.leave_type ? 1 : -1)),
+      };
+
     case 'DELETE':
       return {
         ...prevState,
@@ -15,6 +32,12 @@ const RequestReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [...action.payload],
+      };
+
+    case 'CHANGEPAST':
+      return {
+        ...prevState,
+        pastrequests: [...action.payload],
       };
 
     case 'ADD':
@@ -33,6 +56,20 @@ const RequestReducer = (prevState, action) => {
           ...prevState.requests.filter((item) => item.id !== action.payload.id)
         ),
       };
+
+    case 'CANCEL':
+      return {
+        ...prevState,
+        requests: [].concat(
+          ...prevState.requests.filter((item) => item.id !== action.payload.id)
+        ),
+        pastrequests: [].concat(
+          mapObjectToRequest(action.payload),
+          ...prevState.pastrequests.filter(
+            (item) => item.id !== action.payload.id
+          )
+        ),
+      };
   }
 };
 
@@ -40,6 +77,8 @@ const RequestContext = React.createContext();
 
 const initialState = {
   requests: [],
+  quota: [],
+  pastrequests: [],
 };
 
 const useRequest = () => {

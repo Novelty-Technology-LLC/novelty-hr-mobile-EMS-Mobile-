@@ -59,7 +59,7 @@ export const deleteRequest = (id: number) => {
 export const updateRequest = (id: number, data: dataType) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.post(`/leave/${id}`, data);
+      let res = await api.put(`/leave/update/${id}`, data);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -82,6 +82,17 @@ export const checkRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/leave/check/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+export const cancelLeave = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.put(`/leave/cancel/${id}`);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

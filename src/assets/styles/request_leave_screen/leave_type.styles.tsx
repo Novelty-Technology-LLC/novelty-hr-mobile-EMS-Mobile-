@@ -1,11 +1,11 @@
 import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import color from '../../colors';
+
 import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
-  container: { borderBottomWidth: 1, borderBottomColor: color.border },
+  container: { borderBottomWidth: 1, borderBottomColor: colors.border },
   wrapper: {
     flex: 1,
     display: 'flex',
@@ -15,29 +15,46 @@ const leaveType = StyleSheet.create({
     paddingTop: normalize(20),
     paddingBottom: normalize(20),
   },
+  padNone: {
+    paddingBottom: normalize(0),
+    marginBottom: normalize(0),
+  },
   text: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),
+    marginBottom: normalize(15),
   },
   body: {
     width: '100%',
     flexDirection: 'row',
     paddingTop: normalize(20),
+    flexWrap: 'wrap',
   },
+  requestBody: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  button: {
+    width: '48%',
+    marginBottom: normalize(15),
+  },
+
   paidView: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: normalize(15),
-    backgroundColor: color.buttonOrange,
+    backgroundColor: colors.buttonOrange,
     borderRadius: normalize(3),
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(25),
+        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(35),
         borderRadius: normalize(4),
       },
     }),
@@ -45,27 +62,41 @@ const leaveType = StyleSheet.create({
   spacer: {
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(theme.spacing.button),
+        paddingHorizontal: normalize(5),
       },
       android: {
-        paddingHorizontal: normalize(theme.spacing.button),
+        paddingHorizontal: normalize(8),
       },
     }),
   },
+
   floatingView: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: normalize(15),
-    backgroundColor: color.buttonGrey,
+    backgroundColor: colors.buttonGrey,
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(25),
+        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
-        paddingHorizontal: normalize(35),
         borderRadius: normalize(4),
+      },
+    }),
+  },
+
+  icon: {
+    height: 20,
+    width: 25,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+      ios: {
+        marginTop: normalize(2),
       },
     }),
   },
@@ -85,6 +116,17 @@ const leaveType = StyleSheet.create({
   },
   buttonFloat: {
     fontSize: normalize(theme.size.sm),
+  },
+
+  moreContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

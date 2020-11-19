@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import color from '../../colors';
@@ -8,7 +8,14 @@ const daysRemainingStyle = StyleSheet.create({
   container: {
     width: '50%',
     alignItems: 'center',
-    paddingBottom: normalize(40),
+    paddingBottom: normalize(20),
+    borderBottomColor: color.border,
+    borderBottomWidth: 1,
+  },
+  logcontainer: {
+    width: '50%',
+    alignItems: 'center',
+    paddingBottom: normalize(20),
     borderBottomColor: color.border,
     borderBottomWidth: 1,
   },
@@ -22,6 +29,16 @@ const daysRemainingStyle = StyleSheet.create({
     fontSize: normalize(theme.size.base),
     fontFamily: fonts.mulishRegular,
   },
+  gap: {
+    ...Platform.select({
+      android: {
+        paddingHorizontal: normalize(4),
+      },
+      ios: {
+        paddingHorizontal: normalize(2),
+      },
+    }),
+  },
   text: {
     fontSize: normalize(theme.size.xl),
     color: color.primary,
@@ -33,8 +50,8 @@ const daysRemainingStyle = StyleSheet.create({
     textTransform: 'capitalize',
   },
   footer: {
-    fontSize: normalize(theme.size.xxs),
-    color: color.secondary,
+    fontSize: normalize(theme.size.xs),
+    color: color.fontGrey,
     fontFamily: fonts.poppinsRegular,
   },
 });

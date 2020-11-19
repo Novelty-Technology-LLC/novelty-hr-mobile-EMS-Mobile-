@@ -21,7 +21,11 @@ const requestStyle = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
-  wrapper: { flexDirection: 'row' },
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   requestDate: {
     marginTop: normalize(theme.spacing.wide),
     fontSize: normalize(theme.size.xxs),
@@ -31,16 +35,15 @@ const requestStyle = StyleSheet.create({
   dateView: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
     paddingHorizontal: normalize(10),
   },
   status: {
-    ...Platform.select({
-      ios: { marginTop: normalize(3) },
-      android: { marginTop: normalize(4) },
-    }),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: normalize(3),
   },
   date: {
     fontSize: normalize(theme.size.base),
@@ -60,7 +63,7 @@ const requestStyle = StyleSheet.create({
     marginTop: normalize(7),
   },
   pastState: {
-    marginTop: normalize(3),
+    marginTop: normalize(2.5),
   },
   icon: {
     transform: [{ rotate: '-40deg' }],
@@ -74,11 +77,34 @@ const requestStyle = StyleSheet.create({
       android: { padding: normalize(5), borderRadius: normalize(14) },
     }),
   },
-  stateView: { flexDirection: 'column' },
+  stateView: {
+    ...Platform.select({
+      android: { marginTop: normalize(7) },
+      ios: {
+        marginTop: normalize(4),
+      },
+    }),
+  },
+  stateViewAdmin: { marginTop: normalize(10) },
   state: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+    }),
+  },
+  denyStat: {
+    fontFamily: fonts.poppinsMedium,
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.xs),
+    ...Platform.select({
+      android: {
+        paddingTop: normalize(5),
+      },
+    }),
   },
   row: {
     flexDirection: 'row',
@@ -87,7 +113,8 @@ const requestStyle = StyleSheet.create({
   },
   rowAlign: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   space: {
     ...Platform.select({
@@ -99,12 +126,12 @@ const requestStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     ...Platform.select({
-      ios: { marginTop: normalize(25) },
-      android: { marginTop: normalize(30) },
+      ios: { marginTop: normalize(15) },
+      android: { marginTop: normalize(15) },
     }),
   },
   buttonSpacer: {
-    marginLeft: normalize(theme.spacing.wider),
+    marginLeft: normalize(12),
   },
   approve: {
     fontFamily: fonts.mulishBold,
@@ -167,9 +194,6 @@ const requestStyle = StyleSheet.create({
         padding: normalize(5),
       },
     }),
-  },
-  rowAlign: {
-    flexDirection: 'row',
   },
 });
 

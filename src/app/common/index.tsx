@@ -7,3 +7,6 @@ export * from './ui/loader';
 export * from './tabHeader';
 export * from './message';
 export * from './admin';
+export * from './comingSoon';
+export * from './alert';
+export * from './overlay';

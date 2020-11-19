@@ -14,6 +14,11 @@ const requestLeave = StyleSheet.create({
     borderBottomWidth: 1,
     width: 'auto',
   },
+  error: {
+    color: color.red,
+    paddingTop: normalize(10),
+    marginLeft: normalize(17),
+  },
   buttonView: {
     marginTop: normalize(23),
     flexDirection: 'row',
@@ -32,6 +37,19 @@ const requestLeave = StyleSheet.create({
         borderRadius: normalize(5),
       },
     }),
+  },
+  logButtonView: {
+    ...Platform.select({
+      android: {
+        marginBottom: normalize(90),
+      },
+      ios: {
+        marginBottom: normalize(0),
+      },
+    }),
+  },
+  editLogButtonView: {
+    marginBottom: normalize(20),
   },
 
   buttonText: {

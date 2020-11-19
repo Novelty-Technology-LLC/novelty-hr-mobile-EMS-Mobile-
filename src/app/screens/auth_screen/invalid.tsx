@@ -1,16 +1,26 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Text, View, Platform } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { loginStyle as style } from '../../../assets/styles';
 import LoginWrapper from './loginWrapper';
 
 const Invalid = () => {
+  const navigation = useNavigation();
+
   return (
     <LoginWrapper>
       <View style={style.buttonView}>
         <Text style={style.message}>
-          Please contact novelty hr team to get your account.
+          Seems like your account is not activated. Please contact Novelty
+          Technology.
         </Text>
       </View>
+      <TouchableOpacity
+        style={style.login}
+        onPress={() => navigation.navigate('login')}
+      >
+        <Text style={style.buttonText}>Login with other email</Text>
+      </TouchableOpacity>
     </LoginWrapper>
   );
 };

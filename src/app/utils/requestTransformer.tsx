@@ -43,7 +43,6 @@ const mapDataToRequest = (requests: any) => {
 
 const mapObjectToRequest = (data: userType) => {
   let newRequest: Array<dataType> = [];
-
   const newData: dataType = {
     id: data.id,
     date: dateStringMapper(data.leave_date.startDate, data.leave_date.endDate),
@@ -55,6 +54,7 @@ const mapObjectToRequest = (data: userType) => {
     lead: data.lead,
     leave_approvals: data.leave_approvals,
     leave_date: data.leave_date,
+    createdAt:data.createdAt
   };
   newRequest.push(newData);
 

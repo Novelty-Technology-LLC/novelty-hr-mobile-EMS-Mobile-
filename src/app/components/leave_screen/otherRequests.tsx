@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
+
 import {
   myRequestsStyle,
   otherRequestsStyle,
@@ -13,13 +14,14 @@ import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import { AppIcon, Loader } from '../../common';
+import { AppIcon } from '../../common';
 import { getAllRequests } from '../../services';
-import { getUser, mapDataToRequest } from '../../utils';
+import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
+import { getLeave } from '../../services';
 
-const OtherRequests = () => {
+const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState('toggle-switch');
   const [loading, setLoading] = useState(false);
@@ -33,25 +35,27 @@ const OtherRequests = () => {
     getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
-          (item) => item.status === 'Approved' || item.status === 'Denied'
+          (item) =>
+            item.status === 'Approved' ||
+            item.status === 'Denied' ||
+            item.status === 'Cancelled'
         );
         let myreq = data.filter((item) => item.status === 'Pending');
         const progressreq = data.filter(
           (item) => item.status === 'In Progress'
         );
-        progressreq.map(
-          (req) =>
-            req.leave_approvals &&
-            req.leave_approvals.map((item) => {
-              if (item.requested_to === state.user.id) {
-                pastreq = pastreq.concat(req);
-                pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-              } else {
-                myreq = myreq.concat(req);
-                myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
-              }
-            })
-        );
+        progressreq.map((req) => {
+          for (let i = 0; i < req.leave_approvals.length; i++) {
+            if (req.leave_approvals[i].requested_to === state.user.id) {
+              pastreq = pastreq.concat(req);
+              pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+            }
+          }
+          const common = pastreq.map((item) => item.id);
+          if (common.includes(req.id)) return;
+          myreq = myreq.concat(req);
+          myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+        });
 
         dispatchAdmin({
           type: 'CHANGE',
@@ -60,46 +64,62 @@ const OtherRequests = () => {
             past: mapDataToRequest(pastreq),
           },
         });
+
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
       });
   };
+
   useEffect(() => {
     getAdminRequest();
-  }, []);
+  }, [refresh]);
+
+  useEffect(() => {
+    const get = async () => {
+      if (+params) {
+        let data = await getLeave(+params);
+        data = mapObjectToRequest(data[0]);
+        navigation.navigate('approveLeave', data[0]);
+      }
+    };
+    get();
+  }, [params]);
 
   return (
     <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
         <Text style={myRequestsStyle.title}> Requests Received</Text>
-        <View style={myRequestsStyle.row}>
-          <Text style={myRequestsStyle.history}> History</Text>
-          <View style={myRequestsStyle.gap}></View>
-          <TouchableWithoutFeedback
-            onPress={() =>
-              setToggle(
-                toggle === 'toggle-switch'
-                  ? 'toggle-switch-off'
-                  : 'toggle-switch'
-              )
-            }
-          >
-            <AppIcon
-              name={toggle}
-              color={
-                toggle === 'toggle-switch' ? colors.primary : colors.secondary
+        {adminrequests.pastadminrequests.length > 0 && (
+          <View style={myRequestsStyle.row}>
+            <Text style={myRequestsStyle.history}> History</Text>
+            <View style={myRequestsStyle.gap}></View>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                setToggle(
+                  toggle === 'toggle-switch'
+                    ? 'toggle-switch-off'
+                    : 'toggle-switch'
+                )
               }
-              size={40}
-            />
-          </TouchableWithoutFeedback>
-        </View>
+            >
+              <AppIcon
+                name={toggle}
+                color={
+                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
+                }
+                size={40}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        )}
       </View>
       {loading ? (
         <AdminPlaceHolder />
       ) : (
         <FlatList
+          extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
           renderItem={(item) => (
             <Request
@@ -115,7 +135,7 @@ const OtherRequests = () => {
       {adminrequests.adminrequests.length < 1 && !loading && (
         <View style={myRequestsStyle.emptyContainer}>
           <Text style={myRequestsStyle.emptyText}>
-            There are no current requests
+            You have not received any request.
           </Text>
         </View>
       )}
@@ -128,12 +148,11 @@ const OtherRequests = () => {
           <AdminPlaceHolder />
         </>
       )}
-      {toggle === 'toggle-switch' &&
-        adminrequests.pastadminrequests.length > 0 && (
-          <History other={true} requests={adminrequests.pastadminrequests} />
-        )}
+      {toggle === 'toggle-switch' && !loading && (
+        <History other={true} requests={adminrequests.pastadminrequests} />
+      )}
     </View>
   );
 };
 
-export default OtherRequests;
+export default React.memo(OtherRequests);

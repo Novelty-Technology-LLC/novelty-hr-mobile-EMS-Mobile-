@@ -33,6 +33,7 @@ const deleteAlertStyle = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    paddingHorizontal: normalize(15),
 
     ...Platform.select({
       ios: {
@@ -51,7 +52,7 @@ const deleteAlertStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
     ...Platform.select({
       ios: {
-        marginLeft: normalize(110),
+        alignSelf: 'center',
       },
       android: {
         marginRight: normalize(10),
@@ -69,6 +70,7 @@ const deleteAlertStyle = StyleSheet.create({
     padding: normalize(8),
     borderRadius: normalize(50),
   },
+  error: { marginHorizontal: normalize(20), color: 'red' },
 });
 
 export { deleteAlertStyle };

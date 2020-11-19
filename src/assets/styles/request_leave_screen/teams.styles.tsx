@@ -22,7 +22,6 @@ const teamStyle = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: normalize(180),
   },
-
   text: {
     paddingTop: normalize(19),
     paddingLeft: normalize(18),
@@ -54,7 +53,7 @@ const teamStyle = StyleSheet.create({
   image: {
     width: normalize(60),
     height: normalize(60),
-    borderRadius: normalize(25),
+    borderRadius: normalize(50),
     marginRight: normalize(10),
   },
   nameView: {

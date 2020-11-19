@@ -2,8 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenStack from './screenStack';
 import colors from '../../assets/colors';
-import { ComingSoon, Activity, Profile } from '../screens';
+import { ComingSoon, Activity, Profile, TimeLog } from '../screens';
 import { AppIcon } from '../common';
+import LogNav from './logStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,6 +15,7 @@ const TabNavigator = () => {
         tabBarOptions={{
           activeTintColor: colors.primary,
           showLabel: false,
+          keyboardHidesTabBar: true,
         }}
       >
         <Tab.Screen
@@ -27,7 +29,7 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Activity"
-          component={Activity}
+          component={LogNav}
           options={{
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="timer" color={color} size={size} />

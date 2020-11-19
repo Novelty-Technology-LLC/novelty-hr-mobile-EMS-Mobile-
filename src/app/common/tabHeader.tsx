@@ -6,6 +6,7 @@ import { headerStyle as style, deleteAlertStyle } from '../../assets/styles';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import Dialog from 'react-native-dialog';
+import { signOutGoogle } from '../services';
 
 const tabHeader = ({ onPress = null, icon = false, children }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -14,6 +15,7 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
   const { dispatch } = useContext(AuthContext);
 
   const onLogout = () => {
+    signOutGoogle();
     removeUser();
     removeToken();
     dispatch({ type: 'SIGN_OUT' });

@@ -42,13 +42,13 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           onPress={() => onPress && !other && onPress()}
         >
           <View style={style.dateView}>
-            <View>
-              <Text style={style.date}>{item.date}</Text>
-              <Text style={style.type}>{item.type}</Text>
-            </View>
             <View style={style.status}>
-              <State state={item.state} />
+              <Text style={style.date}>{item.date}</Text>
+              <View style={style.stateView}>
+                <State state={item.state} />
+              </View>
             </View>
+            <Text style={style.type}>{item.type}</Text>
           </View>
         </TouchableOpacity>
       ) : (
@@ -59,15 +59,14 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               <Text style={style.days}>
                 {day > 1 ? day + ' days ago' : (day = ' Today')}
               </Text>
+              <View style={style.status}>
+                <State state={item.state} />
+              </View>
               {!isReplied && (
                 <View style={style.buttonContainer}>
-                  <View style={style.buttonView}>
-                    <ApproveDeny title="Approve" style={style} item={item} />
-                  </View>
+                  <ApproveDeny title="Approve" style={style} item={item} />
                   <View style={style.buttonSpacer}></View>
-                  <View style={style.buttonView}>
-                    <ApproveDeny title="Deny" style={style} item={item} />
-                  </View>
+                  <ApproveDeny title="Deny" style={style} item={item} />
                 </View>
               )}
             </View>

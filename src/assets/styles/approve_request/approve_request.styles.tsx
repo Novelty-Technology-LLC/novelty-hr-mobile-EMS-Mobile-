@@ -9,27 +9,45 @@ const approveRequest = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: normalize(20),
   },
+  headContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: normalize(10),
+  },
   headerDate: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     marginLeft: normalize(theme.spacing.wider),
   },
+  headerGap: {
+    paddingLeft: normalize(6),
+  },
   scrollView: { flex: 1 },
   requestView: {
-   flex:0.6,
+    flex: 0.6,
     flexDirection: 'column',
   },
   main: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingBottom: normalize(15),
+    paddingBottom: normalize(10),
   },
   imageView: {
     paddingTop: normalize(15),
     flexDirection: 'row',
     alignItems: 'center',
   },
+  stateView:{...Platform.select({
+    android:{
+      marginTop:normalize(4)
+    },
+    ios:{
+      marginTop:normalize(2)
+    }
+  })},
+  statusView:{flexDirection:'row',alignItems:'center',justifyContent:'space-between'},
   image: {
     width: normalize(40),
     height: normalize(40),
@@ -60,6 +78,7 @@ const approveRequest = StyleSheet.create({
   sendView: {
     flexDirection: 'column',
     alignItems: 'flex-end',
+    alignSelf: 'flex-start',
   },
   send: {
     color: colors.white,
@@ -103,7 +122,7 @@ const approveRequest = StyleSheet.create({
     marginLeft: normalize(10),
   },
   pendingresponseView: {
-      flex:0.34,
+    flex: 0.34,
     marginTop: normalize(20),
   },
   response: {
@@ -120,7 +139,8 @@ const approveRequest = StyleSheet.create({
   teamLeadView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    marginTop: normalize(2),
   },
   teamLead: {
     fontFamily: fonts.mulishRegular,
@@ -128,10 +148,11 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   leadText: {
+    paddingTop: normalize(9),
     fontFamily: fonts.mulishRegular,
-    marginTop: normalize(15),
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
+    textTransform: 'capitalize',
   },
   text: {
     fontFamily: fonts.mulishRegular,

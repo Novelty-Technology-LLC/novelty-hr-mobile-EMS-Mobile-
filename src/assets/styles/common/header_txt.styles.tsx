@@ -7,7 +7,7 @@ const headerText = {
   fontFamily: fonts.poppinsMedium,
   fontSize: normalize(theme.size.lg),
   color: color.primary,
-  textTransform: 'capitalize',
+  textTransform: 'uppercase',
   ...Platform.select({
     android: {
       paddingTop: normalize(5),

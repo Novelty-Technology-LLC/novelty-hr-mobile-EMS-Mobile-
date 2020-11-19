@@ -7,11 +7,17 @@ interface DaysRemainingPropType {
   total: number;
   remaining: number;
   title: String;
+  timelog?: boolean;
 }
 
-const DaysRemaining = ({ total, remaining, title }: DaysRemainingPropType) => {
+const DaysRemaining = ({
+  total,
+  remaining,
+  title,
+  timelog,
+}: DaysRemainingPropType) => {
   return (
-    <View style={style.container}>
+    <View style={timelog ? style.logcontainer : style.container}>
       <Text style={style.text}>
         <Text style={style.remaining}>
           <AnimateNumber
@@ -23,10 +29,13 @@ const DaysRemaining = ({ total, remaining, title }: DaysRemainingPropType) => {
           />
           {/* {remaining} */}
         </Text>
-        <Text style={style.total}>/{total}</Text>
+        <Text style={style.total}>/</Text>
+        <View style={style.gap}></View>
+        <Text style={style.total}>{total}</Text>
       </Text>
-      <Text style={style.title}>{title}</Text>
-      <Text style={style.footer}>REMAINING</Text>
+      <Text style={style.title}>{timelog ? ' Hours' : ''}</Text>
+      <Text style={timelog ? style.footer : style.title}>{title}</Text>
+      {!timelog && <Text style={style.footer}>REMAINING</Text>}
     </View>
   );
 };

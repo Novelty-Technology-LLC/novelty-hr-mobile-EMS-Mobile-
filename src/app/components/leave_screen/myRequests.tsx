@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -11,52 +11,81 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
 import { AppIcon } from '../../common';
-import { getUser, mapDataToRequest } from '../../utils';
+import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 import { UserPlaceHolder } from '../loader';
+import { getLeave } from '../../services';
 
-const MyRequests = ({ loading }: { loading: boolean }) => {
+const MyRequests = ({
+  loading,
+  refresh,
+  params,
+}: {
+  loading: boolean;
+  refresh: number;
+  params: number;
+}) => {
   const navigation = useNavigation();
-  const [pastrequests, setPastrequests] = useState(null);
-  const { requests } = useContext(RequestContext);
+  const { requests, dispatchRequest } = useContext(RequestContext);
+  let row: Array<any> = [];
 
   const [toggle, setToggle] = useState('toggle-switch');
   const getPast = async () => {
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
-      .then((data) => setPastrequests(data))
+      .then((data) => {
+        dispatchRequest({
+          type: 'CHANGEPAST',
+          payload: mapDataToRequest(data),
+        });
+      })
       .catch((err) => console.log('GetLeaveQuota error', err));
   };
 
+  const getPastCallback = useCallback(() => getPast(), []);
+
   useEffect(() => {
-    getPast();
+    getPastCallback();
+  }, [refresh]);
+
+  useEffect(() => {
+    const get = async () => {
+      if (params) {
+        let data = await getLeave(+params);
+        data = mapObjectToRequest(data[0]);
+        navigation.navigate('requestDetail', data[0]);
+      }
+    };
+    get();
   }, []);
 
   return (
     <View style={style.container}>
       <View style={style.header}>
         <Text style={style.title}>My Requests</Text>
-        <View style={style.row}>
-          <Text style={style.history}> History</Text>
-          <View style={style.gap}></View>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              setToggle(
-                toggle === 'toggle-switch'
-                  ? 'toggle-switch-off'
-                  : 'toggle-switch'
-              );
-            }}
-          >
-            <AppIcon
-              name={toggle}
-              color={
-                toggle === 'toggle-switch' ? colors.primary : colors.secondary
-              }
-              size={35}
-            />
-          </TouchableWithoutFeedback>
-        </View>
+        {requests.pastrequests.length > 0 && (
+          <View style={style.row}>
+            <Text style={style.history}> History</Text>
+            <View style={style.gap}></View>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setToggle(
+                  toggle === 'toggle-switch'
+                    ? 'toggle-switch-off'
+                    : 'toggle-switch'
+                );
+              }}
+            >
+              <AppIcon
+                name={toggle}
+                color={
+                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
+                }
+                size={40}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        )}
       </View>
       {loading ? <UserPlaceHolder /> : null}
 
@@ -64,7 +93,15 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
         <FlatList
           data={requests.requests}
           renderItem={(item) => (
-            <Swipeable renderRightActions={() => <Swipe item={item.item} />}>
+            <Swipeable
+              ref={(ref) => (row[item.index] = ref)}
+              renderRightActions={() => (
+                <Swipe
+                  item={item.item}
+                  onPress={() => row[item.index].close()}
+                />
+              )}
+            >
               <Request
                 item={item.item}
                 other={false}
@@ -72,18 +109,18 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
               />
             </Swipeable>
           )}
-          keyExtractor={(item) => item.date}
+          keyExtractor={(item) => item.id}
         />
       ) : (
         !loading && (
           <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>There are no current requests</Text>
+            <Text style={style.emptyText}>You don't have current requests</Text>
           </View>
         )
       )}
 
       {toggle === 'toggle-switch' &&
-        (!pastrequests ? (
+        (!requests.pastrequests ? (
           <>
             <View style={historyStyle.subcontainer}>
               <Text style={historyStyle.header}>Past Requests</Text>
@@ -92,7 +129,7 @@ const MyRequests = ({ loading }: { loading: boolean }) => {
             <UserPlaceHolder />
           </>
         ) : (
-          <History requests={mapDataToRequest(pastrequests)} />
+          <History requests={requests.pastrequests} />
         ))}
     </View>
   );

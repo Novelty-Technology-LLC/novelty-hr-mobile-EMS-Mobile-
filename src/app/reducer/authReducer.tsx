@@ -26,6 +26,7 @@ const AuthReducer = (prevState, action) => {
         ...prevState,
         isSignout: true,
         userToken: null,
+        isInvalid: false,
       };
 
     case 'STORE_USER':
