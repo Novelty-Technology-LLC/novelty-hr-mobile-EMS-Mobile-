@@ -41,7 +41,14 @@ const leaveType = StyleSheet.create({
   },
 
   projectbutton: {
-    width: '31%',
+    ...Platform.select({
+      ios: {
+        width: '31%',
+      },
+      android: {
+        width: '32%',
+      },
+    }),
     marginBottom: normalize(15),
   },
 
@@ -55,7 +62,6 @@ const leaveType = StyleSheet.create({
     borderRadius: normalize(3),
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
