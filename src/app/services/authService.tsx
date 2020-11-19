@@ -82,7 +82,7 @@ const signInApple = async (dispatch: any) => {
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
-      error.message = 'Unkon error occured';
+      error.message = 'Unknown error occured';
     }
     snackErrorBottom(error);
   }

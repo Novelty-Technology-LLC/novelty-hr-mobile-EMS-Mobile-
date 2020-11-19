@@ -41,7 +41,7 @@ const leaveType = StyleSheet.create({
   },
 
   projectbutton: {
-    width: '32%',
+    width: '31%',
     marginBottom: normalize(15),
   },
 
@@ -83,7 +83,6 @@ const leaveType = StyleSheet.create({
     backgroundColor: colors.buttonGrey,
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(20),
         borderRadius: normalize(3),
       },
       android: {
@@ -116,12 +115,12 @@ const leaveType = StyleSheet.create({
   },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.md),
+    fontSize: normalize(theme.size.normal),
     color: colors.fontOrange,
   },
   buttonTextFloat: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.md),
+    fontSize: normalize(theme.size.normal),
     color: colors.fontGrey,
   },
   buttonPaid: {
