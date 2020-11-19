@@ -124,7 +124,6 @@ const LeaveDashboard = ({ route }) => {
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
-    console.log('token -> ', token);
 
     const authStatus = await messaging().requestPermission();
     const enabled =
