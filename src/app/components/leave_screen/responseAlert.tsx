@@ -50,6 +50,7 @@ const EditAlert = ({
       user_name: item.user.first_name,
       uuid: state.user.uuid,
     };
+
     setisLoading(true);
     updateRequest(item.id, newData).then((data) => {
       item.state = data.status;

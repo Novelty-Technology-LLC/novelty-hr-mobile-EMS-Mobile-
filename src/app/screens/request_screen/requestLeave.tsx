@@ -189,7 +189,13 @@ const RequestLeave = ({ route }: any) => {
                 error={errors}
                 touched={touched}
               />
-              <Button onPress={() => handleSubmit()} disabled={isLoading}>
+              <Button
+                onPress={() => {
+                  Keyboard.dismiss();
+                  handleSubmit();
+                }}
+                disabled={isLoading}
+              >
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>Submit Request</Text>
                   {isLoading && (

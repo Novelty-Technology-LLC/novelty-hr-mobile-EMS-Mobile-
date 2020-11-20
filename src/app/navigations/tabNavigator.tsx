@@ -23,7 +23,7 @@ const TabNavigator = () => {
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name="home" color={color} size={size} />
+              <AppIcon name="account-clock" color={color} size={size} />
             ),
           }}
         />

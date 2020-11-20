@@ -33,7 +33,7 @@ const Projects = ({
       .then((data) => {
         setLoading(false);
         setAllprojects(data);
-        setProjects(data.filter((item, id) => id < 4));
+        setProjects(data.filter((item, id) => id < 3));
       })
       .catch((err) => console.log(err));
   };
@@ -44,7 +44,7 @@ const Projects = ({
 
   useEffect(() => {
     if (showmore === 'chevron-down-circle') {
-      setProjects(allprojects.filter((item, id) => id < 4));
+      setProjects(allprojects.filter((item, id) => id < 3));
     } else {
       setProjects(allprojects);
     }
@@ -103,7 +103,7 @@ const Projects = ({
                         setType(project.id),
                           handleChange('project_id')(project.id.toString());
                       }}
-                      style={style.button}
+                      style={style.projectbutton}
                     >
                       <View
                         style={
@@ -112,16 +112,16 @@ const Projects = ({
                             : style.floatingView
                         }
                       >
-                        <View style={style.icon}>
-                          {type === project.id && (
+                        {type === project.id && (
+                          <View style={style.timelogicon}>
                             <Icon
                               name="check-circle"
                               color={color.primary}
                               size={17}
-                              style={{ marginRight: 6 }}
+                              style={{ marginRight: 3 }}
                             />
-                          )}
-                        </View>
+                          </View>
+                        )}
                         <Text
                           style={
                             type === project.id
@@ -133,7 +133,7 @@ const Projects = ({
                         </Text>
                       </View>
                     </TouchableOpacity>
-                    {index % 2 === 0 && <View style={style.spacer}></View>}
+                    {index % 3 !== 2 && <View style={style.spacer}></View>}
                   </>
                 ))}
             </View>

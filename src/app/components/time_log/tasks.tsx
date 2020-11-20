@@ -17,7 +17,7 @@ const Tasks = ({ value, handleChange }: any) => {
 
   return (
     <View style={descriptionStyle.main}>
-      <View style={[timeLogStyle.rowAlign, timeLogStyle.pad]}>
+      <View style={timeLogStyle.rowAlign}>
         <Text style={descriptionStyle.text}>Tasks </Text>
         <TouchableOpacity onPress={() => setShowAlert(true)}>
           <AppIcon name="plus" color={colors.black} size={20} />
