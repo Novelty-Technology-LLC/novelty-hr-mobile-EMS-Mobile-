@@ -5,14 +5,13 @@ import colors from '../../colors';
 const otherRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
+    marginHorizontal: normalize(15),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: normalize(20),
-    marginRight: normalize(20),
-    marginLeft: normalize(10),
     paddingTop: normalize(20),
   },
 });

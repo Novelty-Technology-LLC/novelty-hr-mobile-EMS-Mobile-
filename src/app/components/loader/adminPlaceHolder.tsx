@@ -25,7 +25,6 @@ const AdminPlaceHolder = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: normalize(20),
     paddingVertical: normalize(20),
   },
   row: {

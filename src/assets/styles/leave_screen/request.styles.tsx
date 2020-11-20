@@ -9,8 +9,6 @@ const requestStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginLeft: normalize(13),
-    marginRight: normalize(20),
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
     borderRadius: 2,
