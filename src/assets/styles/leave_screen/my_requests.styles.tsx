@@ -6,13 +6,13 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
+    marginHorizontal: normalize(15),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: normalize(20),
-    marginHorizontal: normalize(20),
     marginTop: normalize(20),
   },
   logheader: {
@@ -20,7 +20,6 @@ const myRequestsStyle = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: normalize(20),
-    marginHorizontal: normalize(20),
   },
   title: {
     fontFamily: fonts.poppinsMedium,
@@ -43,7 +42,6 @@ const myRequestsStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: normalize(35),
-    marginHorizontal: normalize(20),
     borderRadius: 2,
     backgroundColor: colors.snow,
   },

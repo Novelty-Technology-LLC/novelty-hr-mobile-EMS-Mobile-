@@ -9,14 +9,11 @@ const timeLogStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginLeft: normalize(15),
-    marginRight: normalize(20),
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
     borderRadius: 2,
     marginVertical: 7,
   },
-  pad: { paddingRight: normalize(20) },
   dateView: {
     flex: 1,
     display: 'flex',
@@ -28,7 +25,6 @@ const timeLogStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: normalize(15),
     borderTopWidth: normalize(3),
   },
   date: {
@@ -70,7 +66,7 @@ const timeLogStyle = StyleSheet.create({
     marginTop: normalize(5),
   },
   gap: {
-    marginRight: normalize(30),
+    marginRight: normalize(10),
   },
   text: {
     fontFamily: fonts.mulishRegular,

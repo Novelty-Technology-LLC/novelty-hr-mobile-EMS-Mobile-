@@ -11,9 +11,7 @@ const TimeLog = () => {
       <Header>
         <Text style={headerText}>Time Log</Text>
       </Header>
-      <View>
-        <TimeLogs />
-      </View>
+      <TimeLogs />
       <RequestButton screen="logtime" />
     </View>
   );

@@ -5,7 +5,6 @@ import { fonts, theme } from '../theme';
 
 const historyStyle = StyleSheet.create({
   header: {
-    paddingLeft: normalize(20),
     paddingTop: normalize(30),
     paddingBottom: normalize(10),
     color: colors.secondary,
@@ -20,7 +19,6 @@ const historyStyle = StyleSheet.create({
   },
   subcontainer: {
     flexDirection: 'row',
-    marginRight: normalize(20),
     alignItems: 'center',
   },
   line: {

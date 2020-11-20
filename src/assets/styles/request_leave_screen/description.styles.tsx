@@ -6,8 +6,8 @@ import { theme, fonts } from '../theme';
 const descriptionStyle = StyleSheet.create({
   main: {
     marginTop: normalize(20),
-    marginLeft: normalize(20),
     paddingBottom: normalize(10),
+    marginHorizontal: normalize(15),
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
@@ -28,7 +28,7 @@ const descriptionStyle = StyleSheet.create({
   },
   textareaContainer: {
     height: normalize(140),
-    width: normalize(340),
+    width: '100%',
     marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
@@ -37,7 +37,7 @@ const descriptionStyle = StyleSheet.create({
   },
   editlogContainer: {
     height: normalize(100),
-    width: '93%',
+    width: '99%',
     marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
