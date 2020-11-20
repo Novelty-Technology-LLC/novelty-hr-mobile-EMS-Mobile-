@@ -6,6 +6,7 @@ import {
   RefreshControl,
   Linking,
   BackHandler,
+  Platform,
 } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
@@ -19,6 +20,7 @@ import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
+import { SetLocalNotification } from '../../utils/pushNotification';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -120,6 +122,14 @@ const LeaveDashboard = ({ route }) => {
         });
     };
     initialNotification();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Platform.OS === 'ios' &&
+        SetLocalNotification(remoteMessage.notification.body);
+    });
+    return unsubscribe;
   }, []);
 
   async function requestUserPermission() {
