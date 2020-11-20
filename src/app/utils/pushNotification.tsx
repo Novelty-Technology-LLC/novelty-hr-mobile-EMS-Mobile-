@@ -6,11 +6,11 @@ PushNotification.configure({
   onNotification: function (notification) {},
 });
 
-export const SetLocalNotification = () => {
+export const SetLocalNotification = (message) => {
   checkPermission();
   PushNotification.localNotification({
     autoCancel: true,
-    message: 'You have got a new request',
+    message: message,
     vibrate: true,
     vibration: 300,
     playSound: true,
