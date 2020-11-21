@@ -177,10 +177,12 @@ const LogTime = ({ route }: any) => {
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
-              <Calendar
-                handleChange={handleChange}
-                defaultValue={olddata && olddata.log_date}
-              />
+              {!olddata && (
+                <Calendar
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.log_date}
+                />
+              )}
               {!olddata && (
                 <Time
                   handleChange={handleChange}
@@ -194,6 +196,7 @@ const LogTime = ({ route }: any) => {
                 error={errors}
                 touched={touched}
                 defaultValue={olddata && olddata.project.name}
+                date={olddata && olddata.log_date}
               />
               {olddata ? (
                 <Tasks value={olddata} handleChange={handleChange} />

@@ -39,6 +39,11 @@ const leaveType = StyleSheet.create({
     width: '48%',
     marginBottom: normalize(15),
   },
+  editdate: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
 
   projectbutton: {
     ...Platform.select({
