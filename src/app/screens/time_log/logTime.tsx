@@ -22,6 +22,7 @@ import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from '../../components/time_log/taskContext';
+import { momentdate } from '../../utils/momentDate';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -98,24 +99,14 @@ const LogTime = ({ route }: any) => {
         task: values.note,
         time: values.duration,
       };
-      let pastData;
-      if (isThisWeek(values)) {
-        pastData = timelogs.present.filter(
+      const pastData = timelogs.present
+        .concat(timelogs.past)
+        .filter(
           (log) =>
-            new Date(log.log_date).toDateString() ===
-              getDateWithOutTimeZone(
-                new Date(values.log_date)
-              ).toDateString() && log.project_id == values.project_id
+            momentdate(log.log_date, 'll') ===
+              momentdate(values.log_date, 'll') &&
+            log.project_id == values.project_id
         );
-      } else {
-        pastData = timelogs.past.filter(
-          (log) =>
-            new Date(log.log_date).toDateString() ===
-              getDateWithOutTimeZone(
-                new Date(values.log_date)
-              ).toDateString() && log.project_id == values.project_id
-        );
-      }
 
       if (pastData.length > 0) {
         pastData[0].note = [].concat(note, ...pastData[0].note);

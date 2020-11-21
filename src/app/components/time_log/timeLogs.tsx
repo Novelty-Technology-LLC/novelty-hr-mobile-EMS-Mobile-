@@ -4,7 +4,8 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
-import { getUser, getWeek, isThisWeek, totalWeekHours } from '../../utils';
+import { getHrsToday, getUser, isThisWeek, totalWeekHours } from '../../utils';
+import { momentdate } from '../../utils/momentDate';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
@@ -17,9 +18,6 @@ const TimeLogs = () => {
   const [date, setDate] = useState('');
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [logs, setLogs] = useState([]);
-  const pastweek = timelogs.past.filter(
-    (item) => getWeek(new Date(item.log_date)) === getWeek(new Date()) - 1
-  );
 
   const getTimeLogs = async () => {
     setLoading(true);
@@ -29,6 +27,7 @@ const TimeLogs = () => {
         setLoading(false);
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
+
         dispatchTimeLog({
           type: 'CHANGE',
           payload: {
@@ -75,9 +74,9 @@ const TimeLogs = () => {
       ) : (
         <View style={{ flexDirection: 'row' }}>
           <DaysRemaining
-            total={40}
-            remaining={Math.floor(totalWeekHours(pastweek) / 60)}
-            title={'Past Week'}
+            total={8}
+            remaining={getHrsToday(timelogs.present)}
+            title={'Today'}
             timelog={true}
           />
           <DaysRemaining
