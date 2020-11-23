@@ -33,6 +33,7 @@ const DaySelect = ({
     setDate(today);
     handleChange(today);
     setIndex(2);
+    setModalDate(today);
   }, [refreshing]);
 
   return (
