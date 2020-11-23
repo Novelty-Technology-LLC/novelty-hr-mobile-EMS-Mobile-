@@ -46,7 +46,7 @@ const MyRequests = ({
 
   useEffect(() => {
     getPastCallback();
-  }, [refresh]);
+  }, [refresh, params]);
 
   useEffect(() => {
     const get = async () => {
@@ -57,7 +57,7 @@ const MyRequests = ({
       }
     };
     get();
-  }, []);
+  }, [params]);
 
   return (
     <View style={style.container}>
