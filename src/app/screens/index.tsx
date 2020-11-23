@@ -1,5 +1,3 @@
-import { FormikProvider } from 'formik';
-
 export * from './auth_screen/login';
 export * from './leave_screen/leaveApproval';
 export * from './leave_screen/leaveDashboard';

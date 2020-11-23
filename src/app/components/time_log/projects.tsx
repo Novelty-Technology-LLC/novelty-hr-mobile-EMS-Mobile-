@@ -11,17 +11,20 @@ import { getAllProjects } from '../../services/projectService';
 import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
 import { AppIcon } from '../../common';
+import { momentdate } from '../../utils/momentDate';
 
 const Projects = ({
   handleChange,
   error,
   touched,
   defaultValue,
+  date,
 }: {
   handleChange: Function;
   error: any;
   touched: any;
   defaultValue: number;
+  date?: Date;
 }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -55,16 +58,17 @@ const Projects = ({
     <View style={style.container}>
       <View style={[style.wrapper, defaultValue ? style.padNone : null]}>
         {defaultValue ? (
-          <Text style={style.text}>
-            Project :{' '}
-            <Text style={{ color: colors.primary }}>{defaultValue}</Text>
-          </Text>
+          <View style={style.editdate}>
+            <Text style={style.text}>
+              Project :{' '}
+              <Text style={{ color: colors.primary }}>{defaultValue}</Text>
+            </Text>
+            <Text style={style.text}>{momentdate(date, 'll')}</Text>
+          </View>
         ) : (
           <>
             <View style={style.moreContainer}>
-              <Text style={[style.text, style.padNone]}>
-                Choose a Project *
-              </Text>
+              <Text style={[style.text, style.padNone]}>Choose a Project</Text>
               <View style={style.row}>
                 <Text style={myRequestsStyle.history}>Show more</Text>
                 <View style={myRequestsStyle.gap}></View>

@@ -21,9 +21,10 @@ const Time = ({
   defaultValue?: string;
   edit?: boolean;
 }) => {
-  const [hrIndex, setHrIndex] = useState(0);
+  const [hrIndex, setHrIndex] = useState(1);
   const [minIndex, setMinIndex] = useState(0);
   const hrdata = [
+    '0 hr',
     '1 hr',
     '2 hrs',
     '3 hrs',
@@ -32,10 +33,6 @@ const Time = ({
     '6 hrs',
     '7 hrs',
     '8 hrs',
-    '9 hrs',
-    '10 hrs',
-    '11 hrs',
-    '12 hrs',
   ];
 
   const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
@@ -43,7 +40,7 @@ const Time = ({
   useEffect(() => {
     if (defaultValue) {
       const time = getHrsMins(defaultValue);
-      setHrIndex(time.hr - 1);
+      setHrIndex(time.hr);
       setMinIndex(time.mins / 15);
     } else {
       error ? handleChange('duration')('60') : handleChange('60');
@@ -51,51 +48,53 @@ const Time = ({
   }, []);
 
   return (
-    <View
-      style={[
-        edit ? style.modalPickerContainer : style.pickerContainer,
-        calenderStyle.container,
-      ]}
-    >
-      <Text style={style.text}>Time *</Text>
-      <View style={style.row}>
-        <WheelPicker
-          selectedItem={hrIndex}
-          style={style.iospicker}
-          onItemSelected={(index) => {
-            setHrIndex(index);
-            const intdata = parseInt(hrdata[index].split(' ')[0]);
-            const mins = parseInt(mindata[minIndex].split(' ')[0]);
-            error
-              ? handleChange('duration')((intdata * 60 + mins).toString())
-              : handleChange((intdata * 60 + mins).toString());
-          }}
-          data={hrdata}
-          selectedItemTextSize={24}
-        />
-        <View style={style.timeSeparator}>
-          <Text style={style.colon}>:</Text>
-        </View>
+    <>
+      <View
+        style={[
+          edit ? style.modalPickerContainer : style.pickerContainer,
+          calenderStyle.container,
+        ]}
+      >
+        <Text style={style.text}>Time</Text>
+        <View style={style.row}>
+          <WheelPicker
+            selectedItem={hrIndex}
+            style={style.iospicker}
+            onItemSelected={(index) => {
+              setHrIndex(index);
+              const intdata = parseInt(hrdata[index].split(' ')[0]);
+              const mins = parseInt(mindata[minIndex].split(' ')[0]);
+              error
+                ? handleChange('duration')((intdata * 60 + mins).toString())
+                : handleChange((intdata * 60 + mins).toString());
+            }}
+            data={hrdata}
+            selectedItemTextSize={24}
+          />
+          <View style={style.timeSeparator}>
+            <Text style={style.colon}>:</Text>
+          </View>
 
-        <WheelPicker
-          selectedItem={minIndex}
-          style={style.iospicker}
-          onItemSelected={(index) => {
-            setMinIndex(index);
-            const intdata = parseInt(mindata[index].split(' ')[0]);
-            const hrs = parseInt(hrdata[hrIndex].split(' ')[0]);
-            error
-              ? handleChange('duration')((hrs * 60 + intdata).toString())
-              : handleChange((hrs * 60 + intdata).toString());
-          }}
-          data={mindata}
-          selectedItemTextSize={24}
-        />
+          <WheelPicker
+            selectedItem={minIndex}
+            style={style.iospicker}
+            onItemSelected={(index) => {
+              setMinIndex(index);
+              const intdata = parseInt(mindata[index].split(' ')[0]);
+              const hrs = parseInt(hrdata[hrIndex].split(' ')[0]);
+              error
+                ? handleChange('duration')((hrs * 60 + intdata).toString())
+                : handleChange((hrs * 60 + intdata).toString());
+            }}
+            data={mindata}
+            selectedItemTextSize={24}
+          />
+        </View>
+        {error && error.duration && (
+          <Text style={style.error}>{error.duration}</Text>
+        )}
       </View>
-      {/* {error && touched && error.duration && touched.duration && (
-        <Text style={style.error}>{error.duration}</Text>
-      )} */}
-    </View>
+    </>
   );
 };
 

@@ -1,10 +1,6 @@
 import React from 'react';
-import { View, Text, TextInput } from 'react-native';
-import {
-  calenderStyle,
-  descriptionStyle as style,
-  timeLogStyle,
-} from '../../../assets/styles';
+import { View, Text } from 'react-native';
+import { timeLogStyle } from '../../../assets/styles';
 import { getHrs } from '../../utils';
 
 const Task = ({ item }: any) => {
