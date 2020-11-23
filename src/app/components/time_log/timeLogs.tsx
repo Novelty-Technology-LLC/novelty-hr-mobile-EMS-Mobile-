@@ -74,7 +74,7 @@ const TimeLogs = () => {
         <View style={{ flexDirection: 'row' }}>
           <DaysRemaining
             total={8}
-            remaining={getHrsToday(timelogs.present)}
+            remaining={Math.floor(getHrsToday(timelogs.present))}
             title={'Today'}
             timelog={true}
           />
@@ -131,8 +131,9 @@ const TimeLogs = () => {
           </View>
         )
       )}
-      <View style={style.logheader}>
-        <Text style={style.title}>This Week</Text>
+      <View style={historyStyle.subcontainer}>
+        <Text style={historyStyle.header}>This Week</Text>
+        <View style={historyStyle.line}></View>
       </View>
 
       <View style={historyStyle.timelogcontainer}>
