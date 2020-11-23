@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { TimeLogContext } from '../../reducer';
 import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
@@ -24,7 +24,7 @@ const DeleteLog = ({
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { tasks, setTasks } = useContext(TaskContext);
-  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const { dispatchTimeLog } = useContext(TimeLogContext);
 
   const onTaskDelete = () => {
     if (tasks.length > 1) {

@@ -67,7 +67,10 @@ const LogTime = ({ route }: any) => {
       })
     : Yup.object().shape({
         log_date: Yup.date().nullable().required('Date is a required'),
-        duration: Yup.string().required('Time is required').label('duration'),
+        duration: Yup.string()
+          .required('Time is required')
+          .label('duration')
+          .min(2, 'Time duration should be greater than 0'),
         project_id: Yup.number()
           .required('Project is required')
           .label('project_id'),

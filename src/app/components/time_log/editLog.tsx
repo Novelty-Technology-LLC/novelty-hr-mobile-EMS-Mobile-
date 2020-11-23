@@ -22,7 +22,7 @@ const EditLogAlert = ({
   item: object;
   def?: { id: string; time: number; task: string };
 }) => {
-  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const { dispatchTimeLog } = useContext(TimeLogContext);
   const [time, setTime] = useState(def ? def.time : 60);
   const [note, setNote] = useState(def ? def.task : '');
   const [error, setError] = useState(false);
@@ -50,9 +50,11 @@ const EditLogAlert = ({
         project_id: item.project_id,
         user_id: item.user_id,
       };
+
       setShowAlert(false);
       editTimeLog(item.id, values)
         .then((data) => {
+          snackBarMessage(`Task ${def ? 'updated' : 'added'}`);
           dispatchTimeLog({
             type: 'EDIT',
             payload: {
@@ -62,7 +64,7 @@ const EditLogAlert = ({
           });
           setTasks(task);
           setNote('');
-          snackBarMessage(`Task ${def ? 'updated' : 'added'}`);
+          setTouched(false);
         })
         .catch((err) => console.log(err));
     } else {
@@ -87,6 +89,11 @@ const EditLogAlert = ({
       contentStyle={deleteAlertStyle.dialogContainer}
     >
       <Time handleChange={setTime} defaultValue={def && def.time} edit={true} />
+      {time < 15 && (
+        <Text style={deleteAlertStyle.error}>
+          Time duration should be greater than 0
+        </Text>
+      )}
 
       <Description
         handleChange={(data) => {
@@ -114,7 +121,7 @@ const EditLogAlert = ({
         <Dialog.Button
           label={def ? 'UPDATE' : 'ADD'}
           onPress={() => {
-            if (!error) {
+            if (!error && time > 0) {
               onSubmit({ task: note, time });
             } else {
               setTouched(true);

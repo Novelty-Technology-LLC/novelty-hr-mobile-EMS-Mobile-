@@ -12,7 +12,7 @@ export const getHrs = (time) => {
   if (mins < 10) {
     mins = '0' + mins;
   }
-  return hr + 'h' + mins + "'";
+  return hr + 'h' + mins + 'm';
 };
 
 export const getHrsMins = (time) => {
