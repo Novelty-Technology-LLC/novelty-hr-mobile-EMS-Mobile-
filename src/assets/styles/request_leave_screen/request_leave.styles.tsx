@@ -41,7 +41,7 @@ const requestLeave = StyleSheet.create({
   logButtonView: {
     ...Platform.select({
       android: {
-        marginBottom: normalize(90),
+        marginBottom: normalize(30),
       },
       ios: {
         marginBottom: normalize(0),

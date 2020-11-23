@@ -1,10 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-
 import Textarea from 'react-native-textarea';
-
 import { descriptionStyle as style } from '../../../assets/styles';
-import { editTimeLog } from '../../services/timeLogService';
 
 const Description = ({
   handleChange,
@@ -25,7 +22,7 @@ const Description = ({
     <View>
       <View style={style.main}>
         <Text style={style.text}>
-          {timelog ? 'Task in brief *' : 'Write a note *'}
+          {timelog ? 'Task summary' : 'Write a note *'}
         </Text>
         <Textarea
           containerStyle={
@@ -36,7 +33,7 @@ const Description = ({
           defaultValue={defaultValue}
           placeholder={
             timelog
-              ? 'Write a short brief about the task..'
+              ? 'Write a short summary about the task..'
               : 'Write a short note for your leave..'
           }
           placeholderTextColor={'#c7c7c7'}

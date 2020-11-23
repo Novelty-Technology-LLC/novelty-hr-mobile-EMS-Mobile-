@@ -3,8 +3,12 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
+import { TimeLogContext } from '../../reducer';
+import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
+import { isThisWeek, totalHours } from '../../utils';
+import { navigate } from '../../utils/navigation';
 import TaskContext from './taskContext';
 
 const DeleteLog = ({
@@ -20,9 +24,41 @@ const DeleteLog = ({
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { tasks, setTasks } = useContext(TaskContext);
+  const { dispatchTimeLog } = useContext(TimeLogContext);
 
   const onTaskDelete = () => {
-    setTasks(tasks.filter((val) => val.id !== item.id));
+    if (tasks.length > 1) {
+      let task = tasks.filter((val) => val.id !== item.id);
+      let values = {
+        duration: totalHours({ note: task }),
+        log_date: value.log_date,
+        note: task,
+        project_id: value.project_id,
+        user_id: value.user_id,
+      };
+      setShowAlert(false);
+      editTimeLog(value.id, values)
+        .then((data) => {
+          dispatchTimeLog({
+            type: 'EDIT',
+            payload: {
+              present: isThisWeek(data) ? data : null,
+              past: isThisWeek(data) ? null : data,
+            },
+          });
+          setTasks(task);
+          snackBarMessage(`Task deleted`);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      deleteTimeLog(value.id)
+        .then(() => {
+          navigate('timelog');
+          dispatchTimeLog({ type: 'DELETE', payload: value.id });
+          snackBarMessage('TimeLog deleted');
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (

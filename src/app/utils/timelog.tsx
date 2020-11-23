@@ -12,7 +12,7 @@ export const getHrs = (time) => {
   if (mins < 10) {
     mins = '0' + mins;
   }
-  return hr + 'h' + mins + "'";
+  return hr + 'h' + mins + 'm';
 };
 
 export const getHrsMins = (time) => {
@@ -22,19 +22,45 @@ export const getHrsMins = (time) => {
   return { hr, mins };
 };
 
-export const isPast = (item) => {
+const isPast = (item) => {
   return new Date().getDate() - new Date(item.log_date).getDate() >= 7;
 };
 
-export const getWeek = (date) => {
+const getWeek = (date) => {
   let onejan = new Date(new Date(date).getFullYear(), 0, 1);
   return Math.ceil(((date - onejan) / 86400000 + onejan.getDay() + 1) / 7);
 };
 
-export const isThisWeek = (item) => {
-  return getWeek(new Date(item.log_date)) === getWeek(new Date())
-    ? true
-    : false;
+export const totalHours = (item) => {
+  const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
+  return total;
+};
+
+export const totalWeekHours = (item) => {
+  const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
+  return total;
+};
+
+export const checkunder24Hrs = (duration) => {
+  return duration > 1440 ? false : true;
+};
+
+export const getDateWithOutTimeZone = (date) => {
+  return new Date(
+    date.getFullYear() +
+      '-' +
+      (parseInt(date.getMonth()) + 1) +
+      '-' +
+      `${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`
+  );
+};
+
+export const getHrsToday = (arr) => {
+  const today = arr.filter(
+    (item) =>
+      new Date(item.log_date).toDateString() === new Date().toDateString()
+  );
+  return Math.floor(totalWeekHours(today)) / 60;
 };
 
 function isEmpty(obj) {
@@ -65,24 +91,4 @@ export const logMapper = (logs) => {
     }
   });
   return data;
-};
-
-export const totalHours = (item) => {
-  const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
-  return total;
-};
-
-export const totalWeekHours = (item) => {
-  const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
-  return total;
-};
-
-export const getDateWithOutTimeZone = (date) => {
-  return new Date(
-    date.getFullYear() +
-      '-' +
-      (parseInt(date.getMonth()) + 1) +
-      '-' +
-      `${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`
-  );
 };

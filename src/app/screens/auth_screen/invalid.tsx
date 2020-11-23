@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { BackHandler, Text, TouchableOpacity, View } from 'react-native';
 import { loginStyle as style } from '../../../assets/styles';
-import { getCurrentRouteName } from '../../utils/navigation';
 import LoginWrapper from './loginWrapper';
 
 const Invalid = () => {

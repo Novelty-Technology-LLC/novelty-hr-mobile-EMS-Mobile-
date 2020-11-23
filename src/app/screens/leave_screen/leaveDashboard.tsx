@@ -20,12 +20,16 @@ import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
+import { useScrollToTop } from '@react-navigation/native';
 import { SetLocalNotification } from '../../utils/pushNotification';
+import { useNavigation } from '@react-navigation/native';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const ref = React.useRef(null);
+  const navigation = useNavigation();
 
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
@@ -84,12 +88,14 @@ const LeaveDashboard = ({ route }) => {
       getRequest();
 
       messaging().onNotificationOpenedApp((remoteMessage) => {
-        if (remoteMessage) {
+        if (remoteMessage && remoteMessage.data.type === null) {
           Linking.openURL(
             `noveltyhrmobile://leaveList/${JSON.parse(
               remoteMessage.data.leave_id
             )}`
           );
+        } else {
+          remoteMessage && navigation.navigate('Activity');
         }
       });
     };
@@ -112,12 +118,14 @@ const LeaveDashboard = ({ route }) => {
       messaging()
         .getInitialNotification()
         .then((remoteMessage) => {
-          if (remoteMessage) {
+          if (remoteMessage && remoteMessage.data.type === null) {
             Linking.openURL(
               `noveltyhrmobile://leaveList/${JSON.parse(
                 remoteMessage.data.leave_id
               )}`
             );
+          } else {
+            remoteMessage && navigation.navigate('Activity');
           }
         });
     };
@@ -154,6 +162,7 @@ const LeaveDashboard = ({ route }) => {
       store(data);
     }
   }
+  useScrollToTop(ref);
 
   return (
     <View style={style.mainContainer}>
@@ -161,6 +170,8 @@ const LeaveDashboard = ({ route }) => {
         <Text style={headerText}>Leave Application</Text>
       </Header>
       <ScrollView
+        showsVerticalScrollIndicator={false}
+        ref={ref}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
