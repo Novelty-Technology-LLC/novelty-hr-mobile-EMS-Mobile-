@@ -19,11 +19,13 @@ import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
+import { useScrollToTop } from '@react-navigation/native';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const ref = React.useRef(null);
 
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
@@ -144,6 +146,7 @@ const LeaveDashboard = ({ route }) => {
       store(data);
     }
   }
+  useScrollToTop(ref);
 
   return (
     <View style={style.mainContainer}>
@@ -151,6 +154,7 @@ const LeaveDashboard = ({ route }) => {
         <Text style={headerText}>Leave Application</Text>
       </Header>
       <ScrollView
+        ref={ref}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
