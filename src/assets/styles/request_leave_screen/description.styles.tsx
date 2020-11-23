@@ -12,12 +12,12 @@ const descriptionStyle = StyleSheet.create({
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
-    height: deviceHeight * 0.2,
+    height: deviceHeight * 0.18,
     marginVertical: normalize(10),
   },
   modalPickerContainer: {
     marginHorizontal: normalize(20),
-    height: deviceHeight * 0.2,
+    height: deviceHeight * 0.17,
     marginVertical: normalize(10),
   },
   alertmain: {
