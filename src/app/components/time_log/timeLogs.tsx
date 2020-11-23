@@ -1,3 +1,4 @@
+import { useScrollToTop } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -17,6 +18,7 @@ const TimeLogs = () => {
   const [date, setDate] = useState('');
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [logs, setLogs] = useState([]);
+  const ref = React.useRef(null);
 
   const getTimeLogs = async () => {
     setLoading(true);
@@ -58,8 +60,11 @@ const TimeLogs = () => {
   let row: Array<any> = [];
   let row2: Array<any> = [];
 
+  useScrollToTop(ref);
+
   return (
     <ScrollView
+      ref={ref}
       style={style.container}
       refreshControl={
         <RefreshControl

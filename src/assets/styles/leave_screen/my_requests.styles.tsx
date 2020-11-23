@@ -6,7 +6,7 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    marginHorizontal: normalize(15),
+    paddingHorizontal: normalize(15),
   },
   header: {
     flexDirection: 'row',

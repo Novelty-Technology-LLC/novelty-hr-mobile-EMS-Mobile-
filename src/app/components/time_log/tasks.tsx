@@ -12,7 +12,7 @@ import TaskContext from './taskContext';
 
 const Tasks = ({ value, handleChange }: any) => {
   const [showAlert, setShowAlert] = useState(false);
-  const { tasks, setTasks } = useContext(TaskContext);
+  const { tasks } = useContext(TaskContext);
   let row: Array<any> = [];
 
   return (
