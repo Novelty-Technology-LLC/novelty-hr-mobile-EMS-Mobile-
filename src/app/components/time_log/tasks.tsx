@@ -12,6 +12,7 @@ import TaskContext from './taskContext';
 
 const Tasks = ({ value, handleChange }: any) => {
   const [showAlert, setShowAlert] = useState(false);
+  const [taskItem, setTaskItem] = useState(null);
   const { tasks } = useContext(TaskContext);
   let row: Array<any> = [];
 
@@ -37,7 +38,14 @@ const Tasks = ({ value, handleChange }: any) => {
             />
           )}
         >
-          <Task item={item} />
+          <TouchableOpacity
+            onPress={() => {
+              setTaskItem(item);
+              setShowAlert(true);
+            }}
+          >
+            <Task item={item} />
+          </TouchableOpacity>
         </Swipeable>
       ))}
 
@@ -52,6 +60,7 @@ const Tasks = ({ value, handleChange }: any) => {
       <EditLogAlert
         showAlert={showAlert}
         setShowAlert={setShowAlert}
+        def={taskItem}
         item={value}
       />
     </View>

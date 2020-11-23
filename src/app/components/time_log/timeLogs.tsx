@@ -64,6 +64,7 @@ const TimeLogs = () => {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       ref={ref}
       style={style.container}
       refreshControl={

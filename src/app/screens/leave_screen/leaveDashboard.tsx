@@ -164,6 +164,7 @@ const LeaveDashboard = ({ route }) => {
         <Text style={headerText}>Leave Application</Text>
       </Header>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         ref={ref}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

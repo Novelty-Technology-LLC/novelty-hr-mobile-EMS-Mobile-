@@ -1,7 +1,8 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Dimensions } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
+const deviceHeight = Dimensions.get('window').height;
 
 const descriptionStyle = StyleSheet.create({
   main: {
@@ -11,12 +12,12 @@ const descriptionStyle = StyleSheet.create({
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
-    height: '15%',
+    height: deviceHeight * 0.2,
     marginVertical: normalize(10),
   },
   modalPickerContainer: {
     marginHorizontal: normalize(20),
-    height: '31%',
+    height: deviceHeight * 0.2,
     marginVertical: normalize(10),
   },
   alertmain: {
