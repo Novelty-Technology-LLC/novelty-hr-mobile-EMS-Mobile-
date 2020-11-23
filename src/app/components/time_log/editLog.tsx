@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Keyboard, Text, View } from 'react-native';
 import Dialog from 'react-native-dialog';
 import { deleteAlertStyle } from '../../../assets/styles';
 import { Description } from '../request_screen';
 import Time from './time';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from './taskContext';
+import { checkunder24Hrs, totalHours } from '../../utils';
+import { snackErrorBottom } from '../../common';
 
 const EditLogAlert = ({
   showAlert,
   setShowAlert,
-  item,
   def,
 }: {
   showAlert: boolean;
@@ -36,9 +37,17 @@ const EditLogAlert = ({
     } else {
       task = [].concat(values, ...tasks);
     }
-    setTasks(task);
-    setShowAlert(false);
-    setNote('');
+    if (checkunder24Hrs(totalHours({ note: task }))) {
+      setTasks(task);
+      setShowAlert(false);
+      setNote('');
+    } else {
+      Keyboard.dismiss();
+      setTouched(false);
+      snackErrorBottom({
+        message: 'You cannot log more than 24hrs a day ',
+      });
+    }
   };
 
   useEffect(() => {
@@ -73,6 +82,7 @@ const EditLogAlert = ({
         <Dialog.Button
           label="CANCEL"
           onPress={() => {
+            setNote('');
             setTouched(false);
             setShowAlert(false);
           }}

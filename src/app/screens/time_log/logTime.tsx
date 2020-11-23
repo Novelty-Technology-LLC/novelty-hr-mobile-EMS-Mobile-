@@ -1,7 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, Platform, ActivityIndicator } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  View,
+  Text,
+  Platform,
+  ActivityIndicator,
+  Keyboard,
+} from 'react-native';
 import { headerText, requestLeave } from '../../../assets/styles';
-import { header as Header, snackBarMessage } from '../../common';
+import {
+  header as Header,
+  snackBarMessage,
+  snackErrorBottom,
+} from '../../common';
 import { Description } from '../../components/request_screen';
 import { Calendar, Tasks } from '../../components/time_log';
 import Time from '../../components/time_log/time';
@@ -10,12 +20,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import {
-  getDateWithOutTimeZone,
-  getUser,
-  isThisWeek,
-  totalHours,
-} from '../../utils';
+import { checkunder24Hrs, getUser, isThisWeek, totalHours } from '../../utils';
 import { editTimeLog, postTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
@@ -109,22 +114,32 @@ const LogTime = ({ route }: any) => {
         );
 
       if (pastData.length > 0) {
-        pastData[0].note = [].concat(note, ...pastData[0].note);
-        pastData[0].duration = totalHours(pastData[0]);
-        editTimeLog(pastData[0].id, pastData[0])
-          .then((data) => {
-            dispatchTimeLog({
-              type: 'EDIT',
-              payload: {
-                present: isThisWeek(data) ? data : null,
-                past: isThisWeek(data) ? null : data,
-              },
-            });
-            navigation.navigate('timelog');
-            setIsLoading(false);
-            snackBarMessage('TimeLog updated');
-          })
-          .catch((err) => console.log(err));
+        if (
+          checkunder24Hrs(parseInt(pastData[0].duration) + parseInt(note.time))
+        ) {
+          pastData[0].note = [].concat(note, ...pastData[0].note);
+          pastData[0].duration = totalHours(pastData[0]);
+          editTimeLog(pastData[0].id, pastData[0])
+            .then((data) => {
+              dispatchTimeLog({
+                type: 'EDIT',
+                payload: {
+                  present: isThisWeek(data) ? data : null,
+                  past: isThisWeek(data) ? null : data,
+                },
+              });
+              navigation.navigate('timelog');
+              setIsLoading(false);
+              snackBarMessage('TimeLog updated');
+            })
+            .catch((err) => console.log(err));
+        } else {
+          Keyboard.dismiss();
+          setIsLoading(false);
+          snackErrorBottom({
+            message: 'You cannot log more than 24hrs a day ',
+          });
+        }
       } else {
         values.note = [note];
         postTimeLog(values)

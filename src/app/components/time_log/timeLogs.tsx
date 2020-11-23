@@ -5,7 +5,6 @@ import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
 import { getHrsToday, getUser, isThisWeek, totalWeekHours } from '../../utils';
-import { momentdate } from '../../utils/momentDate';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';

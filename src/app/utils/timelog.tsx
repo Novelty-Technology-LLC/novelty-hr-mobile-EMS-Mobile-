@@ -41,6 +41,10 @@ export const totalWeekHours = (item) => {
   return total;
 };
 
+export const checkunder24Hrs = (duration) => {
+  return duration > 1440 ? false : true;
+};
+
 export const getDateWithOutTimeZone = (date) => {
   return new Date(
     date.getFullYear() +
