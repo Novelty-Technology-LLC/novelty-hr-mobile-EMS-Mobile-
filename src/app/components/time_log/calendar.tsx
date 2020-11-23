@@ -53,7 +53,7 @@ const Calendar = ({
           borderHighlightColor: 'white',
         }}
         style={style.main}
-        numDaysInWeek={6}
+        numDaysInWeek={7}
         calendarHeaderStyle={style.header}
         calendarColor={colors.white}
         dateNumberStyle={style.number}
