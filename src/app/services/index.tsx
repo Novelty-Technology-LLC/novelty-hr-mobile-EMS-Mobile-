@@ -5,4 +5,4 @@ export * from './leaveService';
 export * from './leaveApproveService';
 export * from './teamLeadService';
 export * from './cosmicService';
-export * from './deeplinkget';
+export * from './deeplinkService';
