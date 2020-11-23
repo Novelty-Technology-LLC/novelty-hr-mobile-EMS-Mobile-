@@ -6,12 +6,15 @@ import { Description } from '../request_screen';
 import Time from './time';
 import UUIDGenerator from 'react-native-uuid-generator';
 import TaskContext from './taskContext';
-import { checkunder24Hrs, totalHours } from '../../utils';
-import { snackErrorBottom } from '../../common';
+import { checkunder24Hrs, isThisWeek, totalHours } from '../../utils';
+import { snackBarMessage, snackErrorBottom } from '../../common';
+import { editTimeLog } from '../../services/timeLogService';
+import { TimeLogContext } from '../../reducer';
 
 const EditLogAlert = ({
   showAlert,
   setShowAlert,
+  item,
   def,
 }: {
   showAlert: boolean;
@@ -19,6 +22,7 @@ const EditLogAlert = ({
   item: object;
   def?: { id: string; time: number; task: string };
 }) => {
+  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [time, setTime] = useState(def ? def.time : 60);
   const [note, setNote] = useState(def ? def.task : '');
   const [error, setError] = useState(false);
@@ -38,11 +42,30 @@ const EditLogAlert = ({
       task = [].concat(values, ...tasks);
     }
     if (checkunder24Hrs(totalHours({ note: task }))) {
-      setTasks(task);
-      setShowAlert(false);
-      setNote('');
-    } else {
       Keyboard.dismiss();
+      let values = {
+        duration: totalHours({ note: task }),
+        log_date: item.log_date,
+        note: task,
+        project_id: item.project_id,
+        user_id: item.user_id,
+      };
+      setShowAlert(false);
+      editTimeLog(item.id, values)
+        .then((data) => {
+          dispatchTimeLog({
+            type: 'EDIT',
+            payload: {
+              present: isThisWeek(data) ? data : null,
+              past: isThisWeek(data) ? null : data,
+            },
+          });
+          setTasks(task);
+          setNote('');
+          snackBarMessage(`Task ${def ? 'updated' : 'added'}`);
+        })
+        .catch((err) => console.log(err));
+    } else {
       setTouched(false);
       snackErrorBottom({
         message: 'You cannot log more than 24hrs a day ',

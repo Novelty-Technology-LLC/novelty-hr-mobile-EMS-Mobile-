@@ -100,6 +100,7 @@ const TimeLogs = () => {
               )
           );
         }}
+        refreshing={refreshing}
       />
 
       {loading ? (

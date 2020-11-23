@@ -59,14 +59,14 @@ const LogTime = ({ route }: any) => {
 
   const validationSchema = olddata
     ? Yup.object().shape({
-        log_date: Yup.date().nullable().required('Date is a required field'),
+        log_date: Yup.date().nullable().required('Date is a required'),
         duration: Yup.string().required('Time is required').label('duration'),
         project_id: Yup.number()
           .required('Project is required')
           .label('project_id'),
       })
     : Yup.object().shape({
-        log_date: Yup.date().nullable().required('Date is a required field'),
+        log_date: Yup.date().nullable().required('Date is a required'),
         duration: Yup.string().required('Time is required').label('duration'),
         project_id: Yup.number()
           .required('Project is required')
@@ -79,84 +79,64 @@ const LogTime = ({ route }: any) => {
     setIsLoading(true);
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
-    if (olddata) {
-      values.note = tasks;
-      values.duration = totalHours({ note: tasks });
+    const uuid = await UUIDGenerator.getRandomUUID();
+    const note = {
+      id: uuid,
+      task: values.note,
+      time: values.duration,
+    };
+    const pastData = timelogs.present
+      .concat(timelogs.past)
+      .filter(
+        (log) =>
+          momentdate(log.log_date, 'll') ===
+            momentdate(values.log_date, 'll') &&
+          log.project_id == values.project_id
+      );
 
-      editTimeLog(olddata.id, values)
-        .then((data) => {
-          dispatchTimeLog({
-            type: 'EDIT',
-            payload: {
-              present: isThisWeek(data) ? data : null,
-              past: isThisWeek(data) ? null : data,
-            },
-          });
-          navigation.navigate('timelog');
-          setIsLoading(false);
-          snackBarMessage('TimeLog updated');
-        })
-        .catch((err) => console.log(err));
-    } else {
-      const uuid = await UUIDGenerator.getRandomUUID();
-      const note = {
-        id: uuid,
-        task: values.note,
-        time: values.duration,
-      };
-      const pastData = timelogs.present
-        .concat(timelogs.past)
-        .filter(
-          (log) =>
-            momentdate(log.log_date, 'll') ===
-              momentdate(values.log_date, 'll') &&
-            log.project_id == values.project_id
-        );
-
-      if (pastData.length > 0) {
-        if (
-          checkunder24Hrs(parseInt(pastData[0].duration) + parseInt(note.time))
-        ) {
-          pastData[0].note = [].concat(note, ...pastData[0].note);
-          pastData[0].duration = totalHours(pastData[0]);
-          editTimeLog(pastData[0].id, pastData[0])
-            .then((data) => {
-              dispatchTimeLog({
-                type: 'EDIT',
-                payload: {
-                  present: isThisWeek(data) ? data : null,
-                  past: isThisWeek(data) ? null : data,
-                },
-              });
-              navigation.navigate('timelog');
-              setIsLoading(false);
-              snackBarMessage('TimeLog updated');
-            })
-            .catch((err) => console.log(err));
-        } else {
-          Keyboard.dismiss();
-          setIsLoading(false);
-          snackErrorBottom({
-            message: 'You cannot log more than 24hrs a day ',
-          });
-        }
-      } else {
-        values.note = [note];
-        postTimeLog(values)
+    if (pastData.length > 0) {
+      if (
+        checkunder24Hrs(parseInt(pastData[0].duration) + parseInt(note.time))
+      ) {
+        pastData[0].note = [].concat(note, ...pastData[0].note);
+        pastData[0].duration = totalHours(pastData[0]);
+        editTimeLog(pastData[0].id, pastData[0])
           .then((data) => {
             dispatchTimeLog({
-              type: 'ADD',
+              type: 'EDIT',
               payload: {
                 present: isThisWeek(data) ? data : null,
                 past: isThisWeek(data) ? null : data,
               },
             });
-            setIsLoading(false);
             navigation.navigate('timelog');
-            snackBarMessage('Time logged');
+            setIsLoading(false);
+            snackBarMessage('TimeLog updated');
           })
           .catch((err) => console.log(err));
+      } else {
+        Keyboard.dismiss();
+        setIsLoading(false);
+        snackErrorBottom({
+          message: 'You cannot log more than 24hrs a day ',
+        });
       }
+    } else {
+      values.note = [note];
+      postTimeLog(values)
+        .then((data) => {
+          dispatchTimeLog({
+            type: 'ADD',
+            payload: {
+              present: isThisWeek(data) ? data : null,
+              past: isThisWeek(data) ? null : data,
+            },
+          });
+          setIsLoading(false);
+          navigation.navigate('timelog');
+          snackBarMessage('Time logged');
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -215,21 +195,23 @@ const LogTime = ({ route }: any) => {
                   touched={touched}
                 />
               )}
-              <Button onPress={() => !isLoading && handleSubmit()}>
-                <View
-                  style={[
-                    requestLeave.buttonView,
-                    olddata
-                      ? requestLeave.editLogButtonView
-                      : requestLeave.logButtonView,
-                  ]}
-                >
-                  <Text style={requestLeave.buttonText}>Submit</Text>
-                  {isLoading && (
-                    <ActivityIndicator size={30} color={colors.white} />
-                  )}
-                </View>
-              </Button>
+              {!olddata && (
+                <Button onPress={() => !isLoading && handleSubmit()}>
+                  <View
+                    style={[
+                      requestLeave.buttonView,
+                      olddata
+                        ? requestLeave.editLogButtonView
+                        : requestLeave.logButtonView,
+                    ]}
+                  >
+                    <Text style={requestLeave.buttonText}>Submit</Text>
+                    {isLoading && (
+                      <ActivityIndicator size={30} color={colors.white} />
+                    )}
+                  </View>
+                </Button>
+              )}
             </>
           )}
         </Formik>

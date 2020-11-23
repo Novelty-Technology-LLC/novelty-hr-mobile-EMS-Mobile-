@@ -10,7 +10,13 @@ import Day from './day';
 import { getDateWithOutTimeZone } from '../../utils';
 import { momentdate } from '../../utils/momentDate';
 
-const DaySelect = ({ handleChange }: { handleChange: Function }) => {
+const DaySelect = ({
+  handleChange,
+  refreshing,
+}: {
+  handleChange: Function;
+  refreshing: Boolean;
+}) => {
   const [visible, setVisible] = useState(false);
   const today = getDateWithOutTimeZone(new Date());
   const [date, setDate] = useState(today);
@@ -24,8 +30,10 @@ const DaySelect = ({ handleChange }: { handleChange: Function }) => {
   };
 
   useEffect(() => {
+    setDate(today);
     handleChange(today);
-  }, []);
+    setIndex(2);
+  }, [refreshing]);
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>

@@ -21,9 +21,10 @@ const Time = ({
   defaultValue?: string;
   edit?: boolean;
 }) => {
-  const [hrIndex, setHrIndex] = useState(0);
+  const [hrIndex, setHrIndex] = useState(1);
   const [minIndex, setMinIndex] = useState(0);
   const hrdata = [
+    '0 hr',
     '1 hr',
     '2 hrs',
     '3 hrs',
@@ -43,7 +44,7 @@ const Time = ({
   useEffect(() => {
     if (defaultValue) {
       const time = getHrsMins(defaultValue);
-      setHrIndex(time.hr - 1);
+      setHrIndex(time.hr);
       setMinIndex(time.mins / 15);
     } else {
       error ? handleChange('duration')('60') : handleChange('60');
@@ -92,9 +93,6 @@ const Time = ({
           selectedItemTextSize={24}
         />
       </View>
-      {/* {error && touched && error.duration && touched.duration && (
-        <Text style={style.error}>{error.duration}</Text>
-      )} */}
     </View>
   );
 };
