@@ -22,12 +22,14 @@ import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
 import { useScrollToTop } from '@react-navigation/native';
 import { SetLocalNotification } from '../../utils/pushNotification';
+import { useNavigation } from '@react-navigation/native';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const ref = React.useRef(null);
+  const navigation = useNavigation();
 
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
@@ -86,12 +88,14 @@ const LeaveDashboard = ({ route }) => {
       getRequest();
 
       messaging().onNotificationOpenedApp((remoteMessage) => {
-        if (remoteMessage) {
+        if (remoteMessage && remoteMessage.data.type === null) {
           Linking.openURL(
             `noveltyhrmobile://leaveList/${JSON.parse(
               remoteMessage.data.leave_id
             )}`
           );
+        } else {
+          navigation.navigate('Activity');
         }
       });
     };
@@ -114,12 +118,14 @@ const LeaveDashboard = ({ route }) => {
       messaging()
         .getInitialNotification()
         .then((remoteMessage) => {
-          if (remoteMessage) {
+          if (remoteMessage && remoteMessage.data.type === null) {
             Linking.openURL(
               `noveltyhrmobile://leaveList/${JSON.parse(
                 remoteMessage.data.leave_id
               )}`
             );
+          } else {
+            navigation.navigate('Activity');
           }
         });
     };
@@ -151,7 +157,7 @@ const LeaveDashboard = ({ route }) => {
       uuid: user,
       notification_token: token,
     };
-
+    return;
     if (enabled && notifcation_token !== token) {
       store(data);
     }
