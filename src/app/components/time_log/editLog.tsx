@@ -41,8 +41,8 @@ const EditLogAlert = ({
     } else {
       task = [].concat(values, ...tasks);
     }
+    Keyboard.dismiss();
     if (checkunder24Hrs(totalHours({ note: task }))) {
-      Keyboard.dismiss();
       let values = {
         duration: totalHours({ note: task }),
         log_date: item.log_date,
@@ -74,6 +74,13 @@ const EditLogAlert = ({
       });
     }
   };
+
+  useEffect(() => {
+    if (def) {
+      setNote(def.task);
+      setTime(def.time);
+    }
+  }, [def]);
 
   useEffect(() => {
     if (note === '') {
