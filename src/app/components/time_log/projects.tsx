@@ -12,6 +12,7 @@ import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
 import { AppIcon } from '../../common';
 import { momentdate } from '../../utils/momentDate';
+import { getUser } from '../../utils';
 
 const Projects = ({
   handleChange,
@@ -30,9 +31,10 @@ const Projects = ({
   const [loading, setLoading] = useState(false);
   const [showmore, setShowmore] = useState('chevron-down-circle');
   const [allprojects, setAllprojects] = useState([]);
-  const getPojects = () => {
+  const getPojects = async () => {
+    const user = await getUser();
     setLoading(true);
-    getAllProjects()
+    getAllProjects(JSON.parse(user).id)
       .then((data) => {
         setLoading(false);
         setAllprojects(data);

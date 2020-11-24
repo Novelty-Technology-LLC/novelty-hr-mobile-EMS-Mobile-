@@ -10,3 +10,5 @@ export * from './admin';
 export * from './comingSoon';
 export * from './alert';
 export * from './overlay';
+export * from './smallHeader';
+export * from './emptyContainer';

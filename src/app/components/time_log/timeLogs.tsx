@@ -1,6 +1,6 @@
 import { useScrollToTop } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
+import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
@@ -10,6 +10,7 @@ import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
 import { DaySelect } from './daySelect';
+import { EmptyContainer, SmallHeader } from '../../common';
 import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
@@ -93,6 +94,8 @@ const TimeLogs = () => {
         </View>
       )}
 
+      <SmallHeader text={'View'} />
+
       <DaySelect
         handleChange={(date) => {
           setDate(date);
@@ -131,16 +134,9 @@ const TimeLogs = () => {
           keyExtractor={(item) => item.id}
         />
       ) : (
-        !loading && (
-          <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>You don't have logs this day.</Text>
-          </View>
-        )
+        !loading && <EmptyContainer text="You don't have logs this day." />
       )}
-      <View style={historyStyle.subcontainer}>
-        <Text style={historyStyle.header}>This Week</Text>
-        <View style={historyStyle.line}></View>
-      </View>
+      <SmallHeader text="This Week" />
 
       <View style={historyStyle.timelogcontainer}>
         {loading ? (
@@ -153,9 +149,7 @@ const TimeLogs = () => {
           />
         ) : (
           !timelogs.present[0] && (
-            <View style={style.emptyContainer}>
-              <Text style={style.emptyText}>You don't have past logs.</Text>
-            </View>
+            <EmptyContainer text="You don't have past logs." />
           )
         )}
       </View>
