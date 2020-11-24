@@ -127,7 +127,7 @@ const EditLogAlert = ({
             setNote('');
             setTouched(false);
             setShowAlert(false);
-            onCancel();
+            onCancel && onCancel();
           }}
           style={deleteAlertStyle.cancel}
         />
@@ -136,7 +136,7 @@ const EditLogAlert = ({
           onPress={() => {
             if (!error && time > 0) {
               onSubmit({ task: note, time });
-              onCancel();
+              onCancel && onCancel();
             } else {
               setTouched(true);
             }
