@@ -121,7 +121,7 @@ const LogTime = ({ route }: any) => {
         Keyboard.dismiss();
         setIsLoading(false);
         snackErrorBottom({
-          message: 'You cannot log more than 24hrs a day ',
+          message: 'You cannot log more than 24 hours a day ',
         });
       }
     } else {
