@@ -5,12 +5,10 @@ import {
   leaveType as style,
   myRequestsStyle,
 } from '../../../assets/styles';
-import color from '../../../assets/colors';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getAllProjects } from '../../services/projectService';
 import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
-import { AppIcon } from '../../common';
+import { AppIcon, SelectButton } from '../../common';
 import { momentdate } from '../../utils/momentDate';
 import { getUser } from '../../utils';
 
@@ -111,33 +109,10 @@ const Projects = ({
                       }}
                       style={style.projectbutton}
                     >
-                      <View
-                        style={
-                          type === project.id
-                            ? style.paidView
-                            : style.floatingView
-                        }
-                      >
-                        {type === project.id && (
-                          <View style={style.timelogicon}>
-                            <Icon
-                              name="check-circle"
-                              color={color.primary}
-                              size={17}
-                              style={{ marginRight: 3 }}
-                            />
-                          </View>
-                        )}
-                        <Text
-                          style={
-                            type === project.id
-                              ? style.buttonTextPaid
-                              : style.buttonTextFloat
-                          }
-                        >
-                          {project.name}
-                        </Text>
-                      </View>
+                      <SelectButton
+                        text={project.name}
+                        active={type === project.id}
+                      />
                     </TouchableOpacity>
                     {index % 3 !== 2 && <View style={style.spacer}></View>}
                   </>
