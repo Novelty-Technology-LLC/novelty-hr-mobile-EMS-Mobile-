@@ -16,11 +16,13 @@ const EditLogAlert = ({
   setShowAlert,
   item,
   def,
+  onCancel,
 }: {
   showAlert: boolean;
   setShowAlert: Function;
   item: object;
   def?: { id: string; time: number; task: string };
+  onCancel?: Function;
 }) => {
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const [time, setTime] = useState(def ? def.time : 60);
@@ -41,8 +43,8 @@ const EditLogAlert = ({
     } else {
       task = [].concat(values, ...tasks);
     }
+    Keyboard.dismiss();
     if (checkunder24Hrs(totalHours({ note: task }))) {
-      Keyboard.dismiss();
       let values = {
         duration: totalHours({ note: task }),
         log_date: item.log_date,
@@ -70,10 +72,20 @@ const EditLogAlert = ({
     } else {
       setTouched(false);
       snackErrorBottom({
-        message: 'You cannot log more than 24hrs a day ',
+        message: 'You cannot log more than 24 hours a day ',
       });
     }
   };
+
+  useEffect(() => {
+    if (def) {
+      setNote(def.task);
+      setTime(def.time);
+    } else {
+      setNote('');
+      setTime(0);
+    }
+  }, [def]);
 
   useEffect(() => {
     if (note === '') {
@@ -105,7 +117,7 @@ const EditLogAlert = ({
         defaultValue={def && def.task}
       />
       {error && touched && (
-        <Text style={deleteAlertStyle.error}>task description is required</Text>
+        <Text style={deleteAlertStyle.error}>Task summary is required</Text>
       )}
 
       <View style={deleteAlertStyle.buttons}>
@@ -115,6 +127,7 @@ const EditLogAlert = ({
             setNote('');
             setTouched(false);
             setShowAlert(false);
+            onCancel && onCancel();
           }}
           style={deleteAlertStyle.cancel}
         />
@@ -123,6 +136,7 @@ const EditLogAlert = ({
           onPress={() => {
             if (!error && time > 0) {
               onSubmit({ task: note, time });
+              onCancel && onCancel();
             } else {
               setTouched(true);
             }

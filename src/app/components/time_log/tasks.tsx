@@ -60,6 +60,7 @@ const Tasks = ({ value, handleChange }: any) => {
       <EditLogAlert
         showAlert={showAlert}
         setShowAlert={setShowAlert}
+        onCancel={() => setTaskItem(null)}
         def={taskItem}
         item={value}
       />
