@@ -91,7 +91,7 @@ const descriptionStyle = StyleSheet.create({
     textAlignVertical: 'top',
   },
   error: { paddingVertical: normalize(10), color: color.red },
-  time: { paddingHorizontal: normalize(20) },
+  time: { paddingHorizontal: normalize(15) },
   dark: {},
 });
 

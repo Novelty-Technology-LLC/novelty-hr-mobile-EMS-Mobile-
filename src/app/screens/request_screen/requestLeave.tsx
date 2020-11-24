@@ -38,7 +38,7 @@ const validationSchema = Yup.object().shape({
     })
     .required('Date is a required'),
   type: Yup.string().required().label('type'),
-  note: Yup.string().required('Note is a required').label('note'),
+  note: Yup.string().required('Leave note is a required').label('note'),
   lead: Yup.array().of(Yup.number()).label('lead'),
   status: Yup.string().label('status'),
 });

@@ -117,7 +117,7 @@ const EditLogAlert = ({
         defaultValue={def && def.task}
       />
       {error && touched && (
-        <Text style={deleteAlertStyle.error}>task description is required</Text>
+        <Text style={deleteAlertStyle.error}>Task description is required</Text>
       )}
 
       <View style={deleteAlertStyle.buttons}>
@@ -136,6 +136,7 @@ const EditLogAlert = ({
           onPress={() => {
             if (!error && time > 0) {
               onSubmit({ task: note, time });
+              onCancel();
             } else {
               setTouched(true);
             }
