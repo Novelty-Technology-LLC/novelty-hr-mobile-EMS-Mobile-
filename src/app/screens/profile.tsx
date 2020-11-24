@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import { headerText } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
@@ -7,12 +7,35 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
+import ImagePicker from 'react-native-image-picker';
+import { formatPhoneNumber } from '../utils';
+
+const options = {
+  title: 'Pick a image',
+  base64: true,
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 const Profile = () => {
   const { state } = useContext(AuthContext);
 
+  const [image, setimage] = useState(null);
+
   const uploadImage = () => {
-    console.log('pressed');
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+      } else if (response.error) {
+      } else if (response.customButton) {
+      } else {
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        setimage(response.uri);
+      }
+    });
   };
 
   return (
@@ -28,7 +51,7 @@ const Profile = () => {
           <Image
             style={style.image}
             source={{
-              uri: state.user.image_url,
+              uri: image || state.user.image_url,
             }}
           />
 
@@ -66,8 +89,10 @@ const Profile = () => {
               <Text style={style.text}>{state.user.email}</Text>
             </View>
             <View style={style.icon}>
-              <Icon name="cellphone-basic" color={colors.primary} size={30} />
-              <Text style={style.text}>{state.user.phone}</Text>
+              <Icon name="phone" color={colors.primary} size={30} />
+              <Text style={style.text}>
+                {formatPhoneNumber(state.user.phone)}
+              </Text>
             </View>
           </View>
         </View>

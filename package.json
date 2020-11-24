@@ -39,6 +39,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-local-notification": "^3.0.12",
     "react-native-normalize": "^1.0.1",
+    "react-native-permissions": "^3.0.0-beta.2",
     "react-native-push-notification": "^6.1.2",
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.7",

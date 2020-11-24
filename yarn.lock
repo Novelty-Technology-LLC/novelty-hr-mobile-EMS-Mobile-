@@ -6866,6 +6866,11 @@ react-native-normalize@^1.0.1:
   resolved "https://registry.yarnpkg.com/react-native-normalize/-/react-native-normalize-1.0.1.tgz#52de71d1b86dd357c6f40fd4ab84b10336f0f072"
   integrity sha512-QYs95xhARhlcWWcDC77r4nVfxa3pDSfIBx2gdYZ+DOcLhSdPzRHFivWbGu3mL01JcvE69pMK7BmbPCda28vXwA==
 
+react-native-permissions@^3.0.0-beta.2:
+  version "3.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.0.0-beta.2.tgz#b315c018dade7694f7f3ef9880d7ffcbc3a58ff7"
+  integrity sha512-O2hP2vqarT1QHQq0pcXEevHtbOQ92nAqqTYFuEkgGNb2u6wYAOLNhhuuPb7DKqk1pXdUeU9Ihd2LGn82jFqOWg==
+
 react-native-push-notification@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-6.1.2.tgz#b1d0aecdfbabd0e46106bcf0b249f07d7ab5db63"

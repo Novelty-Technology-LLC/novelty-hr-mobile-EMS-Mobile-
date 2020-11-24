@@ -8,3 +8,4 @@ export * from './dateMapper';
 export * from './constants';
 export * from './timelog';
 export * from './momentDate';
+export * from './phone';
