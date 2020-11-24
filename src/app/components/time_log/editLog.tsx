@@ -16,11 +16,13 @@ const EditLogAlert = ({
   setShowAlert,
   item,
   def,
+  onCancel,
 }: {
   showAlert: boolean;
   setShowAlert: Function;
   item: object;
   def?: { id: string; time: number; task: string };
+  onCancel?: Function;
 }) => {
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const [time, setTime] = useState(def ? def.time : 60);
@@ -79,6 +81,9 @@ const EditLogAlert = ({
     if (def) {
       setNote(def.task);
       setTime(def.time);
+    } else {
+      setNote('');
+      setTime(0);
     }
   }, [def]);
 
@@ -122,6 +127,7 @@ const EditLogAlert = ({
             setNote('');
             setTouched(false);
             setShowAlert(false);
+            onCancel();
           }}
           style={deleteAlertStyle.cancel}
         />

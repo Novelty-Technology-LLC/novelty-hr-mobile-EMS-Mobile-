@@ -90,10 +90,10 @@ const Time = ({
             selectedItemTextSize={24}
           />
         </View>
-        {error && error.duration && (
-          <Text style={style.error}>{error.duration}</Text>
-        )}
       </View>
+      {error && error.duration && (
+        <Text style={[style.error, style.time]}>{error.duration}</Text>
+      )}
     </>
   );
 };
