@@ -117,7 +117,7 @@ const EditLogAlert = ({
         defaultValue={def && def.task}
       />
       {error && touched && (
-        <Text style={deleteAlertStyle.error}>Task description is required</Text>
+        <Text style={deleteAlertStyle.error}>Task summary is required</Text>
       )}
 
       <View style={deleteAlertStyle.buttons}>
