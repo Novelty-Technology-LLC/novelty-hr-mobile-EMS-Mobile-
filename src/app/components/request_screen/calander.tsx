@@ -80,7 +80,7 @@ const Calander = ({
         />
       )}
       {error && error.date && touched.date && (
-        <Text style={style.error}>Date is a required field.</Text>
+        <Text style={style.error}>Date is a required field</Text>
       )}
     </>
   );
