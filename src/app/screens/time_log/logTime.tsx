@@ -75,7 +75,7 @@ const LogTime = ({ route }: any) => {
           .required('Project is required')
           .label('project_id'),
         note: Yup.string()
-          .required('Task description is a required')
+          .required('Task description is required')
           .label('note'),
       });
   const onSubmit = async (values) => {
