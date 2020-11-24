@@ -22,7 +22,7 @@ const Description = ({
     <View>
       <View style={style.main}>
         <Text style={style.text}>
-          {timelog ? 'Task summary' : 'Write a note *'}
+          {timelog ? 'Task summary' : 'Write a note'}
         </Text>
         <Textarea
           containerStyle={
