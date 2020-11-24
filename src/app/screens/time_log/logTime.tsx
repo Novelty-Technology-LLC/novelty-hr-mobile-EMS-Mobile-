@@ -13,7 +13,7 @@ import {
   snackErrorBottom,
 } from '../../common';
 import { Description } from '../../components/request_screen';
-import { Calendar, Tasks } from '../../components/time_log';
+import { Tasks, Calendar } from '../../components/time_log';
 import Time from '../../components/time_log/time';
 import { button as Button } from '../../common';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';

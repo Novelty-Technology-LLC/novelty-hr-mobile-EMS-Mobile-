@@ -6,3 +6,4 @@ export * from './leaveApproveService';
 export * from './teamLeadService';
 export * from './cosmicService';
 export * from './deeplinkService';
+export * from './profileService';

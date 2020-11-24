@@ -14,6 +14,12 @@ const profileStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.primary,
   },
+  confirm: {
+    flexDirection: 'row',
+  },
+  spacer: {
+    marginHorizontal: normalize(50),
+  },
   image: {
     width: 80,
     height: 80,
@@ -29,6 +35,11 @@ const profileStyle = StyleSheet.create({
     color: colors.white,
     marginLeft: normalize(2),
     fontSize: normalize(theme.size.base),
+  },
+  imageText: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.base),
+    color: colors.white,
   },
   infoView: {
     justifyContent: 'flex-start',
@@ -75,6 +86,10 @@ const profileStyle = StyleSheet.create({
         marginTop: normalize(12),
       },
     }),
+  },
+  modalCalender: {
+    width: '82%',
+    alignItems: 'center',
   },
 });
 
