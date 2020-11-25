@@ -59,8 +59,17 @@ const profileStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: normalize(15),
   },
-  text: {
+  gender: {
     textTransform: 'capitalize',
+    marginLeft: normalize(8),
+    fontFamily: fonts.poppinsRegular,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+    }),
+  },
+  text: {
     marginLeft: normalize(8),
     fontFamily: fonts.poppinsRegular,
     ...Platform.select({

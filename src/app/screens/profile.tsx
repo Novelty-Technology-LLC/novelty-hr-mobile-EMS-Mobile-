@@ -40,8 +40,7 @@ const createFormData = (photo) => {
   data.append('file', {
     name: photo.fileName,
     type: photo.type,
-    uri:
-      Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+    uri: photo.uri,
   });
 
   Object.keys(photo).forEach((key) => {
@@ -67,7 +66,10 @@ const Profile = () => {
       } else if (response.error) {
       } else if (response.customButton) {
       } else {
-        setimage(response);
+        Platform.OS === 'android'
+          ? response.uri
+          : (response.uri = response.uri.replace('file://', '')),
+          setimage(response);
       }
     });
   };
@@ -180,7 +182,7 @@ const Profile = () => {
               </View>
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={30} />
-                <Text style={style.text}>{state.user.gender}</Text>
+                <Text style={style.gender}>{state.user.gender}</Text>
               </View>
               <TouchableOpacity onPress={() => setvisible(true)}>
                 <View style={style.icon}>
