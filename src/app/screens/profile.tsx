@@ -23,6 +23,7 @@ import { ApplicationProvider, Calendar } from '@ui-kitten/components';
 import { default as theme } from '../../assets/styles/leave_screen/custom-theme.json';
 import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
+import { storeToken, removeToken, removeUser, setUser } from '../utils';
 
 const options = {
   title: 'Pick a image',
@@ -75,18 +76,32 @@ const Profile = () => {
     setloading(true);
     const data = createFormData(image);
 
-    updateImage(state.user.id, data).then((res) =>
-      console.log('data -> ', res.data)
-    );
-    setimage(null);
+    updateImage(state.user.id, data).then((data) => {
+      removeToken();
+      storeToken(JSON.stringify(data));
+      removeUser();
+      setUser(data);
+      setloading(false);
+      setimage({ ...image, visible: false });
+    });
   };
 
   const submit = (nextDate) => {
     setDate(nextDate), setvisible(false);
-    updateBirthday(state.user.id, nextDate + 1).then((data) =>
-      setbirth(data.birth_date)
-    );
+    updateBirthday(state.user.id, nextDate + 1).then((data) => {
+      setbirth(data.birth_date);
+      removeToken();
+      storeToken(JSON.stringify(data));
+      removeUser();
+      setUser(data);
+    });
   };
+
+  let uri = image
+    ? image.uri
+    : /images/g.test(state.user.image_url)
+    ? 'http://10.0.2.2:8088/' + state.user.image_url
+    : state.user.image_url;
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -116,7 +131,7 @@ const Profile = () => {
             <Image
               style={style.image}
               source={{
-                uri: image?.uri || state.user.image_url,
+                uri,
               }}
             />
             {loading ? (
@@ -127,19 +142,19 @@ const Profile = () => {
               />
             ) : (
               <View style={style.label}>
-                {image ? (
+                {image && image?.visible !== false ? (
                   <View style={style.confirm}>
                     <TouchableOpacity onPress={() => setimage(null)}>
-                      <View style={style.icon}>
-                        <Icon name="close" color="white" size={30}></Icon>
-                        <Text style={style.imageText}>Cancel</Text>
+                      <View style={style.label}>
+                        <Icon name="close" color="white" size={20}></Icon>
+                        <Text style={style.labelText}>Cancel</Text>
                       </View>
                     </TouchableOpacity>
                     <View style={style.spacer} />
                     <TouchableOpacity onPress={confirm}>
-                      <View style={style.icon}>
-                        <Icon name="check-bold" color="white" size={30}></Icon>
-                        <Text style={style.imageText}>Confirm</Text>
+                      <View style={style.label}>
+                        <Icon name="check-bold" color="white" size={20}></Icon>
+                        <Text style={style.labelText}>Confirm</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
