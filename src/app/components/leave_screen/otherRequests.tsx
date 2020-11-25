@@ -5,16 +5,12 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
 
-import {
-  myRequestsStyle,
-  otherRequestsStyle,
-  historyStyle,
-} from '../../../assets/styles';
+import { myRequestsStyle, otherRequestsStyle } from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import { AppIcon } from '../../common';
+import { AppIcon, EmptyContainer, SmallHeader } from '../../common';
 import { getAllRequests } from '../../services';
 import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
@@ -133,18 +129,11 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         />
       )}
       {adminrequests.adminrequests.length < 1 && !loading && (
-        <View style={myRequestsStyle.emptyContainer}>
-          <Text style={myRequestsStyle.emptyText}>
-            You have not received any request.
-          </Text>
-        </View>
+        <EmptyContainer text="You have not received any request." />
       )}
       {loading && (
         <>
-          <View style={historyStyle.subcontainer}>
-            <Text style={historyStyle.header}>Past Requests</Text>
-            <View style={historyStyle.line}></View>
-          </View>
+          <SmallHeader text="Past Requests" leave={true} />
           <AdminPlaceHolder />
         </>
       )}

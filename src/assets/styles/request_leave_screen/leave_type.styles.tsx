@@ -44,7 +44,6 @@ const leaveType = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
-
   projectbutton: {
     ...Platform.select({
       ios: {
@@ -57,23 +56,6 @@ const leaveType = StyleSheet.create({
     marginBottom: normalize(15),
   },
 
-  paidView: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: normalize(15),
-    backgroundColor: colors.buttonOrange,
-    borderRadius: normalize(3),
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(4),
-      },
-    }),
-  },
   spacer: {
     ...Platform.select({
       ios: {
@@ -83,63 +65,6 @@ const leaveType = StyleSheet.create({
         paddingHorizontal: normalize(5),
       },
     }),
-  },
-
-  floatingView: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: normalize(15),
-    backgroundColor: colors.buttonGrey,
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(4),
-      },
-    }),
-  },
-
-  icon: {
-    height: 20,
-    width: 25,
-    ...Platform.select({
-      android: {
-        marginTop: normalize(5),
-      },
-      ios: {
-        marginTop: normalize(2),
-      },
-    }),
-  },
-  timelogicon: {
-    ...Platform.select({
-      android: {
-        marginTop: normalize(5),
-      },
-      ios: {
-        marginTop: normalize(2),
-      },
-    }),
-  },
-  buttonTextPaid: {
-    fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
-    color: colors.fontOrange,
-  },
-  buttonTextFloat: {
-    fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
-    color: colors.fontGrey,
-  },
-  buttonPaid: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  buttonFloat: {
-    fontSize: normalize(theme.size.sm),
   },
 
   moreContainer: {

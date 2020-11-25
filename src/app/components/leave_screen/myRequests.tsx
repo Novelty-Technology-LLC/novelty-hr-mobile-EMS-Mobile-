@@ -10,7 +10,7 @@ import colors from '../../../assets/colors';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
-import { AppIcon } from '../../common';
+import { AppIcon, EmptyContainer, SmallHeader } from '../../common';
 import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 import { UserPlaceHolder } from '../loader';
@@ -112,20 +112,13 @@ const MyRequests = ({
           keyExtractor={(item) => item.id}
         />
       ) : (
-        !loading && (
-          <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>You don't have current requests</Text>
-          </View>
-        )
+        !loading && <EmptyContainer text="You don't have current requests" />
       )}
 
       {toggle === 'toggle-switch' &&
         (!requests.pastrequests ? (
           <>
-            <View style={historyStyle.subcontainer}>
-              <Text style={historyStyle.header}>Past Requests</Text>
-              <View style={historyStyle.line}></View>
-            </View>
+            <SmallHeader text="Past Requests" leave={true} />
             <UserPlaceHolder />
           </>
         ) : (
