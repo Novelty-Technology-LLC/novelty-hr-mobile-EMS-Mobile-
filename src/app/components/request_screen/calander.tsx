@@ -71,6 +71,7 @@ const Calander = ({
         />
       ) : (
         <RangeCalendar
+          max={new Date(2021, 11)}
           filter={filter}
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}

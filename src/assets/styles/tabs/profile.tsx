@@ -18,7 +18,7 @@ const profileStyle = StyleSheet.create({
     flexDirection: 'row',
   },
   spacer: {
-    marginHorizontal: normalize(50),
+    marginHorizontal: normalize(10),
   },
   image: {
     width: 80,
@@ -35,11 +35,6 @@ const profileStyle = StyleSheet.create({
     color: colors.white,
     marginLeft: normalize(2),
     fontSize: normalize(theme.size.base),
-  },
-  imageText: {
-    fontFamily: fonts.mulishRegular,
-    fontSize: normalize(theme.size.base),
-    color: colors.white,
   },
   infoView: {
     justifyContent: 'flex-start',
@@ -64,8 +59,17 @@ const profileStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: normalize(15),
   },
-  text: {
+  gender: {
     textTransform: 'capitalize',
+    marginLeft: normalize(8),
+    fontFamily: fonts.poppinsRegular,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+    }),
+  },
+  text: {
     marginLeft: normalize(8),
     fontFamily: fonts.poppinsRegular,
     ...Platform.select({
@@ -88,8 +92,9 @@ const profileStyle = StyleSheet.create({
     }),
   },
   modalCalender: {
-    width: '82%',
+    width: '95%',
     alignItems: 'center',
+    paddingBottom: normalize(25),
   },
 });
 
