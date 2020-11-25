@@ -66,9 +66,13 @@ const Profile = () => {
       } else if (response.error) {
       } else if (response.customButton) {
       } else {
+        let index = response.uri.lastIndexOf('/');
+        let name = response.uri.slice(index + 1, response.uri.length);
+
         Platform.OS === 'android'
           ? response.uri
-          : (response.uri = response.uri.replace('file://', '')),
+          : (response.uri = response.uri.replace('file://', '')) &&
+            (response.fileName = name),
           setimage(response);
       }
     });
@@ -102,8 +106,12 @@ const Profile = () => {
   let uri = image
     ? image.uri
     : /images/g.test(state.user.image_url)
-    ? 'https://novelty-hr-api.herokuapp.com/' + state.user.image_url
+    ? 'https://novelty-hr-api.herokuapp.com' + state.user.image_url
     : state.user.image_url;
+  console.log(
+    'url -> ',
+    'https://novelty-hr-api.herokuapp.com' + state.user.image_url
+  );
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
