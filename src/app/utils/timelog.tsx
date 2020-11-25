@@ -22,13 +22,13 @@ export const getHrsMins = (time) => {
   return { hr, mins };
 };
 
-const isPast = (item) => {
-  return new Date().getDate() - new Date(item.log_date).getDate() >= 7;
-};
-
-const getWeek = (date) => {
-  let onejan = new Date(new Date(date).getFullYear(), 0, 1);
-  return Math.ceil(((date - onejan) / 86400000 + onejan.getDay() + 1) / 7);
+export const formatDate = (resDate: string) => {
+  const stringDate = JSON.stringify(resDate);
+  const splitDate = stringDate
+    .split('T')[0]
+    .substring(1, stringDate.length - 1)
+    .split('/');
+  return splitDate[2] + '-' + splitDate[0] + '-' + splitDate[1];
 };
 
 export const totalHours = (item) => {

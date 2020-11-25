@@ -5,13 +5,12 @@ import {
   leaveType as style,
   myRequestsStyle,
 } from '../../../assets/styles';
-import color from '../../../assets/colors';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getAllProjects } from '../../services/projectService';
 import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
-import { AppIcon } from '../../common';
+import { AppIcon, SelectButton } from '../../common';
 import { momentdate } from '../../utils/momentDate';
+import { getUser } from '../../utils';
 
 const Projects = ({
   handleChange,
@@ -30,9 +29,10 @@ const Projects = ({
   const [loading, setLoading] = useState(false);
   const [showmore, setShowmore] = useState('chevron-down-circle');
   const [allprojects, setAllprojects] = useState([]);
-  const getPojects = () => {
+  const getPojects = async () => {
+    const user = await getUser();
     setLoading(true);
-    getAllProjects()
+    getAllProjects(JSON.parse(user).id)
       .then((data) => {
         setLoading(false);
         setAllprojects(data);
@@ -70,7 +70,9 @@ const Projects = ({
             <View style={style.moreContainer}>
               <Text style={[style.text, style.padNone]}>Choose a Project</Text>
               <View style={style.row}>
-                <Text style={myRequestsStyle.history}>Show more</Text>
+                <Text style={myRequestsStyle.history}>
+                  {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
+                </Text>
                 <View style={myRequestsStyle.gap}></View>
                 <TouchableOpacity
                   onPress={() =>
@@ -109,33 +111,10 @@ const Projects = ({
                       }}
                       style={style.projectbutton}
                     >
-                      <View
-                        style={
-                          type === project.id
-                            ? style.paidView
-                            : style.floatingView
-                        }
-                      >
-                        {type === project.id && (
-                          <View style={style.timelogicon}>
-                            <Icon
-                              name="check-circle"
-                              color={color.primary}
-                              size={17}
-                              style={{ marginRight: 3 }}
-                            />
-                          </View>
-                        )}
-                        <Text
-                          style={
-                            type === project.id
-                              ? style.buttonTextPaid
-                              : style.buttonTextFloat
-                          }
-                        >
-                          {project.name}
-                        </Text>
-                      </View>
+                      <SelectButton
+                        text={project.name}
+                        active={type === project.id}
+                      />
                     </TouchableOpacity>
                     {index % 3 !== 2 && <View style={style.spacer}></View>}
                   </>

@@ -21,9 +21,7 @@ const Description = ({
   return (
     <View>
       <View style={style.main}>
-        <Text style={style.text}>
-          {timelog ? 'Task summary' : 'Write a note'}
-        </Text>
+        <Text style={style.text}>{timelog ? 'Task summary' : 'Note'}</Text>
         <Textarea
           containerStyle={
             error ? style.textareaContainer : style.editlogContainer
@@ -33,7 +31,7 @@ const Description = ({
           defaultValue={defaultValue}
           placeholder={
             timelog
-              ? 'Write a short summary about the task..'
+              ? 'Write a short summary about your task..'
               : 'Write a short note for your leave..'
           }
           placeholderTextColor={'#c7c7c7'}
