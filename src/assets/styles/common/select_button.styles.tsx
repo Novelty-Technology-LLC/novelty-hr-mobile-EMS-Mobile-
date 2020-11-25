@@ -40,7 +40,7 @@ const selectButtonStyle = StyleSheet.create({
   timelogicon: {
     position: 'absolute',
     zIndex: 3,
-    top: '70%',
+    top: normalize(15),
     left: '5%',
     ...Platform.select({
       android: {

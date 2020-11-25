@@ -35,7 +35,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
               <View style={style.progress}>
                 <AppIcon
                   name="timer-sand"
-                  size={Platform === 'ios' ? 10 : 12}
+                  size={Platform.OS === 'ios' ? 10 : 12}
                   color={colors.white}
                 />
               </View>
@@ -51,8 +51,8 @@ const State = ({ state, children }: { state: string; children?: any }) => {
             <View style={style.wrapper}>
               <View style={style.progress}>
                 <AppIcon
-                  name="timer-sand"
-                  size={Platform === 'ios' ? 10 : 12}
+                  name="progress-clock"
+                  size={Platform.OS === 'ios' ? 10 : 12}
                   color={colors.white}
                 />
               </View>
@@ -71,7 +71,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
                 <AppIcon
                   style={style.icon}
                   name="send"
-                  size={Platform === 'ios' ? 10 : 10}
+                  size={Platform.OS === 'ios' ? 10 : 10}
                   color={colors.white}
                 />
               </View>
