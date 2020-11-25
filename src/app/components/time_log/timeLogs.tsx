@@ -21,6 +21,27 @@ const TimeLogs = () => {
   const [logs, setLogs] = useState([]);
   const ref = React.useRef(null);
 
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    const user = await getUser();
+    getAllTimeLogs(JSON.parse(user).id)
+      .then((res) => {
+        setLoading(false);
+        let thisw = res.filter((item) => isThisWeek(item));
+        let pastw = res.filter((item) => !isThisWeek(item));
+
+        dispatchTimeLog({
+          type: 'CHANGE',
+          payload: {
+            present: thisw,
+            past: pastw,
+          },
+        });
+        setRefreshing(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const getTimeLogs = async () => {
     setLoading(true);
     const user = await getUser();
@@ -44,7 +65,7 @@ const TimeLogs = () => {
 
   useEffect(() => {
     getTimeLogs();
-  }, [refreshing]);
+  }, []);
 
   useEffect(() => {
     setLogs(
@@ -69,10 +90,7 @@ const TimeLogs = () => {
       ref={ref}
       style={style.container}
       refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={() => setRefreshing(true)}
-        />
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
       {loading ? (
