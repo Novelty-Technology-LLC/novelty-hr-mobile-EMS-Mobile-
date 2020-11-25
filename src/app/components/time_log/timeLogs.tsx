@@ -1,6 +1,6 @@
 import { useScrollToTop } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, FlatList, ScrollView, RefreshControl } from 'react-native';
+import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
@@ -10,6 +10,7 @@ import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
 import { DaySelect } from './daySelect';
+import { EmptyContainer, SmallHeader } from '../../common';
 import { TimeLog } from './timelog';
 
 const TimeLogs = () => {
@@ -19,6 +20,27 @@ const TimeLogs = () => {
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [logs, setLogs] = useState([]);
   const ref = React.useRef(null);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    const user = await getUser();
+    getAllTimeLogs(JSON.parse(user).id)
+      .then((res) => {
+        setLoading(false);
+        let thisw = res.filter((item) => isThisWeek(item));
+        let pastw = res.filter((item) => !isThisWeek(item));
+
+        dispatchTimeLog({
+          type: 'CHANGE',
+          payload: {
+            present: thisw,
+            past: pastw,
+          },
+        });
+        setRefreshing(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const getTimeLogs = async () => {
     setLoading(true);
@@ -43,7 +65,7 @@ const TimeLogs = () => {
 
   useEffect(() => {
     getTimeLogs();
-  }, [refreshing]);
+  }, []);
 
   useEffect(() => {
     setLogs(
@@ -68,10 +90,7 @@ const TimeLogs = () => {
       ref={ref}
       style={style.container}
       refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={() => setRefreshing(true)}
-        />
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
       {loading ? (
@@ -92,6 +111,8 @@ const TimeLogs = () => {
           />
         </View>
       )}
+
+      <SmallHeader text={'View'} />
 
       <DaySelect
         handleChange={(date) => {
@@ -131,16 +152,9 @@ const TimeLogs = () => {
           keyExtractor={(item) => item.id}
         />
       ) : (
-        !loading && (
-          <View style={style.emptyContainer}>
-            <Text style={style.emptyText}>You don't have logs this day.</Text>
-          </View>
-        )
+        !loading && <EmptyContainer text="You don't have logs this day." />
       )}
-      <View style={historyStyle.subcontainer}>
-        <Text style={historyStyle.header}>This Week</Text>
-        <View style={historyStyle.line}></View>
-      </View>
+      <SmallHeader text="This Week" />
 
       <View style={historyStyle.timelogcontainer}>
         {loading ? (
@@ -153,9 +167,7 @@ const TimeLogs = () => {
           />
         ) : (
           !timelogs.present[0] && (
-            <View style={style.emptyContainer}>
-              <Text style={style.emptyText}>You don't have past logs.</Text>
-            </View>
+            <EmptyContainer text="You don't have past logs." />
           )
         )}
       </View>
