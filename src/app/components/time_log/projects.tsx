@@ -70,7 +70,9 @@ const Projects = ({
             <View style={style.moreContainer}>
               <Text style={[style.text, style.padNone]}>Choose a Project</Text>
               <View style={style.row}>
-                <Text style={myRequestsStyle.history}>Show more</Text>
+                <Text style={myRequestsStyle.history}>
+                  {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
+                </Text>
                 <View style={myRequestsStyle.gap}></View>
                 <TouchableOpacity
                   onPress={() =>

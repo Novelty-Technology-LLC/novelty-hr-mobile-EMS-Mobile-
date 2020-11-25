@@ -5,6 +5,7 @@ import colors from '../../../assets/colors';
 import { calenderStyle as style } from '../../../assets/styles';
 import moment from 'moment';
 import { momentdate } from '../../utils/momentDate';
+import { formatDate, getDateWithOutTimeZone } from '../../utils';
 
 const Calendar = ({
   handleChange,
@@ -30,7 +31,7 @@ const Calendar = ({
   const onDateSelect = (date: any) => {
     const result = moment(date).format();
     setDate(result);
-    const resDate = moment(result).format('L');
+    const resDate = formatDate(moment(result).format('L'));
     if (other) {
       handleChange(resDate);
     } else {
