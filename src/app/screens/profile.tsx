@@ -102,9 +102,8 @@ const Profile = () => {
   let uri = image
     ? image.uri
     : /images/g.test(state.user.image_url)
-    ? 'http://10.0.2.2:8088/' + state.user.image_url
+    ? 'https://novelty-hr-api.herokuapp.com/' + state.user.image_url
     : state.user.image_url;
-  console.log('state.user.image_url - > ', state.user.image_url);
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
