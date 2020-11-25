@@ -41,13 +41,15 @@ const selectButtonStyle = StyleSheet.create({
     position: 'absolute',
     zIndex: 3,
     top: normalize(15),
-    left: '5%',
+
     ...Platform.select({
       android: {
         marginTop: normalize(5),
+        left: '5%',
       },
       ios: {
         marginTop: normalize(2),
+        left: '2%',
       },
     }),
   },
