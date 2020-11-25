@@ -76,7 +76,7 @@ const Profile = () => {
     const data = createFormData(image);
 
     updateImage(state.user.id, data).then((res) =>
-      console.log('data -> ', res)
+      console.log('data -> ', res.data)
     );
     setimage(null);
   };
