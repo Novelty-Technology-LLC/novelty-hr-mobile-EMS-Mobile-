@@ -24,6 +24,7 @@ import { default as theme } from '../../assets/styles/leave_screen/custom-theme.
 import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
+import Loader from 'react-native-three-dots-loader';
 
 const options = {
   title: 'Pick a image',
@@ -54,6 +55,7 @@ const Profile = () => {
   const { state } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
+  const [dotloader, setdotloader] = useState(false);
   const [visible, setvisible] = useState(false);
   const [date, setDate] = useState(new Date());
   const [birth, setbirth] = useState(null);
@@ -66,9 +68,13 @@ const Profile = () => {
       } else if (response.error) {
       } else if (response.customButton) {
       } else {
+        let index = response.uri.lastIndexOf('/');
+        let name = response.uri.slice(index + 1, response.uri.length);
+
         Platform.OS === 'android'
           ? response.uri
-          : (response.uri = response.uri.replace('file://', '')),
+          : (response.uri = response.uri.replace('file://', '')) &&
+            (response.fileName = name),
           setimage(response);
       }
     });
@@ -90,19 +96,21 @@ const Profile = () => {
 
   const submit = (nextDate) => {
     setDate(nextDate), setvisible(false);
+    setdotloader(true);
     updateBirthday(state.user.id, nextDate + 1).then((data) => {
       setbirth(data.birth_date);
       removeToken();
       storeToken(JSON.stringify(data));
       removeUser();
       setUser(data);
+      setdotloader(false);
     });
   };
 
   let uri = image
     ? image.uri
     : /images/g.test(state.user.image_url)
-    ? 'https://novelty-hr-api.herokuapp.com/' + state.user.image_url
+    ? 'http://127.0.0.1:8088/' + state.user.image_url
     : state.user.image_url;
 
   return (
@@ -119,7 +127,9 @@ const Profile = () => {
             <Dialog.Container
               visible={visible}
               contentStyle={style.modalCalender}
-              onBackdropPress={() => setvisible(false)}
+              onBackdropPress={() => {
+                setdotloader(false), setvisible(false);
+              }}
             >
               <Calendar
                 filter={modalfilter}
@@ -184,15 +194,26 @@ const Profile = () => {
                 <Icon name="account-circle" color={colors.primary} size={30} />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
-              <TouchableOpacity onPress={() => setvisible(true)}>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setvisible(true), setdotloader(true);
+                }}
+              >
                 <View style={style.icon}>
                   <Icon name="cake-variant" color={colors.primary} size={30} />
-                  <Text style={style.date}>
-                    {(birth && birth.slice(0, 15)) ||
-                      (state.user.birth_date &&
-                        state.user.birth_date.slice(0, 15)) ||
-                      'Not available'}
-                  </Text>
+                  {dotloader ? (
+                    <View style={style.date}>
+                      <Loader useNativeDriver="true" />
+                    </View>
+                  ) : (
+                    <Text style={style.date}>
+                      {(birth && birth.slice(0, 15)) ||
+                        (state.user.birth_date &&
+                          state.user.birth_date.slice(0, 15)) ||
+                        'Not available'}
+                    </Text>
+                  )}
                 </View>
               </TouchableOpacity>
             </View>
