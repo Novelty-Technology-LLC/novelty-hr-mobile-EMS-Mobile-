@@ -47,7 +47,10 @@ const DeleteAlert = ({
           .catch((err) => console.log(err));
       } else {
         setLoading(false);
-        snackErrorBottom({ message: 'You cannot cancel request now' });
+        setTimeout(
+          () => snackErrorBottom({ message: 'You cannot cancel request now' }),
+          500
+        );
       }
     } else {
       deleteRequest(item.id)
@@ -59,6 +62,7 @@ const DeleteAlert = ({
         })
         .catch((err) => console.log(err));
     }
+    hide();
   };
 
   const onTimeLogDelete = () => {
@@ -68,6 +72,7 @@ const DeleteAlert = ({
         snackBarMessage('TimeLog deleted');
       })
       .catch((err) => console.log(err));
+    hide();
   };
 
   return (
@@ -110,7 +115,6 @@ const DeleteAlert = ({
             label={other ? 'YES' : 'DELETE'}
             onPress={() => {
               timelog ? onTimeLogDelete() : onDelete();
-              hide();
             }}
             style={style.delete}
           />

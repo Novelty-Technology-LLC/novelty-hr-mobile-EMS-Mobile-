@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles';

@@ -25,6 +25,13 @@ const History = ({ requests, other }: any) => {
                 other={other}
                 onPress={() => navigation.navigate('requestDetail', item.item)}
               />
+            ) : item.item.state === 'Denied' ||
+              item.item.state === 'Cancelled' ? (
+              <Request
+                item={item.item}
+                other={other}
+                onPress={() => navigation.navigate('requestDetail', item.item)}
+              />
             ) : (
               <Swipeable
                 ref={(ref) => (row[item.index] = ref)}

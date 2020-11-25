@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
+import { myRequestsStyle as style } from '../../../assets/styles';
 import History from './history';
 import { Request } from './request';
 import Swipe from './swipe';
