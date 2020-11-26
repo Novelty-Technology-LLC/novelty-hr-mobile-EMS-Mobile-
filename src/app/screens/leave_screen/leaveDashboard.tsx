@@ -88,7 +88,7 @@ const LeaveDashboard = ({ route }) => {
       getRequest();
 
       messaging().onNotificationOpenedApp((remoteMessage) => {
-        if (remoteMessage && remoteMessage.data.type === null) {
+        if (remoteMessage && remoteMessage.data.type === 'screen') {
           Linking.openURL(
             `noveltyhrmobile://leaveList/${JSON.parse(
               remoteMessage.data.leave_id
@@ -118,7 +118,7 @@ const LeaveDashboard = ({ route }) => {
       messaging()
         .getInitialNotification()
         .then((remoteMessage) => {
-          if (remoteMessage && remoteMessage.data.type === null) {
+          if (remoteMessage && remoteMessage.data.type === 'screen') {
             Linking.openURL(
               `noveltyhrmobile://leaveList/${JSON.parse(
                 remoteMessage.data.leave_id
