@@ -110,11 +110,7 @@ const Profile = () => {
     });
   };
 
-  let uri = image
-    ? image.uri
-    : /images/g.test(state.user.image_url)
-    ? BASE_URI + state.user.image_url
-    : state.user.image_url;
+  let uri = image ? image.uri : state.user.image_url;
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
