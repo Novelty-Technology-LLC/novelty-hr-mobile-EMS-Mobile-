@@ -33,6 +33,9 @@ const options = {
     skipBackup: true,
     path: 'images',
   },
+  maxWidth: 200,
+  maxHeight: 200,
+  quality: 0.1,
 };
 
 const createFormData = (photo) => {
