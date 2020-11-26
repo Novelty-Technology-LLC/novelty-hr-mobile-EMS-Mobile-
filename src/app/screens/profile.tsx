@@ -25,7 +25,6 @@ import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
 import Loader from 'react-native-three-dots-loader';
-import { BASE_URI } from '../api/uri';
 
 const options = {
   title: 'Pick a image',
