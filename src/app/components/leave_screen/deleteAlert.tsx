@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
@@ -71,12 +71,7 @@ const DeleteAlert = ({
     <>
       <TouchableOpacity
         onPress={() => {
-          if (other && new Date(item.leave_date.startDate) < new Date()) {
-            setLoading(false);
-            snackErrorBottom({ message: 'You cannot cancel request now' });
-          } else {
-            show();
-          }
+          show();
           onPress && onPress();
         }}
         style={style.iconContainer}
