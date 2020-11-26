@@ -25,6 +25,7 @@ import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
 import Loader from 'react-native-three-dots-loader';
+import { BASE_URI } from '../api/uri';
 
 const options = {
   title: 'Pick a image',
@@ -33,6 +34,9 @@ const options = {
     skipBackup: true,
     path: 'images',
   },
+  maxWidth: 200,
+  maxHeight: 200,
+  quality: 0.1,
 };
 
 const createFormData = (photo) => {
@@ -110,7 +114,7 @@ const Profile = () => {
   let uri = image
     ? image.uri
     : /images/g.test(state.user.image_url)
-    ? 'https://novelty-hr-api.herokuapp.com' + state.user.image_url
+    ? BASE_URI + state.user.image_url
     : state.user.image_url;
 
   return (
@@ -191,7 +195,11 @@ const Profile = () => {
                 </Text>
               </View>
               <View style={style.icon}>
-                <Icon name="account-circle" color={colors.primary} size={30} />
+                <Icon
+                  name="human-male-female"
+                  color={colors.primary}
+                  size={30}
+                />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
 
@@ -208,9 +216,9 @@ const Profile = () => {
                     </View>
                   ) : (
                     <Text style={style.date}>
-                      {(birth && birth.slice(0, 15)) ||
+                      {(birth && birth.slice(3, 15)) ||
                         (state.user.birth_date &&
-                          state.user.birth_date.slice(0, 15)) ||
+                          state.user.birth_date.slice(3, 15)) ||
                         'Not available'}
                     </Text>
                   )}
