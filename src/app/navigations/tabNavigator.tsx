@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenStack from './screenStack';
 import colors from '../../assets/colors';
-import { ComingSoon, Activity, Profile, TimeLog } from '../screens';
+import { ComingSoon, Profile } from '../screens';
 import { AppIcon } from '../common';
 import LogNav from './logStack';
 
@@ -23,7 +23,7 @@ const TabNavigator = () => {
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name="account-clock" color={color} size={size} />
+              <AppIcon name="briefcase-clock" color={color} size={size} />
             ),
           }}
         />

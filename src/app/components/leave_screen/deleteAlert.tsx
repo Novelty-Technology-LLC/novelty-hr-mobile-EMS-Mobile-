@@ -36,22 +36,14 @@ const DeleteAlert = ({
     const user = await getUser();
     setLoading(true);
     if (other) {
-      if (new Date(item.leave_date.startDate) > new Date()) {
-        cancelLeave(item.id)
-          .then((data) => {
-            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
-            dispatchRequest({ type: 'CANCEL', payload: data.leave });
-            setLoading(false);
-            snackBarMessage('Request Cancelled');
-          })
-          .catch((err) => console.log(err));
-      } else {
-        setLoading(false);
-        setTimeout(
-          () => snackErrorBottom({ message: 'You cannot cancel request now' }),
-          500
-        );
-      }
+      cancelLeave(item.id)
+        .then((data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+          dispatchRequest({ type: 'CANCEL', payload: data.leave });
+          setLoading(false);
+          snackBarMessage('Request Cancelled');
+        })
+        .catch((err) => console.log(err));
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
@@ -79,7 +71,12 @@ const DeleteAlert = ({
     <>
       <TouchableOpacity
         onPress={() => {
-          show();
+          if (other && new Date(item.leave_date.startDate) < new Date()) {
+            setLoading(false);
+            snackErrorBottom({ message: 'You cannot cancel request now' });
+          } else {
+            show();
+          }
           onPress && onPress();
         }}
         style={style.iconContainer}

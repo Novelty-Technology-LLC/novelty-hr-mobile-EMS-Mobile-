@@ -46,6 +46,7 @@ const MyRequests = ({
 
   useEffect(() => {
     getPastCallback();
+    row.map((item) => item.close());
   }, [refresh, params]);
 
   useEffect(() => {
@@ -92,23 +93,34 @@ const MyRequests = ({
       {requests.requests[0] ? (
         <FlatList
           data={requests.requests}
-          renderItem={(item) => (
-            <Swipeable
-              ref={(ref) => (row[item.index] = ref)}
-              renderRightActions={() => (
-                <Swipe
-                  item={item.item}
-                  onPress={() => row[item.index].close()}
-                />
-              )}
-            >
+          renderItem={(item) =>
+            item.item.state === 'In Progress' &&
+            new Date(item.item.leave_date.startDate) < new Date() ? (
               <Request
                 item={item.item}
                 other={false}
                 onPress={() => navigation.navigate('requestDetail', item.item)}
               />
-            </Swipeable>
-          )}
+            ) : (
+              <Swipeable
+                ref={(ref) => (row[item.index] = ref)}
+                renderRightActions={() => (
+                  <Swipe
+                    item={item.item}
+                    onPress={() => row[item.index].close()}
+                  />
+                )}
+              >
+                <Request
+                  item={item.item}
+                  other={false}
+                  onPress={() =>
+                    navigation.navigate('requestDetail', item.item)
+                  }
+                />
+              </Swipeable>
+            )
+          }
           keyExtractor={(item) => item.id}
         />
       ) : (
@@ -122,7 +134,7 @@ const MyRequests = ({
             <UserPlaceHolder />
           </>
         ) : (
-          <History requests={requests.pastrequests} />
+          <History requests={requests.pastrequests} refresh={refresh} />
         ))}
     </View>
   );
