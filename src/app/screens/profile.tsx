@@ -194,7 +194,11 @@ const Profile = () => {
                 </Text>
               </View>
               <View style={style.icon}>
-                <Icon name="account-circle" color={colors.primary} size={30} />
+                <Icon
+                  name="human-male-female"
+                  color={colors.primary}
+                  size={30}
+                />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
 
@@ -211,9 +215,9 @@ const Profile = () => {
                     </View>
                   ) : (
                     <Text style={style.date}>
-                      {(birth && birth.slice(0, 15)) ||
+                      {(birth && birth.slice(3, 15)) ||
                         (state.user.birth_date &&
-                          state.user.birth_date.slice(0, 15)) ||
+                          state.user.birth_date.slice(3, 15)) ||
                         'Not available'}
                     </Text>
                   )}
