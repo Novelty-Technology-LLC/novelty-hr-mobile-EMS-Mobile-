@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import Dialog from 'react-native-dialog';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
@@ -36,19 +36,14 @@ const DeleteAlert = ({
     const user = await getUser();
     setLoading(true);
     if (other) {
-      if (new Date(item.leave_date.startDate) > new Date()) {
-        cancelLeave(item.id)
-          .then((data) => {
-            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
-            dispatchRequest({ type: 'CANCEL', payload: data.leave });
-            setLoading(false);
-            snackBarMessage('Request Cancelled');
-          })
-          .catch((err) => console.log(err));
-      } else {
-        setLoading(false);
-        snackErrorBottom({ message: 'You cannot cancel request now' });
-      }
+      cancelLeave(item.id)
+        .then((data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+          dispatchRequest({ type: 'CANCEL', payload: data.leave });
+          setLoading(false);
+          snackBarMessage('Request Cancelled');
+        })
+        .catch((err) => console.log(err));
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
@@ -59,6 +54,7 @@ const DeleteAlert = ({
         })
         .catch((err) => console.log(err));
     }
+    hide();
   };
 
   const onTimeLogDelete = () => {
@@ -68,6 +64,7 @@ const DeleteAlert = ({
         snackBarMessage('TimeLog deleted');
       })
       .catch((err) => console.log(err));
+    hide();
   };
 
   return (
@@ -110,7 +107,6 @@ const DeleteAlert = ({
             label={other ? 'YES' : 'DELETE'}
             onPress={() => {
               timelog ? onTimeLogDelete() : onDelete();
-              hide();
             }}
             style={style.delete}
           />

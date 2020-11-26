@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { getDateWithOutTimeZone } from './timelog';
 
 export const momentdate = (date?: Date, format?: string) => {
   if (date) {
@@ -17,7 +18,8 @@ export const getToday = () => {
 };
 
 export const isThisWeek = (item) => {
-  return moment(item.log_date).format('W') === moment().format('W')
+  return moment(item.log_date).add(1, 'days').format('W') ===
+    moment().format('W')
     ? true
     : false;
 };

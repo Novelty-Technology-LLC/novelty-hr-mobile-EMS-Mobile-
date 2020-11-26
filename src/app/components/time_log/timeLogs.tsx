@@ -80,7 +80,6 @@ const TimeLogs = () => {
   }, [timelogs]);
 
   let row: Array<any> = [];
-  let row2: Array<any> = [];
 
   useScrollToTop(ref);
 
