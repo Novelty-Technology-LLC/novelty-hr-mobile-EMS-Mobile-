@@ -36,7 +36,6 @@ const options = {
   },
   maxWidth: 200,
   maxHeight: 200,
-  quality: 0.1,
 };
 
 const createFormData = (photo) => {
