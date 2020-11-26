@@ -25,6 +25,7 @@ import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
 import Loader from 'react-native-three-dots-loader';
+import { BASE_URI } from '../api/uri';
 
 const options = {
   title: 'Pick a image',
@@ -113,7 +114,7 @@ const Profile = () => {
   let uri = image
     ? image.uri
     : /images/g.test(state.user.image_url)
-    ? 'https://novelty-hr-api.herokuapp.com' + state.user.image_url
+    ? BASE_URI + state.user.image_url
     : state.user.image_url;
 
   return (
