@@ -7,8 +7,9 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import { headerText } from '../../assets/styles';
+import { calenderStyle, headerText } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
+import { timeLogStyle } from '../../assets/styles';
 import { tabHeader as Header } from '../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -95,7 +96,7 @@ const Profile = () => {
         setUser(data);
         setloading(false);
         setimage({ ...image, visible: false });
-        snackBarMessage('Your image is uploaded.');
+        snackBarMessage('Image uploaded');
       })
       .catch((err) => snackErrorBottom(err));
   };
@@ -111,7 +112,7 @@ const Profile = () => {
         removeUser();
         setUser(data);
         setdotloader(false);
-        snackBarMessage('Your birth date is updated.');
+        snackBarMessage('Birthdate updated');
       })
       .catch((err) => snackErrorBottom(err));
   };
@@ -131,12 +132,13 @@ const Profile = () => {
           {date && (
             <Dialog.Container
               visible={visible}
-              contentStyle={style.modalCalender}
+              contentStyle={calenderStyle.modalCalender}
               onBackdropPress={() => {
                 setdotloader(false), setvisible(false);
               }}
             >
               <Calendar
+                style={timeLogStyle.modalCalender}
                 filter={modalfilter}
                 min={new Date(1970, 1)}
                 date={date}
