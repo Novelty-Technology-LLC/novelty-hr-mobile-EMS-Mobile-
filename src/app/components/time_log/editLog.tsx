@@ -73,6 +73,7 @@ const EditLogAlert = ({
           setTouched(false);
         })
         .catch((err) => console.log(err));
+      onCancel && onCancel();
     } else {
       setTouched(false);
       setLoading(false);
@@ -135,8 +136,8 @@ const EditLogAlert = ({
             setTimeout(() => {
               setNote('');
               setTouched(false);
+              onCancel && onCancel();
             }, 500);
-            onCancel && onCancel();
           }}
           style={deleteAlertStyle.cancel}
         />
@@ -145,7 +146,6 @@ const EditLogAlert = ({
           onPress={() => {
             if (!error && time > 0) {
               onSubmit({ task: note, time });
-              onCancel && onCancel();
             } else {
               setTouched(true);
             }
