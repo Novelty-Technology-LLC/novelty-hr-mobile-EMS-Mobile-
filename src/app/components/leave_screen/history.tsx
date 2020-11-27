@@ -17,7 +17,7 @@ const History = ({ requests, other, refresh }: any) => {
   }, [refresh]);
 
   return (
-    <View style={style.container}>
+    <View style={other ? style.container : null}>
       <SmallHeader text="Past Requests" />
       {requests.length > 0 ? (
         <FlatList

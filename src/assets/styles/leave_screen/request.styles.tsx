@@ -70,7 +70,7 @@ const requestStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         padding: normalize(2.9),
-        borderRadius: normalize(8),
+        borderRadius: normalize(10),
       },
       android: { padding: normalize(5), borderRadius: normalize(14) },
     }),

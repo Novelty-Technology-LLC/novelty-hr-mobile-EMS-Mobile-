@@ -2,7 +2,6 @@ import { Dimensions, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts, theme } from '../theme';
-const windowWidth = Dimensions.get('window').width;
 
 const smallHeaderStyle = StyleSheet.create({
   header: {
@@ -18,9 +17,12 @@ const smallHeaderStyle = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
+  historyContainer: {
+    width: '75%',
+  },
   line: {
     flexGrow: 1,
-    marginHorizontal: normalize(10),
+    marginLeft: normalize(10),
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
   },

@@ -86,7 +86,10 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
   return (
     <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
-        <SmallHeader text="Requests Received" />
+        <SmallHeader
+          text="Requests Received"
+          history={adminrequests.pastadminrequests.length > 0}
+        />
         {adminrequests.pastadminrequests.length > 0 && (
           <View style={myRequestsStyle.row}>
             <Text style={myRequestsStyle.history}> History</Text>
