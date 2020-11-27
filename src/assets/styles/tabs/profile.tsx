@@ -21,9 +21,9 @@ const profileStyle = StyleSheet.create({
     marginHorizontal: normalize(10),
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     borderWidth: normalize(6),
     borderColor: colors.white,
   },
