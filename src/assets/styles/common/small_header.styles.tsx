@@ -1,7 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts, theme } from '../theme';
+const windowWidth = Dimensions.get('window').width;
 
 const smallHeaderStyle = StyleSheet.create({
   header: {
@@ -13,16 +14,15 @@ const smallHeaderStyle = StyleSheet.create({
   subcontainer: {
     paddingVertical: normalize(10),
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
   },
   line: {
-    width: '100%',
+    flexGrow: 1,
     marginHorizontal: normalize(10),
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
-  },
-  leaveline: {
-    width: '75%',
   },
 });
 

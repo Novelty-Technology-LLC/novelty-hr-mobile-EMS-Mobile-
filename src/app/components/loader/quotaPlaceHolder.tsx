@@ -15,6 +15,7 @@ const QuotaPlaceHolder = () => {
 
 const styles = StyleSheet.create({
   row: {
+    paddingTop: normalize(20),
     paddingLeft: normalize(40),
     flexDirection: 'row',
     justifyContent: 'space-between',
