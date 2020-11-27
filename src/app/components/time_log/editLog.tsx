@@ -141,7 +141,7 @@ const EditLogAlert = ({
           style={deleteAlertStyle.cancel}
         />
         <Dialog.Button
-          label={note ? 'UPDATE' : 'ADD'}
+          label={def ? 'UPDATE' : 'ADD'}
           onPress={() => {
             if (!error && time > 0) {
               onSubmit({ task: note, time });
