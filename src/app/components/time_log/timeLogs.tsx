@@ -99,13 +99,13 @@ const TimeLogs = () => {
           <DaysRemaining
             total={8}
             remaining={Math.floor(getHrsToday(timelogs.present))}
-            title={'Today'}
+            title={'TODAY'}
             timelog={true}
           />
           <DaysRemaining
             total={40}
             remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
-            title={'This Week'}
+            title={'THIS WEEK'}
             timelog={true}
           />
         </View>
