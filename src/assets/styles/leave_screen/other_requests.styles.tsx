@@ -11,7 +11,6 @@ const otherRequestsStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: normalize(20),
     paddingTop: normalize(20),
   },
 });

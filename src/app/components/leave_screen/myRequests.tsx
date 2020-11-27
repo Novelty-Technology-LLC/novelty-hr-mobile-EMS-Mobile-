@@ -63,7 +63,10 @@ const MyRequests = ({
   return (
     <View style={style.container}>
       <View style={style.header}>
-        <Text style={style.title}>My Requests</Text>
+        <SmallHeader
+          text="My Requests"
+          history={requests.pastrequests.length > 0}
+        />
         {requests.pastrequests.length > 0 && (
           <View style={style.row}>
             <Text style={style.history}> History</Text>
@@ -130,7 +133,7 @@ const MyRequests = ({
       {toggle === 'toggle-switch' &&
         (!requests.pastrequests ? (
           <>
-            <SmallHeader text="Past Requests" leave={true} />
+            <SmallHeader text="Past Requests" />
             <UserPlaceHolder />
           </>
         ) : (
