@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -8,18 +8,31 @@ import { EmptyContainer, SmallHeader } from '../../common';
 import { Request } from './request';
 import Swipe from './swipe';
 
-const History = ({ requests, other }: any) => {
+const History = ({ requests, other, refresh }: any) => {
   const navigation = useNavigation();
   let row: Array<any> = [];
 
+  useEffect(() => {
+    row.map((item) => item.close());
+  }, [refresh]);
+
   return (
-    <View style={style.container}>
-      <SmallHeader text="Past Requests" leave={true} />
+    <View style={other ? style.container : null}>
+      <SmallHeader text="Past Requests" />
       {requests.length > 0 ? (
         <FlatList
           data={requests}
           renderItem={(item) =>
             other ? (
+              <Request
+                item={item.item}
+                other={other}
+                onPress={() => navigation.navigate('requestDetail', item.item)}
+              />
+            ) : item.item.state === 'Denied' ||
+              item.item.state === 'Cancelled' ||
+              (item.item.state === 'Approved' &&
+                new Date(item.item.leave_date.startDate) < new Date()) ? (
               <Request
                 item={item.item}
                 other={other}

@@ -13,6 +13,7 @@ import TaskContext from './taskContext';
 const Tasks = ({ value, handleChange }: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const [taskItem, setTaskItem] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { tasks } = useContext(TaskContext);
   let row: Array<any> = [];
 
@@ -35,6 +36,7 @@ const Tasks = ({ value, handleChange }: any) => {
               value={value}
               handleChange={handleChange}
               onPress={() => row[index].close()}
+              setLoading={setLoading}
             />
           )}
         >
@@ -43,6 +45,7 @@ const Tasks = ({ value, handleChange }: any) => {
               setTaskItem(item);
               setShowAlert(true);
             }}
+            disabled={loading}
           >
             <Task item={item} />
           </TouchableOpacity>
@@ -63,6 +66,7 @@ const Tasks = ({ value, handleChange }: any) => {
         onCancel={() => setTaskItem(null)}
         def={taskItem}
         item={value}
+        setLoading={setLoading}
       />
     </View>
   );

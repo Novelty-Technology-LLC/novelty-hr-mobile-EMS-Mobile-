@@ -17,11 +17,7 @@ const Calendar = ({
   other?: boolean;
 }) => {
   const datesBlacklistFunc = (date) => {
-    if (defaultValue) {
-      return momentdate(date, 'llll') !== momentdate(defaultValue, 'llll');
-    } else {
-      return new Date(date) > new Date();
-    }
+    return new Date(date) > new Date();
   };
 
   const [date, setDate] = useState(
@@ -70,7 +66,7 @@ const Calendar = ({
         onDateSelected={(date) => {
           onDateSelect(date);
         }}
-        datesBlacklist={datesBlacklistFunc}
+        // datesBlacklist={datesBlacklistFunc}
       />
     </View>
   );

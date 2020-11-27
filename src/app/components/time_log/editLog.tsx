@@ -17,12 +17,14 @@ const EditLogAlert = ({
   item,
   def,
   onCancel,
+  setLoading,
 }: {
   showAlert: boolean;
   setShowAlert: Function;
   item: object;
   def?: { id: string; time: number; task: string };
   onCancel?: Function;
+  setLoading: Function;
 }) => {
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const [time, setTime] = useState(def ? def.time : 60);
@@ -32,6 +34,7 @@ const EditLogAlert = ({
   const [touched, setTouched] = useState(false);
 
   const onSubmit = async (values) => {
+    setLoading(true);
     const uuid = await UUIDGenerator.getRandomUUID();
     values.id = uuid;
     let task;
@@ -56,6 +59,7 @@ const EditLogAlert = ({
       setShowAlert(false);
       editTimeLog(item.id, values)
         .then((data) => {
+          setLoading(false);
           snackBarMessage(`Task ${def ? 'updated' : 'added'}`);
           dispatchTimeLog({
             type: 'EDIT',
@@ -71,6 +75,7 @@ const EditLogAlert = ({
         .catch((err) => console.log(err));
     } else {
       setTouched(false);
+      setLoading(false);
       snackErrorBottom({
         message: 'You cannot log more than 24 hours a day ',
       });
@@ -82,8 +87,10 @@ const EditLogAlert = ({
       setNote(def.task);
       setTime(def.time);
     } else {
-      setNote('');
-      setTime(0);
+      setTimeout(() => {
+        setNote('');
+        setTime(0);
+      }, 500);
     }
   }, [def]);
 
@@ -124,9 +131,11 @@ const EditLogAlert = ({
         <Dialog.Button
           label="CANCEL"
           onPress={() => {
-            setNote('');
-            setTouched(false);
             setShowAlert(false);
+            setTimeout(() => {
+              setNote('');
+              setTouched(false);
+            }, 500);
             onCancel && onCancel();
           }}
           style={deleteAlertStyle.cancel}

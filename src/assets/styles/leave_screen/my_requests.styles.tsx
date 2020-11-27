@@ -12,7 +12,6 @@ const myRequestsStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: normalize(20),
     marginTop: normalize(20),
   },
   logheader: {
@@ -27,9 +26,9 @@ const myRequestsStyle = StyleSheet.create({
     color: colors.black,
   },
   history: {
-    fontFamily: fonts.poppinsMedium,
+    fontFamily: fonts.mulishRegular,
     color: colors.secondary,
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.xs),
   },
   row: {
     flexDirection: 'row',

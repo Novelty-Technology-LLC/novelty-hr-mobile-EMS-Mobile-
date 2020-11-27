@@ -7,8 +7,9 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import { headerText } from '../../assets/styles';
+import { calenderStyle, headerText } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
+import { timeLogStyle } from '../../assets/styles';
 import { tabHeader as Header } from '../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -24,6 +25,8 @@ import { default as theme } from '../../assets/styles/leave_screen/custom-theme.
 import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
+import Loader from 'react-native-three-dots-loader';
+import { snackBarMessage, snackErrorBottom } from '../common';
 
 const options = {
   title: 'Pick a image',
@@ -32,6 +35,8 @@ const options = {
     skipBackup: true,
     path: 'images',
   },
+  maxWidth: 200,
+  maxHeight: 200,
 };
 
 const createFormData = (photo) => {
@@ -54,6 +59,7 @@ const Profile = () => {
   const { state } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
+  const [dotloader, setdotloader] = useState(false);
   const [visible, setvisible] = useState(false);
   const [date, setDate] = useState(new Date());
   const [birth, setbirth] = useState(null);
@@ -82,32 +88,36 @@ const Profile = () => {
     setloading(true);
     const data = createFormData(image);
 
-    updateImage(state.user.id, data).then((data) => {
-      removeToken();
-      storeToken(JSON.stringify(data));
-      removeUser();
-      setUser(data);
-      setloading(false);
-      setimage({ ...image, visible: false });
-    });
+    updateImage(state.user.id, data)
+      .then((data) => {
+        removeToken();
+        storeToken(JSON.stringify(data));
+        removeUser();
+        setUser(data);
+        setloading(false);
+        setimage({ ...image, visible: false });
+        snackBarMessage('Image uploaded');
+      })
+      .catch((err) => snackErrorBottom(err));
   };
 
   const submit = (nextDate) => {
     setDate(nextDate), setvisible(false);
-    updateBirthday(state.user.id, nextDate + 1).then((data) => {
-      setbirth(data.birth_date);
-      removeToken();
-      storeToken(JSON.stringify(data));
-      removeUser();
-      setUser(data);
-    });
+    setdotloader(true);
+    updateBirthday(state.user.id, nextDate + 1)
+      .then((data) => {
+        setbirth(data.birth_date);
+        removeToken();
+        storeToken(JSON.stringify(data));
+        removeUser();
+        setUser(data);
+        setdotloader(false);
+        snackBarMessage('Birthdate updated');
+      })
+      .catch((err) => snackErrorBottom(err));
   };
 
-  let uri = image
-    ? image.uri
-    : /images/g.test(state.user.image_url)
-    ? 'https://novelty-hr-api.herokuapp.com' + state.user.image_url
-    : state.user.image_url;
+  let uri = image ? image.uri : state.user.image_url;
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -122,10 +132,13 @@ const Profile = () => {
           {date && (
             <Dialog.Container
               visible={visible}
-              contentStyle={style.modalCalender}
-              onBackdropPress={() => setvisible(false)}
+              contentStyle={calenderStyle.modalCalender}
+              onBackdropPress={() => {
+                setdotloader(false), setvisible(false);
+              }}
             >
               <Calendar
+                style={timeLogStyle.modalCalender}
                 filter={modalfilter}
                 min={new Date(1970, 1)}
                 date={date}
@@ -179,24 +192,39 @@ const Profile = () => {
             <View style={style.body}>
               <Text style={style.heading}>Personal Info</Text>
               <View style={style.icon}>
-                <Icon name="account-circle" color={colors.primary} size={30} />
+                <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
                   {state.user.first_name + ' ' + state.user.last_name}
                 </Text>
               </View>
               <View style={style.icon}>
-                <Icon name="account-circle" color={colors.primary} size={30} />
+                <Icon
+                  name="human-male-female"
+                  color={colors.primary}
+                  size={25}
+                />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
-              <TouchableOpacity onPress={() => setvisible(true)}>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setvisible(true), setdotloader(true);
+                }}
+              >
                 <View style={style.icon}>
-                  <Icon name="cake-variant" color={colors.primary} size={30} />
-                  <Text style={style.date}>
-                    {(birth && birth.slice(0, 15)) ||
-                      (state.user.birth_date &&
-                        state.user.birth_date.slice(0, 15)) ||
-                      'Not available'}
-                  </Text>
+                  <Icon name="cake-variant" color={colors.primary} size={25} />
+                  {dotloader ? (
+                    <View style={style.date}>
+                      <Loader useNativeDriver="true" />
+                    </View>
+                  ) : (
+                    <Text style={style.date}>
+                      {(birth && birth.slice(3, 15)) ||
+                        (state.user.birth_date &&
+                          state.user.birth_date.slice(3, 15)) ||
+                        'Not available'}
+                    </Text>
+                  )}
                 </View>
               </TouchableOpacity>
             </View>
@@ -208,12 +236,12 @@ const Profile = () => {
                 <Icon
                   name="email-newsletter"
                   color={colors.primary}
-                  size={30}
+                  size={25}
                 />
                 <Text style={style.text}>{state.user.email}</Text>
               </View>
               <View style={style.icon}>
-                <Icon name="phone" color={colors.primary} size={30} />
+                <Icon name="phone" color={colors.primary} size={25} />
                 <Text style={style.text}>
                   {formatPhoneNumber(state.user.phone)}
                 </Text>

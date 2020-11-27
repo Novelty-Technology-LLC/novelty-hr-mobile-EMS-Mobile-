@@ -40,6 +40,17 @@ const DaySelect = ({
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={dayStyle.buttonContainer}>
         <Day
+          title={momentdate(modalDate, 'lll').split(',')[0]}
+          select={isSelected(new Date(modalDate)) && index === 3}
+          onPress={() => {
+            setDate(new Date(modalDate));
+            handleChange(modalDate);
+            setVisible(true);
+            setIndex(3);
+          }}
+          modal={true}
+        />
+        <Day
           title="Yesterday"
           select={isSelected(yesterday) && index === 1}
           onPress={() => {
@@ -56,17 +67,6 @@ const DaySelect = ({
             handleChange(today);
             setIndex(2);
           }}
-        />
-        <Day
-          title={momentdate(modalDate, 'lll').split(',')[0]}
-          select={isSelected(new Date(modalDate)) && index === 3}
-          onPress={() => {
-            setDate(new Date(modalDate));
-            handleChange(modalDate);
-            setVisible(true);
-            setIndex(3);
-          }}
-          modal={true}
         />
       </View>
       <Dialog.Container

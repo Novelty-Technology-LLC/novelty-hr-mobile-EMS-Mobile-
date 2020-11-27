@@ -58,7 +58,8 @@ export const getDateWithOutTimeZone = (date) => {
 export const getHrsToday = (arr) => {
   const today = arr.filter(
     (item) =>
-      new Date(item.log_date).toDateString() === new Date().toDateString()
+      new Date(item.log_date).toDateString() ===
+      getDateWithOutTimeZone(new Date()).toDateString()
   );
   return Math.floor(totalWeekHours(today)) / 60;
 };
