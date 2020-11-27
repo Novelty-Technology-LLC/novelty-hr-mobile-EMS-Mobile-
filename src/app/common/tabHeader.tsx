@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { removeToken, removeUser } from '../utils';
 import { headerStyle as style, deleteAlertStyle } from '../../assets/styles';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
-import Dialog from 'react-native-dialog';
 import { signOutGoogle } from '../services';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
+import normalize from 'react-native-normalize';
 
 const tabHeader = ({ onPress = null, icon = false, children }: any) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -36,33 +37,26 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
           />
         )}
       </View>
-      <Dialog.Container
+      <ConfirmDialog
+        title="Do you want to logout ?"
         visible={showAlert}
-        contentStyle={deleteAlertStyle.dialogContainer}
-      >
-        <View style={deleteAlertStyle.container}>
-          <View style={deleteAlertStyle.main}>
-            <Dialog.Title style={deleteAlertStyle.text1}>
-              Do you want to logout ?
-            </Dialog.Title>
-          </View>
-        </View>
-        <View style={deleteAlertStyle.buttons}>
-          <Dialog.Button
-            label="CANCEL"
-            onPress={hide}
-            style={deleteAlertStyle.cancel}
-          />
-          <Dialog.Button
-            label="LOGOUT"
-            onPress={() => {
-              onLogout();
-              hide();
-            }}
-            style={deleteAlertStyle.delete}
-          />
-        </View>
-      </Dialog.Container>
+        onTouchOutside={() => setShowAlert(false)}
+        contentStyle={{ marginBottom: normalize(-20) }}
+        titleStyle={deleteAlertStyle.text1}
+        positiveButton={{
+          titleStyle: deleteAlertStyle.delete,
+          title: 'LOGOUT',
+          onPress: () => {
+            onLogout();
+            hide();
+          },
+        }}
+        negativeButton={{
+          titleStyle: deleteAlertStyle.cancel,
+          title: 'CANCEl',
+          onPress: () => hide(),
+        }}
+      />
     </View>
   );
 };

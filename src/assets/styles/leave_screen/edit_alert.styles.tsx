@@ -77,14 +77,14 @@ const editAlertStyle = StyleSheet.create({
     paddingTop: normalize(10),
   },
   textareaContainer: {
-    height: normalize(140),
+    height: normalize(80),
     borderRadius: normalize(3),
     backgroundColor: colors.grey,
     opacity: 0.8,
   },
   textArea: {
     height: normalize(130),
-    // textAlignVertical: 'top',
+    textAlignVertical: 'top',
     padding: normalize(15),
   },
 });
