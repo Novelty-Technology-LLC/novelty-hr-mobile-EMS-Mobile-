@@ -200,7 +200,7 @@ const Profile = () => {
 
               <TouchableOpacity
                 onPress={() => {
-                  setvisible(true), setdotloader(true);
+                  setvisible(true);
                 }}
               >
                 <View style={style.icon}>
