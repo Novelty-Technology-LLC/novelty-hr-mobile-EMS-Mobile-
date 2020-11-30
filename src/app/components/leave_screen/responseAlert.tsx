@@ -46,7 +46,9 @@ const EditAlert = ({
       note,
       requested_to: state.user.id,
       quotaId: item.sender,
-      notification_token: item.user.notification_token,
+      notification_token: item.device_tokens.map(
+        (item) => item.notification_token
+      ),
       lead_name: state.user.first_name,
       user_name: item.user.first_name,
       uuid: state.user.uuid,
