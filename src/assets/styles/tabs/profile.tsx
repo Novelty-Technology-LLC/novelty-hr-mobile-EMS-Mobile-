@@ -80,14 +80,14 @@ const profileStyle = StyleSheet.create({
   },
 
   date: {
-    marginLeft: normalize(8),
+    marginLeft: normalize(6),
     fontFamily: fonts.poppinsRegular,
     ...Platform.select({
       ios: {
         marginTop: normalize(7),
       },
       android: {
-        marginTop: normalize(12),
+        marginTop: normalize(7),
       },
     }),
   },

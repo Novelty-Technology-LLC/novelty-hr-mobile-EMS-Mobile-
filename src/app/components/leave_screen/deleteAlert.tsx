@@ -108,7 +108,7 @@ const DeleteAlert = ({
               {other ? 'Cancel' : 'Delete'} the{' '}
               {edittimelog ? 'task ' : timelog ? 'timelog' : 'request'} ?
             </Text>
-            <Text style={style.text2}>This cant be undone</Text>
+            <Text style={style.text2}>This can't be undone</Text>
           </View>
         </View>
       </ConfirmDialog>
