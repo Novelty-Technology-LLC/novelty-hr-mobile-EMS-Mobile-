@@ -173,7 +173,7 @@ const LeaveDashboard = ({ route }) => {
       device_id,
     };
 
-    if (enabled && !isValid) {
+    if (!isValid) {
       store(data).then(async (data) => {
         await removeUser(),
           await removeToken(),
