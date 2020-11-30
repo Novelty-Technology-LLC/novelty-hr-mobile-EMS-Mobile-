@@ -18,8 +18,9 @@ export const getToday = () => {
 };
 
 export const isThisWeek = (item) => {
-  return moment(item.log_date).add(1, 'days').format('W') ===
-    moment().format('W')
+  console.log(item.log_date, moment().add(1, 'day').format('W'));
+  return moment(item.log_date).add(1, 'day').format('W') ===
+    moment().add(1, 'day').format('W')
     ? true
     : false;
 };

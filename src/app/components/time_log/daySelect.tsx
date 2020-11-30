@@ -40,7 +40,11 @@ const DaySelect = ({
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={dayStyle.buttonContainer}>
         <Day
-          title={momentdate(modalDate, 'lll').split(',')[0]}
+          title={
+            momentdate(JSON.stringify(modalDate).substring(1, 11), 'lll').split(
+              ','
+            )[0]
+          }
           select={isSelected(new Date(modalDate)) && index === 3}
           onPress={() => {
             setDate(new Date(modalDate));
