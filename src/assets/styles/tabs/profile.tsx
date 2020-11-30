@@ -58,7 +58,6 @@ const profileStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: normalize(15),
-    backgroundColor: 'red',
   },
   gender: {
     textTransform: 'capitalize',
