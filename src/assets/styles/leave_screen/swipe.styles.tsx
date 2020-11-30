@@ -21,7 +21,7 @@ const swipeStyle = StyleSheet.create({
   othercontainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: normalize(15),
+    paddingHorizontal: normalize(10),
     paddingVertical: normalize(8),
     marginRight: normalize(10),
   },
