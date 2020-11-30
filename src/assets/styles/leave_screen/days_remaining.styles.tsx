@@ -8,9 +8,7 @@ const daysRemainingStyle = StyleSheet.create({
   container: {
     width: '50%',
     alignItems: 'center',
-    paddingBottom: normalize(20),
-    borderBottomColor: color.border,
-    borderBottomWidth: 1,
+    paddingBottom: normalize(10),
   },
   logcontainer: {
     width: '50%',

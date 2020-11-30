@@ -52,8 +52,6 @@ const profileStyle = StyleSheet.create({
   body: {
     width: '100%',
     flexDirection: 'column',
-    borderBottomWidth: 2,
-    borderBottomColor: colors.border,
     paddingBottom: normalize(10),
   },
   icon: {

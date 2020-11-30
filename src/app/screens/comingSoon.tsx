@@ -10,7 +10,7 @@ const ComingSoon = () => {
   const { state } = useContext(AuthContext);
   return (
     <View style={style.container}>
-      <Header icon={true}>
+      <Header>
         <Text style={headerText}>Setting</Text>
       </Header>
       <Soon>Welcome to Novelty EMS, {state.user.email}</Soon>

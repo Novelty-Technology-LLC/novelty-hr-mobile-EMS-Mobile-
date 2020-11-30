@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts, theme } from '../theme';
@@ -13,16 +13,18 @@ const smallHeaderStyle = StyleSheet.create({
   subcontainer: {
     paddingVertical: normalize(10),
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
+  },
+  historyContainer: {
+    width: '75%',
   },
   line: {
-    width: '100%',
-    marginHorizontal: normalize(10),
+    flexGrow: 1,
+    marginLeft: normalize(10),
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
-  },
-  leaveline: {
-    width: '75%',
   },
 });
 

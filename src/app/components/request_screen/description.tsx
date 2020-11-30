@@ -20,7 +20,7 @@ const Description = ({
 }) => {
   return (
     <View>
-      <View style={style.main}>
+      <View style={editlog ? [style.main, { marginTop: 0 }] : style.main}>
         <Text style={style.text}>{timelog ? 'Task summary' : 'Note'}</Text>
         <Textarea
           containerStyle={

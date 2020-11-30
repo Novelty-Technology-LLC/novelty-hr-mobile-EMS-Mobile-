@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { View, Text } from 'react-native';
-import Dialog from 'react-native-dialog';
 import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
@@ -10,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { updateRequest } from '../../services';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
+import normalize from 'react-native-normalize';
 
 const EditAlert = ({
   item,
@@ -66,77 +67,81 @@ const EditAlert = ({
 
   return (
     <View>
-      <Dialog.Container
+      <ConfirmDialog
         visible={showAlert}
-        contentStyle={style.dialogContainer}
+        onTouchOutside={() => setShowAlert(false)}
+        contentStyle={{
+          marginBottom: normalize(-20),
+        }}
+        positiveButton={{
+          titleStyle: style.delete,
+          title: 'SUBMIT',
+          onPress: () => {
+            onSubmit();
+            hide();
+          },
+        }}
+        negativeButton={{
+          titleStyle: style.cancel,
+          title: 'CANCEl',
+          onPress: () => hide(),
+        }}
       >
-        <View style={style.titleView}>
-          <Dialog.Title style={style.title}>
-            Your response is ready to go
-          </Dialog.Title>
-        </View>
-        <View style={style.row}>
-          <RequestWithImage item={item} />
-          <View style={style.gap}></View>
-          <View style={style.stateView}>
-            <View style={requestStyle.rowAlign}>
-              {action === 'Approve' && (
-                <AppIcon
-                  name="check-circle"
-                  size={15}
-                  color={colors.green}
-                ></AppIcon>
-              )}
-              <Text
-                style={requestStyle.state}
-                onPress={() => setAction('Approve')}
-              >
-                Approve
-              </Text>
-            </View>
-            <View style={style.semigap}></View>
-            <View style={requestStyle.rowAlign}>
-              {action === 'Deny' && (
-                <AppIcon
-                  name="check-circle"
-                  size={15}
-                  color={colors.green}
-                ></AppIcon>
-              )}
-              <Text
-                style={requestStyle.state}
-                onPress={() => setAction('Deny')}
-              >
-                Deny
-              </Text>
+        <View style={{ marginRight: normalize(-5) }}>
+          <View style={style.titleView}>
+            <Text style={style.title}>Your response is ready to go</Text>
+          </View>
+          <View style={style.row}>
+            <RequestWithImage item={item} />
+            <View style={style.gap}></View>
+            <View style={style.stateView}>
+              <View style={requestStyle.rowAlign}>
+                {action === 'Approve' && (
+                  <AppIcon
+                    name="check-circle"
+                    size={15}
+                    color={colors.green}
+                  ></AppIcon>
+                )}
+                <Text
+                  style={requestStyle.state}
+                  onPress={() => setAction('Approve')}
+                >
+                  Approve
+                </Text>
+              </View>
+              <View style={style.semigap}></View>
+              <View style={requestStyle.rowAlign}>
+                {action === 'Deny' && (
+                  <AppIcon
+                    name="check-circle"
+                    size={15}
+                    color={colors.green}
+                  ></AppIcon>
+                )}
+                <Text
+                  style={requestStyle.state}
+                  onPress={() => setAction('Deny')}
+                >
+                  Deny
+                </Text>
+              </View>
             </View>
           </View>
+          <View style={style.main}>
+            <Text style={style.note}>You can attach a note if you want</Text>
+            <Textarea
+              containerStyle={style.textareaContainer}
+              style={style.textArea}
+              maxLength={200}
+              placeholder={'Write a short note for your response'}
+              placeholderTextColor={'#c7c7c7'}
+              underlineColorAndroid={'transparent'}
+              onChangeText={(data: string) => setNote(data)}
+            />
+          </View>
         </View>
-        <View style={style.main}>
-          <Text style={style.note}>You can attach a note if you want</Text>
-          <Textarea
-            containerStyle={style.textareaContainer}
-            style={style.textArea}
-            maxLength={120}
-            placeholder={'Write a short note for your response'}
-            placeholderTextColor={'#c7c7c7'}
-            underlineColorAndroid={'transparent'}
-            onChangeText={(data: string) => setNote(data)}
-          />
-        </View>
-        <View style={style.buttons}>
-          <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
-          <View style={style.buttonGap}></View>
-          <Dialog.Button
-            label="SUBMIT"
-            onPress={() => {
-              onSubmit();
-              hide();
-            }}
-            style={style.delete}
-          />
-        </View>
-      </Dialog.Container>
+      </ConfirmDialog>
     </View>
   );
 };

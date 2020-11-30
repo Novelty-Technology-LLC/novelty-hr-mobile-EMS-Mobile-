@@ -7,9 +7,9 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import { headerText } from '../../assets/styles';
+import { headerText, timeLogStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
-import { tabHeader as Header } from '../common';
+import { DialogContainer, tabHeader as Header } from '../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
@@ -21,11 +21,11 @@ import normalize from 'react-native-normalize';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Calendar } from '@ui-kitten/components';
 import { default as theme } from '../../assets/styles/leave_screen/custom-theme.json';
-import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
 import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
+import { SmallHeader } from '../common';
 
 const options = {
   title: 'Pick a image',
@@ -95,7 +95,7 @@ const Profile = () => {
         setUser(data);
         setloading(false);
         setimage({ ...image, visible: false });
-        snackBarMessage('Your image is uploaded.');
+        snackBarMessage('Image uploaded');
       })
       .catch((err) => snackErrorBottom(err));
   };
@@ -111,7 +111,7 @@ const Profile = () => {
         removeUser();
         setUser(data);
         setdotloader(false);
-        snackBarMessage('Your birth date is updated.');
+        snackBarMessage('Birthdate updated');
       })
       .catch((err) => snackErrorBottom(err));
   };
@@ -125,24 +125,23 @@ const Profile = () => {
           contentContainerStyle={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header>
+          <Header icon={true}>
             <Text style={headerText}>Profile</Text>
           </Header>
           {date && (
-            <Dialog.Container
+            <DialogContainer
               visible={visible}
-              contentStyle={style.modalCalender}
-              onBackdropPress={() => {
-                setdotloader(false), setvisible(false);
-              }}
+              setVisible={setvisible}
+              setdotloader={setdotloader}
             >
               <Calendar
+                style={timeLogStyle.modalCalender}
                 filter={modalfilter}
                 min={new Date(1970, 1)}
                 date={date}
                 onSelect={(nextDate) => submit(nextDate)}
               />
-            </Dialog.Container>
+            </DialogContainer>
           )}
           <View style={style.imageView}>
             <Image
@@ -188,7 +187,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <Text style={style.heading}>Personal Info</Text>
+              <SmallHeader text="Personal Info" />
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -229,7 +228,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <Text style={style.heading}>Contact Info</Text>
+              <SmallHeader text="Contact Info" />
               <View style={style.icon}>
                 <Icon
                   name="email-newsletter"

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles';
@@ -8,7 +8,15 @@ import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
 import { DeleteLog, EditLogAlert } from '../time_log';
 
-const Swipe = ({ item, value, other, timelog, edittimelog, onPress }: any) => {
+const Swipe = ({
+  item,
+  value,
+  other,
+  timelog,
+  edittimelog,
+  onPress,
+  setLoading,
+}: any) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -73,6 +81,7 @@ const Swipe = ({ item, value, other, timelog, edittimelog, onPress }: any) => {
         setShowAlert={setShowAlert}
         def={item}
         item={value}
+        setLoading={setLoading}
       />
     </View>
   ) : (
