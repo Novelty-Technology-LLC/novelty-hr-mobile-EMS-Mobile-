@@ -134,6 +134,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Permission-Camera.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Permission-PhotoLibrary.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-noveltyhrmobile-noveltyhrmobileTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -210,6 +220,11 @@
 			<false/>
 		</dict>
 		<key>RNGoogleSignin.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RNPermissions.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -355,6 +370,11 @@
 			<false/>
 		</dict>
 		<key>nanopb.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>react-native-image-picker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
