@@ -25,6 +25,7 @@ import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
 import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
+import { SmallHeader } from '../common';
 
 const options = {
   title: 'Pick a image',
@@ -124,11 +125,15 @@ const Profile = () => {
           contentContainerStyle={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header>
+          <Header icon={true}>
             <Text style={headerText}>Profile</Text>
           </Header>
           {date && (
-            <DialogContainer visible={visible} setVisible={setvisible}>
+            <DialogContainer
+              visible={visible}
+              setVisible={setvisible}
+              setdotloader={setdotloader}
+            >
               <Calendar
                 style={timeLogStyle.modalCalender}
                 filter={modalfilter}
@@ -182,7 +187,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <Text style={style.heading}>Personal Info</Text>
+              <SmallHeader text="Personal Info" />
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -223,7 +228,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <Text style={style.heading}>Contact Info</Text>
+              <SmallHeader text="Contact Info" />
               <View style={style.icon}>
                 <Icon
                   name="email-newsletter"

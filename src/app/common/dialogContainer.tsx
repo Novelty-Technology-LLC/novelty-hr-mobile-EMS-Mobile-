@@ -6,10 +6,12 @@ const DialogContainer = ({
   children,
   visible,
   setVisible,
+  setdotloader = null,
 }: {
   children: any;
   visible: boolean;
   setVisible: Function;
+  setdotloader: Function;
 }) => {
   return (
     <Dialog
@@ -17,7 +19,9 @@ const DialogContainer = ({
       animationType="fade"
       dialogStyle={dialogContainerStyle.dialog}
       contentStyle={dialogContainerStyle.content}
-      onTouchOutside={() => setVisible(false)}
+      onTouchOutside={() => {
+        setVisible(false), setdotloader && setdotloader(false);
+      }}
       onRequestClose={() => setVisible(false)}
     >
       {children}
