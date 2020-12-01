@@ -65,6 +65,8 @@ const DeleteAlert = ({
       .catch((err) => console.log(err));
     hide();
   };
+  const positive = other ? 'YES' : 'DELETE';
+  const negative = other ? 'NO' : 'CANCEL';
 
   return (
     <>
@@ -89,7 +91,7 @@ const DeleteAlert = ({
         titleStyle={style.text1}
         positiveButton={{
           titleStyle: style.delete,
-          title: 'DELETE',
+          title: positive,
           onPress: () => {
             timelog ? onTimeLogDelete() : onDelete();
             hide();
@@ -97,7 +99,7 @@ const DeleteAlert = ({
         }}
         negativeButton={{
           titleStyle: style.cancel,
-          title: 'CANCEl',
+          title: negative,
           onPress: () => hide(),
         }}
       >
