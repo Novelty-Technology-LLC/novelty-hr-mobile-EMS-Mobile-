@@ -10,7 +10,11 @@ import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
-import { approveRequest, requestLeave as style } from '../../../assets/styles';
+import {
+  approveRequest,
+  isDarkMode,
+  requestLeave as style,
+} from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
 import {
   Calander,
@@ -27,7 +31,7 @@ import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorTop } from '../../common';
-import { dateMapper } from '../../utils';
+import { checkValidityQuota, dateMapper } from '../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const validationSchema = Yup.object().shape({
@@ -73,7 +77,9 @@ const RequestLeave = ({ route }: any) => {
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
-        dispatchRequest({ type: 'UPDATEQUOTA', payload: res.quota });
+        res.quota.map((item) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: item });
+        });
         dispatchRequest({ type: 'UPDATE', payload: res.leave });
         navigation.navigate('leaveList');
         snackBarMessage('Request updated');
@@ -85,7 +91,7 @@ const RequestLeave = ({ route }: any) => {
   const onSubmit = async (values) => {
     try {
       const date = JSON.parse(values.date);
-
+      let dayArray = [];
       const startDate = new Date(date.startDate).toString().slice(0, 15);
 
       let endDate = '';
@@ -94,6 +100,7 @@ const RequestLeave = ({ route }: any) => {
       } else {
         endDate = new Date(date.endDate).toString().slice(0, 15);
       }
+
       let day = 0;
       if (olddata) {
         let oldday = dateMapper(
@@ -101,23 +108,30 @@ const RequestLeave = ({ route }: any) => {
           olddata.leave_date.endDate
         );
         day = dateMapper(startDate, endDate);
-        day = day - oldday;
+        if (olddata.type === values.type) {
+          dayArray = [{ days: day - oldday, dayType: values.type }];
+        } else {
+          dayArray = [
+            { days: day, dayType: values.type },
+            { days: -oldday, dayType: olddata.type },
+          ];
+        }
+        dayArray.map((day) => {
+          if (values.type === day.dayType) {
+            if (checkValidityQuota(requests.quota, values.type, day.days)) {
+              throw new Error(`Selected day exceeds ${values.type}`);
+            }
+          }
+        });
       } else {
         day = dateMapper(startDate, endDate);
-      }
-
-      const notValid =
-        requests.quota &&
-        requests.quota.some(
-          (item) =>
-            item.leave_type === values.type.toUpperCase() &&
-            item.leave_used < day
-        );
-
-      if (notValid) {
-        throw new Error(`Selected day exceeds ${values.type}`);
+        if (checkValidityQuota(requests.quota, values.type, day)) {
+          throw new Error(`Selected day exceeds ${values.type}`);
+        }
       }
       delete values.date;
+
+      const dayData = olddata ? dayArray : day;
 
       const requestData = {
         ...values,
@@ -125,7 +139,7 @@ const RequestLeave = ({ route }: any) => {
           startDate,
           endDate,
         },
-        day,
+        day: dayData,
         requestor_id: state.user.id,
         requestor_name: state.user.first_name,
         uuid: state.user.uuid,
