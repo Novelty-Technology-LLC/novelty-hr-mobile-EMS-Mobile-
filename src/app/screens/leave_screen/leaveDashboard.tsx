@@ -15,7 +15,14 @@ import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
-import { getUser, mapDataToRequest, setUser } from '../../utils';
+import {
+  getUser,
+  mapDataToRequest,
+  removeToken,
+  removeUser,
+  setUser,
+  storeToken,
+} from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
@@ -23,6 +30,7 @@ import { getCurrentRouteName } from '../../utils/navigation';
 import { useScrollToTop } from '@react-navigation/native';
 import { SetLocalNotification } from '../../utils/pushNotification';
 import { useNavigation } from '@react-navigation/native';
+import DeviceInfo from 'react-native-device-info';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -149,19 +157,33 @@ const LeaveDashboard = ({ route }) => {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
     let user = await getUser();
-    let notifcation_token = JSON.parse(user).notification_token;
+    user = JSON.parse(user);
+    const device_id = DeviceInfo.getUniqueId();
 
-    user = JSON.parse(user).uuid;
+    let isValid = false;
+    isValid = user?.device_tokens.some(
+      (item) =>
+        item.user_id === user.id &&
+        item.device_id === device_id &&
+        item.notification_token === token
+    );
 
     const data = {
-      uuid: user,
+      id: user.id,
       notification_token: token,
+      device_id,
     };
 
-    if (enabled && notifcation_token !== token) {
-      store(data);
+    if (!isValid) {
+      store(data).then(async (data) => {
+        await removeUser(),
+          await removeToken(),
+          await setUser(data),
+          await storeToken(JSON.stringify(data));
+      });
     }
   }
+
   useScrollToTop(ref);
 
   return (

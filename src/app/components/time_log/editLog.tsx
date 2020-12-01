@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Keyboard, Text, View } from 'react-native';
-import Dialog from 'react-native-dialog';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
 import { deleteAlertStyle } from '../../../assets/styles';
 import { Description } from '../request_screen';
 import Time from './time';
@@ -73,6 +73,7 @@ const EditLogAlert = ({
           setTouched(false);
         })
         .catch((err) => console.log(err));
+      onCancel && onCancel();
     } else {
       setTouched(false);
       setLoading(false);
@@ -87,10 +88,8 @@ const EditLogAlert = ({
       setNote(def.task);
       setTime(def.time);
     } else {
-      setTimeout(() => {
-        setNote('');
-        setTime(0);
-      }, 500);
+      setNote('');
+      setTime(0);
     }
   }, [def]);
 
@@ -101,59 +100,62 @@ const EditLogAlert = ({
       setError(false);
     }
   }, [note]);
+  const successtitle = def ? 'UPDATE' : 'ADD';
 
   return (
-    <Dialog.Container
+    <ConfirmDialog
       visible={showAlert}
-      contentStyle={deleteAlertStyle.dialogContainer}
+      onTouchOutside={() => setShowAlert(false)}
+      contentStyle={deleteAlertStyle.content}
+      animationType="fade"
+      positiveButton={{
+        titleStyle: deleteAlertStyle.delete,
+        title: successtitle,
+        onPress: () => {
+          if (!error && time > 0) {
+            onSubmit({ task: note, time });
+          } else {
+            setTouched(true);
+          }
+        },
+      }}
+      negativeButton={{
+        title: 'CANCEL',
+        titleStyle: deleteAlertStyle.cancel,
+        onPress: () => {
+          setShowAlert(false);
+          setNote('');
+          setTouched(false);
+          onCancel && onCancel();
+        },
+      }}
     >
-      <Time handleChange={setTime} defaultValue={def && def.time} edit={true} />
-      {time < 15 && (
-        <Text style={deleteAlertStyle.error}>
-          Time duration should be greater than 0
-        </Text>
-      )}
-
-      <Description
-        handleChange={(data) => {
-          setTouched(true);
-          setNote(data);
-        }}
-        editlog={true}
-        timelog={true}
-        defaultValue={def && def.task}
-      />
-      {error && touched && (
-        <Text style={deleteAlertStyle.error}>Task summary is required</Text>
-      )}
-
-      <View style={deleteAlertStyle.buttons}>
-        <Dialog.Button
-          label="CANCEL"
-          onPress={() => {
-            setShowAlert(false);
-            setTimeout(() => {
-              setNote('');
-              setTouched(false);
-            }, 500);
-            onCancel && onCancel();
-          }}
-          style={deleteAlertStyle.cancel}
+      <View style={deleteAlertStyle.innercontent}>
+        <Time
+          handleChange={setTime}
+          defaultValue={def && def.time}
+          edit={true}
         />
-        <Dialog.Button
-          label={def ? 'UPDATE' : 'ADD'}
-          onPress={() => {
-            if (!error && time > 0) {
-              onSubmit({ task: note, time });
-              onCancel && onCancel();
-            } else {
-              setTouched(true);
-            }
+        {time < 15 && (
+          <Text style={deleteAlertStyle.error}>
+            Time duration should be greater than 0
+          </Text>
+        )}
+
+        <Description
+          handleChange={(data) => {
+            setTouched(true);
+            setNote(data);
           }}
-          style={deleteAlertStyle.delete}
+          editlog={true}
+          timelog={true}
+          defaultValue={def && def.task}
         />
+        {error && touched && (
+          <Text style={deleteAlertStyle.error}>Task summary is required</Text>
+        )}
       </View>
-    </Dialog.Container>
+    </ConfirmDialog>
   );
 };
 
