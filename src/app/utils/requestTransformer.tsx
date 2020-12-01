@@ -52,6 +52,7 @@ const mapObjectToRequest = (data: userType) => {
     sender: data.requestor_id.toString(),
     note: data.note,
     user: data.user,
+    device_tokens: data.device_tokens,
     lead: data.lead,
     leave_approvals: data.leave_approvals,
     leave_date: data.leave_date,
