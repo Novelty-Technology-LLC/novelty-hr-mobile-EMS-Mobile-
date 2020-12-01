@@ -59,7 +59,6 @@ const Calander = ({
       {modal ? (
         <Calendar
           style={timeLogStyle.modalCalender}
-          // filter={modalfilter}
           dateService={dateService}
           date={date}
           onSelect={(nextRange) => {

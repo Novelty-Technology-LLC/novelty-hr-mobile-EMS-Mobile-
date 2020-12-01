@@ -74,9 +74,7 @@ const LogTime = ({ route }: any) => {
         project_id: Yup.number()
           .required('Project is required')
           .label('project_id'),
-        note: Yup.string()
-          .required('Task description is required')
-          .label('note'),
+        note: Yup.string().required('Task summary is required').label('note'),
       });
   const onSubmit = async (values) => {
     setIsLoading(true);

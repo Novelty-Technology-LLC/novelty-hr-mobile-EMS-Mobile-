@@ -1,7 +1,9 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
+
+const width = Dimensions.get('window').width;
 
 const timeLogStyle = StyleSheet.create({
   container: {
@@ -85,8 +87,7 @@ const timeLogStyle = StyleSheet.create({
     justifyContent: 'space-between',
   },
   modalCalender: {
-    marginTop: -38,
-    ...Platform.select({ android: { marginBottom: -15 } }),
+    width: width * 0.8,
   },
 });
 
