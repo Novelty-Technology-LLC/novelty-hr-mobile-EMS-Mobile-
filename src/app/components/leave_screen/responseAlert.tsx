@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
@@ -73,7 +73,14 @@ const EditAlert = ({
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
         contentStyle={{
-          marginBottom: normalize(-20),
+          ...Platform.select({
+            ios: {
+              marginBottom: normalize(-10),
+            },
+            android: {
+              marginBottom: normalize(-20),
+            },
+          }),
         }}
         positiveButton={{
           titleStyle: style.delete,
