@@ -41,7 +41,6 @@ const profileStyle = StyleSheet.create({
   infoView: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    marginTop: normalize(15),
     paddingHorizontal: normalize(15),
   },
   heading: {
@@ -57,7 +56,7 @@ const profileStyle = StyleSheet.create({
   icon: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: normalize(15),
+    marginTop: normalize(10),
   },
   gender: {
     textTransform: 'capitalize',
