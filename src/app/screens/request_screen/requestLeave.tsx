@@ -10,11 +10,7 @@ import { header as Header, snackBarMessage } from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
-import {
-  approveRequest,
-  isDarkMode,
-  requestLeave as style,
-} from '../../../assets/styles';
+import { approveRequest, requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
 import {
   Calander,
@@ -26,7 +22,7 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { editRequest, getLeaveQuota, postRequest } from '../../services';
+import { editRequest, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
