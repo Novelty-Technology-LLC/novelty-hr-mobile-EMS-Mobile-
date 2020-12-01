@@ -160,7 +160,8 @@ const LeaveDashboard = ({ route }) => {
     user = JSON.parse(user);
     const device_id = DeviceInfo.getUniqueId();
 
-    const isValid = user.device_tokens.some(
+    let isValid = false;
+    isValid = user?.device_tokens.some(
       (item) =>
         item.user_id === user.id &&
         item.device_id === device_id &&
