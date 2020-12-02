@@ -47,6 +47,7 @@ const calenderStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: normalize(15),
+    borderRadius: 3,
   },
   dayBlockText: {
     alignSelf: 'center',
