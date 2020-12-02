@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Keyboard, Text, View } from 'react-native';
+import { Keyboard, Text, View, Platform } from 'react-native';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import { deleteAlertStyle } from '../../../assets/styles';
 import { Description } from '../request_screen';
@@ -130,6 +130,7 @@ const EditLogAlert = ({
           onCancel && onCancel();
         },
       }}
+      overlayStyle={Platform.OS === 'ios' && { paddingBottom: 180 }}
     >
       <View style={deleteAlertStyle.innercontent}>
         <Time
