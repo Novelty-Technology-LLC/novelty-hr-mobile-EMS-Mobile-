@@ -217,7 +217,7 @@ const LeaveDashboard = ({ route }) => {
           <OtherRequests
             refresh={refresh}
             params={
-              route.params?.request === 'otherrequest' && route.params?.id
+              route.params?.request === 'otherrequest' && +route.params?.id
             }
           />
         )}
