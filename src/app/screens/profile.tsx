@@ -121,13 +121,13 @@ const Profile = () => {
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={style.container}>
+        <Header icon={true}>
+          <Text style={headerText}>Profile</Text>
+        </Header>
         <ScrollView
           contentContainerStyle={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header icon={true}>
-            <Text style={headerText}>Profile</Text>
-          </Header>
           {date && (
             <DialogContainer
               visible={visible}
