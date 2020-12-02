@@ -43,10 +43,10 @@ const calenderStyle = StyleSheet.create({
   align: { alignSelf: 'flex-end' },
 
   dayBlock: {
-    paddingHorizontal: 10,
+    paddingHorizontal: normalize(10),
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: '20%',
+    paddingVertical: normalize(15),
     borderRadius: 3,
   },
   dayBlockText: {

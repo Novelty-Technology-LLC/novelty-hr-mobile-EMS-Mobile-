@@ -60,8 +60,8 @@ const Calander = ({
     return (
       <View
         style={[
-          calenderStyle.dayBlock,
           style.container,
+          calenderStyle.dayBlock,
           approved ? { backgroundColor: colors.green } : {},
           inprogress ? { backgroundColor: colors.yellow } : {},
         ]}
