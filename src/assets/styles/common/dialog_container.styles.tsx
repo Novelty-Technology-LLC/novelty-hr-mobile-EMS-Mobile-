@@ -6,13 +6,13 @@ const width = Dimensions.get('window').width;
 const dialogContainerStyle = StyleSheet.create({
   dialog: {
     alignSelf: 'center',
-    width: width * 0.805,
+    width: width * 0.82,
     borderRadius: 5,
   },
   content: {
-    marginLeft: normalize(-42),
-    marginBottom: normalize(-20),
-    marginTop: normalize(-17),
+    marginLeft: -width * 0.094,
+    marginBottom: -width * 0.046,
+    marginTop: -width * 0.036,
     alignSelf: 'center',
   },
 });

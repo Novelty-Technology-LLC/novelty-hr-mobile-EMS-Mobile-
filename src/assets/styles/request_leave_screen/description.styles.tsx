@@ -16,7 +16,7 @@ const descriptionStyle = StyleSheet.create({
     marginTop: normalize(10),
   },
   modalPickerContainer: {
-    marginHorizontal: normalize(20),
+    marginHorizontal: normalize(15),
     height: deviceHeight * 0.17,
     marginVertical: normalize(10),
   },
@@ -81,7 +81,7 @@ const descriptionStyle = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     height: '70%',
     overflow: 'hidden',

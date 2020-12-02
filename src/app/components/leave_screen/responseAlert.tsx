@@ -140,7 +140,6 @@ const EditAlert = ({
             </View>
           </View>
           <View style={style.main}>
-            <Text style={style.note}>You can attach a note if you want</Text>
             <Textarea
               containerStyle={style.textareaContainer}
               style={style.textArea}

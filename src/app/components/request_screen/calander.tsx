@@ -4,7 +4,12 @@ import { Text, View } from 'react-native';
 import moment from 'moment';
 import { MomentDateService } from '@ui-kitten/moment';
 import { dateStringMapper, checkRepeat } from '../../utils';
-import { calenderStyle, theme, timeLogStyle } from '../../../assets/styles';
+import {
+  calenderStyle,
+  fonts,
+  theme,
+  timeLogStyle,
+} from '../../../assets/styles';
 import { momentdate } from '../../utils/momentDate';
 import colors from '../../../assets/colors';
 import { RequestContext } from '../../reducer';
@@ -36,7 +41,7 @@ const Calander = ({
   );
   const [date, setDate] = useState(moment());
   const dateService = new MomentDateService();
-  const { dispatchRequest, requests } = useContext(RequestContext);
+  const { requests } = useContext(RequestContext);
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
   const modalfilter = (date) => momentdate(date) < momentdate();
@@ -82,17 +87,29 @@ const Calander = ({
 
   return (
     <>
-      {range.startDate && !modal && (
-        <Text style={timeLogStyle.rldate}>
-          Total :{' '}
-          {dateStringMapper(
-            new Date(range.startDate).toString().substring(0, 15),
-            range.endDate
-              ? new Date(range.endDate).toString().substring(0, 15)
-              : new Date(range.startDate).toString().substring(0, 15)
-          )}
-        </Text>
-      )}
+      <View
+        style={modal ? { display: 'none' } : timeLogStyle.indicatorContainer}
+      >
+        <View style={{ flexDirection: 'row' }}>
+          <View
+            style={[timeLogStyle.indicator, { backgroundColor: colors.green }]}
+          ></View>
+          <Text style={timeLogStyle.rldate}>Approved</Text>
+          <View style={[timeLogStyle.indicator, { marginLeft: 10 }]}></View>
+          <Text style={timeLogStyle.rldate}>In progress</Text>
+        </View>
+        {range.startDate && !modal && (
+          <Text style={timeLogStyle.rldate}>
+            Total :{' '}
+            {dateStringMapper(
+              new Date(range.startDate).toString().substring(0, 15),
+              range.endDate
+                ? new Date(range.endDate).toString().substring(0, 15)
+                : new Date(range.startDate).toString().substring(0, 15)
+            )}
+          </Text>
+        )}
+      </View>
       {modal ? (
         <Calendar
           style={timeLogStyle.modalCalender}

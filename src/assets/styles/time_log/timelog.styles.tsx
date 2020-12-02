@@ -1,4 +1,4 @@
-import { Dimensions, Platform, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
@@ -39,9 +39,6 @@ const timeLogStyle = StyleSheet.create({
     fontSize: normalize(theme.size.base),
     color: colors.black,
     fontFamily: fonts.mulishBold,
-    paddingRight: normalize(25),
-    alignSelf: 'flex-end',
-    marginTop: normalize(10),
   },
   type: {
     color: colors.fontGrey,
@@ -88,6 +85,22 @@ const timeLogStyle = StyleSheet.create({
   },
   modalCalender: {
     width: width * 0.8,
+  },
+
+  indicatorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+  indicator: {
+    width: 10,
+    height: 10,
+    backgroundColor: colors.yellow,
+    borderRadius: 5,
+    alignSelf: 'center',
+    marginRight: 5,
   },
 });
 

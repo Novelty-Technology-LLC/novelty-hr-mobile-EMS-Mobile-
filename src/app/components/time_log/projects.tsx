@@ -37,6 +37,8 @@ const Projects = ({
         setLoading(false);
         setAllprojects(data);
         setProjects(data.filter((item, id) => id < 3));
+        setType(data[0].id);
+        handleChange('project_id')(data[0].id.toString());
       })
       .catch((err) => console.log(err));
   };

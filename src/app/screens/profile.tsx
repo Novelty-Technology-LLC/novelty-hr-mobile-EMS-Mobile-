@@ -245,6 +245,63 @@ const Profile = () => {
               </View>
             </View>
           </View>
+          <View style={style.infoView}>
+            <View style={style.body}>
+              <SmallHeader text="Contact Info" />
+              <View style={style.icon}>
+                <Icon
+                  name="email-newsletter"
+                  color={colors.primary}
+                  size={25}
+                />
+                <Text style={style.text}>{state.user.email}</Text>
+              </View>
+              <View style={style.icon}>
+                <Icon name="phone" color={colors.primary} size={25} />
+                <Text style={style.text}>
+                  {formatPhoneNumber(state.user.phone)}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={style.infoView}>
+            <View style={style.body}>
+              <SmallHeader text="Contact Info" />
+              <View style={style.icon}>
+                <Icon
+                  name="email-newsletter"
+                  color={colors.primary}
+                  size={25}
+                />
+                <Text style={style.text}>{state.user.email}</Text>
+              </View>
+              <View style={style.icon}>
+                <Icon name="phone" color={colors.primary} size={25} />
+                <Text style={style.text}>
+                  {formatPhoneNumber(state.user.phone)}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={style.infoView}>
+            <View style={style.body}>
+              <SmallHeader text="Contact Info" />
+              <View style={style.icon}>
+                <Icon
+                  name="email-newsletter"
+                  color={colors.primary}
+                  size={25}
+                />
+                <Text style={style.text}>{state.user.email}</Text>
+              </View>
+              <View style={style.icon}>
+                <Icon name="phone" color={colors.primary} size={25} />
+                <Text style={style.text}>
+                  {formatPhoneNumber(state.user.phone)}
+                </Text>
+              </View>
+            </View>
+          </View>
         </ScrollView>
       </View>
     </ApplicationProvider>
