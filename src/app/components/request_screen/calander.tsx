@@ -3,8 +3,8 @@ import { RangeCalendar, Calendar } from '@ui-kitten/components';
 import { Text, View } from 'react-native';
 import moment from 'moment';
 import { MomentDateService } from '@ui-kitten/moment';
-import { dateStringMapper } from '../../utils';
-import { theme, timeLogStyle } from '../../../assets/styles';
+import { dateStringMapper, checkRepeat } from '../../utils';
+import { calenderStyle, theme, timeLogStyle } from '../../../assets/styles';
 import { momentdate } from '../../utils/momentDate';
 import colors from '../../../assets/colors';
 import { RequestContext } from '../../reducer';
@@ -40,49 +40,39 @@ const Calander = ({
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
   const modalfilter = (date) => momentdate(date) < momentdate();
-  // const reviewed = [...requests.pastrequests, ...requests.requests].filter(
-  //   (req) => req.state !== 'Pending' && req.state !== 'In Progress'
-  // );
-  // console.log(reviewed.length);
+  const reviewed = [...requests.pastrequests, ...requests.requests].filter(
+    (req) => req.state === 'Approved' || req.state === 'In Progress'
+  );
 
-  // const DayCell = ({ date }, style) => {
-  //   let approved = false;
-  //   let inprogress = false;
-  //   reviewed.map((req) => {
-  //     approved = req.leave_date.startDate === new Date(date).toDateString();
-  //     inprogress = req.leave_date.startDate === new Date(date).toDateString();
-  //   });
-  //   console.log(approved);
+  const DayCell = ({ date }, style) => {
+    let approved = false;
+    let inprogress = false;
+    reviewed.map((req) => {
+      if (
+        checkRepeat(
+          req.leave_date,
+          JSON.stringify({ startDate: date, endDate: date })
+        )
+      ) {
+        req.state === 'Approved' ? (approved = true) : (inprogress = true);
+      }
+    });
 
-  //   return (
-  //     <View
-  //       style={[
-  //         {
-  //           marginHorizontal: 10,
-  //           alignItems: 'center',
-  //           justifyContent: 'center',
-  //           marginVertical: '10%',
-  //           paddingVertical: '10%',
-  //           borderRadius: 3,
-  //           zIndex: -2,
-  //         },
-  //         style.container,
-  //         approved ? { backgroundColor: colors.green } : {},
-  //         inprogress ? { backgroundColor: colors.yellow } : {},
-  //       ]}
-  //     >
-  //       <Text
-  //         style={[
-  //           {
-  //             alignSelf: 'center',
-  //             color: colors.black,
-  //           },
-  //           style.text,
-  //         ]}
-  //       >{`${date.getDate()}`}</Text>
-  //     </View>
-  //   );
-  // };
+    return (
+      <View
+        style={[
+          calenderStyle.dayBlock,
+          style.container,
+          approved ? { backgroundColor: colors.green } : {},
+          inprogress ? { backgroundColor: colors.yellow } : {},
+        ]}
+      >
+        <Text
+          style={[calenderStyle.dayBlockText, style.text]}
+        >{`${date.getDate()}`}</Text>
+      </View>
+    );
+  };
 
   useEffect(() => {
     if (!modal) {
@@ -124,7 +114,7 @@ const Calander = ({
           style={style.calendar}
           name="date"
           label="date"
-          // renderDay={DayCell}
+          renderDay={DayCell}
         />
       )}
       {error && error.date && touched.date && (

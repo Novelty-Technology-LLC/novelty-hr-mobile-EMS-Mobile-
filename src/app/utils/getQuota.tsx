@@ -14,7 +14,7 @@ export const checkValidityQuota = (
   return isValid;
 };
 
-const checkRepeat = (olddate: Object, newdate: Object) => {
+export const checkRepeat = (olddate: Object, newdate: Object) => {
   const new_start = momentdate(JSON.parse(newdate).startDate, 'll');
   const new_end = JSON.parse(newdate).endDate
     ? momentdate(JSON.parse(newdate).endDate, 'll')

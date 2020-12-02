@@ -41,6 +41,18 @@ const calenderStyle = StyleSheet.create({
     alignItems: 'center',
   },
   align: { alignSelf: 'flex-end' },
+
+  dayBlock: {
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: '20%',
+    borderRadius: 3,
+  },
+  dayBlockText: {
+    alignSelf: 'center',
+    color: colors.black,
+  },
 });
 
 export { calenderStyle };
