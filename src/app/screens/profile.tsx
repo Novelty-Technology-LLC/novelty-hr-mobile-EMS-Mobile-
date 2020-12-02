@@ -97,7 +97,7 @@ const Profile = () => {
         setimage({ ...image, visible: false });
         snackBarMessage('Image uploaded');
       })
-      .catch((err) => snackErrorBottom(err));
+      .catch((err) => snackErrorBottom('Something went wrong'));
   };
 
   const submit = (nextDate) => {

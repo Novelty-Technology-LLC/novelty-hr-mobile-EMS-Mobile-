@@ -97,11 +97,10 @@ const LeaveDashboard = ({ route }) => {
 
       messaging().onNotificationOpenedApp((remoteMessage) => {
         if (remoteMessage && remoteMessage.data.type === 'screen') {
-          Linking.openURL(
-            `noveltyhrmobile://leaveList/${JSON.parse(
-              remoteMessage.data.leave_id
-            )}`
-          );
+          navigation.navigate('leaveList', {
+            id: remoteMessage.data.leave_id,
+            request: remoteMessage.data.request,
+          });
         } else {
           remoteMessage && navigation.navigate('Activity');
         }
@@ -127,11 +126,10 @@ const LeaveDashboard = ({ route }) => {
         .getInitialNotification()
         .then((remoteMessage) => {
           if (remoteMessage && remoteMessage.data.type === 'screen') {
-            Linking.openURL(
-              `noveltyhrmobile://leaveList/${JSON.parse(
-                remoteMessage.data.leave_id
-              )}`
-            );
+            navigation.navigate('leaveList', {
+              id: remoteMessage.data.leave_id,
+              request: remoteMessage.data.request,
+            });
           } else {
             remoteMessage && navigation.navigate('Activity');
           }
@@ -160,8 +158,7 @@ const LeaveDashboard = ({ route }) => {
     user = JSON.parse(user);
     const device_id = DeviceInfo.getUniqueId();
 
-    let isValid = false;
-    isValid = user.device_tokens?.some(
+    const isValid = user.device_tokens?.some(
       (item) =>
         item.user_id === user.id &&
         item.device_id === device_id &&
@@ -214,10 +211,15 @@ const LeaveDashboard = ({ route }) => {
         <MyRequests
           loading={loading}
           refresh={refresh}
-          params={+route.params?.screen}
+          params={route.params?.request === 'myrequest' && +route.params?.id}
         />
         {isAdmin && (
-          <OtherRequests refresh={refresh} params={route.params?.screen} />
+          <OtherRequests
+            refresh={refresh}
+            params={
+              route.params?.request === 'otherrequest' && +route.params?.id
+            }
+          />
         )}
       </ScrollView>
       <RequestButton screen="requestLeave" />
