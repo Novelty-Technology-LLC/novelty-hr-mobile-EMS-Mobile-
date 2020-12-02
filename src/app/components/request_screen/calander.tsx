@@ -4,16 +4,10 @@ import { Text, View } from 'react-native';
 import moment from 'moment';
 import { MomentDateService } from '@ui-kitten/moment';
 import { dateStringMapper, checkRepeat } from '../../utils';
-import {
-  calenderStyle,
-  fonts,
-  theme,
-  timeLogStyle,
-} from '../../../assets/styles';
+import { calenderStyle, timeLogStyle } from '../../../assets/styles';
 import { momentdate } from '../../utils/momentDate';
 import colors from '../../../assets/colors';
 import { RequestContext } from '../../reducer';
-import { app } from 'firebase-admin';
 interface calenderPropType {
   style?: object;
   handleChange: Function;
