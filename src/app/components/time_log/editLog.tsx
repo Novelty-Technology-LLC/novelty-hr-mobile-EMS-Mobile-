@@ -107,6 +107,7 @@ const EditLogAlert = ({
       visible={showAlert}
       onTouchOutside={() => setShowAlert(false)}
       contentStyle={deleteAlertStyle.content}
+      dialogStyle={{ borderRadius: 5 }}
       animationType="fade"
       positiveButton={{
         titleStyle: deleteAlertStyle.delete,

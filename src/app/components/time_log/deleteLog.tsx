@@ -79,10 +79,8 @@ const DeleteLog = ({
       <ConfirmDialog
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
-        contentStyle={[
-          deleteAlertStyle.innercontent,
-          { marginBottom: normalize(-30) },
-        ]}
+        contentStyle={[deleteAlertStyle.innercontent, { marginBottom: 0 }]}
+        dialogStyle={{ borderRadius: 5 }}
         titleStyle={deleteAlertStyle.text1}
         positiveButton={{
           titleStyle: deleteAlertStyle.delete,
@@ -98,7 +96,7 @@ const DeleteLog = ({
           onPress: () => hide(),
         }}
       >
-        <View style={style.container}>
+        <View style={[style.container, { marginBottom: normalize(-20) }]}>
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
             <Text style={style.text1}>Delete the task ?</Text>

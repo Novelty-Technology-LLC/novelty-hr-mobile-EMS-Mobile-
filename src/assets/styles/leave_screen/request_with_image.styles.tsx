@@ -26,10 +26,10 @@ const requestWithImageStyle = StyleSheet.create({
   date: {
     ...Platform.select({
       android: {
-        marginTop: normalize(17),
+        marginTop: normalize(10),
       },
       ios: {
-        marginTop: normalize(20),
+        marginTop: normalize(10),
       },
     }),
     flexDirection: 'row',

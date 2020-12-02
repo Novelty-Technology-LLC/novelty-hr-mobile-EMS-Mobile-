@@ -72,15 +72,8 @@ const EditAlert = ({
       <ConfirmDialog
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
-        contentStyle={{
-          ...Platform.select({
-            ios: {
-              marginBottom: normalize(-10),
-            },
-            android: {
-              marginBottom: normalize(-20),
-            },
-          }),
+        dialogStyle={{
+          borderRadius: 5,
         }}
         positiveButton={{
           titleStyle: style.delete,
@@ -96,7 +89,7 @@ const EditAlert = ({
           onPress: () => hide(),
         }}
       >
-        <View style={{ marginRight: normalize(-5) }}>
+        <View style={{ marginBottom: normalize(-15) }}>
           <View style={style.titleView}>
             <Text style={style.title}>Your response is ready to go</Text>
           </View>
@@ -106,11 +99,13 @@ const EditAlert = ({
             <View style={style.stateView}>
               <View style={requestStyle.rowAlign}>
                 {action === 'Approve' && (
-                  <AppIcon
-                    name="check-circle"
-                    size={15}
-                    color={colors.green}
-                  ></AppIcon>
+                  <View style={{ marginRight: 5 }}>
+                    <AppIcon
+                      name="check-circle"
+                      size={15}
+                      color={colors.green}
+                    ></AppIcon>
+                  </View>
                 )}
                 <Text
                   style={requestStyle.state}
@@ -119,14 +114,15 @@ const EditAlert = ({
                   Approve
                 </Text>
               </View>
-              <View style={style.semigap}></View>
               <View style={requestStyle.rowAlign}>
                 {action === 'Deny' && (
-                  <AppIcon
-                    name="check-circle"
-                    size={15}
-                    color={colors.green}
-                  ></AppIcon>
+                  <View style={{ marginRight: 5 }}>
+                    <AppIcon
+                      name="check-circle"
+                      size={15}
+                      color={colors.green}
+                    ></AppIcon>
+                  </View>
                 )}
                 <Text
                   style={requestStyle.state}

@@ -17,7 +17,8 @@ const Alert = ({
     <ConfirmDialog
       title={children}
       visible={showAlert}
-      contentStyle={{ marginBottom: normalize(-40) }}
+      contentStyle={{ display: 'none' }}
+      dialogStyle={{ borderRadius: 5 }}
       titleStyle={deleteAlertStyle.text1}
       positiveButton={{
         titleStyle: deleteAlertStyle.delete,

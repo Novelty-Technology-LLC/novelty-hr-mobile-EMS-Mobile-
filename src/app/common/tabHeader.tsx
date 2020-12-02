@@ -46,7 +46,8 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
         title="Do you want to logout ?"
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
-        contentStyle={{ marginBottom: normalize(-20) }}
+        contentStyle={{ display: 'none' }}
+        dialogStyle={{ borderRadius: 5 }}
         titleStyle={deleteAlertStyle.text1}
         positiveButton={{
           titleStyle: deleteAlertStyle.delete,

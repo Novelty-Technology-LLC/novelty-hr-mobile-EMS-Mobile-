@@ -37,7 +37,7 @@ const descriptionStyle = StyleSheet.create({
     opacity: 0.8,
   },
   editlogContainer: {
-    height: normalize(70),
+    height: normalize(80),
     width: '99%',
     marginTop: normalize(10),
     padding: normalize(10),
