@@ -1,6 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, Platform } from 'react-native';
-import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
+import { View, Text } from 'react-native';
+import {
+  deleteAlertStyle,
+  editAlertStyle as style,
+  requestStyle,
+} from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
 import { dataType } from '../../interface';
@@ -89,7 +93,9 @@ const EditAlert = ({
           onPress: () => hide(),
         }}
       >
-        <View style={{ marginBottom: normalize(-15) }}>
+        <View
+          style={{ marginBottom: normalize(-15), marginRight: normalize(-3) }}
+        >
           <View style={style.titleView}>
             <Text style={style.title}>Your response is ready to go</Text>
           </View>

@@ -7,7 +7,6 @@ import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import { signOutGoogle, logOutUser } from '../services';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
-import normalize from 'react-native-normalize';
 import DeviceInfo from 'react-native-device-info';
 
 const tabHeader = ({ onPress = null, icon = false, children }: any) => {

@@ -1,6 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
-import normalize from 'react-native-normalize';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import { deleteAlertStyle } from '../../assets/styles';
 
