@@ -95,7 +95,7 @@ const Calander = ({
             style={[timeLogStyle.indicator, { backgroundColor: colors.green }]}
           ></View>
           <Text style={timeLogStyle.rldate}>Approved</Text>
-          <View style={[timeLogStyle.indicator, { marginLeft: 10 }]}></View>
+          <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
           <Text style={timeLogStyle.rldate}>In progress</Text>
         </View>
         {range.startDate && !modal && (
@@ -128,7 +128,7 @@ const Calander = ({
           filter={filter}
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
-          style={style.calendar}
+          style={[style.calendar, { marginTop: -15 }]}
           name="date"
           label="date"
           renderDay={DayCell}
