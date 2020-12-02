@@ -19,6 +19,7 @@ const Alert = ({
       visible={showAlert}
       contentStyle={{ display: 'none' }}
       dialogStyle={{ borderRadius: 5 }}
+      onTouchOutside={() => setShowAlert(false)}
       titleStyle={deleteAlertStyle.text1}
       positiveButton={{
         titleStyle: deleteAlertStyle.delete,
