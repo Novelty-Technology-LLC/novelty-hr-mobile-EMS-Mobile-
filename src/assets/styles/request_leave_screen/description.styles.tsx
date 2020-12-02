@@ -6,14 +6,14 @@ const deviceHeight = Dimensions.get('window').height;
 
 const descriptionStyle = StyleSheet.create({
   main: {
-    marginTop: normalize(20),
+    marginTop: normalize(10),
     paddingBottom: normalize(10),
     marginHorizontal: normalize(15),
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
     height: deviceHeight * 0.18,
-    marginVertical: normalize(10),
+    marginTop: normalize(10),
   },
   modalPickerContainer: {
     marginHorizontal: normalize(20),
