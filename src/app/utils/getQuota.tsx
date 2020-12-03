@@ -24,18 +24,30 @@ export const checkRepeat = (olddate: Object, newdate: Object) => {
     ? momentdate(olddate.endDate, 'll')
     : old_start;
 
-  if (old_start <= new_start && new_start <= old_end) return true;
-  if (old_start <= new_end && new_end <= old_end) return true;
-  if (new_start < old_start && old_end < new_end) return true;
+  // if (new_end !== new_end && old_end !== old_start) {
+  if (new_start <= old_end && old_start <= new_end) return true;
+  // } else if (new_end === new_start) {
+  //   if (new_end <= old_end && new_end >= old_start) return true;
+  // } else if (old_end === old_end) {
+  //   if (old_end <= new_end && old_end >= new_start) return true;
+  // } else {
+  //   return new_end === old_end;
+  // }
   return false;
 };
 
 export const checkIfRequested = (
   allrequests: Array<Object>,
-  values: Object
+  values: Object,
+  olddata?: Object
 ) => {
   let repeat = false;
+  if (olddata) {
+    allrequests = allrequests.filter((req) => req.id !== olddata.id);
+  }
+
   allrequests.map((request) => {
+    console.log(checkRepeat(request.leave_date, values.date));
     if (checkRepeat(request.leave_date, values.date)) {
       repeat = true;
     }
