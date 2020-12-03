@@ -37,22 +37,6 @@ const selectButtonStyle = StyleSheet.create({
       },
     }),
   },
-  timelogicon: {
-    position: 'absolute',
-    zIndex: 3,
-    top: '68%',
-
-    ...Platform.select({
-      android: {
-        marginTop: normalize(5),
-        left: '5%',
-      },
-      ios: {
-        marginTop: normalize(2),
-        left: '2%',
-      },
-    }),
-  },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
     fontSize: normalize(theme.size.normal),
