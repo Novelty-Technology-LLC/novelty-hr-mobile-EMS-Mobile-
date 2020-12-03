@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
@@ -101,8 +101,12 @@ const timeLogStyle = StyleSheet.create({
     borderRadius: normalize(8),
     alignSelf: 'center',
     marginRight: normalize(5),
-    marginBottom: normalize(3),
     marginLeft: normalize(5),
+    ...Platform.select({
+      android: {
+        marginBottom: normalize(3),
+      },
+    }),
   },
 });
 
