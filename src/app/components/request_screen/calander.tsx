@@ -56,23 +56,24 @@ const Calander = ({
     let approved = false;
     let inprogress = false;
     let pending = false;
-
-    reviewed.map((req) => {
-      if (
-        checkRepeat(
-          req.leave_date,
-          JSON.stringify({ startDate: date, endDate: date })
-        )
-      ) {
-        req.state === 'Approved'
-          ? (approved = true)
-          : req.state === 'In Progress'
-          ? (inprogress = true)
-          : req.state === 'Pending'
-          ? (pending = true)
-          : {};
-      }
-    });
+    if (date.getDay() !== 0 && date.getDay() !== 6) {
+      reviewed.map((req) => {
+        if (
+          checkRepeat(
+            req.leave_date,
+            JSON.stringify({ startDate: date, endDate: date })
+          )
+        ) {
+          req.state === 'Approved'
+            ? (approved = true)
+            : req.state === 'In Progress'
+            ? (inprogress = true)
+            : req.state === 'Pending'
+            ? (pending = true)
+            : {};
+        }
+      });
+    }
 
     return (
       <View
