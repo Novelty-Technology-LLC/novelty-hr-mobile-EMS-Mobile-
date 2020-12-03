@@ -8,6 +8,7 @@ import { calenderStyle, timeLogStyle } from '../../../assets/styles';
 import { momentdate } from '../../utils/momentDate';
 import colors from '../../../assets/colors';
 import { RequestContext } from '../../reducer';
+import { app } from 'firebase-admin';
 interface calenderPropType {
   style?: object;
   handleChange: Function;
@@ -50,6 +51,7 @@ const Calander = ({
     let approved = false;
     let inprogress = false;
     let pending = false;
+
     reviewed.map((req) => {
       if (
         checkRepeat(
@@ -61,7 +63,9 @@ const Calander = ({
           ? (approved = true)
           : req.state === 'In Progress'
           ? (inprogress = true)
-          : (pending = true);
+          : req.state === 'Pending'
+          ? (pending = true)
+          : {};
       }
     });
 
@@ -97,7 +101,7 @@ const Calander = ({
       <View
         style={modal ? { display: 'none' } : timeLogStyle.indicatorContainer}
       >
-        <View>
+        {/* <View>
           <View style={{ flexDirection: 'row' }}>
             <View
               style={[
@@ -118,7 +122,7 @@ const Calander = ({
             <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
             <Text style={timeLogStyle.rldate}>In progress</Text>
           </View>
-        </View>
+        </View> */}
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>
             Total :{' '}
@@ -152,7 +156,7 @@ const Calander = ({
           style={[style.calendar, { marginTop: -20 }]}
           name="date"
           label="date"
-          renderDay={DayCell}
+          // renderDay={DayCell}
         />
       )}
       {error && error.date && touched.date && (
