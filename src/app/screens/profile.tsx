@@ -215,12 +215,23 @@ const Profile = () => {
                       <Loader useNativeDriver="true" />
                     </View>
                   ) : (
-                    <Text style={style.date}>
-                      {(birth && birth.slice(3, 15)) ||
-                        (state.user.birth_date &&
-                          state.user.birth_date.slice(3, 15)) ||
-                        'Not available'}
-                    </Text>
+                    <>
+                      <Text style={style.date}>
+                        {(birth && birth.slice(3, 15)) ||
+                          (state.user.birth_date &&
+                            state.user.birth_date.slice(3, 15)) ||
+                          'Not available'}
+                      </Text>
+                      {birth === null && (
+                        <View style={style.msg}>
+                          <Icon
+                            name="calendar-month-outline"
+                            size={15}
+                            color={colors.primary}
+                          />
+                        </View>
+                      )}
+                    </>
                   )}
                 </View>
               </TouchableOpacity>
