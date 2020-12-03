@@ -70,9 +70,13 @@ const Calander = ({
         style={[
           style.container,
           calenderStyle.dayBlock,
-          approved ? { backgroundColor: colors.green } : {},
-          inprogress ? { backgroundColor: colors.yellow } : {},
-          pending ? { backgroundColor: colors.lightGrey } : {},
+          approved
+            ? { backgroundColor: colors.green }
+            : inprogress
+            ? { backgroundColor: colors.yellow }
+            : pending
+            ? { backgroundColor: colors.lightGrey }
+            : {},
         ]}
       >
         <Text

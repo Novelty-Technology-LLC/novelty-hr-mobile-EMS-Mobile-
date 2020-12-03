@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import {
   deleteAlertStyle,
   editAlertStyle as style,
@@ -15,6 +15,7 @@ import { AdminRequestContext, AuthContext } from '../../reducer';
 import { updateRequest } from '../../services';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import normalize from 'react-native-normalize';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const EditAlert = ({
   item,
@@ -72,7 +73,7 @@ const EditAlert = ({
   };
 
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
       <ConfirmDialog
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
@@ -92,6 +93,8 @@ const EditAlert = ({
           title: 'CANCEl',
           onPress: () => hide(),
         }}
+        keyboardDismissMode="on-drag"
+        overlayStyle={Platform.OS === 'ios' && { paddingBottom: 120 }}
       >
         <View
           style={{ marginBottom: normalize(-15), marginRight: normalize(-3) }}

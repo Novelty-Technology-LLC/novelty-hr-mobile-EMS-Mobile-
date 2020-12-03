@@ -151,7 +151,7 @@ const LogTime = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 100 : 100}
+        extraScrollHeight={Platform.OS === 'ios' ? 180 : 100}
         extraHeight={Platform.OS === 'android' ? 160 : 50}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"

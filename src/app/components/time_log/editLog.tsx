@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Dimensions, Keyboard, Text, View } from 'react-native';
+import { Keyboard, Text, View, Platform } from 'react-native';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import { deleteAlertStyle } from '../../../assets/styles';
 import { Description } from '../request_screen';
@@ -103,47 +103,46 @@ const EditLogAlert = ({
   const successtitle = def ? 'UPDATE' : 'ADD';
 
   return (
-    <View>
-      <ConfirmDialog
-        visible={showAlert}
-        onTouchOutside={() => setShowAlert(false)}
-        contentStyle={deleteAlertStyle.content}
-        dialogStyle={{ borderRadius: 5 }}
-        animationType="fade"
-        overlayStyle={{ paddingBottom: 100 }}
-        positiveButton={{
-          titleStyle: deleteAlertStyle.delete,
-          title: successtitle,
-          onPress: () => {
-            if (!error && time > 0) {
-              onSubmit({ task: note, time });
-            } else {
-              setTouched(true);
-            }
-          },
-        }}
-        negativeButton={{
-          title: 'CANCEL',
-          titleStyle: deleteAlertStyle.cancel,
-          onPress: () => {
-            setShowAlert(false);
-            setNote('');
-            setTouched(false);
-            onCancel && onCancel();
-          },
-        }}
-      >
-        <View style={deleteAlertStyle.innercontent}>
-          <Time
-            handleChange={setTime}
-            defaultValue={def && def.time}
-            edit={true}
-          />
-          {time < 15 && (
-            <Text style={deleteAlertStyle.error}>
-              Time duration should be greater than 0
-            </Text>
-          )}
+    <ConfirmDialog
+      visible={showAlert}
+      onTouchOutside={() => setShowAlert(false)}
+      contentStyle={deleteAlertStyle.content}
+      dialogStyle={{ borderRadius: 5 }}
+      animationType="fade"
+      positiveButton={{
+        titleStyle: deleteAlertStyle.delete,
+        title: successtitle,
+        onPress: () => {
+          if (!error && time > 0) {
+            onSubmit({ task: note, time });
+          } else {
+            setTouched(true);
+          }
+        },
+      }}
+      negativeButton={{
+        title: 'CANCEL',
+        titleStyle: deleteAlertStyle.cancel,
+        onPress: () => {
+          setShowAlert(false);
+          setNote('');
+          setTouched(false);
+          onCancel && onCancel();
+        },
+      }}
+      overlayStyle={Platform.OS === 'ios' && { paddingBottom: 180 }}
+    >
+      <View style={deleteAlertStyle.innercontent}>
+        <Time
+          handleChange={setTime}
+          defaultValue={def && def.time}
+          edit={true}
+        />
+        {time < 15 && (
+          <Text style={deleteAlertStyle.error}>
+            Time duration should be greater than 0
+          </Text>
+        )}
 
           <Description
             handleChange={(data) => {
