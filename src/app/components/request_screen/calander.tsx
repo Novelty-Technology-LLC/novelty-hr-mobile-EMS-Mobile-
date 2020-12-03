@@ -15,6 +15,7 @@ interface calenderPropType {
   error?: any;
   touched?: any;
   modal?: boolean;
+  olddata_id?: number;
 }
 
 const Calander = ({
@@ -24,6 +25,7 @@ const Calander = ({
   error,
   touched,
   modal,
+  olddata_id,
 }: calenderPropType) => {
   const [range, setrange] = useState(
     defaultValue
@@ -39,12 +41,16 @@ const Calander = ({
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
   const modalfilter = (date) => momentdate(date) < momentdate();
-  const reviewed = [...requests.pastrequests, ...requests.requests].filter(
+  let reviewed = [...requests.pastrequests, ...requests.requests].filter(
     (req) =>
       req.state === 'Approved' ||
       req.state === 'In Progress' ||
       req.state === 'Pending'
   );
+
+  if (olddata_id) {
+    reviewed = reviewed.filter((req) => req.id !== olddata_id);
+  }
 
   const DayCell = ({ date }, style) => {
     let approved = false;

@@ -204,6 +204,7 @@ const RequestLeave = ({ route }: any) => {
                 style={style}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.leave_date}
+                olddata_id={olddata && olddata.id}
                 error={errors}
                 touched={touched}
               />
