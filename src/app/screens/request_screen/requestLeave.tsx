@@ -6,7 +6,11 @@ import {
   Platform,
   Keyboard,
 } from 'react-native';
-import { header as Header, snackBarMessage } from '../../common';
+import {
+  header as Header,
+  snackBarMessage,
+  snackErrorBottom,
+} from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
@@ -27,7 +31,7 @@ import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorTop } from '../../common';
-import { checkValidityQuota, dateMapper } from '../../utils';
+import { checkIfRequested, checkValidityQuota, dateMapper } from '../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const validationSchema = Yup.object().shape({
@@ -86,6 +90,15 @@ const RequestLeave = ({ route }: any) => {
 
   const onSubmit = async (values) => {
     try {
+      const allrequests = [
+        ...requests.pastrequests,
+        ...requests.requests,
+      ].filter((req) => req.state !== 'Cancelled' && req.state !== 'Deleted');
+      if (checkIfRequested(allrequests, values)) {
+        return snackErrorBottom({
+          message: 'Requested date cannot be requested again',
+        });
+      }
       const date = JSON.parse(values.date);
       let dayArray = [];
       const startDate = new Date(date.startDate).toString().slice(0, 15);
@@ -164,7 +177,7 @@ const RequestLeave = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
+        extraScrollHeight={Platform.OS === 'ios' ? 180 : 70}
         extraHeight={Platform.OS === 'android' ? 140 : 50}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"

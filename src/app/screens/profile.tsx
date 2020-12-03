@@ -121,13 +121,13 @@ const Profile = () => {
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={style.container}>
+        <Header icon={true}>
+          <Text style={headerText}>Profile</Text>
+        </Header>
         <ScrollView
           contentContainerStyle={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header icon={true}>
-            <Text style={headerText}>Profile</Text>
-          </Header>
           {date && (
             <DialogContainer
               visible={visible}
@@ -187,7 +187,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <SmallHeader text="Personal Info" />
+              <SmallHeader text="Personal Information" />
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -228,7 +228,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <SmallHeader text="Contact Info" />
+              <SmallHeader text="Contact Information" />
               <View style={style.icon}>
                 <Icon
                   name="email-newsletter"

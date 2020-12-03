@@ -1,6 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, Platform } from 'react-native';
-import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
+import {
+  deleteAlertStyle,
+  editAlertStyle as style,
+  requestStyle,
+} from '../../../assets/styles';
 import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
 import { dataType } from '../../interface';
@@ -11,6 +15,7 @@ import { AdminRequestContext, AuthContext } from '../../reducer';
 import { updateRequest } from '../../services';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import normalize from 'react-native-normalize';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const EditAlert = ({
   item,
@@ -68,19 +73,12 @@ const EditAlert = ({
   };
 
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
       <ConfirmDialog
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
-        contentStyle={{
-          ...Platform.select({
-            ios: {
-              marginBottom: normalize(-10),
-            },
-            android: {
-              marginBottom: normalize(-20),
-            },
-          }),
+        dialogStyle={{
+          borderRadius: 5,
         }}
         positiveButton={{
           titleStyle: style.delete,
@@ -95,8 +93,12 @@ const EditAlert = ({
           title: 'CANCEl',
           onPress: () => hide(),
         }}
+        keyboardDismissMode="on-drag"
+        overlayStyle={Platform.OS === 'ios' && { paddingBottom: 120 }}
       >
-        <View style={{ marginRight: normalize(-5) }}>
+        <View
+          style={{ marginBottom: normalize(-15), marginRight: normalize(-3) }}
+        >
           <View style={style.titleView}>
             <Text style={style.title}>Your response is ready to go</Text>
           </View>
@@ -106,11 +108,13 @@ const EditAlert = ({
             <View style={style.stateView}>
               <View style={requestStyle.rowAlign}>
                 {action === 'Approve' && (
-                  <AppIcon
-                    name="check-circle"
-                    size={15}
-                    color={colors.green}
-                  ></AppIcon>
+                  <View style={{ marginRight: 5 }}>
+                    <AppIcon
+                      name="check-circle"
+                      size={15}
+                      color={colors.green}
+                    ></AppIcon>
+                  </View>
                 )}
                 <Text
                   style={requestStyle.state}
@@ -119,14 +123,15 @@ const EditAlert = ({
                   Approve
                 </Text>
               </View>
-              <View style={style.semigap}></View>
               <View style={requestStyle.rowAlign}>
                 {action === 'Deny' && (
-                  <AppIcon
-                    name="check-circle"
-                    size={15}
-                    color={colors.green}
-                  ></AppIcon>
+                  <View style={{ marginRight: 5 }}>
+                    <AppIcon
+                      name="check-circle"
+                      size={15}
+                      color={colors.green}
+                    ></AppIcon>
+                  </View>
                 )}
                 <Text
                   style={requestStyle.state}
@@ -138,7 +143,6 @@ const EditAlert = ({
             </View>
           </View>
           <View style={style.main}>
-            <Text style={style.note}>You can attach a note if you want</Text>
             <Textarea
               containerStyle={style.textareaContainer}
               style={style.textArea}

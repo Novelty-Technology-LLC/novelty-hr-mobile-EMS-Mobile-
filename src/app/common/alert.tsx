@@ -1,6 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
-import normalize from 'react-native-normalize';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import { deleteAlertStyle } from '../../assets/styles';
 
@@ -17,7 +15,9 @@ const Alert = ({
     <ConfirmDialog
       title={children}
       visible={showAlert}
-      contentStyle={{ marginBottom: normalize(-40) }}
+      contentStyle={{ display: 'none' }}
+      dialogStyle={{ borderRadius: 5 }}
+      onTouchOutside={() => setShowAlert(false)}
       titleStyle={deleteAlertStyle.text1}
       positiveButton={{
         titleStyle: deleteAlertStyle.delete,

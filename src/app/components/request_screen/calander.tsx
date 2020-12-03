@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { RangeCalendar, Calendar } from '@ui-kitten/components';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import moment from 'moment';
 import { MomentDateService } from '@ui-kitten/moment';
-import { dateStringMapper } from '../../utils';
-import { timeLogStyle } from '../../../assets/styles';
+import { dateStringMapper, checkRepeat } from '../../utils';
+import { calenderStyle, timeLogStyle } from '../../../assets/styles';
 import { momentdate } from '../../utils/momentDate';
+import colors from '../../../assets/colors';
+import { RequestContext } from '../../reducer';
 interface calenderPropType {
   style?: object;
   handleChange: Function;
@@ -33,9 +35,56 @@ const Calander = ({
   );
   const [date, setDate] = useState(moment());
   const dateService = new MomentDateService();
+  const { requests } = useContext(RequestContext);
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
   const modalfilter = (date) => momentdate(date) < momentdate();
+  const reviewed = [...requests.pastrequests, ...requests.requests].filter(
+    (req) =>
+      req.state === 'Approved' ||
+      req.state === 'In Progress' ||
+      req.state === 'Pending'
+  );
+
+  const DayCell = ({ date }, style) => {
+    let approved = false;
+    let inprogress = false;
+    let pending = false;
+    reviewed.map((req) => {
+      if (
+        checkRepeat(
+          req.leave_date,
+          JSON.stringify({ startDate: date, endDate: date })
+        )
+      ) {
+        req.state === 'Approved'
+          ? (approved = true)
+          : req.state === 'In Progress'
+          ? (inprogress = true)
+          : (pending = true);
+      }
+    });
+
+    return (
+      <View
+        style={[
+          style.container,
+          calenderStyle.dayBlock,
+          approved
+            ? { backgroundColor: colors.green }
+            : inprogress
+            ? { backgroundColor: colors.yellow }
+            : pending
+            ? { backgroundColor: colors.lightGrey }
+            : {},
+        ]}
+      >
+        <Text
+          style={[calenderStyle.dayBlockText, style.text]}
+        >{`${date.getDate()}`}</Text>
+      </View>
+    );
+  };
 
   useEffect(() => {
     if (!modal) {
@@ -45,17 +94,43 @@ const Calander = ({
 
   return (
     <>
-      {range.startDate && !modal && (
-        <Text style={timeLogStyle.rldate}>
-          Total :{' '}
-          {dateStringMapper(
-            new Date(range.startDate).toString().substring(0, 15),
-            range.endDate
-              ? new Date(range.endDate).toString().substring(0, 15)
-              : new Date(range.startDate).toString().substring(0, 15)
-          )}
-        </Text>
-      )}
+      <View
+        style={modal ? { display: 'none' } : timeLogStyle.indicatorContainer}
+      >
+        <View>
+          <View style={{ flexDirection: 'row' }}>
+            <View
+              style={[
+                timeLogStyle.indicator,
+                { backgroundColor: colors.lightGrey },
+              ]}
+            ></View>
+            <Text style={timeLogStyle.rldate}>Pending</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <View
+              style={[
+                timeLogStyle.indicator,
+                { backgroundColor: colors.green },
+              ]}
+            ></View>
+            <Text style={timeLogStyle.rldate}>Approved</Text>
+            <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
+            <Text style={timeLogStyle.rldate}>In progress</Text>
+          </View>
+        </View>
+        {range.startDate && !modal && (
+          <Text style={timeLogStyle.rldate}>
+            Total :{' '}
+            {dateStringMapper(
+              new Date(range.startDate).toString().substring(0, 15),
+              range.endDate
+                ? new Date(range.endDate).toString().substring(0, 15)
+                : new Date(range.startDate).toString().substring(0, 15)
+            )}
+          </Text>
+        )}
+      </View>
       {modal ? (
         <Calendar
           style={timeLogStyle.modalCalender}
@@ -74,9 +149,10 @@ const Calander = ({
           filter={filter}
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
-          style={style.calendar}
+          style={[style.calendar, { marginTop: -20 }]}
           name="date"
           label="date"
+          renderDay={DayCell}
         />
       )}
       {error && error.date && touched.date && (

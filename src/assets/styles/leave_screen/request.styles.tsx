@@ -5,7 +5,7 @@ import { theme, fonts } from '../theme';
 
 const requestStyle = StyleSheet.create({
   container: {
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(15),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',

@@ -158,8 +158,7 @@ const LeaveDashboard = ({ route }) => {
     user = JSON.parse(user);
     const device_id = DeviceInfo.getUniqueId();
 
-    let isValid = false;
-    isValid = user.device_tokens?.some(
+    const isValid = user.device_tokens?.some(
       (item) =>
         item.user_id === user.id &&
         item.device_id === device_id &&
@@ -215,7 +214,12 @@ const LeaveDashboard = ({ route }) => {
           params={route.params?.request === 'myrequest' && +route.params?.id}
         />
         {isAdmin && (
-          <OtherRequests refresh={refresh} params={route.params?.id} />
+          <OtherRequests
+            refresh={refresh}
+            params={
+              route.params?.request === 'otherrequest' && +route.params?.id
+            }
+          />
         )}
       </ScrollView>
       <RequestButton screen="requestLeave" />

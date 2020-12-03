@@ -65,6 +65,8 @@ const DeleteAlert = ({
       .catch((err) => console.log(err));
     hide();
   };
+  const positive = other ? 'YES' : 'DELETE';
+  const negative = other ? 'NO' : 'CANCEL';
 
   return (
     <>
@@ -85,11 +87,12 @@ const DeleteAlert = ({
       <ConfirmDialog
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
-        contentStyle={[style.innercontent, { marginBottom: normalize(-30) }]}
+        contentStyle={[style.innercontent, { marginBottom: 0 }]}
+        dialogStyle={{ borderRadius: 5 }}
         titleStyle={style.text1}
         positiveButton={{
           titleStyle: style.delete,
-          title: 'DELETE',
+          title: positive,
           onPress: () => {
             timelog ? onTimeLogDelete() : onDelete();
             hide();
@@ -97,13 +100,13 @@ const DeleteAlert = ({
         }}
         negativeButton={{
           titleStyle: style.cancel,
-          title: 'CANCEl',
+          title: negative,
           onPress: () => hide(),
         }}
       >
-        <View style={style.container}>
+        <View style={[style.container, { marginBottom: normalize(-20) }]}>
           <AppIcon name="alert" color={colors.tomato} size={30} />
-          <View style={style.main}>
+          <View style={[style.main, { marginBottom: normalize(-15) }]}>
             <Text style={style.text1}>
               {other ? 'Cancel' : 'Delete'} the{' '}
               {edittimelog ? 'task ' : timelog ? 'timelog' : 'request'} ?
