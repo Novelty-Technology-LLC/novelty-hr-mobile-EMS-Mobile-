@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-<<<<<<< HEAD
-import { Keyboard, Text, View, Platform } from 'react-native';
-=======
-import { Dimensions, Keyboard, Text, View } from 'react-native';
->>>>>>> 8b7bad46efbf4d45cd1d3f0fed5515e199fd8059
+import { Keyboard, Text, View } from 'react-native';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import { deleteAlertStyle } from '../../../assets/styles';
 import { Description } from '../request_screen';
@@ -107,48 +103,6 @@ const EditLogAlert = ({
   const successtitle = def ? 'UPDATE' : 'ADD';
 
   return (
-<<<<<<< HEAD
-    <ConfirmDialog
-      visible={showAlert}
-      onTouchOutside={() => setShowAlert(false)}
-      contentStyle={deleteAlertStyle.content}
-      dialogStyle={{ borderRadius: 5 }}
-      animationType="fade"
-      positiveButton={{
-        titleStyle: deleteAlertStyle.delete,
-        title: successtitle,
-        onPress: () => {
-          if (!error && time > 0) {
-            onSubmit({ task: note, time });
-          } else {
-            setTouched(true);
-          }
-        },
-      }}
-      negativeButton={{
-        title: 'CANCEL',
-        titleStyle: deleteAlertStyle.cancel,
-        onPress: () => {
-          setShowAlert(false);
-          setNote('');
-          setTouched(false);
-          onCancel && onCancel();
-        },
-      }}
-      overlayStyle={Platform.OS === 'ios' && { paddingBottom: 180 }}
-    >
-      <View style={deleteAlertStyle.innercontent}>
-        <Time
-          handleChange={setTime}
-          defaultValue={def && def.time}
-          edit={true}
-        />
-        {time < 15 && (
-          <Text style={deleteAlertStyle.error}>
-            Time duration should be greater than 0
-          </Text>
-        )}
-=======
     <View>
       <ConfirmDialog
         visible={showAlert}
@@ -190,7 +144,6 @@ const EditLogAlert = ({
               Time duration should be greater than 0
             </Text>
           )}
->>>>>>> 8b7bad46efbf4d45cd1d3f0fed5515e199fd8059
 
           <Description
             handleChange={(data) => {
