@@ -1,5 +1,4 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
 
 const width = Dimensions.get('window').width;
 

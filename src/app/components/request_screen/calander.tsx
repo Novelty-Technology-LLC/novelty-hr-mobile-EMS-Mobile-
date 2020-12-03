@@ -40,12 +40,16 @@ const Calander = ({
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
   const modalfilter = (date) => momentdate(date) < momentdate();
   const reviewed = [...requests.pastrequests, ...requests.requests].filter(
-    (req) => req.state === 'Approved' || req.state === 'In Progress'
+    (req) =>
+      req.state === 'Approved' ||
+      req.state === 'In Progress' ||
+      req.state === 'Pending'
   );
 
   const DayCell = ({ date }, style) => {
     let approved = false;
     let inprogress = false;
+    let pending = false;
     reviewed.map((req) => {
       if (
         checkRepeat(
@@ -53,7 +57,11 @@ const Calander = ({
           JSON.stringify({ startDate: date, endDate: date })
         )
       ) {
-        req.state === 'Approved' ? (approved = true) : (inprogress = true);
+        req.state === 'Approved'
+          ? (approved = true)
+          : req.state === 'In Progress'
+          ? (inprogress = true)
+          : (pending = true);
       }
     });
 
@@ -64,6 +72,7 @@ const Calander = ({
           calenderStyle.dayBlock,
           approved ? { backgroundColor: colors.green } : {},
           inprogress ? { backgroundColor: colors.yellow } : {},
+          pending ? { backgroundColor: colors.lightGrey } : {},
         ]}
       >
         <Text
@@ -91,6 +100,13 @@ const Calander = ({
           <Text style={timeLogStyle.rldate}>Approved</Text>
           <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
           <Text style={timeLogStyle.rldate}>In progress</Text>
+          <View
+            style={[
+              timeLogStyle.indicator,
+              { backgroundColor: colors.lightGrey, marginLeft: 5 },
+            ]}
+          ></View>
+          <Text style={timeLogStyle.rldate}>Pending</Text>
         </View>
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>
