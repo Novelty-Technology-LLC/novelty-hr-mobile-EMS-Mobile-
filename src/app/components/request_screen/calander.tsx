@@ -93,20 +93,27 @@ const Calander = ({
       <View
         style={modal ? { display: 'none' } : timeLogStyle.indicatorContainer}
       >
-        <View style={{ flexDirection: 'row' }}>
-          <View
-            style={[timeLogStyle.indicator, { backgroundColor: colors.green }]}
-          ></View>
-          <Text style={timeLogStyle.rldate}>Approved</Text>
-          <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
-          <Text style={timeLogStyle.rldate}>In progress</Text>
-          <View
-            style={[
-              timeLogStyle.indicator,
-              { backgroundColor: colors.lightGrey, marginLeft: 5 },
-            ]}
-          ></View>
-          <Text style={timeLogStyle.rldate}>Pending</Text>
+        <View>
+          <View style={{ flexDirection: 'row' }}>
+            <View
+              style={[
+                timeLogStyle.indicator,
+                { backgroundColor: colors.lightGrey },
+              ]}
+            ></View>
+            <Text style={timeLogStyle.rldate}>Pending</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <View
+              style={[
+                timeLogStyle.indicator,
+                { backgroundColor: colors.green },
+              ]}
+            ></View>
+            <Text style={timeLogStyle.rldate}>Approved</Text>
+            <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
+            <Text style={timeLogStyle.rldate}>In progress</Text>
+          </View>
         </View>
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>

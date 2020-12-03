@@ -95,13 +95,14 @@ const timeLogStyle = StyleSheet.create({
     marginTop: 10,
   },
   indicator: {
-    width: normalize(8),
-    height: normalize(8),
+    width: normalize(10),
+    height: normalize(10),
     backgroundColor: colors.yellow,
-    borderRadius: normalize(5),
+    borderRadius: normalize(8),
     alignSelf: 'center',
     marginRight: normalize(5),
     marginBottom: normalize(3),
+    marginLeft: normalize(5),
   },
 });
 
