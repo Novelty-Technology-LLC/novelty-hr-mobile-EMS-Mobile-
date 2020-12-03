@@ -90,25 +90,25 @@ const RequestLeave = ({ route }: any) => {
 
   const onSubmit = async (values) => {
     try {
-      // const allrequests = [
-      //   ...requests.pastrequests,
-      //   ...requests.requests,
-      // ].filter(
-      //   (req) =>
-      //     req.state === 'Approved' ||
-      //     req.state === 'In Progress' ||
-      //     req.state === 'Pending'
-      // );
-      // if (!olddata && checkIfRequested(allrequests, values)) {
-      //   return snackErrorBottom({
-      //     message: 'Requested date cannot be requested again',
-      //   });
-      // }
-      // if (olddata && checkIfRequested(allrequests, values, olddata)) {
-      //   return snackErrorBottom({
-      //     message: 'Requested date cannot be requested again',
-      //   });
-      // }
+      const allrequests = [
+        ...requests.pastrequests,
+        ...requests.requests,
+      ].filter(
+        (req) =>
+          req.state === 'Approved' ||
+          req.state === 'In Progress' ||
+          req.state === 'Pending'
+      );
+      if (!olddata && checkIfRequested(allrequests, values)) {
+        return snackErrorBottom({
+          message: 'Requested date cannot be requested again',
+        });
+      }
+      if (olddata && checkIfRequested(allrequests, values, olddata)) {
+        return snackErrorBottom({
+          message: 'Requested date cannot be requested again',
+        });
+      }
       const date = JSON.parse(values.date);
       let dayArray = [];
       const startDate = new Date(date.startDate).toString().slice(0, 15);
