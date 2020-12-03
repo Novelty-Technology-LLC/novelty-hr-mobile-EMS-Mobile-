@@ -58,6 +58,17 @@ const profileStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: normalize(10),
   },
+  msg: {
+    paddingLeft: normalize(10),
+    ...Platform.select({
+      ios: {
+        paddingTop: normalize(5),
+      },
+      android: {
+        paddingTop: normalize(7),
+      },
+    }),
+  },
   gender: {
     textTransform: 'capitalize',
     marginLeft: normalize(8),
@@ -86,7 +97,7 @@ const profileStyle = StyleSheet.create({
         marginTop: normalize(7),
       },
       android: {
-        marginTop: normalize(7),
+        marginTop: normalize(10),
       },
     }),
   },
