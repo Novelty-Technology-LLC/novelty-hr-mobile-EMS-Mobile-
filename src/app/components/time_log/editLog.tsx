@@ -144,21 +144,20 @@ const EditLogAlert = ({
           </Text>
         )}
 
-          <Description
-            handleChange={(data) => {
-              setTouched(true);
-              setNote(data);
-            }}
-            editlog={true}
-            timelog={true}
-            defaultValue={def && def.task}
-          />
-          {error && touched && (
-            <Text style={deleteAlertStyle.error}>Task summary is required</Text>
-          )}
-        </View>
-      </ConfirmDialog>
-    </View>
+        <Description
+          handleChange={(data) => {
+            setTouched(true);
+            setNote(data);
+          }}
+          editlog={true}
+          timelog={true}
+          defaultValue={def && def.task}
+        />
+        {error && touched && (
+          <Text style={deleteAlertStyle.error}>Task summary is required</Text>
+        )}
+      </View>
+    </ConfirmDialog>
   );
 };
 
