@@ -28,7 +28,6 @@ import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
 import { useScrollToTop } from '@react-navigation/native';
-import { SetLocalNotification } from '../../utils/pushNotification';
 import { useNavigation } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 
@@ -136,14 +135,6 @@ const LeaveDashboard = ({ route }) => {
         });
     };
     initialNotification();
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Platform.OS === 'ios' &&
-        SetLocalNotification(remoteMessage.notification.body);
-    });
-    return unsubscribe;
   }, []);
 
   async function requestUserPermission() {
