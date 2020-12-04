@@ -155,7 +155,7 @@ const LeaveDashboard = ({ route }) => {
         item.device_id === device_id &&
         item.notification_token === token
     );
-    return;
+
     const data = {
       id: user.id,
       notification_token: token,
