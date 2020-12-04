@@ -39,7 +39,6 @@ const timeLogStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
-    alignSelf: 'flex-end',
   },
   type: {
     color: colors.fontGrey,
@@ -89,10 +88,11 @@ const timeLogStyle = StyleSheet.create({
   },
 
   indicatorContainer: {
-    // flexDirection: 'row',
-    // alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: normalize(20),
-    // marginTop: 10,
+    marginTop: 10,
   },
   indicator: {
     width: normalize(10),

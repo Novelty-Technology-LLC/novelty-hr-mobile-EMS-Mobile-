@@ -8,7 +8,6 @@ import { calenderStyle, timeLogStyle } from '../../../assets/styles';
 import { momentdate } from '../../utils/momentDate';
 import colors from '../../../assets/colors';
 import { RequestContext } from '../../reducer';
-import { app } from 'firebase-admin';
 interface calenderPropType {
   style?: object;
   handleChange: Function;
@@ -16,6 +15,7 @@ interface calenderPropType {
   error?: any;
   touched?: any;
   modal?: boolean;
+  olddata_id?: number;
 }
 
 const Calander = ({
@@ -25,6 +25,7 @@ const Calander = ({
   error,
   touched,
   modal,
+  olddata_id,
 }: calenderPropType) => {
   const [range, setrange] = useState(
     defaultValue
@@ -40,34 +41,39 @@ const Calander = ({
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
   const modalfilter = (date) => momentdate(date) < momentdate();
-  const reviewed = [...requests.pastrequests, ...requests.requests].filter(
+  let reviewed = [...requests.pastrequests, ...requests.requests].filter(
     (req) =>
       req.state === 'Approved' ||
       req.state === 'In Progress' ||
       req.state === 'Pending'
   );
 
+  if (olddata_id) {
+    reviewed = reviewed.filter((req) => req.id !== olddata_id);
+  }
+
   const DayCell = ({ date }, style) => {
     let approved = false;
     let inprogress = false;
     let pending = false;
-
-    reviewed.map((req) => {
-      if (
-        checkRepeat(
-          req.leave_date,
-          JSON.stringify({ startDate: date, endDate: date })
-        )
-      ) {
-        req.state === 'Approved'
-          ? (approved = true)
-          : req.state === 'In Progress'
-          ? (inprogress = true)
-          : req.state === 'Pending'
-          ? (pending = true)
-          : {};
-      }
-    });
+    if (date.getDay() !== 0 && date.getDay() !== 6) {
+      reviewed.map((req) => {
+        if (
+          checkRepeat(
+            req.leave_date,
+            JSON.stringify({ startDate: date, endDate: date })
+          )
+        ) {
+          req.state === 'Approved'
+            ? (approved = true)
+            : req.state === 'In Progress'
+            ? (inprogress = true)
+            : req.state === 'Pending'
+            ? (pending = true)
+            : {};
+        }
+      });
+    }
 
     return (
       <View
@@ -101,7 +107,7 @@ const Calander = ({
       <View
         style={modal ? { display: 'none' } : timeLogStyle.indicatorContainer}
       >
-        {/* <View>
+        <View>
           <View style={{ flexDirection: 'row' }}>
             <View
               style={[
@@ -122,7 +128,7 @@ const Calander = ({
             <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
             <Text style={timeLogStyle.rldate}>In progress</Text>
           </View>
-        </View> */}
+        </View>
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>
             Total :{' '}
@@ -156,7 +162,7 @@ const Calander = ({
           style={[style.calendar, { marginTop: -20 }]}
           name="date"
           label="date"
-          // renderDay={DayCell}
+          renderDay={DayCell}
         />
       )}
       {error && error.date && touched.date && (
