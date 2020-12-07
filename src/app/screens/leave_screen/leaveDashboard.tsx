@@ -117,7 +117,7 @@ const LeaveDashboard = ({ route }) => {
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
     };
-  }, []);
+  }, [messaging]);
 
   useEffect(() => {
     const initialNotification = () => {
@@ -135,7 +135,7 @@ const LeaveDashboard = ({ route }) => {
         });
     };
     initialNotification();
-  }, []);
+  }, [messaging]);
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
