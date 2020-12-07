@@ -15,6 +15,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import ImagePicker from 'react-native-image-picker';
+import ImageCropper from 'react-native-image-crop-picker';
 import { formatPhoneNumber } from '../utils';
 import { updateImage, updateBirthday } from '../services';
 import normalize from 'react-native-normalize';
@@ -27,24 +28,23 @@ import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
-const options = {
+//file:///storage/emulated/0/Pictures/images/image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg image/jpeg image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg
+
+const optionsPicker = {
   title: 'Pick a image',
   base64: true,
   storageOptions: {
     skipBackup: true,
     path: 'images',
   },
-  maxWidth: 200,
-  maxHeight: 200,
 };
 
 const createFormData = (photo) => {
   const data = new FormData();
-
   data.append('file', {
     name: photo.fileName,
-    type: photo.type,
-    uri: photo.uri,
+    type: photo.mime,
+    uri: photo.path,
   });
 
   Object.keys(photo).forEach((key) => {
@@ -66,19 +66,25 @@ const Profile = () => {
   const modalfilter = (date) => momentdate(date) < momentdate();
 
   const uploadImage = () => {
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePicker.showImagePicker(optionsPicker, (response) => {
       if (response.didCancel) {
+        console.log('User cancelled image picker');
       } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
       } else {
-        let index = response.uri.lastIndexOf('/');
-        let name = response.uri.slice(index + 1, response.uri.length);
-
-        Platform.OS === 'android'
-          ? response.uri
-          : (response.uri = response.uri.replace('file://', '')) &&
-            (response.fileName = name),
-          setimage(response);
+        ImageCropper.openCropper({
+          path: response.uri,
+          width: 300,
+          height: 400,
+        }).then((image) => {
+          let index = image.path.lastIndexOf('/');
+          let name = image.path.slice(index + 1, image.path.length);
+          image.fileName = name;
+          response.path = image.path.replace('file://', '');
+          setimage(image);
+        });
       }
     });
   };
@@ -97,7 +103,9 @@ const Profile = () => {
         setimage({ ...image, visible: false });
         snackBarMessage('Image uploaded');
       })
-      .catch((err) => snackErrorBottom('Something went wrong'));
+      .catch((err) => {
+        snackErrorBottom('Something went wrong');
+      });
   };
 
   const submit = (nextDate) => {
@@ -116,7 +124,7 @@ const Profile = () => {
       .catch((err) => snackErrorBottom(err));
   };
 
-  let uri = image ? image.uri : state.user.image_url;
+  let uri = image ? image.path : state.user.image_url;
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
