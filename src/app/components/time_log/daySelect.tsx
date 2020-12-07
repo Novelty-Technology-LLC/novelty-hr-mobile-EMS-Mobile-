@@ -6,21 +6,23 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import Day from './day';
-import { getDateWithOutTimeZone } from '../../utils';
-import { momentdate } from '../../utils/momentDate';
+import { getDateWithOutTimeZone, getStringDate } from '../../utils';
 import { DialogContainer } from '../../common';
 
 const DaySelect = ({
   handleChange,
   refreshing,
+  setSelectedDay,
 }: {
   handleChange: Function;
   refreshing: Boolean;
+  setSelectedDay: Function;
 }) => {
   const [visible, setVisible] = useState(false);
   const today = getDateWithOutTimeZone(new Date());
   const [date, setDate] = useState(today);
   const [modalDate, setModalDate] = useState(today);
+  const [modalDateString, setModalDateString] = useState('');
   const yesterday = getDateWithOutTimeZone(
     new Date(new Date().setDate(new Date().getDate() - 1))
   );
@@ -28,6 +30,11 @@ const DaySelect = ({
   const isSelected = (newdate) => {
     return newdate.toDateString() === new Date(date).toDateString();
   };
+
+  useEffect(() => {
+    setModalDateString(getStringDate(modalDate));
+    setSelectedDay(getStringDate(modalDate));
+  }, [modalDate]);
 
   useEffect(() => {
     setDate(today);
@@ -40,11 +47,7 @@ const DaySelect = ({
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={dayStyle.buttonContainer}>
         <Day
-          title={
-            momentdate(JSON.stringify(modalDate).substring(1, 11), 'lll').split(
-              ','
-            )[0]
-          }
+          title={modalDateString}
           select={isSelected(new Date(modalDate)) && index === 3}
           onPress={() => {
             setDate(new Date(modalDate));
@@ -60,6 +63,7 @@ const DaySelect = ({
           onPress={() => {
             setDate(yesterday);
             handleChange(yesterday);
+            setSelectedDay('Yesterday');
             setIndex(1);
           }}
         />
@@ -69,6 +73,7 @@ const DaySelect = ({
           onPress={() => {
             setDate(today);
             handleChange(today);
+            setSelectedDay('Today');
             setIndex(2);
           }}
         />

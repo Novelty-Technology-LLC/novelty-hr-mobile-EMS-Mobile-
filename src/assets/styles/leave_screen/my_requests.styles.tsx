@@ -35,7 +35,7 @@ const myRequestsStyle = StyleSheet.create({
     alignItems: 'center',
   },
   gap: {
-    width: normalize(10),
+    width: normalize(5),
   },
   bgap: { paddingVertical: normalize(60) },
 });
