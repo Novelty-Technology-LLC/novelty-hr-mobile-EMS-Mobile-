@@ -33,6 +33,7 @@ const options = {
   height: 500,
   cropperCircleOverlay: true,
   cropping: true,
+  mediaType: 'photo',
 };
 
 const createFormData = (photo) => {
@@ -40,7 +41,7 @@ const createFormData = (photo) => {
 
   data.append('file', {
     name: photo.fileName,
-    type: photo.type,
+    type: photo.mime,
     uri: photo.path,
   });
 
@@ -64,16 +65,15 @@ const Profile = () => {
 
   const uploadImage = () => {
     ImageCropper.openPicker(options).then((response) => {
-      let index = response.sourceURL.lastIndexOf('/');
-      let name = response.sourceURL.slice(index + 1, response.sourceURL.length);
-
-      Platform.OS === 'android'
-        ? response.sourceURL
-        : (response.sourceURL = response.sourceURL.replace('file://', '')) &&
-          (response.fileName = name),
-        setimage(response);
+      let index = response.path.lastIndexOf('/');
+      let name = response.path.slice(index + 1, response.path.length);
+      response.fileName = name;
+      Platform.OS === 'ios' &&
+        (response.path = response.path.replace('file://', ''));
+      setimage(response);
     });
   };
+
   const confirm = () => {
     setloading(true);
     const data = createFormData(image);
@@ -88,7 +88,9 @@ const Profile = () => {
         setimage({ ...image, visible: false });
         snackBarMessage('Image uploaded');
       })
-      .catch((err) => snackErrorBottom('Something went wrong'));
+      .catch((err) => {
+        snackErrorBottom('Something went wrong');
+      });
   };
 
   const submit = (nextDate) => {
