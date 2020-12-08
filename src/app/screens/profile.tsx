@@ -15,6 +15,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import ImagePicker from 'react-native-image-picker';
+import ImageCropper from 'react-native-image-crop-picker';
 import { formatPhoneNumber } from '../utils';
 import { updateImage, updateBirthday } from '../services';
 import normalize from 'react-native-normalize';
@@ -38,21 +39,21 @@ const options = {
   maxHeight: 200,
 };
 
-const createFormData = (photo) => {
-  const data = new FormData();
+// const createFormData = (photo) => {
+//   const data = new FormData();
 
-  data.append('file', {
-    name: photo.fileName,
-    type: photo.type,
-    uri: photo.uri,
-  });
+//   data.append('file', {
+//     name: photo.fileName,
+//     type: photo.type,
+//     uri: photo.uri,
+//   });
 
-  Object.keys(photo).forEach((key) => {
-    data.append(key, photo[key]);
-  });
+//   Object.keys(photo).forEach((key) => {
+//     data.append(key, photo[key]);
+//   });
 
-  return data;
-};
+//   return data;
+// };
 
 const Profile = () => {
   const { state } = useContext(AuthContext);
@@ -65,29 +66,38 @@ const Profile = () => {
 
   const modalfilter = (date) => momentdate(date) < momentdate();
 
+  const cleanImage = () =>
+    ImageCropper.clean()
+      .then(() => {
+        console.log('removed all tmp images from tmp directory');
+      })
+      .catch((e) => {});
+
   const uploadImage = () => {
     ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
       } else if (response.error) {
       } else if (response.customButton) {
       } else {
-        let index = response.uri.lastIndexOf('/');
-        let name = response.uri.slice(index + 1, response.uri.length);
-
-        Platform.OS === 'android'
-          ? response.uri
-          : (response.uri = response.uri.replace('file://', '')) &&
-            (response.fileName = name),
-          setimage(response);
+        ImageCropper.openCropper({
+          path: response.uri,
+          width: 300,
+          height: 400,
+          cropperCircleOverlay: true,
+          includeBase64: true,
+        }).then((image) => setimage(image));
       }
     });
   };
-
   const confirm = () => {
     setloading(true);
-    const data = createFormData(image);
+    // const data = createFormData(image);
 
-    updateImage(state.user.id, data)
+    updateImage(state.user.id, {
+      data: image.data,
+      name: image.path.split('/').pop(),
+      type: image.mime,
+    })
       .then((data) => {
         removeToken();
         storeToken(JSON.stringify(data));
@@ -116,7 +126,7 @@ const Profile = () => {
       .catch((err) => snackErrorBottom(err));
   };
 
-  let uri = image ? image.uri : state.user.image_url;
+  let uri = image ? image.path : state.user.image_url;
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
