@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { header as Header } from '../../common';
 import {
   leaveType as style,
   headerText,
   requestLeave,
+  historyStyle,
 } from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { momentdate } from '../../utils';
@@ -17,10 +18,13 @@ const LogListings = ({ route }: any) => {
   const [tasks, setTasks] = useState(olddata ? olddata.note : []);
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
-      <View style={requestLeave.container}>
-        <Header icon={true}>
-          <Text style={headerText}>{olddata[0] ? olddata[0] : 'Log Time'}</Text>
-        </Header>
+      <Header icon={true}>
+        <Text style={headerText}>{olddata[0] ? olddata[0] : 'Log Time'}</Text>
+      </Header>
+      <ScrollView
+        style={requestLeave.container}
+        showsVerticalScrollIndicator={false}
+      >
         {!olddata[0] && (
           <View style={style.container}>
             <View style={style.padNone}>
@@ -43,18 +47,19 @@ const LogListings = ({ route }: any) => {
         ) : (
           <Tasks value={olddata} />
         )}
-        {olddata && (
-          <RequestButton
-            screen="logtime"
-            addToList={true}
-            olddata={{
-              id: olddata[0] ? null : olddata.id,
-              log_date: olddata[0] ? null : olddata.log_date,
-              project: olddata[0] ? olddata[1][0].project : olddata.project,
-            }}
-          />
-        )}
-      </View>
+        <View style={historyStyle.timelogcontainer}></View>
+      </ScrollView>
+      {olddata && (
+        <RequestButton
+          screen="logtime"
+          addToList={true}
+          olddata={{
+            id: olddata[0] ? null : olddata.id,
+            log_date: olddata[0] ? null : olddata.log_date,
+            project: olddata[0] ? olddata[1][0].project : olddata.project,
+          }}
+        />
+      )}
     </TaskContext.Provider>
   );
 };

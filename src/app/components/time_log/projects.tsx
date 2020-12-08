@@ -36,7 +36,9 @@ const Projects = ({
         setAllprojects(data);
         setProjects(data.filter((item, id) => id < 3));
         setType(defaultValue ? defaultValue : data[0].id);
-        handleChange('project_id')(data[0].id.toString());
+        handleChange('project_id')(
+          defaultValue ? defaultValue.toString() : data[0].id.toString()
+        );
       })
       .catch((err) => console.log(err));
   };

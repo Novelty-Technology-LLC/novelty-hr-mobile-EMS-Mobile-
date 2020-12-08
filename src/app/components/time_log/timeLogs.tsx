@@ -181,9 +181,9 @@ const TimeLogs = () => {
         )}
       </View>
 
-      {toggle === 'toggle-switch' && (
-        <View style={historyStyle.timelogcontainer}>
-          {loading ? (
+      <View style={historyStyle.timelogcontainer}>
+        {toggle === 'toggle-switch' ? (
+          loading ? (
             <UserPlaceHolder />
           ) : thisWeekLogs[0] ? (
             thisWeekLogs.map((log) => <TimeLog item={log} thisweek={true} />)
@@ -191,9 +191,9 @@ const TimeLogs = () => {
             !thisWeekLogs[0] && (
               <EmptyContainer text="You don't have past logs." />
             )
-          )}
-        </View>
-      )}
+          )
+        ) : null}
+      </View>
     </ScrollView>
   );
 };

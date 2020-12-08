@@ -13,7 +13,7 @@ import {
   snackErrorBottom,
 } from '../../common';
 import { Description } from '../../components/request_screen';
-import { Tasks, Calendar } from '../../components/time_log';
+import { Calendar } from '../../components/time_log';
 import Time from '../../components/time_log/time';
 import { button as Button } from '../../common';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -34,20 +34,6 @@ const LogTime = ({ route }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
-  const getNote = (olddata) => {
-    if (isThisWeek(olddata)) {
-      return (
-        timelogs.present.filter((log) => log.id === olddata.id)[0] &&
-        timelogs.present.filter((log) => log.id === olddata.id)[0].note
-      );
-    } else {
-      return (
-        timelogs.past.filter((log) => log.id === olddata.id)[0] &&
-        timelogs.past.filter((log) => log.id === olddata.id)[0].note
-      );
-    }
-  };
-
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
     duration: olddata && olddata.item ? olddata.item.time : '60',
@@ -67,69 +53,100 @@ const LogTime = ({ route }: any) => {
     note: Yup.string().required('Task summary is required').label('note'),
   });
   const onSubmit = async (values) => {
-    return console.log(values);
-    setIsLoading(true);
-    const user = await getUser();
-    values.user_id = JSON.parse(user).id;
-    const uuid = await UUIDGenerator.getRandomUUID();
-    const note = {
-      id: uuid,
-      task: values.note,
-      time: values.duration,
-    };
-    const pastData = timelogs.present
-      .concat(timelogs.past)
-      .filter(
-        (log) =>
-          momentdate(log.log_date, 'll') ===
-            momentdate(values.log_date, 'll') &&
-          log.project_id == values.project_id
-      );
-
-    if (pastData.length > 0) {
-      if (
-        checkunder24Hrs(parseInt(pastData[0].duration) + parseInt(note.time))
-      ) {
-        pastData[0].note = [].concat(note, ...pastData[0].note);
-        pastData[0].duration = totalHours(pastData[0]);
-        editTimeLog(pastData[0].id, pastData[0])
-          .then((data) => {
-            dispatchTimeLog({
-              type: 'EDIT',
-              payload: {
-                present: isThisWeek(data) ? data : null,
-                past: isThisWeek(data) ? null : data,
-              },
-            });
-            navigation.navigate('timelog');
-            setIsLoading(false);
-            snackBarMessage('TimeLog updated');
-          })
-          .catch((err) => console.log(err));
-      } else {
-        Keyboard.dismiss();
-        setIsLoading(false);
-        snackErrorBottom({
-          message: 'You cannot log more than 24 hours a day ',
-        });
-      }
-    } else {
-      values.note = [note];
-      postTimeLog(values)
-        .then((data) => {
-          dispatchTimeLog({
-            type: 'ADD',
-            payload: {
-              present: isThisWeek(data) ? data : null,
-              past: isThisWeek(data) ? null : data,
-            },
-          });
-          setIsLoading(false);
-          navigation.navigate('timelog');
-          snackBarMessage('Time logged');
-        })
-        .catch((err) => console.log(err));
-    }
+    // setIsLoading(true);
+    // const user = await getUser();
+    // values.user_id = JSON.parse(user).id;
+    // const uuid = await UUIDGenerator.getRandomUUID();
+    // const note = {
+    //   id: olddata.item ? olddata.item.id : uuid,
+    //   task: values.note,
+    //   time: values.duration,
+    // };
+    // const pastData = timelogs.present
+    //   .concat(timelogs.past)
+    //   .filter(
+    //     (log) =>
+    //       momentdate(log.log_date, 'll') ===
+    //         momentdate(values.log_date, 'll') &&
+    //       log.project_id == values.project_id
+    //   );
+    // if (pastData.length > 0) {
+    //   if (
+    //     checkunder24Hrs(parseInt(pastData[0].duration) + parseInt(note.time))
+    //   ) {
+    //     if (olddata && olddata.id !== pastData[0].id) {
+    //       olddata.note = olddata.note.filter(
+    //         (note) => note.id !== olddata.item.id
+    //       );
+    //       olddata.duration = totalHours(olddata);
+    //       editTimeLog(olddata.id, olddata).then((data) => {
+    //         dispatchTimeLog({
+    //           type: 'EDIT',
+    //           payload: {
+    //             present: isThisWeek(data) ? data : null,
+    //             past: isThisWeek(data) ? null : data,
+    //           },
+    //         });
+    //       });
+    //       pastData[0].note = [].concat(note, ...pastData[0].note);
+    //       pastData[0].duration = totalHours(pastData[0]);
+    //       editTimeLog(pastData[0].id, pastData[0]).then((data) => {
+    //         dispatchTimeLog({
+    //           type: 'EDIT',
+    //           payload: {
+    //             present: isThisWeek(data) ? data : null,
+    //             past: isThisWeek(data) ? null : data,
+    //           },
+    //         });
+    //         navigation.navigate('timelog');
+    //         setIsLoading(false);
+    //         snackBarMessage('TimeLog updated');
+    //       });
+    //     } else {
+    //       pastData[0].note = pastData[0].note.filter(
+    //         (data) => data.id !== note.id
+    //       );
+    //       pastData[0].note = [].concat(note, ...pastData[0].note);
+    //       pastData[0].duration = totalHours(pastData[0]);
+    //       editTimeLog(pastData[0].id, pastData[0])
+    //         .then((data) => {
+    //           dispatchTimeLog({
+    //             type: 'EDIT',
+    //             payload: {
+    //               present: isThisWeek(data) ? data : null,
+    //               past: isThisWeek(data) ? null : data,
+    //             },
+    //           });
+    //           navigation.navigate('timelog');
+    //           setIsLoading(false);
+    //           snackBarMessage('TimeLog updated');
+    //         })
+    //         .catch((err) => console.log(err));
+    //     }
+    //   } else {
+    //     Keyboard.dismiss();
+    //     setIsLoading(false);
+    //     snackErrorBottom({
+    //       message: 'You cannot log more than 24 hours a day ',
+    //     });
+    //   }
+    // } else {
+    //   values.note = [note];
+    //   postTimeLog(values)
+    //     .then((data) => {
+    //       dispatchTimeLog({
+    //         type: 'ADD',
+    //         payload: {
+    //           present: isThisWeek(data) ? data : null,
+    //           past: isThisWeek(data) ? null : data,
+    //         },
+    //       });
+    //       setIsLoading(false);
+    //       navigation.navigate('timelog');
+    //       snackBarMessage('Time logged');
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
   };
 
   return (
@@ -188,7 +205,9 @@ const LogTime = ({ route }: any) => {
                       : requestLeave.logButtonView,
                   ]}
                 >
-                  <Text style={requestLeave.buttonText}>Submit</Text>
+                  <Text style={requestLeave.buttonText}>
+                    {olddata && olddata.note ? 'Update' : 'Submit'}
+                  </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />
                   )}

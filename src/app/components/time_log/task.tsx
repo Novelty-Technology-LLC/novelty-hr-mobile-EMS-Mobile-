@@ -4,7 +4,6 @@ import { timeLogStyle } from '../../../assets/styles';
 import { getHrs } from '../../utils';
 
 const Task = ({ item }: any) => {
-  console.log(item.task, item.time);
   return (
     <View style={timeLogStyle.container}>
       <View style={timeLogStyle.dateView}>

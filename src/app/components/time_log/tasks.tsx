@@ -33,37 +33,38 @@ const Tasks = ({ value, handleChange, note }: any) => {
           </Text>
         )}
       </View>
-      {notes.map((item, index) => (
-        <Swipeable
-          key={item.id}
-          ref={(ref) => (row[index] = ref)}
-          renderRightActions={() => (
-            <Swipe
-              edittimelog={true}
-              item={item}
-              value={value}
-              // handleChange={handleChange}
-              onPress={() => row[index].close()}
-              setLoading={setLoading}
-            />
-          )}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              value.item = item;
-              navigate('logtime', value);
-            }}
-            disabled={loading}
+      {notes[0] &&
+        notes.map((item, index) => (
+          <Swipeable
+            key={item.id}
+            ref={(ref) => (row[index] = ref)}
+            renderRightActions={() => (
+              <Swipe
+                edittimelog={true}
+                item={item}
+                value={value}
+                // handleChange={handleChange}
+                onPress={() => row[index].close()}
+                setLoading={setLoading}
+              />
+            )}
           >
-            <Task item={item} />
-          </TouchableOpacity>
-        </Swipeable>
-      ))}
+            <TouchableOpacity
+              onPress={() => {
+                value.item = item;
+                navigate('logtime', value);
+              }}
+              disabled={loading}
+            >
+              <Task item={item} />
+            </TouchableOpacity>
+          </Swipeable>
+        ))}
 
-      <View style={[timeLogStyle.dateView, { marginBottom: 30 }]}>
+      <View style={[timeLogStyle.dateView, { marginBottom: 20 }]}>
         <View style={[timeLogStyle.total, timeLogStyle.gap]}>
-          <Text style={[timeLogStyle.date, { paddingTop: 25 }]}>Total</Text>
-          <Text style={[timeLogStyle.duration, { paddingTop: 25 }]}>
+          <Text style={timeLogStyle.date}>Total</Text>
+          <Text style={timeLogStyle.duration}>
             {getHrs(totalHours(note ? { note: notes } : { note: tasks }))}
           </Text>
         </View>
