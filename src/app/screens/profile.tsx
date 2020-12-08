@@ -106,8 +106,12 @@ const Profile = () => {
         setloading(false);
         setimage({ ...image, visible: false });
         snackBarMessage('Image uploaded');
+        cleanImage();
       })
-      .catch((err) => snackErrorBottom('Something went wrong'));
+      .catch((err) => {
+        cleanImage();
+        snackErrorBottom('Something went wrong');
+      });
   };
 
   const submit = (nextDate) => {
