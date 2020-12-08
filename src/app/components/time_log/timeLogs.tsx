@@ -67,6 +67,7 @@ const TimeLogs = () => {
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
         setLoading(false);
+
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
 
@@ -77,6 +78,7 @@ const TimeLogs = () => {
             past: pastw,
           },
         });
+        setSelectedHrs(getHrsToday(timelogs.present));
         setRefreshing(false);
       })
       .catch((err) => console.log(err));

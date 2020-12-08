@@ -1,5 +1,4 @@
 import { api } from '../api/api';
-import { dataType } from '../interface';
 
 export const getAllTimeLogs = (id: number) => {
   return new Promise(async (resolve, reject) => {
@@ -38,6 +37,17 @@ export const deleteTimeLog = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.delete(`/timelog/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+export const submitTimeLog = (values: Object) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.post(`/timelog/submit/`, values);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

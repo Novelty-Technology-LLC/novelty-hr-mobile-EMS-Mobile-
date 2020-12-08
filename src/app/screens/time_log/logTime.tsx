@@ -21,11 +21,10 @@ import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { checkunder24Hrs, getUser, isThisWeek, totalHours } from '../../utils';
-import { editTimeLog, postTimeLog } from '../../services/timeLogService';
+import { submitTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
-import UUIDGenerator from 'react-native-uuid-generator';
 import { momentdate } from '../../utils/momentDate';
 
 const LogTime = ({ route }: any) => {
@@ -53,100 +52,64 @@ const LogTime = ({ route }: any) => {
     note: Yup.string().required('Task summary is required').label('note'),
   });
   const onSubmit = async (values) => {
-    // setIsLoading(true);
-    // const user = await getUser();
-    // values.user_id = JSON.parse(user).id;
-    // const uuid = await UUIDGenerator.getRandomUUID();
-    // const note = {
-    //   id: olddata.item ? olddata.item.id : uuid,
-    //   task: values.note,
-    //   time: values.duration,
-    // };
-    // const pastData = timelogs.present
-    //   .concat(timelogs.past)
-    //   .filter(
-    //     (log) =>
-    //       momentdate(log.log_date, 'll') ===
-    //         momentdate(values.log_date, 'll') &&
-    //       log.project_id == values.project_id
-    //   );
-    // if (pastData.length > 0) {
-    //   if (
-    //     checkunder24Hrs(parseInt(pastData[0].duration) + parseInt(note.time))
-    //   ) {
-    //     if (olddata && olddata.id !== pastData[0].id) {
-    //       olddata.note = olddata.note.filter(
-    //         (note) => note.id !== olddata.item.id
-    //       );
-    //       olddata.duration = totalHours(olddata);
-    //       editTimeLog(olddata.id, olddata).then((data) => {
-    //         dispatchTimeLog({
-    //           type: 'EDIT',
-    //           payload: {
-    //             present: isThisWeek(data) ? data : null,
-    //             past: isThisWeek(data) ? null : data,
-    //           },
-    //         });
-    //       });
-    //       pastData[0].note = [].concat(note, ...pastData[0].note);
-    //       pastData[0].duration = totalHours(pastData[0]);
-    //       editTimeLog(pastData[0].id, pastData[0]).then((data) => {
-    //         dispatchTimeLog({
-    //           type: 'EDIT',
-    //           payload: {
-    //             present: isThisWeek(data) ? data : null,
-    //             past: isThisWeek(data) ? null : data,
-    //           },
-    //         });
-    //         navigation.navigate('timelog');
-    //         setIsLoading(false);
-    //         snackBarMessage('TimeLog updated');
-    //       });
-    //     } else {
-    //       pastData[0].note = pastData[0].note.filter(
-    //         (data) => data.id !== note.id
-    //       );
-    //       pastData[0].note = [].concat(note, ...pastData[0].note);
-    //       pastData[0].duration = totalHours(pastData[0]);
-    //       editTimeLog(pastData[0].id, pastData[0])
-    //         .then((data) => {
-    //           dispatchTimeLog({
-    //             type: 'EDIT',
-    //             payload: {
-    //               present: isThisWeek(data) ? data : null,
-    //               past: isThisWeek(data) ? null : data,
-    //             },
-    //           });
-    //           navigation.navigate('timelog');
-    //           setIsLoading(false);
-    //           snackBarMessage('TimeLog updated');
-    //         })
-    //         .catch((err) => console.log(err));
-    //     }
-    //   } else {
-    //     Keyboard.dismiss();
-    //     setIsLoading(false);
-    //     snackErrorBottom({
-    //       message: 'You cannot log more than 24 hours a day ',
-    //     });
-    //   }
-    // } else {
-    //   values.note = [note];
-    //   postTimeLog(values)
-    //     .then((data) => {
-    //       dispatchTimeLog({
-    //         type: 'ADD',
-    //         payload: {
-    //           present: isThisWeek(data) ? data : null,
-    //           past: isThisWeek(data) ? null : data,
-    //         },
-    //       });
-    //       setIsLoading(false);
-    //       navigation.navigate('timelog');
-    //       snackBarMessage('Time logged');
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
+    const user = await getUser();
+    values.user_id = JSON.parse(user).id;
+    const dataObj = { old: olddata, new: values };
+    setIsLoading(true);
+
+    const pastData = timelogs.present
+      .concat(timelogs.past)
+      .filter(
+        (log) =>
+          momentdate(log.log_date, 'll') ===
+            momentdate(values.log_date, 'll') &&
+          log.project_id == values.project_id
+      );
+
+    if (
+      (pastData[0] &&
+        checkunder24Hrs(
+          parseInt(pastData[0].duration) + parseInt(values.duration)
+        )) ||
+      !pastData[0]
+    ) {
+      submitTimeLog(dataObj)
+        .then((data) => {
+          if (data[0]) {
+            let thisw = data.filter((item) => isThisWeek(item));
+            let pastw = data.filter((item) => !isThisWeek(item));
+
+            dispatchTimeLog({
+              type: 'CHANGE',
+              payload: {
+                present: thisw,
+                past: pastw,
+              },
+            });
+            navigation.navigate('timelog');
+            setIsLoading(false);
+            snackBarMessage('TimeLog updated');
+          } else {
+            dispatchTimeLog({
+              type: 'EDIT',
+              payload: {
+                present: isThisWeek(data) ? data : null,
+                past: isThisWeek(data) ? null : data,
+              },
+            });
+            navigation.navigate('timelog');
+            setIsLoading(false);
+            snackBarMessage('TimeLog updated');
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      Keyboard.dismiss();
+      setIsLoading(false);
+      snackErrorBottom({
+        message: 'You cannot log more than 24 hours a day ',
+      });
+    }
   };
 
   return (
