@@ -1,5 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Platform,
+  ActivityIndicator,
+} from 'react-native';
 import { headerText, timeLogStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
 import { DialogContainer, tabHeader as Header } from '../common';
@@ -21,24 +28,24 @@ import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
-//file:///storage/emulated/0/Pictures/images/image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg image/jpeg image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg
-
-const optionsPicker = {
+const options = {
   title: 'Pick a image',
   base64: true,
   storageOptions: {
     skipBackup: true,
     path: 'images',
   },
+  maxWidth: 200,
+  maxHeight: 200,
 };
 
 // const createFormData = (photo) => {
 //   const data = new FormData();
 
 //   data.append('file', {
-//     name: photo.fileName,
-//     type: photo.type,
-//     uri: photo.uri,
+//     name: photo.path.split('/').pop(),
+//     type: photo.mime,
+//     uri: photo.path,
 //   });
 
 //   Object.keys(photo).forEach((key) => {
@@ -67,13 +74,10 @@ const Profile = () => {
       .catch((e) => {});
 
   const uploadImage = () => {
-    ImagePicker.showImagePicker(optionsPicker, (response) => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
       } else {
         ImageCropper.openCropper({
           path: response.uri,
@@ -85,10 +89,10 @@ const Profile = () => {
       }
     });
   };
+
   const confirm = () => {
     setloading(true);
     // const data = createFormData(image);
-
     updateImage(state.user.id, {
       data: image.data,
       name: image.path.split('/').pop(),
@@ -105,8 +109,9 @@ const Profile = () => {
         cleanImage();
       })
       .catch((err) => {
+        setloading(false);
         cleanImage();
-        snackErrorBottom('Something went wrong');
+        snackErrorBottom('Something went wrong.');
       });
   };
 
