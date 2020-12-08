@@ -74,9 +74,7 @@ const LogTime = ({ route }: any) => {
         project_id: Yup.number()
           .required('Project is required')
           .label('project_id'),
-        note: Yup.string()
-          .required('Task description is required')
-          .label('note'),
+        note: Yup.string().required('Task summary is required').label('note'),
       });
   const onSubmit = async (values) => {
     setIsLoading(true);
@@ -153,7 +151,7 @@ const LogTime = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 100 : 100}
+        extraScrollHeight={Platform.OS === 'ios' ? 180 : 100}
         extraHeight={Platform.OS === 'android' ? 160 : 50}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"

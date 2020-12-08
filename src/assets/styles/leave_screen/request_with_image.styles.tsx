@@ -1,4 +1,4 @@
-import { StyleSheet,Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts, theme } from '../theme';
@@ -24,13 +24,14 @@ const requestWithImageStyle = StyleSheet.create({
     textTransform: 'capitalize',
   },
   date: {
- ...Platform.select({
-android:{
-  marginTop: normalize(17),
-},ios:{
-  marginTop: normalize(20),
-}
- }),
+    ...Platform.select({
+      android: {
+        marginTop: normalize(10),
+      },
+      ios: {
+        marginTop: normalize(10),
+      },
+    }),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',

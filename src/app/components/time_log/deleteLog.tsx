@@ -1,8 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import Dialog from 'react-native-dialog';
+import { View, TouchableOpacity, Text } from 'react-native';
+import normalize from 'react-native-normalize';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
 import colors from '../../../assets/colors';
-import { deleteAlertStyle as style } from '../../../assets/styles';
+import {
+  deleteAlertStyle,
+  deleteAlertStyle as style,
+} from '../../../assets/styles';
 import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { TimeLogContext } from '../../reducer';
@@ -72,29 +76,34 @@ const DeleteLog = ({
       >
         <AppIcon name="delete" color={colors.tomato} size={23} />
       </TouchableOpacity>
-      <Dialog.Container
+      <ConfirmDialog
         visible={showAlert}
-        contentStyle={style.dialogContainer}
+        onTouchOutside={() => setShowAlert(false)}
+        contentStyle={[deleteAlertStyle.innercontent, { marginBottom: 0 }]}
+        dialogStyle={{ borderRadius: 5 }}
+        titleStyle={deleteAlertStyle.text1}
+        positiveButton={{
+          titleStyle: deleteAlertStyle.delete,
+          title: 'DELETE',
+          onPress: () => {
+            onTaskDelete();
+            hide();
+          },
+        }}
+        negativeButton={{
+          titleStyle: deleteAlertStyle.cancel,
+          title: 'CANCEl',
+          onPress: () => hide(),
+        }}
       >
-        <View style={style.container}>
+        <View style={[style.container, { marginBottom: normalize(-20) }]}>
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
-            <Dialog.Title style={style.text1}>Delete the task ?</Dialog.Title>
-            <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
+            <Text style={style.text1}>Delete the task ?</Text>
+            <Text style={style.text2}>This cant be undone</Text>
           </View>
         </View>
-        <View style={style.buttons}>
-          <Dialog.Button label={'CANCEL'} onPress={hide} style={style.cancel} />
-          <Dialog.Button
-            label={'DELETE'}
-            onPress={() => {
-              onTaskDelete();
-              hide();
-            }}
-            style={style.delete}
-          />
-        </View>
-      </Dialog.Container>
+      </ConfirmDialog>
     </>
   );
 };

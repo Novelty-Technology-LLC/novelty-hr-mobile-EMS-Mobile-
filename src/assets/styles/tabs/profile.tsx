@@ -41,7 +41,6 @@ const profileStyle = StyleSheet.create({
   infoView: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    marginTop: normalize(15),
     paddingHorizontal: normalize(15),
   },
   heading: {
@@ -52,14 +51,23 @@ const profileStyle = StyleSheet.create({
   body: {
     width: '100%',
     flexDirection: 'column',
-    borderBottomWidth: 2,
-    borderBottomColor: colors.border,
     paddingBottom: normalize(10),
   },
   icon: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: normalize(15),
+    marginTop: normalize(10),
+  },
+  msg: {
+    paddingLeft: normalize(10),
+    ...Platform.select({
+      ios: {
+        paddingTop: normalize(5),
+      },
+      android: {
+        paddingTop: normalize(7),
+      },
+    }),
   },
   gender: {
     textTransform: 'capitalize',
@@ -82,14 +90,14 @@ const profileStyle = StyleSheet.create({
   },
 
   date: {
-    marginLeft: normalize(8),
+    marginLeft: normalize(6),
     fontFamily: fonts.poppinsRegular,
     ...Platform.select({
       ios: {
         marginTop: normalize(7),
       },
       android: {
-        marginTop: normalize(12),
+        marginTop: normalize(10),
       },
     }),
   },

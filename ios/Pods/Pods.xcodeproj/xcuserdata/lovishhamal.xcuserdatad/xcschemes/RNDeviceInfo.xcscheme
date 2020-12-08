@@ -14,9 +14,9 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEAF8F20A91213F721C1488ECCABB561"
-               BuildableName = "libPermission-Notifications.a"
-               BlueprintName = "Permission-Notifications"
+               BlueprintIdentifier = "807428FE76D80865C9F59F3502600E89"
+               BuildableName = "libRNDeviceInfo.a"
+               BlueprintName = "RNDeviceInfo"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

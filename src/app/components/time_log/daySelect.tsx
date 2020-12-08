@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { calenderStyle as style, dayStyle } from '../../../assets/styles';
-import Dialog from 'react-native-dialog';
+import { dayStyle } from '../../../assets/styles';
 import { Calander as MCalendar } from '../request_screen/calander';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -9,6 +8,7 @@ import { default as theme } from '../../../assets/styles/leave_screen/custom-the
 import Day from './day';
 import { getDateWithOutTimeZone } from '../../utils';
 import { momentdate } from '../../utils/momentDate';
+import { DialogContainer } from '../../common';
 
 const DaySelect = ({
   handleChange,
@@ -40,7 +40,11 @@ const DaySelect = ({
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={dayStyle.buttonContainer}>
         <Day
-          title={momentdate(modalDate, 'lll').split(',')[0]}
+          title={
+            momentdate(JSON.stringify(modalDate).substring(1, 11), 'lll').split(
+              ','
+            )[0]
+          }
           select={isSelected(new Date(modalDate)) && index === 3}
           onPress={() => {
             setDate(new Date(modalDate));
@@ -69,11 +73,7 @@ const DaySelect = ({
           }}
         />
       </View>
-      <Dialog.Container
-        visible={visible}
-        contentStyle={style.modalCalender}
-        onBackdropPress={() => setVisible(false)}
-      >
+      <DialogContainer visible={visible} setVisible={setVisible}>
         <MCalendar
           handleChange={(data) => {
             setModalDate(data);
@@ -84,7 +84,7 @@ const DaySelect = ({
           }}
           modal={true}
         />
-      </Dialog.Container>
+      </DialogContainer>
     </ApplicationProvider>
   );
 };

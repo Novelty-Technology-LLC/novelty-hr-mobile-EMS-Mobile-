@@ -7,10 +7,9 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import { calenderStyle, headerText } from '../../assets/styles';
+import { headerText, timeLogStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
-import { timeLogStyle } from '../../assets/styles';
-import { tabHeader as Header } from '../common';
+import { DialogContainer, tabHeader as Header } from '../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
@@ -23,11 +22,11 @@ import normalize from 'react-native-normalize';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Calendar } from '@ui-kitten/components';
 import { default as theme } from '../../assets/styles/leave_screen/custom-theme.json';
-import Dialog from 'react-native-dialog';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
 import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
+import { SmallHeader } from '../common';
 
 const options = {
   title: 'Pick a image',
@@ -133,20 +132,18 @@ const Profile = () => {
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={style.container}>
+        <Header icon={true}>
+          <Text style={headerText}>Profile</Text>
+        </Header>
         <ScrollView
           contentContainerStyle={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header>
-            <Text style={headerText}>Profile</Text>
-          </Header>
           {date && (
-            <Dialog.Container
+            <DialogContainer
               visible={visible}
-              contentStyle={calenderStyle.modalCalender}
-              onBackdropPress={() => {
-                setdotloader(false), setvisible(false);
-              }}
+              setVisible={setvisible}
+              setdotloader={setdotloader}
             >
               <Calendar
                 style={timeLogStyle.modalCalender}
@@ -155,7 +152,7 @@ const Profile = () => {
                 date={date}
                 onSelect={(nextDate) => submit(nextDate)}
               />
-            </Dialog.Container>
+            </DialogContainer>
           )}
           <View style={style.imageView}>
             <Image
@@ -201,7 +198,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <Text style={style.heading}>Personal Info</Text>
+              <SmallHeader text="Personal Information" />
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -229,12 +226,23 @@ const Profile = () => {
                       <Loader useNativeDriver="true" />
                     </View>
                   ) : (
-                    <Text style={style.date}>
-                      {(birth && birth.slice(3, 15)) ||
-                        (state.user.birth_date &&
-                          state.user.birth_date.slice(3, 15)) ||
-                        'Not available'}
-                    </Text>
+                    <>
+                      <Text style={style.date}>
+                        {(birth && birth.slice(3, 15)) ||
+                          (state.user.birth_date &&
+                            state.user.birth_date.slice(3, 15)) ||
+                          'Not available'}
+                      </Text>
+                      {birth === null && (
+                        <View style={style.msg}>
+                          <Icon
+                            name="calendar-month-outline"
+                            size={15}
+                            color={colors.primary}
+                          />
+                        </View>
+                      )}
+                    </>
                   )}
                 </View>
               </TouchableOpacity>
@@ -242,7 +250,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <Text style={style.heading}>Contact Info</Text>
+              <SmallHeader text="Contact Information" />
               <View style={style.icon}>
                 <Icon
                   name="email-newsletter"

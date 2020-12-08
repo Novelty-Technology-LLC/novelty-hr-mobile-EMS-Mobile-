@@ -51,6 +51,14 @@ const Tasks = ({ value, handleChange }: any) => {
           </TouchableOpacity>
         </Swipeable>
       ))}
+      <EditLogAlert
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+        onCancel={() => setTaskItem(null)}
+        def={taskItem}
+        item={value}
+        setLoading={setLoading}
+      />
 
       <View style={timeLogStyle.dateView}>
         <View style={[timeLogStyle.total, timeLogStyle.gap]}>
@@ -60,14 +68,6 @@ const Tasks = ({ value, handleChange }: any) => {
           </Text>
         </View>
       </View>
-      <EditLogAlert
-        showAlert={showAlert}
-        setShowAlert={setShowAlert}
-        onCancel={() => setTaskItem(null)}
-        def={taskItem}
-        item={value}
-        setLoading={setLoading}
-      />
     </View>
   );
 };

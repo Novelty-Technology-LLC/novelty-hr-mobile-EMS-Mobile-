@@ -71,6 +71,14 @@ const deleteAlertStyle = StyleSheet.create({
     borderRadius: normalize(50),
   },
   error: { marginHorizontal: normalize(20), color: 'red' },
+  content: {
+    marginTop: normalize(-15),
+  },
+  innercontent: {
+    marginRight: normalize(-25),
+    marginLeft: normalize(-20),
+    marginBottom: normalize(-20),
+  },
 });
 
 export { deleteAlertStyle };

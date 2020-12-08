@@ -5,7 +5,7 @@ import { theme, fonts } from '../theme';
 
 const requestStyle = StyleSheet.create({
   container: {
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(15),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -70,7 +70,7 @@ const requestStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         padding: normalize(2.9),
-        borderRadius: normalize(10),
+        borderRadius: normalize(8),
       },
       android: { padding: normalize(5), borderRadius: normalize(14) },
     }),

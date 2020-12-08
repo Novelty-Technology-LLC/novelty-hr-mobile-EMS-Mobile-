@@ -15,14 +15,21 @@ import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
-import { getUser, mapDataToRequest, setUser } from '../../utils';
+import {
+  getUser,
+  mapDataToRequest,
+  removeToken,
+  removeUser,
+  setUser,
+  storeToken,
+} from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
 import { useScrollToTop } from '@react-navigation/native';
-import { SetLocalNotification } from '../../utils/pushNotification';
 import { useNavigation } from '@react-navigation/native';
+import DeviceInfo from 'react-native-device-info';
 
 const LeaveDashboard = ({ route }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -89,11 +96,10 @@ const LeaveDashboard = ({ route }) => {
 
       messaging().onNotificationOpenedApp((remoteMessage) => {
         if (remoteMessage && remoteMessage.data.type === 'screen') {
-          Linking.openURL(
-            `noveltyhrmobile://leaveList/${JSON.parse(
-              remoteMessage.data.leave_id
-            )}`
-          );
+          navigation.navigate('leaveList', {
+            id: remoteMessage.data.leave_id,
+            request: remoteMessage.data.request,
+          });
         } else {
           remoteMessage && navigation.navigate('Activity');
         }
@@ -119,25 +125,16 @@ const LeaveDashboard = ({ route }) => {
         .getInitialNotification()
         .then((remoteMessage) => {
           if (remoteMessage && remoteMessage.data.type === 'screen') {
-            Linking.openURL(
-              `noveltyhrmobile://leaveList/${JSON.parse(
-                remoteMessage.data.leave_id
-              )}`
-            );
+            navigation.navigate('leaveList', {
+              id: remoteMessage.data.leave_id,
+              request: remoteMessage.data.request,
+            });
           } else {
             remoteMessage && navigation.navigate('Activity');
           }
         });
     };
     initialNotification();
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Platform.OS === 'ios' &&
-        SetLocalNotification(remoteMessage.notification.body);
-    });
-    return unsubscribe;
   }, []);
 
   async function requestUserPermission() {
@@ -149,19 +146,32 @@ const LeaveDashboard = ({ route }) => {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
     let user = await getUser();
-    let notifcation_token = JSON.parse(user).notification_token;
+    user = JSON.parse(user);
+    const device_id = DeviceInfo.getUniqueId();
 
-    user = JSON.parse(user).uuid;
+    const isValid = user.device_tokens?.some(
+      (item) =>
+        item.user_id === user.id &&
+        item.device_id === device_id &&
+        item.notification_token === token
+    );
 
     const data = {
-      uuid: user,
+      id: user.id,
       notification_token: token,
+      device_id,
     };
 
-    if (enabled && notifcation_token !== token) {
-      store(data);
+    if (!isValid) {
+      store(data).then(async (data) => {
+        await removeUser(),
+          await removeToken(),
+          await setUser(data),
+          await storeToken(JSON.stringify(data));
+      });
     }
   }
+
   useScrollToTop(ref);
 
   return (
@@ -192,10 +202,15 @@ const LeaveDashboard = ({ route }) => {
         <MyRequests
           loading={loading}
           refresh={refresh}
-          params={+route.params?.screen}
+          params={route.params?.request === 'myrequest' && +route.params?.id}
         />
         {isAdmin && (
-          <OtherRequests refresh={refresh} params={route.params?.screen} />
+          <OtherRequests
+            refresh={refresh}
+            params={
+              route.params?.request === 'otherrequest' && +route.params?.id
+            }
+          />
         )}
       </ScrollView>
       <RequestButton screen="requestLeave" />

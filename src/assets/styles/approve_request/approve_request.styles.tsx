@@ -39,15 +39,21 @@ const approveRequest = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  stateView:{...Platform.select({
-    android:{
-      marginTop:normalize(4)
-    },
-    ios:{
-      marginTop:normalize(2)
-    }
-  })},
-  statusView:{flexDirection:'row',alignItems:'center',justifyContent:'space-between'},
+  stateView: {
+    ...Platform.select({
+      android: {
+        marginTop: normalize(4),
+      },
+      ios: {
+        marginTop: normalize(2),
+      },
+    }),
+  },
+  statusView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   image: {
     width: normalize(40),
     height: normalize(40),
@@ -177,7 +183,7 @@ const approveRequest = StyleSheet.create({
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.primary,
     paddingHorizontal: normalize(55),
-    paddingVertical: normalize(13),
+    paddingVertical: normalize(10),
     ...Platform.select({
       ios: {
         borderRadius: normalize(5),
@@ -197,7 +203,7 @@ const approveRequest = StyleSheet.create({
     color: colors.primary,
     borderWidth: 1,
     borderColor: colors.primary,
-    paddingVertical: normalize(13),
+    paddingVertical: normalize(10),
     paddingHorizontal: normalize(55),
     ...Platform.select({
       ios: {
