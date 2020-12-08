@@ -39,6 +39,8 @@ const TimeLogs = () => {
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
+    setToggle('toggle-switch-off');
+    setSelectedDay('Today');
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
@@ -60,6 +62,7 @@ const TimeLogs = () => {
 
   const getTimeLogs = async () => {
     setLoading(true);
+    setSelectedDay('Today');
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {

@@ -26,7 +26,6 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import UUIDGenerator from 'react-native-uuid-generator';
-import TaskContext from '../../components/time_log/taskContext';
 import { momentdate } from '../../utils/momentDate';
 
 const LogTime = ({ route }: any) => {
@@ -34,7 +33,6 @@ const LogTime = ({ route }: any) => {
   const olddata = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
-  const [tasks, setTasks] = useState(olddata ? olddata.note : []);
 
   const getNote = (olddata) => {
     if (isThisWeek(olddata)) {
@@ -52,31 +50,24 @@ const LogTime = ({ route }: any) => {
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
-    duration: olddata ? totalHours(olddata) : '60',
+    duration: olddata && olddata.item ? olddata.item.time : '60',
     project_id: olddata ? olddata.project_id : '',
-    note: olddata ? getNote(olddata) : '',
+    note: olddata && olddata.item ? olddata.item.task : '',
   };
 
-  const validationSchema = olddata
-    ? Yup.object().shape({
-        log_date: Yup.date().nullable().required('Date is a required'),
-        duration: Yup.string().required('Time is required').label('duration'),
-        project_id: Yup.number()
-          .required('Project is required')
-          .label('project_id'),
-      })
-    : Yup.object().shape({
-        log_date: Yup.date().nullable().required('Date is a required'),
-        duration: Yup.string()
-          .required('Time is required')
-          .label('duration')
-          .min(2, 'Time duration should be greater than 0'),
-        project_id: Yup.number()
-          .required('Project is required')
-          .label('project_id'),
-        note: Yup.string().required('Task summary is required').label('note'),
-      });
+  const validationSchema = Yup.object().shape({
+    log_date: Yup.date().nullable().required('Date is a required'),
+    duration: Yup.string()
+      .required('Time is required')
+      .label('duration')
+      .min(2, 'Time duration should be greater than 0'),
+    project_id: Yup.number()
+      .required('Project is required')
+      .label('project_id'),
+    note: Yup.string().required('Task summary is required').label('note'),
+  });
   const onSubmit = async (values) => {
+    return console.log(values);
     setIsLoading(true);
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
@@ -142,7 +133,7 @@ const LogTime = ({ route }: any) => {
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, setTasks }}>
+    <>
       <Header icon={true}>
         <Text style={headerText}> Log Time</Text>
       </Header>
@@ -164,60 +155,50 @@ const LogTime = ({ route }: any) => {
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
-              {!olddata && (
-                <Calendar
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.log_date}
-                />
-              )}
-              {!olddata && (
-                <Time
-                  handleChange={handleChange}
-                  defaultValue={olddata && totalHours(olddata)}
-                  error={errors}
-                  touched={touched}
-                />
-              )}
+              <Calendar
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.log_date}
+              />
               <Projects
                 handleChange={handleChange}
                 error={errors}
                 touched={touched}
-                defaultValue={olddata && olddata.project.name}
-                date={olddata && olddata.log_date}
+                defaultValue={olddata && olddata.project.id}
               />
-              {olddata ? (
-                <Tasks value={olddata} handleChange={handleChange} />
-              ) : (
-                <Description
-                  handleChange={handleChange}
-                  timelog={true}
-                  defaultValue={olddata && olddata.note}
-                  error={errors}
-                  touched={touched}
-                />
-              )}
-              {!olddata && (
-                <Button onPress={() => !isLoading && handleSubmit()}>
-                  <View
-                    style={[
-                      requestLeave.buttonView,
-                      olddata
-                        ? requestLeave.editLogButtonView
-                        : requestLeave.logButtonView,
-                    ]}
-                  >
-                    <Text style={requestLeave.buttonText}>Submit</Text>
-                    {isLoading && (
-                      <ActivityIndicator size={30} color={colors.white} />
-                    )}
-                  </View>
-                </Button>
-              )}
+              <Time
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.item && olddata.item.time}
+                error={errors}
+                touched={touched}
+              />
+
+              <Description
+                handleChange={handleChange}
+                timelog={true}
+                defaultValue={olddata && olddata.item && olddata.item.task}
+                error={errors}
+                touched={touched}
+              />
+              <Button onPress={() => !isLoading && handleSubmit()}>
+                <View
+                  style={[
+                    requestLeave.buttonView,
+                    olddata
+                      ? requestLeave.editLogButtonView
+                      : requestLeave.logButtonView,
+                  ]}
+                >
+                  <Text style={requestLeave.buttonText}>Submit</Text>
+                  {isLoading && (
+                    <ActivityIndicator size={30} color={colors.white} />
+                  )}
+                </View>
+              </Button>
             </>
           )}
         </Formik>
       </KeyboardAwareScrollView>
-    </TaskContext.Provider>
+    </>
   );
 };
 

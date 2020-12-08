@@ -7,18 +7,20 @@ import { createdDay, getHrs, totalHours, totalWeekHours } from '../../utils';
 const TimeLog = ({ item, thisweek }: { item: any; thisweek?: boolean }) => {
   const navigation = useNavigation();
   return thisweek ? (
-    <View style={style.container}>
-      <View style={style.dateView}>
-        <View style={style.rowAlign}>
-          <Text style={style.date}>{item[0]}</Text>
-          <Text style={style.duration}>
-            {getHrs(totalWeekHours(item[1]) * 60)}
-          </Text>
+    <TouchableOpacity onPress={() => navigation.navigate('loglistings', item)}>
+      <View style={style.container}>
+        <View style={style.dateView}>
+          <View style={style.rowAlign}>
+            <Text style={style.date}>{item[0]}</Text>
+            <Text style={style.duration}>
+              {getHrs(totalWeekHours(item[1]) * 60)}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   ) : (
-    <TouchableOpacity onPress={() => navigation.navigate('logtime', item)}>
+    <TouchableOpacity onPress={() => navigation.navigate('loglistings', item)}>
       <View style={style.container}>
         <View style={style.dateView}>
           <View style={style.rowAlign}>

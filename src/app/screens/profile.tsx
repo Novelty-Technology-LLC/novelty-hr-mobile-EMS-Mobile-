@@ -1,12 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  Platform,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { headerText, timeLogStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
 import { DialogContainer, tabHeader as Header } from '../common';

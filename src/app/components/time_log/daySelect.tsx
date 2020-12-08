@@ -33,7 +33,6 @@ const DaySelect = ({
 
   useEffect(() => {
     setModalDateString(getStringDate(modalDate));
-    setSelectedDay(getStringDate(modalDate));
   }, [modalDate]);
 
   useEffect(() => {
@@ -86,6 +85,7 @@ const DaySelect = ({
             handleChange(data);
             setIndex(3);
             setVisible(false);
+            setSelectedDay(getStringDate(data));
           }}
           modal={true}
         />

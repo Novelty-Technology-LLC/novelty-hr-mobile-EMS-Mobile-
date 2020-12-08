@@ -1,31 +1,39 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { descriptionStyle, timeLogStyle } from '../../../assets/styles';
+import {
+  descriptionStyle,
+  leaveType,
+  timeLogStyle,
+} from '../../../assets/styles';
 import { Task } from './task';
 import Swipe from '../leave_screen/swipe';
-import { AppIcon } from '../../common';
-import colors from '../../../assets/colors';
-import { EditLogAlert } from '../time_log/editLog';
-import { getHrs, totalHours } from '../../utils';
+import { getHrs, momentdate, totalHours } from '../../utils';
 import TaskContext from './taskContext';
+import { navigate } from '../../utils/navigation';
 
-const Tasks = ({ value, handleChange }: any) => {
-  const [showAlert, setShowAlert] = useState(false);
-  const [taskItem, setTaskItem] = useState(null);
+const Tasks = ({ value, handleChange, note }: any) => {
   const [loading, setLoading] = useState(false);
   const { tasks } = useContext(TaskContext);
+  let notes = [];
+  if (note) {
+    notes = [...note];
+  } else {
+    notes = [...tasks];
+  }
   let row: Array<any> = [];
 
   return (
     <View style={descriptionStyle.main}>
       <View style={timeLogStyle.rowAlign}>
         <Text style={descriptionStyle.text}>Tasks </Text>
-        <TouchableOpacity onPress={() => setShowAlert(true)}>
-          <AppIcon name="plus" color={colors.black} size={20} />
-        </TouchableOpacity>
+        {note && (
+          <Text style={[leaveType.text, { marginBottom: 0 }]}>
+            {momentdate(value.log_date, 'll')}
+          </Text>
+        )}
       </View>
-      {tasks.map((item, index) => (
+      {notes.map((item, index) => (
         <Swipeable
           key={item.id}
           ref={(ref) => (row[index] = ref)}
@@ -34,7 +42,7 @@ const Tasks = ({ value, handleChange }: any) => {
               edittimelog={true}
               item={item}
               value={value}
-              handleChange={handleChange}
+              // handleChange={handleChange}
               onPress={() => row[index].close()}
               setLoading={setLoading}
             />
@@ -42,8 +50,8 @@ const Tasks = ({ value, handleChange }: any) => {
         >
           <TouchableOpacity
             onPress={() => {
-              setTaskItem(item);
-              setShowAlert(true);
+              value.item = item;
+              navigate('logtime', value);
             }}
             disabled={loading}
           >
@@ -51,20 +59,12 @@ const Tasks = ({ value, handleChange }: any) => {
           </TouchableOpacity>
         </Swipeable>
       ))}
-      <EditLogAlert
-        showAlert={showAlert}
-        setShowAlert={setShowAlert}
-        onCancel={() => setTaskItem(null)}
-        def={taskItem}
-        item={value}
-        setLoading={setLoading}
-      />
 
-      <View style={timeLogStyle.dateView}>
+      <View style={[timeLogStyle.dateView, { marginBottom: 30 }]}>
         <View style={[timeLogStyle.total, timeLogStyle.gap]}>
-          <Text style={timeLogStyle.date}>Total</Text>
-          <Text style={timeLogStyle.duration}>
-            {getHrs(totalHours({ note: tasks }))}
+          <Text style={[timeLogStyle.date, { paddingTop: 25 }]}>Total</Text>
+          <Text style={[timeLogStyle.duration, { paddingTop: 25 }]}>
+            {getHrs(totalHours(note ? { note: notes } : { note: tasks }))}
           </Text>
         </View>
       </View>
