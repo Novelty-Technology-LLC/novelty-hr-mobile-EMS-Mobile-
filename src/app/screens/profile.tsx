@@ -85,6 +85,8 @@ const Profile = () => {
           height: 400,
           cropperCircleOverlay: true,
           includeBase64: true,
+          includeExif: true,
+          mediaType: 'photo',
         }).then((image) => setimage(image));
       }
     });
@@ -106,6 +108,7 @@ const Profile = () => {
         cleanImage();
       })
       .catch((err) => {
+        setloading(false);
         cleanImage();
         snackErrorBottom('Something went wrong.');
       });
