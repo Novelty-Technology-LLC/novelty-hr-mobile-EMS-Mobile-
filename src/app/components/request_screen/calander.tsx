@@ -145,6 +145,7 @@ const Calander = ({
         <Calendar
           style={timeLogStyle.modalCalender}
           dateService={dateService}
+          max={moment('2021-12-31')}
           date={date}
           onSelect={(nextRange) => {
             setDate(nextRange);
