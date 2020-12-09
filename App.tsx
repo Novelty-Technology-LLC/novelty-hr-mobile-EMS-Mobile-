@@ -12,7 +12,7 @@ const App = (props: any) => {
         SetLocalNotification(remoteMessage.notification.body);
     });
     return unsubscribe;
-  }, []);
+  }, [messaging]);
   return (
     <SafeAreaView style={style.safeArea}>
       <RootNavigation />
