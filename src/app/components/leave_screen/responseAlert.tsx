@@ -90,7 +90,7 @@ const EditAlert = ({
         }}
         negativeButton={{
           titleStyle: style.cancel,
-          title: 'CANCEl',
+          title: 'CANCEL',
           onPress: () => hide(),
         }}
         keyboardDismissMode="on-drag"

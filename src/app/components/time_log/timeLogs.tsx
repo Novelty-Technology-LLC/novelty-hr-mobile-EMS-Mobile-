@@ -5,7 +5,6 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {
   myRequestsStyle as style,
   historyStyle,
-  timeLogStyle,
   myRequestsStyle,
 } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
@@ -32,7 +31,7 @@ const TimeLogs = () => {
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [logs, setLogs] = useState([]);
   const ref = React.useRef(null);
-  const [selectedHrs, setSelectedHrs] = useState(getHrsToday(timelogs.present));
+  const [selectedHrs, setSelectedHrs] = useState(0);
   const [selectedDay, setSelectedDay] = useState('Today');
   const [thisWeekLogs, setThisWeekLogs] = useState([]);
   const [toggle, setToggle] = useState('toggle-switch-off');
@@ -44,7 +43,6 @@ const TimeLogs = () => {
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
-        setLoading(false);
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
 
@@ -55,6 +53,7 @@ const TimeLogs = () => {
             past: pastw,
           },
         });
+        setLoading(false);
         setRefreshing(false);
       })
       .catch((err) => console.log(err));
@@ -66,8 +65,6 @@ const TimeLogs = () => {
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
-        setLoading(false);
-
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
 
@@ -78,7 +75,7 @@ const TimeLogs = () => {
             past: pastw,
           },
         });
-        setSelectedHrs(getHrsToday(timelogs.present));
+        setLoading(false);
         setRefreshing(false);
       })
       .catch((err) => console.log(err));
@@ -99,6 +96,7 @@ const TimeLogs = () => {
         )
     );
     setThisWeekLogs(Object.entries(groupByproject(timelogs.present)));
+    setSelectedHrs(getHrsToday(timelogs.present));
   }, [timelogs]);
 
   let row: Array<any> = [];
@@ -120,13 +118,13 @@ const TimeLogs = () => {
         <View style={{ flexDirection: 'row' }}>
           <DaysRemaining
             total={8}
-            remaining={Math.floor(selectedHrs)}
+            remaining={parseFloat(selectedHrs.toFixed(1))}
             title={selectedDay.toUpperCase()}
             timelog={true}
           />
           <DaysRemaining
             total={40}
-            remaining={Math.floor(totalWeekHours(timelogs.present))}
+            remaining={parseFloat(totalWeekHours(timelogs.present).toFixed(1))}
             title={'THIS WEEK'}
             timelog={true}
           />

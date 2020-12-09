@@ -45,7 +45,9 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
         title="Do you want to logout ?"
         visible={showAlert}
         onTouchOutside={() => setShowAlert(false)}
-        contentStyle={{ display: 'none' }}
+        contentStyle={{
+          marginTop: -30,
+        }}
         dialogStyle={{ borderRadius: 5 }}
         titleStyle={deleteAlertStyle.text1}
         positiveButton={{
@@ -58,7 +60,7 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
         }}
         negativeButton={{
           titleStyle: deleteAlertStyle.cancel,
-          title: 'CANCEl',
+          title: 'CANCEL',
           onPress: () => hide(),
         }}
       />

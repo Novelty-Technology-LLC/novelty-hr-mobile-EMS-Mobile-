@@ -92,7 +92,7 @@ const DeleteLog = ({
         }}
         negativeButton={{
           titleStyle: deleteAlertStyle.cancel,
-          title: 'CANCEl',
+          title: 'CANCEL',
           onPress: () => hide(),
         }}
       >
