@@ -29,7 +29,12 @@ import { momentdate } from '../../utils/momentDate';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
-  const olddata = route.params;
+  let olddata = route.params;
+  let log_date: string = '';
+  if (olddata?.not_old) {
+    log_date = olddata.log_date;
+    olddata = null;
+  }
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
@@ -137,13 +142,13 @@ const LogTime = ({ route }: any) => {
             <>
               <Calendar
                 handleChange={handleChange}
-                defaultValue={olddata && olddata.log_date}
+                defaultValue={log_date ? log_date : olddata && olddata.log_date}
               />
               <Projects
                 handleChange={handleChange}
                 error={errors}
                 touched={touched}
-                defaultValue={olddata && olddata.project.id}
+                defaultValue={olddata && olddata.project?.id}
               />
               <Time
                 handleChange={handleChange}
