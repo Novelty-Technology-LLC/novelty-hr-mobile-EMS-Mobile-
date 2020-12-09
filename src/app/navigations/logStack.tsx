@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TimeLog, LogTime } from '../screens';
+import { TimeLog, LogTime, LogListings } from '../screens';
 import {
   RequestContext,
   TimeLogContext,
@@ -24,6 +24,7 @@ const LogNav = () => {
         >
           <LogStack.Screen name="timelog" component={TimeLog} />
           <LogStack.Screen name="logtime" component={LogTime} />
+          <LogStack.Screen name="loglistings" component={LogListings} />
         </LogStack.Navigator>
       </RequestContext.Provider>
     </TimeLogContext.Provider>

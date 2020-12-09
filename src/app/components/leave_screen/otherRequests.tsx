@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text } from 'react-native';
-import {
-  FlatList,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import { View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
-import { myRequestsStyle, otherRequestsStyle } from '../../../assets/styles';
-import colors from '../../../assets/colors';
+import { otherRequestsStyle } from '../../../assets/styles';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import { AppIcon, EmptyContainer, SmallHeader } from '../../common';
+import { EmptyContainer, SmallHeader } from '../../common';
 import { getAllRequests } from '../../services';
 import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 import { getLeave } from '../../services';
+import HistoryToggle from '../../common/historyToggle';
 
 const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
@@ -91,27 +88,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
           history={adminrequests.pastadminrequests.length > 0}
         />
         {adminrequests.pastadminrequests.length > 0 && (
-          <View style={myRequestsStyle.row}>
-            <Text style={myRequestsStyle.history}> History</Text>
-            <View style={myRequestsStyle.gap}></View>
-            <TouchableWithoutFeedback
-              onPress={() =>
-                setToggle(
-                  toggle === 'toggle-switch'
-                    ? 'toggle-switch-off'
-                    : 'toggle-switch'
-                )
-              }
-            >
-              <AppIcon
-                name={toggle}
-                color={
-                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
-                }
-                size={40}
-              />
-            </TouchableWithoutFeedback>
-          </View>
+          <HistoryToggle toggle={toggle} setToggle={setToggle} />
         )}
       </View>
       {loading ? (

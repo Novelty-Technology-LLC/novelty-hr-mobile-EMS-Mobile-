@@ -13,7 +13,7 @@ import {
   snackErrorBottom,
 } from '../../common';
 import { Description } from '../../components/request_screen';
-import { Tasks, Calendar } from '../../components/time_log';
+import { Calendar } from '../../components/time_log';
 import Time from '../../components/time_log/time';
 import { button as Button } from '../../common';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -21,12 +21,10 @@ import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { checkunder24Hrs, getUser, isThisWeek, totalHours } from '../../utils';
-import { editTimeLog, postTimeLog } from '../../services/timeLogService';
+import { submitTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
-import UUIDGenerator from 'react-native-uuid-generator';
-import TaskContext from '../../components/time_log/taskContext';
 import { momentdate } from '../../utils/momentDate';
 
 const LogTime = ({ route }: any) => {
@@ -34,58 +32,31 @@ const LogTime = ({ route }: any) => {
   const olddata = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
-  const [tasks, setTasks] = useState(olddata ? olddata.note : []);
-
-  const getNote = (olddata) => {
-    if (isThisWeek(olddata)) {
-      return (
-        timelogs.present.filter((log) => log.id === olddata.id)[0] &&
-        timelogs.present.filter((log) => log.id === olddata.id)[0].note
-      );
-    } else {
-      return (
-        timelogs.past.filter((log) => log.id === olddata.id)[0] &&
-        timelogs.past.filter((log) => log.id === olddata.id)[0].note
-      );
-    }
-  };
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
-    duration: olddata ? totalHours(olddata) : '60',
+    duration: olddata && olddata.item ? olddata.item.time : '60',
     project_id: olddata ? olddata.project_id : '',
-    note: olddata ? getNote(olddata) : '',
+    note: olddata && olddata.item ? olddata.item.task : '',
   };
 
-  const validationSchema = olddata
-    ? Yup.object().shape({
-        log_date: Yup.date().nullable().required('Date is a required'),
-        duration: Yup.string().required('Time is required').label('duration'),
-        project_id: Yup.number()
-          .required('Project is required')
-          .label('project_id'),
-      })
-    : Yup.object().shape({
-        log_date: Yup.date().nullable().required('Date is a required'),
-        duration: Yup.string()
-          .required('Time is required')
-          .label('duration')
-          .min(2, 'Time duration should be greater than 0'),
-        project_id: Yup.number()
-          .required('Project is required')
-          .label('project_id'),
-        note: Yup.string().required('Task summary is required').label('note'),
-      });
+  const validationSchema = Yup.object().shape({
+    log_date: Yup.date().nullable().required('Date is a required'),
+    duration: Yup.string()
+      .required('Time is required')
+      .label('duration')
+      .min(2, 'Time duration should be greater than 0'),
+    project_id: Yup.number()
+      .required('Project is required')
+      .label('project_id'),
+    note: Yup.string().required('Task summary is required').label('note'),
+  });
   const onSubmit = async (values) => {
-    setIsLoading(true);
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
-    const uuid = await UUIDGenerator.getRandomUUID();
-    const note = {
-      id: uuid,
-      task: values.note,
-      time: values.duration,
-    };
+    const dataObj = { old: olddata, new: values };
+    setIsLoading(true);
+
     const pastData = timelogs.present
       .concat(timelogs.past)
       .filter(
@@ -95,14 +66,30 @@ const LogTime = ({ route }: any) => {
           log.project_id == values.project_id
       );
 
-    if (pastData.length > 0) {
-      if (
-        checkunder24Hrs(parseInt(pastData[0].duration) + parseInt(note.time))
-      ) {
-        pastData[0].note = [].concat(note, ...pastData[0].note);
-        pastData[0].duration = totalHours(pastData[0]);
-        editTimeLog(pastData[0].id, pastData[0])
-          .then((data) => {
+    if (
+      (pastData[0] &&
+        checkunder24Hrs(
+          parseInt(pastData[0].duration) + parseInt(values.duration)
+        )) ||
+      !pastData[0]
+    ) {
+      submitTimeLog(dataObj)
+        .then((data) => {
+          if (data[0]) {
+            let thisw = data.filter((item) => isThisWeek(item));
+            let pastw = data.filter((item) => !isThisWeek(item));
+
+            dispatchTimeLog({
+              type: 'CHANGE',
+              payload: {
+                present: thisw,
+                past: pastw,
+              },
+            });
+            navigation.navigate('timelog');
+            setIsLoading(false);
+            snackBarMessage('TimeLog updated');
+          } else {
             dispatchTimeLog({
               type: 'EDIT',
               payload: {
@@ -113,36 +100,20 @@ const LogTime = ({ route }: any) => {
             navigation.navigate('timelog');
             setIsLoading(false);
             snackBarMessage('TimeLog updated');
-          })
-          .catch((err) => console.log(err));
-      } else {
-        Keyboard.dismiss();
-        setIsLoading(false);
-        snackErrorBottom({
-          message: 'You cannot log more than 24 hours a day ',
-        });
-      }
-    } else {
-      values.note = [note];
-      postTimeLog(values)
-        .then((data) => {
-          dispatchTimeLog({
-            type: 'ADD',
-            payload: {
-              present: isThisWeek(data) ? data : null,
-              past: isThisWeek(data) ? null : data,
-            },
-          });
-          setIsLoading(false);
-          navigation.navigate('timelog');
-          snackBarMessage('Time logged');
+          }
         })
         .catch((err) => console.log(err));
+    } else {
+      Keyboard.dismiss();
+      setIsLoading(false);
+      snackErrorBottom({
+        message: 'You cannot log more than 24 hours a day ',
+      });
     }
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, setTasks }}>
+    <>
       <Header icon={true}>
         <Text style={headerText}> Log Time</Text>
       </Header>
@@ -164,60 +135,52 @@ const LogTime = ({ route }: any) => {
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
-              {!olddata && (
-                <Calendar
-                  handleChange={handleChange}
-                  defaultValue={olddata && olddata.log_date}
-                />
-              )}
-              {!olddata && (
-                <Time
-                  handleChange={handleChange}
-                  defaultValue={olddata && totalHours(olddata)}
-                  error={errors}
-                  touched={touched}
-                />
-              )}
+              <Calendar
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.log_date}
+              />
               <Projects
                 handleChange={handleChange}
                 error={errors}
                 touched={touched}
-                defaultValue={olddata && olddata.project.name}
-                date={olddata && olddata.log_date}
+                defaultValue={olddata && olddata.project.id}
               />
-              {olddata ? (
-                <Tasks value={olddata} handleChange={handleChange} />
-              ) : (
-                <Description
-                  handleChange={handleChange}
-                  timelog={true}
-                  defaultValue={olddata && olddata.note}
-                  error={errors}
-                  touched={touched}
-                />
-              )}
-              {!olddata && (
-                <Button onPress={() => !isLoading && handleSubmit()}>
-                  <View
-                    style={[
-                      requestLeave.buttonView,
-                      olddata
-                        ? requestLeave.editLogButtonView
-                        : requestLeave.logButtonView,
-                    ]}
-                  >
-                    <Text style={requestLeave.buttonText}>Submit</Text>
-                    {isLoading && (
-                      <ActivityIndicator size={30} color={colors.white} />
-                    )}
-                  </View>
-                </Button>
-              )}
+              <Time
+                handleChange={handleChange}
+                defaultValue={olddata && olddata.item && olddata.item.time}
+                error={errors}
+                touched={touched}
+              />
+
+              <Description
+                handleChange={handleChange}
+                timelog={true}
+                defaultValue={olddata && olddata.item && olddata.item.task}
+                error={errors}
+                touched={touched}
+              />
+              <Button onPress={() => !isLoading && handleSubmit()}>
+                <View
+                  style={[
+                    requestLeave.buttonView,
+                    olddata
+                      ? requestLeave.editLogButtonView
+                      : requestLeave.logButtonView,
+                  ]}
+                >
+                  <Text style={requestLeave.buttonText}>
+                    {olddata && olddata.note ? 'Update' : 'Submit'}
+                  </Text>
+                  {isLoading && (
+                    <ActivityIndicator size={30} color={colors.white} />
+                  )}
+                </View>
+              </Button>
             </>
           )}
         </Formik>
       </KeyboardAwareScrollView>
-    </TaskContext.Provider>
+    </>
   );
 };
 

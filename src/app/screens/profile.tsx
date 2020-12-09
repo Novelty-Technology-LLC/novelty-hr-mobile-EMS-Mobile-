@@ -1,12 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  Platform,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { headerText, timeLogStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
 import { DialogContainer, tabHeader as Header } from '../common';
@@ -28,15 +21,15 @@ import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
-const options = {
+//file:///storage/emulated/0/Pictures/images/image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg image/jpeg image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg
+
+const optionsPicker = {
   title: 'Pick a image',
   base64: true,
   storageOptions: {
     skipBackup: true,
     path: 'images',
   },
-  maxWidth: 200,
-  maxHeight: 200,
 };
 
 // const createFormData = (photo) => {
@@ -74,10 +67,13 @@ const Profile = () => {
       .catch((e) => {});
 
   const uploadImage = () => {
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePicker.showImagePicker(optionsPicker, (response) => {
       if (response.didCancel) {
+        console.log('User cancelled image picker');
       } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
       } else {
         ImageCropper.openCropper({
           path: response.uri,

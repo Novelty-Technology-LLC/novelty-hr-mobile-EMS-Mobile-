@@ -38,7 +38,7 @@ export const totalHours = (item) => {
 
 export const totalWeekHours = (item) => {
   const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
-  return total;
+  return total / 60;
 };
 
 export const checkunder24Hrs = (duration) => {
@@ -92,4 +92,22 @@ export const logMapper = (logs) => {
     }
   });
   return data;
+};
+
+export const getStringDate = (modalDate: Date) => {
+  return momentdate(JSON.stringify(modalDate).substring(1, 11), 'lll').split(
+    ','
+  )[0];
+};
+
+export const groupByproject = (logs: Array<Object>) => {
+  let projectsObject = {};
+  logs.map((log) => {
+    if (projectsObject[log.project.name] !== undefined) {
+      projectsObject[log.project.name].push(log);
+    } else {
+      projectsObject[log.project.name] = [log];
+    }
+  });
+  return projectsObject;
 };
