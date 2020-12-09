@@ -35,11 +35,11 @@ const optionsPicker = {
 // const createFormData = (photo) => {
 //   const data = new FormData();
 
-// data.append('file', {
-//   name: photo.path.split('/').pop(),
-//   type: photo.mime,
-//   uri: photo.path,
-// });
+//   data.append('file', {
+//     name: photo.fileName,
+//     type: photo.type,
+//     uri: photo.uri,
+//   });
 
 //   Object.keys(photo).forEach((key) => {
 //     data.append(key, photo[key]);
@@ -81,8 +81,7 @@ const Profile = () => {
           height: 400,
           cropperCircleOverlay: true,
           includeBase64: true,
-          includeExif: true,
-          mediaType: 'photo',
+          compressImageQuality: 0.8,
         }).then((image) => setimage(image));
       }
     });
@@ -109,7 +108,7 @@ const Profile = () => {
       .catch((err) => {
         setloading(false);
         cleanImage();
-        snackErrorBottom('Something went wrong.');
+        snackErrorBottom('Something went wrong');
       });
   };
 
@@ -138,7 +137,7 @@ const Profile = () => {
           <Text style={headerText}>Profile</Text>
         </Header>
         <ScrollView
-          style={style.container}
+          contentContainerStyle={style.container}
           showsVerticalScrollIndicator={false}
         >
           {date && (
