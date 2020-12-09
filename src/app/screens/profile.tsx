@@ -201,6 +201,12 @@ const Profile = () => {
           <View style={style.infoView}>
             <View style={style.body}>
               <SmallHeader text="Personal Information" />
+              {state.user.employee_id && (
+                <View style={style.icon}>
+                  <Icon name="fingerprint" color={colors.primary} size={25} />
+                  <Text style={style.text}>{state.user?.employee_id}</Text>
+                </View>
+              )}
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -215,7 +221,6 @@ const Profile = () => {
                 />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
-
               <TouchableOpacity
                 onPress={() => {
                   setvisible(true), setdotloader(true);
@@ -248,6 +253,12 @@ const Profile = () => {
                   )}
                 </View>
               </TouchableOpacity>
+              {state.user.blood_group && (
+                <View style={style.icon}>
+                  <Icon name="water" color={colors.primary} size={25} />
+                  <Text style={style.text}>{state.user?.blood_group}</Text>
+                </View>
+              )}
             </View>
           </View>
           <View style={style.infoView}>
