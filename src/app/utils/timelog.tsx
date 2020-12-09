@@ -61,7 +61,7 @@ export const getHrsToday = (arr) => {
       new Date(item.log_date).toDateString() ===
       getDateWithOutTimeZone(new Date()).toDateString()
   );
-  return Math.floor(totalWeekHours(today)) / 60;
+  return totalWeekHours(today);
 };
 
 function isEmpty(obj) {
