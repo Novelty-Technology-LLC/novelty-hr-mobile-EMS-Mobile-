@@ -35,11 +35,11 @@ const optionsPicker = {
 // const createFormData = (photo) => {
 //   const data = new FormData();
 
-//   data.append('file', {
-//     name: photo.fileName,
-//     type: photo.type,
-//     uri: photo.uri,
-//   });
+data.append('file', {
+  name: photo.path.split('/').pop(),
+  type: photo.mime,
+  uri: photo.path,
+});
 
 //   Object.keys(photo).forEach((key) => {
 //     data.append(key, photo[key]);
@@ -81,6 +81,8 @@ const Profile = () => {
           height: 400,
           cropperCircleOverlay: true,
           includeBase64: true,
+          includeExif: true,
+          mediaType: 'photo',
         }).then((image) => setimage(image));
       }
     });
@@ -105,8 +107,9 @@ const Profile = () => {
         cleanImage();
       })
       .catch((err) => {
+        setloading(false);
         cleanImage();
-        snackErrorBottom('Something went wrong');
+        snackErrorBottom('Something went wrong.');
       });
   };
 
