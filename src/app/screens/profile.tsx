@@ -1,12 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  Platform,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { headerText, timeLogStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
 import { DialogContainer, tabHeader as Header } from '../common';
@@ -15,6 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import ImagePicker from 'react-native-image-picker';
+import ImageCropper from 'react-native-image-crop-picker';
 import { formatPhoneNumber } from '../utils';
 import { updateImage, updateBirthday } from '../services';
 import normalize from 'react-native-normalize';
@@ -27,32 +21,32 @@ import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
-const options = {
+//file:///storage/emulated/0/Pictures/images/image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg image/jpeg image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg
+
+const optionsPicker = {
   title: 'Pick a image',
   base64: true,
   storageOptions: {
     skipBackup: true,
     path: 'images',
   },
-  maxWidth: 200,
-  maxHeight: 200,
 };
 
-const createFormData = (photo) => {
-  const data = new FormData();
+// const createFormData = (photo) => {
+//   const data = new FormData();
 
-  data.append('file', {
-    name: photo.fileName,
-    type: photo.type,
-    uri: photo.uri,
-  });
+// data.append('file', {
+//   name: photo.path.split('/').pop(),
+//   type: photo.mime,
+//   uri: photo.path,
+// });
 
-  Object.keys(photo).forEach((key) => {
-    data.append(key, photo[key]);
-  });
+//   Object.keys(photo).forEach((key) => {
+//     data.append(key, photo[key]);
+//   });
 
-  return data;
-};
+//   return data;
+// };
 
 const Profile = () => {
   const { state } = useContext(AuthContext);
@@ -65,29 +59,43 @@ const Profile = () => {
 
   const modalfilter = (date) => momentdate(date) < momentdate();
 
-  const uploadImage = () => {
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-      } else if (response.error) {
-      } else if (response.customButton) {
-      } else {
-        let index = response.uri.lastIndexOf('/');
-        let name = response.uri.slice(index + 1, response.uri.length);
+  const cleanImage = () =>
+    ImageCropper.clean()
+      .then(() => {
+        console.log('removed all tmp images from tmp directory');
+      })
+      .catch((e) => {});
 
-        Platform.OS === 'android'
-          ? response.uri
-          : (response.uri = response.uri.replace('file://', '')) &&
-            (response.fileName = name),
-          setimage(response);
+  const uploadImage = () => {
+    ImagePicker.showImagePicker(optionsPicker, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        ImageCropper.openCropper({
+          path: response.uri,
+          width: 300,
+          height: 400,
+          cropperCircleOverlay: true,
+          includeBase64: true,
+          includeExif: true,
+          mediaType: 'photo',
+        }).then((image) => setimage(image));
       }
     });
   };
-
   const confirm = () => {
     setloading(true);
-    const data = createFormData(image);
+    // const data = createFormData(image);
 
-    updateImage(state.user.id, data)
+    updateImage(state.user.id, {
+      data: image.data,
+      name: image.path.split('/').pop(),
+      type: image.mime,
+    })
       .then((data) => {
         removeToken();
         storeToken(JSON.stringify(data));
@@ -96,8 +104,13 @@ const Profile = () => {
         setloading(false);
         setimage({ ...image, visible: false });
         snackBarMessage('Image uploaded');
+        cleanImage();
       })
-      .catch((err) => snackErrorBottom('Something went wrong'));
+      .catch((err) => {
+        setloading(false);
+        cleanImage();
+        snackErrorBottom('Something went wrong.');
+      });
   };
 
   const submit = (nextDate) => {
@@ -116,7 +129,7 @@ const Profile = () => {
       .catch((err) => snackErrorBottom(err));
   };
 
-  let uri = image ? image.uri : state.user.image_url;
+  let uri = image ? image.path : state.user.image_url;
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
@@ -188,6 +201,12 @@ const Profile = () => {
           <View style={style.infoView}>
             <View style={style.body}>
               <SmallHeader text="Personal Information" />
+              {state.user.employee_id && (
+                <View style={style.icon}>
+                  <Icon name="fingerprint" color={colors.primary} size={25} />
+                  <Text style={style.text}>{state.user?.employee_id}</Text>
+                </View>
+              )}
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -202,7 +221,6 @@ const Profile = () => {
                 />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
-
               <TouchableOpacity
                 onPress={() => {
                   setvisible(true), setdotloader(true);
@@ -235,6 +253,12 @@ const Profile = () => {
                   )}
                 </View>
               </TouchableOpacity>
+              {state.user.blood_group && (
+                <View style={style.icon}>
+                  <Icon name="water" color={colors.primary} size={25} />
+                  <Text style={style.text}>{state.user?.blood_group}</Text>
+                </View>
+              )}
             </View>
           </View>
           <View style={style.infoView}>

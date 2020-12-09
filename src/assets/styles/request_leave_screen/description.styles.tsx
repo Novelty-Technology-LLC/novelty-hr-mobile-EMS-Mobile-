@@ -81,7 +81,7 @@ const descriptionStyle = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     height: '70%',
     overflow: 'hidden',

@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { log } from 'react-native-reanimated';
 
 const TimeLogReducer = (prevState, action) => {
   switch (action.type) {
