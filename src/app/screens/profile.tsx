@@ -35,11 +35,11 @@ const optionsPicker = {
 // const createFormData = (photo) => {
 //   const data = new FormData();
 
-data.append('file', {
-  name: photo.path.split('/').pop(),
-  type: photo.mime,
-  uri: photo.path,
-});
+// data.append('file', {
+//   name: photo.path.split('/').pop(),
+//   type: photo.mime,
+//   uri: photo.path,
+// });
 
 //   Object.keys(photo).forEach((key) => {
 //     data.append(key, photo[key]);
