@@ -137,7 +137,7 @@ const Profile = () => {
           <Text style={headerText}>Profile</Text>
         </Header>
         <ScrollView
-          contentContainerStyle={style.container}
+          style={style.container}
           showsVerticalScrollIndicator={false}
         >
           {date && (
