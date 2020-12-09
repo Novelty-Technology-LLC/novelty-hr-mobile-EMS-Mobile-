@@ -124,7 +124,7 @@ const TimeLogs = () => {
           />
           <DaysRemaining
             total={40}
-            remaining={parseFloat(totalWeekHours(timelogs.present).toFixed(1))}
+            remaining={Math.round(totalWeekHours(timelogs.present))}
             title={'THIS WEEK'}
             timelog={true}
           />

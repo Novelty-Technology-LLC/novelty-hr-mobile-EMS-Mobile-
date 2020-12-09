@@ -27,11 +27,9 @@ const DaysRemaining = ({
             countBy={1}
             timing="linear"
             formatter={(val) => {
-              return timelog
-                ? Number.isInteger(val)
-                  ? val
-                  : parseFloat(val).toFixed(1)
-                : val;
+              return !timelog || Number.isInteger(val)
+                ? val
+                : parseFloat(val).toFixed(1);
             }}
           />
         </Text>
