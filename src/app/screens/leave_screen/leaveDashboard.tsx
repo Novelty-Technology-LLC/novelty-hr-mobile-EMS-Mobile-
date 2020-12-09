@@ -106,7 +106,7 @@ const LeaveDashboard = ({ route }) => {
       });
     };
     runFunction();
-  }, []);
+  }, [messaging]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
