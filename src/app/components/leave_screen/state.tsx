@@ -70,9 +70,9 @@ const State = ({ state, children }: { state: string; children?: any }) => {
               <View>
                 <AppIcon
                   style={style.icon}
-                  name="send"
-                  size={Platform.OS === 'ios' ? 10 : 10}
-                  color={colors.white}
+                  name="send-circle"
+                  size={Platform.OS === 'ios' ? 20 : 20}
+                  color={colors.requested}
                 />
               </View>
               <View style={style.space}></View>
