@@ -93,7 +93,7 @@ const profileStyle = StyleSheet.create({
     fontFamily: fonts.poppinsRegular,
     ...Platform.select({
       android: {
-        marginTop: normalize(5),
+        marginTop: normalize(8),
       },
       ios: {
         marginTop: normalize(5),
