@@ -28,7 +28,7 @@ const MyRequests = ({
   const { requests, dispatchRequest } = useContext(RequestContext);
   let row: Array<any> = [];
 
-  const [toggle, setToggle] = useState('toggle-switch');
+  const [toggle, setToggle] = useState('toggle-switch-off');
   const getPast = async () => {
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
@@ -46,6 +46,7 @@ const MyRequests = ({
   useEffect(() => {
     getPastCallback();
     row.map((item) => item.close());
+    setToggle('toggle-switch-off');
   }, [refresh, params]);
 
   useEffect(() => {

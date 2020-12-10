@@ -14,7 +14,7 @@ import { navigate } from '../../utils/navigation';
 
 const Tasks = ({ value, handleChange, note }: any) => {
   const [loading, setLoading] = useState(false);
-  const { tasks } = useContext(TaskContext);
+  const { tasks, setTasks } = useContext(TaskContext);
   let notes = [];
   if (note) {
     notes = [...note];
@@ -44,7 +44,10 @@ const Tasks = ({ value, handleChange, note }: any) => {
                 item={item}
                 value={value}
                 // handleChange={handleChange}
-                onPress={() => row[index].close()}
+                onPress={() => {
+                  row[index].close();
+                  note && setTasks(note);
+                }}
                 setLoading={setLoading}
               />
             )}
