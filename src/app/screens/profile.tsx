@@ -1,12 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  Platform,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { headerText, timeLogStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
 import { DialogContainer, tabHeader as Header } from '../common';
@@ -15,6 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import ImagePicker from 'react-native-image-picker';
+import ImageCropper from 'react-native-image-crop-picker';
 import { formatPhoneNumber } from '../utils';
 import { updateImage, updateBirthday } from '../services';
 import normalize from 'react-native-normalize';
@@ -27,32 +21,30 @@ import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
-const options = {
+const optionsPicker = {
   title: 'Pick a image',
   base64: true,
   storageOptions: {
     skipBackup: true,
     path: 'images',
   },
-  maxWidth: 200,
-  maxHeight: 200,
 };
 
-const createFormData = (photo) => {
-  const data = new FormData();
+// const createFormData = (photo) => {
+//   const data = new FormData();
 
-  data.append('file', {
-    name: photo.fileName,
-    type: photo.type,
-    uri: photo.uri,
-  });
+//   data.append('file', {
+//     name: photo.fileName,
+//     type: photo.type,
+//     uri: photo.uri,
+//   });
 
-  Object.keys(photo).forEach((key) => {
-    data.append(key, photo[key]);
-  });
+//   Object.keys(photo).forEach((key) => {
+//     data.append(key, photo[key]);
+//   });
 
-  return data;
-};
+//   return data;
+// };
 
 const Profile = () => {
   const { state } = useContext(AuthContext);
@@ -65,29 +57,43 @@ const Profile = () => {
 
   const modalfilter = (date) => momentdate(date) < momentdate();
 
-  const uploadImage = () => {
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-      } else if (response.error) {
-      } else if (response.customButton) {
-      } else {
-        let index = response.uri.lastIndexOf('/');
-        let name = response.uri.slice(index + 1, response.uri.length);
+  const cleanImage = () =>
+    ImageCropper.clean()
+      .then(() => {
+        console.log('removed all tmp images from tmp directory');
+      })
+      .catch((e) => {});
 
-        Platform.OS === 'android'
-          ? response.uri
-          : (response.uri = response.uri.replace('file://', '')) &&
-            (response.fileName = name),
-          setimage(response);
+  const uploadImage = () => {
+    ImagePicker.showImagePicker(optionsPicker, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        ImageCropper.openCropper({
+          path: response.uri,
+          width: 300,
+          height: 400,
+          cropperCircleOverlay: true,
+          includeBase64: true,
+          compressImageQuality: 0.8,
+        }).then((image) => setimage(image));
       }
     });
   };
 
   const confirm = () => {
     setloading(true);
-    const data = createFormData(image);
+    // const data = createFormData(image);
 
-    updateImage(state.user.id, data)
+    updateImage(state.user.id, {
+      data: image.data,
+      name: image.path.split('/').pop(),
+      type: image.mime,
+    })
       .then((data) => {
         removeToken();
         storeToken(JSON.stringify(data));
@@ -96,38 +102,27 @@ const Profile = () => {
         setloading(false);
         setimage({ ...image, visible: false });
         snackBarMessage('Image uploaded');
+        cleanImage();
       })
-      .catch((err) => snackErrorBottom(err));
+      .catch((err) => {
+        setloading(false);
+        cleanImage();
+        snackErrorBottom('Something went wrong');
+      });
   };
 
-  const submit = (nextDate) => {
-    setDate(nextDate), setvisible(false);
-    setdotloader(true);
-    updateBirthday(state.user.id, nextDate + 1)
-      .then((data) => {
-        setbirth(data.birth_date);
-        removeToken();
-        storeToken(JSON.stringify(data));
-        removeUser();
-        setUser(data);
-        setdotloader(false);
-        snackBarMessage('Birthdate updated');
-      })
-      .catch((err) => snackErrorBottom(err));
-  };
-
-  let uri = image ? image.uri : state.user.image_url;
+  let uri = image ? image.path : state.user.image_url;
 
   return (
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <View style={style.container}>
+        <Header icon={true}>
+          <Text style={headerText}>Profile</Text>
+        </Header>
         <ScrollView
-          contentContainerStyle={style.container}
+          style={style.container}
           showsVerticalScrollIndicator={false}
         >
-          <Header icon={true}>
-            <Text style={headerText}>Profile</Text>
-          </Header>
           {date && (
             <DialogContainer
               visible={visible}
@@ -187,7 +182,7 @@ const Profile = () => {
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <SmallHeader text="Personal Info" />
+              <SmallHeader text="Personal Information" />
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -202,33 +197,21 @@ const Profile = () => {
                 />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
-
-              <TouchableOpacity
-                onPress={() => {
-                  setvisible(true), setdotloader(true);
-                }}
-              >
+              <View style={style.icon}>
+                <Icon name="cake-variant" color={colors.primary} size={25} />
+                <Text style={style.date}>{state.user.birth_date}</Text>
+              </View>
+              {state.user.blood_group && (
                 <View style={style.icon}>
-                  <Icon name="cake-variant" color={colors.primary} size={25} />
-                  {dotloader ? (
-                    <View style={style.date}>
-                      <Loader useNativeDriver="true" />
-                    </View>
-                  ) : (
-                    <Text style={style.date}>
-                      {(birth && birth.slice(3, 15)) ||
-                        (state.user.birth_date &&
-                          state.user.birth_date.slice(3, 15)) ||
-                        'Not available'}
-                    </Text>
-                  )}
+                  <Icon name="water" color={colors.primary} size={25} />
+                  <Text style={style.text}>{state.user?.blood_group}</Text>
                 </View>
-              </TouchableOpacity>
+              )}
             </View>
           </View>
           <View style={style.infoView}>
             <View style={style.body}>
-              <SmallHeader text="Contact Info" />
+              <SmallHeader text="Contact Information" />
               <View style={style.icon}>
                 <Icon
                   name="email-newsletter"
@@ -242,6 +225,30 @@ const Profile = () => {
                 <Text style={style.text}>
                   {formatPhoneNumber(state.user.phone)}
                 </Text>
+              </View>
+            </View>
+          </View>
+          <View style={style.infoView}>
+            <View style={style.body}>
+              <SmallHeader text="Employee Information" />
+
+              <View style={style.icon}>
+                <Icon
+                  name="card-account-details"
+                  color={colors.primary}
+                  size={25}
+                />
+                <Text style={style.text}>{state.user?.employee_id}</Text>
+              </View>
+
+              <View style={style.icon}>
+                <Icon name="location-enter" color={colors.primary} size={25} />
+                <Text style={style.text}>{state.user.join_date}</Text>
+              </View>
+
+              <View style={style.icon}>
+                <Icon name="account-tie" color={colors.primary} size={25} />
+                <Text style={style.designation}>{state.user.designation}</Text>
               </View>
             </View>
           </View>

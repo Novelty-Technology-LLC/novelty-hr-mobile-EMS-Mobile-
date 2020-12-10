@@ -28,7 +28,6 @@ import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
 import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
 import { useScrollToTop } from '@react-navigation/native';
-import { SetLocalNotification } from '../../utils/pushNotification';
 import { useNavigation } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 
@@ -97,18 +96,17 @@ const LeaveDashboard = ({ route }) => {
 
       messaging().onNotificationOpenedApp((remoteMessage) => {
         if (remoteMessage && remoteMessage.data.type === 'screen') {
-          Linking.openURL(
-            `noveltyhrmobile://leaveList/${JSON.parse(
-              remoteMessage.data.leave_id
-            )}`
-          );
+          navigation.navigate('leaveList', {
+            id: remoteMessage.data.leave_id,
+            request: remoteMessage.data.request,
+          });
         } else {
           remoteMessage && navigation.navigate('Activity');
         }
       });
     };
     runFunction();
-  }, []);
+  }, [messaging]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
@@ -119,7 +117,7 @@ const LeaveDashboard = ({ route }) => {
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
     };
-  }, []);
+  }, [messaging]);
 
   useEffect(() => {
     const initialNotification = () => {
@@ -127,26 +125,17 @@ const LeaveDashboard = ({ route }) => {
         .getInitialNotification()
         .then((remoteMessage) => {
           if (remoteMessage && remoteMessage.data.type === 'screen') {
-            Linking.openURL(
-              `noveltyhrmobile://leaveList/${JSON.parse(
-                remoteMessage.data.leave_id
-              )}`
-            );
+            navigation.navigate('leaveList', {
+              id: remoteMessage.data.leave_id,
+              request: remoteMessage.data.request,
+            });
           } else {
             remoteMessage && navigation.navigate('Activity');
           }
         });
     };
     initialNotification();
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Platform.OS === 'ios' &&
-        SetLocalNotification(remoteMessage.notification.body);
-    });
-    return unsubscribe;
-  }, []);
+  }, [messaging]);
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
@@ -160,8 +149,7 @@ const LeaveDashboard = ({ route }) => {
     user = JSON.parse(user);
     const device_id = DeviceInfo.getUniqueId();
 
-    let isValid = false;
-    isValid = user?.device_tokens.some(
+    const isValid = user.device_tokens?.some(
       (item) =>
         item.user_id === user.id &&
         item.device_id === device_id &&
@@ -214,10 +202,15 @@ const LeaveDashboard = ({ route }) => {
         <MyRequests
           loading={loading}
           refresh={refresh}
-          params={+route.params?.screen}
+          params={route.params?.request === 'myrequest' && +route.params?.id}
         />
         {isAdmin && (
-          <OtherRequests refresh={refresh} params={route.params?.screen} />
+          <OtherRequests
+            refresh={refresh}
+            params={
+              route.params?.request === 'otherrequest' && +route.params?.id
+            }
+          />
         )}
       </ScrollView>
       <RequestButton screen="requestLeave" />

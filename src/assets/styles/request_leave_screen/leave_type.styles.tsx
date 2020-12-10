@@ -5,18 +5,23 @@ import colors from '../../colors';
 import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
-  container: { borderBottomWidth: 1, borderBottomColor: colors.border },
+  container: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
   wrapper: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     marginHorizontal: normalize(15),
-    paddingTop: normalize(20),
+    paddingTop: normalize(10),
   },
   padNone: {
     paddingBottom: normalize(0),
     marginBottom: normalize(0),
+    marginHorizontal: normalize(15),
+    paddingTop: normalize(10),
   },
   text: {
     fontFamily: fonts.poppinsMedium,

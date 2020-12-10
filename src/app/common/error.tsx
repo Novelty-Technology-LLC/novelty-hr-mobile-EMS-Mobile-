@@ -3,7 +3,7 @@ import { fonts } from '../../assets/styles/theme';
 import Snackbar from 'react-native-snackbar';
 const snackErrorBottom = (err) => {
   return Snackbar.show({
-    text: err.message,
+    text: err.message || err,
     textColor: colors.white,
     backgroundColor: '#ff3300',
     fontFamily: fonts.mulishBold,

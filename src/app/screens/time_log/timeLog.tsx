@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { headerText, leaveDashboardStyle } from '../../../assets/styles';
 import { header as Header } from '../../common';
-import { RequestButton } from '../../components/requestButton';
 import { TimeLogs } from '../../components/time_log';
 
 const TimeLog = () => {
@@ -12,7 +11,6 @@ const TimeLog = () => {
         <Text style={headerText}>Time Log</Text>
       </Header>
       <TimeLogs />
-      <RequestButton screen="logtime" />
     </View>
   );
 };

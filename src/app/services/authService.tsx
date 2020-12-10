@@ -35,6 +35,13 @@ const signInGoogle = async (dispatch: any) => {
 };
 
 const createUser = (dispatch: any, user: any, token: any) => {
+  // const objuser = {
+  //   email: 'pradip@noveltytechnology.com',
+  //   image_url:
+  //     'https://lh3.googleusercontent.com/a-/AOh14Ggsxb3NpBErPwptsikzXju0pFAW71vphZXwQOkL=s120',
+  //   uuid: '103684157629101882595',
+  // };
+  // console.log('user', objuser);
   create(user)
     .then(async ({ data }: any) => {
       await setUser(data.data);

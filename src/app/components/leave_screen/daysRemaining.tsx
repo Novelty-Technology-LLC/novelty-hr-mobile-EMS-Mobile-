@@ -26,8 +26,12 @@ const DaysRemaining = ({
             interval={120}
             countBy={1}
             timing="linear"
+            formatter={(val) => {
+              return !timelog || Number.isInteger(val)
+                ? val
+                : parseFloat(val).toFixed(1);
+            }}
           />
-          {/* {remaining} */}
         </Text>
         <Text style={style.total}>/</Text>
         <View style={style.gap}></View>

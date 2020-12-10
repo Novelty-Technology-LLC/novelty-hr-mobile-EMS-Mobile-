@@ -14,3 +14,4 @@ export * from './smallHeader';
 export * from './emptyContainer';
 export * from './selectButton';
 export * from './dialogContainer';
+export * from './historyToggle';

@@ -36,12 +36,9 @@ const timeLogStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
   },
   rldate: {
-    fontSize: normalize(theme.size.base),
-    color: colors.black,
-    fontFamily: fonts.mulishBold,
-    paddingRight: normalize(25),
-    alignSelf: 'flex-end',
-    marginTop: normalize(10),
+    fontFamily: fonts.poppinsMedium,
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.xs),
   },
   type: {
     color: colors.fontGrey,
@@ -88,6 +85,28 @@ const timeLogStyle = StyleSheet.create({
   },
   modalCalender: {
     width: width * 0.8,
+  },
+
+  indicatorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: normalize(20),
+    marginTop: 10,
+  },
+  indicator: {
+    width: normalize(10),
+    height: normalize(10),
+    backgroundColor: colors.yellow,
+    borderRadius: normalize(8),
+    alignSelf: 'center',
+    marginRight: normalize(5),
+    marginLeft: normalize(5),
+    ...Platform.select({
+      android: {
+        marginBottom: normalize(3),
+      },
+    }),
   },
 });
 

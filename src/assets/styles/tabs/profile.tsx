@@ -58,6 +58,17 @@ const profileStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: normalize(10),
   },
+  msg: {
+    paddingLeft: normalize(10),
+    ...Platform.select({
+      ios: {
+        paddingTop: normalize(5),
+      },
+      android: {
+        paddingTop: normalize(7),
+      },
+    }),
+  },
   gender: {
     textTransform: 'capitalize',
     marginLeft: normalize(8),
@@ -77,7 +88,18 @@ const profileStyle = StyleSheet.create({
       },
     }),
   },
-
+  designation: {
+    marginLeft: normalize(10),
+    fontFamily: fonts.poppinsRegular,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+      ios: {
+        marginTop: normalize(5),
+      },
+    }),
+  },
   date: {
     marginLeft: normalize(6),
     fontFamily: fonts.poppinsRegular,
@@ -86,7 +108,7 @@ const profileStyle = StyleSheet.create({
         marginTop: normalize(7),
       },
       android: {
-        marginTop: normalize(7),
+        marginTop: normalize(10),
       },
     }),
   },

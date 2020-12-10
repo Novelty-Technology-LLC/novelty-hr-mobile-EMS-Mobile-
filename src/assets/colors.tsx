@@ -11,9 +11,10 @@ export default {
   buttonOrange: '#ffe6b3',
   buttonGrey: '#f2f2f2',
   fontGrey: '#8D8D8D',
+  lightGrey: '#DBD9D8',
   fontOrange: '#BF8B59',
   snow: '#fafafa',
   fontBlack: '#383838',
   requested: '#EA8320',
-  red:'#ff0000'
+  red: '#ff0000',
 };

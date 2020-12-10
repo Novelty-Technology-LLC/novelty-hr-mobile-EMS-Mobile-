@@ -6,15 +6,14 @@ import { myRequestsStyle as style } from '../../../assets/styles';
 import History from './history';
 import { Request } from './request';
 import Swipe from './swipe';
-import colors from '../../../assets/colors';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { RequestContext } from '../../reducer';
-import { AppIcon, EmptyContainer, SmallHeader } from '../../common';
+import { EmptyContainer, SmallHeader } from '../../common';
 import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { getPastRequests } from '../../services';
 import { UserPlaceHolder } from '../loader';
 import { getLeave } from '../../services';
+import HistoryToggle from '../../common/historyToggle';
 
 const MyRequests = ({
   loading,
@@ -29,7 +28,7 @@ const MyRequests = ({
   const { requests, dispatchRequest } = useContext(RequestContext);
   let row: Array<any> = [];
 
-  const [toggle, setToggle] = useState('toggle-switch');
+  const [toggle, setToggle] = useState('toggle-switch-off');
   const getPast = async () => {
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
@@ -47,6 +46,7 @@ const MyRequests = ({
   useEffect(() => {
     getPastCallback();
     row.map((item) => item.close());
+    setToggle('toggle-switch-off');
   }, [refresh, params]);
 
   useEffect(() => {
@@ -68,27 +68,7 @@ const MyRequests = ({
           history={requests.pastrequests.length > 0}
         />
         {requests.pastrequests.length > 0 && (
-          <View style={style.row}>
-            <Text style={style.history}> History</Text>
-            <View style={style.gap}></View>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                setToggle(
-                  toggle === 'toggle-switch'
-                    ? 'toggle-switch-off'
-                    : 'toggle-switch'
-                );
-              }}
-            >
-              <AppIcon
-                name={toggle}
-                color={
-                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
-                }
-                size={40}
-              />
-            </TouchableWithoutFeedback>
-          </View>
+          <HistoryToggle toggle={toggle} setToggle={setToggle} />
         )}
       </View>
       {loading ? <UserPlaceHolder /> : null}

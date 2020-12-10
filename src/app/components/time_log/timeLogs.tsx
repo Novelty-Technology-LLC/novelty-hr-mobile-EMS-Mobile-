@@ -2,16 +2,28 @@ import { useScrollToTop } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { myRequestsStyle as style, historyStyle } from '../../../assets/styles';
+import {
+  myRequestsStyle as style,
+  historyStyle,
+  myRequestsStyle,
+} from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
-import { getHrsToday, getUser, isThisWeek, totalWeekHours } from '../../utils';
+import {
+  getHrsToday,
+  getUser,
+  groupByproject,
+  isThisWeek,
+  totalWeekHours,
+} from '../../utils';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
 import { DaySelect } from './daySelect';
 import { EmptyContainer, SmallHeader } from '../../common';
 import { TimeLog } from './timelog';
+import HistoryToggle from '../../common/historyToggle';
+import { RequestButton } from '../requestButton';
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -20,13 +32,18 @@ const TimeLogs = () => {
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [logs, setLogs] = useState([]);
   const ref = React.useRef(null);
+  const [selectedHrs, setSelectedHrs] = useState(0);
+  const [selectedDay, setSelectedDay] = useState('Today');
+  const [thisWeekLogs, setThisWeekLogs] = useState([]);
+  const [toggle, setToggle] = useState('toggle-switch-off');
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
+    setToggle('toggle-switch-off');
+    setSelectedDay('Today');
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
-        setLoading(false);
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
 
@@ -37,6 +54,7 @@ const TimeLogs = () => {
             past: pastw,
           },
         });
+        setLoading(false);
         setRefreshing(false);
       })
       .catch((err) => console.log(err));
@@ -44,10 +62,10 @@ const TimeLogs = () => {
 
   const getTimeLogs = async () => {
     setLoading(true);
+    setSelectedDay('Today');
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
       .then((res) => {
-        setLoading(false);
         let thisw = res.filter((item) => isThisWeek(item));
         let pastw = res.filter((item) => !isThisWeek(item));
 
@@ -58,7 +76,9 @@ const TimeLogs = () => {
             past: pastw,
           },
         });
+        setLoading(false);
         setRefreshing(false);
+        setSelectedHrs(getHrsToday(thisw));
       })
       .catch((err) => console.log(err));
   };
@@ -66,6 +86,10 @@ const TimeLogs = () => {
   useEffect(() => {
     getTimeLogs();
   }, []);
+
+  useEffect(() => {
+    setSelectedHrs(totalWeekHours(logs));
+  }, [logs]);
 
   useEffect(() => {
     setLogs(
@@ -77,6 +101,7 @@ const TimeLogs = () => {
             new Date(date === '' ? new Date() : date).toDateString()
         )
     );
+    setThisWeekLogs(Object.entries(groupByproject(timelogs.present)));
   }, [timelogs]);
 
   let row: Array<any> = [];
@@ -84,93 +109,106 @@ const TimeLogs = () => {
   useScrollToTop(ref);
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      ref={ref}
-      style={style.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      {loading ? (
-        <QuotaPlaceHolder />
-      ) : (
-        <View style={{ flexDirection: 'row' }}>
-          <DaysRemaining
-            total={8}
-            remaining={Math.floor(getHrsToday(timelogs.present))}
-            title={'TODAY'}
-            timelog={true}
-          />
-          <DaysRemaining
-            total={40}
-            remaining={Math.floor(totalWeekHours(timelogs.present) / 60)}
-            title={'THIS WEEK'}
-            timelog={true}
-          />
-        </View>
-      )}
+    <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        ref={ref}
+        style={style.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {loading ? (
+          <QuotaPlaceHolder />
+        ) : (
+          <View style={{ flexDirection: 'row' }}>
+            <DaysRemaining
+              total={8}
+              remaining={Math.round(selectedHrs)}
+              title={selectedDay.toUpperCase()}
+              timelog={true}
+            />
+            <DaysRemaining
+              total={40}
+              remaining={Math.round(totalWeekHours(timelogs.present))}
+              title={'THIS WEEK'}
+              timelog={true}
+            />
+          </View>
+        )}
 
-      <SmallHeader text={'View'} />
+        <SmallHeader text={'View'} />
 
-      <DaySelect
-        handleChange={(date) => {
-          setDate(date);
-          setLogs(
-            timelogs.past
+        <DaySelect
+          handleChange={(date) => {
+            setDate(date);
+            const logs = timelogs.past
               .concat(timelogs.present)
               .filter(
                 (item) =>
                   new Date(item.log_date).toDateString() ===
                   new Date(date).toDateString()
-              )
-          );
-        }}
-        refreshing={refreshing}
-      />
-
-      {loading ? (
-        <UserPlaceHolder />
-      ) : logs[0] ? (
-        <FlatList
-          data={logs}
-          renderItem={(item) => (
-            <Swipeable
-              ref={(ref) => (row[item.index] = ref)}
-              renderRightActions={() => (
-                <Swipe
-                  timelog={true}
-                  item={item.item}
-                  onPress={() => row[item.index].close()}
-                />
-              )}
-            >
-              <TimeLog item={item.item} />
-            </Swipeable>
-          )}
-          keyExtractor={(item) => item.id}
+              );
+            setLogs(logs);
+            setSelectedHrs(totalWeekHours(logs));
+          }}
+          refreshing={refreshing}
+          setSelectedDay={setSelectedDay}
         />
-      ) : (
-        !loading && <EmptyContainer text="You don't have logs this day." />
-      )}
-      <SmallHeader text="This Week" />
 
-      <View style={historyStyle.timelogcontainer}>
         {loading ? (
           <UserPlaceHolder />
-        ) : timelogs.present[0] ? (
+        ) : logs[0] ? (
           <FlatList
-            data={timelogs.present}
-            renderItem={(item) => <TimeLog item={item.item} />}
+            data={logs}
+            renderItem={(item) => (
+              <Swipeable
+                ref={(ref) => (row[item.index] = ref)}
+                renderRightActions={() => (
+                  <Swipe
+                    timelog={true}
+                    item={item.item}
+                    onPress={() => row[item.index].close()}
+                  />
+                )}
+              >
+                <TimeLog item={item.item} />
+              </Swipeable>
+            )}
             keyExtractor={(item) => item.id}
           />
         ) : (
-          !timelogs.present[0] && (
-            <EmptyContainer text="You don't have past logs." />
-          )
+          !loading && <EmptyContainer text="You don't have logs this day." />
         )}
-      </View>
-    </ScrollView>
+        <View style={myRequestsStyle.header}>
+          <SmallHeader text="This Week" history={thisWeekLogs.length > 0} />
+          {thisWeekLogs.length > 0 && (
+            <HistoryToggle toggle={toggle} setToggle={setToggle} />
+          )}
+        </View>
+
+        <View style={historyStyle.timelogcontainer}>
+          {toggle === 'toggle-switch' ? (
+            loading ? (
+              <UserPlaceHolder />
+            ) : thisWeekLogs[0] ? (
+              thisWeekLogs.map((log) => <TimeLog item={log} thisweek={true} />)
+            ) : (
+              !thisWeekLogs[0] && (
+                <EmptyContainer text="You don't have past logs." />
+              )
+            )
+          ) : null}
+        </View>
+      </ScrollView>
+      <RequestButton
+        screen="logtime"
+        olddata={{
+          log_date: date,
+          not_old: true,
+        }}
+      />
+    </>
   );
 };
 

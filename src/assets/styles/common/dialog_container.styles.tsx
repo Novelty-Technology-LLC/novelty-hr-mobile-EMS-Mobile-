@@ -1,18 +1,17 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
 
 const width = Dimensions.get('window').width;
 
 const dialogContainerStyle = StyleSheet.create({
   dialog: {
     alignSelf: 'center',
-    width: width * 0.805,
+    width: width * 0.84,
     borderRadius: 5,
   },
   content: {
-    marginLeft: normalize(-42),
-    marginBottom: normalize(-20),
-    marginTop: normalize(-17),
+    marginLeft: -width * 0.08,
+    marginBottom: -width * 0.046,
+    marginTop: -width * 0.036,
     alignSelf: 'center',
   },
 });
