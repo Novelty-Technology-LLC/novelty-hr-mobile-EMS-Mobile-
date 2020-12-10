@@ -88,7 +88,18 @@ const profileStyle = StyleSheet.create({
       },
     }),
   },
-
+  designation: {
+    marginLeft: normalize(10),
+    fontFamily: fonts.poppinsRegular,
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+      ios: {
+        marginTop: normalize(5),
+      },
+    }),
+  },
   date: {
     marginLeft: normalize(6),
     fontFamily: fonts.poppinsRegular,

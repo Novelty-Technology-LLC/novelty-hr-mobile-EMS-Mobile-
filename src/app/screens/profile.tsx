@@ -21,8 +21,6 @@ import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
-//file:///storage/emulated/0/Pictures/images/image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg image/jpeg image-a669af60-0537-4fbd-8875-ad7e5a41d352.jpg
-
 const optionsPicker = {
   title: 'Pick a image',
   base64: true,
@@ -86,6 +84,7 @@ const Profile = () => {
       }
     });
   };
+
   const confirm = () => {
     setloading(true);
     // const data = createFormData(image);
@@ -200,14 +199,12 @@ const Profile = () => {
               </View>
               <View style={style.icon}>
                 <Icon name="cake-variant" color={colors.primary} size={25} />
-                <Text style={style.date}>
-                  {state.user.birth_date.slice(3, 15)}
-                </Text>
+                <Text style={style.date}>{state.user.birth_date}</Text>
               </View>
               {state.user.blood_group && (
                 <View style={style.icon}>
                   <Icon name="water" color={colors.primary} size={25} />
-                  <Text style={style.text}>{state.user.blood_group}</Text>
+                  <Text style={style.text}>{state.user?.blood_group}</Text>
                 </View>
               )}
             </View>
@@ -234,26 +231,25 @@ const Profile = () => {
           <View style={style.infoView}>
             <View style={style.body}>
               <SmallHeader text="Employee Information" />
-              {state.user.employee_id && (
-                <View style={style.icon}>
-                  <Icon
-                    name="card-account-details"
-                    color={colors.primary}
-                    size={25}
-                  />
-                  <Text style={style.text}>{state.user.employee_id}</Text>
-                </View>
-              )}
-              {state.user.join_date && (
-                <View style={style.icon}>
-                  <Icon
-                    name="location-enter"
-                    color={colors.primary}
-                    size={25}
-                  />
-                  <Text style={style.text}>{state.user.join_date}</Text>
-                </View>
-              )}
+
+              <View style={style.icon}>
+                <Icon
+                  name="card-account-details"
+                  color={colors.primary}
+                  size={25}
+                />
+                <Text style={style.text}>{state.user?.employee_id}</Text>
+              </View>
+
+              <View style={style.icon}>
+                <Icon name="location-enter" color={colors.primary} size={25} />
+                <Text style={style.text}>{state.user.join_date}</Text>
+              </View>
+
+              <View style={style.icon}>
+                <Icon name="account-tie" color={colors.primary} size={25} />
+                <Text style={style.designation}>{state.user.designation}</Text>
+              </View>
             </View>
           </View>
         </ScrollView>
