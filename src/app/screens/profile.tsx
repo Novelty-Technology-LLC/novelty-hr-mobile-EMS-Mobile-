@@ -112,22 +112,6 @@ const Profile = () => {
       });
   };
 
-  const submit = (nextDate) => {
-    setDate(nextDate), setvisible(false);
-    setdotloader(true);
-    updateBirthday(state.user.id, nextDate + 1)
-      .then((data) => {
-        setbirth(data.birth_date);
-        removeToken();
-        storeToken(JSON.stringify(data));
-        removeUser();
-        setUser(data);
-        setdotloader(false);
-        snackBarMessage('Birthdate updated');
-      })
-      .catch((err) => snackErrorBottom(err));
-  };
-
   let uri = image ? image.path : state.user.image_url;
 
   return (
@@ -200,12 +184,6 @@ const Profile = () => {
           <View style={style.infoView}>
             <View style={style.body}>
               <SmallHeader text="Personal Information" />
-              {state.user.employee_id && (
-                <View style={style.icon}>
-                  <Icon name="fingerprint" color={colors.primary} size={25} />
-                  <Text style={style.text}>{state.user?.employee_id}</Text>
-                </View>
-              )}
               <View style={style.icon}>
                 <Icon name="account-circle" color={colors.primary} size={25} />
                 <Text style={style.text}>
@@ -220,42 +198,16 @@ const Profile = () => {
                 />
                 <Text style={style.gender}>{state.user.gender}</Text>
               </View>
-              <TouchableOpacity
-                onPress={() => {
-                  setvisible(true), setdotloader(true);
-                }}
-              >
-                <View style={style.icon}>
-                  <Icon name="cake-variant" color={colors.primary} size={25} />
-                  {dotloader ? (
-                    <View style={style.date}>
-                      <Loader useNativeDriver="true" />
-                    </View>
-                  ) : (
-                    <>
-                      <Text style={style.date}>
-                        {(birth && birth.slice(3, 15)) ||
-                          (state.user.birth_date &&
-                            state.user.birth_date.slice(3, 15)) ||
-                          'Not available'}
-                      </Text>
-                      {birth === null && (
-                        <View style={style.msg}>
-                          <Icon
-                            name="calendar-month-outline"
-                            size={15}
-                            color={colors.primary}
-                          />
-                        </View>
-                      )}
-                    </>
-                  )}
-                </View>
-              </TouchableOpacity>
+              <View style={style.icon}>
+                <Icon name="cake-variant" color={colors.primary} size={25} />
+                <Text style={style.date}>
+                  {state.user.birth_date.slice(3, 15)}
+                </Text>
+              </View>
               {state.user.blood_group && (
                 <View style={style.icon}>
                   <Icon name="water" color={colors.primary} size={25} />
-                  <Text style={style.text}>{state.user?.blood_group}</Text>
+                  <Text style={style.text}>{state.user.blood_group}</Text>
                 </View>
               )}
             </View>
@@ -277,6 +229,31 @@ const Profile = () => {
                   {formatPhoneNumber(state.user.phone)}
                 </Text>
               </View>
+            </View>
+          </View>
+          <View style={style.infoView}>
+            <View style={style.body}>
+              <SmallHeader text="Employee Information" />
+              {state.user.employee_id && (
+                <View style={style.icon}>
+                  <Icon
+                    name="card-account-details"
+                    color={colors.primary}
+                    size={25}
+                  />
+                  <Text style={style.text}>{state.user.employee_id}</Text>
+                </View>
+              )}
+              {state.user.join_date && (
+                <View style={style.icon}>
+                  <Icon
+                    name="location-enter"
+                    color={colors.primary}
+                    size={25}
+                  />
+                  <Text style={style.text}>{state.user.join_date}</Text>
+                </View>
+              )}
             </View>
           </View>
         </ScrollView>
