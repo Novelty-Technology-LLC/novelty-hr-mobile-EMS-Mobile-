@@ -16,7 +16,7 @@ import HistoryToggle from '../../common/historyToggle';
 
 const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
-  const [toggle, setToggle] = useState('toggle-switch');
+  const [toggle, setToggle] = useState('toggle-switch-off');
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
