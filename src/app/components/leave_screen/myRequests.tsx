@@ -46,6 +46,7 @@ const MyRequests = ({
   useEffect(() => {
     getPastCallback();
     row.map((item) => item.close());
+    setToggle('toggle-switch-off');
   }, [refresh, params]);
 
   useEffect(() => {

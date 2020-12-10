@@ -67,6 +67,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
 
   useEffect(() => {
     getAdminRequest();
+    setToggle('toggle-switch-off');
   }, [refresh, params]);
 
   useEffect(() => {
