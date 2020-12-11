@@ -10,14 +10,13 @@ import { AuthContext } from '../reducer';
 import ImagePicker from 'react-native-image-picker';
 import ImageCropper from 'react-native-image-crop-picker';
 import { formatPhoneNumber } from '../utils';
-import { updateImage, updateBirthday } from '../services';
+import { updateImage } from '../services';
 import normalize from 'react-native-normalize';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Calendar } from '@ui-kitten/components';
 import { default as theme } from '../../assets/styles/leave_screen/custom-theme.json';
 import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
-import Loader from 'react-native-three-dots-loader';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 

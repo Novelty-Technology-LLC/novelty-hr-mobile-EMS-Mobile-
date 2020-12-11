@@ -28,8 +28,11 @@ const signInGoogle = async (dispatch: any) => {
       dispatch({ type: 'INVALID' });
     }
   } catch (error) {
-    if (error.message === 'NETWORK_ERROR')
+    if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
+    } else {
+      error.message = 'Sign in error';
+    }
     snackErrorBottom(error);
   }
 };
