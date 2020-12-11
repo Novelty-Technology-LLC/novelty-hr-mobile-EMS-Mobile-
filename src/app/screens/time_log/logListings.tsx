@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { header as Header } from '../../common';
 import {
@@ -14,8 +14,9 @@ import TaskContext from '../../components/time_log/taskContext';
 import { RequestButton } from '../../components/requestButton';
 
 const LogListings = ({ route }: any) => {
-  const olddata = route.params;
-  const [tasks, setTasks] = useState(olddata ? olddata.note : []);
+  let olddata = route.params;
+  const [tasks, setTasks] = useState(olddata ? olddata : []);
+
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
       <Header icon={true}>
@@ -42,10 +43,10 @@ const LogListings = ({ route }: any) => {
             </View>
           </View>
         )}
-        {olddata[0] ? (
-          olddata[1].map((item) => <Tasks value={item} note={item.note} />)
+        {tasks[0] ? (
+          tasks[1].map((item) => <Tasks value={item} note={item.note} />)
         ) : (
-          <Tasks value={olddata} />
+          <Tasks value={tasks} />
         )}
         <View style={historyStyle.timelogcontainer}></View>
       </ScrollView>

@@ -160,8 +160,8 @@ const LeaveDashboard = ({ route }) => {
       id: user.id,
       notification_token: token,
       device_id,
+      platform: Platform.OS,
     };
-
     if (!isValid) {
       store(data).then(async (data) => {
         await removeUser(),
