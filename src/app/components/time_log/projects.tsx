@@ -34,7 +34,20 @@ const Projects = ({
       .then((data) => {
         setLoading(false);
         setAllprojects(data);
-        setProjects(data.filter((item, id) => id < 3));
+        if (defaultValue) {
+          const selectedProject = data.filter(
+            (project) => project.id === defaultValue
+          );
+          const unselectedProject = data.filter(
+            (project) => project.id !== defaultValue
+          );
+          setProjects([
+            ...selectedProject,
+            ...unselectedProject.filter((item, id) => id < 2),
+          ]);
+        } else {
+          setProjects(data.filter((item, id) => id < 3));
+        }
         setType(defaultValue ? defaultValue : data[0].id);
         handleChange('project_id')(
           defaultValue ? defaultValue.toString() : data[0].id.toString()
