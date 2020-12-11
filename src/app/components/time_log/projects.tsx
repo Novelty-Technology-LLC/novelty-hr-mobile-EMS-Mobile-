@@ -33,8 +33,24 @@ const Projects = ({
     getAllProjects(JSON.parse(user).id)
       .then((data) => {
         setLoading(false);
-        setAllprojects(data);
-        setProjects(data.filter((item, id) => id < 3));
+
+        if (defaultValue) {
+          const selectedProject = data.filter(
+            (project) => project.id === defaultValue
+          );
+          const unselectedProject = data.filter(
+            (project) => project.id !== defaultValue
+          );
+          setProjects(
+            selectedProject.concat(
+              unselectedProject.filter((item, id) => id < 2)
+            )
+          );
+          setAllprojects(selectedProject.concat(unselectedProject));
+        } else {
+          setProjects(data.filter((item, id) => id < 3));
+          setAllprojects(data);
+        }
         setType(defaultValue ? defaultValue : data[0].id);
         handleChange('project_id')(
           defaultValue ? defaultValue.toString() : data[0].id.toString()
