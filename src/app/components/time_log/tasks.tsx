@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {
@@ -16,10 +16,10 @@ const Tasks = ({ value, handleChange, note }: any) => {
   const [loading, setLoading] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
   let notes = [];
-  if (note) {
-    notes = [...note];
+  if (tasks[1]) {
+    notes = tasks[1].filter((task) => task.id === value.id)[0].note;
   } else {
-    notes = [...tasks];
+    notes = tasks.note;
   }
   let row: Array<any> = [];
 
@@ -46,7 +46,6 @@ const Tasks = ({ value, handleChange, note }: any) => {
                 // handleChange={handleChange}
                 onPress={() => {
                   row[index].close();
-                  note && setTasks(note);
                 }}
                 setLoading={setLoading}
               />
@@ -68,7 +67,7 @@ const Tasks = ({ value, handleChange, note }: any) => {
         <View style={[timeLogStyle.total, timeLogStyle.gap]}>
           <Text style={timeLogStyle.date}>Total</Text>
           <Text style={timeLogStyle.duration}>
-            {getHrs(totalHours(note ? { note: notes } : { note: tasks }))}
+            {getHrs(totalHours(note ? { note: notes } : { note: tasks.note }))}
           </Text>
         </View>
       </View>

@@ -31,8 +31,15 @@ const DeleteLog = ({
   const { dispatchTimeLog } = useContext(TimeLogContext);
 
   const onTaskDelete = () => {
-    if (tasks.length > 1) {
-      let task = tasks.filter((val) => val.id !== item.id);
+    let taskList = [];
+    if (tasks[1]) {
+      taskList = tasks[1].filter((task) => task.id === value.id)[0].note;
+    } else {
+      taskList = tasks.note;
+    }
+
+    if (taskList.length > 1) {
+      let task = taskList.filter((val) => val.id !== item.id);
       let values = {
         duration: totalHours({ note: task }),
         log_date: value.log_date,
@@ -50,7 +57,12 @@ const DeleteLog = ({
               past: isThisWeek(data) ? null : data,
             },
           });
-          setTasks(task);
+          if (tasks[1]) {
+            tasks[1].filter((task) => task.id === value.id)[0].note = task;
+            setTasks([...tasks]);
+          } else {
+            setTasks({ ...tasks, note: task });
+          }
           snackBarMessage(`Task deleted`);
         })
         .catch((err) => console.log(err));
