@@ -33,7 +33,7 @@ const Projects = ({
     getAllProjects(JSON.parse(user).id)
       .then((data) => {
         setLoading(false);
-        setAllprojects(data);
+
         if (defaultValue) {
           const selectedProject = data.filter(
             (project) => project.id === defaultValue
@@ -41,12 +41,15 @@ const Projects = ({
           const unselectedProject = data.filter(
             (project) => project.id !== defaultValue
           );
-          setProjects([
-            ...selectedProject,
-            ...unselectedProject.filter((item, id) => id < 2),
-          ]);
+          setProjects(
+            selectedProject.concat(
+              unselectedProject.filter((item, id) => id < 2)
+            )
+          );
+          setAllprojects(selectedProject.concat(unselectedProject));
         } else {
           setProjects(data.filter((item, id) => id < 3));
+          setAllprojects(data);
         }
         setType(defaultValue ? defaultValue : data[0].id);
         handleChange('project_id')(

@@ -59,7 +59,11 @@ const LogTime = ({ route }: any) => {
   const onSubmit = async (values) => {
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
-    const dataObj = { old: olddata, new: values };
+
+    const dataObj = {
+      old: olddata && olddata.id ? olddata : null,
+      new: values,
+    };
     setIsLoading(true);
 
     const pastData = timelogs.present
