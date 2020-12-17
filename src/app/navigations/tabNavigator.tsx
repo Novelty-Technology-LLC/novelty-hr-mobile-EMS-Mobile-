@@ -19,20 +19,20 @@ const TabNavigator = () => {
         }}
       >
         <Tab.Screen
-          name="Home"
-          component={ScreenStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="briefcase-clock" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
           name="Activity"
           component={LogNav}
           options={{
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="timer" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Home"
+          component={ScreenStack}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <AppIcon name="briefcase-clock" color={color} size={size} />
             ),
           }}
         />
