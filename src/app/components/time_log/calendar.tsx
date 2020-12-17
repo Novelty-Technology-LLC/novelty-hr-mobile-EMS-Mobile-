@@ -4,8 +4,7 @@ import CalendarStrip from 'react-native-calendar-strip';
 import colors from '../../../assets/colors';
 import { calenderStyle as style } from '../../../assets/styles';
 import moment from 'moment';
-import { momentdate } from '../../utils/momentDate';
-import { formatDate, getDateWithOutTimeZone } from '../../utils';
+import { formatDate } from '../../utils';
 
 const Calendar = ({
   handleChange,
@@ -43,12 +42,12 @@ const Calendar = ({
     <View style={style.container}>
       <CalendarStrip
         scrollable
-        daySelectionAnimation={{
-          type: 'border',
-          duration: 200,
-          borderWidth: 1,
-          borderHighlightColor: 'white',
-        }}
+        // daySelectionAnimation={{
+        //   type: 'border',
+        //   duration: 200,
+        //   borderWidth: 1,
+        //   borderHighlightColor: 'white',
+        // }}
         style={style.main}
         numDaysInWeek={7}
         calendarHeaderStyle={style.header}

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts, theme } from '../theme';
@@ -30,11 +30,26 @@ const calenderStyle = StyleSheet.create({
     paddingVertical: normalize(5),
     paddingHorizontal: normalize(10),
     fontSize: normalize(20),
+    width: '100%',
+    ...Platform.select({
+      android: { fontFamily: 'Roboto' },
+    }),
+    textAlign: 'left',
+    marginLeft: 5,
+    marginRight: 5,
   },
   number: {
     color: colors.black,
     fontWeight: 'normal',
     fontSize: normalize(20),
+    width: '100%',
+    paddingHorizontal: normalize(8),
+    ...Platform.select({
+      android: { fontFamily: 'Roboto' },
+    }),
+    textAlign: 'left',
+    marginLeft: 5,
+    marginRight: 5,
   },
   modalCalender: {
     width: '82%',
