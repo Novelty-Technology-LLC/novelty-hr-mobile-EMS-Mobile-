@@ -132,8 +132,8 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 23
-        versionName "1.2.6"
+        versionCode 39
+        versionName "1.4.0"
     }
     splits {
         abi {
