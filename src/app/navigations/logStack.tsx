@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Linking, Platform } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TimeLog, LogTime, LogListings } from '../screens';
 import {
@@ -13,7 +14,6 @@ const LogStack = createStackNavigator();
 const LogNav = () => {
   const { timelogs, dispatchTimeLog } = useTimeLog();
   const { requests, dispatchRequest } = useRequest();
-
   return (
     <TimeLogContext.Provider value={{ timelogs, dispatchTimeLog }}>
       <RequestContext.Provider value={{ requests, dispatchRequest }}>

@@ -2,6 +2,11 @@ import React, { useReducer } from 'react';
 
 const AuthReducer = (prevState, action) => {
   switch (action.type) {
+    case 'Notification':
+      return {
+        ...prevState,
+        notifdata: action.payload,
+      };
     case 'RESTORE_TOKEN':
       return {
         ...prevState,
@@ -53,6 +58,7 @@ const initialState = {
   userToken: null,
   user: null,
   isInvalid: false,
+  notifdata: null,
 };
 
 const useAuth = () => {

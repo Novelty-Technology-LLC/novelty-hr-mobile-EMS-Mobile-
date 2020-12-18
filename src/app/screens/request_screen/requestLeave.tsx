@@ -162,6 +162,7 @@ const RequestLeave = ({ route }: any) => {
         requestor_id: state.user.id,
         requestor_name: state.user.first_name,
         uuid: state.user.uuid,
+        gender: state.user.gender,
       };
 
       setisLoading(true);

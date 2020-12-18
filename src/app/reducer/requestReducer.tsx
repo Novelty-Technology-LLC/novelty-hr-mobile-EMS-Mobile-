@@ -79,6 +79,7 @@ const initialState = {
   requests: [],
   quota: [],
   pastrequests: [],
+  notifdata: null,
 };
 
 const useRequest = () => {
