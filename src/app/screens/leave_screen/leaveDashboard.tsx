@@ -15,28 +15,21 @@ import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
-import {
-  getUser,
-  mapDataToRequest,
-  removeToken,
-  removeUser,
-  setUser,
-  storeToken,
-} from '../../utils';
+import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
-import messaging from '@react-native-firebase/messaging';
 import { getCurrentRouteName } from '../../utils/navigation';
 import { useScrollToTop } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import DeviceInfo from 'react-native-device-info';
+import { AuthContext } from '../../reducer';
 
-const LeaveDashboard = ({ route }) => {
+const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const ref = React.useRef(null);
-  const navigation = useNavigation();
+  const {
+    state: { notifdata },
+  } = useContext(AuthContext);
 
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
@@ -90,23 +83,11 @@ const LeaveDashboard = ({ route }) => {
 
   useEffect(() => {
     const runFunction = () => {
-      requestUserPermission();
       getData();
       getRequest();
-
-      messaging().onNotificationOpenedApp((remoteMessage) => {
-        if (remoteMessage && remoteMessage.data.type === 'screen') {
-          navigation.navigate('leaveList', {
-            id: remoteMessage.data.leave_id,
-            request: remoteMessage.data.request,
-          });
-        } else {
-          remoteMessage && navigation.navigate('Activity');
-        }
-      });
     };
     runFunction();
-  }, [messaging]);
+  }, []);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
@@ -117,63 +98,9 @@ const LeaveDashboard = ({ route }) => {
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
     };
-  }, [messaging]);
-
-  useEffect(() => {
-    const initialNotification = () => {
-      messaging()
-        .getInitialNotification()
-        .then((remoteMessage) => {
-          if (remoteMessage && remoteMessage.data.type === 'screen') {
-            navigation.navigate('leaveList', {
-              id: remoteMessage.data.leave_id,
-              request: remoteMessage.data.request,
-            });
-          } else {
-            remoteMessage && navigation.navigate('Activity');
-          }
-        });
-    };
-    initialNotification();
-  }, [messaging]);
-
-  async function requestUserPermission() {
-    const token = await messaging().getToken();
-
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    let user = await getUser();
-    user = JSON.parse(user);
-    const device_id = DeviceInfo.getUniqueId();
-
-    const isValid = user.device_tokens?.some(
-      (item) =>
-        item.user_id === user.id &&
-        item.device_id === device_id &&
-        item.notification_token === token
-    );
-
-    const data = {
-      id: user.id,
-      notification_token: token,
-      device_id,
-      platform: Platform.OS,
-    };
-    if (!isValid) {
-      store(data).then(async (data) => {
-        await removeUser(),
-          await removeToken(),
-          await setUser(data),
-          await storeToken(JSON.stringify(data));
-      });
-    }
-  }
+  }, []);
 
   useScrollToTop(ref);
-
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
@@ -202,13 +129,13 @@ const LeaveDashboard = ({ route }) => {
         <MyRequests
           loading={loading}
           refresh={refresh}
-          params={route.params?.request === 'myrequest' && +route.params?.id}
+          params={notifdata?.request === 'myrequest' && +notifdata?.leave_id}
         />
         {isAdmin && (
           <OtherRequests
             refresh={refresh}
             params={
-              route.params?.request === 'otherrequest' && +route.params?.id
+              notifdata?.request === 'otherrequest' && +notifdata?.leave_id
             }
           />
         )}
