@@ -61,7 +61,7 @@ const DaySelect = ({
           select={isSelected(yesterday) && index === 1}
           onPress={() => {
             setDate(yesterday);
-            handleChange(yesterday);
+            handleChange(getStringDate(yesterday));
             setSelectedDay('Yesterday');
             setIndex(1);
           }}
@@ -71,7 +71,7 @@ const DaySelect = ({
           select={isSelected(today) && index === 2}
           onPress={() => {
             setDate(today);
-            handleChange(today);
+            handleChange(getStringDate(today));
             setSelectedDay('Today');
             setIndex(2);
           }}

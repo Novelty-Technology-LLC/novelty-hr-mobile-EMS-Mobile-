@@ -25,7 +25,7 @@ import Week from './week';
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date());
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [logs, setLogs] = useState([]);
   const ref = React.useRef(null);
@@ -150,6 +150,7 @@ const TimeLogs = () => {
               );
             setLogs(logs);
             setSelectedHrs(totalWeekHours(logs));
+            console.log(date);
           }}
           refreshing={refreshing}
           setSelectedDay={setSelectedDay}
