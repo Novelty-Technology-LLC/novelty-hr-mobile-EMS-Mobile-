@@ -6,7 +6,11 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import Day from './day';
-import { getDateWithOutTimeZone, getStringDate } from '../../utils';
+import {
+  getDateWithOutTimeZone,
+  getStringDate,
+  stringifyDate,
+} from '../../utils';
 import { DialogContainer } from '../../common';
 
 const DaySelect = ({
@@ -61,7 +65,7 @@ const DaySelect = ({
           select={isSelected(yesterday) && index === 1}
           onPress={() => {
             setDate(yesterday);
-            handleChange(getStringDate(yesterday));
+            handleChange(stringifyDate(yesterday));
             setSelectedDay('Yesterday');
             setIndex(1);
           }}
@@ -71,7 +75,7 @@ const DaySelect = ({
           select={isSelected(today) && index === 2}
           onPress={() => {
             setDate(today);
-            handleChange(getStringDate(today));
+            handleChange(stringifyDate(today));
             setSelectedDay('Today');
             setIndex(2);
           }}

@@ -101,6 +101,13 @@ export const getStringDate = (modalDate: Date) => {
   )[0];
 };
 
+export const stringifyDate = (date: Date) => {
+  return momentdate(JSON.stringify(date).substring(1, 11), 'lll').substring(
+    0,
+    12
+  );
+};
+
 export const groupByproject = (logs: Array<Object>) => {
   let projectsObject = {};
   logs.map((log) => {
