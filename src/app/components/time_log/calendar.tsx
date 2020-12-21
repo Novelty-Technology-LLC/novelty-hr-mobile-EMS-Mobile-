@@ -49,7 +49,7 @@ const Calendar = ({
           borderHighlightColor: 'white',
         }}
         style={style.main}
-        startingDate={moment(date).startOf('week').format('YYYY-MM-DD')}
+        startingDate={moment(defaultValue).startOf('week').format('YYYY-MM-DD')}
         numDaysInWeek={7}
         calendarHeaderStyle={style.header}
         calendarColor={colors.white}
