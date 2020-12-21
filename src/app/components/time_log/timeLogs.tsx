@@ -2,14 +2,11 @@ import { useScrollToTop } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {
-  myRequestsStyle as style,
-  historyStyle,
-  myRequestsStyle,
-} from '../../../assets/styles';
+import { myRequestsStyle as style } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getAllTimeLogs } from '../../services/timeLogService';
 import {
+  filterLastWeek,
   getHrsToday,
   getUser,
   groupByproject,
@@ -22,8 +19,8 @@ import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
 import { DaySelect } from './daySelect';
 import { EmptyContainer, SmallHeader } from '../../common';
 import { TimeLog } from './timelog';
-import HistoryToggle from '../../common/historyToggle';
 import { RequestButton } from '../requestButton';
+import Week from './week';
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -35,11 +32,10 @@ const TimeLogs = () => {
   const [selectedHrs, setSelectedHrs] = useState(0);
   const [selectedDay, setSelectedDay] = useState('Today');
   const [thisWeekLogs, setThisWeekLogs] = useState([]);
-  const [toggle, setToggle] = useState('toggle-switch-off');
+  const [pastWeekLogs, setPastWeekLogs] = useState([]);
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    setToggle('toggle-switch-off');
     setSelectedDay('Today');
     const user = await getUser();
     getAllTimeLogs(JSON.parse(user).id)
@@ -102,6 +98,9 @@ const TimeLogs = () => {
         )
     );
     setThisWeekLogs(Object.entries(groupByproject(timelogs.present)));
+    setPastWeekLogs(
+      Object.entries(groupByproject(filterLastWeek(timelogs.past)))
+    );
   }, [timelogs]);
 
   let row: Array<any> = [];
@@ -180,26 +179,19 @@ const TimeLogs = () => {
         ) : (
           !loading && <EmptyContainer text="You don't have logs this day." />
         )}
-        <View style={myRequestsStyle.header}>
-          <SmallHeader text="This Week" history={thisWeekLogs.length > 0} />
-          {thisWeekLogs.length > 0 && (
-            <HistoryToggle toggle={toggle} setToggle={setToggle} />
-          )}
-        </View>
-
-        <View style={historyStyle.timelogcontainer}>
-          {toggle === 'toggle-switch' ? (
-            loading ? (
-              <UserPlaceHolder />
-            ) : thisWeekLogs[0] ? (
-              thisWeekLogs.map((log) => <TimeLog item={log} thisweek={true} />)
-            ) : (
-              !thisWeekLogs[0] && (
-                <EmptyContainer text="You don't have past logs." />
-              )
-            )
-          ) : null}
-        </View>
+        <Week
+          weekLogs={thisWeekLogs}
+          loading={loading}
+          refreshing={refreshing}
+          title={'This Week'}
+        />
+        <Week
+          weekLogs={pastWeekLogs}
+          loading={loading}
+          refreshing={refreshing}
+          title={'Past Week'}
+          last={true}
+        />
       </ScrollView>
       <RequestButton
         screen="logtime"

@@ -1,4 +1,5 @@
 import { momentdate } from './momentDate';
+import moment from 'moment';
 
 export const createdDay = (date) => {
   let newdate = momentdate(date.log_date, 'llll');
@@ -110,4 +111,19 @@ export const groupByproject = (logs: Array<Object>) => {
     }
   });
   return projectsObject;
+};
+
+export const filterLastWeek = (logs: Array<Object>) => {
+  const lastWeekStart = new Date(
+    moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD')
+  );
+  const lastWeekEnd = new Date(
+    moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD')
+  );
+
+  return logs.filter(
+    (log) =>
+      new Date(log.log_date) >= lastWeekStart &&
+      new Date(log.log_date) <= lastWeekEnd
+  );
 };
