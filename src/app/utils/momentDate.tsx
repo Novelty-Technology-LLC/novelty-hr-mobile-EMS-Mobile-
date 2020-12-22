@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { getDateWithOutTimeZone } from './timelog';
 
 export const momentdate = (date?: Date, format?: string) => {
   if (date) {

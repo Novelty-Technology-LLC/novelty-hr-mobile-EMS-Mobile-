@@ -42,13 +42,14 @@ const Calendar = ({
     <View style={style.container}>
       <CalendarStrip
         scrollable
-        // daySelectionAnimation={{
-        //   type: 'border',
-        //   duration: 200,
-        //   borderWidth: 1,
-        //   borderHighlightColor: 'white',
-        // }}
+        daySelectionAnimation={{
+          type: 'border',
+          duration: 200,
+          borderWidth: 1,
+          borderHighlightColor: 'white',
+        }}
         style={style.main}
+        startingDate={moment(defaultValue).startOf('week').format('YYYY-MM-DD')}
         numDaysInWeek={7}
         calendarHeaderStyle={style.header}
         calendarColor={colors.white}
