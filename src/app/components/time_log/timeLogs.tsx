@@ -11,6 +11,7 @@ import {
   getUser,
   groupByproject,
   isThisWeek,
+  stringifyDate,
   totalWeekHours,
 } from '../../utils';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
@@ -196,7 +197,7 @@ const TimeLogs = () => {
       <RequestButton
         screen="logtime"
         olddata={{
-          log_date: date,
+          log_date: stringifyDate(date),
           not_old: true,
         }}
       />

@@ -6,11 +6,7 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import Day from './day';
-import {
-  getDateWithOutTimeZone,
-  getStringDate,
-  stringifyDate,
-} from '../../utils';
+import { getDateWithOutTimeZone, getStringDate } from '../../utils';
 import { DialogContainer } from '../../common';
 
 const DaySelect = ({
@@ -54,6 +50,7 @@ const DaySelect = ({
           select={isSelected(new Date(modalDate)) && index === 3}
           onPress={() => {
             setDate(new Date(modalDate));
+            console.log('modal', modalDate);
             handleChange(modalDate);
             setVisible(true);
             setIndex(3);
@@ -65,7 +62,7 @@ const DaySelect = ({
           select={isSelected(yesterday) && index === 1}
           onPress={() => {
             setDate(yesterday);
-            handleChange(stringifyDate(yesterday));
+            handleChange(yesterday);
             setSelectedDay('Yesterday');
             setIndex(1);
           }}
@@ -75,7 +72,7 @@ const DaySelect = ({
           select={isSelected(today) && index === 2}
           onPress={() => {
             setDate(today);
-            handleChange(stringifyDate(today));
+            handleChange(today);
             setSelectedDay('Today');
             setIndex(2);
           }}
