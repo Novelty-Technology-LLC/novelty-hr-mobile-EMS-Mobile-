@@ -11,7 +11,7 @@ const TimeLog = ({ item, thisweek }: { item: any; thisweek?: boolean }) => {
       <View style={style.container}>
         <View style={style.dateView}>
           <View style={style.rowAlign}>
-            <Text style={style.date}>{item[0]}</Text>
+            <Text style={style.date}>{item[0].toUpperCase()}</Text>
             <Text style={style.duration}>
               {getHrs(totalWeekHours(item[1]) * 60)}
             </Text>
