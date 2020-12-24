@@ -19,6 +19,12 @@ const Calendar = ({
     return new Date(date) > new Date();
   };
 
+  const startingDate = defaultValue
+    ? moment(defaultValue ? defaultValue : null)
+        .startOf('week')
+        .format('YYYY-MM-DD')
+    : moment().startOf('week').format('YYYY-MM-DD');
+
   const [date, setDate] = useState(
     defaultValue ? moment(defaultValue).format('l') : moment().format('l')
   );
@@ -49,7 +55,7 @@ const Calendar = ({
           borderHighlightColor: 'white',
         }}
         style={style.main}
-        startingDate={moment(defaultValue).startOf('week').format('YYYY-MM-DD')}
+        startingDate={startingDate}
         numDaysInWeek={7}
         calendarHeaderStyle={style.header}
         calendarColor={colors.white}
