@@ -38,6 +38,13 @@ const myRequestsStyle = StyleSheet.create({
     width: normalize(5),
   },
   bgap: { paddingVertical: normalize(60) },
+  dropDownView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  dropDown: {
+    paddingHorizontal: normalize(10),
+  },
 });
 
 export { myRequestsStyle };

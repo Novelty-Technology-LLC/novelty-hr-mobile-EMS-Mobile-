@@ -18,10 +18,19 @@ import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
 import { DaySelect } from './daySelect';
-import { EmptyContainer, SmallHeader } from '../../common';
+import { EmptyContainer, SmallHeader, DropDown } from '../../common';
 import { TimeLog } from './timelog';
 import { RequestButton } from '../requestButton';
 import Week from './week';
+
+const weekOptions = [
+  { label: 'This week', value: 'This week', key: '1' },
+  { label: 'Past week', value: 'Past week', key: '2' },
+];
+const groupByOptions = [
+  { label: 'Date', value: 'Date', key: '1' },
+  { label: 'Project', value: 'Project', key: '2' },
+];
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -136,7 +145,6 @@ const TimeLogs = () => {
             />
           </View>
         )}
-
         <SmallHeader text={'View'} />
 
         <DaySelect
@@ -186,6 +194,11 @@ const TimeLogs = () => {
           refreshing={refreshing}
           title={'This Week'}
         />
+        <View style={style.dropDownView}>
+          <DropDown options={weekOptions} type="week" />
+          <View style={style.dropDown}></View>
+          <DropDown options={groupByOptions} type="group" />
+        </View>
         <Week
           weekLogs={pastWeekLogs}
           loading={loading}
