@@ -38,9 +38,6 @@ const DropDown = ({ options, type }: any) => {
     setValue();
   }, []);
 
-  console.log('week -> ', week);
-  console.log('group-> ', group);
-
   return (
     <DropDownPicker
       items={options}
