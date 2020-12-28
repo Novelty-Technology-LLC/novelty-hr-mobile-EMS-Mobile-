@@ -8,8 +8,10 @@ import { SetLocalNotification } from './src/app/utils/pushNotification';
 const App = (props: any) => {
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      Platform.OS === 'ios' &&
-        SetLocalNotification(remoteMessage.notification.body);
+      if (remoteMessage) {
+        Platform.OS === 'ios' &&
+          SetLocalNotification(remoteMessage.notification.body);
+      }
     });
     return unsubscribe;
   }, [messaging]);
