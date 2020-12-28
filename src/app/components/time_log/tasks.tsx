@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {
@@ -12,7 +12,7 @@ import { getHrs, momentdate, totalHours } from '../../utils';
 import TaskContext from './taskContext';
 import { navigate } from '../../utils/navigation';
 
-const Tasks = ({ value, handleChange, note }: any) => {
+const Tasks = ({ value, handleChange, note, groupby = 'project' }: any) => {
   const [loading, setLoading] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
   let notes = [];
@@ -29,7 +29,9 @@ const Tasks = ({ value, handleChange, note }: any) => {
         <Text style={descriptionStyle.text}>Tasks </Text>
         {note && (
           <Text style={[leaveType.text, { marginBottom: 0 }]}>
-            {momentdate(value.log_date, 'll')}
+            {groupby === 'date'
+              ? value.project.name
+              : momentdate(value.log_date, 'll')}
           </Text>
         )}
       </View>

@@ -20,6 +20,9 @@ const smallHeaderStyle = StyleSheet.create({
   historyContainer: {
     width: '75%',
   },
+  historyTimelogContainer: {
+    width: '88%',
+  },
   line: {
     flexGrow: 1,
     marginLeft: normalize(10),

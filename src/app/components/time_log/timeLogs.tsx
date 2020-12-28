@@ -4,11 +4,15 @@ import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
-import { getAllTimeLogs } from '../../services/timeLogService';
+import {
+  getAllTimeLogs,
+  getFilteredTimeLogs,
+} from '../../services/timeLogService';
 import {
   filterLastWeek,
   getHrsToday,
   getUser,
+  groupBydate,
   groupByproject,
   isThisWeek,
   stringifyDate,
@@ -22,90 +26,88 @@ import { EmptyContainer, SmallHeader } from '../../common';
 import { TimeLog } from './timelog';
 import { RequestButton } from '../requestButton';
 import Week from './week';
+import { dateRange, thisWeek, todayDate } from '../../utils/dateFilter';
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState('');
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
-  const [logs, setLogs] = useState([]);
+  const [activeLoading, setActiveLoading] = useState(false);
   const ref = React.useRef(null);
   const [selectedHrs, setSelectedHrs] = useState(0);
   const [selectedDay, setSelectedDay] = useState('Today');
-  const [thisWeekLogs, setThisWeekLogs] = useState([]);
-  const [pastWeekLogs, setPastWeekLogs] = useState([]);
-
-  const onRefresh = React.useCallback(async () => {
-    setRefreshing(true);
-    setSelectedDay('Today');
-    const user = await getUser();
-    getAllTimeLogs(JSON.parse(user).id)
-      .then((res) => {
-        let thisw = res.filter((item) => isThisWeek(item));
-        let pastw = res.filter((item) => !isThisWeek(item));
-
+  const [thisWeekHrs, setThisWeekHrs] = useState(0);
+  // const [thisWeekLogs, setThisWeekLogs] = useState([]);
+  // const [pastWeekLogs, setPastWeekLogs] = useState([]);
+  const [initial, setinitial] = useState(true);
+  const getInitialLogs = async () => {
+    try {
+      const user: any = await getUser();
+      const historyLogs: any = await getFilteredTimeLogs(
+        JSON.parse(user).id,
+        thisWeek()
+      );
+      const activeLogs = historyLogs.filter(
+        (item) =>
+          new Date(item.log_date).toDateString() ===
+          new Date(date === '' ? new Date() : date).toDateString()
+      );
+      if (activeLogs && historyLogs) {
         dispatchTimeLog({
           type: 'CHANGE',
           payload: {
-            present: thisw,
-            past: pastw,
+            present: activeLogs,
+            past: historyLogs,
           },
         });
         setLoading(false);
         setRefreshing(false);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  const getTimeLogs = async () => {
-    setLoading(true);
-    setSelectedDay('Today');
-    const user = await getUser();
-    getAllTimeLogs(JSON.parse(user).id)
-      .then((res) => {
-        let thisw = res.filter((item) => isThisWeek(item));
-        let pastw = res.filter((item) => !isThisWeek(item));
-
-        dispatchTimeLog({
-          type: 'CHANGE',
-          payload: {
-            present: thisw,
-            past: pastw,
-          },
-        });
-        setLoading(false);
-        setRefreshing(false);
-        setSelectedHrs(getHrsToday(thisw));
-      })
-      .catch((err) => console.log(err));
+        setSelectedHrs(totalWeekHours(activeLogs));
+        setThisWeekHrs(totalWeekHours(historyLogs));
+        setinitial(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => {
-    getTimeLogs();
+  const onSelect = React.useCallback(async (selectDate?: Date) => {
+    const user: any = await getUser();
+    try {
+      const user: any = await getUser();
+      const activeLogs: any = await getFilteredTimeLogs(
+        JSON.parse(user).id,
+        dateRange(selectDate, selectDate)
+      );
+      if (activeLogs) {
+        dispatchTimeLog({
+          type: 'CHANGE',
+          payload: {
+            present: activeLogs,
+            past: timelogs.past,
+          },
+        });
+        setLoading(false);
+        setRefreshing(false);
+        setActiveLoading(false);
+        setSelectedHrs(totalWeekHours(timelogs.present));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
-    setSelectedHrs(totalWeekHours(logs));
-  }, [logs]);
+    !initial && setActiveLoading(true);
+    !initial && onSelect(date);
+  }, [date]);
 
   useEffect(() => {
-    setLogs(
-      timelogs.past
-        .concat(timelogs.present)
-        .filter(
-          (item) =>
-            new Date(item.log_date).toDateString() ===
-            new Date(date === '' ? new Date() : date).toDateString()
-        )
-    );
-    setThisWeekLogs(Object.entries(groupByproject(timelogs.present)));
-    setPastWeekLogs(
-      Object.entries(groupByproject(filterLastWeek(timelogs.past)))
-    );
-  }, [timelogs]);
+    getInitialLogs();
+  }, []);
 
   let row: Array<any> = [];
-
   useScrollToTop(ref);
 
   return (
@@ -115,7 +117,13 @@ const TimeLogs = () => {
         ref={ref}
         style={style.container}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              getInitialLogs();
+            }}
+          />
         }
       >
         {loading ? (
@@ -130,7 +138,7 @@ const TimeLogs = () => {
             />
             <DaysRemaining
               total={40}
-              remaining={Math.round(totalWeekHours(timelogs.present))}
+              remaining={Math.round(thisWeekHrs)}
               title={'THIS WEEK'}
               timelog={true}
             />
@@ -142,25 +150,16 @@ const TimeLogs = () => {
         <DaySelect
           handleChange={(date) => {
             setDate(date);
-            const logs = timelogs.past
-              .concat(timelogs.present)
-              .filter(
-                (item) =>
-                  new Date(item.log_date).toDateString() ===
-                  new Date(date).toDateString()
-              );
-            setLogs(logs);
-            setSelectedHrs(totalWeekHours(logs));
           }}
           refreshing={refreshing}
           setSelectedDay={setSelectedDay}
         />
 
-        {loading ? (
+        {activeLoading ? (
           <UserPlaceHolder />
-        ) : logs[0] ? (
+        ) : timelogs.present[0] ? (
           <FlatList
-            data={logs}
+            data={timelogs.present}
             renderItem={(item) => (
               <Swipeable
                 ref={(ref) => (row[item.index] = ref)}
@@ -178,21 +177,24 @@ const TimeLogs = () => {
             keyExtractor={(item) => item.id}
           />
         ) : (
-          !loading && <EmptyContainer text="You don't have logs this day." />
+          !activeLoading && (
+            <EmptyContainer text="You don't have logs this day." />
+          )
         )}
         <Week
-          weekLogs={thisWeekLogs}
+          weekLogs={Object.entries(groupByproject(timelogs.past))}
           loading={loading}
           refreshing={refreshing}
-          title={'This Week'}
+          title={'history'}
+          // groupby={'date'}
         />
-        <Week
+        {/* <Week
           weekLogs={pastWeekLogs}
           loading={loading}
           refreshing={refreshing}
           title={'Past Week'}
           last={true}
-        />
+        /> */}
       </ScrollView>
       <RequestButton
         screen="logtime"

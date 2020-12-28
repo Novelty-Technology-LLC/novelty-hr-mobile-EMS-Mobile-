@@ -12,12 +12,14 @@ const Week = ({
   refreshing,
   title,
   last,
+  groupby = 'project',
 }: {
   weekLogs: Array<Object>;
   loading: boolean;
   refreshing: boolean;
   title: string;
   last?: boolean;
+  groupby?: string;
 }) => {
   const [toggle, setToggle] = useState('toggle-switch-off');
 
@@ -28,9 +30,13 @@ const Week = ({
   return (
     <>
       <View style={myRequestsStyle.header}>
-        <SmallHeader text={title} history={weekLogs.length > 0} />
+        <SmallHeader
+          timelog={true}
+          text={title}
+          history={weekLogs.length > 0}
+        />
         {weekLogs.length > 0 && (
-          <HistoryToggle toggle={toggle} setToggle={setToggle} />
+          <HistoryToggle timelog={true} toggle={toggle} setToggle={setToggle} />
         )}
       </View>
 
@@ -39,7 +45,9 @@ const Week = ({
           <UserPlaceHolder />
         ) : toggle === 'toggle-switch' ? (
           weekLogs[0] ? (
-            weekLogs.map((log) => <TimeLog item={log} thisweek={true} />)
+            weekLogs.map((log) => (
+              <TimeLog item={log} thisweek={true} groupby={groupby} />
+            ))
           ) : (
             !weekLogs[0] && <EmptyContainer text="You don't have past logs." />
           )
