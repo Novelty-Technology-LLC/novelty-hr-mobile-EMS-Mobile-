@@ -20,7 +20,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { checkunder24Hrs, getUser, isThisWeek, isPastWeek } from '../../utils';
+import { checkunder24Hrs, getUser, getToday } from '../../utils';
 import { submitTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
@@ -96,7 +96,12 @@ const LogTime = ({ route }: any) => {
             setIsLoading(false);
             snackBarMessage('TimeLog updated');
           } else {
-            if (checkDate(data.log_date, log_date)) {
+            if (
+              checkDate(
+                data.log_date,
+                log_date ? log_date : olddata ? olddata.log_date : getToday()
+              )
+            ) {
               dispatchTimeLog({
                 type: 'EDIT',
                 payload: {

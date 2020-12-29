@@ -17,6 +17,7 @@ export const getToday = () => {
 };
 
 export const checkDate = (date: any, selectDate: any) => {
+  console.log(date, moment(selectDate).format('YYYY-MM-DD'));
   return (
     moment(date).format('YYYY-MM-DD') ===
     moment(selectDate).format('YYYY-MM-DD')
