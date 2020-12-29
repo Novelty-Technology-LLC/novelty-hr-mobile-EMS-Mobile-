@@ -4,38 +4,17 @@ import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
-import {
-  getAllTimeLogs,
-  getFilteredTimeLogs,
-} from '../../services/timeLogService';
-import {
-  filterLastWeek,
-  getHrsToday,
-  getUser,
-  groupBydate,
-  groupByproject,
-  isThisWeek,
-  stringifyDate,
-  totalWeekHours,
-} from '../../utils';
+import { getFilteredTimeLogs } from '../../services/timeLogService';
+import { getUser, stringifyDate, totalWeekHours } from '../../utils';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
 import { DaySelect } from './daySelect';
-import { EmptyContainer, SmallHeader, DropDown } from '../../common';
+import { EmptyContainer, SmallHeader } from '../../common';
 import { TimeLog } from './timelog';
 import { RequestButton } from '../requestButton';
+import { dateRange, thisWeek } from '../../utils/dateFilter';
 import Week from './week';
-import { dateRange, thisWeek, todayDate } from '../../utils/dateFilter';
-
-const weekOptions = [
-  { label: 'This week', value: 'This week', key: '1' },
-  { label: 'Past week', value: 'Past week', key: '2' },
-];
-const groupByOptions = [
-  { label: 'Date', value: 'Date', key: '1' },
-  { label: 'Project', value: 'Project', key: '2' },
-];
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -47,8 +26,6 @@ const TimeLogs = () => {
   const [selectedHrs, setSelectedHrs] = useState(0);
   const [selectedDay, setSelectedDay] = useState('Today');
   const [thisWeekHrs, setThisWeekHrs] = useState(0);
-  // const [thisWeekLogs, setThisWeekLogs] = useState([]);
-  // const [pastWeekLogs, setPastWeekLogs] = useState([]);
   const [initial, setinitial] = useState(true);
   const getInitialLogs = async () => {
     try {
@@ -83,8 +60,6 @@ const TimeLogs = () => {
 
   const onSelect = React.useCallback(
     async (startDate?: Date, endDate?: Date) => {
-      const user: any = await getUser();
-
       try {
         const user: any = await getUser();
         const activeLogs: any = await getFilteredTimeLogs(
@@ -102,7 +77,6 @@ const TimeLogs = () => {
           setLoading(false);
           setRefreshing(false);
           setActiveLoading(false);
-          setSelectedHrs(totalWeekHours(activeLogs));
         }
       } catch (error) {
         console.log(error);
@@ -110,6 +84,10 @@ const TimeLogs = () => {
     },
     []
   );
+
+  useEffect(() => {
+    setSelectedHrs(totalWeekHours(timelogs.present));
+  }, [timelogs.present]);
 
   useEffect(() => {
     !initial && setActiveLoading(true);
@@ -193,25 +171,7 @@ const TimeLogs = () => {
             <EmptyContainer text="You don't have logs this day." />
           )
         )}
-        <Week
-          weekLogs={Object.entries(groupByproject(timelogs.past))}
-          loading={loading}
-          refreshing={refreshing}
-          title={'history'}
-          // groupby={'date'}
-        />
-        <View style={style.dropDownView}>
-          <DropDown options={weekOptions} type="week" />
-          <View style={style.dropDown}></View>
-          <DropDown options={groupByOptions} type="group" />
-        </View>
-        {/*<Week
-          weekLogs={pastWeekLogs}
-          loading={loading}
-          refreshing={refreshing}
-          title={'Past Week'}
-          last={true}
-        /> */}
+        <Week loading={loading} refreshing={refreshing} title={'history'} />
         <View style={{ marginBottom: 100 }}></View>
       </ScrollView>
       <RequestButton

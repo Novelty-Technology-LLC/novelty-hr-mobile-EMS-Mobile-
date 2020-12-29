@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { pastWeek, thisWeek } from '../utils/dateFilter';
 
-const DropDown = ({ options, type }: any) => {
+const DropDown = ({ options, type, onChange }: any) => {
   const [week, setWeek] = useState(null);
   const [group, setGroup] = useState(null);
 
@@ -9,14 +10,17 @@ const DropDown = ({ options, type }: any) => {
     switch (val) {
       case 'This week':
         setWeek(val);
+        onChange(thisWeek(), group);
         return;
       case 'Past week':
         setWeek(val);
+        onChange(pastWeek(), group);
         return;
     }
   };
 
   const onChangeGroup = (val: string) => {
+    onChange(val);
     switch (val) {
       case 'Date':
         setGroup(val);
@@ -32,7 +36,7 @@ const DropDown = ({ options, type }: any) => {
       if (type === 'week') {
         setWeek(options[0].value);
       } else {
-        setGroup(options[0].value);
+        setGroup(options[1].value);
       }
     };
     setValue();
@@ -43,7 +47,7 @@ const DropDown = ({ options, type }: any) => {
       items={options}
       placeholder={type === 'week' ? week : group}
       defaultValue={type === 'week' ? week : group}
-      containerStyle={{ height: 40, width: 150 }}
+      containerStyle={{ height: 40, width: type === 'week' ? 150 : 100 }}
       dropDownStyle={{ backgroundColor: '#fff' }}
       onChangeItem={(item) => {
         type === 'week' ? onChangeWeek(item.value) : onChangeGroup(item.value);

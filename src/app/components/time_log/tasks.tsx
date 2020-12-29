@@ -12,7 +12,7 @@ import { getHrs, momentdate, totalHours } from '../../utils';
 import TaskContext from './taskContext';
 import { navigate } from '../../utils/navigation';
 
-const Tasks = ({ value, handleChange, note, groupby = 'project' }: any) => {
+const Tasks = ({ value, handleChange, note, groupby = 'Project' }: any) => {
   const [loading, setLoading] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
   let notes = [];
@@ -29,7 +29,7 @@ const Tasks = ({ value, handleChange, note, groupby = 'project' }: any) => {
         <Text style={descriptionStyle.text}>Tasks </Text>
         {note && (
           <Text style={[leaveType.text, { marginBottom: 0 }]}>
-            {groupby === 'date'
+            {groupby === 'Date'
               ? value.project.name
               : momentdate(value.log_date, 'll')}
           </Text>
