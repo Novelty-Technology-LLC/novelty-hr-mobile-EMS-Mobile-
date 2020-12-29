@@ -24,7 +24,7 @@ import Week from './week';
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState<Date>(new Date());
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [activeLoading, setActiveLoading] = useState(false);
   const ref = React.useRef(null);
@@ -43,7 +43,7 @@ const TimeLogs = () => {
           type: 'CHANGE',
           payload: {
             present: activeLogs,
-            past: [...timelogs.past],
+            past: timelogs.past,
           },
         });
         setLoading(false);
@@ -89,7 +89,7 @@ const TimeLogs = () => {
 
   useEffect(() => {
     !initial && setActiveLoading(true);
-    !initial && onSelect(date, null);
+    !initial && onSelect(date);
   }, [date]);
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const TimeLogs = () => {
         <SmallHeader text={'View'} />
 
         <DaySelect
-          handleChange={(date) => {
+          handleChange={(date: Date) => {
             setDate(date);
           }}
           refreshing={refreshing}

@@ -14,10 +14,6 @@ const DropDown = ({ options, type, onChange, week, group }: any) => {
     }
   };
 
-  const onChangeGroup = (val: string) => {
-    onChange(val);
-  };
-
   return (
     <DropDownPicker
       items={options}
@@ -32,7 +28,7 @@ const DropDown = ({ options, type, onChange, week, group }: any) => {
       }}
       dropDownStyle={{ backgroundColor: '#fff' }}
       onChangeItem={(item) => {
-        type === 'week' ? onChangeWeek(item.value) : onChangeGroup(item.value);
+        type === 'week' ? onChangeWeek(item.value) : onChange(item.value);
       }}
     />
   );
