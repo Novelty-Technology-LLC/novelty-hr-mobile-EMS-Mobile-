@@ -41,6 +41,7 @@ const myRequestsStyle = StyleSheet.create({
   dropDownView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    zIndex: 100,
   },
   dropDown: {
     paddingHorizontal: normalize(10),

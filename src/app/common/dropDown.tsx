@@ -47,7 +47,11 @@ const DropDown = ({ options, type, onChange }: any) => {
       items={options}
       placeholder={type === 'week' ? week : group}
       defaultValue={type === 'week' ? week : group}
-      containerStyle={{ height: 40, width: type === 'week' ? 150 : 100 }}
+      containerStyle={{
+        height: 40,
+        width: type === 'week' ? 150 : 100,
+      }}
+      itemStyle={{ justifyContent: 'flex-start' }}
       dropDownStyle={{ backgroundColor: '#fff' }}
       onChangeItem={(item) => {
         type === 'week' ? onChangeWeek(item.value) : onChangeGroup(item.value);
