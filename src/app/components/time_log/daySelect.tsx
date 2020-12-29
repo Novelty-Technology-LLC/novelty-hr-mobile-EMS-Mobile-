@@ -50,7 +50,6 @@ const DaySelect = ({
           select={isSelected(new Date(modalDate)) && index === 3}
           onPress={() => {
             setDate(new Date(modalDate));
-            console.log('modal', modalDate);
             handleChange(modalDate);
             setVisible(true);
             setIndex(3);
