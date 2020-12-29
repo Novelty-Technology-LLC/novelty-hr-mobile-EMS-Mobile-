@@ -90,26 +90,17 @@ const LogTime = ({ route }: any) => {
               payload: {
                 present: data,
                 past: timelogs.past,
-                reset: true,
               },
             });
             navigation.navigate('timelog');
             setIsLoading(false);
             snackBarMessage('TimeLog updated');
           } else {
-            if (checkDate(data.log_date)) {
-              dispatchTimeLog({
-                type: 'CHANGE',
-                payload: {
-                  present: timelogs.present,
-                  reset: true,
-                },
-              });
+            if (checkDate(data.log_date, log_date)) {
               dispatchTimeLog({
                 type: 'EDIT',
                 payload: {
                   present: data,
-                  reset: true,
                 },
               });
             }
@@ -117,6 +108,9 @@ const LogTime = ({ route }: any) => {
             setIsLoading(false);
             snackBarMessage('TimeLog updated');
           }
+          dispatchTimeLog({
+            type: 'RESET',
+          });
         })
         .catch((err) => console.log(err));
     } else {

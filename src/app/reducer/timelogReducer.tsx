@@ -33,6 +33,11 @@ const TimeLogReducer = (prevState, action) => {
           ? [...action.payload.past]
           : [...prevState.past],
       };
+    case 'RESET':
+      return {
+        ...prevState,
+        past: [],
+      };
 
     case 'DELETE':
       return {

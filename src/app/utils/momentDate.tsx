@@ -16,8 +16,11 @@ export const getToday = () => {
   return moment().format('l');
 };
 
-export const checkDate = (date: any) => {
-  return moment(date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD');
+export const checkDate = (date: any, selectDate: any) => {
+  return (
+    moment(date).format('YYYY-MM-DD') ===
+    moment(selectDate).format('YYYY-MM-DD')
+  );
 };
 
 export const isThisWeek = (item) => {
