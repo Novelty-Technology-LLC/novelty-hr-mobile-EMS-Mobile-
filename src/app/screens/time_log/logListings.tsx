@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { header as Header } from '../../common';
 import {
@@ -44,7 +44,9 @@ const LogListings = ({ route }: any) => {
           </View>
         )}
         {tasks[0] ? (
-          tasks[1].map((item) => <Tasks value={item} note={item.note} />)
+          tasks[1].map((item) => (
+            <Tasks value={item} note={item.note} groupby={olddata.groupby} />
+          ))
         ) : (
           <Tasks value={tasks} />
         )}

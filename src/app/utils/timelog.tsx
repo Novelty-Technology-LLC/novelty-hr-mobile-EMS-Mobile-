@@ -120,6 +120,18 @@ export const groupByproject = (logs: Array<Object>) => {
   return projectsObject;
 };
 
+export const groupBydate = (logs: Array<Object>) => {
+  let dateLogObject = {};
+  logs.map((log) => {
+    if (dateLogObject[log.log_date] !== undefined) {
+      dateLogObject[log.log_date].push(log);
+    } else {
+      dateLogObject[log.log_date] = [log];
+    }
+  });
+  return dateLogObject;
+};
+
 export const filterLastWeek = (logs: Array<Object>) => {
   const lastWeekStart = new Date(
     moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD')

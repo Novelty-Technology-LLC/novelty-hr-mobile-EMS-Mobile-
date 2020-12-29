@@ -11,6 +11,19 @@ export const getAllTimeLogs = (id: number) => {
   });
 };
 
+export const getFilteredTimeLogs = (id: number, datefilter: any) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/timelog/filter/${id}`, {
+        params: { datefilter },
+      });
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
 export const postTimeLog = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {

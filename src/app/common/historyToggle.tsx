@@ -8,13 +8,15 @@ import { AppIcon } from './icon';
 const HistoryToggle = ({
   toggle,
   setToggle,
+  timelog = false,
 }: {
   toggle: string;
   setToggle: Function;
+  timelog?: boolean;
 }) => {
   return (
     <View style={style.row}>
-      <Text style={style.history}> History</Text>
+      {!timelog && <Text style={style.history}> History</Text>}
       <View style={style.gap}></View>
       <TouchableWithoutFeedback
         onPress={() => {

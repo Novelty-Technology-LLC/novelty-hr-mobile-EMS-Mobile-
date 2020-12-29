@@ -4,10 +4,20 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { timeLogStyle as style } from '../../../assets/styles';
 import { createdDay, getHrs, totalHours, totalWeekHours } from '../../utils';
 
-const TimeLog = ({ item, thisweek }: { item: any; thisweek?: boolean }) => {
+const TimeLog = ({
+  item,
+  thisweek,
+  groupby = 'project',
+}: {
+  item: any;
+  thisweek?: boolean;
+  groupby?: string;
+}) => {
   const navigation = useNavigation();
   return thisweek ? (
-    <TouchableOpacity onPress={() => navigation.navigate('loglistings', item)}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('loglistings', { ...item, groupby })}
+    >
       <View style={style.container}>
         <View style={style.dateView}>
           <View style={style.rowAlign}>
