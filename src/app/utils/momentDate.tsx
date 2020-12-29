@@ -22,3 +22,12 @@ export const isThisWeek = (item) => {
     ? true
     : false;
 };
+
+export const isPastWeek = (item) => {
+  return moment(item.log_date)
+    .subtract(1, 'weeks')
+    .add(1, 'day')
+    .format('W') === moment().add(1, 'day').format('W')
+    ? true
+    : false;
+};

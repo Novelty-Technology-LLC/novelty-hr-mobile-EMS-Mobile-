@@ -20,7 +20,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { checkunder24Hrs, getUser, isThisWeek, totalHours } from '../../utils';
+import { checkunder24Hrs, getUser, isThisWeek, isPastWeek } from '../../utils';
 import { submitTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
@@ -84,15 +84,13 @@ const LogTime = ({ route }: any) => {
     ) {
       submitTimeLog(dataObj)
         .then((data) => {
-          if (data[0]) {
-            let thisw = data.filter((item) => isThisWeek(item));
-            let pastw = data.filter((item) => !isThisWeek(item));
-
+          console.log(data);
+          if (Array.isArray(data)) {
             dispatchTimeLog({
               type: 'CHANGE',
               payload: {
-                present: thisw,
-                past: pastw,
+                present: data,
+                past: timelogs.past,
               },
             });
             navigation.navigate('timelog');
