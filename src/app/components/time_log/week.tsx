@@ -40,6 +40,7 @@ const Week = ({
           : groupBydate([...timelogs.past])
       )
     );
+    if (timelogs.past.length === 0) setToggle('toggle-switch-off');
   }, [timelogs.past]);
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const Week = ({
           type: 'CHANGE',
           payload: {
             present: timelogs.present,
-            past: historyLogs,
+            past: [...historyLogs],
           },
         });
         sethistoryLoading(false);

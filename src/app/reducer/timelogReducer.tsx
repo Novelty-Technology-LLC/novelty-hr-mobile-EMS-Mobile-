@@ -27,7 +27,9 @@ const TimeLogReducer = (prevState, action) => {
       return {
         ...prevState,
         present: [...action.payload.present],
-        past: action.payload.past[0]
+        past: action.payload.reset
+          ? []
+          : action.payload.past[0]
           ? [...action.payload.past]
           : [...prevState.past],
       };

@@ -44,12 +44,13 @@ const TimeLogs = () => {
           payload: {
             present: activeLogs,
             past: timelogs.past,
+            reset: true,
           },
         });
         setLoading(false);
         setRefreshing(false);
-        setinitial(false);
         setActiveLoading(false);
+        setinitial(false);
       }
     } catch (error) {
       console.log(error);
@@ -173,7 +174,7 @@ const TimeLogs = () => {
             <EmptyContainer text="You don't have logs this day." />
           )
         )}
-        <Week loading={loading} refreshing={refreshing} title={'history'} />
+        <Week loading={loading} refreshing={refreshing} title={'History'} />
         <View style={{ marginBottom: 100 }}></View>
       </ScrollView>
       <RequestButton

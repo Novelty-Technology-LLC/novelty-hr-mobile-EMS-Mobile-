@@ -25,7 +25,7 @@ import { submitTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
-import { momentdate } from '../../utils/momentDate';
+import { checkDate, momentdate } from '../../utils/momentDate';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -84,26 +84,35 @@ const LogTime = ({ route }: any) => {
     ) {
       submitTimeLog(dataObj)
         .then((data) => {
-          console.log(data);
           if (Array.isArray(data)) {
             dispatchTimeLog({
               type: 'CHANGE',
               payload: {
                 present: data,
                 past: timelogs.past,
+                reset: true,
               },
             });
             navigation.navigate('timelog');
             setIsLoading(false);
             snackBarMessage('TimeLog updated');
           } else {
-            dispatchTimeLog({
-              type: 'EDIT',
-              payload: {
-                present: isThisWeek(data) ? data : null,
-                past: isThisWeek(data) ? null : data,
-              },
-            });
+            if (checkDate(data.log_date)) {
+              dispatchTimeLog({
+                type: 'CHANGE',
+                payload: {
+                  present: timelogs.present,
+                  reset: true,
+                },
+              });
+              dispatchTimeLog({
+                type: 'EDIT',
+                payload: {
+                  present: data,
+                  reset: true,
+                },
+              });
+            }
             navigation.navigate('timelog');
             setIsLoading(false);
             snackBarMessage('TimeLog updated');

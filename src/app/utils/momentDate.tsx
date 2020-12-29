@@ -16,6 +16,10 @@ export const getToday = () => {
   return moment().format('l');
 };
 
+export const checkDate = (date: any) => {
+  return moment(date).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD');
+};
+
 export const isThisWeek = (item) => {
   return moment(item.log_date).add(1, 'day').format('W') ===
     moment().add(1, 'day').format('W')
