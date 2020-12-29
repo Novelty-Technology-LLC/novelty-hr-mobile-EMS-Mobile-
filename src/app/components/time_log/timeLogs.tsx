@@ -72,35 +72,39 @@ const TimeLogs = () => {
     }
   };
 
-  const onSelect = React.useCallback(async (selectDate?: Date) => {
-    const user: any = await getUser();
-    try {
+  const onSelect = React.useCallback(
+    async (startDate?: Date, endDate?: Date) => {
       const user: any = await getUser();
-      const activeLogs: any = await getFilteredTimeLogs(
-        JSON.parse(user).id,
-        dateRange(selectDate, selectDate)
-      );
-      if (activeLogs) {
-        dispatchTimeLog({
-          type: 'CHANGE',
-          payload: {
-            present: activeLogs,
-            past: timelogs.past,
-          },
-        });
-        setLoading(false);
-        setRefreshing(false);
-        setActiveLoading(false);
-        setSelectedHrs(totalWeekHours(timelogs.present));
+
+      try {
+        const user: any = await getUser();
+        const activeLogs: any = await getFilteredTimeLogs(
+          JSON.parse(user).id,
+          dateRange(startDate, endDate ? endDate : startDate)
+        );
+        if (activeLogs) {
+          dispatchTimeLog({
+            type: 'CHANGE',
+            payload: {
+              present: activeLogs,
+              past: timelogs.past,
+            },
+          });
+          setLoading(false);
+          setRefreshing(false);
+          setActiveLoading(false);
+          setSelectedHrs(totalWeekHours(activeLogs));
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    },
+    []
+  );
 
   useEffect(() => {
     !initial && setActiveLoading(true);
-    !initial && onSelect(date);
+    !initial && onSelect(date, null);
   }, [date]);
 
   useEffect(() => {
@@ -195,6 +199,7 @@ const TimeLogs = () => {
           title={'Past Week'}
           last={true}
         /> */}
+        <View style={{ marginBottom: 100 }}></View>
       </ScrollView>
       <RequestButton
         screen="logtime"
