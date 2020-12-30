@@ -7,7 +7,6 @@ import { pastWeek, thisWeek } from '../utils/dateFilter';
 import { Platform } from 'react-native';
 
 const DropDown = ({ options, type, onChange, week, group }: any) => {
-  const [visible, setVisible] = useState(false);
   const [controller, setController] = useState(null);
   const { timelogs } = useContext(TimeLogContext);
   const onChangeWeek = (val: string) => {
@@ -30,10 +29,8 @@ const DropDown = ({ options, type, onChange, week, group }: any) => {
       itemStyle={{
         justifyContent: 'flex-start',
       }}
-      isVisible={visible}
       placeholder={type === 'week' ? week : group}
       controller={(instance) => setController(instance)}
-      // defaultValue={type === 'week' ? week : group}
       style={{
         borderWidth: 0,
         backgroundColor: colors.buttonGrey,
