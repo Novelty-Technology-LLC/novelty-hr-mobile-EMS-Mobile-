@@ -46,6 +46,10 @@ const Week = ({
   useEffect(() => {
     if (toggle === 'toggle-switch' && !timelogs.past[0]) {
       getLogs(thisWeek());
+    } else if (toggle === 'toggle-switch-off') {
+      dispatchTimeLog({
+        type: 'RESET',
+      });
     }
   }, [toggle]);
 
@@ -63,6 +67,7 @@ const Week = ({
           payload: {
             present: timelogs.present,
             past: [...historyLogs],
+            historyDate: filter,
           },
         });
         sethistoryLoading(false);
@@ -131,7 +136,12 @@ const Week = ({
                 <UserPlaceHolder />
               ) : (
                 weeksLogs.map((log) => (
-                  <TimeLog item={log} thisweek={true} groupby={groupby} />
+                  <TimeLog
+                    key={log.id}
+                    item={log}
+                    thisweek={true}
+                    groupby={groupby}
+                  />
                 ))
               )}
             </>

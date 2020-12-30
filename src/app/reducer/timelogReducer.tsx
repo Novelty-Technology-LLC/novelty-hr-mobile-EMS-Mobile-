@@ -32,6 +32,12 @@ const TimeLogReducer = (prevState, action) => {
           : action.payload.past[0]
           ? [...action.payload.past]
           : [...prevState.past],
+        selectedDate: action.payload.selectedDate
+          ? action.payload.selectedDate
+          : { ...prevState.selectedDate },
+        historyDate: action.payload.historyDate
+          ? action.payload.historyDate
+          : { ...prevState.historyDate },
       };
     case 'RESET':
       return {
@@ -52,9 +58,6 @@ const TimeLogReducer = (prevState, action) => {
       if (action.payload.present) {
         return {
           ...prevState,
-          past: prevState.past.filter(
-            (data) => data.id !== action.payload.present.id
-          ),
           present: []
             .concat(
               action.payload.present,
@@ -69,9 +72,6 @@ const TimeLogReducer = (prevState, action) => {
       } else if (action.payload.past) {
         return {
           ...prevState,
-          present: prevState.present.filter(
-            (data) => data.id !== action.payload.past.id
-          ),
           past: []
             .concat(
               action.payload.past,
@@ -92,6 +92,8 @@ const TimeLogContext = React.createContext();
 const initialState = {
   present: [],
   past: [],
+  selectedDate: null,
+  historyDate: null,
 };
 
 const useTimeLog = () => {
