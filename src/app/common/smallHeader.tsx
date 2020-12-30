@@ -5,15 +5,19 @@ import { Text, View } from 'react-native';
 const SmallHeader = ({
   text,
   history,
+  timelog = false,
 }: {
   text: string;
   history?: Boolean;
+  timelog?: boolean;
 }) => {
   return (
     <View
       style={
         !history
           ? style.subcontainer
+          : timelog
+          ? [style.subcontainer, style.historyTimelogContainer]
           : [style.subcontainer, style.historyContainer]
       }
     >

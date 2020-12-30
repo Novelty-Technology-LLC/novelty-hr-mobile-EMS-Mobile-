@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { header as Header } from '../../common';
 import {
@@ -44,19 +44,26 @@ const LogListings = ({ route }: any) => {
           </View>
         )}
         {tasks[0] ? (
-          tasks[1].map((item) => <Tasks value={item} note={item.note} />)
+          tasks[1].map((item) => (
+            <Tasks value={item} note={item.note} groupby={olddata.groupby} />
+          ))
         ) : (
           <Tasks value={tasks} />
         )}
         <View style={historyStyle.timelogcontainer}></View>
       </ScrollView>
+
       {olddata && (
         <RequestButton
           screen="logtime"
           addToList={true}
           olddata={{
             id: olddata[0] ? null : olddata.id,
-            log_date: olddata[0] ? null : olddata.log_date,
+            log_date: olddata[0]
+              ? olddata.groupby === 'Date'
+                ? olddata[0]
+                : null
+              : olddata.log_date,
             project: olddata[0] ? olddata[1][0].project : olddata.project,
           }}
         />

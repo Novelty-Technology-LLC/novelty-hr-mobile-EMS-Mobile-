@@ -11,7 +11,7 @@ import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { TimeLogContext } from '../../reducer';
 import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
-import { isThisWeek, totalHours } from '../../utils';
+import { checkAndReplace, isThisWeek, totalHours } from '../../utils';
 import { navigate } from '../../utils/navigation';
 import TaskContext from './taskContext';
 
@@ -28,7 +28,7 @@ const DeleteLog = ({
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { tasks, setTasks } = useContext(TaskContext);
-  const { dispatchTimeLog } = useContext(TimeLogContext);
+  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
   const onTaskDelete = () => {
     let taskList = [];
@@ -50,13 +50,7 @@ const DeleteLog = ({
       setShowAlert(false);
       editTimeLog(value.id, values)
         .then((data) => {
-          dispatchTimeLog({
-            type: 'EDIT',
-            payload: {
-              present: isThisWeek(data) ? data : null,
-              past: isThisWeek(data) ? null : data,
-            },
-          });
+          checkAndReplace(data, timelogs, dispatchTimeLog);
           if (tasks[1]) {
             tasks[1].filter((task) => task.id === value.id)[0].note = task;
             setTasks([...tasks]);
