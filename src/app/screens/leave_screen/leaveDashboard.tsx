@@ -1,13 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {
-  View,
-  ScrollView,
-  Text,
-  RefreshControl,
-  Linking,
-  BackHandler,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
 import { leaveDashboardStyle as style } from '../../../assets/styles';
@@ -18,7 +10,6 @@ import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
-import { getCurrentRouteName } from '../../utils/navigation';
 import { useScrollToTop } from '@react-navigation/native';
 import { AuthContext } from '../../reducer';
 
@@ -87,17 +78,6 @@ const LeaveDashboard = () => {
       getRequest();
     };
     runFunction();
-  }, []);
-
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      if (getCurrentRouteName() === 'leaveList') {
-        BackHandler.exitApp();
-      }
-    });
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
-    };
   }, []);
 
   useScrollToTop(ref);
