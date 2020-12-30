@@ -112,7 +112,7 @@ const Projects = ({
               projects.map((project, index) => (
                 <>
                   <TouchableOpacity
-                    key={project.id}
+                    key={index}
                     onPress={() => {
                       setType(project.id),
                         handleChange('project_id')(project.id.toString());

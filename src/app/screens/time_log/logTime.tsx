@@ -20,12 +20,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Projects from '../../components/time_log/projects';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { checkunder24Hrs, getUser, isThisWeek, isPastWeek } from '../../utils';
+import { checkunder24Hrs, getUser } from '../../utils';
 import { submitTimeLog } from '../../services/timeLogService';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
-import { checkDate, momentdate } from '../../utils/momentDate';
+import { checkAndReplace, momentdate } from '../../utils/momentDate';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -82,35 +82,33 @@ const LogTime = ({ route }: any) => {
         )) ||
       !pastData[0]
     ) {
-      submitTimeLog(dataObj)
+      const selectedDate =
+        Object.keys(timelogs.selectedDate).length !== 0
+          ? { ...timelogs.selectedDate }
+          : null;
+      const historyDate =
+        Object.keys(timelogs.historyDate).length !== 0
+          ? { ...timelogs.historyDate }
+          : null;
+      submitTimeLog(dataObj, selectedDate, historyDate)
         .then((data) => {
           if (Array.isArray(data)) {
             dispatchTimeLog({
               type: 'CHANGE',
               payload: {
-                present: data,
-                past: timelogs.past,
+                present: data[0],
+                past: data[1] ? data[1] : timelogs.past,
               },
             });
             navigation.navigate('timelog');
             setIsLoading(false);
             snackBarMessage('TimeLog updated');
           } else {
-            if (checkDate(data.log_date, log_date)) {
-              dispatchTimeLog({
-                type: 'EDIT',
-                payload: {
-                  present: data,
-                },
-              });
-            }
+            checkAndReplace(data, timelogs, dispatchTimeLog);
             navigation.navigate('timelog');
             setIsLoading(false);
             snackBarMessage('TimeLog updated');
           }
-          dispatchTimeLog({
-            type: 'RESET',
-          });
         })
         .catch((err) => console.log(err));
     } else {

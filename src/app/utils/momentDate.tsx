@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { checkRepeat } from './getQuota';
 
 export const momentdate = (date?: Date, format?: string) => {
   if (date) {
@@ -37,4 +38,37 @@ export const isPastWeek = (item) => {
     .format('W') === moment().add(1, 'day').format('W')
     ? true
     : false;
+};
+
+export const checkAndReplace = (
+  data: any,
+  timelogs: any,
+  dispatchTimeLog: Function
+) => {
+  if (checkDate(data.log_date, timelogs.selectedDate.start)) {
+    dispatchTimeLog({
+      type: 'EDIT',
+      payload: {
+        present: data,
+      },
+    });
+  }
+  if (Object.keys(timelogs.historyDate).length !== 0) {
+    checkRepeat(
+      {
+        startDate: timelogs.historyDate.start,
+        endDate: timelogs.historyDate.end,
+      },
+      JSON.stringify({
+        startDate: data.log_date,
+        endDate: data.log_date,
+      })
+    ) &&
+      dispatchTimeLog({
+        type: 'EDIT',
+        payload: {
+          past: data,
+        },
+      });
+  }
 };

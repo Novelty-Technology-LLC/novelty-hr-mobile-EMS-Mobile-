@@ -45,6 +45,7 @@ const TimeLogs = () => {
             present: activeLogs,
             past: timelogs.past,
             reset: true,
+            selectedDate: todayDate(),
           },
         });
         setLoading(false);
@@ -59,6 +60,8 @@ const TimeLogs = () => {
 
   const onSelect = React.useCallback(
     async (startDate?: Date, endDate?: Date) => {
+      const selectedDate = !endDate ? dateRange(startDate, startDate) : null;
+
       try {
         const user: any = await getUser();
         const activeLogs: any = await getFilteredTimeLogs(
@@ -71,6 +74,7 @@ const TimeLogs = () => {
             payload: {
               present: activeLogs,
               past: timelogs.past,
+              selectedDate,
             },
           });
           setLoading(false);

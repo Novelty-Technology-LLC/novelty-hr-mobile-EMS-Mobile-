@@ -11,11 +11,16 @@ export const getAllTimeLogs = (id: number) => {
   });
 };
 
-export const getFilteredTimeLogs = (id: number, datefilter: any) => {
+export const getFilteredTimeLogs = (
+  id: number,
+  datefilter: any,
+  selectedDate?: any,
+  historyDate?: any
+) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/timelog/filter/${id}`, {
-        params: { datefilter },
+        params: { datefilter, selectedDate, historyDate },
       });
       resolve(res.data.data);
     } catch (error) {
@@ -57,10 +62,17 @@ export const deleteTimeLog = (id: number) => {
   });
 };
 
-export const submitTimeLog = (values: Object) => {
+export const submitTimeLog = (
+  values: Object,
+  selectedDate: any,
+  historyDate: any
+) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.post(`/timelog/submit/`, values);
+      let res = await api.post(`/timelog/submitlog_new/`, {
+        values,
+        params: { selectedDate, historyDate },
+      });
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
