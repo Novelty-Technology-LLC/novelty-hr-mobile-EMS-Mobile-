@@ -5,7 +5,12 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getFilteredTimeLogs } from '../../services/timeLogService';
-import { getUser, stringifyDate, totalWeekHours } from '../../utils';
+import {
+  getUser,
+  isThisWeek,
+  stringifyDate,
+  totalWeekHours,
+} from '../../utils';
 import { DaysRemaining } from '../leave_screen/daysRemaining';
 import Swipe from '../leave_screen/swipe';
 import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
@@ -13,44 +18,38 @@ import { DaySelect } from './daySelect';
 import { EmptyContainer, SmallHeader } from '../../common';
 import { TimeLog } from './timelog';
 import { RequestButton } from '../requestButton';
-import { dateRange, thisWeek } from '../../utils/dateFilter';
+import { dateRange, todayDate } from '../../utils/dateFilter';
 import Week from './week';
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState<Date>(new Date());
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [activeLoading, setActiveLoading] = useState(false);
   const ref = React.useRef(null);
   const [selectedHrs, setSelectedHrs] = useState(0);
   const [selectedDay, setSelectedDay] = useState('Today');
-  const [thisWeekHrs, setThisWeekHrs] = useState(0);
   const [initial, setinitial] = useState(true);
   const getInitialLogs = async () => {
     try {
       const user: any = await getUser();
-      const historyLogs: any = await getFilteredTimeLogs(
+      const activeLogs: any = await getFilteredTimeLogs(
         JSON.parse(user).id,
-        thisWeek()
+        todayDate()
       );
-      const activeLogs = historyLogs.filter(
-        (item) =>
-          new Date(item.log_date).toDateString() ===
-          new Date(date === '' ? new Date() : date).toDateString()
-      );
-      if (activeLogs && historyLogs) {
+      if (activeLogs) {
         dispatchTimeLog({
           type: 'CHANGE',
           payload: {
             present: activeLogs,
-            past: historyLogs,
+            past: timelogs.past,
+            reset: true,
           },
         });
         setLoading(false);
         setRefreshing(false);
-        setSelectedHrs(totalWeekHours(activeLogs));
-        setThisWeekHrs(totalWeekHours(historyLogs));
+        setActiveLoading(false);
         setinitial(false);
       }
     } catch (error) {
@@ -91,10 +90,11 @@ const TimeLogs = () => {
 
   useEffect(() => {
     !initial && setActiveLoading(true);
-    !initial && onSelect(date, null);
+    !initial && onSelect(date);
   }, [date]);
 
   useEffect(() => {
+    setActiveLoading(true);
     getInitialLogs();
   }, []);
 
@@ -111,6 +111,7 @@ const TimeLogs = () => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={() => {
+              setinitial(true);
               setRefreshing(true);
               getInitialLogs();
             }}
@@ -120,25 +121,27 @@ const TimeLogs = () => {
         {loading ? (
           <QuotaPlaceHolder />
         ) : (
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <DaysRemaining
               total={8}
               remaining={Math.round(selectedHrs)}
               title={selectedDay.toUpperCase()}
               timelog={true}
             />
-            <DaysRemaining
-              total={40}
-              remaining={Math.round(thisWeekHrs)}
-              title={'THIS WEEK'}
-              timelog={true}
-            />
+            {timelogs.past[0] && (
+              <DaysRemaining
+                total={40}
+                remaining={Math.round(totalWeekHours(timelogs.past))}
+                title={isThisWeek(timelogs.past[0]) ? 'THIS WEEK' : 'PAST WEEK'}
+                timelog={true}
+              />
+            )}
           </View>
         )}
         <SmallHeader text={'View'} />
 
         <DaySelect
-          handleChange={(date) => {
+          handleChange={(date: Date) => {
             setDate(date);
           }}
           refreshing={refreshing}
@@ -171,7 +174,7 @@ const TimeLogs = () => {
             <EmptyContainer text="You don't have logs this day." />
           )
         )}
-        <Week loading={loading} refreshing={refreshing} title={'history'} />
+        <Week loading={loading} refreshing={refreshing} title={'History'} />
         <View style={{ marginBottom: 100 }}></View>
       </ScrollView>
       <RequestButton

@@ -1,60 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { pastWeek, thisWeek } from '../utils/dateFilter';
 
-const DropDown = ({ options, type, onChange }: any) => {
-  const [week, setWeek] = useState(null);
-  const [group, setGroup] = useState(null);
-
+const DropDown = ({ options, type, onChange, week, group }: any) => {
   const onChangeWeek = (val: string) => {
     switch (val) {
       case 'This week':
-        setWeek(val);
-        onChange(thisWeek(), group);
+        onChange(thisWeek(), val);
         return;
       case 'Past week':
-        setWeek(val);
-        onChange(pastWeek(), group);
+        onChange(pastWeek(), val);
         return;
     }
   };
-
-  const onChangeGroup = (val: string) => {
-    onChange(val);
-    switch (val) {
-      case 'Date':
-        setGroup(val);
-        return;
-      case 'Project':
-        setGroup(val);
-        return;
-    }
-  };
-
-  useEffect(() => {
-    const setValue = () => {
-      if (type === 'week') {
-        setWeek(options[0].value);
-      } else {
-        setGroup(options[1].value);
-      }
-    };
-    setValue();
-  }, []);
 
   return (
     <DropDownPicker
       items={options}
-      placeholder={type === 'week' ? week : group}
-      defaultValue={type === 'week' ? week : group}
-      containerStyle={{
-        height: 40,
-        width: type === 'week' ? 150 : 100,
+      itemStyle={{
+        justifyContent: 'flex-start',
       }}
-      itemStyle={{ justifyContent: 'flex-start' }}
+      placeholder={type === 'week' ? week : group}
+      // defaultValue={type === 'week' ? week : group}
+      containerStyle={{
+        height: 30,
+        width: type === 'week' ? 110 : 90,
+      }}
       dropDownStyle={{ backgroundColor: '#fff' }}
       onChangeItem={(item) => {
-        type === 'week' ? onChangeWeek(item.value) : onChangeGroup(item.value);
+        type === 'week' ? onChangeWeek(item.value) : onChange(item.value);
       }}
     />
   );

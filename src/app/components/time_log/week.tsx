@@ -10,6 +10,7 @@ import { DropDown } from '../../common';
 import { TimeLogContext } from '../../reducer';
 import { getUser, groupBydate, groupByproject } from '../../utils';
 import { getFilteredTimeLogs } from '../../services/timeLogService';
+import { thisWeek } from '../../utils/dateFilter';
 
 const Week = ({
   loading,
@@ -29,6 +30,7 @@ const Week = ({
     Object.entries(groupByproject([...timelogs.past]))
   );
   const [groupby, setGroupby] = useState('Project');
+  const [week, setWeek] = useState('This Week');
 
   useEffect(() => {
     setWeeksLogs(
@@ -38,10 +40,16 @@ const Week = ({
           : groupBydate([...timelogs.past])
       )
     );
+    if (timelogs.past.length === 0) setToggle('toggle-switch-off');
   }, [timelogs.past]);
 
-  const getLogs = async (filter: any, group: any) => {
-    group && setGroupby(group);
+  useEffect(() => {
+    if (toggle === 'toggle-switch' && !timelogs.past[0]) {
+      getLogs(thisWeek());
+    }
+  }, [toggle]);
+
+  const getLogs = async (filter: any) => {
     sethistoryLoading(true);
     try {
       const user: any = await getUser();
@@ -54,7 +62,7 @@ const Week = ({
           type: 'CHANGE',
           payload: {
             present: timelogs.present,
-            past: historyLogs,
+            past: [...historyLogs],
           },
         });
         sethistoryLoading(false);
@@ -80,14 +88,8 @@ const Week = ({
   return (
     <>
       <View style={myRequestsStyle.header}>
-        <SmallHeader
-          timelog={true}
-          text={title}
-          history={weeksLogs.length > 0}
-        />
-        {weeksLogs.length > 0 && (
-          <HistoryToggle timelog={true} toggle={toggle} setToggle={setToggle} />
-        )}
+        <SmallHeader timelog={true} text={title} history={true} />
+        <HistoryToggle timelog={true} toggle={toggle} setToggle={setToggle} />
       </View>
 
       <View style={last ? historyStyle.timelogcontainer : null}>
@@ -100,14 +102,17 @@ const Week = ({
                 <DropDown
                   options={weekOptions}
                   type="week"
-                  onChange={async (filter: any, group: any) => {
-                    getLogs(filter, group);
+                  week={week}
+                  onChange={async (filter: any, val: any) => {
+                    getLogs(filter);
+                    setWeek(val);
                   }}
                 />
                 <View style={style.dropDown}></View>
                 <DropDown
                   options={groupByOptions}
                   type="group"
+                  group={groupby}
                   onChange={(val: string) => {
                     setGroupby(val);
                     if (val === 'Date') {
@@ -130,8 +135,10 @@ const Week = ({
                 ))
               )}
             </>
+          ) : !weeksLogs[0] && historyLoading ? (
+            <UserPlaceHolder />
           ) : (
-            !weeksLogs[0] && <EmptyContainer text="You don't have past logs." />
+            <EmptyContainer text="You don't have past logs." />
           )
         ) : null}
       </View>
