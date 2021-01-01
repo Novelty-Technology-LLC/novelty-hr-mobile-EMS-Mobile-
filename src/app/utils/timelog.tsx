@@ -46,25 +46,6 @@ export const checkunder24Hrs = (duration) => {
   return duration > 1440 ? false : true;
 };
 
-export const getDateWithOutTimeZone = (date) => {
-  return new Date(
-    date.getFullYear() +
-      '-' +
-      (parseInt(date.getMonth()) + 1) +
-      '-' +
-      `${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`
-  );
-};
-
-export const getHrsToday = (arr) => {
-  const today = arr.filter(
-    (item) =>
-      new Date(item.log_date).toDateString() ===
-      getDateWithOutTimeZone(new Date()).toDateString()
-  );
-  return totalWeekHours(today);
-};
-
 function isEmpty(obj) {
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) return false;
