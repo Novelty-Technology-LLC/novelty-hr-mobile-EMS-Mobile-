@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
@@ -42,7 +42,11 @@ const myRequestsStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingBottom: normalize(10),
-    zIndex: 100,
+    ...Platform.select({
+      ios: {
+        zIndex: 100,
+      },
+    }),
   },
   dropDown: {
     paddingHorizontal: normalize(10),

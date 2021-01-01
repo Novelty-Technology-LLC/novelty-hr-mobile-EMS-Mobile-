@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../assets/colors';
 import { fonts } from '../../assets/styles';
 import { TimeLogContext } from '../reducer';
 import { pastWeek, thisWeek } from '../utils/dateFilter';
-import { Platform } from 'react-native';
 
 const DropDown = ({ options, type, onChange, week, group }: any) => {
   const [controller, setController] = useState(null);
@@ -42,8 +42,6 @@ const DropDown = ({ options, type, onChange, week, group }: any) => {
         ...(Platform.OS !== 'android' && {
           zIndex: 10,
         }),
-      }}
-      containerStyle={{
         height: 30,
         width: type === 'week' ? 110 : 90,
       }}
