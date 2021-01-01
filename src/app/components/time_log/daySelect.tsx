@@ -6,8 +6,9 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import Day from './day';
-import { getStringDate, getDateWithOutTimeZone } from '../../utils';
+import { getStringDate } from '../../utils';
 import { DialogContainer } from '../../common';
+import { todayDate, yesterdayDate } from '../../utils/dateFilter';
 
 const DaySelect = ({
   handleChange,
@@ -19,13 +20,11 @@ const DaySelect = ({
   setSelectedDay: Function;
 }) => {
   const [visible, setVisible] = useState(false);
-  const today = getDateWithOutTimeZone(new Date());
+  const today = todayDate().start;
   const [date, setDate] = useState(today);
   const [modalDate, setModalDate] = useState(today);
   const [modalDateString, setModalDateString] = useState('');
-  const yesterday = getDateWithOutTimeZone(
-    new Date(new Date().setDate(new Date().getDate() - 1))
-  );
+  const yesterday = yesterdayDate().start;
   const [index, setIndex] = useState(2);
   const isSelected = (newdate) => {
     return newdate.toDateString() === new Date(date).toDateString();

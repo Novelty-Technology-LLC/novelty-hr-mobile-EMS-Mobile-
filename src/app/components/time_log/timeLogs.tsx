@@ -6,7 +6,6 @@ import { myRequestsStyle as style } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getFilteredTimeLogs } from '../../services/timeLogService';
 import {
-  getDateWithOutTimeZone,
   getUser,
   isThisWeek,
   stringifyDate,
