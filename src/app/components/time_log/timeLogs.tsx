@@ -6,6 +6,7 @@ import { myRequestsStyle as style } from '../../../assets/styles';
 import { TimeLogContext } from '../../reducer';
 import { getFilteredTimeLogs } from '../../services/timeLogService';
 import {
+  getDateWithOutTimeZone,
   getUser,
   isThisWeek,
   stringifyDate,
@@ -59,9 +60,8 @@ const TimeLogs = () => {
   };
 
   const onSelect = React.useCallback(
-    async (startDate?: Date, endDate?: Date) => {
+    async (startDate?: string, endDate?: string) => {
       const selectedDate = !endDate ? dateRange(startDate, startDate) : null;
-
       try {
         const user: any = await getUser();
         const activeLogs: any = await getFilteredTimeLogs(
@@ -94,7 +94,7 @@ const TimeLogs = () => {
 
   useEffect(() => {
     !initial && setActiveLoading(true);
-    !initial && onSelect(date);
+    !initial && onSelect(stringifyDate(date));
   }, [date]);
 
   useEffect(() => {
