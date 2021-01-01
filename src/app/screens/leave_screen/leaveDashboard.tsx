@@ -1,11 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl, Linking } from 'react-native';
+import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
-import {
-  headerStyle,
-  leaveDashboardStyle as style,
-} from '../../../assets/styles';
+import { leaveDashboardStyle as style } from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
 import { headerText } from '../../../assets/styles';
@@ -13,12 +10,17 @@ import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
 import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
-import messaging from '@react-native-firebase/messaging';
+import { useScrollToTop } from '@react-navigation/native';
+import { AuthContext } from '../../reducer';
 
-const LeaveDashboard = ({ route }) => {
+const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const ref = React.useRef(null);
+  const {
+    state: { notifdata },
+  } = useContext(AuthContext);
 
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
@@ -72,70 +74,21 @@ const LeaveDashboard = ({ route }) => {
 
   useEffect(() => {
     const runFunction = () => {
-      requestUserPermission();
       getData();
       getRequest();
-
-      messaging().onNotificationOpenedApp((remoteMessage) => {
-        if (remoteMessage) {
-          Linking.openURL(
-            `noveltyhrmobile://leaveList/${JSON.parse(
-              remoteMessage.data.leave_id
-            )}`
-          );
-        }
-      });
     };
     runFunction();
   }, []);
 
-  useEffect(() => {
-    const initialNotification = () => {
-      messaging()
-        .getInitialNotification()
-        .then((remoteMessage) => {
-          if (remoteMessage) {
-            Linking.openURL(
-              `noveltyhrmobile://leaveList/${JSON.parse(
-                remoteMessage.data.leave_id
-              )}`
-            );
-          }
-        });
-    };
-    initialNotification();
-  }, []);
-
-  async function requestUserPermission() {
-    const token = await messaging().getToken();
-    console.log('token -> ', token);
-
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    let user = await getUser();
-    let notifcation_token = JSON.parse(user).notification_token;
-
-    user = JSON.parse(user).uuid;
-
-    const data = {
-      uuid: user,
-      notification_token: token,
-    };
-
-    if (enabled && notifcation_token !== token) {
-      store(data);
-    }
-  }
-
+  useScrollToTop(ref);
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
         <Text style={headerText}>Leave Application</Text>
       </Header>
       <ScrollView
+        showsVerticalScrollIndicator={false}
+        ref={ref}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -156,10 +109,15 @@ const LeaveDashboard = ({ route }) => {
         <MyRequests
           loading={loading}
           refresh={refresh}
-          params={+route.params?.screen}
+          params={notifdata?.request === 'myrequest' && +notifdata?.leave_id}
         />
         {isAdmin && (
-          <OtherRequests refresh={refresh} params={route.params?.screen} />
+          <OtherRequests
+            refresh={refresh}
+            params={
+              notifdata?.request === 'otherrequest' && +notifdata?.leave_id
+            }
+          />
         )}
       </ScrollView>
       <RequestButton screen="requestLeave" />

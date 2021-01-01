@@ -4,11 +4,14 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '10.0'
 
 target 'noveltyhrmobile' do
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  
   config = use_native_modules!
   pod 'GoogleSignIn'
   pod 'Firebase/Messaging'
   use_react_native!(:path => config["reactNativePath"])
-
 
   target 'noveltyhrmobileTests' do
     inherit! :complete

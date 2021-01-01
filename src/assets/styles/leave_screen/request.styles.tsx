@@ -5,12 +5,10 @@ import { theme, fonts } from '../theme';
 
 const requestStyle = StyleSheet.create({
   container: {
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(15),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginLeft: normalize(13),
-    marginRight: normalize(20),
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
     borderRadius: 2,
@@ -66,16 +64,7 @@ const requestStyle = StyleSheet.create({
     marginTop: normalize(2.5),
   },
   icon: {
-    transform: [{ rotate: '-40deg' }],
-    backgroundColor: colors.requested,
-    overflow: 'hidden',
-    ...Platform.select({
-      ios: {
-        padding: normalize(2.9),
-        borderRadius: normalize(8),
-      },
-      android: { padding: normalize(5), borderRadius: normalize(14) },
-    }),
+    transform: [{ rotate: '-50deg' }],
   },
   stateView: {
     ...Platform.select({

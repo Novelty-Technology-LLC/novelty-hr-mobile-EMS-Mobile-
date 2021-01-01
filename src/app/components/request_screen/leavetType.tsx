@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { leaveType, leaveType as style } from '../../../assets/styles';
-import color from '../../../assets/colors';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { SelectButton } from '../../common';
 
 function Leavetype({
   handleChange,
@@ -25,23 +24,7 @@ function Leavetype({
             }}
             style={leaveType.button}
           >
-            <View style={type == 1 ? style.paidView : style.floatingView}>
-              <View style={style.icon}>
-                {type === 1 && (
-                  <Icon
-                    name="check-circle"
-                    color={color.primary}
-                    size={17}
-                    style={{ marginRight: 6 }}
-                  />
-                )}
-              </View>
-              <Text
-                style={type == 0 ? style.buttonTextFloat : style.buttonTextPaid}
-              >
-                Paid Time Off
-              </Text>
-            </View>
+            <SelectButton text="Paid Time Off" active={type === 1} />
           </TouchableOpacity>
           <View style={style.spacer}></View>
           <TouchableOpacity
@@ -50,23 +33,7 @@ function Leavetype({
             }}
             style={leaveType.button}
           >
-            <View style={type == 1 ? style.floatingView : style.paidView}>
-              <View style={style.icon}>
-                {type === 0 && (
-                  <Icon
-                    name="check-circle"
-                    color={color.primary}
-                    size={17}
-                    style={{ marginRight: 6 }}
-                  />
-                )}
-              </View>
-              <Text
-                style={type == 1 ? style.buttonTextFloat : style.buttonTextPaid}
-              >
-                Floating day
-              </Text>
-            </View>
+            <SelectButton text="Floating day" active={type === 0} />
           </TouchableOpacity>
         </View>
       </View>

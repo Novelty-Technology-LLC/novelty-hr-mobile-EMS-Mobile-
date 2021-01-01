@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import Dialog from 'react-native-dialog';
+import { View, TouchableOpacity, Text } from 'react-native';
+import normalize from 'react-native-normalize';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage, snackErrorBottom } from '../../common';
+import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
 import { deleteTimeLog } from '../../services/timeLogService';
-import { getUser } from '../../utils';
 
 const DeleteAlert = ({
   item,
@@ -33,22 +33,16 @@ const DeleteAlert = ({
   const [loading, setLoading] = useState(false);
 
   const onDelete = async () => {
-    const user = await getUser();
     setLoading(true);
     if (other) {
-      if (new Date(item.leave_date.startDate) > new Date()) {
-        cancelLeave(item.id)
-          .then((data) => {
-            dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
-            dispatchRequest({ type: 'CANCEL', payload: data.leave });
-            setLoading(false);
-            snackBarMessage('Request Cancelled');
-          })
-          .catch((err) => console.log(err));
-      } else {
-        setLoading(false);
-        snackErrorBottom({ message: 'You cannot cancel request now' });
-      }
+      cancelLeave(item.id)
+        .then((data) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
+          dispatchRequest({ type: 'CANCEL', payload: data.leave });
+          setLoading(false);
+          snackBarMessage('Request Cancelled');
+        })
+        .catch((err) => console.log(err));
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
@@ -59,6 +53,7 @@ const DeleteAlert = ({
         })
         .catch((err) => console.log(err));
     }
+    hide();
   };
 
   const onTimeLogDelete = () => {
@@ -68,7 +63,10 @@ const DeleteAlert = ({
         snackBarMessage('TimeLog deleted');
       })
       .catch((err) => console.log(err));
+    hide();
   };
+  const positive = other ? 'YES' : 'DELETE';
+  const negative = other ? 'NO' : 'CANCEL';
 
   return (
     <>
@@ -86,36 +84,37 @@ const DeleteAlert = ({
           size={23}
         />
       </TouchableOpacity>
-      <Dialog.Container
+      <ConfirmDialog
         visible={showAlert}
-        contentStyle={style.dialogContainer}
+        onTouchOutside={() => setShowAlert(false)}
+        contentStyle={[style.innercontent, { marginBottom: 0 }]}
+        dialogStyle={{ borderRadius: 5 }}
+        titleStyle={style.text1}
+        positiveButton={{
+          titleStyle: style.delete,
+          title: positive,
+          onPress: () => {
+            timelog ? onTimeLogDelete() : onDelete();
+            hide();
+          },
+        }}
+        negativeButton={{
+          titleStyle: style.cancel,
+          title: negative,
+          onPress: () => hide(),
+        }}
       >
-        <View style={style.container}>
+        <View style={[style.container, { marginBottom: normalize(-20) }]}>
           <AppIcon name="alert" color={colors.tomato} size={30} />
-          <View style={style.main}>
-            <Dialog.Title style={style.text1}>
+          <View style={[style.main, { marginBottom: normalize(-15) }]}>
+            <Text style={style.text1}>
               {other ? 'Cancel' : 'Delete'} the{' '}
               {edittimelog ? 'task ' : timelog ? 'timelog' : 'request'} ?
-            </Dialog.Title>
-            <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
+            </Text>
+            <Text style={style.text2}>This can't be undone</Text>
           </View>
         </View>
-        <View style={style.buttons}>
-          <Dialog.Button
-            label={other ? 'NO' : 'CANCEL'}
-            onPress={hide}
-            style={style.cancel}
-          />
-          <Dialog.Button
-            label={other ? 'YES' : 'DELETE'}
-            onPress={() => {
-              timelog ? onTimeLogDelete() : onDelete();
-              hide();
-            }}
-            style={style.delete}
-          />
-        </View>
-      </Dialog.Container>
+      </ConfirmDialog>
     </>
   );
 };

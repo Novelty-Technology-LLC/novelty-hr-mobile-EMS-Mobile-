@@ -5,23 +5,23 @@ const swipeStyle = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    paddingHorizontal: normalize(20),
+    paddingHorizontal: normalize(10),
     paddingVertical: normalize(8),
     marginRight: normalize(10),
   },
   tlcontainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingHorizontal: normalize(20),
+    justifyContent: 'space-between',
     paddingVertical: normalize(8),
     marginRight: normalize(10),
+    paddingHorizontal: normalize(10),
   },
 
   othercontainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: normalize(15),
+    paddingHorizontal: normalize(10),
     paddingVertical: normalize(8),
     marginRight: normalize(10),
   },

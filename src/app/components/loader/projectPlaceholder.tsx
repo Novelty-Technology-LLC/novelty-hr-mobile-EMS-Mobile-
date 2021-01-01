@@ -9,16 +9,18 @@ const ProjectPlaceHolder = () => {
     <View style={styles.container}>
       <Placeholder Animation={Fade}>
         <View style={styles.row}>
-          <PlaceholderLine width={50} height={30} />
+          <PlaceholderLine width={33} height={30} />
           <View style={leaveType.spacer}></View>
-          <PlaceholderLine width={50} height={30} />
+          <PlaceholderLine width={33} height={30} />
+          <View style={leaveType.spacer}></View>
+          <PlaceholderLine width={33} height={30} />
         </View>
-      </Placeholder>
-      <Placeholder Animation={Fade}>
         <View style={styles.row}>
-          <PlaceholderLine width={50} height={30} />
+          <PlaceholderLine width={33} height={30} />
           <View style={leaveType.spacer}></View>
-          <PlaceholderLine width={50} height={30} />
+          <PlaceholderLine width={33} height={30} />
+          <View style={leaveType.spacer}></View>
+          <PlaceholderLine width={33} height={30} />
         </View>
       </Placeholder>
     </View>
@@ -27,8 +29,7 @@ const ProjectPlaceHolder = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: normalize(20),
-    paddingVertical: normalize(20),
+    paddingTop: normalize(20),
     flexWrap: 'wrap',
   },
   row: {

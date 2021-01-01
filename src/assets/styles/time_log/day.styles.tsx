@@ -12,11 +12,9 @@ const dayStyle = StyleSheet.create({
     fontFamily: fonts.mulishBold,
   },
   container: {
-    width: Platform.OS === 'ios' ? '30%' : '31.5%',
+    width: Platform.OS === 'ios' ? '30%' : '32%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: normalize(5),
-    paddingHorizontal: normalize(4),
     paddingVertical: normalize(10),
     borderRadius: normalize(3),
   },
@@ -36,11 +34,11 @@ const dayStyle = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    paddingVertical: normalize(15),
-    marginHorizontal: '2%',
+    paddingBottom: normalize(15),
+    justifyContent: 'space-between',
   },
   gap: {
-    paddingHorizontal: normalize(8),
+    paddingHorizontal: normalize(4),
   },
 });
 

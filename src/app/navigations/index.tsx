@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabNavigator';
 import Invalid from '../screens/auth_screen/invalid';
 import Loading from '../screens/auth_screen/loading';
+import { navigationRef } from '../utils/navigation';
 
 const Root = createStackNavigator();
 
@@ -31,16 +32,30 @@ const RootNavigation = () => {
   const deepLinking = {
     prefixes: ['noveltyhrmobile://'],
     config: {
-      leaveList: {
-        path: 'leaveList',
-        params: {
-          leave_id: null,
+      screens: {
+        BottomTabs: {
+          path: 'bottom_tabs',
+          screens: {
+            Activity: {
+              path: 'activity',
+              exact: true,
+            },
+            Home: {
+              path: 'home',
+              screens: {
+                LeaveList: {
+                  path: 'leaveList',
+                  exact: true,
+                },
+              },
+            },
+          },
         },
       },
     },
   };
   return (
-    <NavigationContainer linking={deepLinking}>
+    <NavigationContainer linking={deepLinking} ref={navigationRef}>
       <AuthContext.Provider value={{ state, dispatch }}>
         <Root.Navigator
           screenOptions={{
@@ -50,7 +65,7 @@ const RootNavigation = () => {
           <Root.Screen name="login" component={Login} />
           <Root.Screen name="loading" component={Loading} />
           <Root.Screen name="invalid" component={Invalid} />
-          <Root.Screen name="tab" component={TabNavigator} />
+          <Root.Screen name="BottomTabs" component={TabNavigator} />
         </Root.Navigator>
       </AuthContext.Provider>
     </NavigationContainer>

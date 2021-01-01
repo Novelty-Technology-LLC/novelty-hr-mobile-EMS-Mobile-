@@ -6,7 +6,11 @@ import {
   Platform,
   Keyboard,
 } from 'react-native';
-import { header as Header, snackBarMessage } from '../../common';
+import {
+  header as Header,
+  snackBarMessage,
+  snackErrorBottom,
+} from '../../common';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
@@ -22,12 +26,12 @@ import { button as Button } from '../../common';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { editRequest, getLeaveQuota, postRequest } from '../../services';
+import { editRequest, postRequest } from '../../services';
 import colors from '../../../assets/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext, RequestContext } from '../../reducer';
 import { snackErrorTop } from '../../common';
-import { dateMapper } from '../../utils';
+import { checkIfRequested, checkValidityQuota, dateMapper } from '../../utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const validationSchema = Yup.object().shape({
@@ -36,9 +40,9 @@ const validationSchema = Yup.object().shape({
       startDate: Yup.date().nullable(),
       endDate: Yup.date().nullable(),
     })
-    .required('Date is a required field'),
+    .required('Date is required'),
   type: Yup.string().required().label('type'),
-  note: Yup.string().required('Note is a required field').label('note'),
+  note: Yup.string().required('Leave note is required').label('note'),
   lead: Yup.array().of(Yup.number()).label('lead'),
   status: Yup.string().label('status'),
 });
@@ -73,7 +77,9 @@ const RequestLeave = ({ route }: any) => {
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
-        dispatchRequest({ type: 'UPDATEQUOTA', payload: res.quota });
+        res.quota.map((item) => {
+          dispatchRequest({ type: 'UPDATEQUOTA', payload: item });
+        });
         dispatchRequest({ type: 'UPDATE', payload: res.leave });
         navigation.navigate('leaveList');
         snackBarMessage('Request updated');
@@ -84,8 +90,27 @@ const RequestLeave = ({ route }: any) => {
 
   const onSubmit = async (values) => {
     try {
+      const allrequests = [
+        ...requests.pastrequests,
+        ...requests.requests,
+      ].filter(
+        (req) =>
+          req.state === 'Approved' ||
+          req.state === 'In Progress' ||
+          req.state === 'Pending'
+      );
+      if (!olddata && checkIfRequested(allrequests, values)) {
+        return snackErrorBottom({
+          message: 'Requested date cannot be requested again',
+        });
+      }
+      if (olddata && checkIfRequested(allrequests, values, olddata)) {
+        return snackErrorBottom({
+          message: 'Requested date cannot be requested again',
+        });
+      }
       const date = JSON.parse(values.date);
-
+      let dayArray = [];
       const startDate = new Date(date.startDate).toString().slice(0, 15);
 
       let endDate = '';
@@ -94,6 +119,7 @@ const RequestLeave = ({ route }: any) => {
       } else {
         endDate = new Date(date.endDate).toString().slice(0, 15);
       }
+
       let day = 0;
       if (olddata) {
         let oldday = dateMapper(
@@ -101,23 +127,30 @@ const RequestLeave = ({ route }: any) => {
           olddata.leave_date.endDate
         );
         day = dateMapper(startDate, endDate);
-        day = day - oldday;
+        if (olddata.type === values.type) {
+          dayArray = [{ days: day - oldday, dayType: values.type }];
+        } else {
+          dayArray = [
+            { days: day, dayType: values.type },
+            { days: -oldday, dayType: olddata.type },
+          ];
+        }
+        dayArray.map((day) => {
+          if (values.type === day.dayType) {
+            if (checkValidityQuota(requests.quota, values.type, day.days)) {
+              throw new Error(`Selected day exceeds ${values.type}`);
+            }
+          }
+        });
       } else {
         day = dateMapper(startDate, endDate);
-      }
-
-      const notValid =
-        requests.quota &&
-        requests.quota.some(
-          (item) =>
-            item.leave_type === values.type.toUpperCase() &&
-            item.leave_used < day
-        );
-
-      if (notValid) {
-        throw new Error(`Selected day exceeds ${values.type}`);
+        if (checkValidityQuota(requests.quota, values.type, day)) {
+          throw new Error(`Selected day exceeds ${values.type}`);
+        }
       }
       delete values.date;
+
+      const dayData = olddata ? dayArray : day;
 
       const requestData = {
         ...values,
@@ -125,10 +158,11 @@ const RequestLeave = ({ route }: any) => {
           startDate,
           endDate,
         },
-        day,
+        day: dayData,
         requestor_id: state.user.id,
         requestor_name: state.user.first_name,
         uuid: state.user.uuid,
+        gender: state.user.gender,
       };
 
       setisLoading(true);
@@ -154,7 +188,7 @@ const RequestLeave = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 100 : 70}
+        extraScrollHeight={Platform.OS === 'ios' ? 180 : 70}
         extraHeight={Platform.OS === 'android' ? 140 : 50}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
@@ -171,6 +205,7 @@ const RequestLeave = ({ route }: any) => {
                 style={style}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.leave_date}
+                olddata_id={olddata && olddata.id}
                 error={errors}
                 touched={touched}
               />
@@ -189,7 +224,13 @@ const RequestLeave = ({ route }: any) => {
                 error={errors}
                 touched={touched}
               />
-              <Button onPress={() => handleSubmit()} disabled={isLoading}>
+              <Button
+                onPress={() => {
+                  Keyboard.dismiss();
+                  handleSubmit();
+                }}
+                disabled={isLoading}
+              >
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>Submit Request</Text>
                   {isLoading && (

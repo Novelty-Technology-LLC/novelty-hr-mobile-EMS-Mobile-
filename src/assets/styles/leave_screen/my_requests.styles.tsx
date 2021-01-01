@@ -6,13 +6,12 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
+    paddingHorizontal: normalize(15),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: normalize(20),
-    marginHorizontal: normalize(20),
     marginTop: normalize(20),
   },
   logheader: {
@@ -20,7 +19,6 @@ const myRequestsStyle = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: normalize(20),
-    marginHorizontal: normalize(20),
   },
   title: {
     fontFamily: fonts.poppinsMedium,
@@ -28,29 +26,27 @@ const myRequestsStyle = StyleSheet.create({
     color: colors.black,
   },
   history: {
-    fontFamily: fonts.poppinsMedium,
+    fontFamily: fonts.mulishRegular,
     color: colors.secondary,
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.xs),
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   gap: {
-    width: normalize(10),
-  },
-  emptyContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: normalize(35),
-    marginHorizontal: normalize(20),
-    borderRadius: 2,
-    backgroundColor: colors.snow,
-  },
-  emptyText: {
-    color: colors.secondary,
+    width: normalize(5),
   },
   bgap: { paddingVertical: normalize(60) },
+  dropDownView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: normalize(10),
+    zIndex: 100,
+  },
+  dropDown: {
+    paddingHorizontal: normalize(10),
+  },
 });
 
 export { myRequestsStyle };

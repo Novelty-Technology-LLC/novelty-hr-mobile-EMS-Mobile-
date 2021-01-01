@@ -1,29 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text } from 'react-native';
-import {
-  FlatList,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import { View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
-import {
-  myRequestsStyle,
-  otherRequestsStyle,
-  historyStyle,
-} from '../../../assets/styles';
-import colors from '../../../assets/colors';
+import { otherRequestsStyle } from '../../../assets/styles';
 import { Request } from './request';
 import History from './history';
 import { useNavigation } from '@react-navigation/native';
-import { AppIcon } from '../../common';
+import { EmptyContainer, SmallHeader } from '../../common';
 import { getAllRequests } from '../../services';
 import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
 import { AdminRequestContext, AuthContext } from '../../reducer';
 import { AdminPlaceHolder } from '../loader';
 import { getLeave } from '../../services';
+import HistoryToggle from '../../common/historyToggle';
 
 const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
-  const [toggle, setToggle] = useState('toggle-switch');
+  const [toggle, setToggle] = useState('toggle-switch-off');
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
@@ -74,7 +67,8 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
 
   useEffect(() => {
     getAdminRequest();
-  }, [refresh]);
+    setToggle('toggle-switch-off');
+  }, [refresh, params]);
 
   useEffect(() => {
     const get = async () => {
@@ -90,29 +84,12 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
   return (
     <View style={otherRequestsStyle.container}>
       <View style={otherRequestsStyle.header}>
-        <Text style={myRequestsStyle.title}> Requests Received</Text>
+        <SmallHeader
+          text="Requests Received"
+          history={adminrequests.pastadminrequests.length > 0}
+        />
         {adminrequests.pastadminrequests.length > 0 && (
-          <View style={myRequestsStyle.row}>
-            <Text style={myRequestsStyle.history}> History</Text>
-            <View style={myRequestsStyle.gap}></View>
-            <TouchableWithoutFeedback
-              onPress={() =>
-                setToggle(
-                  toggle === 'toggle-switch'
-                    ? 'toggle-switch-off'
-                    : 'toggle-switch'
-                )
-              }
-            >
-              <AppIcon
-                name={toggle}
-                color={
-                  toggle === 'toggle-switch' ? colors.primary : colors.secondary
-                }
-                size={40}
-              />
-            </TouchableWithoutFeedback>
-          </View>
+          <HistoryToggle toggle={toggle} setToggle={setToggle} />
         )}
       </View>
       {loading ? (
@@ -133,18 +110,11 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         />
       )}
       {adminrequests.adminrequests.length < 1 && !loading && (
-        <View style={myRequestsStyle.emptyContainer}>
-          <Text style={myRequestsStyle.emptyText}>
-            You have not received any request.
-          </Text>
-        </View>
+        <EmptyContainer text="You have not received any request." />
       )}
       {loading && (
         <>
-          <View style={historyStyle.subcontainer}>
-            <Text style={historyStyle.header}>Past Requests</Text>
-            <View style={historyStyle.line}></View>
-          </View>
+          <SmallHeader text="Past Requests" />
           <AdminPlaceHolder />
         </>
       )}

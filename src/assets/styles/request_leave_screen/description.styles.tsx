@@ -1,22 +1,23 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Dimensions } from 'react-native';
 import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
+const deviceHeight = Dimensions.get('window').height;
 
 const descriptionStyle = StyleSheet.create({
   main: {
-    marginTop: normalize(20),
-    marginLeft: normalize(20),
+    marginTop: normalize(10),
     paddingBottom: normalize(10),
+    marginHorizontal: normalize(15),
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
-    height: '15%',
-    marginVertical: normalize(10),
+    height: deviceHeight * 0.18,
+    marginTop: normalize(10),
   },
   modalPickerContainer: {
-    marginHorizontal: normalize(20),
-    height: '31%',
+    marginHorizontal: normalize(15),
+    height: deviceHeight * 0.17,
     marginVertical: normalize(10),
   },
   alertmain: {
@@ -28,7 +29,7 @@ const descriptionStyle = StyleSheet.create({
   },
   textareaContainer: {
     height: normalize(140),
-    width: normalize(340),
+    width: '100%',
     marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
@@ -36,8 +37,8 @@ const descriptionStyle = StyleSheet.create({
     opacity: 0.8,
   },
   editlogContainer: {
-    height: normalize(100),
-    width: '93%',
+    height: normalize(80),
+    width: '99%',
     marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
@@ -45,7 +46,7 @@ const descriptionStyle = StyleSheet.create({
     opacity: 0.8,
   },
   textinputContainer: {
-    height: normalize(60),
+    height: normalize(80),
     width: normalize(340),
     marginTop: normalize(10),
     padding: normalize(10),
@@ -89,7 +90,8 @@ const descriptionStyle = StyleSheet.create({
     height: normalize(130),
     textAlignVertical: 'top',
   },
-  error: { paddingTop: normalize(10), color: color.red },
+  error: { paddingVertical: normalize(10), color: color.red },
+  time: { paddingHorizontal: normalize(15) },
   dark: {},
 });
 

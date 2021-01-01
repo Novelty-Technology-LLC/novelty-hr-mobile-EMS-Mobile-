@@ -6,5 +6,4 @@ export * from './time';
 export * from './timelog';
 export * from './projects';
 export * from './repeatTimeLog';
-export * from './editLog';
 export * from './deleteLog';

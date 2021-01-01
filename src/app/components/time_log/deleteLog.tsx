@@ -1,10 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import Dialog from 'react-native-dialog';
+import { View, TouchableOpacity, Text } from 'react-native';
+import normalize from 'react-native-normalize';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
 import colors from '../../../assets/colors';
-import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon } from '../../common';
+import {
+  deleteAlertStyle,
+  deleteAlertStyle as style,
+} from '../../../assets/styles';
+import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
+import { TimeLogContext } from '../../reducer';
+import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
+import { checkAndReplace, isThisWeek, totalHours } from '../../utils';
+import { navigate } from '../../utils/navigation';
 import TaskContext from './taskContext';
 
 const DeleteLog = ({
@@ -20,9 +28,47 @@ const DeleteLog = ({
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { tasks, setTasks } = useContext(TaskContext);
+  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
   const onTaskDelete = () => {
-    setTasks(tasks.filter((val) => val.id !== item.id));
+    let taskList = [];
+    if (tasks[1]) {
+      taskList = tasks[1].filter((task) => task.id === value.id)[0].note;
+    } else {
+      taskList = tasks.note;
+    }
+
+    if (taskList.length > 1) {
+      let task = taskList.filter((val) => val.id !== item.id);
+      let values = {
+        duration: totalHours({ note: task }),
+        log_date: value.log_date,
+        note: task,
+        project_id: value.project_id,
+        user_id: value.user_id,
+      };
+      setShowAlert(false);
+      editTimeLog(value.id, values)
+        .then((data) => {
+          checkAndReplace(data, timelogs, dispatchTimeLog);
+          if (tasks[1]) {
+            tasks[1].filter((task) => task.id === value.id)[0].note = task;
+            setTasks([...tasks]);
+          } else {
+            setTasks({ ...tasks, note: task });
+          }
+          snackBarMessage(`Task deleted`);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      deleteTimeLog(value.id)
+        .then(() => {
+          navigate('timelog');
+          dispatchTimeLog({ type: 'DELETE', payload: value.id });
+          snackBarMessage('TimeLog deleted');
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -36,29 +82,34 @@ const DeleteLog = ({
       >
         <AppIcon name="delete" color={colors.tomato} size={23} />
       </TouchableOpacity>
-      <Dialog.Container
+      <ConfirmDialog
         visible={showAlert}
-        contentStyle={style.dialogContainer}
+        onTouchOutside={() => setShowAlert(false)}
+        contentStyle={[deleteAlertStyle.innercontent, { marginBottom: 0 }]}
+        dialogStyle={{ borderRadius: 5 }}
+        titleStyle={deleteAlertStyle.text1}
+        positiveButton={{
+          titleStyle: deleteAlertStyle.delete,
+          title: 'DELETE',
+          onPress: () => {
+            onTaskDelete();
+            hide();
+          },
+        }}
+        negativeButton={{
+          titleStyle: deleteAlertStyle.cancel,
+          title: 'CANCEL',
+          onPress: () => hide(),
+        }}
       >
-        <View style={style.container}>
+        <View style={[style.container, { marginBottom: normalize(-20) }]}>
           <AppIcon name="alert" color={colors.tomato} size={30} />
           <View style={style.main}>
-            <Dialog.Title style={style.text1}>Delete the task ?</Dialog.Title>
-            <Dialog.Title style={style.text2}>This cant be undone</Dialog.Title>
+            <Text style={style.text1}>Delete the task ?</Text>
+            <Text style={style.text2}>This cant be undone</Text>
           </View>
         </View>
-        <View style={style.buttons}>
-          <Dialog.Button label={'CANCEL'} onPress={hide} style={style.cancel} />
-          <Dialog.Button
-            label={'DELETE'}
-            onPress={() => {
-              onTaskDelete();
-              hide();
-            }}
-            style={style.delete}
-          />
-        </View>
-      </Dialog.Container>
+      </ConfirmDialog>
     </>
   );
 };

@@ -28,15 +28,23 @@ const signInGoogle = async (dispatch: any) => {
       dispatch({ type: 'INVALID' });
     }
   } catch (error) {
-    if (error.code === statusCodes.SIGN_IN_CANCELLED)
-      error.message = 'Sign in cancled.';
-    if (error.message === 'NETWORK_ERROR')
+    if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
+    } else {
+      error.message = 'Sign in error';
+    }
     snackErrorBottom(error);
   }
 };
 
 const createUser = (dispatch: any, user: any, token: any) => {
+  // const objuser = {
+  //   email: 'pradip@noveltytechnology.com',
+  //   image_url:
+  //     'https://lh3.googleusercontent.com/a-/AOh14Ggsxb3NpBErPwptsikzXju0pFAW71vphZXwQOkL=s120',
+  //   uuid: '103684157629101882595',
+  // };
+  // console.log('user', objuser);
   create(user)
     .then(async ({ data }: any) => {
       await setUser(data.data);
@@ -82,7 +90,7 @@ const signInApple = async (dispatch: any) => {
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
-      error.message = 'Unkon error occured';
+      error.message = 'Unknown error occured';
     }
     snackErrorBottom(error);
   }

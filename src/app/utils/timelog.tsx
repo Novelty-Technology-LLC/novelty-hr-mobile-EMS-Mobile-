@@ -1,8 +1,10 @@
 import { momentdate } from './momentDate';
+import moment from 'moment';
 
 export const createdDay = (date) => {
   let newdate = momentdate(date.log_date, 'llll');
-  return newdate.substr(4, 7) + ', ' + newdate.substr(0, 3);
+  let splittedDate = newdate.split(',');
+  return splittedDate[1] + ', ' + splittedDate[0];
 };
 
 export const getHrs = (time) => {
@@ -11,7 +13,7 @@ export const getHrs = (time) => {
   if (mins < 10) {
     mins = '0' + mins;
   }
-  return hr + 'h' + mins + "'";
+  return hr + 'h' + mins + 'm';
 };
 
 export const getHrsMins = (time) => {
@@ -21,19 +23,27 @@ export const getHrsMins = (time) => {
   return { hr, mins };
 };
 
-export const isPast = (item) => {
-  return new Date().getDate() - new Date(item.log_date).getDate() >= 7;
+export const formatDate = (resDate: string) => {
+  const stringDate = JSON.stringify(resDate);
+  const splitDate = stringDate
+    .split('T')[0]
+    .substring(1, stringDate.length - 1)
+    .split('/');
+  return splitDate[2] + '-' + splitDate[0] + '-' + splitDate[1];
 };
 
-export const getWeek = (date) => {
-  let onejan = new Date(new Date(date).getFullYear(), 0, 1);
-  return Math.ceil(((date - onejan) / 86400000 + onejan.getDay() + 1) / 7);
+export const totalHours = (item) => {
+  const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
+  return total;
 };
 
-export const isThisWeek = (item) => {
-  return getWeek(new Date(item.log_date)) === getWeek(new Date())
-    ? true
-    : false;
+export const totalWeekHours = (item) => {
+  const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
+  return total / 60;
+};
+
+export const checkunder24Hrs = (duration) => {
+  return duration > 1440 ? false : true;
 };
 
 function isEmpty(obj) {
@@ -66,22 +76,54 @@ export const logMapper = (logs) => {
   return data;
 };
 
-export const totalHours = (item) => {
-  const total = item.note.reduce((acc, curr) => acc + parseInt(curr.time), 0);
-  return total;
+export const getStringDate = (modalDate: Date) => {
+  return momentdate(JSON.stringify(modalDate).substring(1, 11), 'lll').split(
+    ','
+  )[0];
 };
 
-export const totalWeekHours = (item) => {
-  const total = item.reduce((acc, curr) => acc + parseInt(curr.duration), 0);
-  return total;
+export const stringifyDate = (date: Date) => {
+  return momentdate(JSON.stringify(date).substring(1, 11), 'lll').substring(
+    0,
+    12
+  );
 };
 
-export const getDateWithOutTimeZone = (date) => {
-  return new Date(
-    date.getFullYear() +
-      '-' +
-      (parseInt(date.getMonth()) + 1) +
-      '-' +
-      `${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`
+export const groupByproject = (logs: Array<Object>) => {
+  let projectsObject = {};
+  logs.map((log) => {
+    if (projectsObject[log.project.name] !== undefined) {
+      projectsObject[log.project.name].push(log);
+    } else {
+      projectsObject[log.project.name] = [log];
+    }
+  });
+  return projectsObject;
+};
+
+export const groupBydate = (logs: Array<Object>) => {
+  let dateLogObject = {};
+  logs.map((log) => {
+    if (dateLogObject[log.log_date] !== undefined) {
+      dateLogObject[log.log_date].push(log);
+    } else {
+      dateLogObject[log.log_date] = [log];
+    }
+  });
+  return dateLogObject;
+};
+
+export const filterLastWeek = (logs: Array<Object>) => {
+  const lastWeekStart = new Date(
+    moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD')
+  );
+  const lastWeekEnd = new Date(
+    moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD')
+  );
+
+  return logs.filter(
+    (log) =>
+      new Date(log.log_date) >= lastWeekStart &&
+      new Date(log.log_date) <= lastWeekEnd
   );
 };

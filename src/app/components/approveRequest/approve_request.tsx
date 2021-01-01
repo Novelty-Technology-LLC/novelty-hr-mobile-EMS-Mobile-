@@ -10,6 +10,7 @@ import { AuthContext } from '../../reducer';
 import { ApproveDeny } from '../../components';
 import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
 import { getUser } from '../../utils';
+import { SmallHeader } from '../../common';
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -90,7 +91,7 @@ const Request = ({ data, style, title = null }: any) => {
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <Text style={style.response}>Responses</Text>
+                    <SmallHeader text="Responses" />
                     {responses[0].responses.map((item, i) => (
                       <>
                         <View style={style.main} key={i.toString()}>
@@ -98,7 +99,7 @@ const Request = ({ data, style, title = null }: any) => {
                             <Image
                               style={style.image}
                               source={
-                                item.user.image_url !== undefined
+                                item.user?.image_url
                                   ? { uri: item.user.image_url }
                                   : require('../../../assets/images/person.jpeg')
                               }
@@ -132,9 +133,7 @@ const Request = ({ data, style, title = null }: any) => {
                       {responses.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <Text style={style.response}>
-                              Pending Responses
-                            </Text>
+                            <SmallHeader text="Pending Responses" />
                             {responses[0].pendingResponses.map((item, i) => (
                               <>
                                 <View style={style.main} key={i.toString()}>

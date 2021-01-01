@@ -52,9 +52,7 @@ class Teams extends Component {
     return (
       <>
         <View style={style.container}>
-          <Text style={style.text}>
-            Team Lead <Text style={style.required}>*</Text>
-          </Text>
+          <Text style={style.text}>Team Lead</Text>
           {this.state.teamLead.length > 0 ? (
             <ScrollView
               style={style.scrollView}

@@ -5,12 +5,11 @@ import {
   leaveType as style,
   myRequestsStyle,
 } from '../../../assets/styles';
-import color from '../../../assets/colors';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getAllProjects } from '../../services/projectService';
 import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
-import { AppIcon } from '../../common';
+import { AppIcon, SelectButton } from '../../common';
+import { getUser } from '../../utils';
 
 const Projects = ({
   handleChange,
@@ -27,118 +26,109 @@ const Projects = ({
   const [loading, setLoading] = useState(false);
   const [showmore, setShowmore] = useState('chevron-down-circle');
   const [allprojects, setAllprojects] = useState([]);
-  const getPojects = () => {
+  const [type, setType] = useState(0);
+  const getPojects = async () => {
+    const user = await getUser();
     setLoading(true);
-    getAllProjects()
+    getAllProjects(JSON.parse(user).id)
       .then((data) => {
         setLoading(false);
-        setAllprojects(data);
-        setProjects(data.filter((item, id) => id < 4));
+
+        if (defaultValue) {
+          const selectedProject = data.filter(
+            (project) => project.id === defaultValue
+          );
+          const unselectedProject = data.filter(
+            (project) => project.id !== defaultValue
+          );
+          setProjects(
+            selectedProject.concat(
+              unselectedProject.filter((item, id) => id < 2)
+            )
+          );
+          setAllprojects(selectedProject.concat(unselectedProject));
+        } else {
+          setProjects(data.filter((item, id) => id < 3));
+          setAllprojects(data);
+        }
+        setType(defaultValue ? defaultValue : data[0].id);
+        handleChange('project_id')(
+          defaultValue ? defaultValue.toString() : data[0].id.toString()
+        );
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    !defaultValue && getPojects();
+    getPojects();
   }, []);
 
   useEffect(() => {
     if (showmore === 'chevron-down-circle') {
-      setProjects(allprojects.filter((item, id) => id < 4));
+      setProjects(allprojects.filter((item, id) => id < 3));
     } else {
       setProjects(allprojects);
     }
   }, [showmore]);
 
-  const [type, setType] = useState(0);
   return (
     <View style={style.container}>
       <View style={[style.wrapper, defaultValue ? style.padNone : null]}>
-        {defaultValue ? (
-          <Text style={style.text}>
-            Project :{' '}
-            <Text style={{ color: colors.primary }}>{defaultValue}</Text>
-          </Text>
-        ) : (
-          <>
-            <View style={style.moreContainer}>
-              <Text style={[style.text, style.padNone]}>
-                Choose a Project *
+        <>
+          <View style={style.moreContainer}>
+            <Text style={[style.text, style.padNone]}>Choose a Project</Text>
+            <View style={style.row}>
+              <Text style={myRequestsStyle.history}>
+                {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
               </Text>
-              <View style={style.row}>
-                <Text style={myRequestsStyle.history}>Show more</Text>
-                <View style={myRequestsStyle.gap}></View>
-                <TouchableOpacity
-                  onPress={() =>
-                    setShowmore(
-                      showmore === 'chevron-up-circle'
-                        ? 'chevron-down-circle'
-                        : 'chevron-up-circle'
-                    )
+              <View style={myRequestsStyle.gap}></View>
+              <TouchableOpacity
+                onPress={() =>
+                  setShowmore(
+                    showmore === 'chevron-up-circle'
+                      ? 'chevron-down-circle'
+                      : 'chevron-up-circle'
+                  )
+                }
+                disabled={allprojects.length < 5}
+              >
+                <AppIcon
+                  name={showmore}
+                  size={25}
+                  color={
+                    showmore !== 'chevron-up-circle'
+                      ? allprojects.length < 5
+                        ? colors.secondary
+                        : colors.primary
+                      : colors.secondary
                   }
-                  disabled={allprojects.length < 5}
-                >
-                  <AppIcon
-                    name={showmore}
-                    size={25}
-                    color={
-                      showmore !== 'chevron-up-circle'
-                        ? allprojects.length < 5
-                          ? colors.secondary
-                          : colors.primary
-                        : colors.secondary
-                    }
-                  />
-                </TouchableOpacity>
-              </View>
+                />
+              </TouchableOpacity>
             </View>
-            {loading && <ProjectPlaceHolder />}
-            <View style={style.body}>
-              {projects &&
-                projects.map((project, index) => (
-                  <>
-                    <TouchableOpacity
-                      key={project.id}
-                      onPress={() => {
-                        setType(project.id),
-                          handleChange('project_id')(project.id.toString());
-                      }}
-                      style={style.button}
-                    >
-                      <View
-                        style={
-                          type === project.id
-                            ? style.paidView
-                            : style.floatingView
-                        }
-                      >
-                        <View style={style.icon}>
-                          {type === project.id && (
-                            <Icon
-                              name="check-circle"
-                              color={color.primary}
-                              size={17}
-                              style={{ marginRight: 6 }}
-                            />
-                          )}
-                        </View>
-                        <Text
-                          style={
-                            type === project.id
-                              ? style.buttonTextPaid
-                              : style.buttonTextFloat
-                          }
-                        >
-                          {project.name}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                    {index % 2 === 0 && <View style={style.spacer}></View>}
-                  </>
-                ))}
-            </View>
-          </>
-        )}
+          </View>
+          {loading && <ProjectPlaceHolder />}
+          <View style={style.body}>
+            {projects &&
+              projects.map((project, index) => (
+                <>
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      setType(project.id),
+                        handleChange('project_id')(project.id.toString());
+                    }}
+                    style={style.projectbutton}
+                  >
+                    <SelectButton
+                      text={project.name}
+                      active={type === project.id}
+                    />
+                  </TouchableOpacity>
+                  {index % 3 !== 2 && <View style={style.spacer}></View>}
+                </>
+              ))}
+          </View>
+        </>
         {error.project_id && touched.project_id && (
           <Text style={descriptionStyle.error}>{error.project_id}</Text>
         )}

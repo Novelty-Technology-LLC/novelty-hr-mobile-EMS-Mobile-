@@ -4,7 +4,7 @@ import CalendarStrip from 'react-native-calendar-strip';
 import colors from '../../../assets/colors';
 import { calenderStyle as style } from '../../../assets/styles';
 import moment from 'moment';
-import { momentdate } from '../../utils/momentDate';
+import { formatDate } from '../../utils';
 
 const Calendar = ({
   handleChange,
@@ -16,12 +16,14 @@ const Calendar = ({
   other?: boolean;
 }) => {
   const datesBlacklistFunc = (date) => {
-    if (defaultValue) {
-      return momentdate(date, 'llll') !== momentdate(defaultValue, 'llll');
-    } else {
-      return new Date(date) > new Date();
-    }
+    return new Date(date) > new Date();
   };
+
+  const startingDate = defaultValue
+    ? moment(defaultValue ? defaultValue : null)
+        .startOf('week')
+        .format('YYYY-MM-DD')
+    : moment().startOf('week').format('YYYY-MM-DD');
 
   const [date, setDate] = useState(
     defaultValue ? moment(defaultValue).format('l') : moment().format('l')
@@ -30,7 +32,7 @@ const Calendar = ({
   const onDateSelect = (date: any) => {
     const result = moment(date).format();
     setDate(result);
-    const resDate = moment(result).format('L');
+    const resDate = formatDate(moment(result).format('L'));
     if (other) {
       handleChange(resDate);
     } else {
@@ -53,7 +55,8 @@ const Calendar = ({
           borderHighlightColor: 'white',
         }}
         style={style.main}
-        numDaysInWeek={6}
+        startingDate={startingDate}
+        numDaysInWeek={7}
         calendarHeaderStyle={style.header}
         calendarColor={colors.white}
         dateNumberStyle={style.number}
@@ -69,7 +72,7 @@ const Calendar = ({
         onDateSelected={(date) => {
           onDateSelect(date);
         }}
-        datesBlacklist={datesBlacklistFunc}
+        // datesBlacklist={datesBlacklistFunc}
       />
     </View>
   );

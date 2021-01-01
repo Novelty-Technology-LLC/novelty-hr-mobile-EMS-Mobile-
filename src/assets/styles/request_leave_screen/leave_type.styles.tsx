@@ -5,19 +5,23 @@ import colors from '../../colors';
 import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
-  container: { borderBottomWidth: 1, borderBottomColor: colors.border },
+  container: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
   wrapper: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginHorizontal: normalize(20),
-    paddingTop: normalize(20),
-    paddingBottom: normalize(20),
+    marginHorizontal: normalize(15),
+    paddingTop: normalize(10),
   },
   padNone: {
     paddingBottom: normalize(0),
     marginBottom: normalize(0),
+    marginHorizontal: normalize(15),
+    paddingTop: normalize(10),
   },
   text: {
     fontFamily: fonts.poppinsMedium,
@@ -40,82 +44,32 @@ const leaveType = StyleSheet.create({
     width: '48%',
     marginBottom: normalize(15),
   },
-
-  paidView: {
-    display: 'flex',
+  editdate: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: normalize(15),
-    backgroundColor: colors.buttonOrange,
-    borderRadius: normalize(3),
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  projectbutton: {
     ...Platform.select({
       ios: {
-        paddingHorizontal: normalize(20),
-        borderRadius: normalize(3),
+        width: '31%',
       },
       android: {
-        borderRadius: normalize(4),
+        width: '32%',
       },
     }),
+    marginBottom: normalize(15),
   },
+
   spacer: {
     ...Platform.select({
       ios: {
+        paddingHorizontal: normalize(3),
+      },
+      android: {
         paddingHorizontal: normalize(5),
       },
-      android: {
-        paddingHorizontal: normalize(8),
-      },
     }),
-  },
-
-  floatingView: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: normalize(15),
-    backgroundColor: colors.buttonGrey,
-    ...Platform.select({
-      ios: {
-        paddingHorizontal: normalize(20),
-        borderRadius: normalize(3),
-      },
-      android: {
-        borderRadius: normalize(4),
-      },
-    }),
-  },
-
-  icon: {
-    height: 20,
-    width: 25,
-    ...Platform.select({
-      android: {
-        marginTop: normalize(5),
-      },
-      ios: {
-        marginTop: normalize(2),
-      },
-    }),
-  },
-  buttonTextPaid: {
-    fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
-    color: colors.fontOrange,
-  },
-  buttonTextFloat: {
-    fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
-    color: colors.fontGrey,
-  },
-  buttonPaid: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  buttonFloat: {
-    fontSize: normalize(theme.size.sm),
   },
 
   moreContainer: {

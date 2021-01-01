@@ -1,11 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { BackHandler, Text, TouchableOpacity, View } from 'react-native';
 import { loginStyle as style } from '../../../assets/styles';
 import LoginWrapper from './loginWrapper';
 
 const Invalid = () => {
   const navigation = useNavigation();
+  const onBackPress = () => {
+    navigation.navigate('login');
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
 
   return (
     <LoginWrapper>
@@ -15,10 +26,7 @@ const Invalid = () => {
           Technology.
         </Text>
       </View>
-      <TouchableOpacity
-        style={style.login}
-        onPress={() => navigation.navigate('login')}
-      >
+      <TouchableOpacity style={style.login} onPress={() => onBackPress()}>
         <Text style={style.buttonText}>Login with other email</Text>
       </TouchableOpacity>
     </LoginWrapper>

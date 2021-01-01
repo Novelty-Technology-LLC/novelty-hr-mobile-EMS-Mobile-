@@ -132,8 +132,8 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "1.2.1"
+        versionCode 39
+        versionName "1.4.0"
     }
     splits {
         abi {
@@ -229,6 +229,7 @@ dependencies {
 android {
     defaultConfig {
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
 }
 // Run this once to be able to run the application with BUCK

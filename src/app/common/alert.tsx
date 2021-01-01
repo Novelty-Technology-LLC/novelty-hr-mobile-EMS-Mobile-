@@ -1,6 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import Dialog from 'react-native-dialog';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
 import { deleteAlertStyle } from '../../assets/styles';
 
 const Alert = ({
@@ -10,26 +9,22 @@ const Alert = ({
 }: {
   showAlert: boolean;
   setShowAlert: Function;
-  children: Object;
+  children: string;
 }) => {
   return (
-    <Dialog.Container
+    <ConfirmDialog
+      title={children}
       visible={showAlert}
-      contentStyle={deleteAlertStyle.dialogContainer}
-    >
-      <View style={deleteAlertStyle.container}>
-        <View style={deleteAlertStyle.main}>
-          <Dialog.Title style={deleteAlertStyle.text1}>{children}</Dialog.Title>
-        </View>
-      </View>
-      <View style={deleteAlertStyle.buttons}>
-        <Dialog.Button
-          label="OK"
-          onPress={() => setShowAlert(false)}
-          style={deleteAlertStyle.delete}
-        />
-      </View>
-    </Dialog.Container>
+      contentStyle={{ display: 'none' }}
+      dialogStyle={{ borderRadius: 5 }}
+      onTouchOutside={() => setShowAlert(false)}
+      titleStyle={deleteAlertStyle.text1}
+      positiveButton={{
+        titleStyle: deleteAlertStyle.delete,
+        title: 'OK',
+        onPress: () => setShowAlert(false),
+      }}
+    ></ConfirmDialog>
   );
 };
 
