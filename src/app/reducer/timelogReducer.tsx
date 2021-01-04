@@ -39,6 +39,16 @@ const TimeLogReducer = (prevState, action) => {
           ? action.payload.historyDate
           : { ...prevState.historyDate },
       };
+
+    case 'SET_PAST':
+      return {
+        ...prevState,
+        past: [...action.payload.past],
+        historyDate: action.payload.historyDate
+          ? action.payload.historyDate
+          : { ...prevState.historyDate },
+      };
+
     case 'RESET':
       return {
         ...prevState,
