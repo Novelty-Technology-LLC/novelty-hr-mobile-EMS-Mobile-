@@ -46,25 +46,6 @@ export const checkunder24Hrs = (duration) => {
   return duration > 1440 ? false : true;
 };
 
-export const getDateWithOutTimeZone = (date) => {
-  return new Date(
-    date.getFullYear() +
-      '-' +
-      (parseInt(date.getMonth()) + 1) +
-      '-' +
-      `${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`
-  );
-};
-
-export const getHrsToday = (arr) => {
-  const today = arr.filter(
-    (item) =>
-      new Date(item.log_date).toDateString() ===
-      getDateWithOutTimeZone(new Date()).toDateString()
-  );
-  return totalWeekHours(today);
-};
-
 function isEmpty(obj) {
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) return false;
@@ -100,6 +81,20 @@ export const getStringDate = (modalDate: Date) => {
     ','
   )[0];
 };
+
+// export const getDateWithOutTimeZone = (date) => {
+//   const month =
+//     date.getMonth() > 9
+//       ? parseInt(date.getMonth() + 1)
+//       : '0' + parseInt(date.getMonth() + 1);
+//   return new Date(
+//     date.getFullYear() +
+//       '-' +
+//       month +
+//       '-' +
+//       `${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`
+//   );
+// };
 
 export const stringifyDate = (date: Date) => {
   return momentdate(JSON.stringify(date).substring(1, 11), 'lll').substring(
