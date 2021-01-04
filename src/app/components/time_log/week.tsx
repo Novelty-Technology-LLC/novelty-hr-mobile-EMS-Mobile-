@@ -5,12 +5,11 @@ import { EmptyContainer, SmallHeader } from '../../common';
 import HistoryToggle from '../../common/historyToggle';
 import { UserPlaceHolder } from '../loader';
 import { TimeLog } from './timelog';
-import { myRequestsStyle as style } from '../../../assets/styles';
-import { DropDown } from '../../common';
 import { TimeLogContext } from '../../reducer';
 import { getUser, groupBydate, groupByproject } from '../../utils';
 import { getFilteredTimeLogs } from '../../services/timeLogService';
 import { thisWeek } from '../../utils/dateFilter';
+import DropDownView from './dropDown';
 
 const Week = ({
   loading,
@@ -40,7 +39,6 @@ const Week = ({
           : groupBydate([...timelogs.past])
       )
     );
-    if (timelogs.past.length === 0) setToggle('toggle-switch-off');
   }, [timelogs.past]);
 
   useEffect(() => {
@@ -53,7 +51,7 @@ const Week = ({
     }
   }, [toggle]);
 
-  const getLogs = async (filter: any) => {
+  const getLogs = async (filter: any, past?: boolean) => {
     sethistoryLoading(true);
     try {
       const user: any = await getUser();
@@ -62,14 +60,25 @@ const Week = ({
         filter
       );
       if (historyLogs) {
-        dispatchTimeLog({
-          type: 'CHANGE',
-          payload: {
-            present: timelogs.present,
-            past: [...historyLogs],
-            historyDate: filter,
-          },
-        });
+        if (past) {
+          dispatchTimeLog({
+            type: 'SET_PAST',
+            payload: {
+              past: [...historyLogs],
+              historyDate: filter,
+            },
+          });
+        } else {
+          dispatchTimeLog({
+            type: 'CHANGE',
+            payload: {
+              present: timelogs.present,
+              past: [...historyLogs],
+              historyDate: filter,
+            },
+          });
+        }
+
         sethistoryLoading(false);
       }
     } catch (error) {
@@ -80,15 +89,6 @@ const Week = ({
   useEffect(() => {
     setToggle('toggle-switch-off');
   }, [refreshing]);
-
-  const weekOptions = [
-    { label: 'This week', value: 'This week', key: '1' },
-    { label: 'Past week', value: 'Past week', key: '2' },
-  ];
-  const groupByOptions = [
-    { label: 'Date', value: 'Date', key: '1' },
-    { label: 'Project', value: 'Project', key: '2' },
-  ];
 
   return (
     <>
@@ -101,55 +101,48 @@ const Week = ({
         {loading ? (
           <UserPlaceHolder />
         ) : toggle === 'toggle-switch' ? (
-          weeksLogs[0] ? (
-            <>
-              <View style={style.dropDownView}>
-                <DropDown
-                  options={weekOptions}
-                  type="week"
+          <>
+            {weeksLogs[0] ? (
+              <>
+                {historyLoading ? (
+                  <UserPlaceHolder />
+                ) : (
+                  <>
+                    <DropDownView
+                      getLogs={getLogs}
+                      setWeeksLogs={setWeeksLogs}
+                      groupby={groupby}
+                      setGroupby={setGroupby}
+                      week={week}
+                      setWeek={setWeek}
+                    />
+                    {weeksLogs.map((log) => (
+                      <TimeLog
+                        key={log.id}
+                        item={log}
+                        thisweek={true}
+                        groupby={groupby}
+                      />
+                    ))}
+                  </>
+                )}
+              </>
+            ) : !weeksLogs[0] && historyLoading ? (
+              <UserPlaceHolder />
+            ) : (
+              <>
+                <DropDownView
+                  getLogs={getLogs}
+                  setWeeksLogs={setWeeksLogs}
+                  groupby={groupby}
+                  setGroupby={setGroupby}
                   week={week}
-                  onChange={async (filter: any, val: any) => {
-                    getLogs(filter);
-                    setWeek(val);
-                  }}
+                  setWeek={setWeek}
                 />
-                <View style={style.dropDown}></View>
-                <DropDown
-                  options={groupByOptions}
-                  type="group"
-                  group={groupby}
-                  onChange={(val: string) => {
-                    setGroupby(val);
-                    if (val === 'Date') {
-                      setWeeksLogs([
-                        ...Object.entries(groupBydate(timelogs.past)),
-                      ]);
-                    } else {
-                      setWeeksLogs([
-                        ...Object.entries(groupByproject(timelogs.past)),
-                      ]);
-                    }
-                  }}
-                />
-              </View>
-              {historyLoading ? (
-                <UserPlaceHolder />
-              ) : (
-                weeksLogs.map((log) => (
-                  <TimeLog
-                    key={log.id}
-                    item={log}
-                    thisweek={true}
-                    groupby={groupby}
-                  />
-                ))
-              )}
-            </>
-          ) : !weeksLogs[0] && historyLoading ? (
-            <UserPlaceHolder />
-          ) : (
-            <EmptyContainer text="You don't have past logs." />
-          )
+                <EmptyContainer text="You don't have past logs." />
+              </>
+            )}
+          </>
         ) : null}
       </View>
     </>
