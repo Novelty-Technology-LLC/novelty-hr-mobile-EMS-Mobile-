@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { checkRepeat } from './getQuota';
+import { stringifyDate } from './timelog';
 
 export const momentdate = (date?: Date, format?: string) => {
   if (date) {
@@ -18,10 +19,7 @@ export const getToday = () => {
 };
 
 export const checkDate = (date: any, selectDate: any) => {
-  return (
-    moment(date).format('YYYY-MM-DD') ===
-    moment(selectDate).format('YYYY-MM-DD')
-  );
+  return stringifyDate(date) === stringifyDate(selectDate);
 };
 
 export const isThisWeek = (item) => {
