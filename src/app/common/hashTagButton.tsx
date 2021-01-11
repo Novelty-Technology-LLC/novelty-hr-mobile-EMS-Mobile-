@@ -1,8 +1,8 @@
 import React from 'react';
-import { selectButtonStyle as style } from '../../assets/styles';
+import { hashtagStyle as style } from '../../assets/styles';
 import { View, Text } from 'react-native';
 
-const SelectButton = ({ text, active }: { text: string; active: Boolean }) => {
+const HashTagButton = ({ text, active }: { text: string; active: Boolean }) => {
   return (
     <View style={active ? style.paidView : style.floatingView}>
       <Text style={active ? style.buttonTextPaid : style.buttonTextFloat}>
@@ -12,4 +12,4 @@ const SelectButton = ({ text, active }: { text: string; active: Boolean }) => {
   );
 };
 
-export { SelectButton };
+export { HashTagButton };

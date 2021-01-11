@@ -43,6 +43,7 @@ const LogTime = ({ route }: any) => {
     duration: olddata && olddata.item ? olddata.item.time : '60',
     project_id: olddata ? olddata.project_id : '',
     note: olddata && olddata.item ? olddata.item.task : '',
+    hashtag: olddata && olddata.item ? olddata.item.hashtag : [],
   };
 
   const validationSchema = Yup.object().shape({
@@ -55,6 +56,7 @@ const LogTime = ({ route }: any) => {
       .required('Project is required')
       .label('project_id'),
     note: Yup.string().required('Task summary is required').label('note'),
+    hashtag: Yup.array().label('hashtag'),
   });
 
   const onSubmit = async (values) => {

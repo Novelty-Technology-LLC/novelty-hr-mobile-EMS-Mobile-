@@ -70,6 +70,8 @@ const Time = ({
             }}
             data={hrdata}
             selectedItemTextSize={24}
+            indicatorColor="#f2f2f2"
+            backgroundColor="#f2f2f2"
           />
           <View style={style.timeSeparator}>
             <Text style={style.colon}></Text>
@@ -87,6 +89,8 @@ const Time = ({
             }}
             data={mindata}
             selectedItemTextSize={24}
+            indicatorColor="#f2f2f2"
+            backgroundColor="#f2f2f2"
           />
         </View>
       </View>

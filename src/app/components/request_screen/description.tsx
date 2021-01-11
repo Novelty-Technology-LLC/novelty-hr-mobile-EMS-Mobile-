@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Textarea from 'react-native-textarea';
 import { descriptionStyle as style } from '../../../assets/styles';
-
-const hashtag = [
-  {
-    label: '#meeting',
-    value: '#meeting',
-    key: '1',
-  },
-  {
-    label: '#discussion',
-    value: '#discussion',
-    key: '2',
-  },
-  {
-    label: '#R&D',
-    value: '#R&D',
-    key: '3',
-  },
-];
+import { HashTagButton } from '../../common';
+import { ProjectPlaceHolder } from '../loader';
 
 const Description = ({
   handleChange,
@@ -39,27 +23,57 @@ const Description = ({
   touched?: any;
   values?: any;
 }) => {
-  const [hash, sethash] = useState('');
-  const append = (item: any) => {
-    sethash(item.value);
-    values.note = values.note + item.value;
-  };
+  const [type, setType] = useState(0);
+  const [loading, setloading] = useState(false);
+  const [hashtag, setHashtag] = useState([
+    {
+      label: '#meeting',
+      value: '#meeting',
+      isSelected: false,
+      key: '1',
+    },
+    {
+      label: '#discussion',
+      value: '#discussion',
+      key: '2',
+      isSelected: false,
+    },
+    {
+      label: '#R&D',
+      value: '#R&D',
+      key: '3',
+      isSelected: false,
+    },
+  ]);
 
   return (
     <View>
       <View style={[style.main, editlog ? { marginTop: 0 } : {}]}>
         <Text style={style.text}>{timelog ? 'Task summary' : 'Note'}</Text>
         {timelog && (
-          <View style={style.hashtag}>
-            {hashtag.map((item) => (
-              <TouchableWithoutFeedback
-                onPress={() => append(item)}
-                key={item.key}
-              >
-                <Text style={style.hashtagLabel}>{item.label}</Text>
-              </TouchableWithoutFeedback>
-            ))}
-          </View>
+          <>
+            <View style={style.hashtag}>
+              {loading && <ProjectPlaceHolder />}
+              {hashtag.map((item, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    item.isSelected = !item.isSelected;
+                    setType(0),
+                      handleChange('hashtag')(
+                        JSON.stringify(
+                          hashtag
+                            .filter((item) => item.isSelected === true)
+                            .map((item) => item.value)
+                        )
+                      );
+                  }}
+                >
+                  <HashTagButton text={item.label} active={item.isSelected} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </>
         )}
         <Textarea
           containerStyle={

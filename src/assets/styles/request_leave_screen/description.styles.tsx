@@ -11,15 +11,30 @@ const descriptionStyle = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexWrap: 'wrap',
+    paddingVertical: normalize(5),
   },
   hashtagLabel: {
-    color: color.hashtag,
-    marginTop: normalize(5),
+    color: color.white,
+    backgroundColor: color.primary,
+    padding: normalize(8),
+    ...Platform.select({
+      ios: {
+        borderRadius: normalize(17),
+      },
+      android: {
+        borderRadius: normalize(18),
+      },
+    }),
+    borderWidth: 1,
+    overflow: 'hidden',
+    borderColor: color.primary,
   },
   main: {
-    marginTop: normalize(10),
+    marginTop: normalize(20),
     paddingBottom: normalize(10),
     marginHorizontal: normalize(15),
+    borderTopColor: color.border,
+    borderTopWidth: 1,
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
