@@ -72,9 +72,8 @@ const Time = ({
             selectedItemTextSize={24}
           />
           <View style={style.timeSeparator}>
-            <Text style={style.colon}>:</Text>
+            <Text style={style.colon}></Text>
           </View>
-
           <WheelPicker
             selectedItem={minIndex}
             style={style.iospicker}

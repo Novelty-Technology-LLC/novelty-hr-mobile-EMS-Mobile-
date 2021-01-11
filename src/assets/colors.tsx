@@ -17,4 +17,5 @@ export default {
   fontBlack: '#383838',
   requested: '#EA8320',
   red: '#ff0000',
+  hashtag: '#3385ff',
 };

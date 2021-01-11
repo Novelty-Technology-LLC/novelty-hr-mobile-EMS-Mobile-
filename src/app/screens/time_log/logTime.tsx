@@ -56,6 +56,7 @@ const LogTime = ({ route }: any) => {
       .label('project_id'),
     note: Yup.string().required('Task summary is required').label('note'),
   });
+
   const onSubmit = async (values) => {
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
@@ -159,13 +160,13 @@ const LogTime = ({ route }: any) => {
                 error={errors}
                 touched={touched}
               />
-
               <Description
                 handleChange={handleChange}
                 timelog={true}
                 defaultValue={olddata && olddata.item && olddata.item.task}
                 error={errors}
                 touched={touched}
+                values={values}
               />
               <Button onPress={() => !isLoading && handleSubmit()}>
                 <View
