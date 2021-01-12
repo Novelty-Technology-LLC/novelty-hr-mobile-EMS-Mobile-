@@ -8,26 +8,10 @@ const descriptionStyle = StyleSheet.create({
   hashtag: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexWrap: 'wrap',
     paddingVertical: normalize(5),
-  },
-  hashtagLabel: {
-    color: color.white,
-    backgroundColor: color.primary,
-    padding: normalize(8),
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(17),
-      },
-      android: {
-        borderRadius: normalize(18),
-      },
-    }),
-    borderWidth: 1,
-    overflow: 'hidden',
-    borderColor: color.primary,
   },
   main: {
     marginTop: normalize(20),
@@ -113,6 +97,13 @@ const descriptionStyle = StyleSheet.create({
   },
   timeSeparator: {
     width: '10%',
+    ...Platform.select({
+      ios: { marginBottom: normalize(40), paddingLeft: normalize(8) },
+      android: {
+        marginBottom: normalize(30),
+        paddingLeft: normalize(10),
+      },
+    }),
   },
   colon: {
     fontSize: normalize(24),

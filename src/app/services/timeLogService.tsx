@@ -79,3 +79,14 @@ export const submitTimeLog = (
     }
   });
 };
+
+export const getHash = (params) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/timelog/check/${params}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};

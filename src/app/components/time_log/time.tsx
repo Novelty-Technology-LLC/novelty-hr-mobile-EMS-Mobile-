@@ -7,6 +7,7 @@ import {
 
 import { WheelPicker } from 'react-native-wheel-picker-android';
 import { getHrsMins } from '../../utils';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Time = ({
   handleChange,
@@ -74,7 +75,7 @@ const Time = ({
             backgroundColor="#f2f2f2"
           />
           <View style={style.timeSeparator}>
-            <Text style={style.colon}></Text>
+            <Icon name="swap-vertical" size={20} />
           </View>
           <WheelPicker
             selectedItem={minIndex}

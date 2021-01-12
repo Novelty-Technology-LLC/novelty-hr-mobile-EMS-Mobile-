@@ -12,13 +12,18 @@ const hashtagStyle = StyleSheet.create({
     paddingVertical: normalize(6),
     paddingHorizontal: normalize(10),
     backgroundColor: colors.buttonOrange,
+
     borderRadius: normalize(3),
     ...Platform.select({
       ios: {
         borderRadius: normalize(3),
+        marginBottom: normalize(2),
+        marginLeft: normalize(2),
       },
       android: {
         borderRadius: normalize(4),
+        marginBottom: normalize(4),
+        marginLeft: normalize(4),
       },
     }),
   },
@@ -29,13 +34,18 @@ const hashtagStyle = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: normalize(6),
     paddingHorizontal: normalize(10),
+
     backgroundColor: colors.buttonGrey,
     ...Platform.select({
       ios: {
         borderRadius: normalize(3),
+        marginBottom: normalize(2),
+        marginLeft: normalize(2),
       },
       android: {
         borderRadius: normalize(4),
+        marginBottom: normalize(4),
+        marginLeft: normalize(4),
       },
     }),
   },

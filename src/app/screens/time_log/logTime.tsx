@@ -62,6 +62,7 @@ const LogTime = ({ route }: any) => {
   const onSubmit = async (values) => {
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
+    values.hashtag = JSON.parse(values.hashtag);
 
     const dataObj = {
       old: olddata && olddata.id ? olddata : null,
@@ -166,6 +167,7 @@ const LogTime = ({ route }: any) => {
                 handleChange={handleChange}
                 timelog={true}
                 defaultValue={olddata && olddata.item && olddata.item.task}
+                updatehashtag={olddata && olddata.hashtag}
                 error={errors}
                 touched={touched}
                 values={values}

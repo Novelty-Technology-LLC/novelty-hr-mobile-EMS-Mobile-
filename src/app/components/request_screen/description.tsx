@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Textarea from 'react-native-textarea';
 import { descriptionStyle as style } from '../../../assets/styles';
 import { HashTagButton } from '../../common';
 import { ProjectPlaceHolder } from '../loader';
+import { getHash } from '../../services/timeLogService';
 
 const Description = ({
   handleChange,
@@ -14,6 +15,7 @@ const Description = ({
   error,
   touched,
   values,
+  updatehashtag,
 }: {
   handleChange: Function;
   defaultValue?: string;
@@ -22,29 +24,36 @@ const Description = ({
   error?: any;
   touched?: any;
   values?: any;
+  updatehashtag?: any;
 }) => {
   const [type, setType] = useState(0);
   const [loading, setloading] = useState(false);
-  const [hashtag, setHashtag] = useState([
-    {
-      label: '#meeting',
-      value: '#meeting',
-      isSelected: false,
-      key: '1',
-    },
-    {
-      label: '#discussion',
-      value: '#discussion',
-      key: '2',
-      isSelected: false,
-    },
-    {
-      label: '#R&D',
-      value: '#R&D',
-      key: '3',
-      isSelected: false,
-    },
-  ]);
+  const [hashtag, setHashtag] = useState([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const response = await getHash('timelogHashtag');
+      const mapData =
+        updatehashtag !== null
+          ? response.hashtags.map((item) => {
+              if (updatehashtag.includes(item.value)) {
+                return {
+                  ...item,
+                  isSelected: true,
+                };
+              }
+              return item;
+            })
+          : response.hashtags.map((item) => {
+              return {
+                ...item,
+                isSelected: false,
+              };
+            });
+      setHashtag(mapData);
+    };
+    fetch();
+  }, [updatehashtag]);
 
   return (
     <View>
@@ -54,24 +63,25 @@ const Description = ({
           <>
             <View style={style.hashtag}>
               {loading && <ProjectPlaceHolder />}
-              {hashtag.map((item, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    item.isSelected = !item.isSelected;
-                    setType(0),
-                      handleChange('hashtag')(
-                        JSON.stringify(
-                          hashtag
-                            .filter((item) => item.isSelected === true)
-                            .map((item) => item.value)
-                        )
-                      );
-                  }}
-                >
-                  <HashTagButton text={item.label} active={item.isSelected} />
-                </TouchableOpacity>
-              ))}
+              {hashtag.length > 0 &&
+                hashtag.map((item, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      item.isSelected = !item.isSelected;
+                      setType(0),
+                        handleChange('hashtag')(
+                          JSON.stringify(
+                            hashtag
+                              .filter((item) => item.isSelected === true)
+                              .map((item) => item.value)
+                          )
+                        );
+                    }}
+                  >
+                    <HashTagButton text={item.label} active={item.isSelected} />
+                  </TouchableOpacity>
+                ))}
             </View>
           </>
         )}
