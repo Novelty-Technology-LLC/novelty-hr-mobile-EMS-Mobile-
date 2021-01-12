@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Textarea from 'react-native-textarea';
 import { descriptionStyle as style } from '../../../assets/styles';
 import { HashTagButton } from '../../common';
-import { ProjectPlaceHolder } from '../loader';
+import { HashtagPlaceHolder } from '../loader';
 import { getHash } from '../../services/timeLogService';
 
 const Description = ({
@@ -32,25 +32,31 @@ const Description = ({
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await getHash('timelogHashtag');
-      const mapData =
-        updatehashtag !== null
-          ? response.hashtags.map((item) => {
-              if (updatehashtag.includes(item.value)) {
+      try {
+        setloading(true);
+        const response = await getHash('timelogHashtag');
+        const mapData =
+          updatehashtag !== null
+            ? response.hashtags.map((item) => {
+                if (updatehashtag.includes(item.value)) {
+                  return {
+                    ...item,
+                    isSelected: true,
+                  };
+                }
+                return item;
+              })
+            : response.hashtags.map((item) => {
                 return {
                   ...item,
-                  isSelected: true,
+                  isSelected: false,
                 };
-              }
-              return item;
-            })
-          : response.hashtags.map((item) => {
-              return {
-                ...item,
-                isSelected: false,
-              };
-            });
-      setHashtag(mapData);
+              });
+        setHashtag(mapData);
+        setloading(false);
+      } catch (error) {
+        setloading(false);
+      }
     };
     fetch();
   }, [updatehashtag]);
@@ -62,7 +68,7 @@ const Description = ({
         {timelog && (
           <>
             <View style={style.hashtag}>
-              {loading && <ProjectPlaceHolder />}
+              {loading && <HashtagPlaceHolder />}
               {hashtag.length > 0 &&
                 hashtag.map((item, index) => (
                   <TouchableOpacity
@@ -91,7 +97,7 @@ const Description = ({
           }
           style={style.textArea}
           maxLength={200}
-          defaultValue={defaultValue ? defaultValue : values.note}
+          defaultValue={defaultValue ? defaultValue : values?.note}
           placeholder={
             timelog
               ? 'Write a short summary about your task..'
