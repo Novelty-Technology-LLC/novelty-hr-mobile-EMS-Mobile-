@@ -40,10 +40,10 @@ const LogTime = ({ route }: any) => {
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
-    duration: olddata && olddata.item ? olddata.item.time : '60',
-    project_id: olddata ? olddata.project_id : '',
-    note: olddata && olddata.item ? olddata.item.task : '',
-    hashtag: olddata && olddata.item ? olddata.item.hashtag : [],
+    duration: olddata?.item?.time ?? '60',
+    project_id: olddata?.project_id ?? '',
+    note: olddata?.item?.task ?? '',
+    hashtag: olddata?.item?.hashtag ?? [],
   };
 
   const validationSchema = Yup.object().shape({
