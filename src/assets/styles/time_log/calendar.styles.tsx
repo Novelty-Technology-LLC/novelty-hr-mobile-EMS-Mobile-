@@ -4,10 +4,6 @@ import colors from '../../colors';
 import { fonts, theme } from '../theme';
 
 const calenderStyle = StyleSheet.create({
-  // container: {
-  //   borderBottomColor: colors.border,
-  //   borderBottomWidth: 1,
-  // },
   icon: {
     alignItems: 'center',
     justifyContent: 'center',
