@@ -6,6 +6,8 @@ import { descriptionStyle as style } from '../../../assets/styles';
 import { HashTagButton } from '../../common';
 import { HashtagPlaceHolder } from '../loader';
 import { getHash } from '../../services/timeLogService';
+import color from '../../../assets/colors';
+import normalize from 'react-native-normalize';
 
 const Description = ({
   handleChange,
@@ -62,8 +64,22 @@ const Description = ({
   }, [updatehashtag]);
 
   return (
-    <View>
-      <View style={[style.main, editlog ? { marginTop: 0 } : {}]}>
+    <View
+      style={
+        timelog && {
+          borderTopWidth: 1,
+          borderTopColor: color.border,
+          marginTop: normalize(15),
+        }
+      }
+    >
+      <View
+        style={[
+          style.main,
+          editlog ? { marginTop: 0 } : {},
+          timelog ? { marginTop: normalize(2) } : { marginTop: normalize(1) },
+        ]}
+      >
         <Text style={style.text}>{timelog ? 'Task summary' : 'Note'}</Text>
         {timelog && (
           <>

@@ -17,8 +17,6 @@ const descriptionStyle = StyleSheet.create({
     marginTop: normalize(20),
     paddingBottom: normalize(10),
     marginHorizontal: normalize(15),
-    borderTopColor: color.border,
-    borderTopWidth: 1,
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
