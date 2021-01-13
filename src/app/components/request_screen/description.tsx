@@ -112,7 +112,7 @@ const Description = ({
           }
           style={style.textArea}
           maxLength={200}
-          defaultValue={defaultValue ? defaultValue : values?.note}
+          defaultValue={defaultValue ?? values?.note}
           placeholder={
             timelog
               ? 'Write a short summary about your task..'
