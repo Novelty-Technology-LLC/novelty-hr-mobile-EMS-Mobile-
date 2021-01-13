@@ -20,7 +20,7 @@ const leaveType = StyleSheet.create({
   padNone: {
     paddingBottom: normalize(0),
     marginBottom: normalize(0),
-    marginHorizontal: normalize(15),
+    // marginHorizontal: normalize(15),
     paddingTop: normalize(10),
   },
   text: {

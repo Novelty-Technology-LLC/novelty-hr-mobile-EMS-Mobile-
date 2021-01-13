@@ -5,15 +5,30 @@ import { theme, fonts } from '../theme';
 const deviceHeight = Dimensions.get('window').height;
 
 const descriptionStyle = StyleSheet.create({
+  hashtag: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    paddingVertical: normalize(5),
+  },
   main: {
-    marginTop: normalize(10),
+    marginTop: normalize(20),
     paddingBottom: normalize(10),
     marginHorizontal: normalize(15),
   },
   pickerContainer: {
     marginHorizontal: normalize(20),
-    height: deviceHeight * 0.18,
-    marginTop: normalize(10),
+    overflow: 'hidden',
+    ...Platform.select({
+      android: {
+        height: deviceHeight * 0.13,
+      },
+      ios: {
+        height: deviceHeight * 0.1,
+      },
+    }),
   },
   modalPickerContainer: {
     marginHorizontal: normalize(15),
@@ -26,6 +41,7 @@ const descriptionStyle = StyleSheet.create({
   text: {
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),
+    marginTop: normalize(10),
   },
   textareaContainer: {
     height: normalize(140),
@@ -64,16 +80,28 @@ const descriptionStyle = StyleSheet.create({
     backgroundColor: color.grey,
     opacity: 0.8,
   },
+
   iospicker: {
     width: '40%',
     ...Platform.select({
       android: {
-        height: '200%',
+        height: '260%',
+      },
+      ios: {
+        height: '296%',
+        marginTop: -10,
       },
     }),
   },
   timeSeparator: {
     width: '10%',
+    ...Platform.select({
+      ios: { marginBottom: normalize(40), paddingLeft: normalize(8) },
+      android: {
+        marginBottom: normalize(30),
+        paddingLeft: normalize(10),
+      },
+    }),
   },
   colon: {
     fontSize: normalize(24),
@@ -83,9 +111,19 @@ const descriptionStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '70%',
     overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        height: '95%',
+        marginTop: normalize(10),
+      },
+      android: {
+        height: '76%',
+        marginTop: normalize(14),
+      },
+    }),
   },
+
   textArea: {
     height: normalize(130),
     textAlignVertical: 'top',

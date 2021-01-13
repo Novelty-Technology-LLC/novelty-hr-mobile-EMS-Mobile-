@@ -40,9 +40,10 @@ const LogTime = ({ route }: any) => {
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
-    duration: olddata && olddata.item ? olddata.item.time : '60',
-    project_id: olddata ? olddata.project_id : '',
-    note: olddata && olddata.item ? olddata.item.task : '',
+    duration: olddata?.item?.time ?? '60',
+    project_id: olddata?.project_id ?? '',
+    note: olddata?.item?.task ?? '',
+    hashtag: olddata?.item?.hashtag ?? [],
   };
 
   const validationSchema = Yup.object().shape({
@@ -55,10 +56,13 @@ const LogTime = ({ route }: any) => {
       .required('Project is required')
       .label('project_id'),
     note: Yup.string().required('Task summary is required').label('note'),
+    hashtag: Yup.array().label('hashtag'),
   });
+
   const onSubmit = async (values) => {
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
+    values.hashtag = JSON.parse(values.hashtag);
 
     const dataObj = {
       old: olddata && olddata.id ? olddata : null,
@@ -159,13 +163,14 @@ const LogTime = ({ route }: any) => {
                 error={errors}
                 touched={touched}
               />
-
               <Description
                 handleChange={handleChange}
                 timelog={true}
                 defaultValue={olddata && olddata.item && olddata.item.task}
+                updatehashtag={olddata && olddata.hashtag}
                 error={errors}
                 touched={touched}
+                values={values}
               />
               <Button onPress={() => !isLoading && handleSubmit()}>
                 <View

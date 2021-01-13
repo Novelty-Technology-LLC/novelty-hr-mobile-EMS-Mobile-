@@ -8,6 +8,7 @@ export * from './common/small_header.styles';
 export * from './common/empty_container.styles';
 export * from './common/select_button.styles';
 export * from './common/dialog_container.styles';
+export * from './common/hash_tag.styles';
 export * from './leave_screen/days_remaining.styles';
 export * from './leave_screen/leave_dashboard.styles';
 export * from './leave_screen/my_requests.styles';
