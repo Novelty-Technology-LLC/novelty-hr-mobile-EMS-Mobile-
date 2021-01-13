@@ -39,14 +39,13 @@ const Description = ({
         const response = await getHash('timelogHashtag');
         const mapData =
           updatehashtag !== null
-            ? response.hashtags.map((item) => {
-                if (updatehashtag.includes(item.value)) {
-                  return {
-                    ...item,
-                    isSelected: true,
-                  };
-                }
-                return item;
+            ? response.hashtags.map((item: any) => {
+                const hashtag = {
+                  ...item,
+                  isSelected:
+                    updatehashtag?.length && updatehashtag.includes(item.value),
+                };
+                return hashtag;
               })
             : response.hashtags.map((item) => {
                 return {
@@ -77,7 +76,7 @@ const Description = ({
         style={[
           style.main,
           editlog ? { marginTop: 0 } : {},
-          timelog ? { marginTop: normalize(2) } : { marginTop: normalize(1) },
+          { marginTop: normalize(timelog ? 2 : 1) },
         ]}
       >
         <Text style={style.text}>{timelog ? 'Task summary' : 'Note'}</Text>
@@ -95,7 +94,7 @@ const Description = ({
                         handleChange('hashtag')(
                           JSON.stringify(
                             hashtag
-                              .filter((item) => item.isSelected === true)
+                              .filter((item) => item.isSelected)
                               .map((item) => item.value)
                           )
                         );
@@ -124,7 +123,7 @@ const Description = ({
           name={timelog ? 'task' : 'note'}
           label={timelog ? 'task' : 'note'}
           onChangeText={(text: any) =>
-            error ? handleChange('note')(text) : handleChange('task')(text)
+            handleChange(error ? 'note' : 'task')(text)
           }
         />
         {error && touched && error.note && touched.note && (
