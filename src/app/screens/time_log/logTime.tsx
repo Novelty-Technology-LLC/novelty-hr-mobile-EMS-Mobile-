@@ -62,7 +62,8 @@ const LogTime = ({ route }: any) => {
   const onSubmit = async (values) => {
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
-    values.hashtag = JSON.parse(values.hashtag);
+
+    values.hashtag.length > 0 && (values.hashtag = JSON.parse(values.hashtag));
 
     const dataObj = {
       old: olddata && olddata.id ? olddata : null,

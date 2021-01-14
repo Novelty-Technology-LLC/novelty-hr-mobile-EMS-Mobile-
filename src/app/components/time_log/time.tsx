@@ -9,6 +9,19 @@ import { WheelPicker } from 'react-native-wheel-picker-android';
 import { getHrsMins } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
+const hrdata = [
+  '0 hr',
+  '1 hr',
+  '2 hrs',
+  '3 hrs',
+  '4 hrs',
+  '5 hrs',
+  '6 hrs',
+  '7 hrs',
+  '8 hrs',
+];
+
 const Time = ({
   handleChange,
   error,
@@ -24,19 +37,6 @@ const Time = ({
 }) => {
   const [hrIndex, setHrIndex] = useState(1);
   const [minIndex, setMinIndex] = useState(0);
-  const hrdata = [
-    '0 hr',
-    '1 hr',
-    '2 hrs',
-    '3 hrs',
-    '4 hrs',
-    '5 hrs',
-    '6 hrs',
-    '7 hrs',
-    '8 hrs',
-  ];
-
-  const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 
   useEffect(() => {
     if (defaultValue) {
