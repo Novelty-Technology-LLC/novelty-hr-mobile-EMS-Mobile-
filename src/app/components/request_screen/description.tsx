@@ -31,6 +31,7 @@ const Description = ({
   const [type, setType] = useState(0);
   const [loading, setloading] = useState(false);
   const [hashtag, setHashtag] = useState([]);
+  const [appendhashtag, setAppendHashtag] = useState([]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -98,6 +99,7 @@ const Description = ({
                               .map((item) => item.value)
                           )
                         );
+                      handleChange('note')(values.note + ' ' + item.value);
                     }}
                   >
                     <HashTagButton text={item.label} active={item.isSelected} />
