@@ -80,7 +80,6 @@ const descriptionStyle = StyleSheet.create({
     backgroundColor: color.grey,
     opacity: 0.8,
   },
-
   iospicker: {
     width: '40%',
     ...Platform.select({
@@ -88,8 +87,8 @@ const descriptionStyle = StyleSheet.create({
         height: '260%',
       },
       ios: {
-        height: '296%',
-        marginTop: -10,
+        paddingVertical: normalize(30),
+        marginTop: normalize(-39),
       },
     }),
   },
@@ -115,7 +114,7 @@ const descriptionStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: '95%',
-        marginTop: normalize(10),
+        marginTop: normalize(5),
       },
       android: {
         height: '76%',
