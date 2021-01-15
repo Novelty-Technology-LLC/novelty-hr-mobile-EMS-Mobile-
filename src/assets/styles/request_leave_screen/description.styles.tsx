@@ -125,7 +125,7 @@ const descriptionStyle = StyleSheet.create({
   },
 
   textArea: {
-    height: normalize(110),
+    height: normalize(130),
     textAlignVertical: 'top',
   },
   error: { paddingVertical: normalize(10), color: color.red },
