@@ -102,7 +102,7 @@ const Description = ({
                         );
 
                       const selectedHashtag = item.isSelected ? item.value : '';
-                      handleChange('note')(values.note + selectedHashtag);
+                      handleChange('note')(values.note + ' ' + selectedHashtag);
                     }}
                   >
                     <HashTagButton text={item.label} active={item.isSelected} />
