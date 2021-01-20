@@ -84,7 +84,8 @@ const descriptionStyle = StyleSheet.create({
     width: '40%',
     ...Platform.select({
       android: {
-        height: '260%',
+        height: '220%',
+        marginTop: normalize(-39),
       },
       ios: {
         paddingVertical: normalize(30),
@@ -117,7 +118,7 @@ const descriptionStyle = StyleSheet.create({
         marginTop: normalize(5),
       },
       android: {
-        height: '76%',
+        height: normalize(70),
         marginTop: normalize(14),
       },
     }),

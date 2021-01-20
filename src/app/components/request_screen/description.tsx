@@ -18,6 +18,7 @@ const Description = ({
   touched,
   values,
   updatehashtag,
+  editHashtag,
 }: {
   handleChange: Function;
   defaultValue?: string;
@@ -27,6 +28,7 @@ const Description = ({
   touched?: any;
   values?: any;
   updatehashtag?: any;
+  editHashtag?: string;
 }) => {
   const [type, setType] = useState(0);
   const [loading, setloading] = useState(false);
@@ -115,7 +117,7 @@ const Description = ({
           }
           style={style.textArea}
           maxLength={200}
-          defaultValue={defaultValue ?? values?.note}
+          defaultValue={editHashtag ?? values?.note}
           placeholder={
             timelog
               ? 'Write a short summary about your task..'
