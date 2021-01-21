@@ -29,6 +29,13 @@
 			<array>
 				<string>com.googleusercontent.apps.999740786889-leks6sl2o6nkguudgndbs0hsfrcrmsmg</string>
 			</array>
+			<key>CFBundleURLTypes</key>
+			<array>
+				<dict>
+					<key>CFBundleURLName</key>
+					<string></string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
