@@ -31,7 +31,7 @@ const LogListings = ({ route }: any) => {
             <View style={style.padNone}>
               <View style={style.editdate}>
                 <Text style={style.text}>
-                  Project :{' '}
+                  Project:{' '}
                   <Text style={{ color: colors.primary }}>
                     {olddata[0] ? olddata[0] : olddata.project.name}
                   </Text>

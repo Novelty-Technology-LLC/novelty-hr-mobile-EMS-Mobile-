@@ -105,7 +105,11 @@ const Description = ({
                       handleChange('note')(values.note + ' ' + selectedHashtag);
                     }}
                   >
-                    <HashTagButton text={item.label} active={item.isSelected} />
+                    <HashTagButton
+                      text={item.label}
+                      active={item.isSelected}
+                      key={index}
+                    />
                   </TouchableOpacity>
                 ))}
             </View>

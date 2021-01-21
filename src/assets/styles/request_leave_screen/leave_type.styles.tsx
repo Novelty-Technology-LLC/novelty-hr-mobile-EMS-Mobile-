@@ -8,6 +8,7 @@ const leaveType = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
+    paddingHorizontal: normalize(20),
   },
   wrapper: {
     flex: 1,
