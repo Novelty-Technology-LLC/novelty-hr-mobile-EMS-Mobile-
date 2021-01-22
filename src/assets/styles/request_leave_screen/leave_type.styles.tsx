@@ -1,14 +1,12 @@
 import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-
 import { theme, fonts } from '../theme';
 
 const leaveType = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingHorizontal: normalize(15),
   },
   wrapper: {
     flex: 1,
@@ -49,6 +47,7 @@ const leaveType = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+    paddingHorizontal: normalize(15),
   },
   projectbutton: {
     ...Platform.select({
