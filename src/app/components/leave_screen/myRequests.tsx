@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import { myRequestsStyle as style } from '../../../assets/styles';
@@ -25,6 +25,7 @@ const MyRequests = ({
   params: number;
 }) => {
   const navigation = useNavigation();
+  const [history, setHistory] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
   let row: Array<any> = [];
 
@@ -62,15 +63,28 @@ const MyRequests = ({
 
   return (
     <View style={style.container}>
-      <View style={style.header}>
-        <SmallHeader
-          text="My Requests"
-          history={requests.pastrequests.length > 0}
-        />
-        {requests.pastrequests.length > 0 && (
-          <HistoryToggle toggle={toggle} setToggle={setToggle} />
-        )}
-      </View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setToggle(
+            toggle === 'toggle-switch' ? 'toggle-switch-off' : 'toggle-switch'
+          );
+        }}
+      >
+        <View style={style.header}>
+          <SmallHeader
+            text="My Requests"
+            history={requests.pastrequests.length > 0}
+          />
+          {requests.pastrequests.length > 0 && (
+            <HistoryToggle
+              toggle={toggle}
+              screen="leave"
+              setHistory={setHistory}
+              history={history}
+            />
+          )}
+        </View>
+      </TouchableWithoutFeedback>
       {loading ? <UserPlaceHolder /> : null}
 
       {requests.requests[0] ? (

@@ -26,7 +26,7 @@ const descriptionStyle = StyleSheet.create({
         height: deviceHeight * 0.13,
       },
       ios: {
-        height: deviceHeight * 0.1,
+        height: deviceHeight <= 675 ? deviceHeight * 0.13 : deviceHeight * 0.1,
       },
     }),
   },
@@ -85,7 +85,13 @@ const descriptionStyle = StyleSheet.create({
     ...Platform.select({
       android: {
         height: '220%',
-        marginTop: normalize(-39),
+        marginTop: normalize(
+          deviceHeight <= 592 && deviceHeight >= 535
+            ? -59
+            : deviceHeight <= 534
+            ? -90
+            : -39
+        ),
       },
       ios: {
         paddingVertical: normalize(30),

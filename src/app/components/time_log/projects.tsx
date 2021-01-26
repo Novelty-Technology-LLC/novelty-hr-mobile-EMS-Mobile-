@@ -77,21 +77,22 @@ const Projects = ({
         <>
           <View style={style.moreContainer}>
             <Text style={[style.text, style.padNone]}>Choose a Project</Text>
-            <View style={style.row}>
-              <Text style={myRequestsStyle.history}>
-                {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
-              </Text>
-              <View style={myRequestsStyle.gap}></View>
-              <TouchableOpacity
-                onPress={() =>
-                  setShowmore(
-                    showmore === 'chevron-up-circle'
-                      ? 'chevron-down-circle'
-                      : 'chevron-up-circle'
-                  )
-                }
-                disabled={allprojects.length < 5}
-              >
+            <TouchableOpacity
+              onPress={() =>
+                setShowmore(
+                  showmore === 'chevron-up-circle'
+                    ? 'chevron-down-circle'
+                    : 'chevron-up-circle'
+                )
+              }
+              disabled={allprojects.length < 5}
+            >
+              <View style={style.row}>
+                <Text style={myRequestsStyle.history}>
+                  {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
+                </Text>
+                <View style={myRequestsStyle.gap}></View>
+
                 <AppIcon
                   name={showmore}
                   size={25}
@@ -103,8 +104,8 @@ const Projects = ({
                       : colors.secondary
                   }
                 />
-              </TouchableOpacity>
-            </View>
+              </View>
+            </TouchableOpacity>
           </View>
           {loading && <ProjectPlaceHolder />}
           <View style={style.body}>

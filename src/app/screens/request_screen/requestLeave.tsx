@@ -17,7 +17,7 @@ import { default as theme } from '../../../assets/styles/leave_screen/custom-the
 import { approveRequest, requestLeave as style } from '../../../assets/styles';
 import { headerText } from '../../../assets/styles';
 import {
-  Calander,
+  CalendarComponent,
   Teams,
   Leavetype,
   Description,
@@ -201,7 +201,7 @@ const RequestLeave = ({ route }: any) => {
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
-              <Calander
+              <CalendarComponent
                 style={style}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.leave_date}
@@ -220,7 +220,7 @@ const RequestLeave = ({ route }: any) => {
               />
               <Description
                 handleChange={handleChange}
-                defaultValue={olddata && olddata.note}
+                defaultValue={olddata && olddata?.note}
                 error={errors}
                 touched={touched}
               />
