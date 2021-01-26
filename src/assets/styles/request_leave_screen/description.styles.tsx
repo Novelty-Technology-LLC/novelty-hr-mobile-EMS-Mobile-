@@ -26,7 +26,7 @@ const descriptionStyle = StyleSheet.create({
         height: deviceHeight * 0.13,
       },
       ios: {
-        height: deviceHeight * 0.1,
+        height: deviceHeight <= 675 ? deviceHeight * 0.13 : deviceHeight * 0.1,
       },
     }),
   },

@@ -18,7 +18,7 @@ interface calenderPropType {
   olddata_id?: number;
 }
 
-const Calander = ({
+const CalendarComponent = ({
   style,
   handleChange,
   defaultValue,
@@ -175,4 +175,4 @@ const Calander = ({
   );
 };
 
-export { Calander };
+export { CalendarComponent };
