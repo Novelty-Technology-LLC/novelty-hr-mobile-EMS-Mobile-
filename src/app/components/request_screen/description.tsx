@@ -121,7 +121,7 @@ const Description = ({
           }
           style={style.textArea}
           maxLength={200}
-          defaultValue={editHashtag ?? values?.note}
+          defaultValue={editHashtag ?? values?.note ?? defaultValue}
           placeholder={
             timelog
               ? 'Write a short summary about your task..'

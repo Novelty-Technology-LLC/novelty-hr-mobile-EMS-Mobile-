@@ -25,19 +25,19 @@ class Teams extends Component {
       data = data.filter((item) => item.id !== this.state.user.id);
       this.setState({ teamLead: data }, () => {
         this.state.teamLead.map((val) => {
-          if (this.props.defaultValue) {
-            JSON.parse(this.props.defaultValue).map((id) => {
-              if (id === val.id) {
-                val.selected = val.first_name;
-                this.data.push(val);
-              }
-            });
-          } else {
-            if (val.is_default_approver === '1') {
-              val.selected = val.first_name;
-              this.data.push(val);
-            }
-          }
+          // if (this.props.defaultValue) {
+          //   JSON.parse(this.props.defaultValue).map((id) => {
+          //     if (id === val.id) {
+          //       val.selected = val.first_name;
+          //       this.data.push(val);
+          //     }
+          //   });
+          // } else {
+          //   if (val.is_default_approver === '1') {
+          //     val.selected = val.first_name;
+          //     this.data.push(val);
+          //   }
+          // }
         });
         this.setState({ lead: [...this.state.lead].concat(this.data) }, () => {
           this.props.handleChange('lead')(

@@ -164,6 +164,7 @@ const RequestLeave = ({ route }: any) => {
         uuid: state.user.uuid,
         gender: state.user.gender,
       };
+      console.log('requestData -> ', requestData);
 
       setisLoading(true);
       Keyboard.dismiss();
@@ -220,7 +221,7 @@ const RequestLeave = ({ route }: any) => {
               />
               <Description
                 handleChange={handleChange}
-                defaultValue={olddata && olddata.note}
+                defaultValue={olddata && olddata?.note}
                 error={errors}
                 touched={touched}
               />
