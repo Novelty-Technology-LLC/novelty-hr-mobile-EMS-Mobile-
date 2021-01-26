@@ -7,12 +7,16 @@ import { AppIcon } from './icon';
 
 const HistoryToggle = ({
   toggle,
-  setToggle,
   timelog = false,
+  screen = '',
+  setToggle,
 }: {
+  history?: boolean;
   toggle: string;
-  setToggle: Function;
+  setHistory?: Function;
   timelog?: boolean;
+  screen?: string;
+  setToggle?: Function;
 }) => {
   return (
     <View style={style.row}>
@@ -20,9 +24,10 @@ const HistoryToggle = ({
       <View style={style.gap}></View>
       <TouchableWithoutFeedback
         onPress={() => {
-          setToggle(
-            toggle === 'toggle-switch' ? 'toggle-switch-off' : 'toggle-switch'
-          );
+          screen === 'timelog' &&
+            setToggle(
+              toggle === 'toggle-switch' ? 'toggle-switch-off' : 'toggle-switch'
+            );
         }}
       >
         <AppIcon

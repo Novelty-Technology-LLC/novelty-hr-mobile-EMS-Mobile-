@@ -23,7 +23,7 @@ const DaysRemaining = ({
           <AnimateNumber
             value={remaining}
             initial={-1}
-            interval={120}
+            interval={50}
             countBy={1}
             timing="linear"
             formatter={(val) => {

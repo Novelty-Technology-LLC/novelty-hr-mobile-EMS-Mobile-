@@ -94,7 +94,12 @@ const Week = ({
     <>
       <View style={myRequestsStyle.header}>
         <SmallHeader timelog={true} text={title} history={true} />
-        <HistoryToggle timelog={true} toggle={toggle} setToggle={setToggle} />
+        <HistoryToggle
+          timelog={true}
+          toggle={toggle}
+          setToggle={setToggle}
+          screen="timelog"
+        />
       </View>
 
       <View style={last ? historyStyle.timelogcontainer : null}>

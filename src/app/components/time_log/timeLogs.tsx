@@ -31,6 +31,7 @@ const TimeLogs = () => {
   const [selectedHrs, setSelectedHrs] = useState(0);
   const [selectedDay, setSelectedDay] = useState('Today');
   const [initial, setinitial] = useState(true);
+
   const getInitialLogs = async () => {
     try {
       const user: any = await getUser();
