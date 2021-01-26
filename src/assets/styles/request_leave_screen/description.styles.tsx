@@ -86,7 +86,9 @@ const descriptionStyle = StyleSheet.create({
       android: {
         height: '220%',
         marginTop: normalize(
-          deviceHeight <= 592 && deviceHeight >= 535
+          deviceHeight > 592
+            ? -20
+            : deviceHeight <= 592 && deviceHeight >= 535
             ? -59
             : deviceHeight <= 534
             ? -90
