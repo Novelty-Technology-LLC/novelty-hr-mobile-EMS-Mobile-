@@ -3,7 +3,6 @@ import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 const deviceHeight = Dimensions.get('window').height;
-console.log('device height -> ', deviceHeight);
 
 const descriptionStyle = StyleSheet.create({
   hashtag: {
