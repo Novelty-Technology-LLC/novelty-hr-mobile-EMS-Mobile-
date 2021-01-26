@@ -3,6 +3,7 @@ import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 const deviceHeight = Dimensions.get('window').height;
+console.log('device height -> ', deviceHeight);
 
 const descriptionStyle = StyleSheet.create({
   hashtag: {
@@ -86,7 +87,9 @@ const descriptionStyle = StyleSheet.create({
       android: {
         height: '220%',
         marginTop: normalize(
-          deviceHeight <= 592 && deviceHeight >= 535
+          deviceHeight > 592
+            ? -20
+            : deviceHeight <= 592 && deviceHeight >= 535
             ? -59
             : deviceHeight <= 534
             ? -90
