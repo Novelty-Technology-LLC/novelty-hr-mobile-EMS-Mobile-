@@ -84,15 +84,18 @@ const descriptionStyle = StyleSheet.create({
     width: '40%',
     ...Platform.select({
       android: {
-        height: '220%',
+        alignSelf: 'center',
+        height: '250%',
         marginTop: normalize(
-          deviceHeight > 592
-            ? -20
+          deviceHeight > 760 && deviceHeight <= 816
+            ? 0
+            : deviceHeight < 760 && deviceHeight >= 600
+            ? normalize(-10)
             : deviceHeight <= 592 && deviceHeight >= 535
-            ? -59
+            ? normalize(-39)
             : deviceHeight <= 534
-            ? -90
-            : -39
+            ? normalize(-85)
+            : normalize(-35)
         ),
       },
       ios: {
