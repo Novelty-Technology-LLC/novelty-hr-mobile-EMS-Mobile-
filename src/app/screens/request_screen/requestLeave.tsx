@@ -137,16 +137,16 @@ const RequestLeave = ({ route }: any) => {
         }
         dayArray.map((day) => {
           if (values.type === day.dayType) {
-            if (checkValidityQuota(requests.quota, values.type, day.days)) {
-              throw new Error(`Selected day exceeds ${values.type}`);
-            }
+            // if (checkValidityQuota(requests.quota, values.type, day.days)) {
+            //   throw new Error(`Selected day exceeds ${values.type}`);
+            // }
           }
         });
       } else {
         day = dateMapper(startDate, endDate);
-        if (checkValidityQuota(requests.quota, values.type, day)) {
-          throw new Error(`Selected day exceeds ${values.type}`);
-        }
+        // if (checkValidityQuota(requests.quota, values.type, day)) {
+        //   throw new Error(`Selected day exceeds ${values.type}`);
+        // }
       }
       delete values.date;
 
