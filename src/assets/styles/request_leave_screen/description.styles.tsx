@@ -3,6 +3,7 @@ import normalize from 'react-native-normalize';
 import color from '../../colors';
 import { theme, fonts } from '../theme';
 const deviceHeight = Dimensions.get('window').height;
+console.log('deviceHeight -> ', deviceHeight);
 
 const descriptionStyle = StyleSheet.create({
   hashtag: {
@@ -23,7 +24,10 @@ const descriptionStyle = StyleSheet.create({
     overflow: 'hidden',
     ...Platform.select({
       android: {
-        height: deviceHeight * 0.13,
+        height:
+          deviceHeight <= 592 && deviceHeight >= 535
+            ? deviceHeight * 0.14
+            : deviceHeight * 0.13,
       },
       ios: {
         height: deviceHeight <= 675 ? deviceHeight * 0.13 : deviceHeight * 0.1,
@@ -92,7 +96,7 @@ const descriptionStyle = StyleSheet.create({
             : deviceHeight < 760 && deviceHeight >= 600
             ? normalize(-10)
             : deviceHeight <= 592 && deviceHeight >= 535
-            ? normalize(-39)
+            ? normalize(-29)
             : deviceHeight <= 534
             ? normalize(-85)
             : normalize(-35)
