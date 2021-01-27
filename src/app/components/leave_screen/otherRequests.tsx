@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View } from 'react-native';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import { otherRequestsStyle } from '../../../assets/styles';
@@ -83,15 +83,23 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
 
   return (
     <View style={otherRequestsStyle.container}>
-      <View style={otherRequestsStyle.header}>
-        <SmallHeader
-          text="Requests Received"
-          history={adminrequests.pastadminrequests.length > 0}
-        />
-        {adminrequests.pastadminrequests.length > 0 && (
-          <HistoryToggle toggle={toggle} setToggle={setToggle} />
-        )}
-      </View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setToggle(
+            toggle === 'toggle-switch' ? 'toggle-switch-off' : 'toggle-switch'
+          );
+        }}
+      >
+        <View style={otherRequestsStyle.header}>
+          <SmallHeader
+            text="Requests Received"
+            history={adminrequests.pastadminrequests.length > 0}
+          />
+          {adminrequests.pastadminrequests.length > 0 && (
+            <HistoryToggle toggle={toggle} setToggle={setToggle} />
+          )}
+        </View>
+      </TouchableWithoutFeedback>
       {loading ? (
         <AdminPlaceHolder />
       ) : (
