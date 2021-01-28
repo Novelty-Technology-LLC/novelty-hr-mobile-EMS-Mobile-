@@ -56,7 +56,7 @@ const Time = ({
           calenderStyle.container,
         ]}
       >
-        <Text style={style.text}>Time</Text>
+        <Text style={style.text}>Duration</Text>
         <View style={style.row}>
           <WheelPicker
             selectedItem={hrIndex}
