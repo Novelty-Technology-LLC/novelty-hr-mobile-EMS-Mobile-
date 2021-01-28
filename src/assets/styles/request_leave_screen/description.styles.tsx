@@ -23,7 +23,10 @@ const descriptionStyle = StyleSheet.create({
     overflow: 'hidden',
     ...Platform.select({
       android: {
-        height: deviceHeight * 0.13,
+        height:
+          deviceHeight <= 592 && deviceHeight >= 535
+            ? deviceHeight * 0.14
+            : deviceHeight * 0.13,
       },
       ios: {
         height: deviceHeight <= 675 ? deviceHeight * 0.13 : deviceHeight * 0.1,
@@ -84,15 +87,18 @@ const descriptionStyle = StyleSheet.create({
     width: '40%',
     ...Platform.select({
       android: {
-        height: '220%',
+        alignSelf: 'center',
+        height: '250%',
         marginTop: normalize(
-          deviceHeight > 592
-            ? -20
+          deviceHeight > 760 && deviceHeight <= 816
+            ? 0
+            : deviceHeight < 760 && deviceHeight >= 600
+            ? -10
             : deviceHeight <= 592 && deviceHeight >= 535
-            ? -59
+            ? -29
             : deviceHeight <= 534
-            ? -90
-            : -39
+            ? -85
+            : -35
         ),
       },
       ios: {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { dayStyle } from '../../../assets/styles';
-import { Calander as MCalendar } from '../request_screen/calander';
+import { CalendarComponent as MCalendar } from '../request_screen/calander';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
