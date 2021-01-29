@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import {
   calenderStyle,
   descriptionStyle as style,
@@ -8,6 +8,7 @@ import {
 import { WheelPicker } from 'react-native-wheel-picker-android';
 import { getHrsMins } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { getFontScale } from 'react-native-device-info';
 
 const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 const hrdata = [
@@ -37,6 +38,7 @@ const Time = ({
 }) => {
   const [hrIndex, setHrIndex] = useState(1);
   const [minIndex, setMinIndex] = useState(0);
+  const [pickerHeight, setPickerHeight] = useState('280%');
 
   useEffect(() => {
     if (defaultValue) {
@@ -48,6 +50,15 @@ const Time = ({
     }
   }, []);
 
+  useEffect(()=>{
+    getFontScale().then((fs) => {
+    setPickerHeight((fs<= 0.95) ? '250%' :
+                (fs>0.95 && fs<=1.05)? '280%' : 
+                (fs>1.05 && fs<=1.20)? '330%' :
+                (fs>1.20 && fs<1.40)? '380%' : '460%');
+    });
+  },[])
+
   return (
     <>
       <View
@@ -56,11 +67,12 @@ const Time = ({
           calenderStyle.container,
         ]}
       >
+
         <Text style={style.text}>Duration</Text>
         <View style={style.row}>
           <WheelPicker
             selectedItem={hrIndex}
-            style={style.iospicker}
+            style={[style.iospicker,Platform.OS==='android' && {height :  pickerHeight}]}
             onItemSelected={(index) => {
               setHrIndex(index);
               const intdata = parseInt(hrdata[index].split(' ')[0]);
@@ -70,7 +82,7 @@ const Time = ({
                 : handleChange((intdata * 60 + mins).toString());
             }}
             data={hrdata}
-            selectedItemTextSize={24}
+            selectedItemTextSize={18}
             indicatorColor="#f2f2f2"
             backgroundColor="#f2f2f2"
           />
@@ -79,7 +91,7 @@ const Time = ({
           </View>
           <WheelPicker
             selectedItem={minIndex}
-            style={style.iospicker}
+            style={[style.iospicker,Platform.OS==='android' && {height :  pickerHeight}]}
             onItemSelected={(index) => {
               setMinIndex(index);
               const intdata = parseInt(mindata[index].split(' ')[0]);
@@ -89,7 +101,7 @@ const Time = ({
                 : handleChange((hrs * 60 + intdata).toString());
             }}
             data={mindata}
-            selectedItemTextSize={24}
+            selectedItemTextSize={18}
             indicatorColor="#f2f2f2"
             backgroundColor="#f2f2f2"
           />
