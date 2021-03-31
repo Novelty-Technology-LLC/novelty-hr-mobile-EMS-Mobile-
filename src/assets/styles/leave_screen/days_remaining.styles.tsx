@@ -13,7 +13,7 @@ const daysRemainingStyle = StyleSheet.create({
   logcontainer: {
     width: '50%',
     alignItems: 'center',
-    paddingBottom: normalize(20),
+    paddingBottom: normalize(10),
   },
   remaining: {
     fontWeight: '300',

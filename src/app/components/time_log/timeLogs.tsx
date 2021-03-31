@@ -143,7 +143,6 @@ const TimeLogs = () => {
           </View>
         )}
         <SmallHeader text={'View'} />
-
         <DaySelect
           handleChange={(date: Date) => {
             setDate(date);
