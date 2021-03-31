@@ -11,8 +11,6 @@ const teamStyle = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    borderBottomColor: color.border,
-    borderBottomWidth: 1,
   },
 
   loading: {

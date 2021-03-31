@@ -4,10 +4,7 @@ import colors from '../../colors';
 import { theme, fonts, color } from '../theme';
 
 const leaveType = StyleSheet.create({
-  container: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
+  container: {},
   wrapper: {
     flex: 1,
     display: 'flex',

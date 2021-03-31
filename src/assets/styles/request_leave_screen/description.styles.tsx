@@ -83,7 +83,7 @@ const descriptionStyle = StyleSheet.create({
   iospicker: {
     width: '40%',
     ...Platform.select({
-      android: {    
+      android: {
         paddingVertical: 20,
       },
       ios: {
@@ -116,7 +116,7 @@ const descriptionStyle = StyleSheet.create({
         paddingTop: '3%',
       },
       android: {
-        height: 47
+        height: 47,
       },
     }),
   },

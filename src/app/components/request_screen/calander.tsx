@@ -162,7 +162,7 @@ const CalendarComponent = ({
           filter={filter}
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
-          style={[style.calendar, { marginTop: -20 }]}
+          style={[style.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
           name="date"
           label="date"
           renderDay={DayCell}

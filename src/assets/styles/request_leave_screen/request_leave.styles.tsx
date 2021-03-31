@@ -20,7 +20,7 @@ const requestLeave = StyleSheet.create({
     marginLeft: normalize(17),
   },
   buttonView: {
-    marginTop: normalize(23),
+    marginTop: normalize(5),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -41,7 +41,7 @@ const requestLeave = StyleSheet.create({
   logButtonView: {
     ...Platform.select({
       android: {
-        marginBottom: normalize(30),
+        marginBottom: normalize(25),
       },
       ios: {
         marginBottom: normalize(0),
@@ -49,7 +49,7 @@ const requestLeave = StyleSheet.create({
     }),
   },
   editLogButtonView: {
-    marginBottom: normalize(20),
+    marginBottom: normalize(15),
   },
 
   buttonText: {
