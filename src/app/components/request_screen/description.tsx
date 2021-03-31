@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Textarea from 'react-native-textarea';
 import { descriptionStyle as style } from '../../../assets/styles';
-import { HashTagButton } from '../../common';
+import { HashTagButton, SmallHeader } from '../../common';
 import { HashtagPlaceHolder } from '../loader';
 import { getHash } from '../../services/timeLogService';
 import color from '../../../assets/colors';
@@ -81,7 +81,7 @@ const Description = ({
           { marginTop: normalize(timelog ? 2 : 1) },
         ]}
       >
-        <Text style={style.text}>{timelog ? 'Task summary' : 'Note'}</Text>
+        <SmallHeader text={timelog ? 'Task summary' : 'Note'} />
         {timelog && (
           <>
             <View style={style.hashtag}>
