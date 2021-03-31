@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Textarea from 'react-native-textarea';
 import { descriptionStyle as style } from '../../../assets/styles';
@@ -65,12 +65,16 @@ const Description = ({
   }, [updatehashtag]);
 
   return (
-    <View>
+    <View style={{ flexDirection: 'column' }}>
       <View
         style={[
           style.main,
           editlog ? { marginTop: 0 } : {},
-          { marginTop: normalize(timelog ? 2 : -7) },
+          {
+            marginTop: normalize(
+              timelog && Platform.OS === 'android' ? -10 : -7
+            ),
+          },
         ]}
       >
         <SmallHeader text={timelog ? 'Task summary' : 'Note'} />
@@ -127,10 +131,10 @@ const Description = ({
             handleChange(error ? 'note' : 'task')(text)
           }
         />
-        {error && touched && error.note && touched.note && (
-          <Text style={style.error}>{error.note}</Text>
-        )}
       </View>
+      {error && touched && error.note && touched.note && (
+        <Text style={style.error}>{error.note}</Text>
+      )}
     </View>
   );
 };

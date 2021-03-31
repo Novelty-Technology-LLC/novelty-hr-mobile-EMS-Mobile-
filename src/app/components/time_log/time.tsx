@@ -10,6 +10,7 @@ import { getHrsMins } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getFontScale } from 'react-native-device-info';
 import { SmallHeader } from '../../common';
+import normalize from 'react-native-normalize';
 
 const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 const hrdata = [
@@ -121,7 +122,7 @@ const Time = ({
         </View>
       </View>
       {error && error.duration && (
-        <Text style={[style.error, style.time]}>{error.duration}</Text>
+        <Text style={style.timeError}>{error.duration}</Text>
       )}
     </>
   );
