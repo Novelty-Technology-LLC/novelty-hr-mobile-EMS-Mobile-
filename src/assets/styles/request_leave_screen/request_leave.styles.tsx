@@ -9,9 +9,7 @@ const requestLeave = StyleSheet.create({
     backgroundColor: color.white,
   },
   calendar: {
-    paddingVertical: 10,
     borderWidth: 0,
-    borderBottomWidth: 1,
     width: 'auto',
   },
   error: {

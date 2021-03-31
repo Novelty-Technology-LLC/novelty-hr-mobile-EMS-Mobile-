@@ -13,7 +13,6 @@ const leaveType = StyleSheet.create({
     marginHorizontal: normalize(15),
   },
   padNone: {
-    paddingBottom: normalize(0),
     marginBottom: normalize(0),
     // marginHorizontal: normalize(15),
     paddingTop: normalize(10),
@@ -33,8 +32,8 @@ const leaveType = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: normalize(5),
   },
-
   button: {
     width: '48%',
     marginBottom: normalize(15),

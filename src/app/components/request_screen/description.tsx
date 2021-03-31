@@ -65,20 +65,12 @@ const Description = ({
   }, [updatehashtag]);
 
   return (
-    <View
-      style={
-        timelog && {
-          borderTopWidth: 1,
-          borderTopColor: color.border,
-          marginTop: normalize(15),
-        }
-      }
-    >
+    <View>
       <View
         style={[
           style.main,
           editlog ? { marginTop: 0 } : {},
-          { marginTop: normalize(timelog ? 2 : 1) },
+          { marginTop: normalize(timelog ? 2 : -7) },
         ]}
       >
         <SmallHeader text={timelog ? 'Task summary' : 'Note'} />

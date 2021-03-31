@@ -113,7 +113,7 @@ const descriptionStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: '100%',
-        paddingTop: '3%',
+        paddingTop: '4%',
       },
       android: {
         height: 47,

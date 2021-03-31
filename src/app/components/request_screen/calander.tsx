@@ -123,7 +123,7 @@ const CalendarComponent = ({
                 timeLogStyle.indicator,
                 { backgroundColor: colors.green },
               ]}
-            ></View>
+            />
             <Text style={timeLogStyle.rldate}>Approved</Text>
             <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
             <Text style={timeLogStyle.rldate}>In progress</Text>
