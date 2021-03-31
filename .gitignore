@@ -9,7 +9,7 @@ node_modules/
 android/.gradle
 android/app/build
 package-lock.json
-
+ios/Pods
 # Compiled Java class files
 *.class
 
@@ -22,7 +22,7 @@ package-lock.json
 # Package files
 *.jar
 *.iml
-*.hprof
+
 
 # Maven
 target/

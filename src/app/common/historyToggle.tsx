@@ -18,6 +18,8 @@ const HistoryToggle = ({
   screen?: string;
   setToggle?: Function;
 }) => {
+  console.log('toggle - > ', toggle);
+
   return (
     <View style={style.row}>
       {!timelog && <Text style={style.history}> History</Text>}
