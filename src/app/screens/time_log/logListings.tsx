@@ -20,7 +20,7 @@ const LogListings = ({ route }: any) => {
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
       <Header icon={true}>
-        <Text style={headerText}>{olddata[0] ? olddata[0] : 'Log Time'}</Text>
+        <Text style={headerText}>{olddata[0] ?? 'Log Time'}</Text>
       </Header>
       <ScrollView
         style={requestLeave.container}
@@ -33,7 +33,7 @@ const LogListings = ({ route }: any) => {
                 <Text style={style.text}>
                   Project:{' '}
                   <Text style={{ color: colors.primary }}>
-                    {olddata[0] ? olddata[0] : olddata.project.name}
+                    {olddata[0] ?? olddata.project.name}
                   </Text>
                 </Text>
                 <Text style={style.text}>

@@ -26,13 +26,12 @@ const approveRequest = StyleSheet.create({
   },
   scrollView: { flex: 1 },
   requestView: {
-    flex: 0.6,
+    flex: 0.45,
     flexDirection: 'column',
   },
   main: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingBottom: normalize(10),
   },
   imageView: {
     paddingTop: normalize(15),
