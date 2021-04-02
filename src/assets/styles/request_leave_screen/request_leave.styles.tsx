@@ -23,7 +23,6 @@ const requestLeave = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: color.primary,
-    paddingVertical: normalize(2),
     marginHorizontal: normalize(19),
     marginBottom: normalize(20),
     overflow: 'hidden',
@@ -49,10 +48,9 @@ const requestLeave = StyleSheet.create({
   editLogButtonView: {
     marginBottom: normalize(15),
   },
-
   buttonText: {
     fontFamily: fonts.mulishBold,
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(13),
     color: color.white,
     fontSize: normalize(theme.size.base),
   },
