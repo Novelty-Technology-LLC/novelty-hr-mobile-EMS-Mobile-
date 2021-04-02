@@ -65,7 +65,7 @@ const Description = ({
   }, [updatehashtag]);
 
   return (
-    <View style={{ flexDirection: 'column' }}>
+    <View style={{ flexDirection: 'column', marginTop: normalize(10) }}>
       <View
         style={[
           style.main,
