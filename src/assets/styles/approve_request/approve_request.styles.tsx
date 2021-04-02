@@ -26,7 +26,6 @@ const approveRequest = StyleSheet.create({
   },
   scrollView: { flex: 1 },
   requestView: {
-    flex: 0.45,
     flexDirection: 'column',
   },
   main: {
@@ -111,7 +110,6 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   sectionBody: {
-    flex: 1,
     paddingTop: normalize(10),
     paddingLeft: normalize(10),
     overflow: 'hidden',
