@@ -8,7 +8,6 @@ import colors from '../../../assets/colors';
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
-  console.log('state -> ', state.user.first_name);
 
   return (
     <View style={{ flex: 1 }}>
@@ -18,14 +17,15 @@ const DashBoard = () => {
       <View
         style={{
           flex: 1,
+          paddingTop: 15,
           backgroundColor: colors.white,
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           alignItems: 'center',
         }}
       >
         <Text style={{ fontWeight: '700', fontSize: 40 }}>Hello</Text>
         <Text style={{ fontSize: 20 }}>
-          {state.user.first_name + ' ' + state.user.last_name}
+          {state?.user?.first_name + ' ' + state?.user?.last_name}
         </Text>
       </View>
     </View>
