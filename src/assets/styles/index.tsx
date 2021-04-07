@@ -28,3 +28,4 @@ export * from './tabs/setting';
 export * from './time_log/timelog.styles';
 export * from './time_log/calendar.styles';
 export * from './time_log/day.styles';
+export * from './dashboard/dashboard.styles';
