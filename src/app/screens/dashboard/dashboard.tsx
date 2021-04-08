@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
 import { getToday } from '../../utils';
 import { createWork, getWork } from '../../services';
-import { UpperCard } from '../../common';
+import { UpperCard, Carousel } from '../../common';
 
 const cards = [
   {
@@ -26,16 +26,66 @@ const cards = [
     module: 'menu',
   },
   {
-    title: 'Masu Bhat Curry',
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
+    subTitle: "Today's Menu",
+    module: 'menu',
+  },
+  {
+    title: 'Egg Curry',
     subTitle: "Today's Menu",
     module: 'menu',
   },
 ];
+
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(0);
   const [loading, setLoading] = useState(true);
-  let row: Array<any> = [];
 
   useEffect(() => {
     const fetchWork = async () => {
@@ -69,14 +119,6 @@ const DashBoard = () => {
       snackErrorBottom('Something went wrong');
       setLoading(false);
     }
-  };
-
-  const StatusCard = ({ text }) => {
-    return (
-      <View>
-        <Text>Hello</Text>
-      </View>
-    );
   };
 
   return (
@@ -125,14 +167,40 @@ const DashBoard = () => {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-          }}
-        ></View>
+        <View style={{ flexDirection: 'row', flex: 1 }}>
+          <View
+            style={{
+              flex: 0.5,
+              width: '50%',
+              height: '23%',
+              marginTop: 20,
+              backgroundColor: colors.snow,
+              borderRadius: 8,
+            }}
+          >
+            <Carousel
+              items={cards}
+              itemsPerInterval={3}
+              onItemPress={(item: any) => {}}
+            />
+          </View>
+          <View style={{ paddingHorizontal: 5 }} />
+          <View
+            style={{
+              flex: 0.5,
+              height: '23%',
+              marginTop: 20,
+              backgroundColor: colors.snow,
+              borderRadius: 8,
+            }}
+          >
+            <Carousel
+              items={cards}
+              itemsPerInterval={3}
+              onItemPress={(item: any) => {}}
+            />
+          </View>
+        </View>
       </View>
     </View>
   );

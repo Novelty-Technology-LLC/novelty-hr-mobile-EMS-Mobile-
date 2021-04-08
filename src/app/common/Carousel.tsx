@@ -6,18 +6,18 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-} from 'react//native';
-
-import { color, commonStyle as cs } from '../../assets/styles';
-import { SvgIcon } from './ui/svgIcon';
-import { normalize } from '../utils';
+} from 'react-native';
+import normalize from 'react-native-normalize';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../assets/colors';
+import { color } from '../../assets/styles';
+import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
   itemsPerInterval?: number;
   onItemPress: (val: any) => void;
   theme: any;
   items: Array<any>;
-  horizontal?: boolean;
 }
 
 export const Carousel = (props: CarouselPropTypes) => {
@@ -30,9 +30,15 @@ export const Carousel = (props: CarouselPropTypes) => {
   const [width, setWidth] = React.useState(0);
   const [items, setItems] = React.useState([[]]);
 
+  const iconProps = {
+    width: normalize(51.111),
+    height: normalize(40),
+    viewBox: `0 0 ${normalize(51.111)} ${normalize(40)}`,
+  };
+
   useEffect(() => {
     try {
-      setItems(chunk(props.items, 2));
+      setItems(chunk(props.items, 1));
     } catch (error) {
       console.log('error', error);
     }
@@ -43,6 +49,10 @@ export const Carousel = (props: CarouselPropTypes) => {
     setWidth(width);
     // initialise total intervals
     const totalItems = items.length;
+    console.log(
+      'Math.ceil(totalItems / itemsPerInterval)',
+      Math.ceil(totalItems / itemsPerInterval)
+    );
     setIntervals(Math.ceil(totalItems / itemsPerInterval));
   };
 
@@ -61,20 +71,14 @@ export const Carousel = (props: CarouselPropTypes) => {
     return (
       <TouchableOpacity
         onPress={() => onItemPress(item)}
-        style={{ width: '33.33%', paddingTop: normalize(20) }}
+        style={{ width: '100%', paddingTop: normalize(20) }}
         key={item.title}
       >
         <View style={{ alignSelf: 'center' }}>
           <SvgIcon uri={item?.icon.imgix_url ?? item?.defaultIcon} />
         </View>
         <View style={{ marginTop: normalize(10) }}>
-          <Text
-            style={[
-              theme.cs.gridTitle,
-              theme.cs.textStyle,
-              { textAlign: 'center' },
-            ]}
-          >
+          <Text style={[{ textAlign: 'center' }]}>
             {item.displayName ?? item.title}
           </Text>
         </View>
@@ -88,6 +92,7 @@ export const Carousel = (props: CarouselPropTypes) => {
     );
 
   let bullets = [];
+
   for (let i = 1; i <= intervals; i++) {
     bullets.push(
       <Text
@@ -103,102 +108,53 @@ export const Carousel = (props: CarouselPropTypes) => {
   }
 
   return (
-    <View
-      style={
-        props.items.length > 6 && props?.horizontal
-          ? styles.container
-          : [cs.gridWrapper, { marginTop: 0 }]
-      }
-    >
-      {props.items.length > 6 && props?.horizontal ? (
-        <>
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={{
-              ...styles.scrollView,
-              width: `${100 * intervals}%`,
-            }}
-            showsHorizontalScrollIndicator={false}
-            onContentSizeChange={(w, h) => init(w)}
-            onScroll={(data) => {
-              setWidth(data.nativeEvent.contentSize.width);
-              setInterval(getInterval(data.nativeEvent.contentOffset.x));
-            }}
-            scrollEventThrottle={200}
-            pagingEnabled
-            decelerationRate="fast"
-          >
-            {items.map((item: any, index: number) => {
-              return (
-                <View style={styles.wrapper} key={index}>
-                  <View
-                    style={{
-                      flexDirection: 'column',
-                      justifyContent: 'flex//start',
+    <View style={styles.container}>
+      <ScrollView
+        horizontal={true}
+        contentContainerStyle={{
+          ...styles.scrollView,
+          width: `${100 * intervals}%`,
+        }}
+        showsHorizontalScrollIndicator={false}
+        onContentSizeChange={(w, h) => {
+          init(w);
+        }}
+        onScroll={(data) => {
+          setWidth(data.nativeEvent.contentSize.width);
+          setInterval(getInterval(data.nativeEvent.contentOffset.x));
+        }}
+        scrollEventThrottle={200}
+        pagingEnabled
+        decelerationRate="fast"
+      >
+        {items.map((item: any, index: number) => {
+          return (
+            <View style={styles.wrapper} key={index}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  marginTop: normalize(-60),
+                }}
+              >
+                <TouchableOpacity
+                  style={styles.item}
+                  onPress={() => onItemPress(item[0])}
+                >
+                  <UpperCard
+                    item={{
+                      title: 'Masu Bhat Curry with chutney any manu more',
+                      subTitle: "Today's Menu",
+                      module: 'menu',
                     }}
-                  >
-                    <TouchableOpacity
-                      style={styles.item}
-                      onPress={() => onItemPress(item[0])}
-                    >
-                      <View style={{ ...styles.icon }}>
-                        <SvgIcon
-                          uri={item[0]?.icon.imgix_url ?? item[0]?.defaultIcon}
-                        />
-                      </View>
-                      <View style={[styles.labelWrapper]}>
-                        <Text
-                          style={{
-                            ...styles.label,
-                            color: theme.dark ? color.white : color.black,
-                          }}
-                        >
-                          {item[0]?.displayName ?? item[0]?.title}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                    {item.length == 2 && (
-                      <TouchableOpacity
-                        style={{}}
-                        onPress={() => onItemPress(item[1])}
-                      >
-                        <View style={{ ...styles.icon }}>
-                          <SvgIcon
-                            uri={
-                              item[1]?.icon.imgix_url ?? item[1]?.defaultIcon
-                            }
-                          />
-                        </View>
-                        <View style={styles.labelWrapper}>
-                          <Text
-                            style={{
-                              ...styles.label,
-                              color: theme.dark ? color.white : color.black,
-                            }}
-                          >
-                            {item[1]?.displayName ?? item[1]?.title}
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                </View>
-              );
-            })}
-          </ScrollView>
-          <View style={styles.bullets}>
-            {props.items.length > 6 ? bullets : <></>}
-          </View>
-        </>
-      ) : (
-        <FlatList
-          data={props.items ?? []}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => renderItem(item)}
-          numColumns={3}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      )}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          );
+        })}
+      </ScrollView>
+      <View style={styles.bullets}>{bullets}</View>
     </View>
   );
 };
@@ -207,41 +163,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    maxHeight: 250,
-    justifyContent: 'flex//start',
-    marginTop: normalize(20),
-    paddingTop: 20,
+    justifyContent: 'flex-start',
   },
   scrollView: {
     display: 'flex',
     flexDirection: 'row',
-    overflow: 'hidden',
-    justifyContent: 'flex//start',
-    alignContent: 'space//around',
+    justifyContent: 'flex-start',
+    alignContent: 'space-around',
   },
   bullets: {
     position: 'absolute',
-    top: 0,
+    bottom: 0,
     right: 0,
     display: 'flex',
-    justifyContent: 'flex//start',
+    justifyContent: 'center',
     flexDirection: 'row',
     paddingHorizontal: normalize(10),
+    width: '100%',
+    overflow: 'hidden',
   },
   bullet: {
     paddingHorizontal: normalize(5),
     fontSize: normalize(20),
-    color: color.darkAzure,
+    // color: color.darkAzure,
   },
   wrapper: {
-    marginVertical: normalize(10),
-    flexBasis: '33%',
-    maxWidth: '33%',
+    flexBasis: '100%',
+    maxWidth: '100%',
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    alignContent: 'space//between',
+    alignContent: 'space-between',
     justifyContent: 'center',
     marginRight: normalize(1),
   },
@@ -252,19 +205,14 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: normalize(8),
     alignSelf: 'center',
-    minHeight: normalize(50),
     textAlign: 'center',
   },
   label: {
     textAlign: 'center',
     fontSize: normalize(12),
     fontWeight: '600',
-    paddingTop: normalize(5),
   },
-  item: {
-    marginTop: normalize(15),
-    minWidth: normalize(120),
-  },
+  item: {},
 });
 
 export default Carousel;

@@ -66,7 +66,11 @@ const RootNavigation = () => {
           <Root.Screen name="login" component={Login} />
           <Root.Screen name="loading" component={Loading} />
           <Root.Screen name="invalid" component={Invalid} />
-          <Root.Screen name="BottomTabs" component={TabNavigator} />
+          <Root.Screen
+            name="BottomTabs"
+            component={TabNavigator}
+            options={{ gestureEnabled: false }}
+          />
         </Root.Navigator>
       </AuthContext.Provider>
     </NavigationContainer>

@@ -6,21 +6,27 @@ import { dashboarCard } from '../../utils';
 
 const UpperCard = ({ item }: { item: any }) => {
   return (
-    <View
-      style={{
-        marginTop: 30,
-        backgroundColor: colors.snow,
-        width: '49%',
-        height: 100,
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-      }}
-    >
-      <View>{dashboarCard[item.module]}</View>
-      <View style={{ alignSelf: 'center', marginTop: 6 }}>
-        <Text style={{ textAlign: 'center', fontFamily: fonts.mulishBold }}>
-          {item.title}
+    <View style={{ flexDirection: 'column', marginTop: 40 }}>
+      {dashboarCard[item.module]}
+      <View
+        style={{
+          marginTop: 15,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text
+          style={{
+            flexDirection: 'row',
+            fontFamily: fonts.mulishBold,
+            flexWrap: 'wrap',
+            textAlign: 'center',
+          }}
+        >
+          {item.title.length > 42
+            ? item.title.slice(0, 42) + '...'
+            : item.title}
         </Text>
         <Text
           style={{

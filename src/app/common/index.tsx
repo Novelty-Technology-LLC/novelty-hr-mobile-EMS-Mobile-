@@ -17,4 +17,5 @@ export * from './dialogContainer';
 export * from './historyToggle';
 export * from './dropDown';
 export * from './hashTagButton';
-export * from './dashboard/card';
+export * from './hashTagButton';
+export * from './Carousel';
