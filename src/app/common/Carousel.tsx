@@ -38,7 +38,7 @@ export const Carousel = (props: CarouselPropTypes) => {
 
   useEffect(() => {
     try {
-      setItems(chunk(props.items, 1));
+      setItems(chunk(props.items.items, 1));
     } catch (error) {
       console.log('error', error);
     }
@@ -127,7 +127,7 @@ export const Carousel = (props: CarouselPropTypes) => {
         pagingEnabled
         decelerationRate="fast"
       >
-        {items.map((item: any, index: number) => {
+        {items.flat(1).map((item: any, index: number) => {
           return (
             <View style={styles.wrapper} key={index}>
               <View
@@ -141,13 +141,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                   style={styles.item}
                   onPress={() => onItemPress(item[0])}
                 >
-                  <UpperCard
-                    item={{
-                      title: 'Masu Bhat Curry with chutney any manu more',
-                      subTitle: "Today's Menu",
-                      module: 'menu',
-                    }}
-                  />
+                  <UpperCard item={{ ...item }} module={props.items.module} />
                 </TouchableOpacity>
               </View>
             </View>

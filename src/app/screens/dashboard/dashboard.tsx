@@ -21,64 +21,38 @@ import { UpperCard, Carousel } from '../../common';
 
 const cards = [
   {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
+    items: [
+      {
+        title: 'Egg Curry',
+        subTitle: "Today's Menu",
+      },
+      {
+        title: 'Egg Curry',
+        subTitle: "Today's Menu",
+      },
+      {
+        title: 'Egg Curry',
+        subTitle: "Today's Menu",
+      },
+    ],
     module: 'menu',
   },
   {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
-  },
-  {
-    title: 'Egg Curry',
-    subTitle: "Today's Menu",
-    module: 'menu',
+    module: 'employee',
+    items: [
+      {
+        title: '50',
+        subTitle: 'Employee',
+      },
+      {
+        title: '50',
+        subTitle: 'Employee',
+      },
+      {
+        title: '50',
+        subTitle: 'Employee',
+      },
+    ],
   },
 ];
 
@@ -168,38 +142,27 @@ const DashBoard = () => {
           </TouchableWithoutFeedback>
         </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>
-          <View
-            style={{
-              flex: 0.5,
-              width: '50%',
-              height: '23%',
-              marginTop: 20,
-              backgroundColor: colors.snow,
-              borderRadius: 8,
-            }}
-          >
-            <Carousel
-              items={cards}
-              itemsPerInterval={3}
-              onItemPress={(item: any) => {}}
-            />
-          </View>
-          <View style={{ paddingHorizontal: 5 }} />
-          <View
-            style={{
-              flex: 0.5,
-              height: '23%',
-              marginTop: 20,
-              backgroundColor: colors.snow,
-              borderRadius: 8,
-            }}
-          >
-            <Carousel
-              items={cards}
-              itemsPerInterval={3}
-              onItemPress={(item: any) => {}}
-            />
-          </View>
+          {cards.map((item) => (
+            <>
+              <View
+                style={{
+                  flex: 0.5,
+                  width: '50%',
+                  height: '23%',
+                  marginTop: 20,
+                  backgroundColor: colors.snow,
+                  borderRadius: 8,
+                }}
+              >
+                <Carousel
+                  items={item}
+                  itemsPerInterval={1}
+                  onItemPress={(item: any) => {}}
+                />
+              </View>
+              <View style={{ marginHorizontal: 5 }} />
+            </>
+          ))}
         </View>
       </View>
     </View>

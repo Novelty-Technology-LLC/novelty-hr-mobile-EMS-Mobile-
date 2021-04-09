@@ -4,10 +4,10 @@ import colors from '../../../assets/colors';
 import { fonts } from '../../../assets/styles';
 import { dashboarCard } from '../../utils';
 
-const UpperCard = ({ item }: { item: any }) => {
+const UpperCard = ({ item, module }: { item: any; module: any }) => {
   return (
     <View style={{ flexDirection: 'column', marginTop: 40 }}>
-      {dashboarCard[item.module]}
+      {dashboarCard[module]}
       <View
         style={{
           marginTop: 15,
