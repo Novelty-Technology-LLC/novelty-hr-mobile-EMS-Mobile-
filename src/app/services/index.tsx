@@ -8,3 +8,4 @@ export * from './cosmicService';
 export * from './deeplinkService';
 export * from './profileService';
 export * from './workFromHomeService';
+export * from './dashBoardService';

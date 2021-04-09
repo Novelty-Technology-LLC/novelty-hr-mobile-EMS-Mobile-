@@ -7,7 +7,7 @@ import { dashboarCard } from '../../utils';
 const UpperCard = ({ item, module }: { item: any; module: any }) => {
   return (
     <View style={{ flexDirection: 'column', marginTop: 40 }}>
-      {dashboarCard[module]}
+      <View style={{ marginLeft: -30 }}>{dashboarCard[module]}</View>
       <View
         style={{
           marginTop: 15,

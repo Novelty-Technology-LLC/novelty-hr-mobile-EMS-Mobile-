@@ -16,51 +16,28 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
 import { getToday } from '../../utils';
-import { createWork, getWork } from '../../services';
-import { UpperCard, Carousel } from '../../common';
+import { createWork, getWork, getDashboard } from '../../services';
+import { Carousel } from '../../common';
 
-const cards = [
-  {
-    items: [
-      {
-        title: 'Egg Curry',
-        subTitle: "Today's Menu",
-      },
-      {
-        title: 'Egg Curry',
-        subTitle: "Today's Menu",
-      },
-      {
-        title: 'Egg Curry',
-        subTitle: "Today's Menu",
-      },
-    ],
-    module: 'menu',
-  },
-  {
-    module: 'employee',
-    items: [
-      {
-        title: '50',
-        subTitle: 'Employee',
-      },
-      {
-        title: '50',
-        subTitle: 'Employee',
-      },
-      {
-        title: '50',
-        subTitle: 'Employee',
-      },
-    ],
-  },
-];
+const time = () => {
+  var today = new Date();
+  var curHr = today.getHours();
 
+  if (curHr < 12) {
+    return 'Morning';
+  } else if (curHr < 18) {
+    return 'Afternoon';
+  } else if (curHr < 20) {
+    return 'Evening';
+  } else {
+    return 'Night';
+  }
+};
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(0);
   const [loading, setLoading] = useState(true);
-
+  const [data, setData] = useState([]);
   useEffect(() => {
     const fetchWork = async () => {
       try {
@@ -75,6 +52,13 @@ const DashBoard = () => {
       }
     };
     fetchWork();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const data = await getDashboard();
+      setData(data);
+    })();
   }, []);
 
   const ToggleWork = async () => {
@@ -116,7 +100,7 @@ const DashBoard = () => {
       <View style={ds.body}>
         <View style={ds.header}>
           <View>
-            <Text style={ds.text}>Good Morning</Text>
+            <Text style={ds.text}>Good {time()}</Text>
             <View style={ds.gap} />
             <Text style={ds.name}>
               {state?.user?.first_name + ' ' + state?.user?.last_name}
@@ -142,27 +126,28 @@ const DashBoard = () => {
           </TouchableWithoutFeedback>
         </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>
-          {cards.map((item) => (
-            <>
-              <View
-                style={{
-                  flex: 0.5,
-                  width: '50%',
-                  height: '23%',
-                  marginTop: 20,
-                  backgroundColor: colors.snow,
-                  borderRadius: 8,
-                }}
-              >
-                <Carousel
-                  items={item}
-                  itemsPerInterval={1}
-                  onItemPress={(item: any) => {}}
-                />
-              </View>
-              <View style={{ marginHorizontal: 5 }} />
-            </>
-          ))}
+          {data.length > 0 &&
+            data.slice(0, 2).map((item) => (
+              <>
+                <View
+                  style={{
+                    flex: 0.5,
+                    width: '50%',
+                    height: '23%',
+                    marginTop: 20,
+                    backgroundColor: colors.snow,
+                    borderRadius: 8,
+                  }}
+                >
+                  <Carousel
+                    items={item}
+                    itemsPerInterval={1}
+                    onItemPress={(item: any) => {}}
+                  />
+                </View>
+                <View style={{ marginHorizontal: 5 }} />
+              </>
+            ))}
         </View>
       </View>
     </View>
