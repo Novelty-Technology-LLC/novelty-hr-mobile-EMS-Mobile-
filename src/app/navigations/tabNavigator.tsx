@@ -3,7 +3,7 @@ import { Linking, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenStack from './screenStack';
 import colors from '../../assets/colors';
-import { ComingSoon, Profile } from '../screens';
+import { DashBoard, Profile } from '../screens';
 import { AppIcon } from '../common';
 import LogNav from './logStack';
 import DeviceInfo from 'react-native-device-info';
@@ -72,6 +72,7 @@ const TabNavigator = () => {
       device_id,
       platform: Platform.OS,
     };
+
     if (!isValid) {
       store(data).then(async (data) => {
         await removeUser(),
@@ -91,6 +92,15 @@ const TabNavigator = () => {
           keyboardHidesTabBar: true,
         }}
       >
+        <Tab.Screen
+          name="Setting"
+          component={DashBoard}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <AppIcon name="home" color={color} size={size} />
+            ),
+          }}
+        />
         <Tab.Screen
           name="Activity"
           component={LogNav}
@@ -115,15 +125,6 @@ const TabNavigator = () => {
           options={{
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="account" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Setting"
-          component={ComingSoon}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="cog" color={color} size={size} />
             ),
           }}
         />

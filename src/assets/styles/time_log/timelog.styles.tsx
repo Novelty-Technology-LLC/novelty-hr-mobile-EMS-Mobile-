@@ -7,10 +7,10 @@ const width = Dimensions.get('window').width;
 
 const timeLogStyle = StyleSheet.create({
   container: {
-    paddingVertical: normalize(10),
+    paddingVertical: normalize(8),
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
     borderRadius: 2,
@@ -62,7 +62,6 @@ const timeLogStyle = StyleSheet.create({
     fontSize: normalize(theme.size.md),
     color: colors.primary,
     fontFamily: fonts.mulishBold,
-    marginTop: normalize(5),
   },
   gap: {
     marginRight: normalize(10),
@@ -73,7 +72,6 @@ const timeLogStyle = StyleSheet.create({
     color: colors.fontGrey,
     paddingTop: normalize(theme.spacing.wide),
   },
-
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -82,11 +80,11 @@ const timeLogStyle = StyleSheet.create({
   rowAlign: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   modalCalender: {
     width: width * 0.8,
   },
-
   indicatorContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

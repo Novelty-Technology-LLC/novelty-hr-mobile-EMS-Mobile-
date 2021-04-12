@@ -1,4 +1,4 @@
-// import { Platform } from 'react-native';
+import { Platform } from 'react-native';
 
 export const BASE_URI = 'https://employee-mgmt-api.herokuapp.com';
 

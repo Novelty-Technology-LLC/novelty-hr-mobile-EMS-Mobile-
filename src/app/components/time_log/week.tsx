@@ -101,7 +101,6 @@ const Week = ({
           screen="timelog"
         />
       </View>
-
       <View style={last ? historyStyle.timelogcontainer : null}>
         {loading ? (
           <UserPlaceHolder />

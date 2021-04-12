@@ -8,6 +8,7 @@ import colors from '../../../assets/colors';
 import { LeadPlaceHolder } from '../loader';
 import { leadname } from '../../utils/getName';
 import { getUser } from '../../utils';
+import { SmallHeader } from '../../common';
 
 class Teams extends Component {
   user = {};
@@ -52,7 +53,9 @@ class Teams extends Component {
     return (
       <>
         <View style={style.container}>
-          <Text style={style.text}>Team Lead</Text>
+          <View style={style.text}>
+            <SmallHeader text="Team Lead" />
+          </View>
           {this.state.teamLead.length > 0 ? (
             <ScrollView
               style={style.scrollView}

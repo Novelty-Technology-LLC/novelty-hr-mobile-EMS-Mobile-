@@ -26,7 +26,7 @@ const descriptionStyle = StyleSheet.create({
         height: 90,
       },
       ios: {
-        height: deviceHeight * 0.11,
+        height: deviceHeight * 0.1,
       },
     }),
   },
@@ -83,7 +83,7 @@ const descriptionStyle = StyleSheet.create({
   iospicker: {
     width: '40%',
     ...Platform.select({
-      android: {    
+      android: {
         paddingVertical: 20,
       },
       ios: {
@@ -113,10 +113,10 @@ const descriptionStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: '100%',
-        paddingTop: '3%',
+        paddingTop: '4%',
       },
       android: {
-        height: 47
+        height: 47,
       },
     }),
   },
@@ -128,6 +128,12 @@ const descriptionStyle = StyleSheet.create({
   error: { paddingVertical: normalize(10), color: color.red },
   time: { paddingHorizontal: normalize(15) },
   dark: {},
+  timeError: {
+    marginTop: normalize(-10),
+    marginBottom: normalize(20),
+    marginLeft: normalize(15),
+    color: color.red,
+  },
 });
 
 export { descriptionStyle };

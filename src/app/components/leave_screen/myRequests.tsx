@@ -86,7 +86,6 @@ const MyRequests = ({
         </View>
       </TouchableWithoutFeedback>
       {loading ? <UserPlaceHolder /> : null}
-
       {requests.requests[0] ? (
         <FlatList
           data={requests.requests}

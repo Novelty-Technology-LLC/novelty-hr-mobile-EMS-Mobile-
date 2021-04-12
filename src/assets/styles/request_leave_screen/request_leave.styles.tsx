@@ -9,9 +9,7 @@ const requestLeave = StyleSheet.create({
     backgroundColor: color.white,
   },
   calendar: {
-    paddingVertical: 10,
     borderWidth: 0,
-    borderBottomWidth: 1,
     width: 'auto',
   },
   error: {
@@ -20,12 +18,11 @@ const requestLeave = StyleSheet.create({
     marginLeft: normalize(17),
   },
   buttonView: {
-    marginTop: normalize(23),
+    marginTop: normalize(5),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: color.primary,
-    paddingVertical: normalize(2),
     marginHorizontal: normalize(19),
     marginBottom: normalize(20),
     overflow: 'hidden',
@@ -41,7 +38,7 @@ const requestLeave = StyleSheet.create({
   logButtonView: {
     ...Platform.select({
       android: {
-        marginBottom: normalize(30),
+        marginBottom: normalize(25),
       },
       ios: {
         marginBottom: normalize(0),
@@ -49,12 +46,11 @@ const requestLeave = StyleSheet.create({
     }),
   },
   editLogButtonView: {
-    marginBottom: normalize(20),
+    marginBottom: normalize(15),
   },
-
   buttonText: {
     fontFamily: fonts.mulishBold,
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(13),
     color: color.white,
     fontSize: normalize(theme.size.base),
   },

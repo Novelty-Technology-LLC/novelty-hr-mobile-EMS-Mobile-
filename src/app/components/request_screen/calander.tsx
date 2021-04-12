@@ -123,7 +123,7 @@ const CalendarComponent = ({
                 timeLogStyle.indicator,
                 { backgroundColor: colors.green },
               ]}
-            ></View>
+            />
             <Text style={timeLogStyle.rldate}>Approved</Text>
             <View style={[timeLogStyle.indicator, { marginLeft: 5 }]}></View>
             <Text style={timeLogStyle.rldate}>In progress</Text>
@@ -162,7 +162,7 @@ const CalendarComponent = ({
           filter={filter}
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
-          style={[style.calendar, { marginTop: -20 }]}
+          style={[style.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
           name="date"
           label="date"
           renderDay={DayCell}

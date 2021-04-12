@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import color from '../../colors';
 import { theme, fonts } from '../theme';
 
 const teamStyle = StyleSheet.create({
@@ -11,8 +10,6 @@ const teamStyle = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    borderBottomColor: color.border,
-    borderBottomWidth: 1,
   },
 
   loading: {
@@ -23,14 +20,13 @@ const teamStyle = StyleSheet.create({
     paddingHorizontal: normalize(180),
   },
   text: {
-    paddingTop: normalize(19),
     paddingLeft: normalize(18),
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.md),
   },
   scrollView: {
     flex: 1,
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(10),
   },
   wrapper: {
     flex: 1,

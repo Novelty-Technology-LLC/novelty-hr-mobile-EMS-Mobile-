@@ -9,7 +9,7 @@ const hashtagStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: normalize(6),
+    paddingVertical: normalize(3),
     paddingHorizontal: normalize(10),
     backgroundColor: colors.buttonOrange,
 
@@ -32,7 +32,7 @@ const hashtagStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: normalize(6),
+    paddingVertical: normalize(3),
     paddingHorizontal: normalize(10),
 
     backgroundColor: colors.buttonGrey,

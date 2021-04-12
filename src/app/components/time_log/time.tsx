@@ -9,6 +9,8 @@ import { WheelPicker } from 'react-native-wheel-picker-android';
 import { getHrsMins } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getFontScale } from 'react-native-device-info';
+import { SmallHeader } from '../../common';
+import normalize from 'react-native-normalize';
 
 const mindata = ['0 min', '15 mins', '30 mins', '45 mins'];
 const hrdata = [
@@ -50,14 +52,21 @@ const Time = ({
     }
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     getFontScale().then((fs) => {
-    setPickerHeight((fs<= 0.95) ? '250%' :
-                (fs>0.95 && fs<=1.05)? '280%' : 
-                (fs>1.05 && fs<=1.20)? '330%' :
-                (fs>1.20 && fs<1.40)? '380%' : '460%');
+      setPickerHeight(
+        fs <= 0.95
+          ? '250%'
+          : fs > 0.95 && fs <= 1.05
+          ? '280%'
+          : fs > 1.05 && fs <= 1.2
+          ? '330%'
+          : fs > 1.2 && fs < 1.4
+          ? '380%'
+          : '460%'
+      );
     });
-  },[])
+  }, []);
 
   return (
     <>
@@ -67,12 +76,14 @@ const Time = ({
           calenderStyle.container,
         ]}
       >
-
-        <Text style={style.text}>Duration</Text>
+        <SmallHeader text="Duration" />
         <View style={style.row}>
           <WheelPicker
             selectedItem={hrIndex}
-            style={[style.iospicker,Platform.OS==='android' && {height :  pickerHeight}]}
+            style={[
+              style.iospicker,
+              Platform.OS === 'android' && { height: pickerHeight },
+            ]}
             onItemSelected={(index) => {
               setHrIndex(index);
               const intdata = parseInt(hrdata[index].split(' ')[0]);
@@ -91,7 +102,10 @@ const Time = ({
           </View>
           <WheelPicker
             selectedItem={minIndex}
-            style={[style.iospicker,Platform.OS==='android' && {height :  pickerHeight}]}
+            style={[
+              style.iospicker,
+              Platform.OS === 'android' && { height: pickerHeight },
+            ]}
             onItemSelected={(index) => {
               setMinIndex(index);
               const intdata = parseInt(mindata[index].split(' ')[0]);
@@ -108,7 +122,7 @@ const Time = ({
         </View>
       </View>
       {error && error.duration && (
-        <Text style={[style.error, style.time]}>{error.duration}</Text>
+        <Text style={style.timeError}>{error.duration}</Text>
       )}
     </>
   );

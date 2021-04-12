@@ -12,7 +12,7 @@ const myRequestsStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: normalize(20),
+    marginTop: normalize(10),
   },
   logheader: {
     flexDirection: 'row',

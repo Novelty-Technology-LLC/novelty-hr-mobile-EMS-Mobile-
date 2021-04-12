@@ -6,7 +6,7 @@ const emptyContainerStyle = StyleSheet.create({
   emptyContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: normalize(35),
+    paddingVertical: normalize(18),
     borderRadius: 2,
     backgroundColor: colors.snow,
   },
