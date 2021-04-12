@@ -18,4 +18,7 @@ export default {
   requested: '#EA8320',
   red: '#ff0000',
   hashtag: '#3385ff',
+  text: '#666666',
+  greenButton: '#6DAF7C',
+  ash: '#BCBCBC',
 };

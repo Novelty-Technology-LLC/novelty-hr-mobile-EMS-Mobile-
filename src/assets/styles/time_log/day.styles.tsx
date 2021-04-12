@@ -15,7 +15,7 @@ const dayStyle = StyleSheet.create({
     width: Platform.OS === 'ios' ? '30%' : '32%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: normalize(10),
+    paddingVertical: normalize(5),
     borderRadius: normalize(3),
   },
   selectView: {
@@ -34,7 +34,7 @@ const dayStyle = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    paddingBottom: normalize(15),
+    paddingBottom: normalize(12),
     justifyContent: 'space-between',
   },
   gap: {

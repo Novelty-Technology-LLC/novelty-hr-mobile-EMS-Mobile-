@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { leaveType, leaveType as style } from '../../../assets/styles';
-import { SelectButton } from '../../common';
+import { SelectButton, SmallHeader } from '../../common';
 
 function Leavetype({
   handleChange,
@@ -13,10 +13,11 @@ function Leavetype({
   const [type, setType] = useState(
     defaultValue ? (defaultValue.toUpperCase() === 'PAID TIME OFF' ? 1 : 0) : 1
   );
+
   return (
     <View style={style.container}>
       <View style={style.wrapper}>
-        <Text style={style.text}>Choose Leave Type</Text>
+        <SmallHeader text="Choose Leave Type" />
         <View style={style.requestBody}>
           <TouchableOpacity
             onPress={() => {

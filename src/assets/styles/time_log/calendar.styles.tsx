@@ -10,9 +10,8 @@ const calenderStyle = StyleSheet.create({
     width: '10%',
   },
   main: {
-    height: normalize(110),
+    height: normalize(100),
     paddingTop: normalize(theme.size.xxs),
-    paddingBottom: normalize(theme.size.xxs),
   },
   header: {
     fontFamily: fonts.poppinsMedium,

@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { stringifyDate } from './timelog';
 const today = moment();
 const thisWeekStart = today.startOf('week').format('YYYY-MM-DD');
 const thisWeekEnd = today.endOf('week').format('YYYY-MM-DD');
@@ -17,6 +16,7 @@ const lastWeekStart = moment()
   .subtract(1, 'weeks')
   .startOf('week')
   .format('YYYY-MM-DD');
+
 const lastWeekEnd = moment()
   .subtract(1, 'weeks')
   .endOf('week')
@@ -26,6 +26,7 @@ const lastMonthStart = moment()
   .subtract(1, 'months')
   .startOf('month')
   .format('YYYY-MM-DD');
+
 const lastMonthEnd = moment()
   .subtract(1, 'months')
   .endOf('month')
@@ -35,6 +36,7 @@ const lastQuarterStart = moment()
   .subtract(1, 'Q')
   .startOf('quarter')
   .format('YYYY-MM-DD');
+
 const lastQuarterEnd = moment()
   .subtract(1, 'Q')
   .endOf('quarter')
@@ -44,6 +46,7 @@ const lastYearStart = moment()
   .subtract(1, 'year')
   .startOf('quarter')
   .format('YYYY-MM-DD');
+
 const lastYearEnd = moment()
   .subtract(1, 'year')
   .endOf('quarter')

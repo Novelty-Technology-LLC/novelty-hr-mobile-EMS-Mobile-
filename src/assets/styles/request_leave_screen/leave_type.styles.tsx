@@ -1,23 +1,18 @@
 import { StyleSheet, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import { theme, fonts } from '../theme';
+import { theme, fonts, color } from '../theme';
 
 const leaveType = StyleSheet.create({
-  container: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
+  container: {},
   wrapper: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     marginHorizontal: normalize(15),
-    paddingTop: normalize(10),
   },
   padNone: {
-    paddingBottom: normalize(0),
     marginBottom: normalize(0),
     // marginHorizontal: normalize(15),
     paddingTop: normalize(10),
@@ -30,15 +25,15 @@ const leaveType = StyleSheet.create({
   body: {
     width: '100%',
     flexDirection: 'row',
-    paddingTop: normalize(20),
+    paddingTop: normalize(5),
     flexWrap: 'wrap',
   },
   requestBody: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: normalize(5),
   },
-
   button: {
     width: '48%',
     marginBottom: normalize(15),
@@ -58,7 +53,7 @@ const leaveType = StyleSheet.create({
         width: '32%',
       },
     }),
-    marginBottom: normalize(15),
+    marginBottom: normalize(10),
   },
 
   spacer: {
@@ -76,6 +71,7 @@ const leaveType = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   row: {
     flexDirection: 'row',

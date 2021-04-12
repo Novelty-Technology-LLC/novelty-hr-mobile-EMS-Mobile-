@@ -9,7 +9,7 @@ const selectButtonStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: normalize(15),
+    paddingVertical: normalize(6),
     backgroundColor: colors.buttonOrange,
     borderRadius: normalize(3),
     ...Platform.select({
@@ -26,7 +26,7 @@ const selectButtonStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: normalize(15),
+    paddingVertical: normalize(6),
     backgroundColor: colors.buttonGrey,
     ...Platform.select({
       ios: {

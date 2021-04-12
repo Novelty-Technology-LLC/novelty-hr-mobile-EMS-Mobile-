@@ -26,16 +26,14 @@ const approveRequest = StyleSheet.create({
   },
   scrollView: { flex: 1 },
   requestView: {
-    flex: 0.6,
     flexDirection: 'column',
   },
   main: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingBottom: normalize(10),
   },
   imageView: {
-    paddingTop: normalize(15),
+    paddingVertical: normalize(10),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -112,7 +110,6 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   sectionBody: {
-    flex: 1,
     paddingTop: normalize(10),
     paddingLeft: normalize(10),
     overflow: 'hidden',
@@ -123,12 +120,10 @@ const approveRequest = StyleSheet.create({
     lineHeight: normalize(theme.size.lg),
   },
   responseView: {
-    flex: 1,
-    marginTop: normalize(20),
     marginLeft: normalize(10),
+    marginTop: normalize(5),
   },
   pendingresponseView: {
-    flex: 0.34,
     marginTop: normalize(20),
   },
   response: {
@@ -146,7 +141,6 @@ const approveRequest = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: normalize(2),
   },
   teamLead: {
     fontFamily: fonts.mulishRegular,
@@ -154,7 +148,6 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   leadText: {
-    paddingTop: normalize(9),
     fontFamily: fonts.mulishRegular,
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Textarea from 'react-native-textarea';
 import { descriptionStyle as style } from '../../../assets/styles';
-import { HashTagButton } from '../../common';
+import { HashTagButton, SmallHeader } from '../../common';
 import { HashtagPlaceHolder } from '../loader';
 import { getHash } from '../../services/timeLogService';
 import color from '../../../assets/colors';
@@ -66,22 +66,23 @@ const Description = ({
 
   return (
     <View
-      style={
-        timelog && {
-          borderTopWidth: 1,
-          borderTopColor: color.border,
-          marginTop: normalize(15),
-        }
-      }
+      style={{
+        flexDirection: 'column',
+        marginTop: normalize(timelog ? 10 : -5),
+      }}
     >
       <View
         style={[
           style.main,
           editlog ? { marginTop: 0 } : {},
-          { marginTop: normalize(timelog ? 2 : 1) },
+          {
+            marginTop: normalize(
+              timelog && Platform.OS === 'android' ? -10 : -7
+            ),
+          },
         ]}
       >
-        <Text style={style.text}>{timelog ? 'Task summary' : 'Note'}</Text>
+        <SmallHeader text={timelog ? 'Task summary' : 'Note'} />
         {timelog && (
           <>
             <View style={style.hashtag}>
@@ -135,10 +136,10 @@ const Description = ({
             handleChange(error ? 'note' : 'task')(text)
           }
         />
-        {error && touched && error.note && touched.note && (
-          <Text style={style.error}>{error.note}</Text>
-        )}
       </View>
+      {error && touched && error.note && touched.note && (
+        <Text style={style.error}>{error.note}</Text>
+      )}
     </View>
   );
 };

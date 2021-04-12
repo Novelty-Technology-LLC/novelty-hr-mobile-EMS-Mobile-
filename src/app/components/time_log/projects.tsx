@@ -8,7 +8,7 @@ import {
 import { getAllProjects } from '../../services/projectService';
 import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
-import { AppIcon, SelectButton } from '../../common';
+import { AppIcon, SelectButton, SmallHeader } from '../../common';
 import { getUser } from '../../utils';
 
 const Projects = ({
@@ -76,7 +76,7 @@ const Projects = ({
       <View style={[style.wrapper, defaultValue ? style.padNone : null]}>
         <>
           <View style={style.moreContainer}>
-            <Text style={[style.text, style.padNone]}>Choose a Project</Text>
+            <SmallHeader text="Choose a Project" history={true} />
             <TouchableOpacity
               onPress={() =>
                 setShowmore(
@@ -91,8 +91,7 @@ const Projects = ({
                 <Text style={myRequestsStyle.history}>
                   {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
                 </Text>
-                <View style={myRequestsStyle.gap}></View>
-
+                <View style={myRequestsStyle.gap} />
                 <AppIcon
                   name={showmore}
                   size={25}

@@ -5,7 +5,7 @@ const create = async (data: object) => {
     api
       .post('/user/add', data)
       .then((data) => resolve(data))
-      .catch((err) => console.log('err - > ', err));
+      .catch((err) => reject(err));
   });
 };
 
