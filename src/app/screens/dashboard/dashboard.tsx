@@ -19,6 +19,7 @@ import { getToday } from '../../utils';
 import { createWork, getWork, getDashboard } from '../../services';
 import { Carousel } from '../../common';
 import moment from 'moment';
+import normalize from 'react-native-normalize';
 
 const time = () => {
   var today = new Date();
@@ -142,10 +143,10 @@ const DashBoard = () => {
                   style={{
                     flex: 0.5,
                     width: '50%',
-                    height: '23%',
-                    marginTop: 20,
+                    height: normalize(125),
+                    marginTop: normalize(20),
                     backgroundColor: colors.snow,
-                    borderRadius: 8,
+                    borderRadius: normalize(8),
                   }}
                 >
                   <Carousel
