@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import normalize from 'react-native-normalize';
-import { getDayToday } from '../utils';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
@@ -34,15 +33,6 @@ export const Carousel = (props: CarouselPropTypes) => {
     viewBox: `0 0 ${normalize(51.111)} ${normalize(40)}`,
   };
 
-  const transformItem = (item: any) => ({
-    title: item?.menu_name ?? item?.title,
-    subTitle: item?.day
-      ? item?.day === getDayToday()
-        ? 'Today'
-        : item?.day
-      : item?.subTitle,
-  });
-
   useEffect(() => {
     try {
       setItems(chunk(props.items.items, 1));
@@ -53,7 +43,7 @@ export const Carousel = (props: CarouselPropTypes) => {
 
   const scrollHandler = (width: number, intervals: number) => {
     chunk(props.items.items, 1).map((item, index) => {
-      if (item[0]?.day && item[0]?.day === getDayToday()) {
+      if (item[0]?.subTitle && item[0]?.subTitle === 'Today') {
         ref.scrollTo({
           x: (width / intervals) * index,
           y: 0,
@@ -158,10 +148,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                   style={styles.item}
                   onPress={() => onItemPress(item[0])}
                 >
-                  <UpperCard
-                    item={{ ...transformItem(item) }}
-                    module={props.items.module}
-                  />
+                  <UpperCard item={{ ...item }} module={props.items.module} />
                 </TouchableOpacity>
               </View>
             </View>
