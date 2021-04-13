@@ -43,8 +43,6 @@ export const Carousel = (props: CarouselPropTypes) => {
   });
 
   useEffect(() => {
-    console.log(getDayToday());
-
     try {
       setItems(chunk(props.items.items, 1));
     } catch (error) {

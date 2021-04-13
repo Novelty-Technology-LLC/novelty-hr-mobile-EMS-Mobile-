@@ -66,17 +66,21 @@ const DashBoard = () => {
 
   const ToggleWork = async () => {
     try {
-      setLoading(true);
-      setToggle(+toggle === 0 ? 1 : 0);
-      const data = {
-        id,
-        date: getToday(),
-        user_id: state?.user?.id,
-        status: +toggle === 0 ? 1 : 0,
-      };
-      const res = await createWork(data);
-      snackBarMessage('Success');
-      setLoading(false);
+      if (new Date().getHours() < 10) {
+        setLoading(true);
+        setToggle(+toggle === 0 ? 1 : 0);
+        const data = {
+          id,
+          date: getToday(),
+          user_id: state?.user?.id,
+          status: +toggle === 0 ? 1 : 0,
+        };
+        const res = await createWork(data);
+        snackBarMessage('Successfully changed status.');
+        setLoading(false);
+      } else {
+        snackErrorBottom('Status cannot be changed after 10AM.');
+      }
     } catch (error) {
       snackErrorBottom('Something went wrong');
       setLoading(false);
