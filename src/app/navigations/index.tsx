@@ -21,6 +21,7 @@ const RootNavigation = () => {
 
         dispatch({ type: 'RESTORE_TOKEN', token: userToken });
         const user = await getUser();
+
         dispatch({ type: 'STORE_USER', user: JSON.parse(user) });
       } catch (e) {
         console.log(e);

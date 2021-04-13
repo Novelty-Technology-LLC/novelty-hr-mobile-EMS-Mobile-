@@ -12,7 +12,11 @@ const createWork = async (data: object) => {
 const getWork = async (data: object) => {
   return new Promise((resolve, reject) => {
     api
-      .get('/work', data)
+      .get('/work', {
+        params: {
+          data,
+        },
+      })
       .then((data) => resolve(data))
       .catch((err) => reject(err));
   });

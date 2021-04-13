@@ -5,12 +5,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
 } from 'react-native';
 import normalize from 'react-native-normalize';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../../assets/colors';
-import { color } from '../../assets/styles';
+import { getDayToday } from '../utils';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
@@ -36,7 +33,18 @@ export const Carousel = (props: CarouselPropTypes) => {
     viewBox: `0 0 ${normalize(51.111)} ${normalize(40)}`,
   };
 
+  const transformItem = (item: any) => ({
+    title: item?.menu_name ?? item?.title,
+    subTitle: item?.day
+      ? item?.day === getDayToday()
+        ? 'Today'
+        : item?.day
+      : item?.subTitle,
+  });
+
   useEffect(() => {
+    console.log(getDayToday());
+
     try {
       setItems(chunk(props.items.items, 1));
     } catch (error) {
@@ -45,14 +53,8 @@ export const Carousel = (props: CarouselPropTypes) => {
   }, []);
 
   const init = (width: number) => {
-    // initialise width
     setWidth(width);
-    // initialise total intervals
     const totalItems = items.length;
-    console.log(
-      'Math.ceil(totalItems / itemsPerInterval)',
-      Math.ceil(totalItems / itemsPerInterval)
-    );
     setIntervals(Math.ceil(totalItems / itemsPerInterval));
   };
 
@@ -135,13 +137,17 @@ export const Carousel = (props: CarouselPropTypes) => {
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
                   marginTop: normalize(-60),
+                  width: '100%',
                 }}
               >
                 <TouchableOpacity
                   style={styles.item}
                   onPress={() => onItemPress(item[0])}
                 >
-                  <UpperCard item={{ ...item }} module={props.items.module} />
+                  <UpperCard
+                    item={{ ...transformItem(item) }}
+                    module={props.items.module}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -178,7 +184,7 @@ const styles = StyleSheet.create({
   },
   bullet: {
     paddingHorizontal: normalize(5),
-    fontSize: normalize(20),
+    fontSize: normalize(30),
     // color: color.darkAzure,
   },
   wrapper: {

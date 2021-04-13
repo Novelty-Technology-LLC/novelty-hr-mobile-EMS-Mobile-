@@ -130,10 +130,11 @@ android {
 
     defaultConfig {
         applicationId "com.noveltyhrmobile"
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 52
         versionName "1.5.3"
+        multiDexEnabled true
     }
     splits {
         abi {
