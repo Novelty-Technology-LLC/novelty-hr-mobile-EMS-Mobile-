@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     justifyContent: 'flex-start',
+    backgroundColor: 'red',
   },
   scrollView: {
     display: 'flex',
