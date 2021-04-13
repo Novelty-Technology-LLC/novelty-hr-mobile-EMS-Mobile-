@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../../assets/colors';
@@ -27,7 +27,7 @@ const UpperCard = ({ item, module }: { item: any; module: any }) => {
         >
           {item?.title?.length > 42
             ? item.title.slice(0, 42) + '...'
-            : item?.title ?? item.menu_name}
+            : item?.title}
         </Text>
         <Text
           style={{

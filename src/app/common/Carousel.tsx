@@ -26,6 +26,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   const [intervals, setIntervals] = React.useState(1);
   const [width, setWidth] = React.useState(0);
   const [items, setItems] = React.useState([[]]);
+  const [ref, setRef] = React.useState<any>(null);
 
   const iconProps = {
     width: normalize(51.111),
@@ -50,10 +51,24 @@ export const Carousel = (props: CarouselPropTypes) => {
     }
   }, []);
 
+  const scrollHandler = (width: number, intervals: number) => {
+    chunk(props.items.items, 1).map((item, index) => {
+      if (item[0]?.day && item[0]?.day === getDayToday()) {
+        ref.scrollTo({
+          x: (width / intervals) * index,
+          y: 0,
+          animated: true,
+        });
+        setInterval(index + 1);
+      }
+    });
+  };
+
   const init = (width: number) => {
     setWidth(width);
     const totalItems = items.length;
     setIntervals(Math.ceil(totalItems / itemsPerInterval));
+    scrollHandler(width, Math.ceil(totalItems / itemsPerInterval));
   };
 
   const getInterval = (offset: any) => {
@@ -116,6 +131,7 @@ export const Carousel = (props: CarouselPropTypes) => {
           width: `${100 * intervals}%`,
         }}
         showsHorizontalScrollIndicator={false}
+        ref={(ref) => setRef(ref)}
         onContentSizeChange={(w, h) => {
           init(w);
         }}
