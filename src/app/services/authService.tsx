@@ -10,8 +10,8 @@ import appleAuth, {
 
 import { setUser, storeToken } from '../utils';
 import { create } from './userService';
-import { mapDataToObject } from '../utils';
-import { snackErrorBottom } from '../common';
+import { mapDataToObject } from '../utils/transformer';
+import { snackErrorBottom } from '../common/error';
 
 const signInGoogle = async (dispatch: any) => {
   try {

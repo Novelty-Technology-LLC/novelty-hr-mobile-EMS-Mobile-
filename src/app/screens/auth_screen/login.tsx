@@ -59,12 +59,12 @@ const Login = () => {
     if (state.isLoading) {
       return navigation.navigate('loading');
     } else {
-      if (state.userToken !== null) {
+      if (state.user !== null) {
         return navigation.navigate('BottomTabs');
       } else if (state.isInvalid) {
         signOutGoogle();
         return navigation.navigate('invalid');
-      } else if (state.userToken === null) {
+      } else if (state.user === null) {
         return navigation.navigate('login');
       }
     }

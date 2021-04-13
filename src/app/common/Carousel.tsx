@@ -5,12 +5,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
 } from 'react-native';
 import normalize from 'react-native-normalize';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../../assets/colors';
-import { color } from '../../assets/styles';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
@@ -29,6 +25,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   const [intervals, setIntervals] = React.useState(1);
   const [width, setWidth] = React.useState(0);
   const [items, setItems] = React.useState([[]]);
+  const [ref, setRef] = React.useState<any>(null);
 
   const iconProps = {
     width: normalize(51.111),
@@ -44,16 +41,24 @@ export const Carousel = (props: CarouselPropTypes) => {
     }
   }, []);
 
+  const scrollHandler = (width: number, intervals: number) => {
+    chunk(props.items.items, 1).map((item, index) => {
+      if (item[0]?.subTitle && item[0]?.subTitle === 'Today') {
+        ref.scrollTo({
+          x: (width / intervals) * index,
+          y: 0,
+          animated: true,
+        });
+        setInterval(index + 1);
+      }
+    });
+  };
+
   const init = (width: number) => {
-    // initialise width
     setWidth(width);
-    // initialise total intervals
     const totalItems = items.length;
-    console.log(
-      'Math.ceil(totalItems / itemsPerInterval)',
-      Math.ceil(totalItems / itemsPerInterval)
-    );
     setIntervals(Math.ceil(totalItems / itemsPerInterval));
+    scrollHandler(width, Math.ceil(totalItems / itemsPerInterval));
   };
 
   const getInterval = (offset: any) => {
@@ -116,6 +121,7 @@ export const Carousel = (props: CarouselPropTypes) => {
           width: `${100 * intervals}%`,
         }}
         showsHorizontalScrollIndicator={false}
+        ref={(ref) => setRef(ref)}
         onContentSizeChange={(w, h) => {
           init(w);
         }}
@@ -135,6 +141,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
                   marginTop: normalize(-60),
+                  width: '100%',
                 }}
               >
                 <TouchableOpacity
@@ -178,7 +185,7 @@ const styles = StyleSheet.create({
   },
   bullet: {
     paddingHorizontal: normalize(5),
-    fontSize: normalize(20),
+    fontSize: normalize(30),
     // color: color.darkAzure,
   },
   wrapper: {

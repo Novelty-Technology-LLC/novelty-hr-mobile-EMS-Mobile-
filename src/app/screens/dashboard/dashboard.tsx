@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, Fragment } from 'react';
 import {
   Text,
   View,
@@ -18,6 +18,7 @@ import colors from '../../../assets/colors';
 import { getToday } from '../../utils';
 import { createWork, getWork, getDashboard } from '../../services';
 import { Carousel } from '../../common';
+import moment from 'moment';
 
 const time = () => {
   var today = new Date();
@@ -36,6 +37,7 @@ const time = () => {
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(0);
+  const [id, setId] = useState(0);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -43,8 +45,9 @@ const DashBoard = () => {
       try {
         const res = await getWork({
           user_id: state?.user?.id,
-          date: getToday(),
+          date: moment().format('YYYY-MM-DD'),
         });
+        setId(res?.data?.data?.id ?? 0);
         setToggle(res?.data?.data?.status ?? 0);
         setLoading(false);
       } catch (error) {
@@ -63,16 +66,21 @@ const DashBoard = () => {
 
   const ToggleWork = async () => {
     try {
-      setLoading(true);
-      setToggle(+toggle === 0 ? 1 : 0);
-      const data = {
-        date: getToday(),
-        user_id: state?.user?.id,
-        status: +toggle === 0 ? 1 : 0,
-      };
-      const res = await createWork(data);
-      snackBarMessage('Succes');
-      setLoading(false);
+      if (new Date().getHours() < 10) {
+        setLoading(true);
+        setToggle(+toggle === 0 ? 1 : 0);
+        const data = {
+          id,
+          date: getToday(),
+          user_id: state?.user?.id,
+          status: +toggle === 0 ? 1 : 0,
+        };
+        const res = await createWork(data);
+        snackBarMessage('Successfully changed status.');
+        setLoading(false);
+      } else {
+        snackErrorBottom('Status cannot be changed after 10AM.');
+      }
     } catch (error) {
       snackErrorBottom('Something went wrong');
       setLoading(false);
@@ -127,9 +135,10 @@ const DashBoard = () => {
         </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>
           {data.length > 0 &&
-            data.slice(0, 2).map((item) => (
-              <>
+            data.slice(0, 2).map((item, index) => (
+              <Fragment key={index}>
                 <View
+                  key={index}
                   style={{
                     flex: 0.5,
                     width: '50%',
@@ -146,7 +155,7 @@ const DashBoard = () => {
                   />
                 </View>
                 <View style={{ marginHorizontal: 5 }} />
-              </>
+              </Fragment>
             ))}
         </View>
       </View>

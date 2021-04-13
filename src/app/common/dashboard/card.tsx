@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
+import normalize from 'react-native-normalize';
 import colors from '../../../assets/colors';
 import { fonts } from '../../../assets/styles';
 import { dashboarCard } from '../../utils';
 
 const UpperCard = ({ item, module }: { item: any; module: any }) => {
   return (
-    <View style={{ flexDirection: 'column', marginTop: 40 }}>
-      <View style={{ marginLeft: -30 }}>{dashboarCard[module]}</View>
+    <View style={{ flexDirection: 'column', marginTop: normalize(40) }}>
+      <View style={{ marginLeft: normalize(10) }}>{dashboarCard[module]}</View>
       <View
         style={{
           marginTop: 15,
@@ -24,9 +25,9 @@ const UpperCard = ({ item, module }: { item: any; module: any }) => {
             textAlign: 'center',
           }}
         >
-          {item.title.length > 42
+          {item?.title?.length > 42
             ? item.title.slice(0, 42) + '...'
-            : item.title}
+            : item?.title}
         </Text>
         <Text
           style={{

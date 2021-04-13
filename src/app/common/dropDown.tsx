@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Platform } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../assets/colors';
@@ -7,7 +7,7 @@ import { TimeLogContext } from '../reducer';
 import { pastWeek, thisWeek } from '../utils/dateFilter';
 
 const DropDown = ({ options, type, onChange, week, group }: any) => {
-  const [controller, setController] = useState(null);
+  const controller = useRef(null);
   const { timelogs } = useContext(TimeLogContext);
   const onChangeWeek = (val: string) => {
     switch (val) {
@@ -20,7 +20,7 @@ const DropDown = ({ options, type, onChange, week, group }: any) => {
     }
   };
   useEffect(() => {
-    controller && controller.close();
+    controller && controller.current.close();
   }, [timelogs]);
 
   return (
@@ -30,9 +30,10 @@ const DropDown = ({ options, type, onChange, week, group }: any) => {
         justifyContent: 'flex-start',
       }}
       placeholder={type === 'week' ? week : group}
-      controller={(instance) => setController(instance)}
+      controller={(instance) => (controller.current = instance)}
       style={{
         borderWidth: 0,
+        paddingVertical: -1,
         backgroundColor: colors.buttonGrey,
         paddingHorizontal: 5,
         borderTopLeftRadius: 1,
@@ -45,6 +46,7 @@ const DropDown = ({ options, type, onChange, week, group }: any) => {
         height: 30,
         width: type === 'week' ? 110 : 90,
       }}
+      showArrow={true}
       arrowColor={colors.fontGrey}
       arrowSize={16}
       labelStyle={{
