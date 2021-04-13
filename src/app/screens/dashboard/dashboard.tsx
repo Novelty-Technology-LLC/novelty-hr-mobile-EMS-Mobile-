@@ -144,9 +144,9 @@ const DashBoard = () => {
                     flex: 0.5,
                     width: '50%',
                     height: normalize(125),
-                    marginTop: 20,
+                    marginTop: normalize(20),
                     backgroundColor: colors.snow,
-                    borderRadius: 8,
+                    borderRadius: normalize(8),
                   }}
                 >
                   <Carousel
