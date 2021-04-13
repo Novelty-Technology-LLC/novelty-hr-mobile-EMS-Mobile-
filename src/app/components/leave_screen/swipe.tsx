@@ -6,7 +6,7 @@ import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles';
 import { Alert, AppIcon } from '../../common';
 import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
-import { DeleteLog } from '../time_log';
+import { DeleteLog } from '../time_log/deleteLog';
 import { navigate } from '../../utils/navigation';
 
 const Swipe = ({
