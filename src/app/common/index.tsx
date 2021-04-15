@@ -19,3 +19,4 @@ export * from './dropDown';
 export * from './hashTagButton';
 export * from './hashTagButton';
 export * from './Carousel';
+export * from './dashboard/placeholder';
