@@ -17,7 +17,7 @@ import {
 } from '../../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
-import { getDayToday } from '../../utils';
+import { getDayToday, getToday } from '../../utils';
 import { createWork, getWork, getDashboard } from '../../services';
 import { Carousel } from '../../common';
 import moment from 'moment';
@@ -76,7 +76,9 @@ const DashBoard = () => {
       try {
         setCardLoading(true);
         const data = await getDashboard();
-        let newList = data.filter((item) => item?.detailRoute === null);
+        data.map((item) => console.log(item.items));
+
+        let newList = data.filter((item) => item?.detailRoute === '/employee');
 
         newList[0].items.map((item) => {
           if (item?.subTitle === 'Working from Home') {
@@ -110,7 +112,6 @@ const DashBoard = () => {
   const ToggleWork = async () => {
     try {
       setLoading(true);
-
       const data = {
         id,
         date: getToday(),
