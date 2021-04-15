@@ -5,6 +5,8 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
   Image,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 import { AuthContext } from '../../reducer';
 import { dashboardStyle as ds, headerText } from '../../../assets/styles';
@@ -20,6 +22,7 @@ import { createWork, getWork, getDashboard } from '../../services';
 import { Carousel } from '../../common';
 import moment from 'moment';
 import normalize from 'react-native-normalize';
+import { DashboardCardPlaceholder } from '../../common';
 
 const time = () => {
   var today = new Date();
@@ -35,12 +38,20 @@ const time = () => {
     return 'Night';
   }
 };
+
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(0);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [cardLoading, setCardLoading] = useState(true);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+  }, []);
+
   useEffect(() => {
     const fetchWork = async () => {
       try {
@@ -48,6 +59,7 @@ const DashBoard = () => {
           user_id: state?.user?.id,
           date: moment().format('YYYY-MM-DD'),
         });
+
         setId(res?.data?.data?.id ?? 0);
         setToggle(res?.data?.data?.status ?? 0);
         setLoading(false);
@@ -60,10 +72,17 @@ const DashBoard = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await getDashboard();
-      setData(data);
+      try {
+        setCardLoading(true);
+        const data = await getDashboard();
+        setData(data);
+        setRefreshing(false);
+        setCardLoading(false);
+      } catch (error) {
+        setRefreshing(false);
+      }
     })();
-  }, []);
+  }, [refreshing]);
 
   const ToggleWork = async () => {
     try {
@@ -106,7 +125,12 @@ const DashBoard = () => {
           />
         </View>
       </Header>
-      <View style={ds.body}>
+      <ScrollView
+        contentContainerStyle={ds.body}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View style={ds.header}>
           <View>
             <Text style={ds.text}>Good {time()}</Text>
@@ -135,7 +159,8 @@ const DashBoard = () => {
           </TouchableWithoutFeedback>
         </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>
-          {data.length > 0 &&
+          {!cardLoading ? (
+            data.length > 0 &&
             data.slice(0, 2).map((item, index) => (
               <Fragment key={index}>
                 <View
@@ -157,9 +182,12 @@ const DashBoard = () => {
                 </View>
                 <View style={{ marginHorizontal: 5 }} />
               </Fragment>
-            ))}
+            ))
+          ) : (
+            <DashboardCardPlaceholder />
+          )}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
