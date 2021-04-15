@@ -12,8 +12,9 @@ import { UpperCard } from './dashboard/card';
 interface CarouselPropTypes {
   itemsPerInterval?: number;
   onItemPress: (val: any) => void;
-  theme: any;
-  items: Array<any>;
+  theme?: any;
+  items: any;
+  wfhCount: number;
 }
 
 export const Carousel = (props: CarouselPropTypes) => {
@@ -24,7 +25,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   const [interval, setInterval] = React.useState(1);
   const [intervals, setIntervals] = React.useState(1);
   const [width, setWidth] = React.useState(0);
-  const [items, setItems] = React.useState([[]]);
+  const [items, setItems] = React.useState<any>([[]]);
   const [ref, setRef] = React.useState<any>(null);
 
   const iconProps = {
@@ -42,7 +43,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   }, []);
 
   const scrollHandler = (width: number, intervals: number) => {
-    chunk(props.items.items, 1).map((item, index) => {
+    chunk(props.items.items, 1).map((item: any, index) => {
       if (item[0]?.subTitle && item[0]?.subTitle === 'Today') {
         ref.scrollTo({
           x: (width / intervals) * index,
@@ -148,7 +149,11 @@ export const Carousel = (props: CarouselPropTypes) => {
                   style={styles.item}
                   onPress={() => onItemPress(item[0])}
                 >
-                  <UpperCard item={{ ...item }} module={props.items.module} />
+                  <UpperCard
+                    item={{ ...item }}
+                    module={props.items.module}
+                    wfhCount={props.wfhCount}
+                  />
                 </TouchableOpacity>
               </View>
             </View>

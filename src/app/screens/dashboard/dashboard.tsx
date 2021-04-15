@@ -15,7 +15,7 @@ import {
 } from '../../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
-import { getToday } from '../../utils';
+import { getDayToday } from '../../utils';
 import { createWork, getWork, getDashboard } from '../../services';
 import { Carousel } from '../../common';
 import moment from 'moment';
@@ -38,13 +38,14 @@ const time = () => {
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(0);
+  const [wfhCount, setwfhCount] = useState(0);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchWork = async () => {
       try {
-        const res = await getWork({
+        const res: any = await getWork({
           user_id: state?.user?.id,
           date: moment().format('YYYY-MM-DD'),
         });
@@ -60,27 +61,53 @@ const DashBoard = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await getDashboard();
+      const data: any = await getDashboard();
+      let newList = data.filter((item) => item?.detailRoute === null);
+
+      newList[0].items.map((item) => {
+        if (item?.subTitle === 'Working from Home') {
+          setwfhCount(+item.title);
+        }
+      });
+
       setData(data);
     })();
   }, []);
 
+  const transformItem = (item: any) => {
+    if (item?.detailRoute === '/lunch') {
+      const newItem = item.items.map((item: any) => {
+        if (item?.subTitle === getDayToday()) {
+          return { ...item, subTitle: 'Today' };
+        } else {
+          return item;
+        }
+      });
+      item.items = newItem;
+    }
+
+    return item;
+  };
+
   const ToggleWork = async () => {
     try {
-      if (new Date().getHours() < 10) {
-        setLoading(true);
-        setToggle(+toggle === 0 ? 1 : 0);
-        const data = {
-          id,
-          date: getToday(),
-          user_id: state?.user?.id,
-          status: +toggle === 0 ? 1 : 0,
-        };
-        const res = await createWork(data);
-        snackBarMessage('Successfully changed status.');
+      setLoading(true);
+
+      const data = {
+        id,
+        date: getToday(),
+        user_id: state?.user?.id,
+        status: +toggle === 0 ? 1 : 0,
+      };
+      const res: any = await createWork(data);
+      if (res?.data?.data?.message) {
+        snackErrorBottom(res?.data?.data?.message);
         setLoading(false);
-      } else {
-        snackErrorBottom('Status cannot be changed after 10AM.');
+      } else if (res?.data?.status === 200) {
+        snackBarMessage('Successfully changed status.');
+        setToggle(+toggle === 0 ? 1 : 0);
+        setwfhCount(+toggle === 0 ? wfhCount + 1 : wfhCount - 1);
+        setLoading(false);
       }
     } catch (error) {
       snackErrorBottom('Something went wrong');
@@ -150,9 +177,10 @@ const DashBoard = () => {
                   }}
                 >
                   <Carousel
-                    items={item}
+                    items={transformItem(item)}
                     itemsPerInterval={1}
                     onItemPress={(item: any) => {}}
+                    wfhCount={wfhCount}
                   />
                 </View>
                 <View style={{ marginHorizontal: 5 }} />
