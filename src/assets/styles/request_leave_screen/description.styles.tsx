@@ -11,7 +11,8 @@ const descriptionStyle = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexWrap: 'wrap',
-    paddingVertical: normalize(5),
+    paddingBottom: normalize(5),
+    marginTop: normalize(-5),
   },
   main: {
     marginTop: normalize(20),
@@ -111,7 +112,8 @@ const descriptionStyle = StyleSheet.create({
     ...Platform.select({
       ios: {
         height: '100%',
-        paddingTop: '4%',
+        paddingTop: '2%',
+        marginTop: '-1%'
       },
       android: {
         height: 47,
