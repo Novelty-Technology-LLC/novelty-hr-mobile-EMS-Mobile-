@@ -43,7 +43,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   }, []);
 
   const scrollHandler = (width: number, intervals: number) => {
-    chunk(props.items.items, 1).map((item: any, index) => {
+    chunk(props.items.items, 1).map((item: any, index: number) => {
       if (item[0]?.subTitle && item[0]?.subTitle === 'Today') {
         ref.scrollTo({
           x: (width / intervals) * index,

@@ -43,7 +43,7 @@ const time = () => {
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
-  const [toggle, setToggle] = useState(0);
+  const [toggle, setToggle] = useState(false);
   const [wfhCount, setwfhCount] = useState(0);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -64,7 +64,7 @@ const DashBoard = () => {
         });
 
         setId(res?.data?.data?.id ?? 0);
-        setToggle(res?.data?.data?.status ?? 0);
+        setToggle(+res?.data?.data?.status === 1 ? true : false);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -115,7 +115,7 @@ const DashBoard = () => {
         id,
         date: getToday(),
         user_id: state?.user?.id,
-        status: +toggle === 0 ? 1 : 0,
+        status: !toggle ? 1 : 0,
       };
       const res: any = await createWork(data);
       if (res?.data?.data?.message) {
@@ -123,8 +123,8 @@ const DashBoard = () => {
         setLoading(false);
       } else if (res?.data?.status === 200) {
         snackBarMessage('Successfully changed status.');
-        setToggle(+toggle === 0 ? 1 : 0);
-        setwfhCount(+toggle === 0 ? wfhCount + 1 : wfhCount - 1);
+        setToggle(!toggle);
+        setwfhCount(!toggle ? wfhCount + 1 : wfhCount - 1);
         setLoading(false);
       }
     } catch (error) {
@@ -175,7 +175,7 @@ const DashBoard = () => {
             <View
               style={[
                 ds.work,
-                +toggle == 1
+                toggle
                   ? { backgroundColor: colors.greenButton }
                   : { backgroundColor: colors.ash },
               ]}
