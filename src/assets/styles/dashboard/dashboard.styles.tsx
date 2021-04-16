@@ -4,6 +4,7 @@ import colors from '../../colors';
 const dashboardStyle = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   body: {
     flex: 1,
