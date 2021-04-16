@@ -11,12 +11,11 @@ const smallHeaderStyle = StyleSheet.create({
   },
 
   subcontainer: {
-    paddingVertical: normalize(5),
+    paddingVertical: normalize(12),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginBottom: normalize(9),
   },
   historyContainer: {
     width: '75%',
@@ -27,6 +26,7 @@ const smallHeaderStyle = StyleSheet.create({
   line: {
     flexGrow: 1,
     marginLeft: normalize(10),
+    marginRight: normalize(10),
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
   },

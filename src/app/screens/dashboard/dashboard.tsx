@@ -135,7 +135,7 @@ const DashBoard = () => {
 
   return (
     <View style={ds.safeArea}>
-      <Header icon={false}>
+      <Header icon={false} container={{paddingVertical:normalize(4.076)}}>
         <View
           style={{
             flexDirection: 'row',

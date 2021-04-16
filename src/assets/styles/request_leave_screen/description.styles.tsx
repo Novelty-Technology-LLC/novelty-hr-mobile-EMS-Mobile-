@@ -1,16 +1,16 @@
-import { StyleSheet, Platform, Dimensions } from 'react-native';
-import normalize from 'react-native-normalize';
-import color from '../../colors';
-import { theme, fonts } from '../theme';
-const deviceHeight = Dimensions.get('window').height;
+import { StyleSheet, Platform, Dimensions } from "react-native";
+import normalize from "react-native-normalize";
+import color from "../../colors";
+import { theme, fonts } from "../theme";
+const deviceHeight = Dimensions.get("window").height;
 
 const descriptionStyle = StyleSheet.create({
   hashtag: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexWrap: "wrap",
     paddingBottom: normalize(5),
     marginTop: normalize(-5),
   },
@@ -21,7 +21,7 @@ const descriptionStyle = StyleSheet.create({
   },
   pickerContainer: {
     marginHorizontal: normalize(15),
-    overflow: 'hidden',
+    overflow: "hidden",
     ...Platform.select({
       android: {
         height: 90,
@@ -46,7 +46,7 @@ const descriptionStyle = StyleSheet.create({
   },
   textareaContainer: {
     height: normalize(140),
-    width: '100%',
+    width: "100%",
     padding: normalize(10),
     borderRadius: normalize(4),
     backgroundColor: color.grey,
@@ -54,7 +54,7 @@ const descriptionStyle = StyleSheet.create({
   },
   editlogContainer: {
     height: normalize(80),
-    width: '99%',
+    width: "99%",
     padding: normalize(10),
     borderRadius: normalize(4),
     backgroundColor: color.grey,
@@ -80,7 +80,7 @@ const descriptionStyle = StyleSheet.create({
     opacity: 0.8,
   },
   iospicker: {
-    width: '40%',
+    width: "40%",
     ...Platform.select({
       android: {
         paddingVertical: normalize(10),
@@ -91,7 +91,7 @@ const descriptionStyle = StyleSheet.create({
     }),
   },
   timeSeparator: {
-    width: '10%',
+    width: "10%",
     ...Platform.select({
       ios: { marginBottom: normalize(40), paddingLeft: normalize(8) },
       android: {
@@ -105,15 +105,14 @@ const descriptionStyle = StyleSheet.create({
     paddingHorizontal: normalize(20),
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
     ...Platform.select({
       ios: {
-        height: '100%',
-        paddingTop: '2%',
-        marginTop: '-1%'
+        height: "100%",
+        paddingTop: "1%",
       },
       android: {
         height: 47,
@@ -123,15 +122,15 @@ const descriptionStyle = StyleSheet.create({
 
   textArea: {
     height: normalize(130),
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
     fontFamily: fonts.mulishRegular,
   },
   error: { paddingVertical: normalize(10), color: color.red },
   time: { paddingHorizontal: normalize(15) },
   dark: {},
   timeError: {
-    marginTop: normalize(-10),
-    marginBottom: normalize(20),
+    marginTop: normalize(5),
+    marginBottom: normalize(-10),
     marginLeft: normalize(15),
     color: color.red,
   },

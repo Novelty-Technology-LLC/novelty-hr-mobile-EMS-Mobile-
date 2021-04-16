@@ -11,7 +11,6 @@ const leaveType = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     marginHorizontal: normalize(15),
-    marginBottom: normalize(5),
   },
   padNone: {
     marginBottom: normalize(0),
