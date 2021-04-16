@@ -10,6 +10,7 @@ import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
 import { AppIcon, SelectButton, SmallHeader } from '../../common';
 import { getUser } from '../../utils';
+import normalize from 'react-native-normalize';
 
 const Projects = ({
   handleChange,
@@ -87,7 +88,7 @@ const Projects = ({
               }
               disabled={allprojects.length < 5}
             >
-              <View style={style.row}>
+              <View style={[style.row, { marginBottom: normalize(12) }]}>
                 <Text style={myRequestsStyle.history}>
                   {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
                 </Text>

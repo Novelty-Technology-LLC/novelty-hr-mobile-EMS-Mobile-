@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import normalize from 'react-native-normalize';
 import { leaveType, leaveType as style } from '../../../assets/styles';
 import { SelectButton, SmallHeader } from '../../common';
 
@@ -16,7 +17,7 @@ function Leavetype({
 
   return (
     <View style={style.container}>
-      <View style={style.wrapper}>
+      <View style={[style.wrapper, { marginBottom: normalize(15) }]}>
         <SmallHeader text="Choose Leave Type" />
         <View style={style.requestBody}>
           <TouchableOpacity
