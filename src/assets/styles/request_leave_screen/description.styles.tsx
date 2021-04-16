@@ -46,7 +46,6 @@ const descriptionStyle = StyleSheet.create({
   textareaContainer: {
     height: normalize(140),
     width: '100%',
-    marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
     backgroundColor: color.grey,
@@ -55,7 +54,6 @@ const descriptionStyle = StyleSheet.create({
   editlogContainer: {
     height: normalize(80),
     width: '99%',
-    marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
     backgroundColor: color.grey,
@@ -109,7 +107,6 @@ const descriptionStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: normalize(10),
     overflow: 'hidden',
     ...Platform.select({
       ios: {
@@ -125,6 +122,7 @@ const descriptionStyle = StyleSheet.create({
   textArea: {
     height: normalize(130),
     textAlignVertical: 'top',
+    fontFamily: fonts.mulishRegular,
   },
   error: { paddingVertical: normalize(10), color: color.red },
   time: { paddingHorizontal: normalize(15) },
