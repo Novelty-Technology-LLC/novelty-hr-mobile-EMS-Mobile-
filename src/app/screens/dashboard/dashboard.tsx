@@ -5,6 +5,9 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
   Image,
+  ScrollView,
+  RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import { AuthContext } from '../../reducer';
 import { dashboardStyle as ds, headerText } from '../../../assets/styles';
@@ -15,11 +18,13 @@ import {
 } from '../../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
-import { getToday } from '../../utils';
+import { getDayToday, getToday } from '../../utils';
 import { createWork, getWork, getDashboard } from '../../services';
 import { Carousel } from '../../common';
 import moment from 'moment';
 import normalize from 'react-native-normalize';
+import { DashboardCardPlaceholder } from '../../common';
+import { navigate } from '../../utils/navigation';
 
 const time = () => {
   var today = new Date();
@@ -35,21 +40,31 @@ const time = () => {
     return 'Night';
   }
 };
+
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
-  const [toggle, setToggle] = useState(0);
+  const [toggle, setToggle] = useState(false);
+  const [wfhCount, setwfhCount] = useState(0);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [cardLoading, setCardLoading] = useState(true);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+  }, []);
+
   useEffect(() => {
     const fetchWork = async () => {
       try {
-        const res = await getWork({
+        const res: any = await getWork({
           user_id: state?.user?.id,
           date: moment().format('YYYY-MM-DD'),
         });
-        setId(res?.data?.data?.id ?? 0);
-        setToggle(res?.data?.data?.status ?? 0);
+
+        setId(res?.data?.data?.id ?? null);
+        setToggle(+res?.data?.data?.status === 1 ? true : false);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -60,27 +75,57 @@ const DashBoard = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await getDashboard();
-      setData(data);
+      try {
+        setCardLoading(true);
+        const data = await getDashboard();
+        let newList = data.find((item) => item?.detailRoute === '/employee');
+        newList.items.map((item) => {
+          if (item?.subTitle === 'Working from Home') {
+            setwfhCount(+item.title);
+          }
+        });
+        setData(data);
+        setRefreshing(false);
+        setCardLoading(false);
+      } catch (error) {
+        setRefreshing(false);
+      }
     })();
-  }, []);
+  }, [refreshing]);
+
+  const transformItem = (item: any) => {
+    if (item?.detailRoute === '/lunch') {
+      const newItem = item.items.map((item: any) => {
+        if (item?.subTitle === getDayToday()) {
+          return { ...item, subTitle: 'Today' };
+        } else {
+          return item;
+        }
+      });
+      item.items = newItem;
+    }
+
+    return item;
+  };
 
   const ToggleWork = async () => {
     try {
-      if (new Date().getHours() < 10) {
-        setLoading(true);
-        setToggle(+toggle === 0 ? 1 : 0);
-        const data = {
-          id,
-          date: getToday(),
-          user_id: state?.user?.id,
-          status: +toggle === 0 ? 1 : 0,
-        };
-        const res = await createWork(data);
-        snackBarMessage('Successfully changed status.');
+      setLoading(true);
+      const data = {
+        id,
+        date: getToday(),
+        user_id: state?.user?.id,
+        status: !toggle ? 1 : 0,
+      };
+      const res: any = await createWork(data);
+      if (res?.data?.data?.message) {
+        snackErrorBottom(res?.data?.data?.message);
         setLoading(false);
-      } else {
-        snackErrorBottom('Status cannot be changed after 10AM.');
+      } else if (res?.data?.status === 200) {
+        snackBarMessage('Successfully changed status.');
+        setToggle(!toggle);
+        setwfhCount(!toggle ? wfhCount + 1 : wfhCount - 1);
+        setLoading(false);
       }
     } catch (error) {
       snackErrorBottom('Something went wrong');
@@ -100,13 +145,24 @@ const DashBoard = () => {
           }}
         >
           <Text style={headerText}>DASHBOARD</Text>
-          <Image
-            source={{ uri: state?.user?.image_url }}
-            style={{ height: 40, width: 40, borderRadius: 20 }}
-          />
+          <TouchableOpacity onPress={() => navigate('Profile')}>
+            <Image
+              source={{ uri: state?.user?.image_url }}
+              style={{
+                height: normalize(40),
+                width: normalize(40),
+                borderRadius: normalize(20),
+              }}
+            />
+          </TouchableOpacity>
         </View>
       </Header>
-      <View style={ds.body}>
+      <ScrollView
+        contentContainerStyle={ds.body}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View style={ds.header}>
           <View>
             <Text style={ds.text}>Good {time()}</Text>
@@ -119,7 +175,7 @@ const DashBoard = () => {
             <View
               style={[
                 ds.work,
-                +toggle == 1
+                toggle
                   ? { backgroundColor: colors.greenButton }
                   : { backgroundColor: colors.ash },
               ]}
@@ -135,7 +191,8 @@ const DashBoard = () => {
           </TouchableWithoutFeedback>
         </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>
-          {data.length > 0 &&
+          {!cardLoading ? (
+            data.length > 0 &&
             data.slice(0, 2).map((item, index) => (
               <Fragment key={index}>
                 <View
@@ -143,23 +200,27 @@ const DashBoard = () => {
                   style={{
                     flex: 0.5,
                     width: '50%',
-                    height: normalize(125),
-                    marginTop: normalize(20),
+                    height: normalize(140),
+                    marginTop: normalize(25),
                     backgroundColor: colors.snow,
                     borderRadius: normalize(8),
                   }}
                 >
                   <Carousel
-                    items={item}
+                    items={transformItem(item)}
                     itemsPerInterval={1}
                     onItemPress={(item: any) => {}}
+                    wfhCount={wfhCount}
                   />
                 </View>
                 <View style={{ marginHorizontal: 5 }} />
               </Fragment>
-            ))}
+            ))
+          ) : (
+            <DashboardCardPlaceholder />
+          )}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };

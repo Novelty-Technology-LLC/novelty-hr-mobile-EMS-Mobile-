@@ -19,7 +19,7 @@ const descriptionStyle = StyleSheet.create({
     marginHorizontal: normalize(15),
   },
   pickerContainer: {
-    marginHorizontal: normalize(20),
+    marginHorizontal: normalize(15),
     overflow: 'hidden',
     ...Platform.select({
       android: {
@@ -46,7 +46,6 @@ const descriptionStyle = StyleSheet.create({
   textareaContainer: {
     height: normalize(140),
     width: '100%',
-    marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
     backgroundColor: color.grey,
@@ -55,7 +54,6 @@ const descriptionStyle = StyleSheet.create({
   editlogContainer: {
     height: normalize(80),
     width: '99%',
-    marginTop: normalize(10),
     padding: normalize(10),
     borderRadius: normalize(4),
     backgroundColor: color.grey,
@@ -84,7 +82,7 @@ const descriptionStyle = StyleSheet.create({
     width: '40%',
     ...Platform.select({
       android: {
-        paddingVertical: 20,
+        paddingVertical: normalize(10),
       },
       ios: {
         marginTop: normalize(-42),
@@ -124,6 +122,7 @@ const descriptionStyle = StyleSheet.create({
   textArea: {
     height: normalize(130),
     textAlignVertical: 'top',
+    fontFamily: fonts.mulishRegular,
   },
   error: { paddingVertical: normalize(10), color: color.red },
   time: { paddingHorizontal: normalize(15) },
