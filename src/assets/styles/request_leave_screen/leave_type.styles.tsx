@@ -26,7 +26,6 @@ const leaveType = StyleSheet.create({
   body: {
     width: '100%',
     flexDirection: 'row',
-    paddingTop: normalize(5),
     flexWrap: 'wrap',
   },
   requestBody: {
