@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import { AuthContext } from '../../reducer';
 import { dashboardStyle as ds, headerText } from '../../../assets/styles';
@@ -23,6 +24,7 @@ import { Carousel } from '../../common';
 import moment from 'moment';
 import normalize from 'react-native-normalize';
 import { DashboardCardPlaceholder } from '../../common';
+import { navigate } from '../../utils/navigation';
 
 const time = () => {
   var today = new Date();
@@ -146,14 +148,16 @@ const DashBoard = () => {
           }}
         >
           <Text style={headerText}>DASHBOARD</Text>
-          <Image
-            source={{ uri: state?.user?.image_url }}
-            style={{
-              height: normalize(40),
-              width: normalize(40),
-              borderRadius: normalize(20),
-            }}
-          />
+          <TouchableOpacity onPress={() => navigate('Profile')}>
+            <Image
+              source={{ uri: state?.user?.image_url }}
+              style={{
+                height: normalize(40),
+                width: normalize(40),
+                borderRadius: normalize(20),
+              }}
+            />
+          </TouchableOpacity>
         </View>
       </Header>
       <ScrollView
