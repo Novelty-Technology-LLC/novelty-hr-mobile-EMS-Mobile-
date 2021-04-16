@@ -16,7 +16,9 @@ const UpperCard = ({
 }) => {
   return (
     <View style={{ flexDirection: 'column', marginTop: normalize(40) }}>
-      <View style={{ marginLeft: normalize(10) }}>{dashboarCard[module]}</View>
+      <View style={{ marginLeft: normalize(20), marginTop: normalize(10) }}>
+        {dashboarCard[module]}
+      </View>
       <View
         style={{
           marginTop: 15,

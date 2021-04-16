@@ -141,7 +141,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                 style={{
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
-                  marginTop: normalize(-60),
+                  marginTop: normalize(-65),
                   width: '100%',
                 }}
               >

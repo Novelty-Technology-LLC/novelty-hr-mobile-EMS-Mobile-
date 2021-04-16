@@ -148,7 +148,11 @@ const DashBoard = () => {
           <Text style={headerText}>DASHBOARD</Text>
           <Image
             source={{ uri: state?.user?.image_url }}
-            style={{ height: 40, width: 40, borderRadius: 20 }}
+            style={{
+              height: normalize(40),
+              width: normalize(40),
+              borderRadius: normalize(20),
+            }}
           />
         </View>
       </Header>
@@ -195,8 +199,8 @@ const DashBoard = () => {
                   style={{
                     flex: 0.5,
                     width: '50%',
-                    height: normalize(125),
-                    marginTop: normalize(20),
+                    height: normalize(140),
+                    marginTop: normalize(25),
                     backgroundColor: colors.snow,
                     borderRadius: normalize(8),
                   }}
