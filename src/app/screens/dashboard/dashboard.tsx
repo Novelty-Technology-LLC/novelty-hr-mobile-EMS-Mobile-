@@ -78,11 +78,8 @@ const DashBoard = () => {
       try {
         setCardLoading(true);
         const data = await getDashboard();
-        data.map((item) => console.log(item.items));
-
-        let newList = data.filter((item) => item?.detailRoute === '/employee');
-
-        newList[0].items.map((item) => {
+        let newList = data.find((item) => item?.detailRoute === '/employee');
+        newList.items.map((item) => {
           if (item?.subTitle === 'Working from Home') {
             setwfhCount(+item.title);
           }

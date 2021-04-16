@@ -28,7 +28,7 @@ export const getDayToday = () => {
       return 'Saturday';
 
     default:
-      break;
+      return '';
   }
 };
 
