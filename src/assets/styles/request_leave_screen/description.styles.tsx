@@ -19,7 +19,7 @@ const descriptionStyle = StyleSheet.create({
     marginHorizontal: normalize(15),
   },
   pickerContainer: {
-    marginHorizontal: normalize(20),
+    marginHorizontal: normalize(15),
     overflow: 'hidden',
     ...Platform.select({
       android: {
