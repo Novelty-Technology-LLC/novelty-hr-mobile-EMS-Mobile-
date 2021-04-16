@@ -15,7 +15,7 @@ const header = ({ onPress = null, icon = false, children ,...props}: any) => {
     <View style={[style.container,props.container]}>
       <TouchableWithoutFeedback style={style.textView} disabled={!icon} onPress={icon && (onPress || navigation.goBack)}>
         {icon && (
-            <Icon name="chevron-left" size={30} color={color.primary} style={{marginLeft:normalize(-8),paddingLeft:normalize(-15)}}/>
+            <Icon name="chevron-left" size={30} color={color.primary} style={{marginLeft:normalize(-8)}}/>
         )}
         {children}
       </TouchableWithoutFeedback>
