@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, Fragment } from 'react';
+import React, { useContext, useState, useEffect, Fragment } from "react";
 import {
   Text,
   View,
@@ -8,36 +8,36 @@ import {
   ScrollView,
   RefreshControl,
   TouchableOpacity,
-} from 'react-native';
-import { AuthContext } from '../../reducer';
-import { dashboardStyle as ds, headerText } from '../../../assets/styles';
+} from "react-native";
+import { AuthContext } from "../../reducer";
+import { dashboardStyle as ds, headerText } from "../../../assets/styles";
 import {
   header as Header,
   snackBarMessage,
   snackErrorBottom,
-} from '../../common';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../../../assets/colors';
-import { getDayToday, getToday } from '../../utils';
-import { createWork, getWork, getDashboard } from '../../services';
-import { Carousel } from '../../common';
-import moment from 'moment';
-import normalize from 'react-native-normalize';
-import { DashboardCardPlaceholder } from '../../common';
-import { navigate } from '../../utils/navigation';
+} from "../../common";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import colors from "../../../assets/colors";
+import { getDayToday, getToday } from "../../utils";
+import { createWork, getWork, getDashboard } from "../../services";
+import { Carousel } from "../../common";
+import moment from "moment";
+import normalize from "react-native-normalize";
+import { DashboardCardPlaceholder } from "../../common";
+import { navigate } from "../../utils/navigation";
 
 const time = () => {
   var today = new Date();
   var curHr = today.getHours();
 
   if (curHr < 12) {
-    return 'Morning';
+    return "Morning";
   } else if (curHr < 18) {
-    return 'Afternoon';
+    return "Afternoon";
   } else if (curHr < 20) {
-    return 'Evening';
+    return "Evening";
   } else {
-    return 'Night';
+    return "Night";
   }
 };
 
@@ -60,7 +60,7 @@ const DashBoard = () => {
       try {
         const res: any = await getWork({
           user_id: state?.user?.id,
-          date: moment().format('YYYY-MM-DD'),
+          date: moment().format("YYYY-MM-DD"),
         });
 
         setId(res?.data?.data?.id ?? null);
@@ -78,9 +78,9 @@ const DashBoard = () => {
       try {
         setCardLoading(true);
         const data = await getDashboard();
-        let newList = data.find((item) => item?.detailRoute === '/employee');
+        let newList = data.find((item) => item?.detailRoute === "/employee");
         newList.items.map((item) => {
-          if (item?.subTitle === 'Working from Home') {
+          if (item?.subTitle === "Working from Home") {
             setwfhCount(+item.title);
           }
         });
@@ -94,10 +94,10 @@ const DashBoard = () => {
   }, [refreshing]);
 
   const transformItem = (item: any) => {
-    if (item?.detailRoute === '/lunch') {
+    if (item?.detailRoute === "/lunch") {
       const newItem = item.items.map((item: any) => {
         if (item?.subTitle === getDayToday()) {
-          return { ...item, subTitle: 'Today' };
+          return { ...item, subTitle: "Today" };
         } else {
           return item;
         }
@@ -118,34 +118,38 @@ const DashBoard = () => {
         status: !toggle ? 1 : 0,
       };
       const res: any = await createWork(data);
+      console.log("====================================");
+      console.log("res", res?.data?.data?.id ?? res?.data?.data[0]?.id);
+      console.log("====================================");
+      res?.data?.data?.id && setId(res?.data?.data?.id);
       if (res?.data?.data?.message) {
         snackErrorBottom(res?.data?.data?.message);
         setLoading(false);
       } else if (res?.data?.status === 200) {
-        snackBarMessage('Successfully changed status.');
+        snackBarMessage("Successfully changed status.");
         setToggle(!toggle);
         setwfhCount(!toggle ? wfhCount + 1 : wfhCount - 1);
         setLoading(false);
       }
     } catch (error) {
-      snackErrorBottom('Something went wrong');
+      snackErrorBottom("Something went wrong");
       setLoading(false);
     }
   };
 
   return (
     <View style={ds.safeArea}>
-      <Header icon={false} container={{paddingVertical:normalize(4.076)}}>
+      <Header icon={false} container={{ paddingVertical: normalize(4.076) }}>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
           }}
         >
           <Text style={headerText}>DASHBOARD</Text>
-          <TouchableOpacity onPress={() => navigate('Profile')}>
+          <TouchableOpacity onPress={() => navigate("Profile")}>
             <Image
               source={{ uri: state?.user?.image_url }}
               style={{
@@ -168,7 +172,7 @@ const DashBoard = () => {
             <Text style={ds.text}>Good {time()}</Text>
             <View style={ds.gap} />
             <Text style={ds.name}>
-              {state?.user?.first_name + ' ' + state?.user?.last_name}
+              {state?.user?.first_name + " " + state?.user?.last_name}
             </Text>
           </View>
           <TouchableWithoutFeedback onPress={ToggleWork}>
@@ -190,7 +194,7 @@ const DashBoard = () => {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={{ flexDirection: 'row', flex: 1 }}>
+        <View style={{ flexDirection: "row", flex: 1 }}>
           {!cardLoading ? (
             data.length > 0 &&
             data.slice(0, 2).map((item, index) => (
@@ -199,7 +203,7 @@ const DashBoard = () => {
                   key={index}
                   style={{
                     flex: 0.5,
-                    width: '50%',
+                    width: "50%",
                     height: normalize(140),
                     marginTop: normalize(25),
                     backgroundColor: colors.snow,
