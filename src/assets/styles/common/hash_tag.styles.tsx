@@ -4,15 +4,13 @@ import colors from '../../colors';
 import { fonts, theme } from '../theme';
 
 const hashtagStyle = StyleSheet.create({
-  paidView: {
+  tagwrapper : {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: normalize(3),
-    paddingHorizontal: normalize(10),
-    backgroundColor: colors.buttonOrange,
-
+    paddingVertical: normalize(5),
+    paddingHorizontal: normalize(7),
     borderRadius: normalize(3),
     ...Platform.select({
       ios: {
@@ -25,38 +23,22 @@ const hashtagStyle = StyleSheet.create({
         marginBottom: normalize(4),
         marginLeft: normalize(4),
       },
-    }),
+    })
+  },
+  paidView: {
+    backgroundColor: colors.buttonOrange,
   },
   floatingView: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: normalize(3),
-    paddingHorizontal: normalize(10),
-
     backgroundColor: colors.buttonGrey,
-    ...Platform.select({
-      ios: {
-        borderRadius: normalize(3),
-        marginBottom: normalize(2),
-        marginLeft: normalize(2),
-      },
-      android: {
-        borderRadius: normalize(4),
-        marginBottom: normalize(4),
-        marginLeft: normalize(4),
-      },
-    }),
+  },
+  buttonText: {
+    fontFamily: fonts.mulishBold,
+    fontSize: normalize(13),
   },
   buttonTextPaid: {
-    fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.sm),
     color: colors.fontOrange,
   },
   buttonTextFloat: {
-    fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.sm),
     color: colors.fontGrey,
   },
 });

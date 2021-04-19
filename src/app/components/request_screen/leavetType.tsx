@@ -17,7 +17,7 @@ function Leavetype({
 
   return (
     <View style={style.container}>
-      <View style={[style.wrapper, { marginBottom: normalize(15) }]}>
+      <View style={style.wrapper}>
         <SmallHeader text="Choose Leave Type" />
         <View style={style.requestBody}>
           <TouchableOpacity

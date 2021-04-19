@@ -88,7 +88,7 @@ const Projects = ({
               }
               disabled={allprojects.length < 5}
             >
-              <View style={[style.row, { marginBottom: normalize(12) }]}>
+              <View style={[style.row]}>
                 <Text style={myRequestsStyle.history}>
                   {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
                 </Text>

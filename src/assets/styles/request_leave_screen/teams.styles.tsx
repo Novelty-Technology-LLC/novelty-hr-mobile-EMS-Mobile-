@@ -26,7 +26,6 @@ const teamStyle = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    paddingVertical: normalize(10),
   },
   wrapper: {
     flex: 1,
@@ -34,13 +33,13 @@ const teamStyle = StyleSheet.create({
     flexDirection: 'row',
   },
   main: {
-    marginLeft: normalize(20),
+    marginLeft: normalize(15),
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  spacing: { marginLeft: normalize(105) },
+  spacing: { marginLeft: normalize(0) },
   imageView: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -53,10 +52,10 @@ const teamStyle = StyleSheet.create({
     marginRight: normalize(10),
   },
   nameView: {
-    paddingTop: normalize(10),
+    paddingTop: normalize(5),
   },
   name: {
-    fontSize: normalize(theme.size.sm),
+    fontSize: normalize(theme.size.xs),
     fontFamily: fonts.mulishRegular,
   },
   iconContainer: {

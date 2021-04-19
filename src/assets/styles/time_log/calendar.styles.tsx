@@ -63,6 +63,9 @@ const calenderStyle = StyleSheet.create({
     alignSelf: 'center',
     color: colors.black,
   },
+  container:{
+    marginTop: normalize(-10),
+  }
 });
 
 export { calenderStyle };

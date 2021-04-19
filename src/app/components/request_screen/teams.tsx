@@ -113,7 +113,6 @@ class Teams extends Component {
                             );
                           })}
                         </View>
-                        <View style={style.spacing}></View>
                         <View style={style.nameView}>
                           <Text style={style.name}>{leadname(val)}</Text>
                         </View>

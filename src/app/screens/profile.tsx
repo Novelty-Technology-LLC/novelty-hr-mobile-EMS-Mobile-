@@ -1,28 +1,28 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
-import { headerText } from '../../assets/styles';
-import { profileStyle as style } from '../../assets/styles/tabs';
-import { tabHeader as Header } from '../common';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import colors from '../../assets/colors';
-import { AuthContext } from '../reducer';
-import ImagePicker from 'react-native-image-picker';
-import ImageCropper from 'react-native-image-crop-picker';
-import { formatPhoneNumber } from '../utils';
-import { updateImage } from '../services';
-import normalize from 'react-native-normalize';
-import { momentdate } from '../utils/momentDate';
-import { storeToken, removeToken, removeUser, setUser } from '../utils';
-import { snackBarMessage, snackErrorBottom } from '../common';
-import { SmallHeader } from '../common';
+import React, { useContext, useState } from "react";
+import { View, Text, ScrollView, Image, ActivityIndicator } from "react-native";
+import { headerText } from "../../assets/styles";
+import { profileStyle as style } from "../../assets/styles/tabs";
+import { tabHeader as Header } from "../common";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import colors from "../../assets/colors";
+import { AuthContext } from "../reducer";
+import ImagePicker from "react-native-image-picker";
+import ImageCropper from "react-native-image-crop-picker";
+import { formatPhoneNumber } from "../utils";
+import { updateImage } from "../services";
+import normalize from "react-native-normalize";
+import { momentdate } from "../utils/momentDate";
+import { storeToken, removeToken, removeUser, setUser } from "../utils";
+import { snackBarMessage, snackErrorBottom } from "../common";
+import { SmallHeader } from "../common";
 
 const optionsPicker = {
-  title: 'Pick a image',
+  title: "Pick a image",
   base64: true,
   storageOptions: {
     skipBackup: true,
-    path: 'images',
+    path: "images",
   },
 };
 
@@ -56,18 +56,18 @@ const Profile = () => {
   const cleanImage = () =>
     ImageCropper.clean()
       .then(() => {
-        console.log('removed all tmp images from tmp directory');
+        console.log("removed all tmp images from tmp directory");
       })
       .catch((e) => {});
 
   const uploadImage = () => {
     ImagePicker.showImagePicker(optionsPicker, (response) => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        console.log("User cancelled image picker");
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log("ImagePicker Error: ", response.error);
       } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+        console.log("User tapped custom button: ", response.customButton);
       } else {
         ImageCropper.openCropper({
           path: response.uri,
@@ -87,7 +87,7 @@ const Profile = () => {
 
     updateImage(state.user.id, {
       data: image.data,
-      name: image.path.split('/').pop(),
+      name: image.path.split("/").pop(),
       type: image.mime,
     })
       .then((data) => {
@@ -97,19 +97,19 @@ const Profile = () => {
         setUser(data);
         setloading(false);
         setimage({ ...image, visible: false });
-        snackBarMessage('Image uploaded');
+        snackBarMessage("Image uploaded");
         cleanImage();
       })
       .catch((err) => {
         setloading(false);
         cleanImage();
-        snackErrorBottom('Something went wrong');
+        snackErrorBottom("Something went wrong");
       });
   };
 
-  let uri = image ? image.path : state.user.image_url;
+  let uri = image ? image.path : state?.user?.image_url;
 
-  return (
+  return state.user ? (
     <View style={style.container}>
       <Header icon={true}>
         <Text style={headerText}>Profile</Text>
@@ -163,7 +163,7 @@ const Profile = () => {
             <View style={style.icon}>
               <Icon name="account-circle" color={colors.primary} size={25} />
               <Text style={style.text}>
-                {state.user.first_name + ' ' + state.user.last_name}
+                {state.user.first_name + " " + state.user.last_name}
               </Text>
             </View>
             <View style={style.icon}>
@@ -223,6 +223,8 @@ const Profile = () => {
         </View>
       </ScrollView>
     </View>
+  ) : (
+    <></>
   );
 };
 

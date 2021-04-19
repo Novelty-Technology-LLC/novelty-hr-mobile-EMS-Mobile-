@@ -120,6 +120,7 @@ const approveRequest = StyleSheet.create({
     lineHeight: normalize(theme.size.lg),
   },
   responseView: {
+    flex: 0.9,
     marginLeft: normalize(10),
     marginTop: normalize(5),
   },
@@ -159,7 +160,7 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   buttonView: {
-    flex: 0.13,
+    flex: 0.1,
     backgroundColor: colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',

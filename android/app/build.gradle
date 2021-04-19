@@ -132,8 +132,8 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 57
-        versionName "1.5.8"
+        versionCode 58
+        versionName "1.5.9"
         multiDexEnabled true
     }
     splits {
