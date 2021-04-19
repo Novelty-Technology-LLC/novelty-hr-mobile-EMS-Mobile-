@@ -84,6 +84,9 @@ const DashBoard = () => {
             setwfhCount(+item.title);
           }
         });
+        console.log("====================================");
+        console.log(data);
+        console.log("====================================");
         setData(data);
         setRefreshing(false);
         setCardLoading(false);
@@ -191,7 +194,7 @@ const DashBoard = () => {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={{ flexDirection: "row", flex: 1 }}>
+        <View style={{ flexDirection: "row", height: normalize(160) }}>
           {!cardLoading ? (
             data.length > 0 &&
             data.slice(0, 2).map((item, index) => (
@@ -200,8 +203,6 @@ const DashBoard = () => {
                   key={index}
                   style={{
                     flex: 0.5,
-                    width: "50%",
-                    height: normalize(140),
                     marginTop: normalize(25),
                     backgroundColor: colors.snow,
                     borderRadius: normalize(8),
@@ -220,6 +221,29 @@ const DashBoard = () => {
           ) : (
             <DashboardCardPlaceholder />
           )}
+        </View>
+
+        <View
+          style={{
+            height: normalize(230),
+            width: "100%",
+            flexDirection: "row",
+          }}
+        >
+          {data.slice(2, 4).map((item, index) => (
+            <Fragment key={index}>
+              <View
+                key={index}
+                style={{
+                  flex: 0.5,
+                  marginTop: normalize(25),
+                  backgroundColor: colors.brown,
+                  borderRadius: normalize(8),
+                }}
+              ></View>
+              <View style={{ marginHorizontal: 5 }} />
+            </Fragment>
+          ))}
         </View>
       </ScrollView>
     </View>
