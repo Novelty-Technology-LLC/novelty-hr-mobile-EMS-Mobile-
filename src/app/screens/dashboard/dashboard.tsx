@@ -13,6 +13,7 @@ import { AuthContext } from "../../reducer";
 import { dashboardStyle as ds, headerText } from "../../../assets/styles";
 import {
   header as Header,
+  ListItem,
   snackBarMessage,
   snackErrorBottom,
 } from "../../common";
@@ -77,16 +78,13 @@ const DashBoard = () => {
     (async () => {
       try {
         setCardLoading(true);
-        const data = await getDashboard();
+        const data: any = await getDashboard();
         let newList = data.find((item) => item?.detailRoute === "/employee");
         newList.items.map((item) => {
           if (item?.subTitle === "Working from Home") {
             setwfhCount(+item.title);
           }
         });
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
         setData(data);
         setRefreshing(false);
         setCardLoading(false);
@@ -230,7 +228,7 @@ const DashBoard = () => {
             flexDirection: "row",
           }}
         >
-          {data.slice(2, 4).map((item, index) => (
+          {data.slice(2, 4).map((item: any, index: number) => (
             <Fragment key={index}>
               <View
                 key={index}
@@ -240,7 +238,11 @@ const DashBoard = () => {
                   backgroundColor: colors.brown,
                   borderRadius: normalize(8),
                 }}
-              ></View>
+              >
+                {item.items.map((item) => console.log(item?.title))}
+                {/* <Text>123</Text> */}
+                {/* <ListItem title={item?.title} subTitle={item?.subTitle} /> */}
+              </View>
               <View style={{ marginHorizontal: 5 }} />
             </Fragment>
           ))}
