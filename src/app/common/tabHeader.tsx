@@ -8,22 +8,25 @@ import { AuthContext } from "../reducer";
 import { signOutGoogle, logOutUser } from "../services";
 import { ConfirmDialog } from "react-native-simple-dialogs";
 import DeviceInfo from "react-native-device-info";
+import { navigate } from "../utils/navigation";
 
 const tabHeader = ({ onPress = null, icon = false, children }: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext<any>(AuthContext);
 
   const device_id = DeviceInfo.getUniqueId();
 
   const onLogout = async () => {
     const user_id = await getUser();
-    logOutUser({ device_id, user_id: JSON.parse(user_id).id });
-    signOutGoogle();
-    removeUser();
-    removeToken();
-    dispatch({ type: "SIGN_OUT" });
+    logOutUser({ device_id, user_id: JSON.parse(user_id).id }).then((data) => {
+      navigate("login");
+      dispatch({ type: "SIGN_OUT" });
+      signOutGoogle();
+      removeUser();
+      removeToken();
+    });
   };
 
   return (
