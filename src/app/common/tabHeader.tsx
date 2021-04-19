@@ -1,29 +1,32 @@
-import React, { useContext, useState } from 'react';
-import { View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { removeToken, removeUser, getUser } from '../utils';
-import { headerStyle as style, deleteAlertStyle } from '../../assets/styles';
-import colors from '../../assets/colors';
-import { AuthContext } from '../reducer';
-import { signOutGoogle, logOutUser } from '../services';
-import { ConfirmDialog } from 'react-native-simple-dialogs';
-import DeviceInfo from 'react-native-device-info';
+import React, { useContext, useState } from "react";
+import { View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { removeToken, removeUser, getUser } from "../utils";
+import { headerStyle as style, deleteAlertStyle } from "../../assets/styles";
+import colors from "../../assets/colors";
+import { AuthContext } from "../reducer";
+import { signOutGoogle, logOutUser } from "../services";
+import { ConfirmDialog } from "react-native-simple-dialogs";
+import DeviceInfo from "react-native-device-info";
+import { navigate } from "../utils/navigation";
 
 const tabHeader = ({ onPress = null, icon = false, children }: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext<any>(AuthContext);
 
   const device_id = DeviceInfo.getUniqueId();
 
   const onLogout = async () => {
     const user_id = await getUser();
-    logOutUser({ device_id, user_id: JSON.parse(user_id).id });
-    signOutGoogle();
-    removeUser();
-    removeToken();
-    dispatch({ type: 'SIGN_OUT' });
+    logOutUser({ device_id, user_id: JSON.parse(user_id).id }).then((data) => {
+      navigate("login");
+      dispatch({ type: "SIGN_OUT" });
+      signOutGoogle();
+      removeUser();
+      removeToken();
+    });
   };
 
   return (
@@ -52,7 +55,7 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
         titleStyle={deleteAlertStyle.text1}
         positiveButton={{
           titleStyle: deleteAlertStyle.delete,
-          title: 'LOGOUT',
+          title: "LOGOUT",
           onPress: () => {
             onLogout();
             hide();
@@ -60,7 +63,7 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
         }}
         negativeButton={{
           titleStyle: deleteAlertStyle.cancel,
-          title: 'CANCEL',
+          title: "CANCEL",
           onPress: () => hide(),
         }}
       />
