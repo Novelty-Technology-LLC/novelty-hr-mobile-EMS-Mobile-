@@ -118,9 +118,6 @@ const DashBoard = () => {
         status: !toggle ? 1 : 0,
       };
       const res: any = await createWork(data);
-      console.log("====================================");
-      console.log("res", res?.data?.data?.id ?? res?.data?.data[0]?.id);
-      console.log("====================================");
       res?.data?.data?.id && setId(res?.data?.data?.id);
       if (res?.data?.data?.message) {
         snackErrorBottom(res?.data?.data?.message);
