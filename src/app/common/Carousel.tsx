@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
-import {
-  View,
-  ScrollView,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import normalize from 'react-native-normalize';
+import { CarouselStyle } from '../../assets/styles';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
@@ -104,7 +99,7 @@ export const Carousel = (props: CarouselPropTypes) => {
       <Text
         key={i}
         style={{
-          ...styles.bullet,
+          ...CarouselStyle.bullet,
           opacity: interval === i ? 1 : 0.4,
         }}
       >
@@ -114,11 +109,11 @@ export const Carousel = (props: CarouselPropTypes) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={CarouselStyle.container}>
       <ScrollView
         horizontal={true}
         contentContainerStyle={{
-          ...styles.scrollView,
+          ...CarouselStyle.scrollView,
           width: `${100 * intervals}%`,
         }}
         showsHorizontalScrollIndicator={false}
@@ -136,7 +131,7 @@ export const Carousel = (props: CarouselPropTypes) => {
       >
         {items.flat(1).map((item: any, index: number) => {
           return (
-            <View style={styles.wrapper} key={index}>
+            <View style={CarouselStyle.wrapper} key={index}>
               <View
                 style={{
                   flexDirection: 'column',
@@ -146,7 +141,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                 }}
               >
                 <TouchableOpacity
-                  style={styles.item}
+                  style={CarouselStyle.item}
                   onPress={() => onItemPress(item[0])}
                 >
                   <UpperCard
@@ -160,65 +155,9 @@ export const Carousel = (props: CarouselPropTypes) => {
           );
         })}
       </ScrollView>
-      <View style={styles.bullets}>{bullets}</View>
+      <View style={CarouselStyle.bullets}>{bullets}</View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'flex-start',
-  },
-  scrollView: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignContent: 'space-around',
-  },
-  bullets: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: normalize(10),
-    width: '100%',
-    overflow: 'hidden',
-  },
-  bullet: {
-    paddingHorizontal: normalize(5),
-    fontSize: normalize(30),
-    // color: color.darkAzure,
-  },
-  wrapper: {
-    flexBasis: '100%',
-    maxWidth: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    alignContent: 'space-between',
-    justifyContent: 'center',
-    marginRight: normalize(1),
-  },
-  icon: {
-    alignSelf: 'center',
-  },
-  labelWrapper: {
-    width: '100%',
-    marginBottom: normalize(8),
-    alignSelf: 'center',
-    textAlign: 'center',
-  },
-  label: {
-    textAlign: 'center',
-    fontSize: normalize(12),
-    fontWeight: '600',
-  },
-  item: {},
-});
 
 export default Carousel;

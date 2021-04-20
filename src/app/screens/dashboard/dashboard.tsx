@@ -10,37 +10,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { AuthContext } from '../../reducer';
-import { dashboardStyle as ds, headerText } from '../../../assets/styles';
+import { dashboardStyle as ds, headerTxtStyle } from '../../../assets/styles';
 import {
   header as Header,
-  ListItem,
+  List,
   snackBarMessage,
   snackErrorBottom,
 } from '../../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
-import { getDayToday, getToday } from '../../utils';
+import { getToday } from '../../utils';
 import { createWork, getWork, getDashboard } from '../../services';
 import { Carousel } from '../../common';
 import moment from 'moment';
 import normalize from 'react-native-normalize';
 import { DashboardCardPlaceholder } from '../../common';
 import { navigate } from '../../utils/navigation';
-
-const time = () => {
-  var today = new Date();
-  var curHr = today.getHours();
-
-  if (curHr < 12) {
-    return 'Morning';
-  } else if (curHr < 18) {
-    return 'Afternoon';
-  } else if (curHr < 20) {
-    return 'Evening';
-  } else {
-    return 'Night';
-  }
-};
+import { time, transformLunchItem } from '../../utils/listtranform';
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
@@ -94,21 +80,6 @@ const DashBoard = () => {
     })();
   }, [refreshing]);
 
-  const transformItem = (item: any) => {
-    if (item?.detailRoute === '/lunch') {
-      const newItem = item.items.map((item: any) => {
-        if (item?.subTitle === getDayToday()) {
-          return { ...item, subTitle: 'Today' };
-        } else {
-          return item;
-        }
-      });
-      item.items = newItem;
-    }
-
-    return item;
-  };
-
   const ToggleWork = async () => {
     try {
       setLoading(true);
@@ -138,24 +109,10 @@ const DashBoard = () => {
   return (
     <View style={ds.safeArea}>
       <Header icon={false} container={{ paddingVertical: normalize(4.076) }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-          }}
-        >
-          <Text style={headerText}>DASHBOARD</Text>
+        <View style={ds.headerContainer}>
+          <Text style={headerTxtStyle.headerText}>DASHBOARD</Text>
           <TouchableOpacity onPress={() => navigate('Profile')}>
-            <Image
-              source={{ uri: state?.user?.image_url }}
-              style={{
-                height: normalize(40),
-                width: normalize(40),
-                borderRadius: normalize(20),
-              }}
-            />
+            <Image source={{ uri: state?.user?.image_url }} style={ds.image} />
           </TouchableOpacity>
         </View>
       </Header>
@@ -169,9 +126,7 @@ const DashBoard = () => {
           <View>
             <Text style={ds.text}>Good {time()}</Text>
             <View style={ds.gap} />
-            <Text style={ds.name}>
-              {state?.user?.first_name + ' ' + state?.user?.last_name}
-            </Text>
+            <Text style={ds.name}>{state?.user?.first_name}</Text>
           </View>
           <TouchableWithoutFeedback onPress={ToggleWork}>
             <View
@@ -192,60 +147,38 @@ const DashBoard = () => {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={{ flexDirection: 'row', height: normalize(160) }}>
+        <View style={ds.wrapContainer}>
           {!cardLoading ? (
             data.length > 0 &&
-            data.slice(0, 2).map((item, index) => (
+            data.slice(0, 4).map((item, index) => (
               <Fragment key={index}>
                 <View
                   key={index}
-                  style={{
-                    flex: 0.5,
-                    marginTop: normalize(25),
-                    backgroundColor: colors.snow,
-                    borderRadius: normalize(8),
-                  }}
+                  style={[
+                    ds.wrapItem,
+                    {
+                      height:
+                        item.type === 'stats' ? normalize(140) : normalize(240),
+                    },
+                  ]}
                 >
-                  <Carousel
-                    items={transformItem(item)}
-                    itemsPerInterval={1}
-                    onItemPress={(item: any) => {}}
-                    wfhCount={wfhCount}
-                  />
+                  {item.type === 'stats' ? (
+                    <Carousel
+                      items={transformLunchItem(item)}
+                      itemsPerInterval={1}
+                      onItemPress={(item: any) => {}}
+                      wfhCount={wfhCount}
+                    />
+                  ) : (
+                    <List list={item} />
+                  )}
                 </View>
-                <View style={{ marginHorizontal: 5 }} />
+                {index % 2 === 0 && <View style={{ marginRight: '2%' }} />}
               </Fragment>
             ))
           ) : (
             <DashboardCardPlaceholder />
           )}
-        </View>
-
-        <View
-          style={{
-            height: normalize(230),
-            width: '100%',
-            flexDirection: 'row',
-          }}
-        >
-          {data.slice(2, 4).map((item: any, index: number) => (
-            <Fragment key={index}>
-              <View
-                key={index}
-                style={{
-                  flex: 0.5,
-                  marginTop: normalize(25),
-                  backgroundColor: colors.brown,
-                  borderRadius: normalize(8),
-                }}
-              >
-                {item.items.map((item) => (
-                  <ListItem title={item?.title} subTitle={item?.subTitle} />
-                ))}
-              </View>
-              <View style={{ marginHorizontal: 5 }} />
-            </Fragment>
-          ))}
         </View>
       </ScrollView>
     </View>
