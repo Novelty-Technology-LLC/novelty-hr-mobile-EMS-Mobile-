@@ -35,7 +35,7 @@ const profileStyle = StyleSheet.create({
   labelText: {
     fontFamily: fonts.mulishRegular,
     color: colors.white,
-    marginLeft: normalize(2),
+    marginLeft: normalize(4),
     fontSize: normalize(theme.size.base),
   },
   infoView: {

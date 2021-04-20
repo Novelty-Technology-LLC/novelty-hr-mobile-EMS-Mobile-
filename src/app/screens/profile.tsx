@@ -147,14 +147,14 @@ const Profile = () => {
                 <View
                   style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    justifyContent: 'space-evenly',
                     width: '90%',
                   }}
                 >
                   <TouchableOpacity onPress={() => uploadImage(true)}>
                     <View style={style.label}>
                       <Icon name="upload" color="white" size={20}></Icon>
-                      <Text style={style.labelText}>Upload your picture</Text>
+                      <Text style={style.labelText}>Upload from library</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => uploadImage(false)}>
