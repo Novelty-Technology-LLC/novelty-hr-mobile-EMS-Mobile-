@@ -9,7 +9,7 @@ const profileStyle = StyleSheet.create({
     backgroundColor: colors.white,
   },
   imageView: {
-    paddingVertical: normalize(40),
+    paddingVertical: normalize(20),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.primary,
