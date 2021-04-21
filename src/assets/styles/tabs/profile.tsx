@@ -9,7 +9,7 @@ const profileStyle = StyleSheet.create({
     backgroundColor: colors.white,
   },
   imageView: {
-    paddingVertical: normalize(40),
+    paddingVertical: normalize(20),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -35,7 +35,7 @@ const profileStyle = StyleSheet.create({
   labelText: {
     fontFamily: fonts.mulishRegular,
     color: colors.white,
-    marginLeft: normalize(2),
+    marginLeft: normalize(4),
     fontSize: normalize(theme.size.base),
   },
   infoView: {
