@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { DashBoard, Detail } from '../screens';
+import { DashBoard, HolidayEventListing, LeaveListing } from '../screens';
 
 const DashStack = createStackNavigator();
 
@@ -12,7 +12,11 @@ const DashNav = () => {
       }}
     >
       <DashStack.Screen name="dashboard" component={DashBoard} />
-      <DashStack.Screen name="detail" component={Detail} />
+      <DashStack.Screen name="leavelisting" component={LeaveListing} />
+      <DashStack.Screen
+        name="holidayeventslisting"
+        component={HolidayEventListing}
+      />
     </DashStack.Navigator>
   );
 };

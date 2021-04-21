@@ -23,7 +23,9 @@ const List = ({ list }: { list: any }) => {
           )
         )}
         <TouchableOpacity
-          onPress={() => navigate('detail')}
+          onPress={() =>
+            navigate(list?.detailRoute, { route: list?.detailRoute })
+          }
           style={listStyle.seeAll}
         >
           <Text style={listStyle.seeAllText}>See All</Text>

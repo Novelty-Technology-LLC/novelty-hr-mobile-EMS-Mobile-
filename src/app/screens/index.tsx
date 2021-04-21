@@ -12,4 +12,5 @@ export * from './auth_screen/invalid';
 export * from './time_log/logTime';
 export * from './time_log/timeLog';
 export * from './time_log/logListings';
-export * from './dashboard/detail';
+export * from './dashboard/leaveListing';
+export * from './dashboard/holidayEventListing';
