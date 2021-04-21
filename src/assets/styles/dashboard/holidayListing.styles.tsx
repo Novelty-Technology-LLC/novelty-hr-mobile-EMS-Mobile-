@@ -1,0 +1,25 @@
+import { StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
+import colors from '../../colors';
+import { fonts } from '../theme';
+
+const holidayListingStyle = StyleSheet.create({
+  container: {
+    marginHorizontal: normalize(20),
+    paddingVertical: normalize(20),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomColor: colors.fontGrey,
+  },
+  title: {
+    fontFamily: fonts.mulishBold,
+    fontSize: normalize(18),
+  },
+  subTitle: {
+    fontFamily: fonts.mulishBold,
+    fontSize: normalize(14),
+    color: colors.fontGrey,
+  },
+});
+
+export { holidayListingStyle };

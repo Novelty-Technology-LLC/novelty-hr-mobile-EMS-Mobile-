@@ -16,6 +16,7 @@ const List = ({ list }: { list: any }) => {
         {transformList(list.items.splice(0, 3), list?.module).map(
           (item: any, index: number) => (
             <ListItem
+              key={index}
               title={item?.title}
               subTitle={item?.subTitle}
               isLast={2 === index}

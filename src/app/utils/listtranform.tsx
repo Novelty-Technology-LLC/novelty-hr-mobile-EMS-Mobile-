@@ -28,6 +28,8 @@ export const transformList = (itemList: any, module: string) => {
   const newList = itemList.map((item: any) => ({
     title: transformTitle(item?.title),
     subTitle: transformDate(item?.subTitle, module),
+    status: item?.status,
+    type: item?.type,
   }));
 
   return newList;
