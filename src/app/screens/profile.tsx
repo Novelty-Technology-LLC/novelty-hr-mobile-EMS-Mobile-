@@ -1,28 +1,26 @@
-import React, { useContext, useState } from "react";
-import { View, Text, ScrollView, Image, ActivityIndicator } from "react-native";
-import { headerText } from "../../assets/styles";
-import { profileStyle as style } from "../../assets/styles/tabs";
-import { tabHeader as Header } from "../common";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import colors from "../../assets/colors";
-import { AuthContext } from "../reducer";
-import ImagePicker from "react-native-image-picker";
-import ImageCropper from "react-native-image-crop-picker";
-import { formatPhoneNumber } from "../utils";
-import { updateImage } from "../services";
-import normalize from "react-native-normalize";
-import { momentdate } from "../utils/momentDate";
-import { storeToken, removeToken, removeUser, setUser } from "../utils";
-import { snackBarMessage, snackErrorBottom } from "../common";
-import { SmallHeader } from "../common";
+import React, { useContext, useState } from 'react';
+import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { headerText } from '../../assets/styles';
+import { profileStyle as style } from '../../assets/styles/tabs';
+import { tabHeader as Header } from '../common';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import colors from '../../assets/colors';
+import { AuthContext } from '../reducer';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import ImageCropper from 'react-native-image-crop-picker';
+import { formatPhoneNumber } from '../utils';
+import { updateImage } from '../services';
+import normalize from 'react-native-normalize';
+import { momentdate } from '../utils/momentDate';
+import { storeToken, removeToken, removeUser, setUser } from '../utils';
+import { snackBarMessage, snackErrorBottom } from '../common';
+import { SmallHeader } from '../common';
 
 const optionsPicker = {
-  title: "Pick a image",
-  base64: true,
   storageOptions: {
     skipBackup: true,
-    path: "images",
+    path: 'images',
   },
 };
 
@@ -46,28 +44,24 @@ const Profile = () => {
   const { state } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
-  const [dotloader, setdotloader] = useState(false);
-  const [visible, setvisible] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [birth, setbirth] = useState(null);
 
   const modalfilter = (date) => momentdate(date) < momentdate();
 
   const cleanImage = () =>
     ImageCropper.clean()
       .then(() => {
-        console.log("removed all tmp images from tmp directory");
+        console.log('removed all tmp images from tmp directory');
       })
       .catch((e) => {});
 
-  const uploadImage = () => {
-    ImagePicker.showImagePicker(optionsPicker, (response) => {
+  const uploadImage = (pick: boolean) => {
+    const callback = (response) => {
       if (response.didCancel) {
-        console.log("User cancelled image picker");
+        console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
+        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        console.log("User tapped custom button: ", response.customButton);
+        console.log('User tapped custom button: ', response.customButton);
       } else {
         ImageCropper.openCropper({
           path: response.uri,
@@ -78,16 +72,19 @@ const Profile = () => {
           compressImageQuality: 0.8,
         }).then((image) => setimage(image));
       }
-    });
+    };
+
+    pick
+      ? launchImageLibrary(optionsPicker, callback)
+      : launchCamera(optionsPicker, callback);
   };
 
   const confirm = () => {
     setloading(true);
     // const data = createFormData(image);
-
     updateImage(state.user.id, {
       data: image.data,
-      name: image.path.split("/").pop(),
+      name: image.path.split('/').pop(),
       type: image.mime,
     })
       .then((data) => {
@@ -97,13 +94,13 @@ const Profile = () => {
         setUser(data);
         setloading(false);
         setimage({ ...image, visible: false });
-        snackBarMessage("Image uploaded");
+        snackBarMessage('Image uploaded');
         cleanImage();
       })
       .catch((err) => {
         setloading(false);
         cleanImage();
-        snackErrorBottom("Something went wrong");
+        snackErrorBottom('Something went wrong');
       });
   };
 
@@ -147,12 +144,26 @@ const Profile = () => {
                   </TouchableOpacity>
                 </View>
               ) : (
-                <TouchableOpacity onPress={uploadImage}>
-                  <View style={style.label}>
-                    <Icon name="upload" color="white" size={20}></Icon>
-                    <Text style={style.labelText}>Upload your picture</Text>
-                  </View>
-                </TouchableOpacity>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    width: '90%',
+                  }}
+                >
+                  <TouchableOpacity onPress={() => uploadImage(true)}>
+                    <View style={style.label}>
+                      <Icon name="upload" color="white" size={20}></Icon>
+                      <Text style={style.labelText}>Upload from library</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => uploadImage(false)}>
+                    <View style={style.label}>
+                      <Icon name="camera" color="white" size={20}></Icon>
+                      <Text style={style.labelText}>Take a photo</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               )}
             </View>
           )}
@@ -163,7 +174,7 @@ const Profile = () => {
             <View style={style.icon}>
               <Icon name="account-circle" color={colors.primary} size={25} />
               <Text style={style.text}>
-                {state.user.first_name + " " + state.user.last_name}
+                {state.user.first_name + ' ' + state.user.last_name}
               </Text>
             </View>
             <View style={style.icon}>
