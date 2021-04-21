@@ -17,7 +17,7 @@ const ListItem = ({
       style={[
         listStyle.itemContainer,
         {
-          borderBottomWidth: isLast ? normalize(0) : normalize(3),
+          borderBottomWidth: isLast ? 0 : normalize(3),
         },
       ]}
     >
