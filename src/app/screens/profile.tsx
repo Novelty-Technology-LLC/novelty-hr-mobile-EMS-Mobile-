@@ -113,12 +113,14 @@ const Profile = () => {
       </Header>
       <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
         <View style={style.imageView}>
-          <Image
-            style={style.image}
-            source={{
-              uri,
-            }}
-          />
+          <View style={style.imageWrapper}>
+            <Image
+              style={style.image}
+              source={{
+                uri,
+              }}
+            />
+          </View>
           {loading ? (
             <ActivityIndicator
               size="large"

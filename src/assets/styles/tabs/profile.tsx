@@ -21,11 +21,18 @@ const profileStyle = StyleSheet.create({
     marginHorizontal: normalize(10),
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: normalize(100),
+    height: normalize(100),
+    borderRadius: normalize(50),
+  },
+  imageWrapper: {
+    width: normalize(106),
+    height: normalize(106),
+    borderRadius: normalize(53),
     borderWidth: normalize(6),
     borderColor: colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   label: {
     flexDirection: 'row',
