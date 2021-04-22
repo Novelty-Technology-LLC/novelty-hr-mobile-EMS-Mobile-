@@ -13,7 +13,7 @@ const List = ({ list }: { list: any }) => {
     <>
       <Text style={listStyle.header}>{list?.module}</Text>
       <View style={listStyle.container}>
-        {transformList(list.items.slice(0, 3), list?.module).map(
+        {transformList(list?.items?.slice(0, 3), list?.module).map(
           (item: any, index: number) => (
             <ListItem
               key={index}

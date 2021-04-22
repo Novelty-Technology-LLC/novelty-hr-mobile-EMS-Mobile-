@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
-import ImagePicker from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImageCropper from 'react-native-image-crop-picker';
 import { formatPhoneNumber } from '../utils';
 import { updateImage } from '../services';
@@ -18,8 +18,6 @@ import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
 const optionsPicker = {
-  title: 'Pick a image',
-  base64: true,
   storageOptions: {
     skipBackup: true,
     path: 'images',
@@ -46,10 +44,6 @@ const Profile = () => {
   const { state } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
-  const [dotloader, setdotloader] = useState(false);
-  const [visible, setvisible] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [birth, setbirth] = useState(null);
 
   const modalfilter = (date) => momentdate(date) < momentdate();
 
@@ -60,8 +54,8 @@ const Profile = () => {
       })
       .catch((e) => {});
 
-  const uploadImage = () => {
-    ImagePicker.showImagePicker(optionsPicker, (response) => {
+  const uploadImage = (pick: boolean) => {
+    const callback = (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -78,13 +72,16 @@ const Profile = () => {
           compressImageQuality: 0.8,
         }).then((image) => setimage(image));
       }
-    });
+    };
+
+    pick
+      ? launchImageLibrary(optionsPicker, callback)
+      : launchCamera(optionsPicker, callback);
   };
 
   const confirm = () => {
     setloading(true);
     // const data = createFormData(image);
-
     updateImage(state.user.id, {
       data: image.data,
       name: image.path.split('/').pop(),
@@ -107,9 +104,9 @@ const Profile = () => {
       });
   };
 
-  let uri = image ? image.path : state.user.image_url;
+  let uri = image ? image.path : state?.user?.image_url;
 
-  return (
+  return state.user ? (
     <View style={style.container}>
       <Header icon={true}>
         <Text style={headerText}>Profile</Text>
@@ -147,12 +144,26 @@ const Profile = () => {
                   </TouchableOpacity>
                 </View>
               ) : (
-                <TouchableOpacity onPress={uploadImage}>
-                  <View style={style.label}>
-                    <Icon name="upload" color="white" size={20}></Icon>
-                    <Text style={style.labelText}>Upload your picture</Text>
-                  </View>
-                </TouchableOpacity>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    width: '90%',
+                  }}
+                >
+                  <TouchableOpacity onPress={() => uploadImage(true)}>
+                    <View style={style.label}>
+                      <Icon name="upload" color="white" size={20}></Icon>
+                      <Text style={style.labelText}>Upload from library</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => uploadImage(false)}>
+                    <View style={style.label}>
+                      <Icon name="camera" color="white" size={20}></Icon>
+                      <Text style={style.labelText}>Take a photo</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               )}
             </View>
           )}
@@ -223,6 +234,8 @@ const Profile = () => {
         </View>
       </ScrollView>
     </View>
+  ) : (
+    <></>
   );
 };
 
