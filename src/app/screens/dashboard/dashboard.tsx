@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, Fragment } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -12,8 +12,8 @@ import {
 import { AuthContext } from '../../reducer';
 import { dashboardStyle as ds, headerTxtStyle } from '../../../assets/styles';
 import {
+  Cards,
   header as Header,
-  List,
   snackBarMessage,
   snackErrorBottom,
 } from '../../common';
@@ -21,20 +21,18 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
 import { getToday } from '../../utils';
 import { createWork, getWork, getDashboard } from '../../services';
-import { Carousel } from '../../common';
 import moment from 'moment';
 import normalize from 'react-native-normalize';
 import { DashboardCardPlaceholder } from '../../common';
 import { navigate } from '../../utils/navigation';
-import { time, transformLunchItem } from '../../utils/listtranform';
+import { time } from '../../utils/listtranform';
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
-  const [wfhCount, setwfhCount] = useState(0);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [listData, setListData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
 
@@ -65,13 +63,7 @@ const DashBoard = () => {
       try {
         setCardLoading(true);
         const data: any = await getDashboard();
-        let newList = data.find((item) => item?.detailRoute === '/employee');
-        newList.items.map((item) => {
-          if (item?.subTitle === 'Working from Home') {
-            setwfhCount(+item.title);
-          }
-        });
-        setData(data);
+        setListData(data);
         setRefreshing(false);
         setCardLoading(false);
       } catch (error) {
@@ -97,7 +89,14 @@ const DashBoard = () => {
       } else if (res?.data?.status === 200) {
         snackBarMessage('Successfully changed status.');
         setToggle(!toggle);
-        setwfhCount(!toggle ? wfhCount + 1 : wfhCount - 1);
+        let newList: any = listData.find(
+          (item) => item?.detailRoute === '/employee'
+        );
+        newList.items.map((item) => {
+          if (item?.subTitle === 'Working from Home') {
+            item.title = !toggle ? +item.title + 1 : +item.title - 1;
+          }
+        });
         setLoading(false);
       }
     } catch (error) {
@@ -149,33 +148,7 @@ const DashBoard = () => {
         </View>
         <View style={ds.wrapContainer}>
           {!cardLoading ? (
-            data.length > 0 &&
-            data.slice(0, 4).map((item, index) => (
-              <Fragment key={index}>
-                <View
-                  key={index}
-                  style={[
-                    ds.wrapItem,
-                    {
-                      height:
-                        item.type === 'stats' ? normalize(140) : normalize(240),
-                    },
-                  ]}
-                >
-                  {item.type === 'stats' ? (
-                    <Carousel
-                      items={transformLunchItem(item)}
-                      itemsPerInterval={1}
-                      onItemPress={(item: any) => {}}
-                      wfhCount={wfhCount}
-                    />
-                  ) : (
-                    <List list={item} />
-                  )}
-                </View>
-                {index % 2 === 0 && <View style={{ marginRight: '2%' }} />}
-              </Fragment>
-            ))
+            <Cards data={listData} />
           ) : (
             <DashboardCardPlaceholder />
           )}

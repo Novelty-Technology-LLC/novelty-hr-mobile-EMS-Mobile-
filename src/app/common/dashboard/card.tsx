@@ -5,15 +5,7 @@ import colors from '../../../assets/colors';
 import { fonts } from '../../../assets/styles';
 import { dashboarCard } from '../../utils';
 
-const UpperCard = ({
-  item,
-  module,
-  wfhCount,
-}: {
-  item: any;
-  module: any;
-  wfhCount: number;
-}) => {
+const UpperCard = ({ item, module }: { item: any; module: any }) => {
   return (
     <View style={{ flexDirection: 'column', marginTop: normalize(40) }}>
       <View style={{ marginLeft: normalize(20), marginTop: normalize(10) }}>
@@ -35,9 +27,7 @@ const UpperCard = ({
             textAlign: 'center',
           }}
         >
-          {item?.subTitle === 'Working from Home'
-            ? wfhCount
-            : item?.title?.length > 42
+          {item?.title?.length > 42
             ? item.title.slice(0, 42) + '...'
             : item?.title}
         </Text>

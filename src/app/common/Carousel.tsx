@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import normalize from 'react-native-normalize';
-import { CarouselStyle } from '../../assets/styles';
+import colors from '../../assets/colors';
+import { CarouselStyle, color } from '../../assets/styles';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
@@ -9,7 +10,6 @@ interface CarouselPropTypes {
   onItemPress: (val: any) => void;
   theme?: any;
   items: any;
-  wfhCount: number;
 }
 
 export const Carousel = (props: CarouselPropTypes) => {
@@ -100,7 +100,7 @@ export const Carousel = (props: CarouselPropTypes) => {
         key={i}
         style={{
           ...CarouselStyle.bullet,
-          opacity: interval === i ? 1 : 0.4,
+          color: interval === i ? colors.primary : colors.lightGrey,
         }}
       >
         &bull;
@@ -144,11 +144,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                   style={CarouselStyle.item}
                   onPress={() => onItemPress(item[0])}
                 >
-                  <UpperCard
-                    item={{ ...item }}
-                    module={props.items.module}
-                    wfhCount={props.wfhCount}
-                  />
+                  <UpperCard item={{ ...item }} module={props.items.module} />
                 </TouchableOpacity>
               </View>
             </View>

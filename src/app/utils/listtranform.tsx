@@ -14,14 +14,60 @@ const checkToday = (date: Date) => {
   );
 };
 
+const checkTomorrow = (date: Date) => {
+  let todaydate = new Date();
+  let newdate = new Date(date);
+
+  return (
+    todaydate.getFullYear() === newdate.getFullYear() &&
+    todaydate.getMonth() === newdate.getMonth() &&
+    todaydate.getDate() + 1 === newdate.getDate()
+  );
+};
+
+const formatDate = (month: number, day: number, monthdate: number) => {
+  let days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  let months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  return `${months[month]} ${monthdate}, ${days[day]} `;
+};
+
 const transformDate = (date: Date, module: string) => {
+  let month, day, monthdate;
   if (checkToday(date) && module === 'Leave') {
     return `On Leave Today`;
   } else if (checkToday(date)) {
     return 'Today';
+  } else if (checkTomorrow(date) && module === 'Leave') {
+    return `On Leave Tomorrow`;
+  } else if (checkTomorrow(date)) {
+    return `Tomorrow`;
   }
-
-  return new Date(date).toDateString();
+  month = new Date(date).getMonth();
+  day = new Date(date).getDay();
+  monthdate = new Date(date).getDate();
+  return formatDate(month, day, monthdate);
 };
 
 export const transformList = (itemList: any, module: string) => {
