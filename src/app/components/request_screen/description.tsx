@@ -106,7 +106,7 @@ const Description = ({
                       const splittedArr = values.note.split(' ');
 
                       newVal = splittedArr
-                        .filter((val) => val !== item.value && val !== '')
+                        .filter((val) => val && val !== item.value)
                         .join(' ');
                       const isEmpty =
                         newVal + ' ' + selectedHashtag === ' ' ? true : false;
