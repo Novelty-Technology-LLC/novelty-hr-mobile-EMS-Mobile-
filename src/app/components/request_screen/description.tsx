@@ -6,7 +6,6 @@ import { descriptionStyle as style } from '../../../assets/styles';
 import { HashTagButton, SmallHeader } from '../../common';
 import { HashtagPlaceHolder } from '../loader';
 import { getHash } from '../../services/timeLogService';
-import color from '../../../assets/colors';
 import normalize from 'react-native-normalize';
 
 const Description = ({
@@ -103,7 +102,14 @@ const Description = ({
                         );
 
                       const selectedHashtag = item.isSelected ? item.value : '';
-                      handleChange('note')(values.note + ' ' + selectedHashtag);
+                      let newVal: any = values.note;
+                      const splittedArr = values.note.split(' ');
+
+                      newVal = splittedArr
+                        .filter((val) => val !== item.value && val !== '')
+                        .join(' ');
+
+                      handleChange('note')(newVal + ' ' + selectedHashtag);
                     }}
                   >
                     <HashTagButton
