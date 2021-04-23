@@ -9,6 +9,7 @@ const CarouselStyle = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: colors.snow,
     height: normalize(160),
+    borderRadius: normalize(8),
   },
   scrollView: {
     display: 'flex',

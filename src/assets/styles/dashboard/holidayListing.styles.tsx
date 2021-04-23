@@ -9,7 +9,7 @@ const holidayListingStyle = StyleSheet.create({
     paddingVertical: normalize(10),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomColor: colors.fontGrey,
+    borderBottomColor: colors.lightGrey,
   },
   title: {
     fontFamily: fonts.mulishBold,
@@ -20,6 +20,7 @@ const holidayListingStyle = StyleSheet.create({
     fontSize: normalize(14),
     color: colors.fontGrey,
   },
+  mainContainer: { flex: 1, backgroundColor: colors.white },
 });
 
 export { holidayListingStyle };

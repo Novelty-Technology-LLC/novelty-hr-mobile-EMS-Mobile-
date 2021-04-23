@@ -9,7 +9,7 @@ import { List } from './list';
 const Cards = ({ data }: { data: any }) => {
   return (
     data.length > 0 &&
-    data.slice(0, 4).map((item: any, index: number) => {
+    data.map((item: any, index: number) => {
       return (
         <Fragment key={index}>
           <View
@@ -17,7 +17,7 @@ const Cards = ({ data }: { data: any }) => {
             style={[
               ds.wrapItem,
               {
-                height: item.type === 'stats' ? normalize(140) : normalize(240),
+                height: item.type === 'stats' ? normalize(140) : normalize(230),
               },
             ]}
           >
