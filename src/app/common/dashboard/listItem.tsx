@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
-import { listStyle } from '../../../assets/styles';
+import { cardStyle, listStyle } from '../../../assets/styles';
 
 const ListItem = ({
   title,
@@ -17,12 +17,16 @@ const ListItem = ({
       style={[
         listStyle.itemContainer,
         {
-          borderBottomWidth: isLast ? 0 : normalize(3),
+          borderBottomWidth: isLast
+            ? 0
+            : Platform.OS === 'ios'
+            ? normalize(1)
+            : normalize(3),
         },
       ]}
     >
-      <Text style={listStyle.title}>{title}</Text>
-      <Text style={listStyle.subTitle}>{subTitle}</Text>
+      <Text style={cardStyle.titleText}>{title}</Text>
+      <Text style={cardStyle.subTitleText}>{subTitle}</Text>
     </View>
   );
 };
