@@ -9,7 +9,7 @@ import { List } from './list';
 const Cards = ({ data }: { data: any }) => {
   return (
     data.length > 0 &&
-    data.slice(0, 4).map((item: any, index: number) => {
+    data.map((item: any, index: number) => {
       return (
         <Fragment key={index}>
           <View

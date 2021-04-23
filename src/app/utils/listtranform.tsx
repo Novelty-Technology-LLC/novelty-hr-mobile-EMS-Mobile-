@@ -58,14 +58,10 @@ const transformDate = (date: any, module: string, isList: boolean) => {
   let startDate = date?.startDate ?? date;
   let month, day, monthdate;
 
-  if (checkToday(startDate) && module === 'Leave') {
-    return `On Leave Today`;
-  } else if (checkToday(startDate)) {
-    return 'Today';
-  } else if (checkTomorrow(startDate) && module === 'Leave') {
-    return `On Leave Tomorrow`;
+  if (checkToday(startDate)) {
+    return module === 'Leave' ? `On Leave Today` : 'Today';
   } else if (checkTomorrow(startDate)) {
-    return `Tomorrow`;
+    return module === 'Leave' ? `On Leave Tomorrow` : `Tomorrow`;
   }
 
   if (!isList) {
