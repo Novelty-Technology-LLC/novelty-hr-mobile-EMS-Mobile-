@@ -38,6 +38,7 @@ const HolidayEventListing = (props: any) => {
                 {
                   borderBottomWidth:
                     list.length - 1 === index ? 0 : normalize(3),
+                  paddingVertical: normalize(15),
                 },
               ]}
             >

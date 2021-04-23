@@ -8,6 +8,7 @@ import {
   ScrollView,
   RefreshControl,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 import { AuthContext } from '../../reducer';
 import { dashboardStyle as ds, headerTxtStyle } from '../../../assets/styles';
@@ -24,7 +25,7 @@ import { createWork, getWork, getDashboard } from '../../services';
 import moment from 'moment';
 import normalize from 'react-native-normalize';
 import { DashboardCardPlaceholder } from '../../common';
-import { navigate } from '../../utils/navigation';
+import { getCurrentRouteName, navigate } from '../../utils/navigation';
 import { time } from '../../utils/listtranform';
 
 const DashBoard = () => {
@@ -38,6 +39,17 @@ const DashBoard = () => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+  }, []);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      if (getCurrentRouteName() === 'dashboard') {
+        BackHandler.exitApp();
+      }
+    });
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
+    };
   }, []);
 
   useEffect(() => {
