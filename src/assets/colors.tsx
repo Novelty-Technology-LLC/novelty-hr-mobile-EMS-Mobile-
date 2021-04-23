@@ -21,4 +21,6 @@ export default {
   text: '#666666',
   greenButton: '#6DAF7C',
   ash: '#BCBCBC',
+  brown: '#EFE4DB',
+  lightbrown: '#f8f3ee',
 };

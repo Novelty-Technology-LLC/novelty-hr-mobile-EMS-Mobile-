@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   Keyboard,
 } from 'react-native';
-import { headerText, requestLeave } from '../../../assets/styles';
+import { headerTxtStyle, requestLeave } from '../../../assets/styles';
 import {
   header as Header,
   snackBarMessage,
@@ -130,7 +130,7 @@ const LogTime = ({ route }: any) => {
   return (
     <>
       <Header icon={true}>
-        <Text style={headerText}> Log Time</Text>
+        <Text style={headerTxtStyle.headerText}> Log Time</Text>
       </Header>
       <KeyboardAwareScrollView
         style={requestLeave.container}

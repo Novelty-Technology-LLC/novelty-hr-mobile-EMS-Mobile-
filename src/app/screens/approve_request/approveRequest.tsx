@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { header as Header } from '../../common/header';
-import { headerText } from '../../../assets/styles';
+import { headerTxtStyle } from '../../../assets/styles';
 import { approveRequest as style } from '../../../assets/styles';
 import Request from '../../components/approveRequest/approve_request';
 import getName from '../../utils/getName';
@@ -16,7 +16,7 @@ const ApproveRequest = ({ route }: any) => {
       <Header icon={true}>
         <View style={style.headContainer}>
           <View>
-            <Text style={headerText}>{name},</Text>
+            <Text style={headerTxtStyle.headerText}>{name},</Text>
           </View>
           <View style={style.headerGap}>
             <Text style={style.headerDate}>{dayRange}</Text>
