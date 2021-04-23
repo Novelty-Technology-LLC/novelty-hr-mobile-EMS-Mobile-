@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext, useAuth } from '../reducer';
 import { getUser, getToken } from '../utils';
-import { Login } from '../screens';
+import { Login, ResolveAuth } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabNavigator';
 import Invalid from '../screens/auth_screen/invalid';
@@ -64,6 +64,7 @@ const RootNavigation = () => {
             headerShown: false,
           }}
         >
+          <Root.Screen name="resolveAuth" component={ResolveAuth} options={{gestureEnabled: false}} />
           <Root.Screen name="login" component={Login} />
           <Root.Screen name="loading" component={Loading} />
           <Root.Screen name="invalid" component={Invalid} />
