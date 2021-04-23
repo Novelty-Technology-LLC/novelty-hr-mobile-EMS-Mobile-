@@ -50,15 +50,13 @@ const AuthReducer = (prevState, action) => {
       };
 
     case 'SET_IMAGE':
-      console.log('set image call', prevState, action);
-
-    // return {
-    //   ...prevState,
-    //   user: {
-    //     ...prevState.user,
-    //     image_url: action.payload,
-    //   },
-    // };
+      return {
+        ...prevState,
+        user: {
+          ...prevState.user,
+          image_url: action.payload,
+        },
+      };
   }
 };
 
