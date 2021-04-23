@@ -49,9 +49,7 @@ const HolidayEventListing = (props: any) => {
                 >
                   <View>
                     <Text style={cardStyle.titleText}>{item?.title}</Text>
-                    <Text style={holidayListingStyle.subTitle}>
-                      {item?.subTitle}
-                    </Text>
+                    <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
                   </View>
                   <Text style={cardStyle.subTitleText}>
                     {item?.type === 'event'
