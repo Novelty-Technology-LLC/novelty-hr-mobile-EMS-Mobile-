@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Platform, ScrollView, Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../../assets/colors';
 import {
@@ -45,7 +45,11 @@ const LeaveListing = (props: any) => {
                 holidayListingStyle.container,
                 {
                   borderBottomWidth:
-                    list.length - 1 === index ? 0 : normalize(3),
+                    list.length - 1 === index
+                      ? 0
+                      : Platform.OS === 'ios'
+                      ? normalize(1)
+                      : normalize(3),
                 },
               ]}
             >

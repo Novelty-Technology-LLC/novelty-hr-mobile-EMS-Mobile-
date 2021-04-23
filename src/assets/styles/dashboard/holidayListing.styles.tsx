@@ -9,7 +9,7 @@ const holidayListingStyle = StyleSheet.create({
     paddingVertical: normalize(10),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomColor: colors.fontGrey,
+    borderBottomColor: colors.lightGrey,
   },
   title: {
     fontFamily: fonts.mulishBold,

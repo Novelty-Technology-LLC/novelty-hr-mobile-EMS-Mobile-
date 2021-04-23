@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import normalize from 'react-native-normalize';
 import { cardStyle, listStyle } from '../../../assets/styles';
 
@@ -17,7 +17,11 @@ const ListItem = ({
       style={[
         listStyle.itemContainer,
         {
-          borderBottomWidth: isLast ? 0 : normalize(3),
+          borderBottomWidth: isLast
+            ? 0
+            : Platform.OS === 'ios'
+            ? normalize(1)
+            : normalize(3),
         },
       ]}
     >
