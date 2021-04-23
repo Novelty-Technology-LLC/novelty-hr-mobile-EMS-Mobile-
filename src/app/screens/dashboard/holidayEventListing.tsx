@@ -28,7 +28,7 @@ const HolidayEventListing = (props: any) => {
   return (
     <View style={holidayListingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>HOLIDAY & EVENTS</Text>
+        <Text style={headerTxtStyle.headerText}>HOLIDAYS & EVENTS</Text>
       </Header>
       <ScrollView showsVerticalScrollIndicator={false}>
         {loading ? (
@@ -59,7 +59,11 @@ const HolidayEventListing = (props: any) => {
                     </Text>
                   </View>
                   <Text style={cardStyle.subTitleText}>
-                    {item?.type === 'event' ? 'Event' : item?.type === 'holiday' ? 'Holiday' : ''}
+                    {item?.type === 'event'
+                      ? 'Event'
+                      : item?.type === 'holiday'
+                      ? 'Holiday'
+                      : ''}
                   </Text>
                 </View>
               );
