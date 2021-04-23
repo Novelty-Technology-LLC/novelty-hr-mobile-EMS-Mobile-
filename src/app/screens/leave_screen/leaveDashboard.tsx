@@ -2,10 +2,12 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, ScrollView, Text, RefreshControl } from 'react-native';
 import { header as Header } from '../../common';
 import { DaysRemaining, MyRequests } from '../../components';
-import { leaveDashboardStyle as style } from '../../../assets/styles';
+import {
+  headerTxtStyle,
+  leaveDashboardStyle as style,
+} from '../../../assets/styles';
 import OtherRequests from '../../components/leave_screen/otherRequests';
 import { RequestButton } from '../../components/requestButton';
-import { headerText } from '../../../assets/styles';
 import { RequestContext } from '../../reducer';
 import { getUser, mapDataToRequest, setUser } from '../../utils';
 import { get, getLeaveQuota, getMyRequests, store } from '../../services';
@@ -84,7 +86,7 @@ const LeaveDashboard = () => {
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
-        <Text style={headerText}>Leave Application</Text>
+        <Text style={headerTxtStyle.headerText}>Leave Application</Text>
       </Header>
       <ScrollView
         showsVerticalScrollIndicator={false}

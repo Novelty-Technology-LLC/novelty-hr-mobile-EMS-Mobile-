@@ -3,7 +3,7 @@ import { Linking, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenStack from './screenStack';
 import colors from '../../assets/colors';
-import { DashBoard, Profile } from '../screens';
+import { Profile } from '../screens';
 import { AppIcon } from '../common';
 import LogNav from './logStack';
 import DeviceInfo from 'react-native-device-info';
@@ -17,6 +17,7 @@ import {
 import { store } from '../services';
 import messaging from '@react-native-firebase/messaging';
 import { AuthContext } from '../reducer';
+import DashNav from './dashBoardStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -94,7 +95,7 @@ const TabNavigator = () => {
       >
         <Tab.Screen
           name="Setting"
-          component={DashBoard}
+          component={DashNav}
           options={{
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="home" color={color} size={size} />

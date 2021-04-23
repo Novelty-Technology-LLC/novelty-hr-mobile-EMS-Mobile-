@@ -14,8 +14,11 @@ import {
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
-import { approveRequest, requestLeave as style } from '../../../assets/styles';
-import { headerText } from '../../../assets/styles';
+import {
+  approveRequest,
+  headerTxtStyle,
+  requestLeave as style,
+} from '../../../assets/styles';
 import {
   CalendarComponent,
   Teams,
@@ -179,7 +182,7 @@ const RequestLeave = ({ route }: any) => {
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <Header icon={true}>
         <View style={approveRequest.headContainer}>
-          <Text style={headerText}>Request Leave</Text>
+          <Text style={headerTxtStyle.headerText}>Request Leave</Text>
         </View>
       </Header>
       <KeyboardAwareScrollView
