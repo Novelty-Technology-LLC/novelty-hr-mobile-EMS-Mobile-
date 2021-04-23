@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, ScrollView, Text, View } from 'react-native';
-import normalize from 'react-native-normalize';
+import { ScrollView, Text, View } from 'react-native';
 import {
   cardStyle,
   headerTxtStyle,
@@ -44,12 +43,7 @@ const LeaveListing = (props: any) => {
               style={[
                 holidayListingStyle.container,
                 {
-                  borderBottomWidth:
-                    list.length - 1 === index
-                      ? 0
-                      : Platform.OS === 'ios'
-                      ? normalize(1)
-                      : normalize(3),
+                  borderBottomWidth: list.length - 1 === index ? 0 : 1,
                 },
               ]}
             >
