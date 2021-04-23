@@ -2,7 +2,7 @@ import { dateStringMapper } from './dateMapper';
 import { getDayToday } from './momentDate';
 
 const transformTitle = (title: string) => {
-  return title.length > 15 ? `${title.substring(0, 15)} ...` : title;
+  return title.length > 18 ? `${title.substring(0, 18)} ...` : title;
 };
 
 const checkToday = (date: Date) => {
@@ -82,10 +82,11 @@ const transformDate = (date: any, module: string, isList: boolean) => {
 export const transformList = (
   itemList: any,
   module: string,
-  isList?: boolean
+  isList?: boolean,
+  truncate?: boolean
 ) => {
   const newList = itemList.map((item: any) => ({
-    title: transformTitle(item?.title),
+    title: truncate ? transformTitle(item?.title) : item?.title,
     subTitle: transformDate(item?.leave_date ?? item?.subTitle, module, isList),
     status: item?.status,
     type: item?.type,

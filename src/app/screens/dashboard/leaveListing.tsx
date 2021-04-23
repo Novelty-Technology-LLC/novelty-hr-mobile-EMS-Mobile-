@@ -3,6 +3,7 @@ import { Platform, ScrollView, Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../../assets/colors';
 import {
+  cardStyle,
   headerTxtStyle,
   holidayListingStyle,
   requestStyle,
@@ -54,11 +55,9 @@ const LeaveListing = (props: any) => {
               ]}
             >
               <View>
-                <Text style={holidayListingStyle.title}>{item?.title}</Text>
+                <Text style={cardStyle.titleText}>{item?.title}</Text>
                 <Text style={requestStyle.type}>{item.type}</Text>
-                <Text style={holidayListingStyle.subTitle}>
-                  {item?.subTitle}
-                </Text>
+                <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
               </View>
               <View>
                 <State state={item?.status} />
