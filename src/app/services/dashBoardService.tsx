@@ -12,6 +12,8 @@ const getDashboard = () => {
 
       resolve(res.data.data);
     } catch (error) {
+      console.log(error);
+
       reject({ success: false, message: error });
     }
   });

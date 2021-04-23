@@ -44,8 +44,6 @@ const Profile = () => {
         payload: data?.image_url,
       });
     }
-    console.log('from api');
-    console.log('user', state?.user?.image_url);
   };
 
   const uploadImage = (pick: boolean) => {
