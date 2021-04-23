@@ -16,7 +16,9 @@ const List = ({ list }: { list: any }) => {
         {list?.items?.length > 0 &&
           transformList(
             list?.items?.slice(0, 3),
-            list?.module
+            list?.module,
+            false,
+            true
           ).map((item: any, index: number) => (
             <ListItem
               key={index}

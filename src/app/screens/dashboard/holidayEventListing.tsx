@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, ScrollView, Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
-import { headerTxtStyle, holidayListingStyle } from '../../../assets/styles';
+import {
+  cardStyle,
+  headerTxtStyle,
+  holidayListingStyle,
+} from '../../../assets/styles';
 import { header as Header } from '../../common';
 import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
 import { getList } from '../../services';
@@ -30,30 +34,37 @@ const HolidayEventListing = (props: any) => {
         {loading ? (
           <ListPlaceholder />
         ) : list?.length > 0 ? (
-          transformList(list, 'Holiday&Events').map((item, index) => {
-            return (
-              <View
-                key={index}
-                style={[
-                  holidayListingStyle.container,
-                  {
-                    borderBottomWidth:
-                      list.length - 1 === index
-                        ? 0
-                        : Platform.OS === 'ios'
-                        ? normalize(1)
-                        : normalize(3),
-                    paddingVertical: normalize(15),
-                  },
-                ]}
-              >
-                <Text style={holidayListingStyle.title}>{item?.title}</Text>
-                <Text style={holidayListingStyle.subTitle}>
-                  {item?.subTitle}
-                </Text>
-              </View>
-            );
-          })
+          transformList(list, 'Holiday&Events', false, false).map(
+            (item, index) => {
+              return (
+                <View
+                  key={index}
+                  style={[
+                    holidayListingStyle.container,
+                    {
+                      borderBottomWidth:
+                        list.length - 1 === index
+                          ? 0
+                          : Platform.OS === 'ios'
+                          ? normalize(1)
+                          : normalize(3),
+                      paddingVertical: normalize(15),
+                    },
+                  ]}
+                >
+                  <View>
+                    <Text style={cardStyle.titleText}>{item?.title}</Text>
+                    <Text style={holidayListingStyle.subTitle}>
+                      {item?.subTitle}
+                    </Text>
+                  </View>
+                  <Text style={cardStyle.subTitleText}>
+                    {item?.type === 'event' ? 'Event' : 'Holiday'}
+                  </Text>
+                </View>
+              );
+            }
+          )
         ) : (
           <></>
         )}
