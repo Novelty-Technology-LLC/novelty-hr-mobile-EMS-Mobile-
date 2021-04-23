@@ -109,7 +109,7 @@ const Description = ({
                         .filter((val) => val && val !== item.value)
                         .join(' ');
                       const isEmpty =
-                        newVal + ' ' + selectedHashtag === ' ' ? true : false;
+                        newVal + selectedHashtag === '' ? true : false;
 
                       handleChange('note')(
                         isEmpty ? '' : newVal + ' ' + selectedHashtag
