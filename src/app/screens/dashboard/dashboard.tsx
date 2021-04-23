@@ -47,7 +47,6 @@ const DashBoard = () => {
           user_id: state?.user?.id,
           date: moment().format('YYYY-MM-DD'),
         });
-
         setId(res?.data?.data?.id ?? null);
         setToggle(+res?.data?.data?.status === 1 ? true : false);
         setLoading(false);

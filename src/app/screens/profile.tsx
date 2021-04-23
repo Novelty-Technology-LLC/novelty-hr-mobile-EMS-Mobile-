@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
-import { headerText } from '../../assets/styles';
+import { headerTxtStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
 import { tabHeader as Header } from '../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -109,7 +109,7 @@ const Profile = () => {
   return state.user ? (
     <View style={style.container}>
       <Header icon={true}>
-        <Text style={headerText}>Profile</Text>
+        <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
       <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
         <View style={style.imageView}>
@@ -146,13 +146,7 @@ const Profile = () => {
                   </TouchableOpacity>
                 </View>
               ) : (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    width: '90%',
-                  }}
-                >
+                <View style={style.textContainer}>
                   <TouchableOpacity onPress={() => uploadImage(true)}>
                     <View style={style.label}>
                       <Icon name="upload" color="white" size={20}></Icon>

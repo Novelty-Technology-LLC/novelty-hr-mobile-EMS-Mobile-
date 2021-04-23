@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
 import { headerTxtStyle, holidayListingStyle } from '../../../assets/styles';
-import { tabHeader as Header } from '../../common';
+import { header as Header } from '../../common';
 import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
 import { getList } from '../../services';
 import { transformList } from '../../utils/listtranform';
@@ -23,7 +23,7 @@ const HolidayEventListing = (props: any) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header>
+      <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>HOLIDAY & EVENTS</Text>
       </Header>
       {loading ? (

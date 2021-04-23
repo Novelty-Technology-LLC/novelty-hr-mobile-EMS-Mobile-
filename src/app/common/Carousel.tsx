@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../assets/colors';
-import { CarouselStyle, color } from '../../assets/styles';
+import { CarouselStyle } from '../../assets/styles';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
@@ -118,9 +118,7 @@ export const Carousel = (props: CarouselPropTypes) => {
         }}
         showsHorizontalScrollIndicator={false}
         ref={(ref) => setRef(ref)}
-        onContentSizeChange={(w, h) => {
-          init(w);
-        }}
+        onContentSizeChange={(w, h) => init(w)}
         onScroll={(data) => {
           setWidth(data.nativeEvent.contentSize.width);
           setInterval(getInterval(data.nativeEvent.contentOffset.x));
@@ -132,14 +130,7 @@ export const Carousel = (props: CarouselPropTypes) => {
         {items.flat(1).map((item: any, index: number) => {
           return (
             <View style={CarouselStyle.wrapper} key={index}>
-              <View
-                style={{
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  marginTop: normalize(-65),
-                  width: '100%',
-                }}
-              >
+              <View style={CarouselStyle.itemContainer}>
                 <TouchableOpacity
                   style={CarouselStyle.item}
                   onPress={() => onItemPress(item[0])}

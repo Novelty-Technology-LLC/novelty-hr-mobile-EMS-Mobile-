@@ -13,16 +13,18 @@ const List = ({ list }: { list: any }) => {
     <>
       <Text style={listStyle.header}>{list?.module}</Text>
       <View style={listStyle.container}>
-        {transformList(list?.items?.slice(0, 3), list?.module).map(
-          (item: any, index: number) => (
+        {list?.items?.length > 0 &&
+          transformList(
+            list?.items?.slice(0, 3),
+            list?.module
+          ).map((item: any, index: number) => (
             <ListItem
               key={index}
               title={item?.title}
               subTitle={item?.subTitle}
               isLast={2 === index}
             />
-          )
-        )}
+          ))}
         <TouchableOpacity
           onPress={() =>
             navigate(list?.detailRoute, { route: list?.detailRoute })

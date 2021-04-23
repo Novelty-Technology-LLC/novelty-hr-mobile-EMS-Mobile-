@@ -6,7 +6,7 @@ import {
   holidayListingStyle,
   requestStyle,
 } from '../../../assets/styles';
-import { tabHeader as Header } from '../../common';
+import { header as Header } from '../../common';
 import State from '../../components/leave_screen/state';
 import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
 import { getList } from '../../services';
@@ -20,6 +20,7 @@ const LeaveListing = (props: any) => {
     setLoading(true);
     const getData = async (route: string) => {
       const data = await getList(route);
+
       data && setLoading(false);
       setList(data);
     };
@@ -28,7 +29,7 @@ const LeaveListing = (props: any) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header>
+      <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>LEAVE LISTING</Text>
       </Header>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -36,7 +37,7 @@ const LeaveListing = (props: any) => {
           <ListPlaceholder />
         ) : (
           list?.length > 0 &&
-          transformList(list, 'Leave').map((item, index) => (
+          transformList(list, 'Leave', true).map((item, index) => (
             <View
               key={index}
               style={[

@@ -58,6 +58,12 @@ const CarouselStyle = StyleSheet.create({
     fontWeight: '600',
   },
   item: {},
+  itemContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginTop: normalize(-65),
+    width: '100%',
+  },
 });
 
 export { CarouselStyle };

@@ -32,3 +32,4 @@ export * from './dashboard/dashboard.styles';
 export * from './common/list.styles';
 export * from './common/carasoul.styles';
 export * from './dashboard/holidayListing.styles';
+export * from './common/card.styles';

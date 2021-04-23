@@ -3,9 +3,9 @@ import { View, Text, ScrollView } from 'react-native';
 import { header as Header } from '../../common';
 import {
   leaveType as style,
-  headerText,
   requestLeave,
   historyStyle,
+  headerTxtStyle,
 } from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { momentdate } from '../../utils';
@@ -20,7 +20,9 @@ const LogListings = ({ route }: any) => {
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
       <Header icon={true}>
-        <Text style={headerText}>{olddata[0] ?? 'Log Time'}</Text>
+        <Text style={headerTxtStyle.headerText}>
+          {olddata[0] ?? 'Log Time'}
+        </Text>
       </Header>
       <ScrollView
         style={requestLeave.container}

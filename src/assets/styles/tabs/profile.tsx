@@ -124,6 +124,11 @@ const profileStyle = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: normalize(25),
   },
+  textContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: '90%',
+  },
 });
 
 export { profileStyle };

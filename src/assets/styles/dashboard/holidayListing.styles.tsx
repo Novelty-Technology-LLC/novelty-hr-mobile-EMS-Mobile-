@@ -6,7 +6,7 @@ import { fonts } from '../theme';
 const holidayListingStyle = StyleSheet.create({
   container: {
     marginHorizontal: normalize(20),
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(10),
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: colors.fontGrey,
