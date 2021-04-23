@@ -108,8 +108,12 @@ const Description = ({
                       newVal = splittedArr
                         .filter((val) => val !== item.value && val !== '')
                         .join(' ');
+                      const isEmpty =
+                        newVal + ' ' + selectedHashtag === ' ' ? true : false;
 
-                      handleChange('note')(newVal + ' ' + selectedHashtag);
+                      handleChange('note')(
+                        isEmpty ? '' : newVal + ' ' + selectedHashtag
+                      );
                     }}
                   >
                     <HashTagButton
@@ -142,10 +146,10 @@ const Description = ({
             handleChange(error ? 'note' : 'task')(text)
           }
         />
+        {error && touched && error.note && touched.note && (
+          <Text style={style.error}>{error.note}</Text>
+        )}
       </View>
-      {error && touched && error.note && touched.note && (
-        <Text style={style.error}>{error.note}</Text>
-      )}
     </View>
   );
 };
