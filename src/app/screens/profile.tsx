@@ -24,28 +24,10 @@ const optionsPicker = {
   },
 };
 
-// const createFormData = (photo) => {
-//   const data = new FormData();
-
-//   data.append('file', {
-//     name: photo.fileName,
-//     type: photo.type,
-//     uri: photo.uri,
-//   });
-
-//   Object.keys(photo).forEach((key) => {
-//     data.append(key, photo[key]);
-//   });
-
-//   return data;
-// };
-
 const Profile = () => {
-  const { state } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
-
-  const modalfilter = (date) => momentdate(date) < momentdate();
 
   const cleanImage = () =>
     ImageCropper.clean()
@@ -53,6 +35,16 @@ const Profile = () => {
         console.log('removed all tmp images from tmp directory');
       })
       .catch((e) => {});
+
+  const updateProfileImage = (image: any, data?: any) => {
+    setimage(image);
+    if (data?.image_url) {
+      dispatch({
+        type: 'SET_IMAGE',
+        payload: data?.image_url,
+      });
+    }
+  };
 
   const uploadImage = (pick: boolean) => {
     const callback = (response) => {
@@ -70,7 +62,7 @@ const Profile = () => {
           cropperCircleOverlay: true,
           includeBase64: true,
           compressImageQuality: 0.8,
-        }).then((image) => setimage(image));
+        }).then((image) => updateProfileImage(image));
       }
     };
 
@@ -81,7 +73,6 @@ const Profile = () => {
 
   const confirm = () => {
     setloading(true);
-    // const data = createFormData(image);
     updateImage(state.user.id, {
       data: image.data,
       name: image.path.split('/').pop(),
@@ -93,7 +84,7 @@ const Profile = () => {
         removeUser();
         setUser(data);
         setloading(false);
-        setimage({ ...image, visible: false });
+        updateProfileImage({ ...image, visible: false }, data);
         snackBarMessage('Image uploaded');
         cleanImage();
       })
@@ -106,7 +97,7 @@ const Profile = () => {
 
   let uri = image ? image.path : state?.user?.image_url;
 
-  return state.user ? (
+  return state?.user ? (
     <View style={style.container}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
