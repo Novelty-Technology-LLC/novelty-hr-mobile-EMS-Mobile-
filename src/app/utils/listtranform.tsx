@@ -64,7 +64,7 @@ const transformDate = (date: any, module: string, isList: boolean) => {
     return module === 'Leave' ? `On Leave Tomorrow` : `Tomorrow`;
   }
 
-  if (!isList) {
+  if (!isList && module !== 'Leave') {
     month = new Date(startDate).getMonth();
     day = new Date(startDate).getDay();
     monthdate = new Date(startDate).getDate();

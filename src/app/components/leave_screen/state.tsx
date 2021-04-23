@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Platform } from 'react-native';
+import normalize from 'react-native-normalize';
 import colors from '../../../assets/colors';
 import { requestStyle as style } from '../../../assets/styles';
 import { AppIcon } from '../../common';
@@ -23,7 +24,11 @@ const State = ({ state, children }: { state: string; children?: any }) => {
       )}
       {state === 'Denied' && (
         <>
-          <AppIcon name="alert-circle" size={18} color={colors.tomato} />
+          <AppIcon
+            name="alert-circle"
+            size={normalize(18)}
+            color={colors.tomato}
+          />
           <View style={style.space}></View>
           <Text style={style.denyStat}>{state}</Text>
         </>
@@ -35,7 +40,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
               <View style={style.progress}>
                 <AppIcon
                   name="timer-sand"
-                  size={Platform.OS === 'ios' ? 10 : 12}
+                  size={normalize(10)}
                   color={colors.white}
                 />
               </View>
@@ -52,7 +57,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
               <View style={style.progress}>
                 <AppIcon
                   name="progress-clock"
-                  size={Platform.OS === 'ios' ? 10 : 12}
+                  size={normalize(10)}
                   color={colors.white}
                 />
               </View>
