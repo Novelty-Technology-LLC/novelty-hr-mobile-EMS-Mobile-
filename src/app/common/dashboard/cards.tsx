@@ -17,7 +17,7 @@ const Cards = ({ data }: { data: any }) => {
             style={[
               ds.wrapItem,
               {
-                height: item.type === 'stats' ? normalize(140) : normalize(240),
+                height: item.type === 'stats' ? normalize(140) : normalize(230),
               },
             ]}
           >

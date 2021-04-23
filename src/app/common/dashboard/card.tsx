@@ -8,12 +8,14 @@ const UpperCard = ({ item, module }: { item: any; module: any }) => {
     <View style={cardStyle.container}>
       <View style={cardStyle.module}>{dashboarCard[module]}</View>
       <View style={cardStyle.textContainer}>
-        <Text style={cardStyle.title}>
+        <Text style={[cardStyle.title, cardStyle.titleText]}>
           {item?.title?.length > 42
             ? item.title.slice(0, 42) + '...'
             : item?.title}
         </Text>
-        <Text style={cardStyle.subTitle}>{item.subTitle}</Text>
+        <Text style={[cardStyle.subTitle, cardStyle.subTitleText]}>
+          {item.subTitle}
+        </Text>
       </View>
     </View>
   );
