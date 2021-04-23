@@ -20,6 +20,7 @@ const holidayListingStyle = StyleSheet.create({
     fontSize: normalize(14),
     color: colors.fontGrey,
   },
+  mainContainer: { flex: 1, backgroundColor: colors.white },
 });
 
 export { holidayListingStyle };

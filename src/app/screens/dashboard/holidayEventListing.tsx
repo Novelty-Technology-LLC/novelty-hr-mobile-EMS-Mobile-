@@ -22,7 +22,7 @@ const HolidayEventListing = (props: any) => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={holidayListingStyle.mainContainer}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>HOLIDAY & EVENTS</Text>
       </Header>

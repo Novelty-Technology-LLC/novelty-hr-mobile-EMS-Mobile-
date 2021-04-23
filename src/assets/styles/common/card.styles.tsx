@@ -11,6 +11,7 @@ const cardStyle = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: normalize(8),
   },
   title: {
     flexDirection: 'row',
