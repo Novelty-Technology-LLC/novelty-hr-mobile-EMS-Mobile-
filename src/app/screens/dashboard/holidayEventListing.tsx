@@ -59,7 +59,7 @@ const HolidayEventListing = (props: any) => {
                     </Text>
                   </View>
                   <Text style={cardStyle.subTitleText}>
-                    {item?.type === 'event' ? 'Event' : 'Holiday'}
+                    {item?.type === 'event' ? 'Event' : item?.type === 'holiday' ? 'Holiday' : ''}
                   </Text>
                 </View>
               );
