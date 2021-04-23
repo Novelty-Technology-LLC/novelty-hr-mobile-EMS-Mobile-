@@ -14,13 +14,18 @@ const cardStyle = StyleSheet.create({
   },
   title: {
     flexDirection: 'row',
-    fontFamily: fonts.mulishBold,
     flexWrap: 'wrap',
     textAlign: 'center',
   },
   subTitle: {
     marginTop: 6,
+  },
+  titleText: {
+    fontFamily: fonts.mulishBold,
+  },
+  subTitleText: {
     fontFamily: fonts.poppinsMedium,
+    fontSize: normalize(12),
     color: colors.fontGrey,
   },
 });

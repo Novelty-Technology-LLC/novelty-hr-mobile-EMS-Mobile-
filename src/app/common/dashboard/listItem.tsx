@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import normalize from 'react-native-normalize';
-import { listStyle } from '../../../assets/styles';
+import { cardStyle, listStyle } from '../../../assets/styles';
 
 const ListItem = ({
   title,
@@ -21,8 +21,8 @@ const ListItem = ({
         },
       ]}
     >
-      <Text style={listStyle.title}>{title}</Text>
-      <Text style={listStyle.subTitle}>{subTitle}</Text>
+      <Text style={cardStyle.titleText}>{title}</Text>
+      <Text style={cardStyle.subTitleText}>{subTitle}</Text>
     </View>
   );
 };
