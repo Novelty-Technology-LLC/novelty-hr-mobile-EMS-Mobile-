@@ -45,7 +45,11 @@ const LeaveListing = (props: any) => {
                 holidayListingStyle.container,
                 {
                   borderBottomWidth:
-                    list.length - 1 === index ? 0 : normalize(2.3),
+                    list.length - 1 === index
+                      ? 0
+                      : Platform.OS === 'ios'
+                      ? normalize(1)
+                      : normalize(3),
                 },
               ]}
             >
