@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, ScrollView, Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
 import { headerTxtStyle, holidayListingStyle } from '../../../assets/styles';
 import { header as Header } from '../../common';
@@ -26,32 +26,38 @@ const HolidayEventListing = (props: any) => {
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>HOLIDAY & EVENTS</Text>
       </Header>
-      {loading ? (
-        <ListPlaceholder />
-      ) : list?.length > 0 ? (
-        transformList(list, 'Holiday&Events').map((item, index) => {
-          return (
-            <View
-              key={index}
-              style={[
-                holidayListingStyle.container,
-                {
-                  borderBottomWidth:
-                    list.length - 1 === index ? 0 :  Platform.OS === 'ios'
-                    ? normalize(1)
-                    : normalize(3),
-                  paddingVertical: normalize(15),
-                },
-              ]}
-            >
-              <Text style={holidayListingStyle.title}>{item?.title}</Text>
-              <Text style={holidayListingStyle.subTitle}>{item?.subTitle}</Text>
-            </View>
-          );
-        })
-      ) : (
-        <></>
-      )}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {loading ? (
+          <ListPlaceholder />
+        ) : list?.length > 0 ? (
+          transformList(list, 'Holiday&Events').map((item, index) => {
+            return (
+              <View
+                key={index}
+                style={[
+                  holidayListingStyle.container,
+                  {
+                    borderBottomWidth:
+                      list.length - 1 === index
+                        ? 0
+                        : Platform.OS === 'ios'
+                        ? normalize(1)
+                        : normalize(3),
+                    paddingVertical: normalize(15),
+                  },
+                ]}
+              >
+                <Text style={holidayListingStyle.title}>{item?.title}</Text>
+                <Text style={holidayListingStyle.subTitle}>
+                  {item?.subTitle}
+                </Text>
+              </View>
+            );
+          })
+        ) : (
+          <></>
+        )}
+      </ScrollView>
     </View>
   );
 };
