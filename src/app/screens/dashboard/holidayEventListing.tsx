@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
 import {
   cardStyle,
@@ -28,7 +28,7 @@ const HolidayEventListing = (props: any) => {
   return (
     <View style={holidayListingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>HOLIDAY & EVENTS</Text>
+        <Text style={headerTxtStyle.headerText}>HOLIDAYS & EVENTS</Text>
       </Header>
       <ScrollView showsVerticalScrollIndicator={false}>
         {loading ? (
@@ -42,12 +42,7 @@ const HolidayEventListing = (props: any) => {
                   style={[
                     holidayListingStyle.container,
                     {
-                      borderBottomWidth:
-                        list.length - 1 === index
-                          ? 0
-                          : Platform.OS === 'ios'
-                          ? normalize(1)
-                          : normalize(3),
+                      borderBottomWidth: list.length - 1 === index ? 0 : 1,
                       paddingVertical: normalize(15),
                     },
                   ]}
@@ -59,7 +54,11 @@ const HolidayEventListing = (props: any) => {
                     </Text>
                   </View>
                   <Text style={cardStyle.subTitleText}>
-                    {item?.type === 'event' ? 'Event' : item?.type === 'holiday' ? 'Holiday' : ''}
+                    {item?.type === 'event'
+                      ? 'Event'
+                      : item?.type === 'holiday'
+                      ? 'Holiday'
+                      : ''}
                   </Text>
                 </View>
               );
