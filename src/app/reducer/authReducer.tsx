@@ -1,32 +1,32 @@
-import React, { useReducer } from "react";
+import React, { useReducer } from 'react';
 
 const AuthReducer = (prevState, action) => {
   switch (action.type) {
-    case "Notification":
+    case 'Notification':
       return {
         ...prevState,
         notifdata: action.payload,
       };
-    case "RESTORE_TOKEN":
+    case 'RESTORE_TOKEN':
       return {
         ...prevState,
         userToken: action.token,
         isLoading: false,
       };
 
-    case "RESET":
+    case 'RESET':
       return {
         ...prevState,
         isLoading: true,
       };
 
-    case "SIGN_IN":
+    case 'SIGN_IN':
       return {
         ...prevState,
         isSignout: false,
         userToken: action.token,
       };
-    case "SIGN_OUT":
+    case 'SIGN_OUT':
       return {
         ...prevState,
         isSignout: true,
@@ -35,18 +35,29 @@ const AuthReducer = (prevState, action) => {
         isInvalid: false,
       };
 
-    case "STORE_USER":
+    case 'STORE_USER':
       return {
         ...prevState,
         isLoading: false,
         user: action.user && Object.assign(action.user),
       };
 
-    case "INVALID":
+    case 'INVALID':
       return {
         ...prevState,
         isLoading: false,
         isInvalid: true,
+      };
+
+    case 'SET_IMAGE':
+      console.log('set image call', prevState, action);
+
+      return {
+        ...prevState,
+        user: {
+          ...prevState.user,
+          image_url: action.payload,
+        },
       };
   }
 };

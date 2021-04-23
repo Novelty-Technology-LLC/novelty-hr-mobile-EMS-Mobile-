@@ -41,7 +41,7 @@ const optionsPicker = {
 // };
 
 const Profile = () => {
-  const { state } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
 
