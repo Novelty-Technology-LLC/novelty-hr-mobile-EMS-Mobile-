@@ -41,7 +41,7 @@ const optionsPicker = {
 // };
 
 const Profile = () => {
-  const { state, dispatch } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
 
@@ -53,6 +53,12 @@ const Profile = () => {
         console.log('removed all tmp images from tmp directory');
       })
       .catch((e) => {});
+
+  const updateProfileImage = (image: any) => {
+    console.log(image, state?.user);
+
+    setimage(image);
+  };
 
   const uploadImage = (pick: boolean) => {
     const callback = (response) => {
@@ -70,7 +76,7 @@ const Profile = () => {
           cropperCircleOverlay: true,
           includeBase64: true,
           compressImageQuality: 0.8,
-        }).then((image) => setimage(image));
+        }).then((image) => updateProfileImage(image));
       }
     };
 
@@ -93,7 +99,7 @@ const Profile = () => {
         removeUser();
         setUser(data);
         setloading(false);
-        setimage({ ...image, visible: false });
+        updateProfileImage({ ...image, visible: false });
         snackBarMessage('Image uploaded');
         cleanImage();
       })
