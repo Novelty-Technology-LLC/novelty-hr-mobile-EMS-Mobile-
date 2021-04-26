@@ -36,7 +36,7 @@ const List = ({ list }: { list: any }) => {
           <Text style={listStyle.seeAllText}>See All</Text>
           <AppIcon
             name="arrow-right"
-            size={normalize(20)}
+            size={normalize(18)}
             color={colors.primary}
           />
         </TouchableOpacity>

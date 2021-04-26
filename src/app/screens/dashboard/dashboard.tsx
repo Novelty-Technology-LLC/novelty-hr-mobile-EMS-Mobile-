@@ -32,7 +32,7 @@ const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [listData, setListData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
@@ -55,19 +55,21 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchWork = async () => {
       try {
+        setLoading(true);
         const res: any = await getWork({
           user_id: state?.user?.id,
           date: moment().format('YYYY-MM-DD'),
         });
         setId(res?.data?.data?.id ?? null);
+
         setToggle(+res?.data?.data?.status === 1 ? true : false);
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
-    fetchWork();
-  }, []);
+    state?.user?.id && fetchWork();
+  }, [state?.user?.id]);
 
   useEffect(() => {
     (async () => {

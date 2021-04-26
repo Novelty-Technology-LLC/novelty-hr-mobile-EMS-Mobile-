@@ -59,7 +59,19 @@ const transformDate = (date: any, module: string, isList: boolean) => {
   let month, day, monthdate;
 
   if (checkToday(startDate)) {
-    return module === 'Leave' ? `On Leave Today` : 'Today';
+    return module === 'Leave'
+      ? `On Leave Today ${
+          date?.startDate === date?.endDate
+            ? ''
+            : `\n${dateStringMapper(
+                new Date(date?.startDate).toString().substring(0, 15),
+                date?.endDate
+                  ? new Date(date?.endDate).toString().substring(0, 15)
+                  : new Date(date?.startDate).toString().substring(0, 15),
+                true
+              )}`
+        }`
+      : 'Today';
   } else if (checkTomorrow(startDate)) {
     return module === 'Leave' ? `On Leave Tomorrow` : `Tomorrow`;
   }
