@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import normalize from 'react-native-normalize';
 import {
+  cardStyle,
   headerTxtStyle,
   holidayListingStyle,
   requestStyle,
@@ -28,9 +28,9 @@ const LeaveListing = (props: any) => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={holidayListingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>LEAVE LISTING</Text>
+        <Text style={headerTxtStyle.headerText}>LEAVE</Text>
       </Header>
       <ScrollView showsVerticalScrollIndicator={false}>
         {loading ? (
@@ -43,19 +43,17 @@ const LeaveListing = (props: any) => {
               style={[
                 holidayListingStyle.container,
                 {
-                  borderBottomWidth:
-                    list.length - 1 === index ? 0 : normalize(3),
+                  borderBottomWidth: list.length - 1 === index ? 0 : 1,
                 },
               ]}
             >
               <View>
-                <Text style={holidayListingStyle.title}>{item?.title}</Text>
-                <Text style={requestStyle.type}>{item.type}</Text>
-                <Text style={holidayListingStyle.subTitle}>
-                  {item?.subTitle}
-                </Text>
+                <Text style={cardStyle.titleText}>{item?.title}</Text>
+                <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
               </View>
-              <State state={item?.status} />
+              <View>
+                <State state={item?.status} />
+              </View>
             </View>
           ))
         )}

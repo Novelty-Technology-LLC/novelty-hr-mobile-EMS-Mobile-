@@ -17,32 +17,24 @@ const listStyle = StyleSheet.create({
     backgroundColor: colors.lightbrown,
     borderRadius: normalize(8),
     padding: normalize(10),
+    paddingTop: normalize(0),
   },
   seeAll: {
     position: 'absolute',
     flexDirection: 'row',
-    bottom: normalize(10),
-    right: normalize(10),
+    bottom: normalize(5),
+    right: normalize(5),
   },
   seeAllText: {
     fontFamily: fonts.poppinsRegular,
     color: colors.primary,
     marginRight: normalize(5),
+    fontSize: normalize(12),
   },
   itemContainer: {
     width: '100%',
     borderBottomColor: colors.brown,
-    paddingVertical: normalize(8),
-  },
-  title: {
-    fontFamily: fonts.mulishBold,
-    marginVertical: normalize(5),
-    fontSize: normalize(16),
-  },
-  subTitle: {
-    fontFamily: fonts.poppinsMedium,
-    fontSize: normalize(14),
-    color: colors.fontGrey,
+    paddingVertical: normalize(10),
   },
 });
 
