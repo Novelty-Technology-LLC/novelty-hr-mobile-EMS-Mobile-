@@ -1,17 +1,16 @@
 import { dateStringMapper } from './dateMapper';
 import { getDayToday } from './momentDate';
+import { checkRepeat } from '../utils';
 
 const transformTitle = (title: string) => {
   return title.length > 18 ? `${title.substring(0, 18)} ...` : title;
 };
 
-const checkToday = (date: Date) => {
+const checkToday = (startDate: Date, endDate: Date) => {
   let todaydate = new Date();
-  let newdate = new Date(date);
-  return (
-    todaydate.getFullYear() === newdate.getFullYear() &&
-    todaydate.getMonth() === newdate.getMonth() &&
-    todaydate.getDate() === newdate.getDate()
+  return checkRepeat(
+    { startDate: todaydate, endDate: todaydate },
+    JSON.stringify({ startDate, endDate })
   );
 };
 
@@ -58,7 +57,7 @@ const transformDate = (date: any, module: string, isList: boolean) => {
   let startDate = date?.startDate ?? date;
   let month, day, monthdate;
 
-  if (checkToday(startDate)) {
+  if (checkToday(date?.startDate, date?.endDate)) {
     return module === 'Leave'
       ? `On Leave Today ${
           date?.startDate === date?.endDate
