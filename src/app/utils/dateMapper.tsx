@@ -12,7 +12,11 @@ export const dateMapper = (start: string, end: string) => {
   return daysCount;
 };
 
-export const dateStringMapper = (start: string, end: string) => {
+export const dateStringMapper = (
+  start: string,
+  end: string,
+  dateOnly?: boolean
+) => {
   let nextmonth =
     start.substring(4, 7) === end.substring(4, 7) ? null : end.substring(4, 7);
   return start.substring(8, start.length - 4) ===
@@ -22,5 +26,5 @@ export const dateStringMapper = (start: string, end: string) => {
         '-' +
         `${nextmonth ? nextmonth + ' ' : ''}` +
         end.substring(8, end.length - 4) +
-        `(${dateMapper(start, end)} days)`;
+        `${dateOnly ? '' : `(${dateMapper(start, end)} days)`}  `;
 };

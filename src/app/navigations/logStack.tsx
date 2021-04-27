@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { Linking, Platform } from 'react-native';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TimeLog, LogTime, LogListings } from '../screens';
 import {

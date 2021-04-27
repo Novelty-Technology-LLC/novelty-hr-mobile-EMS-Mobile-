@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import normalize from 'react-native-normalize';
 import colors from '../../colors';
 
 const dashboardStyle = StyleSheet.create({
@@ -40,6 +41,23 @@ const dashboardStyle = StyleSheet.create({
   workText: {
     color: colors.white,
     fontSize: 12,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  image: {
+    height: normalize(40),
+    width: normalize(40),
+    borderRadius: normalize(20),
+  },
+  wrapContainer: { flexDirection: 'row', flexWrap: 'wrap' },
+  wrapItem: {
+    width: '49%',
+    marginTop: normalize(25),
+    borderRadius: normalize(8),
   },
 });
 
