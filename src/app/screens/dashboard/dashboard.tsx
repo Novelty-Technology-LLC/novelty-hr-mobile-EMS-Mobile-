@@ -268,13 +268,7 @@ const DashBoard = () => {
               </View>
             ))}
           </View>
-          <View
-            style={{
-              marginTop: 40,
-              width: '100%',
-              overflow: 'hidden',
-            }}
-          >
+          <View style={ds.chartWrapper}>
             <LineChartComponent data={totalTimeLog} />
           </View>
         </View>

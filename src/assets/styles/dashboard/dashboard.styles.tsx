@@ -81,6 +81,11 @@ const dashboardStyle = StyleSheet.create({
     borderRadius: 1,
     borderWidth: 1,
   },
+  chartWrapper: {
+    marginTop: 40,
+    width: '100%',
+    overflow: 'hidden',
+  },
 });
 
 export { dashboardStyle };
