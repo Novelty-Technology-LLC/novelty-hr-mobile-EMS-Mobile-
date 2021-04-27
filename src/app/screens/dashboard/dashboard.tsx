@@ -27,7 +27,46 @@ import normalize from 'react-native-normalize';
 import { DashboardCardPlaceholder } from '../../common';
 import { getCurrentRouteName, navigate } from '../../utils/navigation';
 import { time } from '../../utils/listtranform';
+import { Header as HoursHeader, LineChartComponent } from '../../components';
 
+const marking = [
+  {
+    id: '1',
+    label: 'My Time',
+    color: '#88BF59',
+  },
+  {
+    id: '2',
+    label: 'Novelty Avg.',
+    color: '#BF8B59',
+  },
+  {
+    id: '3',
+    label: 'Base Time',
+    color: '#BCBCBC',
+  },
+];
+
+const data = {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  datasets: [
+    {
+      data: [10, 8, 5, 2, 12],
+      strokeWidth: 2,
+      color: () => `rgb(191, 139, 89)`,
+    },
+    {
+      data: [20, 10, 5, 10, 5],
+      strokeWidth: 2,
+      color: () => `rgb(136, 191, 89)`,
+    },
+    {
+      data: [15, 10, 20, 5, 9],
+      strokeWidth: 2,
+      color: () => `rgb(188, 188, 188)`,
+    },
+  ],
+};
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
@@ -129,7 +168,8 @@ const DashBoard = () => {
         </View>
       </Header>
       <ScrollView
-        contentContainerStyle={ds.body}
+        style={ds.body}
+        contentContainerStyle={{ alignItems: 'center' }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -165,6 +205,29 @@ const DashBoard = () => {
           ) : (
             <DashboardCardPlaceholder />
           )}
+        </View>
+        <View style={ds.timeLog}>
+          <HoursHeader title="Hours Worked" dropDown />
+          <View style={ds.marking}>
+            {marking.map((item) => (
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View
+                  style={[
+                    ds.border,
+                    {
+                      borderColor: item.color,
+                      borderStyle: item.id === '3' ? 'dotted' : 'solid',
+                    },
+                  ]}
+                />
+                <View style={ds.markingGap} />
+                <Text>{item.label}</Text>
+              </View>
+            ))}
+          </View>
+          <View style={{ marginTop: 40 }}>
+            <LineChartComponent data={data} />
+          </View>
         </View>
       </ScrollView>
     </View>
