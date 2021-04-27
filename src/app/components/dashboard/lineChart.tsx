@@ -9,16 +9,15 @@ const screenWidth = Dimensions.get('window').width;
 const LineChartComponent = (props: any) => {
   return (
     <LineChart
-      xAxisLabel=""
       withHorizontalLabels={false}
       data={props.data}
-      width={screenWidth - 40}
+      width={screenWidth + 25}
       height={256}
-      segments={2}
+      segments={1}
       chartConfig={{
         propsForBackgroundLines: {
-          //   strokeDasharray: '', solid background lines with no dashes
-          //   stroke: '#D3D3D3',
+          strokeDasharray: '',
+          stroke: '#D3D3D3',
         },
 
         strokeWidth: 2,
@@ -26,8 +25,8 @@ const LineChartComponent = (props: any) => {
         backgroundGradientFrom: colors.white,
         backgroundGradientTo: colors.white,
         decimalPlaces: 2, // optional, defaults to 2dp
-        color: (opacity = 1) => `rgb(191, 139, 89)`,
-        labelColor: (opacity = 1) => `rgb(102, 102, 102)`,
+        color: () => `rgb(191, 139, 89)`,
+        labelColor: () => `rgb(102, 102, 102)`,
         style: {
           backgroundColor: colors.white,
         },
@@ -39,21 +38,20 @@ const LineChartComponent = (props: any) => {
       }}
       bezier
       style={{
-        marginVertical: 8,
-        borderRadius: 16,
+        marginVertical: normalize(8),
         backgroundColor: colors.white,
-        paddingRight: normalize(15),
-        marginRight: 5,
+        paddingRight: normalize(11),
+        marginRight: normalize(5),
       }}
-      renderDotContent={({ x, y, index, indexData }) => {
+      renderDotContent={({ x, y, index, indexData }: any) => {
         return (
           <Text
             style={{
               position: 'absolute',
-              top: y,
-              left: x,
+              paddingTop: y - 20,
+              paddingLeft: x - 15,
               color: '#383838',
-              fontSize: 10,
+              fontSize: normalize(10),
             }}
           >
             {parseInt(indexData) + ' hrs'}

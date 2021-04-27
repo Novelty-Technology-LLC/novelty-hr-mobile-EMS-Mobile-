@@ -135,3 +135,12 @@ export const dateRange = (startDate: any, endDate: any) => {
     end: new Date(moment(endDate).format('YYYY-MM-DD')),
   };
 };
+
+export const monTofri = () => {
+  return {
+    start: new Date(
+      moment().startOf('week').add(1, 'days').format('YYYY-MM-DD')
+    ),
+    end: new Date(moment().endOf('week').format('YYYY-MM-DD')),
+  };
+};
