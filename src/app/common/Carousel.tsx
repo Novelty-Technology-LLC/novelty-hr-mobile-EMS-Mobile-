@@ -6,13 +6,11 @@ import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
   itemsPerInterval?: number;
-  onItemPress: (val: any) => void;
   theme?: any;
   items: any;
 }
 
 export const Carousel = (props: CarouselPropTypes) => {
-  const { theme, onItemPress } = props;
   const itemsPerInterval =
     props.itemsPerInterval === undefined ? 1 : props.itemsPerInterval;
 
@@ -102,13 +100,13 @@ export const Carousel = (props: CarouselPropTypes) => {
         onScroll={(data) => {
           setWidth(data.nativeEvent.contentSize.width);
           setInterval(getInterval(data.nativeEvent.contentOffset.x));
-          if (isCloseToEnd(data.nativeEvent)) {
-            ref.scrollTo({
-              x: 0,
-              y: 0,
-              animated: false,
-            });
-          }
+          // if (isCloseToEnd(data.nativeEvent)) {
+          //   ref.scrollTo({
+          //     x: 0,
+          //     y: 0,
+          //     animated: true,
+          //   });
+          // }
         }}
         scrollEventThrottle={200}
         pagingEnabled
@@ -118,12 +116,11 @@ export const Carousel = (props: CarouselPropTypes) => {
           return (
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>
-                <TouchableOpacity
+                <View
                   style={CarouselStyle.item}
-                  onPress={() => onItemPress(item[0])}
                 >
                   <UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />
-                </TouchableOpacity>
+                </View>
               </View>
             </View>
           );
