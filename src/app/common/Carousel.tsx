@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
-import normalize from 'react-native-normalize';
+import { View, ScrollView, Text, TouchableOpacity, NativeScrollEvent } from 'react-native';
 import colors from '../../assets/colors';
 import { CarouselStyle } from '../../assets/styles';
 import { UpperCard } from './dashboard/card';
@@ -22,12 +21,6 @@ export const Carousel = (props: CarouselPropTypes) => {
   const [width, setWidth] = React.useState(0);
   const [items, setItems] = React.useState<any>([[]]);
   const [ref, setRef] = React.useState<any>(null);
-
-  const iconProps = {
-    width: normalize(51.111),
-    height: normalize(40),
-    viewBox: `0 0 ${normalize(51.111)} ${normalize(40)}`,
-  };
 
   useEffect(() => {
     try {
@@ -89,6 +82,12 @@ export const Carousel = (props: CarouselPropTypes) => {
     );
   }
 
+  const isCloseToEnd = ({ layoutMeasurement, contentOffset, contentSize }: NativeScrollEvent) => {
+    const paddingToBottom = 0;
+    return layoutMeasurement.width + contentOffset.x >=
+      contentSize.width - paddingToBottom;
+  };
+
   return (
     <View style={CarouselStyle.container}>
       <ScrollView
@@ -103,6 +102,13 @@ export const Carousel = (props: CarouselPropTypes) => {
         onScroll={(data) => {
           setWidth(data.nativeEvent.contentSize.width);
           setInterval(getInterval(data.nativeEvent.contentOffset.x));
+          if (isCloseToEnd(data.nativeEvent)) {
+            ref.scrollTo({
+              x: 0,
+              y: 0,
+              animated: false,
+            });
+          }
         }}
         scrollEventThrottle={200}
         pagingEnabled

@@ -25,11 +25,11 @@ const CarouselStyle = StyleSheet.create({
     paddingHorizontal: normalize(10),
     width: '100%',
     overflow: 'hidden',
+    zIndex: -1
   },
   bullet: {
     paddingHorizontal: normalize(5),
     fontSize: normalize(30),
-    // color: color.darkAzure,
   },
   wrapper: {
     flexBasis: '100%',

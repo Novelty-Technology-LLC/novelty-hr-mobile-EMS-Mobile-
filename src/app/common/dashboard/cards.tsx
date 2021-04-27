@@ -21,7 +21,6 @@ const Cards = ({ data }: { data: any }) => {
               <Carousel
                 items={transformLunchItem(item)}
                 itemsPerInterval={1}
-                onItemPress={(item: any) => { }}
               />
             ) : (
               <List list={item} />
