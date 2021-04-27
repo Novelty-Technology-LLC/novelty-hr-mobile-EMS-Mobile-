@@ -4,18 +4,16 @@ import colors from '../../colors';
 
 const CarouselStyle = StyleSheet.create({
   container: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'flex-start',
     backgroundColor: colors.snow,
-    height: normalize(160),
     borderRadius: normalize(8),
+    flexGrow: 1
   },
   scrollView: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignContent: 'space-around',
+    marginBottom: normalize(25),
   },
   bullets: {
     position: 'absolute',
@@ -62,8 +60,6 @@ const CarouselStyle = StyleSheet.create({
   itemContainer: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    marginTop: normalize(-65),
-    width: '100%',
   },
 });
 

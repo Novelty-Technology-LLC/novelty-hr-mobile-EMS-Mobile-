@@ -11,13 +11,11 @@ const listStyle = StyleSheet.create({
     fontSize: normalize(14),
   },
   container: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'flex-start',
     backgroundColor: colors.lightbrown,
     borderRadius: normalize(8),
     padding: normalize(10),
     paddingTop: normalize(0),
+    flexGrow: 1
   },
   seeAll: {
     position: 'absolute',

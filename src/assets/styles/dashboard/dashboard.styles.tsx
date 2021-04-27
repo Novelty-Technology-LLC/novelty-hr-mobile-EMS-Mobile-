@@ -53,7 +53,12 @@ const dashboardStyle = StyleSheet.create({
     width: normalize(40),
     borderRadius: normalize(20),
   },
-  wrapContainer: { flexDirection: 'row', flexWrap: 'wrap' },
+  wrapContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flex: 1, width: '100%',
+    justifyContent: 'space-between'
+  },
   wrapItem: {
     width: '49%',
     marginTop: normalize(25),

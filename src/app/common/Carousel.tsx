@@ -68,25 +68,6 @@ export const Carousel = (props: CarouselPropTypes) => {
     }
   };
 
-  const renderItem = (item: any) => {
-    return (
-      <TouchableOpacity
-        onPress={() => onItemPress(item)}
-        style={{ width: '100%', paddingTop: normalize(20) }}
-        key={item.title}
-      >
-        <View style={{ alignSelf: 'center' }}>
-          <SvgIcon uri={item?.icon.imgix_url ?? item?.defaultIcon} />
-        </View>
-        <View style={{ marginTop: normalize(10) }}>
-          <Text style={[{ textAlign: 'center' }]}>
-            {item.displayName ?? item.title}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   const chunk = (arr: [], size: number) =>
     Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
       arr.slice(i * size, i * size + size)
@@ -135,7 +116,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                   style={CarouselStyle.item}
                   onPress={() => onItemPress(item[0])}
                 >
-                  <UpperCard item={{ ...item }} module={props.items.module} />
+                  <UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />
                 </TouchableOpacity>
               </View>
             </View>
