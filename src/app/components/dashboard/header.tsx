@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   containerStyle: {
     height: normalize(30),
     borderWidth: 1,
-    borderRadius: normalize(8),
+    borderRadius: normalize(3),
     borderColor: colors.primary,
     zIndex: 100,
   },
