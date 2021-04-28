@@ -22,12 +22,10 @@ const signInGoogle = async (dispatch: any) => {
     dispatch({ type: 'RESET' });
     delete userInfo.user.name;
     const userData = mapDataToObject(userInfo.user);
-    if (/@noveltytechnology.com\s*$/.test(userData.email)) {
-      createUser(dispatch, userData, userInfo.idToken);
-    } else {
-      dispatch({ type: 'INVALID' });
-    }
+    createUser(dispatch, userData, userInfo.idToken);
   } catch (error) {
+    console.log('error -> ', error);
+
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
@@ -52,7 +50,11 @@ const createUser = (dispatch: any, user: any, token: any) => {
       await storeToken(token);
       dispatch({ type: 'SIGN_IN', token });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      if (err.response.status === 404) {
+        dispatch({ type: 'INVALID' });
+      }
+    });
 };
 
 const signInApple = async (dispatch: any) => {

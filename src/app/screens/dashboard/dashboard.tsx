@@ -58,18 +58,19 @@ const data = (company_total: any, my_total: any) => {
         color: () => `rgb(191, 139, 89)`,
       },
       {
-        data: [10, 10, 5, 10, 5],
+        data: my_total,
         strokeWidth: 2,
         color: () => `rgb(136, 191, 89)`,
       },
       {
-        data: my_total,
+        data: [8, 8, 8, 8, 8],
         strokeWidth: 2,
         color: () => `rgb(188, 188, 188)`,
       },
     ],
   };
 };
+
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
@@ -80,7 +81,6 @@ const DashBoard = () => {
   const [cardLoading, setCardLoading] = useState(true);
   const [logTime, setLogTime] = useState(monTofri());
   const [totalTimeLog, setTotalTimeLog] = useState({
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
     datasets: [
       {
         data: [8, 8, 8, 8, 8],
@@ -162,7 +162,10 @@ const DashBoard = () => {
             response.my_total || []
           );
 
-          setTotalTimeLog(mapData);
+          setTotalTimeLog({
+            ...totalTimeLog,
+            datasets: mapData.datasets,
+          });
         } catch (error) {}
       }
     })();
