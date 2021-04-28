@@ -9,17 +9,27 @@ const weekOptions = [
   { label: 'Past week', value: 'Past week', key: '2' },
 ];
 
-const Header = ({ title, dropDown }: { title: string; dropDown: boolean }) => {
+const Header = ({
+  title,
+  dropDown,
+  setLogTime,
+}: {
+  title: string;
+  dropDown: boolean;
+  setLogTime: Function;
+}) => {
   const [week, setWeek] = useState('This Week');
   return (
     <View style={styles.main}>
-      <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
       {dropDown && (
         <DropDown
           options={weekOptions}
           type="week"
           week={week}
-          onChange={async (filter: any, val: any) => {}}
+          onChange={(filter: any, val: any) => {
+            setLogTime(filter);
+          }}
           style={styles.dropDown}
           labelStyle={styles.labelStyle}
           containerStyle={styles.containerStyle}
@@ -38,7 +48,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: normalize(8),
     borderColor: colors.primary,
-    overflow: 'hidden',
+    zIndex: 100,
   },
   main: {
     width: '100%',
@@ -53,5 +63,9 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: colors.primary,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

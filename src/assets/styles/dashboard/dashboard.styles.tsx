@@ -71,15 +71,17 @@ const dashboardStyle = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    zIndex: -100,
   },
+  markingBody: { flexDirection: 'row', alignItems: 'center' },
   markingGap: {
     marginLeft: normalize(7),
   },
   border: {
     height: 1,
-    width: 20,
+    width: normalize(25),
     borderRadius: 1,
-    borderWidth: 1,
+    borderWidth: 2,
   },
   chartWrapper: {
     marginTop: 40,

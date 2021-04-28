@@ -5,6 +5,7 @@ import colors from '../../assets/colors';
 import { fonts } from '../../assets/styles';
 import { TimeLogContext } from '../reducer';
 import { pastWeek, thisWeek } from '../utils/dateFilter';
+import normalize from '../utils/normalize';
 
 const DropDown = ({
   options,
@@ -47,7 +48,7 @@ const DropDown = ({
       arrowColor={arrowColor}
       arrowSize={16}
       labelStyle={[styles.labelStyle, labelStyle]}
-      dropDownStyle={{ backgroundColor: '#fff' }}
+      dropDownStyle={{ backgroundColor: '#fff', zIndex: 100 }}
       onChangeItem={(item) => {
         type === 'week' ? onChangeWeek(item.value) : onChange(item.value);
       }}
@@ -59,23 +60,23 @@ export { DropDown };
 
 const styles = StyleSheet.create({
   default: {
-    borderRadius: 8,
+    borderRadius: normalize(8),
     borderWidth: 0,
-    paddingVertical: -1,
+    paddingVertical: normalize(-1),
     backgroundColor: colors.buttonGrey,
-    paddingHorizontal: 5,
-    borderTopLeftRadius: 1,
-    borderTopRightRadius: 1,
-    borderBottomLeftRadius: 1,
-    borderBottomRightRadius: 1,
+    paddingHorizontal: normalize(5),
+    borderTopLeftRadius: normalize(1),
+    borderTopRightRadius: normalize(1),
+    borderBottomLeftRadius: normalize(1),
+    borderBottomRightRadius: normalize(1),
     ...(Platform.OS !== 'android' && {
-      zIndex: 10,
+      zIndex: 100,
     }),
-    height: 30,
+    height: normalize(30),
   },
   labelStyle: {
     color: colors.fontGrey,
-    fontSize: 14,
+    fontSize: normalize(14),
     fontFamily: fonts.mulishBold,
   },
 });

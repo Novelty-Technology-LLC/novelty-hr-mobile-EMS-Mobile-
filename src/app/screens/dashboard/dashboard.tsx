@@ -169,7 +169,7 @@ const DashBoard = () => {
         } catch (error) {}
       }
     })();
-  }, [state?.user?.id]);
+  }, [state?.user?.id, logTime]);
 
   const ToggleWork = async () => {
     try {
@@ -253,10 +253,10 @@ const DashBoard = () => {
           )}
         </View>
         <View style={ds.timeLog}>
-          <HoursHeader title="Hours Worked" dropDown />
+          <HoursHeader title="Hours Worked" dropDown setLogTime={setLogTime} />
           <View style={ds.marking}>
             {marking.map((item) => (
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={ds.markingBody}>
                 <View
                   style={[
                     ds.border,
