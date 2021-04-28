@@ -89,7 +89,7 @@ const Request = ({ data, style, title = null }: any) => {
               {loading && <ResponsePlaceHolder />}
               {responses.length > 0 &&
                 JSON.parse(data.lead).length !==
-                  responses[0].pendingResponses.length && (
+                responses[0].pendingResponses.length && (
                   <>
                     <SmallHeader text="Responses" />
                     {responses[0].responses.map((item, i) => (
