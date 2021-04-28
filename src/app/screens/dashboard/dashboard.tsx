@@ -50,7 +50,6 @@ const marking = [
 
 const data = (company_total: any, my_total: any) => {
   return {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
     datasets: [
       {
         data: company_total,
@@ -81,6 +80,7 @@ const DashBoard = () => {
   const [cardLoading, setCardLoading] = useState(true);
   const [logTime, setLogTime] = useState(monTofri());
   const [totalTimeLog, setTotalTimeLog] = useState({
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
     datasets: [
       {
         data: [8, 8, 8, 8, 8],
