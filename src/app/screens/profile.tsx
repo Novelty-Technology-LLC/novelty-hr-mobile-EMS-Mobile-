@@ -21,6 +21,7 @@ const optionsPicker = {
   storageOptions: {
     skipBackup: true,
     path: 'images',
+    mediaType: 'photo',
   },
 };
 
@@ -55,6 +56,7 @@ const Profile = () => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
+      
         ImageCropper.openCropper({
           path: response.uri,
           width: 300,
