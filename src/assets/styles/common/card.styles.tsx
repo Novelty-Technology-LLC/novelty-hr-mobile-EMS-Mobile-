@@ -5,7 +5,7 @@ import { fonts } from '../theme';
 
 const cardStyle = StyleSheet.create({
   container: { flexDirection: 'column', marginTop: normalize(40) },
-  module: { marginLeft: normalize(20), marginTop: normalize(10) },
+  module: { marginTop: normalize(10) },
   textContainer: {
     marginTop: 15,
     flexDirection: 'column',

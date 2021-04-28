@@ -4,18 +4,16 @@ import colors from '../../colors';
 
 const CarouselStyle = StyleSheet.create({
   container: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'flex-start',
     backgroundColor: colors.snow,
-    height: normalize(160),
     borderRadius: normalize(8),
+    flexGrow: 1
   },
   scrollView: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignContent: 'space-around',
+    marginBottom: normalize(25),
   },
   bullets: {
     position: 'absolute',
@@ -27,11 +25,11 @@ const CarouselStyle = StyleSheet.create({
     paddingHorizontal: normalize(10),
     width: '100%',
     overflow: 'hidden',
+    zIndex: -1
   },
   bullet: {
     paddingHorizontal: normalize(5),
     fontSize: normalize(30),
-    // color: color.darkAzure,
   },
   wrapper: {
     flexBasis: '100%',
@@ -42,7 +40,7 @@ const CarouselStyle = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'space-between',
     justifyContent: 'center',
-    marginRight: normalize(1),
+    marginRight: normalize(1)
   },
   icon: {
     alignSelf: 'center',
@@ -62,8 +60,8 @@ const CarouselStyle = StyleSheet.create({
   itemContainer: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    marginTop: normalize(-65),
     width: '100%',
+    paddingHorizontal: normalize(5)
   },
 });
 

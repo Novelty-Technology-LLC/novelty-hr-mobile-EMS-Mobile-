@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
-import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
-import normalize from 'react-native-normalize';
+import { View, ScrollView, Text, TouchableOpacity, NativeScrollEvent } from 'react-native';
 import colors from '../../assets/colors';
 import { CarouselStyle } from '../../assets/styles';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
   itemsPerInterval?: number;
-  onItemPress: (val: any) => void;
   theme?: any;
   items: any;
 }
 
 export const Carousel = (props: CarouselPropTypes) => {
-  const { theme, onItemPress } = props;
   const itemsPerInterval =
     props.itemsPerInterval === undefined ? 1 : props.itemsPerInterval;
 
@@ -22,12 +19,6 @@ export const Carousel = (props: CarouselPropTypes) => {
   const [width, setWidth] = React.useState(0);
   const [items, setItems] = React.useState<any>([[]]);
   const [ref, setRef] = React.useState<any>(null);
-
-  const iconProps = {
-    width: normalize(51.111),
-    height: normalize(40),
-    viewBox: `0 0 ${normalize(51.111)} ${normalize(40)}`,
-  };
 
   useEffect(() => {
     try {
@@ -68,25 +59,6 @@ export const Carousel = (props: CarouselPropTypes) => {
     }
   };
 
-  const renderItem = (item: any) => {
-    return (
-      <TouchableOpacity
-        onPress={() => onItemPress(item)}
-        style={{ width: '100%', paddingTop: normalize(20) }}
-        key={item.title}
-      >
-        <View style={{ alignSelf: 'center' }}>
-          <SvgIcon uri={item?.icon.imgix_url ?? item?.defaultIcon} />
-        </View>
-        <View style={{ marginTop: normalize(10) }}>
-          <Text style={[{ textAlign: 'center' }]}>
-            {item.displayName ?? item.title}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   const chunk = (arr: [], size: number) =>
     Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
       arr.slice(i * size, i * size + size)
@@ -108,6 +80,12 @@ export const Carousel = (props: CarouselPropTypes) => {
     );
   }
 
+  const isCloseToEnd = ({ layoutMeasurement, contentOffset, contentSize }: NativeScrollEvent) => {
+    const paddingToBottom = 0;
+    return layoutMeasurement.width + contentOffset.x >=
+      contentSize.width - paddingToBottom;
+  };
+
   return (
     <View style={CarouselStyle.container}>
       <ScrollView
@@ -122,6 +100,13 @@ export const Carousel = (props: CarouselPropTypes) => {
         onScroll={(data) => {
           setWidth(data.nativeEvent.contentSize.width);
           setInterval(getInterval(data.nativeEvent.contentOffset.x));
+          // if (isCloseToEnd(data.nativeEvent)) {
+          //   ref.scrollTo({
+          //     x: 0,
+          //     y: 0,
+          //     animated: true,
+          //   });
+          // }
         }}
         scrollEventThrottle={200}
         pagingEnabled
@@ -131,12 +116,11 @@ export const Carousel = (props: CarouselPropTypes) => {
           return (
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>
-                <TouchableOpacity
+                <View
                   style={CarouselStyle.item}
-                  onPress={() => onItemPress(item[0])}
                 >
-                  <UpperCard item={{ ...item }} module={props.items.module} />
-                </TouchableOpacity>
+                  <UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />
+                </View>
               </View>
             </View>
           );
