@@ -164,7 +164,7 @@ const DashBoard = () => {
           const keys = Object.keys(response[0]).map((item) => {
             return {
               [item]: response.flatMap((val: any) =>
-                val[item] || val[item] !== undefined ? [val[item] || 0] : []
+                val[item] > -1 ? [val[item] || 0] : []
               ),
             };
           });
