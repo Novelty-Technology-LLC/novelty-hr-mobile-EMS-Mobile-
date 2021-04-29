@@ -161,10 +161,12 @@ const DashBoard = () => {
             user_id: state.user.id,
           });
 
+          console.log('response -> ', response);
+
           const keys = Object.keys(response[0]).map((item) => {
             return {
               [item]: response.flatMap((val: any) =>
-                val[item] || val[item] === 0 ? [val[item]] : []
+                val[item] || val[item] !== undefined ? [val[item] || 0] : []
               ),
             };
           });

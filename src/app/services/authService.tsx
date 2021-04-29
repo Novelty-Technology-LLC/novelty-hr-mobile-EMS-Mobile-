@@ -24,8 +24,6 @@ const signInGoogle = async (dispatch: any) => {
     const userData = mapDataToObject(userInfo.user);
     createUser(dispatch, userData, userInfo.idToken);
   } catch (error) {
-    console.log('error -> ', error);
-
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
