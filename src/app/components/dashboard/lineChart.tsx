@@ -48,8 +48,8 @@ const LineChartComponent = (props: any) => {
           <Text
             style={{
               position: 'absolute',
-              paddingTop: y - 20,
-              paddingLeft: x - 15,
+              paddingTop: y - 16,
+              paddingLeft: x - 6,
               color: '#383838',
               fontSize: normalize(10),
             }}
