@@ -24,8 +24,6 @@ const signInGoogle = async (dispatch: any) => {
     const userData = mapDataToObject(userInfo.user);
     createUser(dispatch, userData, userInfo.idToken);
   } catch (error) {
-    console.log('error -> ', error);
-
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
@@ -45,13 +43,15 @@ const createUser = (dispatch: any, user: any, token: any) => {
   // console.log('user', objuser);
   create(user)
     .then(async ({ data }: any) => {
+      console.log('data -> ', data);
+
       await setUser(data.data);
       dispatch({ type: 'STORE_USER', user: data.data });
       await storeToken(token);
       dispatch({ type: 'SIGN_IN', token });
     })
     .catch((err) => {
-      if (err.response.status === 404) {
+      if (err?.response?.status === 404) {
         dispatch({ type: 'INVALID' });
       }
     });

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 
@@ -9,20 +9,20 @@ const dashboardStyle = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingTop: 15,
+    paddingTop: normalize(15),
     backgroundColor: colors.white,
-    paddingHorizontal: 20,
+    paddingHorizontal: normalize(20),
   },
   text: {
     color: colors.text,
-    fontSize: 16,
+    fontSize: normalize(16),
   },
   gap: {
-    marginTop: 5,
+    marginTop: normalize(5),
   },
   name: {
     color: colors.black,
-    fontSize: 20,
+    fontSize: normalize(20),
     fontWeight: 'bold',
   },
   header: {
@@ -34,12 +34,12 @@ const dashboardStyle = StyleSheet.create({
   work: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 20,
+    padding: normalize(10),
+    borderRadius: normalize(20),
   },
   workText: {
     color: colors.white,
-    fontSize: 12,
+    fontSize: normalize(12),
   },
   headerContainer: {
     flexDirection: 'row',
@@ -83,15 +83,24 @@ const dashboardStyle = StyleSheet.create({
     marginLeft: normalize(7),
   },
   border: {
-    height: 1,
-    width: normalize(25),
-    borderRadius: 1,
-    borderWidth: 2,
+    height: normalize(1),
+    width: normalize(15),
+    borderRadius: normalize(Platform.OS === 'ios' ? 2 : 4),
+    borderWidth: normalize(Platform.OS === 'ios' ? 3 : 5),
   },
   chartWrapper: {
-    marginTop: 40,
+    marginTop: normalize(40),
     width: '100%',
     overflow: 'hidden',
+  },
+  loader: {
+    backgroundColor: 'black',
+    height: normalize(150),
+    width: '100%',
+    opacity: 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: normalize(4),
   },
 });
 

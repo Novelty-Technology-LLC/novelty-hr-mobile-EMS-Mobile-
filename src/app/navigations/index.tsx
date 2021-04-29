@@ -64,7 +64,11 @@ const RootNavigation = () => {
             headerShown: false,
           }}
         >
-          <Root.Screen name="resolveAuth" component={ResolveAuth} options={{gestureEnabled: false}} />
+          <Root.Screen
+            name="resolveAuth"
+            component={ResolveAuth}
+            options={{ gestureEnabled: false }}
+          />
           <Root.Screen name="login" component={Login} />
           <Root.Screen name="loading" component={Loading} />
           <Root.Screen name="invalid" component={Invalid} />
