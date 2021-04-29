@@ -170,6 +170,7 @@ const DashBoard = () => {
           });
 
           const mapData: any = data(keys);
+
           response.length && setTotalTimeLog(mapData);
           setLoader(false);
         } catch (error) {
