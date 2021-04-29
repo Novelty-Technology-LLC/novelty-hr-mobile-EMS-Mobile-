@@ -144,3 +144,16 @@ export const monTofri = () => {
     end: new Date(moment().endOf('week').format('YYYY-MM-DD')),
   };
 };
+
+export const getDay = (day: number) => {
+  const days: any = {
+    0: 'Sun',
+    1: 'Mon',
+    2: 'Tue',
+    3: 'Wed',
+    4: 'Thu',
+    5: 'Fri',
+    6: 'Sat',
+  };
+  return days[day];
+};

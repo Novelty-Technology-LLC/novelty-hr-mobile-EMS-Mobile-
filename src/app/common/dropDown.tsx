@@ -15,11 +15,11 @@ const DropDown = ({
   group,
   style,
   labelStyle,
-  containerStyle,
+
   arrowColor = colors.fontGrey,
 }: any) => {
   const controller = useRef(null);
-  // const { timelogs } = useContext(TimeLogContext);
+  const { timelogs } = useContext(TimeLogContext);
   const onChangeWeek = (val: string) => {
     switch (val) {
       case 'This week':
@@ -32,7 +32,7 @@ const DropDown = ({
   };
   useEffect(() => {
     controller && controller.current.close();
-  }, []);
+  }, [timelogs]);
 
   return (
     <DropDownPicker
@@ -40,7 +40,6 @@ const DropDown = ({
       itemStyle={{
         justifyContent: 'flex-start',
       }}
-      containerStyle={containerStyle}
       placeholder={type === 'week' ? week : group}
       controller={(instance) => (controller.current = instance)}
       style={[styles.default, style, { width: type === 'week' ? 110 : 90 }]}

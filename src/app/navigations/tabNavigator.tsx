@@ -94,7 +94,7 @@ const TabNavigator = () => {
         }}
       >
         <Tab.Screen
-          name="Setting"
+          name="Dashboard"
           component={DashNav}
           options={{
             tabBarIcon: ({ color, size }) => (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import colors from '../../../assets/colors';
 import { DropDown } from '../../common';
 import normalize from '../../utils/normalize';
@@ -32,7 +32,6 @@ const Header = ({
           }}
           style={styles.dropDown}
           labelStyle={styles.labelStyle}
-          containerStyle={styles.containerStyle}
           arrowColor={colors.primary}
         />
       )}
@@ -43,13 +42,6 @@ const Header = ({
 export { Header };
 
 const styles = StyleSheet.create({
-  containerStyle: {
-    height: normalize(30),
-    borderWidth: 1,
-    borderRadius: normalize(3),
-    borderColor: colors.primary,
-    zIndex: 100,
-  },
   main: {
     width: '100%',
     flexDirection: 'row',
@@ -57,9 +49,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dropDown: {
+    borderWidth: 1,
+    borderColor: colors.primary,
     backgroundColor: colors.white,
     padding: normalize(40),
-    borderColor: colors.primary,
+    ...(Platform.OS !== 'android' && {
+      zIndex: 100,
+    }),
   },
   labelStyle: {
     color: colors.primary,

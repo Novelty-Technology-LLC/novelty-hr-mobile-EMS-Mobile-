@@ -28,7 +28,7 @@ import { DashboardCardPlaceholder } from '../../common';
 import { getCurrentRouteName, navigate } from '../../utils/navigation';
 import { time } from '../../utils/listtranform';
 import { Header as HoursHeader, LineChartComponent } from '../../components';
-import { monTofri } from '../../utils/dateFilter';
+import { thisWeek, getDay } from '../../utils/dateFilter';
 
 const marking = [
   {
@@ -48,21 +48,22 @@ const marking = [
   },
 ];
 
-const data = (company_total: any, my_total: any) => {
+const data = (data: any) => {
   return {
+    labels: data[0].day.map((item: any) => getDay(item)),
     datasets: [
       {
-        data: company_total,
+        data: data[1].company_average,
         strokeWidth: 2,
         color: () => `rgb(191, 139, 89)`,
       },
       {
-        data: my_total,
+        data: data[2].your_log,
         strokeWidth: 2,
         color: () => `rgb(136, 191, 89)`,
       },
       {
-        data: [8, 8, 8, 8, 8],
+        data: data[3].threshold,
         strokeWidth: 2,
         color: () => `rgb(188, 188, 188)`,
       },
@@ -78,7 +79,9 @@ const DashBoard = () => {
   const [listData, setListData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
-  const [logTime, setLogTime] = useState(monTofri());
+  const [logTime, setLogTime] = useState(thisWeek());
+  const [loader, setLoader] = useState(true);
+
   const [totalTimeLog, setTotalTimeLog] = useState({
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
     datasets: [
@@ -152,21 +155,27 @@ const DashBoard = () => {
     (async () => {
       if (state?.user?.id) {
         try {
+          setLoader(true);
           const response: any = await getRequest('/dashboard/timelog', {
             ...logTime,
             user_id: state.user.id,
           });
 
-          const mapData = data(
-            response.company_total || [],
-            response.my_total || []
-          );
-
-          setTotalTimeLog({
-            ...totalTimeLog,
-            datasets: mapData.datasets,
+          const keys = Object.keys(response[0]).map((item) => {
+            return {
+              [item]: response.flatMap((val: any) =>
+                val[item] > -1 ? [val[item] || 0] : []
+              ),
+            };
           });
-        } catch (error) {}
+
+          const mapData: any = data(keys);
+
+          response.length && setTotalTimeLog(mapData);
+          setLoader(false);
+        } catch (error) {
+          setLoader(false);
+        }
       }
     })();
   }, [state?.user?.id, logTime]);
@@ -262,7 +271,7 @@ const DashBoard = () => {
                     ds.border,
                     {
                       borderColor: item.color,
-                      borderStyle: item.id === '3' ? 'dotted' : 'solid',
+                      borderStyle: 'solid',
                     },
                   ]}
                 />
@@ -271,9 +280,18 @@ const DashBoard = () => {
               </View>
             ))}
           </View>
-          {/* <View style={ds.chartWrapper}>
-            <LineChartComponent data={totalTimeLog} />
-          </View> */}
+          <View style={ds.chartWrapper}>
+            {loader ? (
+              <View style={ds.loader}>
+                <ActivityIndicator size="large" />
+              </View>
+            ) : (
+              <LineChartComponent
+                data={totalTimeLog}
+                days={totalTimeLog.labels.length}
+              />
+            )}
+          </View>
         </View>
       </ScrollView>
     </View>
