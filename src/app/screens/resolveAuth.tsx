@@ -2,15 +2,14 @@ import React, { useEffect } from 'react';
 import { getToken } from '../utils';
 
 const ResolveAuth = ({ navigation }: { navigation: any }) => {
-
   useEffect(() => {
     const tryLocalSignIn = async () => {
       try {
         let userToken = await getToken();
         if (userToken) {
-          navigation.navigate('BottomTabs')
+          navigation.navigate('BottomTabs');
         } else {
-          navigation.navigate('login')
+          navigation.navigate('login');
         }
       } catch (e) {
         console.log(e);
@@ -20,7 +19,7 @@ const ResolveAuth = ({ navigation }: { navigation: any }) => {
     tryLocalSignIn();
   }, []);
 
-  return null
-}
+  return null;
+};
 
 export { ResolveAuth };
