@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import colors from '../../../assets/colors';
 import { cardStyle, listStyle, timeLogStyle } from '../../../assets/styles';
 import { getColor } from '../../utils/listtranform';
+import normalize from '../../utils/normalize';
 
 const ListItem = ({
   title,
@@ -35,6 +36,7 @@ const ListItem = ({
           cardStyle.indicator,
           {
             backgroundColor: indicatorColor,
+            marginRight: normalize(-1),
           },
         ]}
       />
