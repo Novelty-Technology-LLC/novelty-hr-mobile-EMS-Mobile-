@@ -78,15 +78,24 @@ const dashboardStyle = StyleSheet.create({
     marginLeft: normalize(7),
   },
   border: {
-    height: 1,
-    width: normalize(25),
-    borderRadius: 1,
-    borderWidth: 2,
+    height: normalize(1),
+    width: normalize(15),
+    borderRadius: normalize(2),
+    borderWidth: normalize(3),
   },
   chartWrapper: {
     marginTop: 40,
     width: '100%',
     overflow: 'hidden',
+  },
+  loader: {
+    backgroundColor: 'black',
+    height: 150,
+    width: '100%',
+    opacity: 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: normalize(4),
   },
 });
 

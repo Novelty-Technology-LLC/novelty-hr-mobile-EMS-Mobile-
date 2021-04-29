@@ -11,7 +11,7 @@ const LineChartComponent = (props: any) => {
     <LineChart
       withHorizontalLabels={false}
       data={props.data}
-      width={screenWidth + 25}
+      width={props.days === 5 ? screenWidth + 20 : screenWidth}
       height={256}
       segments={1}
       chartConfig={{
