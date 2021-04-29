@@ -40,7 +40,6 @@ const CarouselStyle = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'space-between',
     justifyContent: 'center',
-    marginRight: normalize(1)
   },
   icon: {
     alignSelf: 'center',

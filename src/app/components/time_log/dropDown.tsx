@@ -33,6 +33,7 @@ const DropDownView = ({
           getLogs(filter, true);
           setWeek(val);
         }}
+        style={style.dropDownWrapper}
       />
       <View style={style.dropDown}></View>
       <DropDown
@@ -47,6 +48,7 @@ const DropDownView = ({
             setWeeksLogs([...Object.entries(groupByproject(timelogs.past))]);
           }
         }}
+        style={style.dropDownWrapper}
       />
     </View>
   );

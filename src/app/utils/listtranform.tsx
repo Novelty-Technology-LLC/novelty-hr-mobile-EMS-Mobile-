@@ -135,8 +135,8 @@ export const time = () => {
 
 export const getColor = (type: string, defaultColor: string) => {
   return type === 'holiday'
-    ? colors.lightred
-    : type === 'event'
     ? colors.blue
+    : type === 'event'
+    ? colors.primary
     : defaultColor;
 };
