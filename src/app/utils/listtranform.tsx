@@ -1,17 +1,16 @@
 import { dateStringMapper } from './dateMapper';
 import { getDayToday } from './momentDate';
+import { checkRepeat } from '../utils';
 
 const transformTitle = (title: string) => {
-  return title.length > 15 ? `${title.substring(0, 15)} ...` : title;
+  return title.length > 18 ? `${title.substring(0, 18)} ...` : title;
 };
 
-const checkToday = (date: Date) => {
+const checkToday = (startDate: Date, endDate: Date) => {
   let todaydate = new Date();
-  let newdate = new Date(date);
-  return (
-    todaydate.getFullYear() === newdate.getFullYear() &&
-    todaydate.getMonth() === newdate.getMonth() &&
-    todaydate.getDate() === newdate.getDate()
+  return checkRepeat(
+    { startDate: todaydate, endDate: todaydate },
+    JSON.stringify({ startDate, endDate })
   );
 };
 
@@ -58,13 +57,25 @@ const transformDate = (date: any, module: string, isList: boolean) => {
   let startDate = date?.startDate ?? date;
   let month, day, monthdate;
 
-  if (checkToday(startDate)) {
-    return module === 'Leave' ? `On Leave Today` : 'Today';
+  if (checkToday(date?.startDate, date?.endDate)) {
+    return module === 'Leave'
+      ? `On Leave Today ${
+          date?.startDate === date?.endDate
+            ? ''
+            : `\n${dateStringMapper(
+                new Date(date?.startDate).toString().substring(0, 15),
+                date?.endDate
+                  ? new Date(date?.endDate).toString().substring(0, 15)
+                  : new Date(date?.startDate).toString().substring(0, 15),
+                true
+              )}`
+        }`
+      : 'Today';
   } else if (checkTomorrow(startDate)) {
     return module === 'Leave' ? `On Leave Tomorrow` : `Tomorrow`;
   }
 
-  if (!isList) {
+  if (!isList && module !== 'Leave') {
     month = new Date(startDate).getMonth();
     day = new Date(startDate).getDay();
     monthdate = new Date(startDate).getDate();
@@ -82,10 +93,11 @@ const transformDate = (date: any, module: string, isList: boolean) => {
 export const transformList = (
   itemList: any,
   module: string,
-  isList?: boolean
+  isList?: boolean,
+  truncate?: boolean
 ) => {
   const newList = itemList.map((item: any) => ({
-    title: transformTitle(item?.title),
+    title: truncate ? transformTitle(item?.title) : item?.title,
     subTitle: transformDate(item?.leave_date ?? item?.subTitle, module, isList),
     status: item?.status,
     type: item?.type,

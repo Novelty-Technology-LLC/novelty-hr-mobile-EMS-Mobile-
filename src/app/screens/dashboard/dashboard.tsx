@@ -21,21 +21,84 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
 import { getToday } from '../../utils';
-import { createWork, getWork, getDashboard } from '../../services';
+import { createWork, getWork, getDashboard, getRequest } from '../../services';
 import moment from 'moment';
 import normalize from 'react-native-normalize';
 import { DashboardCardPlaceholder } from '../../common';
 import { getCurrentRouteName, navigate } from '../../utils/navigation';
 import { time } from '../../utils/listtranform';
+import { Header as HoursHeader, LineChartComponent } from '../../components';
+import { monTofri } from '../../utils/dateFilter';
+
+const marking = [
+  {
+    id: '1',
+    label: 'My Time',
+    color: '#88BF59',
+  },
+  {
+    id: '2',
+    label: 'Novelty Avg.',
+    color: '#BF8B59',
+  },
+  {
+    id: '3',
+    label: 'Base Time',
+    color: '#BCBCBC',
+  },
+];
+
+const data = (company_total: any, my_total: any) => {
+  return {
+    datasets: [
+      {
+        data: company_total,
+        strokeWidth: 2,
+        color: () => `rgb(191, 139, 89)`,
+      },
+      {
+        data: my_total,
+        strokeWidth: 2,
+        color: () => `rgb(136, 191, 89)`,
+      },
+      {
+        data: [8, 8, 8, 8, 8],
+        strokeWidth: 2,
+        color: () => `rgb(188, 188, 188)`,
+      },
+    ],
+  };
+};
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [listData, setListData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
+  const [logTime, setLogTime] = useState(monTofri());
+  const [totalTimeLog, setTotalTimeLog] = useState({
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+    datasets: [
+      {
+        data: [8, 8, 8, 8, 8],
+        strokeWidth: 2,
+        color: () => `rgb(191, 139, 89)`,
+      },
+      {
+        data: [8, 8, 8, 8, 8],
+        strokeWidth: 2,
+        color: () => `rgb(136, 191, 89)`,
+      },
+      {
+        data: [8, 8, 8, 8, 8],
+        strokeWidth: 2,
+        color: () => `rgb(188, 188, 188)`,
+      },
+    ],
+  });
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -55,19 +118,21 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchWork = async () => {
       try {
+        setLoading(true);
         const res: any = await getWork({
           user_id: state?.user?.id,
           date: moment().format('YYYY-MM-DD'),
         });
         setId(res?.data?.data?.id ?? null);
+
         setToggle(+res?.data?.data?.status === 1 ? true : false);
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
-    fetchWork();
-  }, []);
+    state?.user?.id && fetchWork();
+  }, [state?.user?.id]);
 
   useEffect(() => {
     (async () => {
@@ -82,6 +147,29 @@ const DashBoard = () => {
       }
     })();
   }, [refreshing]);
+
+  useEffect(() => {
+    (async () => {
+      if (state?.user?.id) {
+        try {
+          const response: any = await getRequest('/dashboard/timelog', {
+            ...logTime,
+            user_id: state.user.id,
+          });
+
+          const mapData = data(
+            response.company_total || [],
+            response.my_total || []
+          );
+
+          setTotalTimeLog({
+            ...totalTimeLog,
+            datasets: mapData.datasets,
+          });
+        } catch (error) {}
+      }
+    })();
+  }, [state?.user?.id, logTime]);
 
   const ToggleWork = async () => {
     try {
@@ -127,7 +215,7 @@ const DashBoard = () => {
         </View>
       </Header>
       <ScrollView
-        contentContainerStyle={ds.body}
+        style={ds.body}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -163,6 +251,29 @@ const DashBoard = () => {
           ) : (
             <DashboardCardPlaceholder />
           )}
+        </View>
+        <View style={ds.timeLog}>
+          <HoursHeader title="Hours Worked" dropDown setLogTime={setLogTime} />
+          <View style={ds.marking}>
+            {marking.map((item) => (
+              <View style={ds.markingBody}>
+                <View
+                  style={[
+                    ds.border,
+                    {
+                      borderColor: item.color,
+                      borderStyle: item.id === '3' ? 'dotted' : 'solid',
+                    },
+                  ]}
+                />
+                <View style={ds.markingGap} />
+                <Text>{item.label}</Text>
+              </View>
+            ))}
+          </View>
+          <View style={ds.chartWrapper}>
+            <LineChartComponent data={totalTimeLog} />
+          </View>
         </View>
       </ScrollView>
     </View>

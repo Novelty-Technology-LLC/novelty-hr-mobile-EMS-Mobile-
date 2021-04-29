@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
-import { headerTxtStyle, holidayListingStyle } from '../../../assets/styles';
+import {
+  cardStyle,
+  headerTxtStyle,
+  holidayListingStyle,
+} from '../../../assets/styles';
 import { header as Header } from '../../common';
 import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
 import { getList } from '../../services';
@@ -24,34 +28,44 @@ const HolidayEventListing = (props: any) => {
   return (
     <View style={holidayListingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>HOLIDAY & EVENTS</Text>
+        <Text style={headerTxtStyle.headerText}>HOLIDAYS & EVENTS</Text>
       </Header>
-      {loading ? (
-        <ListPlaceholder />
-      ) : list?.length > 0 ? (
-        transformList(list, 'Holiday&Events').map((item, index) => {
-          return (
-            <View
-              key={index}
-              style={[
-                holidayListingStyle.container,
-                {
-                  borderBottomWidth:
-                    list.length - 1 === index ? 0 :  Platform.OS === 'ios'
-                    ? normalize(1)
-                    : normalize(3),
-                  paddingVertical: normalize(15),
-                },
-              ]}
-            >
-              <Text style={holidayListingStyle.title}>{item?.title}</Text>
-              <Text style={holidayListingStyle.subTitle}>{item?.subTitle}</Text>
-            </View>
-          );
-        })
-      ) : (
-        <></>
-      )}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {loading ? (
+          <ListPlaceholder />
+        ) : list?.length > 0 ? (
+          transformList(list, 'Holiday&Events', false, false).map(
+            (item, index) => {
+              return (
+                <View
+                  key={index}
+                  style={[
+                    holidayListingStyle.container,
+                    {
+                      borderBottomWidth: list.length - 1 === index ? 0 : 1,
+                      paddingVertical: normalize(15),
+                    },
+                  ]}
+                >
+                  <View>
+                    <Text style={cardStyle.titleText}>{item?.title}</Text>
+                    <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+                  </View>
+                  <Text style={cardStyle.subTitleText}>
+                    {item?.type === 'event'
+                      ? 'Event'
+                      : item?.type === 'holiday'
+                      ? 'Holiday'
+                      : ''}
+                  </Text>
+                </View>
+              );
+            }
+          )
+        ) : (
+          <></>
+        )}
+      </ScrollView>
     </View>
   );
 };
