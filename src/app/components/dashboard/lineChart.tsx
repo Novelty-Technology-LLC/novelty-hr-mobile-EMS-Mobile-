@@ -28,7 +28,7 @@ const LineChartComponent = (props: any) => {
         color: () => `rgb(191, 139, 89)`,
         labelColor: () => `rgb(102, 102, 102)`,
         style: {
-          backgroundColor: colors.red,
+          backgroundColor: colors.white,
         },
         propsForDots: {
           r: "5",
