@@ -80,7 +80,7 @@ const DeleteAlert = ({
       >
         <AppIcon
           name={other ? 'close-circle' : 'delete'}
-          color={colors.tomato}
+          color={colors.buttonRed}
           size={23}
         />
       </TouchableOpacity>
@@ -105,7 +105,7 @@ const DeleteAlert = ({
         }}
       >
         <View style={[style.container, { marginBottom: normalize(-20) }]}>
-          <AppIcon name="alert" color={colors.tomato} size={30} />
+          <AppIcon name="alert" color={colors.buttonRed} size={30} />
           <View style={[style.main, { marginBottom: normalize(-15) }]}>
             <Text style={style.text1}>
               {other ? 'Cancel' : 'Delete'} the{' '}
