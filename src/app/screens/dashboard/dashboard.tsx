@@ -161,8 +161,6 @@ const DashBoard = () => {
             user_id: state.user.id,
           });
 
-          console.log('response -> ', response);
-
           const keys = Object.keys(response[0]).map((item) => {
             return {
               [item]: response.flatMap((val: any) =>
