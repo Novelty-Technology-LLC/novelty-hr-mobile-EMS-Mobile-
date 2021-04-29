@@ -11,7 +11,7 @@ import {
 import { header as Header } from '../../common';
 import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
 import { getList } from '../../services';
-import { transformList } from '../../utils/listtranform';
+import { getColor, transformList } from '../../utils/listtranform';
 
 const HolidayEventListing = (props: any) => {
   const [list, setList] = useState<any>(null);
@@ -63,12 +63,10 @@ const HolidayEventListing = (props: any) => {
                         timeLogStyle.indicator,
                         cardStyle.detailIndicator,
                         {
-                          backgroundColor:
-                            item?.type === 'holiday'
-                              ? colors.lightred
-                              : item?.type === 'event'
-                              ? colors.blue
-                              : colors.lightbrown,
+                          backgroundColor: getColor(
+                            item?.type,
+                            colors.lightbrown
+                          ),
                         },
                       ]}
                     />

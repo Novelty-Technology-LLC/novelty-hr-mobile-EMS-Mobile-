@@ -1,6 +1,7 @@
 import { dateStringMapper } from './dateMapper';
 import { getDayToday } from './momentDate';
 import { checkRepeat } from '../utils';
+import colors from '../../assets/colors';
 
 const transformTitle = (title: string) => {
   return title.length > 18 ? `${title.substring(0, 18)} ...` : title;
@@ -130,4 +131,12 @@ export const time = () => {
   } else {
     return 'Night';
   }
+};
+
+export const getColor = (type: string, defaultColor: string) => {
+  return type === 'holiday'
+    ? colors.lightred
+    : type === 'event'
+    ? colors.blue
+    : defaultColor;
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import colors from '../../../assets/colors';
 import { cardStyle, listStyle, timeLogStyle } from '../../../assets/styles';
+import { getColor } from '../../utils/listtranform';
 
 const ListItem = ({
   title,
@@ -14,12 +15,7 @@ const ListItem = ({
   isLast: boolean;
   type?: string;
 }) => {
-  const indicatorColor =
-    type === 'holiday'
-      ? colors.lightred
-      : type === 'event'
-      ? colors.blue
-      : colors.lightbrown;
+  const indicatorColor = getColor(type, colors.lightbrown);
 
   return (
     <View
