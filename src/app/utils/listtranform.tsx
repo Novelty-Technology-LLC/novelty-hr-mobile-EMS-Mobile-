@@ -63,9 +63,7 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
       ? ''
       : `\n${dateStringMapper(
           new Date(startDate).toString().substring(0, 15),
-          endDate
-            ? new Date(endDate).toString().substring(0, 15)
-            : new Date(startDate).toString().substring(0, 15),
+          new Date(endDate ?? startDate).toString().substring(0, 15),
           true
         )}`;
 
@@ -83,9 +81,7 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
   } else {
     return dateStringMapper(
       new Date(startDate).toString().substring(0, 15),
-      endDate
-        ? new Date(endDate).toString().substring(0, 15)
-        : new Date(startDate).toString().substring(0, 15)
+      new Date(endDate ?? startDate).toString().substring(0, 15)
     );
   }
 };
