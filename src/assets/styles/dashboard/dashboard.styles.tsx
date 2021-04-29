@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 
@@ -80,8 +80,8 @@ const dashboardStyle = StyleSheet.create({
   border: {
     height: normalize(1),
     width: normalize(15),
-    borderRadius: normalize(2),
-    borderWidth: normalize(3),
+    borderRadius: normalize(Platform.OS === 'ios' ? 2 : 4),
+    borderWidth: normalize(Platform.OS === 'ios' ? 3 : 5),
   },
   chartWrapper: {
     marginTop: normalize(40),
