@@ -63,10 +63,7 @@ const HolidayEventListing = (props: any) => {
                         timeLogStyle.indicator,
                         cardStyle.detailIndicator,
                         {
-                          backgroundColor: getColor(
-                            item?.type,
-                            colors.lightbrown
-                          ),
+                          backgroundColor: getColor(item?.type, colors.white),
                         },
                       ]}
                     />
