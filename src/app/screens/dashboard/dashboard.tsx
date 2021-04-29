@@ -271,9 +271,9 @@ const DashBoard = () => {
               </View>
             ))}
           </View>
-          <View style={ds.chartWrapper}>
+          {/* <View style={ds.chartWrapper}>
             <LineChartComponent data={totalTimeLog} />
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </View>

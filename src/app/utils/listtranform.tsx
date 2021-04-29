@@ -7,7 +7,7 @@ const transformTitle = (title: string) => {
 };
 
 const checkToday = (startDate: Date, endDate: Date) => {
-  let todaydate = new Date();
+  let todaydate = new Date().toDateString();
   return checkRepeat(
     { startDate: todaydate, endDate: todaydate },
     JSON.stringify({ startDate, endDate })
