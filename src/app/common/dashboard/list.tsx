@@ -25,6 +25,7 @@ const List = ({ list }: { list: any }) => {
               title={item?.title}
               subTitle={item?.subTitle}
               isLast={2 === index}
+              type={item?.type}
             />
           ))}
         <TouchableOpacity

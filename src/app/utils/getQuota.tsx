@@ -13,8 +13,6 @@ export const checkValidityQuota = (
 };
 
 export const checkRepeat = (olddate: Object, newdate: Object) => {
-  console.log('check', olddate, newdate);
-
   const new_start = new Date(JSON.parse(newdate).startDate).getTime();
   const new_end = JSON.parse(newdate).endDate
     ? new Date(JSON.parse(newdate).endDate).getTime()

@@ -53,39 +53,39 @@ const formatDate = (month: number, day: number, monthdate: number) => {
   return `${months[month]} ${monthdate}, ${days[day]} `;
 };
 
-const transformDate = (date: any, module: string, isList: boolean) => {
+export const transformDate = (date: any, module: string, isList: boolean) => {
   let startDate = date?.startDate ?? date;
-  let month, day, monthdate;
+  let endDate = date?.endDate ?? date;
 
-  if (checkToday(date?.startDate, date?.endDate)) {
-    return module === 'Leave'
-      ? `On Leave Today ${
-          date?.startDate === date?.endDate
-            ? ''
-            : `\n${dateStringMapper(
-                new Date(date?.startDate).toString().substring(0, 15),
-                date?.endDate
-                  ? new Date(date?.endDate).toString().substring(0, 15)
-                  : new Date(date?.startDate).toString().substring(0, 15),
-                true
-              )}`
-        }`
-      : 'Today';
+  let month, day, monthdate;
+  const days =
+    startDate === endDate
+      ? ''
+      : `\n${dateStringMapper(
+          new Date(startDate).toString().substring(0, 15),
+          endDate
+            ? new Date(endDate).toString().substring(0, 15)
+            : new Date(startDate).toString().substring(0, 15),
+          true
+        )}`;
+
+  if (checkToday(startDate, endDate)) {
+    return module === 'Leave' ? `On Leave Today ${days}` : 'Today';
   } else if (checkTomorrow(startDate)) {
-    return module === 'Leave' ? `On Leave Tomorrow` : `Tomorrow`;
+    return module === 'Leave' ? `On Leave Tomorrow ${days}` : `Tomorrow`;
   }
 
-  if (!isList && module !== 'Leave') {
+  if (!isList) {
     month = new Date(startDate).getMonth();
     day = new Date(startDate).getDay();
     monthdate = new Date(startDate).getDate();
     return formatDate(month, day, monthdate);
   } else {
     return dateStringMapper(
-      new Date(date?.startDate).toString().substring(0, 15),
-      date?.endDate
-        ? new Date(date?.endDate).toString().substring(0, 15)
-        : new Date(date?.startDate).toString().substring(0, 15)
+      new Date(startDate).toString().substring(0, 15),
+      endDate
+        ? new Date(endDate).toString().substring(0, 15)
+        : new Date(startDate).toString().substring(0, 15)
     );
   }
 };
