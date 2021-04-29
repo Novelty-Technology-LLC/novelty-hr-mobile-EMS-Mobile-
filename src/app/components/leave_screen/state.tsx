@@ -17,7 +17,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
       )}
       {state === 'Cancelled' && (
         <>
-          <AppIcon name="close-circle" size={16} color={colors.tomato} />
+          <AppIcon name="close-circle" size={16} color={colors.buttonRed} />
           <View style={style.space}></View>
           <Text style={style.state}>{state}</Text>
         </>
@@ -27,7 +27,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
           <AppIcon
             name="alert-circle"
             size={normalize(18)}
-            color={colors.tomato}
+            color={colors.buttonRed}
           />
           <View style={style.space}></View>
           <Text style={style.denyStat}>{state}</Text>

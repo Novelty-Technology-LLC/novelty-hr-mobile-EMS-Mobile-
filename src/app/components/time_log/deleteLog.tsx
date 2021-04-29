@@ -80,7 +80,7 @@ const DeleteLog = ({
         }}
         style={style.iconContainer}
       >
-        <AppIcon name="delete" color={colors.tomato} size={23} />
+        <AppIcon name="delete" color={colors.buttonRed} size={23} />
       </TouchableOpacity>
       <ConfirmDialog
         visible={showAlert}
@@ -103,7 +103,7 @@ const DeleteLog = ({
         }}
       >
         <View style={[style.container, { marginBottom: normalize(-20) }]}>
-          <AppIcon name="alert" color={colors.tomato} size={30} />
+          <AppIcon name="alert" color={colors.buttonRed} size={30} />
           <View style={style.main}>
             <Text style={style.text1}>Delete the task ?</Text>
             <Text style={style.text2}>This cant be undone</Text>

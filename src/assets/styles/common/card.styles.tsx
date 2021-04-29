@@ -29,6 +29,12 @@ const cardStyle = StyleSheet.create({
     fontSize: normalize(12),
     color: colors.fontGrey,
   },
+  indicator: { position: 'absolute', top: normalize(17), right: normalize(0) },
+  detailIndicator: {
+    marginRight: normalize(5),
+    marginTop: normalize(5),
+    alignSelf: 'flex-start',
+  },
 });
 
 export { cardStyle };

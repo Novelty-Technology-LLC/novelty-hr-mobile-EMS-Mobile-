@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import normalize from 'react-native-normalize';
+import colors from '../../../assets/colors';
 import {
   cardStyle,
   headerTxtStyle,
   holidayListingStyle,
+  timeLogStyle,
 } from '../../../assets/styles';
 import { header as Header } from '../../common';
 import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
 import { getList } from '../../services';
-import { transformList } from '../../utils/listtranform';
+import { getColor, transformList } from '../../utils/listtranform';
 
 const HolidayEventListing = (props: any) => {
   const [list, setList] = useState<any>(null);
@@ -51,13 +53,28 @@ const HolidayEventListing = (props: any) => {
                     <Text style={cardStyle.titleText}>{item?.title}</Text>
                     <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
                   </View>
-                  <Text style={cardStyle.subTitleText}>
-                    {item?.type === 'event'
-                      ? 'Event'
-                      : item?.type === 'holiday'
-                      ? 'Holiday'
-                      : ''}
-                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                    }}
+                  >
+                    <View
+                      style={[
+                        timeLogStyle.indicator,
+                        cardStyle.detailIndicator,
+                        {
+                          backgroundColor: getColor(item?.type, colors.white),
+                        },
+                      ]}
+                    />
+                    <Text style={cardStyle.subTitleText}>
+                      {item?.type === 'event'
+                        ? 'Event'
+                        : item?.type === 'holiday'
+                        ? 'Holiday'
+                        : ''}
+                    </Text>
+                  </View>
                 </View>
               );
             }
