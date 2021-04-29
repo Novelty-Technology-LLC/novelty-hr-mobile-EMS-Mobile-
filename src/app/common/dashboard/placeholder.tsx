@@ -9,6 +9,15 @@ const DashboardCardPlaceholder = () => {
         {[...Array(4)].map((item, index) => (
           <Fragment key={index}>
             <Placeholder style={styles.main} Animation={Fade}>
+              {index > 1 && (
+                <>
+                  <PlaceholderLine width={30} style={{ marginVertical: normalize(10) }} />
+                  <PlaceholderLine width={90} />
+                  <PlaceholderLine width={70} />
+                  <PlaceholderLine width={60} />
+                  <PlaceholderLine width={55} />
+                </>
+              )}
               <PlaceholderLine width={80} />
               <PlaceholderLine />
               <PlaceholderLine width={50} />
@@ -27,7 +36,8 @@ export { DashboardCardPlaceholder };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: normalize(40),
+    padding: normalize(10)
   },
   wrapper: {
     flexDirection: 'row',
@@ -35,6 +45,6 @@ const styles = StyleSheet.create({
   },
   main: {
     width: '49%',
-    marginBottom: normalize(40),
+    marginBottom: normalize(30),
   },
 });

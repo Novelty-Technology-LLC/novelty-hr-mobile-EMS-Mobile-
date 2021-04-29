@@ -5,7 +5,7 @@ import { fonts } from '../theme';
 
 const cardStyle = StyleSheet.create({
   container: { flexDirection: 'column', marginTop: normalize(40) },
-  module: { marginLeft: normalize(20), marginTop: normalize(10) },
+  module: { marginTop: normalize(10) },
   textContainer: {
     marginTop: 15,
     flexDirection: 'column',
@@ -28,6 +28,12 @@ const cardStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(12),
     color: colors.fontGrey,
+  },
+  indicator: { position: 'absolute', top: normalize(17), right: normalize(0) },
+  detailIndicator: {
+    marginRight: normalize(5),
+    marginTop: normalize(5),
+    alignSelf: 'flex-start',
   },
 });
 

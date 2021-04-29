@@ -1,16 +1,22 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { cardStyle, listStyle } from '../../../assets/styles';
+import colors from '../../../assets/colors';
+import { cardStyle, listStyle, timeLogStyle } from '../../../assets/styles';
+import { getColor } from '../../utils/listtranform';
 
 const ListItem = ({
   title,
   subTitle,
   isLast,
+  type,
 }: {
   title: string;
   subTitle: string;
   isLast: boolean;
+  type?: string;
 }) => {
+  const indicatorColor = getColor(type, colors.lightbrown);
+
   return (
     <View
       style={[
@@ -22,6 +28,16 @@ const ListItem = ({
     >
       <Text style={cardStyle.titleText}>{title}</Text>
       <Text style={cardStyle.subTitleText}>{subTitle}</Text>
+
+      <View
+        style={[
+          timeLogStyle.indicator,
+          cardStyle.indicator,
+          {
+            backgroundColor: indicatorColor,
+          },
+        ]}
+      />
     </View>
   );
 };
