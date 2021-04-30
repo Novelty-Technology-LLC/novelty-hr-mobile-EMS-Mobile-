@@ -11,7 +11,7 @@ const Cards = ({ data }: { data: any }) => {
     data.map((item: any, index: number) => {
       return (
         <Fragment key={`${index}`}>
-          <View key={index} style={[ds.wrapItem]}>
+          <View style={[ds.wrapItem]}>
             {item.type === 'stats' ? (
               <Carousel items={transformLunchItem(item)} itemsPerInterval={1} />
             ) : (
