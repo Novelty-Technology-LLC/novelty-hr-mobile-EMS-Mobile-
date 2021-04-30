@@ -178,7 +178,7 @@ const DashBoard = () => {
         }
       }
     })();
-  }, [state?.user?.id, logTime]);
+  }, [state?.user?.id, logTime, refreshing]);
 
   const ToggleWork = async () => {
     try {
@@ -272,7 +272,7 @@ const DashBoard = () => {
                     {
                       borderColor: item.color,
                       borderStyle: 'solid',
-                      backgroundColor: item.color
+                      backgroundColor: item.color,
                     },
                   ]}
                 />
