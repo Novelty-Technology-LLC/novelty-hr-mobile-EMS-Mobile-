@@ -57,9 +57,11 @@ const myRequestsStyle = StyleSheet.create({
     borderColor: colors.primary,
     backgroundColor: colors.white,
     padding: normalize(40),
-    ...(Platform.OS !== 'android' && {
-      zIndex: 1000,
-    }),
+    ...Platform.select({
+      ios:{
+        zIndex: 1000
+      }
+    })
   },
 });
 
