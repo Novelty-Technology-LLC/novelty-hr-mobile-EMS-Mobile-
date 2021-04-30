@@ -13,7 +13,7 @@ const myRequestsStyle = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: normalize(10),
-    alignContent: 'center'
+    alignContent: 'center',
   },
   logheader: {
     flexDirection: 'row',
@@ -57,8 +57,10 @@ const myRequestsStyle = StyleSheet.create({
     borderColor: colors.primary,
     backgroundColor: colors.white,
     padding: normalize(40),
-    ...(Platform.OS !== 'android' && {
-      zIndex: 1000,
+    ...Platform.select({
+      ios: {
+        zIndex: 1000,
+      },
     }),
   },
 });
