@@ -131,13 +131,7 @@ const CalendarComponent = ({
         </View>
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>
-            Total :{' '}
-            {dateStringMapper(
-              new Date(range.startDate).toString().substring(0, 15),
-              range.endDate
-                ? new Date(range.endDate).toString().substring(0, 15)
-                : new Date(range.startDate).toString().substring(0, 15)
-            )}
+            Total : {dateStringMapper(startDate, endDate)}
           </Text>
         )}
       </View>

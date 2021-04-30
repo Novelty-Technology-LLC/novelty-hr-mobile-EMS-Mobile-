@@ -13,10 +13,12 @@ export const dateMapper = (start: string, end: string) => {
 };
 
 export const dateStringMapper = (
-  start: string,
-  end: string,
+  startDate: string,
+  endDate: string,
   dateOnly?: boolean
 ) => {
+  const start = new Date(startDate).toString().substring(0, 15);
+  const end = new Date(endDate ?? startDate).toString().substring(0, 15);
   let nextmonth =
     start.substring(4, 7) === end.substring(4, 7) ? null : end.substring(4, 7);
   return start.substring(8, start.length - 4) ===

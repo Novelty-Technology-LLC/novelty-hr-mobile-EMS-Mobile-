@@ -62,11 +62,7 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
   const days =
     startDate === endDate
       ? ''
-      : `\n${dateStringMapper(
-          new Date(startDate).toString().substring(0, 15),
-          new Date(endDate ?? startDate).toString().substring(0, 15),
-          true
-        )}`;
+      : `\n${dateStringMapper(startDate, endDate, true)}`;
 
   if (checkToday(startDate, endDate)) {
     return module === 'Leave' ? `On Leave Today ${days}` : 'Today';
@@ -80,10 +76,7 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
     monthdate = new Date(startDate).getDate();
     return formatDate(month, day, monthdate);
   } else {
-    return dateStringMapper(
-      new Date(startDate).toString().substring(0, 15),
-      new Date(endDate ?? startDate).toString().substring(0, 15)
-    );
+    return dateStringMapper(startDate, endDate);
   }
 };
 
