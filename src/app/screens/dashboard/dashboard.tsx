@@ -264,8 +264,8 @@ const DashBoard = () => {
         <View style={ds.timeLog}>
           <HoursHeader title="HOURS WORKED" dropDown setLogTime={setLogTime} />
           <View style={ds.marking}>
-            {marking.map((item) => (
-              <View style={ds.markingBody}>
+            {marking.map((item, index) => (
+              <View style={ds.markingBody} key={`${index}`}>
                 <View
                   style={[
                     ds.border,
