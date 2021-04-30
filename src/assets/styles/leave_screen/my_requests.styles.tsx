@@ -13,7 +13,7 @@ const myRequestsStyle = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: normalize(10),
-    alignContent: 'center'
+    alignContent: 'center',
   },
   logheader: {
     flexDirection: 'row',
@@ -51,6 +51,17 @@ const myRequestsStyle = StyleSheet.create({
   },
   dropDown: {
     paddingHorizontal: normalize(10),
+  },
+  dropDownWrapper: {
+    borderWidth: 1,
+    borderColor: colors.primary,
+    backgroundColor: colors.white,
+    padding: normalize(40),
+    ...Platform.select({
+      ios: {
+        zIndex: 1000,
+      },
+    }),
   },
 });
 

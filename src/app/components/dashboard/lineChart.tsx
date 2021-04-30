@@ -1,23 +1,23 @@
-import React from 'react';
-import { Dimensions, Text } from 'react-native';
-import colors from '../../../assets/colors';
-import { LineChart } from 'react-native-chart-kit';
-import normalize from '../../utils/normalize';
+import React from "react";
+import { Dimensions, Text } from "react-native";
+import colors from "../../../assets/colors";
+import { LineChart } from "react-native-chart-kit";
+import normalize from "../../utils/normalize";
 
-const screenWidth = Dimensions.get('window').width;
+const screenWidth = Dimensions.get("window").width;
 
 const LineChartComponent = (props: any) => {
   return (
     <LineChart
       withHorizontalLabels={false}
       data={props.data}
-      width={props.days === 5 ? screenWidth + 20 : screenWidth}
+      width={props.days === 5 ? screenWidth : screenWidth - 8}
       height={256}
       segments={1}
       chartConfig={{
         propsForBackgroundLines: {
-          strokeDasharray: '',
-          stroke: '#D3D3D3',
+          strokeDasharray: "",
+          stroke: "#D3D3D3",
         },
 
         strokeWidth: 2,
@@ -31,9 +31,9 @@ const LineChartComponent = (props: any) => {
           backgroundColor: colors.white,
         },
         propsForDots: {
-          r: '5',
-          strokeWidth: '2',
-          stroke: '#ffffff',
+          r: "5",
+          strokeWidth: "0.7",
+          stroke: "#ffffff",
         },
       }}
       bezier
@@ -47,14 +47,14 @@ const LineChartComponent = (props: any) => {
         return (
           <Text
             style={{
-              position: 'absolute',
+              position: "absolute",
               paddingTop: y - 16,
               paddingLeft: x - 6,
-              color: '#383838',
+              color: "#383838",
               fontSize: normalize(10),
             }}
           >
-            {parseInt(indexData) + ' hrs'}
+            {parseInt(indexData) + " hrs"}
           </Text>
         );
       }}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, ScrollView, Text, TouchableOpacity, NativeScrollEvent } from 'react-native';
+import { View, ScrollView, Text, NativeScrollEvent } from 'react-native';
 import colors from '../../assets/colors';
 import { CarouselStyle } from '../../assets/styles';
 import { UpperCard } from './dashboard/card';

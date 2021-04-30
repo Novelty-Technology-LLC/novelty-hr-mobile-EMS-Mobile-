@@ -34,11 +34,11 @@ const marking = [
   {
     id: '1',
     label: 'My Time',
-    color: '#88BF59',
+    color: '#6DAF7C',
   },
   {
     id: '2',
-    label: 'Novelty Avg.',
+    label: 'Novelty Average',
     color: '#BF8B59',
   },
   {
@@ -60,7 +60,7 @@ const data = (data: any) => {
       {
         data: data[2].your_log,
         strokeWidth: 2,
-        color: () => `rgb(136, 191, 89)`,
+        color: () => `rgb(109,175,124)`,
       },
       {
         data: data[3].threshold,
@@ -178,7 +178,7 @@ const DashBoard = () => {
         }
       }
     })();
-  }, [state?.user?.id, logTime]);
+  }, [state?.user?.id, logTime, refreshing]);
 
   const ToggleWork = async () => {
     try {
@@ -262,7 +262,7 @@ const DashBoard = () => {
           )}
         </View>
         <View style={ds.timeLog}>
-          <HoursHeader title="Hours Worked" dropDown setLogTime={setLogTime} />
+          <HoursHeader title="HOURS WORKED" dropDown setLogTime={setLogTime} />
           <View style={ds.marking}>
             {marking.map((item) => (
               <View style={ds.markingBody}>
@@ -272,6 +272,7 @@ const DashBoard = () => {
                     {
                       borderColor: item.color,
                       borderStyle: 'solid',
+                      backgroundColor: item.color,
                     },
                   ]}
                 />
@@ -283,7 +284,7 @@ const DashBoard = () => {
           <View style={ds.chartWrapper}>
             {loader ? (
               <View style={ds.loader}>
-                <ActivityIndicator size="large" />
+                <ActivityIndicator size="large" color={colors.primary} />
               </View>
             ) : (
               <LineChartComponent

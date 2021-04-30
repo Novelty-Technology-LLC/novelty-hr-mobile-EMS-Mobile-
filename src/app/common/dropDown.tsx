@@ -16,7 +16,7 @@ const DropDown = ({
   style,
   labelStyle,
 
-  arrowColor = colors.fontGrey,
+  arrowColor = colors.primary,
 }: any) => {
   const controller = useRef(null);
   const { timelogs } = useContext(TimeLogContext);
@@ -39,15 +39,17 @@ const DropDown = ({
       items={options}
       itemStyle={{
         justifyContent: 'flex-start',
+        marginTop:normalize(-6),
+        marginBottom: normalize(-4)
       }}
       placeholder={type === 'week' ? week : group}
       controller={(instance) => (controller.current = instance)}
-      style={[styles.default, style, { width: type === 'week' ? 110 : 90 }]}
+      style={[styles.default, style, { width: type === 'week' ? 110 : 90 , borderColor:colors.primary}]}
       showArrow={true}
       arrowColor={arrowColor}
       arrowSize={16}
       labelStyle={[styles.labelStyle, labelStyle]}
-      dropDownStyle={{ backgroundColor: '#fff', zIndex: 100 }}
+      dropDownStyle={{ backgroundColor: '#fff', zIndex: 100 , borderColor:arrowColor}}
       onChangeItem={(item) => {
         type === 'week' ? onChangeWeek(item.value) : onChange(item.value);
       }}
@@ -59,22 +61,19 @@ export { DropDown };
 
 const styles = StyleSheet.create({
   default: {
-    borderRadius: normalize(8),
+    borderRadius: normalize(5),
     borderWidth: 0,
     paddingVertical: normalize(-1),
+    borderColor: colors.primary,
     backgroundColor: colors.buttonGrey,
     paddingHorizontal: normalize(5),
-    borderTopLeftRadius: normalize(1),
-    borderTopRightRadius: normalize(1),
-    borderBottomLeftRadius: normalize(1),
-    borderBottomRightRadius: normalize(1),
     ...(Platform.OS !== 'android' && {
       zIndex: 100,
     }),
     height: normalize(30),
   },
   labelStyle: {
-    color: colors.fontGrey,
+    color: colors.primary,
     fontSize: normalize(14),
     fontFamily: fonts.mulishBold,
   },
