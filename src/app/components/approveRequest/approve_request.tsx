@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Text, View, Image } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { Text, View, Image, ScrollView } from 'react-native';
+// import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import State from '../leave_screen/state';
 import { getResponses } from '../../services';
@@ -85,15 +85,15 @@ const Request = ({ data, style, title = null }: any) => {
             </View>
           </View>
           <View style={style.responseView}>
+            {loading && <ResponsePlaceHolder />}
             <ScrollView showsVerticalScrollIndicator={false}>
-              {loading && <ResponsePlaceHolder />}
               {responses.length > 0 &&
                 JSON.parse(data.lead).length !==
                 responses[0].pendingResponses.length && (
                   <>
                     <SmallHeader text="Responses" />
-                    {responses[0].responses.map((item, i) => (
-                      <>
+                    {responses[0].responses.map((item: any, i: number) => (
+                      <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
                           <View style={style.imageView}>
                             <Image
@@ -122,7 +122,7 @@ const Request = ({ data, style, title = null }: any) => {
                           <Text style={style.leadText}>{item.note}</Text>
                         </View>
                         <View style={style.spacer} />
-                      </>
+                      </Fragment>
                     ))}
                   </>
                 )}
@@ -135,7 +135,7 @@ const Request = ({ data, style, title = null }: any) => {
                           <>
                             <SmallHeader text="Pending Responses" />
                             {responses[0].pendingResponses.map((item, i) => (
-                              <>
+                              <Fragment key={i}>
                                 <View style={style.main} key={i.toString()}>
                                   <View style={style.imageView}>
                                     <Image
@@ -162,7 +162,7 @@ const Request = ({ data, style, title = null }: any) => {
                                   </View>
                                 </View>
                                 <View style={style.spacer} />
-                              </>
+                              </Fragment>
                             ))}
                           </>
                         )}

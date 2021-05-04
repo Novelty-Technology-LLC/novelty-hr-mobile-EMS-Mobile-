@@ -10,16 +10,14 @@ const State = ({ state, children }: { state: string; children?: any }) => {
     <View style={style.row}>
       {state === 'Approved' && (
         <>
-          <AppIcon name="check-circle" size={16} color={colors.green} />
-          <View style={style.space}></View>
-          <Text style={style.state}>{state}</Text>
+          <AppIcon name="check-circle" size={16} color={colors.greenButton} />
+          <Text style={style.state}> {state}</Text>
         </>
       )}
       {state === 'Cancelled' && (
         <>
           <AppIcon name="close-circle" size={16} color={colors.buttonRed} />
-          <View style={style.space}></View>
-          <Text style={style.state}>{state}</Text>
+          <Text style={style.state}> {state}</Text>
         </>
       )}
       {state === 'Denied' && (
@@ -29,8 +27,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
             size={normalize(18)}
             color={colors.buttonRed}
           />
-          <View style={style.space}></View>
-          <Text style={style.denyStat}>{state}</Text>
+          <Text style={style.denyStat}> {state}</Text>
         </>
       )}
       {state === 'Pending' && (
@@ -44,8 +41,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
                   color={colors.white}
                 />
               </View>
-              <View style={style.space}></View>
-              <Text style={style.state}>{state}</Text>
+              <Text style={style.state}> {state}</Text>
             </View>
           </View>
         </>
@@ -61,8 +57,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
                   color={colors.white}
                 />
               </View>
-              <View style={style.space}></View>
-              <Text style={style.state}>{state}</Text>
+              <Text style={style.state}> {state}</Text>
             </View>
           </View>
         </>
@@ -80,8 +75,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
                   color={colors.requested}
                 />
               </View>
-              <View style={style.space}></View>
-              <Text style={style.state}>{state}</Text>
+              <Text style={style.state}> {state}</Text>
             </View>
             <Text style={style.text}>on {children} </Text>
           </View>

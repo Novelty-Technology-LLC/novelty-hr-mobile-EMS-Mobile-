@@ -32,7 +32,7 @@ const HistoryToggle = ({
       >
         <AppIcon
           name={toggle}
-          color={toggle === 'toggle-switch' ? colors.primary : colors.secondary}
+          color={toggle === 'toggle-switch' ? colors.greenButton : colors.secondary}
           size={40}
         />
       </TouchableWithoutFeedback>

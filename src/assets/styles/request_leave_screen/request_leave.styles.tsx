@@ -52,7 +52,7 @@ const requestLeave = StyleSheet.create({
     fontFamily: fonts.mulishBold,
     paddingVertical: normalize(13),
     color: color.white,
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.normal),
   },
 });
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import colors from '../../../assets/colors';
+import { fonts, theme } from '../../../assets/styles';
 import { DropDown } from '../../common';
 import normalize from '../../utils/normalize';
 
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   text: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: normalize(theme.size.normal),
+    fontFamily: fonts.PoppinsSemibold,
   },
 });
