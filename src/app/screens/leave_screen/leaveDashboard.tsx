@@ -105,7 +105,6 @@ const LeaveDashboard = () => {
                 total={daysDetail.leave_total}
                 remaining={daysDetail.leave_used}
                 title={daysDetail.leave_type}
-              // timelog
               />
             ))}
         </View>
