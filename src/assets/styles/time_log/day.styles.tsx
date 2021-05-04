@@ -18,7 +18,7 @@ const dayStyle = StyleSheet.create({
     marginHorizontal: normalize(5),
     ...Platform.select({
       android: { padding: normalize(10), borderRadius: normalize(5) },
-      ios: { padding: normalize(5), borderRadius: normalize(3) }
+      ios: { padding: normalize(9), borderRadius: normalize(3) }
     })
   },
   selectView: {

@@ -20,6 +20,7 @@ import { TimeLog } from './timelog';
 import { RequestButton } from '../requestButton';
 import { dateRange, todayDate } from '../../utils/dateFilter';
 import Week from './week';
+import normalize from 'react-native-normalize';
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -174,7 +175,7 @@ const TimeLogs = () => {
           />
         ) : (
           !activeLoading && (
-            <EmptyContainer text="You don't have logs this day." />
+            <EmptyContainer text="You don't have logs this day." containerStyle={{'marginTop':normalize(6)}} />
           )
         )}
         <Week loading={loading} refreshing={refreshing} title={'History'} />
