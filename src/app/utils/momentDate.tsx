@@ -79,16 +79,17 @@ export const checkAndReplace = (
     });
   }
   if (Object.keys(timelogs.historyDate).length !== 0) {
-    checkRepeat(
-      {
-        startDate: timelogs.historyDate.start,
-        endDate: timelogs.historyDate.end,
-      },
-      JSON.stringify({
-        startDate: data.log_date,
-        endDate: data.log_date,
-      })
-    ) &&
+    timelogs.past.length > 0 &&
+      checkRepeat(
+        {
+          startDate: timelogs.historyDate.start,
+          endDate: timelogs.historyDate.end,
+        },
+        JSON.stringify({
+          startDate: data.log_date,
+          endDate: data.log_date,
+        })
+      ) &&
       dispatchTimeLog({
         type: 'EDIT',
         payload: {
