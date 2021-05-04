@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
-import { fonts } from '../theme';
+import { fonts, theme } from '../theme';
 
 const listStyle = StyleSheet.create({
   header: {
     fontFamily: fonts.PoppinsSemibold,
     textTransform: 'uppercase',
     marginBottom: normalize(10),
-    fontSize: normalize(14),
+    fontSize: normalize(theme.size.normal),
   },
   container: {
     backgroundColor: colors.lightbrown,

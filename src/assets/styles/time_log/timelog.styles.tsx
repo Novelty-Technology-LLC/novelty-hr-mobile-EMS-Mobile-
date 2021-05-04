@@ -30,10 +30,10 @@ const timeLogStyle = StyleSheet.create({
     borderTopWidth: normalize(3),
   },
   date: {
-    width: '75%',
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.sm),
     color: colors.black,
     fontFamily: fonts.mulishBold,
+    textTransform: 'capitalize'
   },
   rldate: {
     fontFamily: fonts.poppinsMedium,
@@ -42,7 +42,7 @@ const timeLogStyle = StyleSheet.create({
   },
   type: {
     color: colors.fontGrey,
-    fontSize: normalize(theme.size.sm),
+    fontSize: normalize(theme.size.xs),
     fontFamily: fonts.poppinsMedium,
     marginTop: normalize(7),
   },
@@ -59,7 +59,7 @@ const timeLogStyle = StyleSheet.create({
     marginTop: normalize(7),
   },
   duration: {
-    fontSize: normalize(theme.size.md),
+    fontSize: normalize(theme.size.sm),
     color: colors.primary,
     fontFamily: fonts.mulishBold,
   },

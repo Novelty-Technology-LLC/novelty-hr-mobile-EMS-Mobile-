@@ -225,6 +225,7 @@ const DashBoard = () => {
       </Header>
       <ScrollView
         style={ds.body}
+        showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }

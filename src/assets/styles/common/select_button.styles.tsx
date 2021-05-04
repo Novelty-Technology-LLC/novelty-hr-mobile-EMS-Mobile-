@@ -39,12 +39,12 @@ const selectButtonStyle = StyleSheet.create({
   },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.sm),
     color: colors.fontOrange,
   },
   buttonTextFloat: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.sm),
     color: colors.fontGrey,
   },
   buttonPaid: {

@@ -1,5 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
+import { fonts, theme } from '..';
 import colors from '../../colors';
 
 const dashboardStyle = StyleSheet.create({
@@ -22,8 +23,8 @@ const dashboardStyle = StyleSheet.create({
   },
   name: {
     color: colors.black,
-    fontSize: normalize(20),
-    fontWeight: 'bold',
+    fontSize: normalize(theme.size.normal),
+    fontFamily: fonts.PoppinsSemibold,
   },
   header: {
     flexDirection: 'row',

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../assets/colors';
-import { fonts } from '../../assets/styles';
+import { fonts, theme } from '../../assets/styles';
 import { TimeLogContext } from '../reducer';
 import { pastWeek, thisWeek } from '../utils/dateFilter';
 import normalize from '../utils/normalize';
@@ -39,17 +39,17 @@ const DropDown = ({
       items={options}
       itemStyle={{
         justifyContent: 'flex-start',
-        marginTop:normalize(-6),
+        marginTop: normalize(-6),
         marginBottom: normalize(-4)
       }}
       placeholder={type === 'week' ? week : group}
       controller={(instance) => (controller.current = instance)}
-      style={[styles.default, style, { width: type === 'week' ? 110 : 90 , borderColor:colors.primary}]}
+      style={[styles.default, style, { width: type === 'week' ? 110 : 90, borderColor: colors.primary }]}
       showArrow={true}
       arrowColor={arrowColor}
-      arrowSize={16}
+      arrowSize={normalize(16)}
       labelStyle={[styles.labelStyle, labelStyle]}
-      dropDownStyle={{ backgroundColor: '#fff', zIndex: 100 , borderColor:arrowColor}}
+      dropDownStyle={{ backgroundColor: '#fff', zIndex: 100, borderColor: arrowColor }}
       onChangeItem={(item) => {
         type === 'week' ? onChangeWeek(item.value) : onChange(item.value);
       }}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: colors.primary,
-    fontSize: normalize(14),
+    fontSize: normalize(theme.size.sm),
     fontFamily: fonts.mulishBold,
   },
 });

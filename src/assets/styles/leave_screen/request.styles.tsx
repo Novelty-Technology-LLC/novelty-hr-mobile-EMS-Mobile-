@@ -44,7 +44,7 @@ const requestStyle = StyleSheet.create({
     marginTop: normalize(3),
   },
   date: {
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.sm),
     color: colors.black,
     fontFamily: fonts.mulishBold,
   },

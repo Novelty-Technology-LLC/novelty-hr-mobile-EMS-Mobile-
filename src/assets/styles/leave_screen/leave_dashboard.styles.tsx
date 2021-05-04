@@ -7,6 +7,7 @@ const leaveDashboardStyle = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: normalize(15),
     flex: 1,
+    paddingTop: normalize(10)
   },
   plus: {
     padding: normalize(10),
