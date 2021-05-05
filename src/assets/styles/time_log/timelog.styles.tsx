@@ -12,7 +12,7 @@ const timeLogStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.snow,
-    paddingRight: normalize(10),
+    paddingHorizontal: normalize(10),
     borderRadius: 2,
     marginBottom: normalize(5),
   },
@@ -21,7 +21,6 @@ const timeLogStyle = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingHorizontal: normalize(15),
   },
   total: {
     flexDirection: 'row',
@@ -44,14 +43,12 @@ const timeLogStyle = StyleSheet.create({
   type: {
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
-    fontFamily: fonts.poppinsMedium,
-    marginTop: normalize(7),
+    fontFamily: fonts.poppinsMedium
   },
   cdate: {
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
-    fontFamily: fonts.poppinsMedium,
-    marginTop: normalize(7),
+    fontFamily: fonts.poppinsMedium
   },
   rdate: {
     color: colors.fontGrey,

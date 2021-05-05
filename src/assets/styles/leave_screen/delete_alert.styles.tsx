@@ -68,6 +68,7 @@ const deleteAlertStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: normalize(8),
+    marginHorizontal: normalize(2),
     borderRadius: normalize(50),
   },
   error: { marginHorizontal: normalize(20), color: 'red' },
