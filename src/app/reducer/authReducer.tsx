@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { navigate } from '../utils/navigation';
 
 const AuthReducer = (prevState, action) => {
   switch (action.type) {
@@ -21,6 +22,7 @@ const AuthReducer = (prevState, action) => {
       };
 
     case 'SIGN_IN':
+      navigate('Dashboard');
       return {
         ...prevState,
         isSignout: false,
