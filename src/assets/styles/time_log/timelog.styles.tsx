@@ -14,7 +14,7 @@ const timeLogStyle = StyleSheet.create({
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
     borderRadius: 2,
-    marginVertical: 7,
+    marginBottom: normalize(5),
   },
   dateView: {
     flex: 1,
@@ -39,6 +39,7 @@ const timeLogStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
+    alignSelf: 'flex-start'
   },
   type: {
     color: colors.fontGrey,
