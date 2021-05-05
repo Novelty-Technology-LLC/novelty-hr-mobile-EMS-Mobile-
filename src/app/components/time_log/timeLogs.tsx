@@ -157,6 +157,7 @@ const TimeLogs = () => {
         ) : timelogs.present[0] ? (
           <FlatList
             data={timelogs.present}
+            style={{ marginTop: normalize(5) }}
             renderItem={(item) => (
               <Swipeable
                 ref={(ref) => (row[item.index] = ref)}
@@ -175,7 +176,7 @@ const TimeLogs = () => {
           />
         ) : (
           !activeLoading && (
-            <EmptyContainer text="You don't have logs this day." containerStyle={{'marginTop':normalize(6)}} />
+            <EmptyContainer text="You don't have logs this day." containerStyle={{ 'marginTop': normalize(6) }} />
           )
         )}
         <Week loading={loading} refreshing={refreshing} title={'History'} />

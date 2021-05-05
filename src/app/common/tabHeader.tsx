@@ -8,9 +8,9 @@ import { AuthContext } from "../reducer";
 import { signOutGoogle, logOutUser } from "../services";
 import { ConfirmDialog } from "react-native-simple-dialogs";
 import DeviceInfo from "react-native-device-info";
-import { navigate } from "../utils/navigation";
+import { CommonActions } from "@react-navigation/native";
 
-const tabHeader = ({ onPress = null, icon = false, children }: any) => {
+const tabHeader = ({ onPress = null, icon = false, children, navigation }: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
@@ -21,7 +21,13 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
   const onLogout = async () => {
     const user_id = await getUser();
     logOutUser({ device_id, user_id: JSON.parse(user_id).id }).then((data) => {
-      navigate("login");
+      // Reset stack navigation while logging out
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'login' }]
+        })
+      );
       dispatch({ type: "SIGN_OUT" });
       signOutGoogle();
       removeUser();

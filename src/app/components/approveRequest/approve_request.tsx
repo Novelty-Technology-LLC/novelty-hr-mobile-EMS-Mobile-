@@ -118,7 +118,7 @@ const Request = ({ data, style, title = null }: any) => {
                               </View>
                             </View>
                           </View>
-                          <Text style={style.leadText}>{item.note}</Text>
+                          {item.note ? <Text style={style.leadText}>{item.note}</Text> : <></>}
                         </View>
                         <View style={style.spacer} />
                       </Fragment>

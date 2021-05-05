@@ -10,7 +10,6 @@ import { ProjectPlaceHolder } from '../loader';
 import colors from '../../../assets/colors';
 import { AppIcon, SelectButton, SmallHeader } from '../../common';
 import { getUser } from '../../utils';
-import normalize from 'react-native-normalize';
 
 const Projects = ({
   handleChange,
@@ -28,28 +27,29 @@ const Projects = ({
   const [showmore, setShowmore] = useState('chevron-down-circle');
   const [allprojects, setAllprojects] = useState([]);
   const [type, setType] = useState(0);
+
   const getPojects = async () => {
-    const user = await getUser();
+    const user: any = await getUser();
     setLoading(true);
     getAllProjects(JSON.parse(user).id)
-      .then((data) => {
+      .then((data: any) => {
         setLoading(false);
 
         if (defaultValue) {
           const selectedProject = data.filter(
-            (project) => project.id === defaultValue
+            (project: any) => project.id === defaultValue
           );
           const unselectedProject = data.filter(
-            (project) => project.id !== defaultValue
+            (project: any) => project.id !== defaultValue
           );
           setProjects(
             selectedProject.concat(
-              unselectedProject.filter((item, id) => id < 2)
+              [...unselectedProject].splice(0, 2)
             )
           );
           setAllprojects(selectedProject.concat(unselectedProject));
         } else {
-          setProjects(data.filter((item, id) => id < 3));
+          setProjects([...data].splice(0, 3));
           setAllprojects(data);
         }
         setType(defaultValue ? defaultValue : data[0].id);
@@ -66,7 +66,14 @@ const Projects = ({
 
   useEffect(() => {
     if (showmore === 'chevron-down-circle') {
-      setProjects(allprojects.filter((item, id) => id < 3));
+      if (allprojects.length) {
+        let projects = [...allprojects].splice(0, 3);
+        const selectedProject = allprojects?.find((x: any) => x.id === type);
+        if (!projects.find((x: any) => x.id === type) && selectedProject) {
+          projects.unshift(selectedProject);
+        }
+        setProjects(projects.splice(0, 3));
+      }
     } else {
       setProjects(allprojects);
     }
@@ -110,7 +117,7 @@ const Projects = ({
           {loading && <ProjectPlaceHolder />}
           <View style={style.body}>
             {projects &&
-              projects.map((project, index) => (
+              projects.map((project: any, index: number) => (
                 <>
                   <TouchableOpacity
                     key={index}

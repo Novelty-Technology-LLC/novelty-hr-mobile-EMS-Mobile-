@@ -27,13 +27,14 @@ const approveRequest = StyleSheet.create({
   scrollView: { flex: 1 },
   requestView: {
     flexDirection: 'column',
+    paddingTop: normalize(5)
   },
   main: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
+    paddingVertical: normalize(5)
   },
   imageView: {
-    paddingVertical: normalize(10),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -98,7 +99,6 @@ const approveRequest = StyleSheet.create({
     alignItems: 'flex-start',
   },
   sectionHeader: {
-    paddingTop: normalize(15),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -110,14 +110,14 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   sectionBody: {
-    paddingTop: normalize(10),
     paddingLeft: normalize(10),
     overflow: 'hidden',
   },
   note: {
     fontFamily: fonts.mulishRegular,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.sm),
     lineHeight: normalize(theme.size.lg),
+    paddingTop: normalize(5)
   },
   responseView: {
     flex: 0.9,
@@ -153,6 +153,7 @@ const approveRequest = StyleSheet.create({
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
     textTransform: 'capitalize',
+    paddingTop: normalize(7)
   },
   text: {
     fontFamily: fonts.mulishRegular,

@@ -16,10 +16,7 @@ const ApproveRequest = ({ route }: any) => {
       <Header icon={true}>
         <View style={style.headContainer}>
           <View>
-            <Text style={headerTxtStyle.headerText}>{name},</Text>
-          </View>
-          <View style={style.headerGap}>
-            <Text style={style.headerDate}>{dayRange}</Text>
+            <Text style={headerTxtStyle.headerText}>{name}</Text>
           </View>
         </View>
       </Header>

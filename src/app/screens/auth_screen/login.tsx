@@ -60,7 +60,7 @@ const Login = () => {
       return navigation.navigate('loading');
     } else {
       if (state?.user !== null) {
-        return navigation.navigate('BottomTabs');
+        return navigation.navigate('BottomTabs', { screen: 'Dashboard' });
       } else if (state?.isInvalid) {
         signOutGoogle();
         return navigation.navigate('invalid');

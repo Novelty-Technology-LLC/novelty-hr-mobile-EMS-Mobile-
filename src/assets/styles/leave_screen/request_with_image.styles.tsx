@@ -6,13 +6,14 @@ const requestWithImageStyle = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginLeft: normalize(10),
+    flex: 1
   },
   image: {
     width: normalize(37),
     height: normalize(37),
     borderRadius: normalize(25),
     marginRight: normalize(10),
+    marginTop: normalize(5)
   },
   gap: {
     paddingRight: normalize(0),
@@ -24,14 +25,6 @@ const requestWithImageStyle = StyleSheet.create({
     textTransform: 'capitalize',
   },
   date: {
-    ...Platform.select({
-      android: {
-        marginTop: normalize(10),
-      },
-      ios: {
-        marginTop: normalize(10),
-      },
-    }),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
