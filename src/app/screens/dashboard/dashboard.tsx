@@ -80,7 +80,7 @@ const DashBoard = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
   const [logTime, setLogTime] = useState(thisWeek());
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
 
   const [totalTimeLog, setTotalTimeLog] = useState({
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
@@ -140,6 +140,7 @@ const DashBoard = () => {
   useEffect(() => {
     (async () => {
       try {
+        setLogTime(thisWeek());
         setCardLoading(true);
         const data: any = await getDashboard();
         setListData(data);
@@ -156,6 +157,7 @@ const DashBoard = () => {
       if (state?.user?.id) {
         try {
           setLoader(true);
+
           const response: any = await getRequest('/dashboard/timelog', {
             ...logTime,
             user_id: state.user.id,
