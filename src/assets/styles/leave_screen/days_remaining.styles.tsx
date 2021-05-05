@@ -14,41 +14,34 @@ const daysRemainingStyle = StyleSheet.create({
     width: '50%',
     alignItems: 'center',
     paddingBottom: normalize(5),
+    paddingTop: normalize(10)
   },
   remaining: {
     fontWeight: '300',
-    fontSize: normalize(theme.size.xxl),
+    fontSize: normalize(35),
     fontFamily: fonts.mulishRegular,
+    marginBottom: 0
   },
   total: {
     fontWeight: '100',
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(20),
     fontFamily: fonts.mulishRegular,
-  },
-  gap: {
-    ...Platform.select({
-      android: {
-        paddingHorizontal: normalize(4),
-      },
-      ios: {
-        paddingHorizontal: normalize(2),
-      },
-    }),
   },
   text: {
     fontSize: normalize(theme.size.xl),
     color: color.primary,
+    paddingBottom: 0,
   },
   title: {
-    fontSize: normalize(theme.size.sm),
     color: colors.black,
-    fontFamily: fonts.PoppinsSemibold,
+    fontFamily: fonts.mulishBold,
     textTransform: 'capitalize',
   },
   footer: {
     fontSize: normalize(theme.size.xs),
     color: color.fontGrey,
-    fontFamily: fonts.poppinsRegular,
+    fontFamily: fonts.mulishRegular,
+    textTransform: 'capitalize',
   },
 });
 

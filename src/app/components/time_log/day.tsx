@@ -28,7 +28,7 @@ const Day = ({
         <View style={style.gap}>
           <AppIcon
             name="calendar"
-            size={25}
+            size={18}
             color={!select ? style.selectText.color : style.unselectText.color}
           />
         </View>

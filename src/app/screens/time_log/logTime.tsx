@@ -104,7 +104,7 @@ const LogTime = ({ route }: any) => {
               type: 'CHANGE',
               payload: {
                 present: data[0],
-                past: data[1] ? data[1] : timelogs.past,
+                past: timelogs.past.length > 0 ? data[1] ?? timelogs.past : [],
               },
             });
             navigation.navigate('timelog');

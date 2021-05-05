@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../assets/colors';
-import { fonts } from '../../assets/styles';
+import { fonts, theme } from '../../assets/styles';
 import { TimeLogContext } from '../reducer';
 import { pastWeek, thisWeek } from '../utils/dateFilter';
 import normalize from '../utils/normalize';
@@ -50,7 +50,7 @@ const DropDown = ({
       ]}
       showArrow={true}
       arrowColor={arrowColor}
-      arrowSize={16}
+      arrowSize={normalize(16)}
       labelStyle={[styles.labelStyle, labelStyle]}
       dropDownStyle={{
         backgroundColor: '#fff',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: colors.primary,
-    fontSize: normalize(14),
+    fontSize: normalize(theme.size.sm),
     fontFamily: fonts.mulishBold,
   },
 });

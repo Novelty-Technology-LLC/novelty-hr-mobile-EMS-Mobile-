@@ -10,7 +10,7 @@ const selectButtonStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: normalize(10),
-    backgroundColor: colors.buttonOrange,
+    backgroundColor: colors.primary,
     borderRadius: normalize(3),
     ...Platform.select({
       ios: {
@@ -39,12 +39,12 @@ const selectButtonStyle = StyleSheet.create({
   },
   buttonTextPaid: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
-    color: colors.fontOrange,
+    fontSize: normalize(theme.size.sm),
+    color: colors.white,
   },
   buttonTextFloat: {
     fontFamily: fonts.mulishBold,
-    fontSize: normalize(theme.size.normal),
+    fontSize: normalize(theme.size.sm),
     color: colors.fontGrey,
   },
   buttonPaid: {
