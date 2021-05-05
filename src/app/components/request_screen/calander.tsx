@@ -27,7 +27,7 @@ const CalendarComponent = ({
   modal,
   olddata_id,
 }: calenderPropType) => {
-  const [range, setrange] = useState(
+  const [range, setrange] = useState<any>(
     defaultValue
       ? {
           endDate: new Date(defaultValue.endDate),
@@ -131,13 +131,7 @@ const CalendarComponent = ({
         </View>
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>
-            Total :{' '}
-            {dateStringMapper(
-              new Date(range.startDate).toString().substring(0, 15),
-              range.endDate
-                ? new Date(range.endDate).toString().substring(0, 15)
-                : new Date(range.startDate).toString().substring(0, 15)
-            )}
+            Total : {dateStringMapper(range.startDate, range.endDate)}
           </Text>
         )}
       </View>

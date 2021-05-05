@@ -160,7 +160,7 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   buttonView: {
-    flex: 0.1,
+    flex: 0.12,
     backgroundColor: colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
