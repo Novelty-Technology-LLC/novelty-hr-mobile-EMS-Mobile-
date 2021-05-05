@@ -12,7 +12,7 @@ const requestStyle = StyleSheet.create({
     backgroundColor: colors.snow,
     paddingRight: normalize(10),
     borderRadius: 2,
-    marginVertical: 7,
+    marginTop: normalize(10),
   },
   main: {
     flexDirection: 'column',
@@ -56,9 +56,9 @@ const requestStyle = StyleSheet.create({
   },
   type: {
     color: colors.fontGrey,
-    fontSize: normalize(theme.size.xs),
+    fontSize: normalize(11),
     fontFamily: fonts.poppinsMedium,
-    marginTop: normalize(7),
+    marginTop: normalize(0),
   },
   pastState: {
     marginTop: normalize(2.5),

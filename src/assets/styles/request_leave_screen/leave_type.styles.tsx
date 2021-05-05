@@ -52,7 +52,7 @@ const leaveType = StyleSheet.create({
         width: '32%',
       },
     }),
-    marginBottom: normalize(10),
+    marginBottom: normalize(5),
   },
 
   spacer: {
