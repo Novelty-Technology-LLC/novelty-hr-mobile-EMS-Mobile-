@@ -26,13 +26,14 @@ const timeLogStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderTopWidth: normalize(3),
+    borderTopWidth: normalize(1),
+    borderTopColor: colors.lightGrey,
+    paddingTop: normalize(5)
   },
   date: {
-    fontSize: normalize(theme.size.sm),
+    fontSize: normalize(13),
     color: colors.black,
     fontFamily: fonts.mulishBold,
-    textTransform: 'capitalize'
   },
   rldate: {
     fontFamily: fonts.poppinsMedium,
@@ -61,8 +62,9 @@ const timeLogStyle = StyleSheet.create({
     color: colors.primary,
     fontFamily: fonts.mulishBold,
   },
+  greenText: { color: colors.greenButton },
   gap: {
-    marginRight: normalize(10),
+    paddingHorizontal: normalize(10),
   },
   text: {
     fontFamily: fonts.mulishRegular,
@@ -104,6 +106,13 @@ const timeLogStyle = StyleSheet.create({
       },
     }),
   },
+  dateText: {
+    marginBottom: 0,
+    fontSize: normalize(theme.size.xs),
+    width: '100%',
+    textAlign: 'right',
+    paddingHorizontal: normalize(5)
+  }
 });
 
 export { timeLogStyle };

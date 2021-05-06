@@ -6,12 +6,14 @@ import {
   requestLeave,
   historyStyle,
   headerTxtStyle,
+  theme
 } from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { momentdate } from '../../utils';
 import { Tasks } from '../../components/time_log';
 import TaskContext from '../../components/time_log/taskContext';
 import { RequestButton } from '../../components/requestButton';
+import normalize from 'react-native-normalize';
 
 const LogListings = ({ route }: any) => {
   let olddata = route.params;
@@ -20,7 +22,7 @@ const LogListings = ({ route }: any) => {
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>
+        <Text style={[headerTxtStyle.headerText, { marginLeft: normalize(20) }]}>
           {olddata[0] ?? 'Log Time'}
         </Text>
       </Header>
@@ -38,7 +40,7 @@ const LogListings = ({ route }: any) => {
                     {olddata[0] ?? olddata.project.name}
                   </Text>
                 </Text>
-                <Text style={style.text}>
+                <Text style={[style.text, { fontSize: normalize(theme.size.xs), color: colors.fontGrey }]}>
                   {momentdate(olddata.log_date, 'll')}
                 </Text>
               </View>
