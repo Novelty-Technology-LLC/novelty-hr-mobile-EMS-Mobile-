@@ -8,8 +8,8 @@ const Task = ({ item }: any) => {
     <View style={timeLogStyle.container}>
       <View style={timeLogStyle.dateView}>
         <View style={timeLogStyle.rowAlign}>
-          <Text style={timeLogStyle.date}>{item.task}</Text>
-          <Text style={timeLogStyle.duration}>{getHrs(item.time)}</Text>
+          <Text style={[timeLogStyle.date, { flex: 4 }]}>{item.task}</Text>
+          <Text style={[timeLogStyle.duration, { flex: 1, textAlign: 'right' }]}>{getHrs(item.time)}</Text>
         </View>
       </View>
     </View>
