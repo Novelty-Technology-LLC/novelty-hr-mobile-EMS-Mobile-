@@ -9,7 +9,7 @@ const transformTitle = (title: string) => {
 
 const checkToday = (startDate: Date, endDate: Date) => {
   let todaydate = new Date().toDateString();
-  if (new Date().getDay() < 2) return false;
+  if (new Date().getDay() === 0 || new Date().getDay() === 6) return false;
   return checkRepeat(
     { startDate: todaydate, endDate: todaydate },
     JSON.stringify({ startDate, endDate })
