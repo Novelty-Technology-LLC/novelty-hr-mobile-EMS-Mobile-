@@ -25,7 +25,8 @@ const optionsPicker = {
   },
 };
 
-const Profile = () => {
+const Profile = ({ navigation }: any) => {
+
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
@@ -35,7 +36,7 @@ const Profile = () => {
       .then(() => {
         console.log('removed all tmp images from tmp directory');
       })
-      .catch((e) => {});
+      .catch((e) => { });
 
   const updateProfileImage = (image: any, data?: any) => {
     setimage(image);
@@ -56,7 +57,7 @@ const Profile = () => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-      
+
         ImageCropper.openCropper({
           path: response.uri,
           width: 300,
@@ -101,7 +102,7 @@ const Profile = () => {
 
   return state?.user ? (
     <View style={style.container}>
-      <Header icon={true}>
+      <Header icon={true} navigation={navigation}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
       <ScrollView style={style.container} showsVerticalScrollIndicator={false}>

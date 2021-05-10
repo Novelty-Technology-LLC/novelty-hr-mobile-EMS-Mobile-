@@ -15,7 +15,6 @@ const DropDown = ({
   group,
   style,
   labelStyle,
-
   arrowColor = colors.primary,
 }: any) => {
   const controller = useRef(null);
@@ -40,16 +39,24 @@ const DropDown = ({
       itemStyle={{
         justifyContent: 'flex-start',
         marginTop: normalize(-6),
-        marginBottom: normalize(-4)
+        marginBottom: normalize(-4),
       }}
       placeholder={type === 'week' ? week : group}
       controller={(instance) => (controller.current = instance)}
-      style={[styles.default, style, { width: type === 'week' ? 110 : 90, borderColor: colors.primary }]}
+      style={[
+        styles.default,
+        style,
+        { width: type === 'week' ? 110 : 90, borderColor: colors.primary },
+      ]}
       showArrow={true}
       arrowColor={arrowColor}
       arrowSize={normalize(16)}
       labelStyle={[styles.labelStyle, labelStyle]}
-      dropDownStyle={{ backgroundColor: '#fff', zIndex: 100, borderColor: arrowColor }}
+      dropDownStyle={{
+        backgroundColor: '#fff',
+        zIndex: 100,
+        borderColor: arrowColor,
+      }}
       onChangeItem={(item) => {
         type === 'week' ? onChangeWeek(item.value) : onChange(item.value);
       }}

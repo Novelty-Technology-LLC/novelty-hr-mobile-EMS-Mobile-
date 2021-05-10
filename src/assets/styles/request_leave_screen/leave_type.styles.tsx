@@ -14,13 +14,12 @@ const leaveType = StyleSheet.create({
   },
   padNone: {
     marginBottom: normalize(0),
-    // marginHorizontal: normalize(15),
     paddingTop: normalize(10),
   },
   text: {
     fontFamily: fonts.poppinsMedium,
-    fontSize: normalize(theme.size.md),
-    marginBottom: normalize(15),
+    fontSize: normalize(theme.size.sm),
+    marginVertical: normalize(10),
   },
   body: {
     width: '100%',
@@ -52,7 +51,7 @@ const leaveType = StyleSheet.create({
         width: '32%',
       },
     }),
-    marginBottom: normalize(10),
+    marginBottom: normalize(5),
   },
 
   spacer: {

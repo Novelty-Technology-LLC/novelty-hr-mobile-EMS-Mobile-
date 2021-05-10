@@ -9,7 +9,7 @@ import { momentdate } from '../../utils/momentDate';
 import colors from '../../../assets/colors';
 import { RequestContext } from '../../reducer';
 interface calenderPropType {
-  style?: object;
+  style?: any;
   handleChange: Function;
   defaultValue?: object;
   error?: any;
@@ -30,9 +30,9 @@ const CalendarComponent = ({
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
-          endDate: new Date(defaultValue.endDate),
-          startDate: new Date(defaultValue.startDate),
-        }
+        endDate: new Date(defaultValue.endDate),
+        startDate: new Date(defaultValue.startDate),
+      }
       : ''
   );
   const [date, setDate] = useState(moment());
@@ -67,10 +67,10 @@ const CalendarComponent = ({
           req.state === 'Approved'
             ? (approved = true)
             : req.state === 'In Progress'
-            ? (inprogress = true)
-            : req.state === 'Pending'
-            ? (pending = true)
-            : {};
+              ? (inprogress = true)
+              : req.state === 'Pending'
+                ? (pending = true)
+                : {};
         }
       });
     }
@@ -83,10 +83,10 @@ const CalendarComponent = ({
           approved
             ? { backgroundColor: colors.green }
             : inprogress
-            ? { backgroundColor: colors.yellow }
-            : pending
-            ? { backgroundColor: colors.lightGrey }
-            : {},
+              ? { backgroundColor: colors.yellow }
+              : pending
+                ? { backgroundColor: colors.lightGrey }
+                : {},
         ]}
       >
         <Text
@@ -156,7 +156,7 @@ const CalendarComponent = ({
           filter={filter}
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
-          style={[style.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
+          style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
           name="date"
           label="date"
           renderDay={DayCell}

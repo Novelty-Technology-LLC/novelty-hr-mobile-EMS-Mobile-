@@ -4,9 +4,11 @@ import RootNavigation from './src/app/navigations';
 import { globalStyle as style } from './src/assets/styles';
 import messaging from '@react-native-firebase/messaging';
 import { SetLocalNotification } from './src/app/utils/pushNotification';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = (props: any) => {
   useEffect(() => {
+    SplashScreen.hide();
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       if (remoteMessage) {
         Platform.OS === 'ios' &&

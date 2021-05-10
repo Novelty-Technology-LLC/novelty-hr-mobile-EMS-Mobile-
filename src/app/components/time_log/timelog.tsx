@@ -31,7 +31,7 @@ const TimeLog = ({
     </TouchableOpacity>
   ) : (
     <TouchableOpacity onPress={() => navigation.navigate('loglistings', item)}>
-      <View style={style.container}>
+      <View style={[style.container]}>
         <View style={style.dateView}>
           <View style={style.rowAlign}>
             <Text style={style.date}>{item.project.name.toUpperCase()}</Text>

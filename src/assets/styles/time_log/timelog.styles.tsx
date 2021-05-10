@@ -12,45 +12,44 @@ const timeLogStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.snow,
-    paddingRight: normalize(10),
+    paddingHorizontal: normalize(10),
     borderRadius: 2,
-    marginVertical: 7,
+    marginBottom: normalize(5),
   },
   dateView: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingHorizontal: normalize(15),
   },
   total: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderTopWidth: normalize(3),
+    borderTopWidth: normalize(1),
+    borderTopColor: colors.lightGrey,
+    paddingTop: normalize(5)
   },
   date: {
-    fontSize: normalize(theme.size.sm),
+    fontSize: normalize(13),
     color: colors.black,
     fontFamily: fonts.mulishBold,
-    textTransform: 'capitalize'
   },
   rldate: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
+    alignSelf: 'flex-start'
   },
   type: {
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
-    fontFamily: fonts.poppinsMedium,
-    marginTop: normalize(7),
+    fontFamily: fonts.poppinsMedium
   },
   cdate: {
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
-    fontFamily: fonts.poppinsMedium,
-    marginTop: normalize(7),
+    fontFamily: fonts.poppinsMedium
   },
   rdate: {
     color: colors.fontGrey,
@@ -63,8 +62,9 @@ const timeLogStyle = StyleSheet.create({
     color: colors.primary,
     fontFamily: fonts.mulishBold,
   },
+  greenText: { color: colors.greenButton },
   gap: {
-    marginRight: normalize(10),
+    paddingHorizontal: normalize(10),
   },
   text: {
     fontFamily: fonts.mulishRegular,
@@ -106,6 +106,13 @@ const timeLogStyle = StyleSheet.create({
       },
     }),
   },
+  dateText: {
+    marginBottom: 0,
+    fontSize: normalize(theme.size.xs),
+    width: '100%',
+    textAlign: 'right',
+    paddingHorizontal: normalize(5)
+  }
 });
 
 export { timeLogStyle };

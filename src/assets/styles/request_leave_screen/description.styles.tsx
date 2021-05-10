@@ -15,7 +15,7 @@ const descriptionStyle = StyleSheet.create({
     marginTop: normalize(-5),
   },
   main: {
-    marginTop: normalize(20),
+    marginTop: normalize(5),
     paddingBottom: normalize(10),
     marginHorizontal: normalize(15),
   },
@@ -41,7 +41,7 @@ const descriptionStyle = StyleSheet.create({
   },
   text: {
     fontFamily: fonts.poppinsMedium,
-    fontSize: normalize(theme.size.md),
+    fontSize: normalize(theme.size.sm),
     marginTop: normalize(10),
   },
   textareaContainer: {
