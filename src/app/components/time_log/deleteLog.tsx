@@ -11,8 +11,9 @@ import { AppIcon, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { TimeLogContext } from '../../reducer';
 import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
-import { checkAndReplace, isThisWeek, totalHours } from '../../utils';
+import { checkAndReplace, totalHours } from '../../utils';
 import { navigate } from '../../utils/navigation';
+import Normalize from '../../utils/normalize';
 import TaskContext from './taskContext';
 
 const DeleteLog = ({
@@ -80,7 +81,7 @@ const DeleteLog = ({
         }}
         style={style.iconContainer}
       >
-        <AppIcon name="delete" color={colors.buttonRed} size={23} />
+        <AppIcon name="delete" color={colors.buttonRed} size={Normalize(16)} />
       </TouchableOpacity>
       <ConfirmDialog
         visible={showAlert}

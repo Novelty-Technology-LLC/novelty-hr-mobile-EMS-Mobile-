@@ -14,6 +14,7 @@ const emptyContainerStyle = StyleSheet.create({
   emptyText: {
     color: colors.secondary,
     fontFamily: fonts.mulishRegular,
+    textAlign: 'center',
   },
 });
 
