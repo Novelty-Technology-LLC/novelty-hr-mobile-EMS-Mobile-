@@ -75,7 +75,7 @@ const RootNavigation = () => {
           <Root.Screen
             name="BottomTabs"
             component={TabNavigator}
-            options={{ gestureEnabled: false }}
+            options={{ gestureEnabled: true }}
           />
         </Root.Navigator>
       </AuthContext.Provider>
