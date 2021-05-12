@@ -136,19 +136,21 @@ const CalendarComponent = ({
         )}
       </View>
       {modal ? (
-        <Calendar
-          style={timeLogStyle.modalCalender}
-          dateService={dateService}
-          max={moment('2021-12-31')}
-          min={moment('2020-01-01')}
-          date={date}
-          onSelect={(nextRange) => {
-            setDate(nextRange);
-            handleChange(nextRange);
-          }}
-          name="date"
-          label="date"
-        />
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Calendar
+            style={timeLogStyle.modalCalender}
+            dateService={dateService}
+            max={moment('2021-12-31')}
+            min={moment('2020-01-01')}
+            date={date}
+            onSelect={(nextRange) => {
+              setDate(nextRange);
+              handleChange(nextRange);
+            }}
+            name="date"
+            label="date"
+          />
+        </View>
       ) : (
         <RangeCalendar
           max={new Date(2021, 7)}
