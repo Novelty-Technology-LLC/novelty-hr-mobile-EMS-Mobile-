@@ -79,7 +79,7 @@ const Projects = ({
 
   return (
     <View style={style.container}>
-      <View style={[style.wrapper, defaultValue ? style.padNone : null]}>
+      <View style={[style.wrapper]}>
         <>
           <View style={style.moreContainer}>
             <SmallHeader text="Choose a Project" history={true} />

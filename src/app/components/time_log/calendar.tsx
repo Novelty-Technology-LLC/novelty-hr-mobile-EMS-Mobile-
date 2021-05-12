@@ -21,8 +21,8 @@ const Calendar = ({
 
   const startingDate = defaultValue
     ? moment(defaultValue ? defaultValue : null)
-        .startOf('week')
-        .format('YYYY-MM-DD')
+      .startOf('week')
+      .format('YYYY-MM-DD')
     : moment().startOf('week').format('YYYY-MM-DD');
 
   const [date, setDate] = useState(
@@ -62,9 +62,7 @@ const Calendar = ({
         dateNumberStyle={style.number}
         dateNameStyle={{ color: colors.black }}
         highlightDateNumberStyle={style.highlight}
-        highlightDateNameStyle={{
-          color: colors.black,
-        }}
+        highlightDateContainerStyle={style.highlightContainer}
         disabledDateNameStyle={{ color: 'grey' }}
         disabledDateNumberStyle={{ color: 'grey' }}
         iconContainer={{ display: 'none' }}
@@ -72,7 +70,7 @@ const Calendar = ({
         onDateSelected={(date) => {
           onDateSelect(date);
         }}
-        // datesBlacklist={datesBlacklistFunc}
+      // datesBlacklist={datesBlacklistFunc}
       />
     </View>
   );

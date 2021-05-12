@@ -26,6 +26,7 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import { checkAndReplace, momentdate } from '../../utils/momentDate';
+import moment from 'moment';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -77,7 +78,7 @@ const LogTime = ({ route }: any) => {
       .filter(
         (log) =>
           momentdate(log.log_date, 'll') ===
-            momentdate(values.log_date, 'll') &&
+          momentdate(values.log_date, 'll') &&
           log.project_id == values.project_id
       );
 
