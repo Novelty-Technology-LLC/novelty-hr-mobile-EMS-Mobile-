@@ -77,7 +77,7 @@ const LogTime = ({ route }: any) => {
       .filter(
         (log) =>
           momentdate(log.log_date, 'll') ===
-            momentdate(values.log_date, 'll') &&
+          momentdate(values.log_date, 'll') &&
           log.project_id == values.project_id
       );
 
