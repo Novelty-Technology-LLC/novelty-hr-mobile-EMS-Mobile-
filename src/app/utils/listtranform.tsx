@@ -117,14 +117,15 @@ export const time = () => {
   var today = new Date();
   var curHr = today.getHours();
 
-  if (curHr < 12) {
-    return 'Morning';
-  } else if (curHr < 18) {
-    return 'Afternoon';
-  } else if (curHr < 20) {
-    return 'Evening';
-  } else {
-    return 'Night';
+  switch (true) {
+    case curHr < 12:
+      return 'Morning';
+    case curHr < 17:
+      return 'Afternoon';
+    case curHr < 21:
+      return 'Evening';
+    default:
+      return 'Night';
   }
 };
 
