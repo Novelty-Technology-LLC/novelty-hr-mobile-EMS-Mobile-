@@ -9,7 +9,7 @@ const transformTitle = (title: string) => {
 
 const checkToday = (startDate: Date, endDate: Date) => {
   let todaydate = new Date().toDateString();
-  if (new Date().getDay() < 2) return false;
+  if (new Date().getDay() === 0 || new Date().getDay() === 6) return false;
   return checkRepeat(
     { startDate: todaydate, endDate: todaydate },
     JSON.stringify({ startDate, endDate })
@@ -117,14 +117,15 @@ export const time = () => {
   var today = new Date();
   var curHr = today.getHours();
 
-  if (curHr < 12) {
-    return 'Morning';
-  } else if (curHr < 18) {
-    return 'Afternoon';
-  } else if (curHr < 20) {
-    return 'Evening';
-  } else {
-    return 'Night';
+  switch (true) {
+    case curHr < 12:
+      return 'Morning';
+    case curHr < 17:
+      return 'Afternoon';
+    case curHr < 21:
+      return 'Evening';
+    default:
+      return 'Night';
   }
 };
 

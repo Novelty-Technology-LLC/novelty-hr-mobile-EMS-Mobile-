@@ -8,6 +8,7 @@ import { checkRequest } from '../../services';
 import { DeleteAlert } from './deleteAlert';
 import { DeleteLog } from '../time_log/deleteLog';
 import { navigate } from '../../utils/navigation';
+import Normalize from '../../utils/normalize';
 
 const Swipe = ({
   item,
@@ -74,7 +75,11 @@ const Swipe = ({
         }}
         style={deleteAlertStyle.iconContainer}
       >
-        <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
+        <AppIcon
+          name="square-edit-outline"
+          color={colors.primary}
+          size={Normalize(16)}
+        />
       </TouchableOpacity>
       <DeleteLog item={item} value={value} onPress={onPress} />
     </View>

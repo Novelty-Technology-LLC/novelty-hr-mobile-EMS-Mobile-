@@ -120,9 +120,10 @@ const Week = ({
                       week={week}
                       setWeek={setWeek}
                     />
-                    {weeksLogs.map((log:any) => (
+
+                    {weeksLogs.map((log: any) => (
                       <TimeLog
-                        key={log.id}
+                        key={log[1][0].id}
                         item={log}
                         thisweek={true}
                         groupby={groupby}
