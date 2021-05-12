@@ -26,7 +26,6 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { TimeLogContext } from '../../reducer';
 import { checkAndReplace, momentdate } from '../../utils/momentDate';
-import moment from 'moment';
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
