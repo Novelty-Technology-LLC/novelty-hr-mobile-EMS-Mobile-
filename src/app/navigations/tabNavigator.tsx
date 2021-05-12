@@ -32,10 +32,6 @@ const TabNavigator = () => {
           if (remoteMessage && Object.keys(remoteMessage.data).length) {
             dispatch({ type: 'Notification', payload: remoteMessage.data });
             Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
-          } else {
-            remoteMessage &&
-              !Object.keys(remoteMessage.data).length &&
-              Linking.openURL(`noveltyhrmobile://activity`);
           }
         });
     };
@@ -48,10 +44,6 @@ const TabNavigator = () => {
       if (remoteMessage && Object.keys(remoteMessage.data).length) {
         dispatch({ type: 'Notification', payload: remoteMessage.data });
         Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
-      } else {
-        remoteMessage &&
-          !Object.keys(remoteMessage.data).length &&
-          Linking.openURL(`noveltyhrmobile://activity`);
       }
     });
   }, [messaging]);
