@@ -9,6 +9,7 @@ import { dataType } from '../../interface';
 import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
 import { deleteTimeLog } from '../../services/timeLogService';
+import Normalize from '../../utils/normalize';
 
 const DeleteAlert = ({
   item,
@@ -81,7 +82,7 @@ const DeleteAlert = ({
         <AppIcon
           name={other ? 'close-circle' : 'delete'}
           color={colors.buttonRed}
-          size={23}
+          size={Normalize(20)}
         />
       </TouchableOpacity>
       <ConfirmDialog

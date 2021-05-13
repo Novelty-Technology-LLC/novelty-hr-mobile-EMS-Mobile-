@@ -63,6 +63,7 @@ const Calendar = ({
         dateNameStyle={{ color: colors.black }}
         highlightDateNumberStyle={style.highlight}
         highlightDateContainerStyle={style.highlightContainer}
+        highlightDateNameStyle={{ color: colors.black }}
         disabledDateNameStyle={{ color: 'grey' }}
         disabledDateNumberStyle={{ color: 'grey' }}
         iconContainer={{ display: 'none' }}

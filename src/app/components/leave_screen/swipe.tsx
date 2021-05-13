@@ -57,7 +57,7 @@ const Swipe = ({
         }}
         style={deleteAlertStyle.iconContainer}
       >
-        <AppIcon name="square-edit-outline" color={colors.primary} size={23} />
+        <AppIcon name="square-edit-outline" color={colors.primary} size={Normalize(20)} />
       </TouchableOpacity>
       <DeleteAlert
         item={item}
@@ -94,7 +94,7 @@ const Swipe = ({
             <AppIcon
               name="square-edit-outline"
               color={colors.primary}
-              size={23}
+              size={Normalize(20)}
             />
           </TouchableOpacity>
           <DeleteAlert item={item} onPress={onPress} />
