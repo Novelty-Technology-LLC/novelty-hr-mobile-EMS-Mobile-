@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import {
   descriptionStyle,
@@ -43,9 +43,7 @@ const Projects = ({
             (project: any) => project.id !== defaultValue
           );
           setProjects(
-            selectedProject.concat(
-              [...unselectedProject].splice(0, 2)
-            )
+            selectedProject.concat([...unselectedProject].splice(0, 2))
           );
           setAllprojects(selectedProject.concat(unselectedProject));
         } else {
@@ -81,7 +79,7 @@ const Projects = ({
 
   return (
     <View style={style.container}>
-      <View style={[style.wrapper, defaultValue ? style.padNone : null]}>
+      <View style={[style.wrapper]}>
         <>
           <View style={style.moreContainer}>
             <SmallHeader text="Choose a Project" history={true} />
@@ -118,7 +116,7 @@ const Projects = ({
           <View style={style.body}>
             {projects &&
               projects.map((project: any, index: number) => (
-                <>
+                <Fragment key={index}>
                   <TouchableOpacity
                     key={index}
                     onPress={() => {
@@ -133,7 +131,7 @@ const Projects = ({
                     />
                   </TouchableOpacity>
                   {index % 3 !== 2 && <View style={style.spacer}></View>}
-                </>
+                </Fragment>
               ))}
           </View>
         </>

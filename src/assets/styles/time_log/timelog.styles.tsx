@@ -83,7 +83,8 @@ const timeLogStyle = StyleSheet.create({
     alignItems: 'center',
   },
   modalCalender: {
-    width: '100%',
+    maxWidth: '110%',
+    borderWidth: 0,
   },
   indicatorContainer: {
     flexDirection: 'row',

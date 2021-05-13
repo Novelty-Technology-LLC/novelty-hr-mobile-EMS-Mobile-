@@ -6,7 +6,7 @@ import {
   requestLeave,
   historyStyle,
   headerTxtStyle,
-  theme
+  theme,
 } from '../../../assets/styles';
 import colors from '../../../assets/colors';
 import { momentdate } from '../../utils';
@@ -22,7 +22,9 @@ const LogListings = ({ route }: any) => {
   return (
     <TaskContext.Provider value={{ tasks, setTasks }}>
       <Header icon={true}>
-        <Text style={[headerTxtStyle.headerText, { marginLeft: normalize(20) }]}>
+        <Text
+          style={[headerTxtStyle.headerText, { marginLeft: normalize(20) }]}
+        >
           {olddata[0] ?? 'Log Time'}
         </Text>
       </Header>
@@ -40,7 +42,15 @@ const LogListings = ({ route }: any) => {
                     {olddata[0] ?? olddata.project.name}
                   </Text>
                 </Text>
-                <Text style={[style.text, { fontSize: normalize(theme.size.xs), color: colors.fontGrey }]}>
+                <Text
+                  style={[
+                    style.text,
+                    {
+                      fontSize: normalize(theme.size.xs),
+                      color: colors.fontGrey,
+                    },
+                  ]}
+                >
                   {momentdate(olddata.log_date, 'll')}
                 </Text>
               </View>
@@ -49,7 +59,12 @@ const LogListings = ({ route }: any) => {
         )}
         {tasks[0] ? (
           tasks[1].map((item) => (
-            <Tasks value={item} note={item.note} groupby={olddata.groupby} />
+            <Tasks
+              key={item.id}
+              value={item}
+              note={item.note}
+              groupby={olddata.groupby}
+            />
           ))
         ) : (
           <Tasks value={tasks} />

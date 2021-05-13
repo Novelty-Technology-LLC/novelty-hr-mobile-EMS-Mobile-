@@ -16,35 +16,36 @@ const calenderStyle = StyleSheet.create({
   header: {
     fontFamily: fonts.poppinsMedium,
     color: colors.black,
-    fontSize: normalize(theme.size.lg),
+    fontSize: normalize(theme.size.normal),
+    marginRight: normalize(5),
+    marginTop: normalize(5),
   },
   highlight: {
-    color: colors.primary,
-    backgroundColor: colors.buttonOrange,
-    borderRadius: normalize(30),
-    paddingVertical: normalize(5),
-    paddingHorizontal: normalize(10),
-    fontSize: normalize(20),
-    width: '100%',
+    fontWeight: 'normal',
+    fontSize: normalize(theme.size.base),
     ...Platform.select({
       android: { fontFamily: 'Roboto' },
     }),
-    textAlign: 'left',
-    marginLeft: 5,
-    marginRight: 5,
+  },
+  highlightContainer: {
+    backgroundColor: colors.buttonOrange,
+    ...Platform.select({
+      android: { borderRadius: normalize(5) },
+      ios: { borderRadius: normalize(3), }
+    })
   },
   number: {
     color: colors.black,
     fontWeight: 'normal',
-    fontSize: normalize(20),
+    fontSize: normalize(theme.size.base),
     width: '100%',
     paddingHorizontal: normalize(8),
     ...Platform.select({
       android: { fontFamily: 'Roboto' },
     }),
     textAlign: 'left',
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: normalize(5),
+    marginRight: normalize(5),
   },
   modalCalender: {
     width: '82%',
@@ -63,7 +64,7 @@ const calenderStyle = StyleSheet.create({
     alignSelf: 'center',
     color: colors.black,
   },
-  container:{
+  container: {
     marginTop: normalize(-10),
   }
 });
