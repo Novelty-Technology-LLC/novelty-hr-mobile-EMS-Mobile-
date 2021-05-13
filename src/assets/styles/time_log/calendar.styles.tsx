@@ -23,6 +23,7 @@ const calenderStyle = StyleSheet.create({
   highlight: {
     fontWeight: 'normal',
     fontSize: normalize(theme.size.base),
+    color: colors.black,
     ...Platform.select({
       android: { fontFamily: 'Roboto' },
     }),
