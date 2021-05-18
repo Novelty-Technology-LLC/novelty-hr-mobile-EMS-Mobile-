@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext, useAuth } from '../reducer';
 import { getUser, getToken } from '../utils';
-import { Login, ResolveAuth } from '../screens';
+import { Login, SplashScreen } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './tabNavigator';
 import Invalid from '../screens/auth_screen/invalid';
@@ -65,8 +65,8 @@ const RootNavigation = () => {
           }}
         >
           <Root.Screen
-            name="resolveAuth"
-            component={ResolveAuth}
+            name="splash"
+            component={SplashScreen}
             options={{ gestureEnabled: false }}
           />
           <Root.Screen name="login" component={Login} />

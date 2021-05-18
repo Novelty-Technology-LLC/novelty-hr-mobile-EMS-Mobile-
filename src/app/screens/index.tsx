@@ -14,4 +14,4 @@ export * from './time_log/timeLog';
 export * from './time_log/logListings';
 export * from './dashboard/leaveListing';
 export * from './dashboard/holidayEventListing';
-export * from './resolveAuth';
+export * from './splash_screen/splash';
