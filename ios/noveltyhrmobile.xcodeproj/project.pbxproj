@@ -24,6 +24,7 @@
 		545BA836251DCF29009B832F /* Mulish-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 545BA835251DCF29009B832F /* Mulish-SemiBold.ttf */; };
 		545BA838251DCF2F009B832F /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 545BA837251DCF2F009B832F /* Mulish-Regular.ttf */; };
 		54C61655251DC07C003C7E60 /* poppins.semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54C61654251DC07C003C7E60 /* poppins.semibold.ttf */; };
+		5BEF15962652914F00DCF01A /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF15952652914F00DCF01A /* File.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D63758B825A142DD0116A812 /* libPods-noveltyhrmobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E53C17F4CE740A97B96CF02D /* libPods-noveltyhrmobile-tvOS.a */; };
 		FE2E41A35378F5B59F6ED7C5 /* libPods-noveltyhrmobile-noveltyhrmobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4A45B9F75E28E0B3A2C955F /* libPods-noveltyhrmobile-noveltyhrmobileTests.a */; };
@@ -70,6 +71,8 @@
 		545BA837251DCF2F009B832F /* Mulish-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Regular.ttf"; sourceTree = "<group>"; };
 		546C166C2513793600BBD90A /* noveltyhrmobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = noveltyhrmobile.entitlements; path = noveltyhrmobile/noveltyhrmobile.entitlements; sourceTree = "<group>"; };
 		54C61654251DC07C003C7E60 /* poppins.semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = poppins.semibold.ttf; sourceTree = "<group>"; };
+		5BEF15942652914E00DCF01A /* noveltyhrmobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "noveltyhrmobile-Bridging-Header.h"; sourceTree = "<group>"; };
+		5BEF15952652914F00DCF01A /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		67C2C519ADD047E562D47B7B /* Pods-noveltyhrmobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-tvOSTests/Pods-noveltyhrmobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D4EDA9F09A6C22C254AC595 /* Pods-noveltyhrmobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-tvOS/Pods-noveltyhrmobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7F154751E0320723B1AF00D0 /* Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig"; path = "Target Support Files/Pods-noveltyhrmobile-noveltyhrmobileTests/Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -204,6 +207,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5BEF15952652914F00DCF01A /* File.swift */,
 				54E150CB2513209E00261AB0 /* Resources */,
 				13B07FAE1A68108700A75B9A /* noveltyhrmobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -211,6 +215,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				737A873E9ED7ABBFE92AC572 /* Pods */,
+				5BEF15942652914E00DCF01A /* noveltyhrmobile-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -328,7 +333,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 2TTLU72S98;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1250;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -733,6 +738,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				5BEF15962652914F00DCF01A /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -774,6 +780,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7F154751E0320723B1AF00D0 /* Pods-noveltyhrmobile-noveltyhrmobileTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -797,6 +804,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91620E9B413ED802126BCC9D /* Pods-noveltyhrmobile-noveltyhrmobileTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = noveltyhrmobileTests/Info.plist;
@@ -837,6 +845,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.novelty.hr;
 				PRODUCT_NAME = "Novelty EMS";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "noveltyhrmobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -866,6 +875,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.novelty.hr;
 				PRODUCT_NAME = "Novelty EMS";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "noveltyhrmobile-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
