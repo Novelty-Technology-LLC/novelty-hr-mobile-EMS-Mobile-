@@ -173,7 +173,6 @@ const DashBoard = () => {
               ),
             };
           });
-          console.log('keys- >', keys);
 
           const mapData: any = keys.length ? data(keys) : initialState;
 
