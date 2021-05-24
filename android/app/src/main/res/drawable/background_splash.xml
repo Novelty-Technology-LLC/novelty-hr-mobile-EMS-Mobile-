@@ -5,8 +5,8 @@
 
     <!-- logo -->
     <item
-        android:width="200dp"
-        android:height="200dp"
+        android:width="50dp"
+        android:height="50dp"
         android:drawable="@drawable/ic_splashscreen_icon"
         android:gravity="center"/>
 </layer-list>
