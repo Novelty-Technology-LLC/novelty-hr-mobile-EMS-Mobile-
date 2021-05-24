@@ -160,11 +160,12 @@ const DashBoard = () => {
         try {
           setLoader(true);
 
-          const response: any = await getRequest('/dashboard/timelog', {
+          let response: any = await getRequest('/dashboard/timelog', {
             ...logTime,
             user_id: state.user.id,
           });
 
+          response = response.filter((item: any) => item);
           const keys = Object.keys(response[0]).map((item) => {
             return {
               [item]: response.flatMap((val: any) =>
