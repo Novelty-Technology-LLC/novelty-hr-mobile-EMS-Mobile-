@@ -48,6 +48,27 @@ const marking = [
   },
 ];
 
+const initialState = {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  datasets: [
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(191, 139, 89)`,
+    },
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(136, 191, 89)`,
+    },
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(188, 188, 188)`,
+    },
+  ],
+};
+
 const data = (data: any) => {
   return {
     labels: data[0].day.map((item: any) => getDay(item)),
@@ -82,26 +103,7 @@ const DashBoard = () => {
   const [logTime, setLogTime] = useState(thisWeek());
   const [loader, setLoader] = useState(false);
 
-  const [totalTimeLog, setTotalTimeLog] = useState({
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-    datasets: [
-      {
-        data: [8, 8, 8, 8, 8],
-        strokeWidth: 2,
-        color: () => `rgb(191, 139, 89)`,
-      },
-      {
-        data: [8, 8, 8, 8, 8],
-        strokeWidth: 2,
-        color: () => `rgb(136, 191, 89)`,
-      },
-      {
-        data: [8, 8, 8, 8, 8],
-        strokeWidth: 2,
-        color: () => `rgb(188, 188, 188)`,
-      },
-    ],
-  });
+  const [totalTimeLog, setTotalTimeLog] = useState(initialState);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -171,9 +173,9 @@ const DashBoard = () => {
             };
           });
 
-          const mapData: any = data(keys);
+          const mapData: any = keys.length ? data(keys) : initialState;
 
-          response.length && setTotalTimeLog(mapData);
+          setTotalTimeLog(mapData);
           setLoader(false);
         } catch (error) {
           setLoader(false);
@@ -265,7 +267,11 @@ const DashBoard = () => {
           )}
         </View>
         <View style={ds.timeLog}>
-          <HoursHeader title="HOURS WORKED" dropDown={!refreshing && !loading} setLogTime={setLogTime} />
+          <HoursHeader
+            title="HOURS WORKED"
+            dropDown={!refreshing && !loading}
+            setLogTime={setLogTime}
+          />
           <View style={ds.marking}>
             {marking.map((item, index) => (
               <View style={ds.markingBody} key={`${index}`}>
