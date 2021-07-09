@@ -105,6 +105,7 @@ const LeaveDashboard = () => {
                 total={daysDetail.leave_total}
                 remaining={daysDetail.leave_used}
                 title={daysDetail.leave_type}
+                fiscal_year={daysDetail.fiscal_year}
               />
             ))}
         </View>

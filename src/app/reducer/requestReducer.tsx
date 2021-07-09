@@ -15,7 +15,9 @@ const RequestReducer = (prevState, action) => {
         quota: []
           .concat(
             action.payload,
-            ...prevState.quota.filter((data) => data.id !== action.payload.id)
+            ...prevState.quota.filter(
+              (data) => data.leave_type !== action.payload.leave_type
+            )
           )
           .sort((a, b) => (a.leave_type > b.leave_type ? 1 : -1)),
       };
