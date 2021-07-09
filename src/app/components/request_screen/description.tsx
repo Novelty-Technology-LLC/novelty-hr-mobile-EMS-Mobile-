@@ -130,7 +130,7 @@ const Description = ({
             error ? style.textareaContainer : style.editlogContainer
           }
           style={style.textArea}
-          maxLength={200}
+          maxLength={280}
           defaultValue={editHashtag ?? values?.note ?? defaultValue}
           placeholder={
             timelog
