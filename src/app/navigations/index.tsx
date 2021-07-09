@@ -29,7 +29,7 @@ const RootNavigation = () => {
   const checkUpdate = async () => {
     try {
       const version = await checkVersion();
-      if (!version.needsUpdate) {
+      if (version.needsUpdate) {
         Alert.alert(
           'New Update Available',
           'New version of app is available',
