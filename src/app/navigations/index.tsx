@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
+import { Linking, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import VersionCheck from 'react-native-version-check';
+import { checkVersion } from 'react-native-check-version';
 import { AuthContext, useAuth } from '../reducer';
 import { getUser, getToken } from '../utils';
 import { Login, SplashScreen } from '../screens';
@@ -14,6 +17,37 @@ const Root = createStackNavigator();
 const RootNavigation = () => {
   const { state, dispatch } = useAuth();
 
+  const goToStore = async () => {
+    const url = await VersionCheck.getStoreUrl();
+    Linking.openURL(url);
+  };
+
+  useEffect(() => {
+    checkUpdate();
+  }, []);
+
+  const checkUpdate = async () => {
+    try {
+      const version = await checkVersion();
+      if (version.needsUpdate) {
+        Alert.alert(
+          'New Update Available',
+          'New version of app is available',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            { text: 'UPDATE', onPress: () => goToStore() },
+          ],
+          { cancelable: false }
+        );
+      }
+    } catch (e) {
+      console.log('errror checking version');
+    }
+  };
   useEffect(() => {
     const bootstrapAsync = async () => {
       try {
