@@ -30,9 +30,9 @@ const CalendarComponent = ({
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
-        endDate: new Date(defaultValue.endDate),
-        startDate: new Date(defaultValue.startDate),
-      }
+          endDate: new Date(defaultValue.endDate),
+          startDate: new Date(defaultValue.startDate),
+        }
       : ''
   );
   const [date, setDate] = useState(moment());
@@ -67,10 +67,10 @@ const CalendarComponent = ({
           req.state === 'Approved'
             ? (approved = true)
             : req.state === 'In Progress'
-              ? (inprogress = true)
-              : req.state === 'Pending'
-                ? (pending = true)
-                : {};
+            ? (inprogress = true)
+            : req.state === 'Pending'
+            ? (pending = true)
+            : {};
         }
       });
     }
@@ -83,10 +83,10 @@ const CalendarComponent = ({
           approved
             ? { backgroundColor: colors.green }
             : inprogress
-              ? { backgroundColor: colors.yellow }
-              : pending
-                ? { backgroundColor: colors.lightGrey }
-                : {},
+            ? { backgroundColor: colors.yellow }
+            : pending
+            ? { backgroundColor: colors.lightGrey }
+            : {},
         ]}
       >
         <Text
@@ -153,7 +153,7 @@ const CalendarComponent = ({
         </View>
       ) : (
         <RangeCalendar
-          max={new Date(2021, 7)}
+          max={new Date(2022, 12)}
           min={new Date(2020, 6)}
           filter={filter}
           range={range}

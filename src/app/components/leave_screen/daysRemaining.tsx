@@ -15,7 +15,6 @@ const DaysRemaining = ({
   remaining,
   title,
   timelog,
-  fiscal_year,
 }: DaysRemainingPropType) => {
   return (
     <View style={timelog ? style.logcontainer : style.container}>
@@ -40,7 +39,6 @@ const DaysRemaining = ({
       {timelog && <Text style={style.title}>Hours</Text>}
       <Text style={timelog ? style.footer : style.title}>{title}</Text>
       {!timelog && <Text style={style.footer}>REMAINING</Text>}
-      <Text style={style.footer}>{fiscal_year}</Text>
     </View>
   );
 };
