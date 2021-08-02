@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImageCropper from 'react-native-image-crop-picker';
 import { formatPhoneNumber } from '../utils';
 import { updateImage } from '../services';
@@ -18,15 +17,12 @@ import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
 
 const optionsPicker = {
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-    mediaType: 'photo',
-  },
+  skipBackup: true,
+  path: 'images',
+  mediaType: 'photo',
 };
 
 const Profile = ({ navigation }: any) => {
-
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
@@ -36,7 +32,7 @@ const Profile = ({ navigation }: any) => {
       .then(() => {
         console.log('removed all tmp images from tmp directory');
       })
-      .catch((e) => { });
+      .catch((e) => {});
 
   const updateProfileImage = (image: any, data?: any) => {
     setimage(image);
@@ -49,29 +45,31 @@ const Profile = ({ navigation }: any) => {
   };
 
   const uploadImage = (pick: boolean) => {
-    const callback = (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-
-        ImageCropper.openCropper({
-          path: response.uri,
-          width: 300,
-          height: 400,
-          cropperCircleOverlay: true,
-          includeBase64: true,
-          compressImageQuality: 0.8,
-        }).then((image) => updateProfileImage(image));
-      }
+    const callback = (image: any) => {
+      updateProfileImage(image);
     };
 
     pick
-      ? launchImageLibrary(optionsPicker, callback)
-      : launchCamera(optionsPicker, callback);
+      ? ImageCropper.openPicker({
+          width: 300,
+          height: 400,
+          cropping: true,
+          includeBase64: true,
+          compressImageQuality: 0.8,
+          cropperCircleOverlay: true,
+        }).then((image) => {
+          callback(image);
+        })
+      : ImageCropper.openCamera({
+          width: 300,
+          height: 400,
+          cropping: true,
+          includeBase64: true,
+          compressImageQuality: 0.8,
+          cropperCircleOverlay: true,
+        }).then((image) => {
+          callback(image);
+        });
   };
 
   const confirm = () => {
