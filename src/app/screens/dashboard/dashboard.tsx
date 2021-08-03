@@ -54,17 +54,17 @@ const initialState = {
     {
       data: [8, 8, 8, 8, 8],
       strokeWidth: 2,
+      color: () => `rgb(188, 188, 188)`,
+    },
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
       color: () => `rgb(191, 139, 89)`,
     },
     {
       data: [8, 8, 8, 8, 8],
       strokeWidth: 2,
-      color: () => `rgb(136, 191, 89)`,
-    },
-    {
-      data: [8, 8, 8, 8, 8],
-      strokeWidth: 2,
-      color: () => `rgb(188, 188, 188)`,
+      color: () => `rgb(109,175,124)`,
     },
   ],
 };
@@ -74,6 +74,11 @@ const data = (data: any) => {
     labels: data[0].day.map((item: any) => getDay(item)),
     datasets: [
       {
+        data: data[3].threshold,
+        strokeWidth: 2,
+        color: () => `rgb(188, 188, 188)`,
+      },
+      {
         data: data[1].company_average,
         strokeWidth: 2,
         color: () => `rgb(191, 139, 89)`,
@@ -82,11 +87,6 @@ const data = (data: any) => {
         data: data[2].your_log,
         strokeWidth: 2,
         color: () => `rgb(109,175,124)`,
-      },
-      {
-        data: data[3].threshold,
-        strokeWidth: 2,
-        color: () => `rgb(188, 188, 188)`,
       },
     ],
   };
