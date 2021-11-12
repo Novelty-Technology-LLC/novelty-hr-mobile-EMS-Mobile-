@@ -15,6 +15,7 @@ const DashNav = () => {
       >
         <DashStack.Screen name="dashboard" component={DashBoard} />
         <DashStack.Screen name="leavelisting" component={LeaveListing} />
+         <DashStack.Screen name="employeedetail" component={LeaveListing} />
         <DashStack.Screen
           name="holidayeventslisting"
           component={HolidayEventListing}

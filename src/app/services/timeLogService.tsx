@@ -69,10 +69,18 @@ export const submitTimeLog = (
 ) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log('tester -> ',{
+        values,
+        params: { selectedDate, historyDate },
+      });
+      
+return;
       let res = await api.post(`/timelog/submitlog_new/`, {
         values,
         params: { selectedDate, historyDate },
       });
+
+
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

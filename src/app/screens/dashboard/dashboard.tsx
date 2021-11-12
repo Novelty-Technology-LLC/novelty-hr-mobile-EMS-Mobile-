@@ -27,7 +27,6 @@ import normalize from 'react-native-normalize';
 import { DashboardCardPlaceholder } from '../../common';
 import { getCurrentRouteName, navigate } from '../../utils/navigation';
 import { time } from '../../utils/listtranform';
-import { Header as HoursHeader, LineChartComponent } from '../../components';
 import { thisWeek, getDay } from '../../utils/dateFilter';
 
 const marking = [
@@ -100,10 +99,6 @@ const DashBoard = () => {
   const [listData, setListData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
-  const [logTime, setLogTime] = useState(thisWeek());
-  const [loader, setLoader] = useState(false);
-
-  const [totalTimeLog, setTotalTimeLog] = useState(initialState);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -142,7 +137,7 @@ const DashBoard = () => {
   useEffect(() => {
     (async () => {
       try {
-        setLogTime(thisWeek());
+        
         setCardLoading(true);
         const data: any = await getDashboard();
         setListData(data);
@@ -154,37 +149,7 @@ const DashBoard = () => {
     })();
   }, [refreshing]);
 
-  useEffect(() => {
-    (async () => {
-      if (state?.user?.id) {
-        try {
-          setLoader(true);
-
-          let response: any = await getRequest('/dashboard/timelog', {
-            ...logTime,
-            user_id: state.user.id,
-          });
-
-          response = response.filter((item: any) => item);
-          const keys = Object.keys(response[0]).map((item) => {
-            return {
-              [item]: response.flatMap((val: any) =>
-                val[item] > -1 ? [val[item] || 0] : []
-              ),
-            };
-          });
-
-          const mapData: any = keys.length ? data(keys) : initialState;
-
-          setTotalTimeLog(mapData);
-          setLoader(false);
-        } catch (error) {
-          setLoader(false);
-        }
-      }
-    })();
-  }, [state?.user?.id, logTime, refreshing]);
-
+  
   const ToggleWork = async () => {
     try {
       setLoading(true);
@@ -267,43 +232,7 @@ const DashBoard = () => {
             <DashboardCardPlaceholder />
           )}
         </View>
-        <View style={ds.timeLog}>
-          <HoursHeader
-            title="HOURS WORKED"
-            dropDown={!refreshing && !loading}
-            setLogTime={setLogTime}
-          />
-          <View style={ds.marking}>
-            {marking.map((item, index) => (
-              <View style={ds.markingBody} key={`${index}`}>
-                <View
-                  style={[
-                    ds.border,
-                    {
-                      borderColor: item.color,
-                      borderStyle: 'solid',
-                      backgroundColor: item.color,
-                    },
-                  ]}
-                />
-                <View style={ds.markingGap} />
-                <Text>{item.label}</Text>
-              </View>
-            ))}
-          </View>
-          <View style={ds.chartWrapper}>
-            {loader ? (
-              <View style={ds.loader}>
-                <ActivityIndicator size="large" color={colors.primary} />
-              </View>
-            ) : (
-              <LineChartComponent
-                data={totalTimeLog}
-                days={totalTimeLog.labels.length}
-              />
-            )}
-          </View>
-        </View>
+        
       </ScrollView>
     </View>
   );

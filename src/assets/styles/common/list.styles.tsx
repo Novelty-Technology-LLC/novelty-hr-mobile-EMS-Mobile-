@@ -18,10 +18,8 @@ const listStyle = StyleSheet.create({
     flexGrow: 1
   },
   seeAll: {
-    position: 'absolute',
-    flexDirection: 'row',
-    bottom: normalize(5),
-    right: normalize(5),
+    flex:1,
+    
   },
   seeAllText: {
     fontFamily: fonts.poppinsRegular,

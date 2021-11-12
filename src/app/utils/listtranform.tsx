@@ -102,7 +102,7 @@ export const transformLunchItem = (item: any) => {
   if (item?.detailRoute === '/lunch') {
     const newItem = item.items.map((item: any) => {
       if (item?.subTitle === getDayToday()) {
-        return { ...item, subTitle: 'Today' };
+        return { ...item, subTitle: 'Today','type':'lunch' };
       } else {
         return item;
       }

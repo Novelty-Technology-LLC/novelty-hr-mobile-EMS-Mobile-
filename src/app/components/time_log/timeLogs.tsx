@@ -1,9 +1,9 @@
 import { useScrollToTop } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, FlatList, ScrollView, RefreshControl } from 'react-native';
+import { View, FlatList, ScrollView, RefreshControl, ActivityIndicator,Text } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { myRequestsStyle as style } from '../../../assets/styles';
-import { TimeLogContext } from '../../reducer';
+import { AuthContext, TimeLogContext } from '../../reducer';
 import { getFilteredTimeLogs } from '../../services/timeLogService';
 import {
   getUser,
@@ -21,6 +21,73 @@ import { RequestButton } from '../requestButton';
 import { dateRange, todayDate } from '../../utils/dateFilter';
 import Week from './week';
 import normalize from 'react-native-normalize';
+import { dashboardStyle as ds, headerTxtStyle } from '../../../assets/styles';
+import { Header as HoursHeader, LineChartComponent } from '../../components';
+import { thisWeek, getDay } from '../../utils/dateFilter';
+import { getRequest } from '../../services';
+import colors from '../../../assets/colors';
+
+const marking = [
+  {
+    id: '1',
+    label: 'My Time',
+    color: '#6DAF7C',
+  },
+  {
+    id: '2',
+    label: 'Novelty Average',
+    color: '#BF8B59',
+  },
+  {
+    id: '3',
+    label: 'Base Time',
+    color: '#BCBCBC',
+  },
+];
+
+const initialState = {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  datasets: [
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(188, 188, 188)`,
+    },
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(191, 139, 89)`,
+    },
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(109,175,124)`,
+    },
+  ],
+};
+
+const data = (data: any) => {
+  return {
+    labels: data[0].day.map((item: any) => getDay(item)),
+    datasets: [
+      {
+        data: data[3].threshold,
+        strokeWidth: 2,
+        color: () => `rgb(188, 188, 188)`,
+      },
+      {
+        data: data[1].company_average,
+        strokeWidth: 2,
+        color: () => `rgb(191, 139, 89)`,
+      },
+      {
+        data: data[2].your_log,
+        strokeWidth: 2,
+        color: () => `rgb(109,175,124)`,
+      },
+    ],
+  };
+};
 
 const TimeLogs = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -32,6 +99,42 @@ const TimeLogs = () => {
   const [selectedHrs, setSelectedHrs] = useState(0);
   const [selectedDay, setSelectedDay] = useState('Today');
   const [initial, setinitial] = useState(true);
+  const [logTime, setLogTime] = useState(thisWeek());
+  const [loader, setLoader] = useState(false);
+  const [totalTimeLog, setTotalTimeLog] = useState(initialState);
+  const { state } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      if (state?.user?.id) {
+        try {
+          setLoader(true);
+
+          let response: any = await getRequest('/dashboard/timelog', {
+            ...logTime,
+            user_id: state.user.id,
+          },);
+
+          response = response.filter((item: any) => item);
+          const keys = Object.keys(response[0]).map((item) => {
+            return {
+              [item]: response.flatMap((val: any) =>
+                val[item] > -1 ? [val[item] || 0] : []
+              ),
+            };
+          });
+
+          const mapData: any = keys.length ? data(keys) : initialState;
+
+          setTotalTimeLog(mapData);
+          setLoader(false);
+        } catch (error) {
+          setLoader(false);
+        }
+      }
+    })();
+  }, [state?.user?.id, logTime, refreshing]);
+
 
   const getInitialLogs = async () => {
     try {
@@ -180,7 +283,43 @@ const TimeLogs = () => {
           )
         )}
         <Week loading={loading} refreshing={refreshing} title={'History'} />
-        <View style={{ marginBottom: 100 }}></View>
+        <View style={ds.timeLog}>
+          <HoursHeader
+            title="HOURS WORKED"
+            dropDown={!refreshing && !loading}
+            setLogTime={setLogTime}
+          />
+          <View style={ds.marking}>
+            {marking.map((item, index) => (
+              <View style={ds.markingBody} key={`${index}`}>
+                <View
+                  style={[
+                    ds.border,
+                    {
+                      borderColor: item.color,
+                      borderStyle: 'solid',
+                      backgroundColor: item.color,
+                    },
+                  ]}
+                />
+                <View style={ds.markingGap} />
+                <Text>{item.label}</Text>
+              </View>
+            ))}
+          </View>
+          <View style={ds.chartWrapper}>
+            {loader ? (
+              <View style={ds.loader}>
+                <ActivityIndicator size="large" color={colors.primary} />
+              </View>
+            ) : (
+              <LineChartComponent
+                data={totalTimeLog}
+                days={totalTimeLog.labels.length}
+              />
+            )}
+          </View>
+        </View>
       </ScrollView>
       <RequestButton
         screen="logtime"

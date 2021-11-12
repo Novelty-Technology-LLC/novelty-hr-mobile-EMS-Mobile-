@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { View, ScrollView, Text, NativeScrollEvent } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { CarouselStyle } from '../../assets/styles';
+import { navigate } from '../utils/navigation';
 import { UpperCard } from './dashboard/card';
 
 interface CarouselPropTypes {
@@ -119,7 +121,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                 <View
                   style={CarouselStyle.item}
                 >
-                  <UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />
+                  {item.type=='lunch'?<UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />:<TouchableOpacity onPress={()=>navigate('employeedetail')}><UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} /></TouchableOpacity>}
                 </View>
               </View>
             </View>

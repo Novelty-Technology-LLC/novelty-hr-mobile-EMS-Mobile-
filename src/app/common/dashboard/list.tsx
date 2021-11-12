@@ -21,6 +21,13 @@ const List = ({ list }: { list: any }) => {
             false,
             true
           ).map((item: any, index: number) => (
+            <TouchableOpacity
+            
+            onPress={() =>
+              navigate(list?.detailRoute, { route: list?.detailRoute })
+            }
+            style={listStyle.seeAll}
+          >
             <ListItem
               key={index}
               title={item?.title}
@@ -28,20 +35,8 @@ const List = ({ list }: { list: any }) => {
               isLast={2 === index}
               type={item?.type}
             />
+            </TouchableOpacity>
           ))}
-          <TouchableOpacity
-            onPress={() =>
-              navigate(list?.detailRoute, { route: list?.detailRoute })
-            }
-            style={listStyle.seeAll}
-          >
-            <Text style={listStyle.seeAllText}>See All</Text>
-            <AppIcon
-              name="arrow-right"
-              size={normalize(18)}
-              color={colors.primary}
-            />
-          </TouchableOpacity>
         </View>
       ) : (
         <EmptyContainer
