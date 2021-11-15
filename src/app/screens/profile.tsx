@@ -15,6 +15,7 @@ import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
 import { snackBarMessage, snackErrorBottom } from '../common';
 import { SmallHeader } from '../common';
+import { ProfileInfoComponent } from '../common/profileInformation';
 
 const optionsPicker = {
   skipBackup: true,
@@ -156,70 +157,7 @@ const Profile = ({ navigation }: any) => {
             </View>
           )}
         </View>
-        <View style={style.infoView}>
-          <View style={style.body}>
-            <SmallHeader text="Personal Information" />
-            <View style={style.icon}>
-              <Icon name="account-circle" color={colors.primary} size={25} />
-              <Text style={style.text}>
-                {state.user.first_name + ' ' + state.user.last_name}
-              </Text>
-            </View>
-            <View style={style.icon}>
-              <Icon name="human-male-female" color={colors.primary} size={25} />
-              <Text style={style.gender}>{state.user.gender}</Text>
-            </View>
-            <View style={style.icon}>
-              <Icon name="cake-variant" color={colors.primary} size={25} />
-              <Text style={style.date}>{state.user.birth_date}</Text>
-            </View>
-            {state.user.blood_group && (
-              <View style={style.icon}>
-                <Icon name="water" color={colors.primary} size={25} />
-                <Text style={style.text}>{state.user?.blood_group}</Text>
-              </View>
-            )}
-          </View>
-        </View>
-        <View style={style.infoView}>
-          <View style={style.body}>
-            <SmallHeader text="Contact Information" />
-            <View style={style.icon}>
-              <Icon name="email-newsletter" color={colors.primary} size={25} />
-              <Text style={style.text}>{state.user.email}</Text>
-            </View>
-            <View style={style.icon}>
-              <Icon name="phone" color={colors.primary} size={25} />
-              <Text style={style.text}>
-                {formatPhoneNumber(state.user.phone)}
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={style.infoView}>
-          <View style={style.body}>
-            <SmallHeader text="Employee Information" />
-
-            <View style={style.icon}>
-              <Icon
-                name="card-account-details"
-                color={colors.primary}
-                size={25}
-              />
-              <Text style={style.text}>{state.user?.employee_id}</Text>
-            </View>
-
-            <View style={style.icon}>
-              <Icon name="location-enter" color={colors.primary} size={25} />
-              <Text style={style.text}>{state.user.join_date}</Text>
-            </View>
-
-            <View style={style.icon}>
-              <Icon name="account-tie" color={colors.primary} size={25} />
-              <Text style={style.designation}>{state.user.designation}</Text>
-            </View>
-          </View>
-        </View>
+      <ProfileInfoComponent user={state}/>
       </ScrollView>
     </View>
   ) : (

@@ -121,7 +121,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                 <View
                   style={CarouselStyle.item}
                 >
-                  {item.type=='lunch'?<UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />:<TouchableOpacity onPress={()=>navigate('employeedetail')}><UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} /></TouchableOpacity>}
+                  {item.type=='lunch'?<UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />:<TouchableOpacity onPress={()=>navigate('employeeListing')}><UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} /></TouchableOpacity>}
                 </View>
               </View>
             </View>
