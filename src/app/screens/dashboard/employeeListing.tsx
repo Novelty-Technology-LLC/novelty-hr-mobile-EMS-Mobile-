@@ -18,8 +18,6 @@ const EmployeeListing = (props: any) => {
       try {
         let response = await getRequest("webportal/user/userListing", {});
         response = response.map((item) => {
-          console.log("iim ->", item);
-
           return {
             id: item.id,
             title: item.first_name + " " + item.last_name,

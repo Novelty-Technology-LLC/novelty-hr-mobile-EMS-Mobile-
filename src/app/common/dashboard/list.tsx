@@ -19,10 +19,10 @@ const List = ({ list }: { list: any }) => {
             list?.items?.slice(0, 3),
             list?.module,
             false,
-            true
+            true,
+            false
           ).map((item: any, index: number) => (
             <TouchableOpacity
-            
             onPress={() =>
               navigate(list?.detailRoute, { route: list?.detailRoute })
             }
@@ -41,7 +41,7 @@ const List = ({ list }: { list: any }) => {
       ) : (
         <EmptyContainer
           text={`${
-            list?.module === 'Leave'
+            list.message?list.message:list?.module === 'Leave'
               ? 'No Upcoming Leave'
               : 'No Upcoming Holidays and Events'
           }`}

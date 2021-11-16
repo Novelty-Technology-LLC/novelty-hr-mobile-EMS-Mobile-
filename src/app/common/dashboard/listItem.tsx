@@ -29,7 +29,6 @@ const ListItem = ({
     >
       <Text style={cardStyle.titleText}>{title}</Text>
       <Text style={cardStyle.subTitleText}>{subTitle}</Text>
-
       <View
         style={[
           timeLogStyle.indicator,
