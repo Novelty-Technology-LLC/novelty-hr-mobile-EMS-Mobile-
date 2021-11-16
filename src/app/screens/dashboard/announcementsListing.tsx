@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { headerTxtStyle,listingStyle } from "../../../assets/styles";
+import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getRequest } from "../../services";
-import { LeaveListingCard } from "./leaveListingCard";
+import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = () => {
   const [list, setList] = useState([]);
@@ -32,7 +32,7 @@ const AnnouncementListing = () => {
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity onPress={() => {}}>
-                <LeaveListingCard
+                <ListingCard
                   index={index}
                   item={item}
                   list={list.length}

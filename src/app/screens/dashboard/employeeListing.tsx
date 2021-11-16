@@ -6,7 +6,7 @@ import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
-import { LeaveListingCard } from "./leaveListingCard";
+import { ListingCard } from "./leaveListingCard";
 
 const EmployeeListing = (props: any) => {
   const [list, setList] = useState<any>(null);
@@ -53,7 +53,7 @@ const EmployeeListing = (props: any) => {
                   })
                 }
               >
-                <LeaveListingCard
+                <ListingCard
                   index={index}
                   item={item}
                   list={list.length}

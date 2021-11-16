@@ -8,7 +8,7 @@ import {
   requestStyle,
 } from "../../../assets/styles";
 
-const LeaveListingCard = ({ index, listLength, item }) => (
+const ListingCard = ({ index, listLength, item }) => (
   <View
     key={index}
     style={[
@@ -27,4 +27,4 @@ const LeaveListingCard = ({ index, listLength, item }) => (
     </View>
   </View>
 );
-export { LeaveListingCard };
+export { ListingCard };
