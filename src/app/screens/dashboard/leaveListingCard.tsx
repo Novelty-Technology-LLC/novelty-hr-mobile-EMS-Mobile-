@@ -4,7 +4,7 @@ import State from "../../components/leave_screen/state";
 import {
   cardStyle,
   headerTxtStyle,
-  holidayListingStyle,
+  listingStyle,
   requestStyle,
 } from "../../../assets/styles";
 
@@ -12,7 +12,7 @@ const LeaveListingCard = ({ index, listLength, item }) => (
   <View
     key={index}
     style={[
-      holidayListingStyle.container,
+      listingStyle.container,
       {
         borderBottomWidth: listLength - 1 === index ? 0 : 1,
       },

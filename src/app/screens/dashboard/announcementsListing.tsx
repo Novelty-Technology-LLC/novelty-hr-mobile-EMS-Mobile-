@@ -1,40 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { headerTxtStyle, listingStyle } from "../../../assets/styles";
+import { headerTxtStyle,listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getRequest } from "../../services";
-import { navigate } from "../../utils/navigation";
 import { LeaveListingCard } from "./leaveListingCard";
 
-const EmployeeListing = (props: any) => {
-  const [list, setList] = useState<any>(null);
-  const [loading, setLoading] = useState<any>(null);
-
+const AnnouncementListing = () => {
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(true);
     (async () => {
       try {
-        let response = await getRequest("webportal/user/userListing", {});
-        response = response.map((item) => {
-          return {
-            id: item.id,
-            title: item.first_name + " " + item.last_name,
-            subTitle: item.designation,
-            image: item.image_url,
-          };
-        });
+        var response = await getRequest("/webportal/announcements", {});
         setList(response);
         setLoading(false);
       } catch (error) {}
     })();
   }, []);
-
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>Employee</Text>
+        <Text style={headerTxtStyle.headerText}>Announcements</Text>
       </Header>
       {loading ? (
         <ListPlaceholder />
@@ -43,16 +31,7 @@ const EmployeeListing = (props: any) => {
           data={list}
           renderItem={({ item, index }) => {
             return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigate("employeeDetail", {
-                    id: item.id,
-                    image: item.image,
-                    name: item.title,
-                    
-                  })
-                }
-              >
+              <TouchableOpacity onPress={() => {}}>
                 <LeaveListingCard
                   index={index}
                   item={item}
@@ -68,4 +47,4 @@ const EmployeeListing = (props: any) => {
   );
 };
 
-export { EmployeeListing };
+export { AnnouncementListing };

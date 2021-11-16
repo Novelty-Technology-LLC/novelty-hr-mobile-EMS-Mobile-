@@ -80,7 +80,6 @@ const DashBoard = () => {
         setCardLoading(true);
         const data: any = await getDashboard();
         const announcements = fetchAnnouncements();
-        
         setListData(data);
         setRefreshing(false);
         setCardLoading(false);
@@ -126,8 +125,7 @@ const DashBoard = () => {
   fetchAnnouncements = async () => {
     try {
       var response = await getRequest("/webportal/announcements", {
-        limit: 10,
-        offset: 10,
+        limit: 3,
       });
       setAnnouncements(response);
     } catch (error) {}
@@ -189,7 +187,8 @@ const DashBoard = () => {
               list={{
                 module: "Announcements",
                 message: "No Upcomming Announcements",
-                items:announcements
+                items: announcements,
+                detailRoute: "announcementsListing",
               }}
             />
           ) : (

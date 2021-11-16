@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from "react-native";
 import {
   cardStyle,
   headerTxtStyle,
-  holidayListingStyle,
+  listingStyle,
   requestStyle,
 } from "../../../assets/styles";
 import { header as Header } from "../../common";
@@ -29,7 +29,7 @@ const LeaveListing = (props: any) => {
   }, []);
 
   return (
-    <View style={holidayListingStyle.mainContainer}>
+    <View style={listingStyle.mainContainer}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>LEAVE</Text>
       </Header>

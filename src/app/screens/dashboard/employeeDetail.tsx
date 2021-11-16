@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, Image } from "react-native";
-import { headerTxtStyle, holidayListingStyle } from "../../../assets/styles";
+import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { getRequest } from "../../services";
 import { header as Header } from "../../common";
 import { ProfileInfoComponent } from "../../common/profileInformation";
@@ -25,7 +25,7 @@ const EmployeeDetail = (props: any) => {
   }, []);
 
   return (
-    <View style={holidayListingStyle.mainContainer}>
+    <View style={listingStyle.mainContainer}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>{params.name}</Text>
         <View style={{ marginLeft: normalize(10) }}>
