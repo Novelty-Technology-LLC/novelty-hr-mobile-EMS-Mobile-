@@ -28,6 +28,7 @@ import { DashboardCardPlaceholder } from '../../common';
 import { getCurrentRouteName, navigate } from '../../utils/navigation';
 import { time } from '../../utils/listtranform';
 import { thisWeek, getDay } from '../../utils/dateFilter';
+import { Announcements } from './announcements';
 
 const marking = [
   {
@@ -232,7 +233,7 @@ const DashBoard = () => {
             <DashboardCardPlaceholder />
           )}
         </View>
-        
+        <View><Announcements/></View>
       </ScrollView>
     </View>
   );

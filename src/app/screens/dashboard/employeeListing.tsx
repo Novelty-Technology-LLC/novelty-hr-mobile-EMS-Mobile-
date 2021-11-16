@@ -18,10 +18,13 @@ const EmployeeListing = (props: any) => {
       try {
         let response = await getRequest("webportal/user/userListing", {});
         response = response.map((item) => {
+          console.log("iim ->", item);
+
           return {
+            id: item.id,
             title: item.first_name + " " + item.last_name,
             subTitle: item.designation,
-            id: item.id,
+            image: item.image_url,
           };
         });
         setList(response);
@@ -40,11 +43,26 @@ const EmployeeListing = (props: any) => {
       ) : (
         <FlatList
           data={list}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity onPress={() => navigate("employeeDetail",{'id':item.id})}>
-              <LeaveListingCard index={index} item={item} list={list.length} />
-            </TouchableOpacity>
-          )}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigate("employeeDetail", {
+                    id: item.id,
+                    image: item.image,
+                    name: item.title,
+                    
+                  })
+                }
+              >
+                <LeaveListingCard
+                  index={index}
+                  item={item}
+                  list={list.length}
+                />
+              </TouchableOpacity>
+            );
+          }}
           keyExtractor={(item) => item.id}
         />
       )}
