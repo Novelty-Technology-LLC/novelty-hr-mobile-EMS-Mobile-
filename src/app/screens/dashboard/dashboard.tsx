@@ -36,6 +36,7 @@ const DashBoard = () => {
   const [loading, setLoading] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
 
@@ -78,6 +79,8 @@ const DashBoard = () => {
       try {
         setCardLoading(true);
         const data: any = await getDashboard();
+        const announcements = fetchAnnouncements();
+        
         setListData(data);
         setRefreshing(false);
         setCardLoading(false);
@@ -118,6 +121,16 @@ const DashBoard = () => {
       snackErrorBottom("Something went wrong");
       setLoading(false);
     }
+  };
+
+  fetchAnnouncements = async () => {
+    try {
+      var response = await getRequest("/webportal/announcements", {
+        limit: 10,
+        offset: 10,
+      });
+      setAnnouncements(response);
+    } catch (error) {}
   };
 
   return (
@@ -176,14 +189,7 @@ const DashBoard = () => {
               list={{
                 module: "Announcements",
                 message: "No Upcomming Announcements",
-                items: [
-                  {
-                    title:
-                      "john + john is commingjohn is commingjohn is commingjohn is commingjohn is comming",
-                    subTitle: "john is comming",
-                    module: "Announcements",
-                  },
-                ],
+                items:announcements
               }}
             />
           ) : (
