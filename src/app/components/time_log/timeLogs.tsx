@@ -7,7 +7,9 @@ import { AuthContext, TimeLogContext } from '../../reducer';
 import { getFilteredTimeLogs } from '../../services/timeLogService';
 import {
   getUser,
+  initialState,
   isThisWeek,
+  marking,
   stringifyDate,
   totalWeekHours,
 } from '../../utils';
@@ -27,44 +29,6 @@ import { thisWeek, getDay } from '../../utils/dateFilter';
 import { getRequest } from '../../services';
 import colors from '../../../assets/colors';
 
-const marking = [
-  {
-    id: '1',
-    label: 'My Time',
-    color: '#6DAF7C',
-  },
-  {
-    id: '2',
-    label: 'Novelty Average',
-    color: '#BF8B59',
-  },
-  {
-    id: '3',
-    label: 'Base Time',
-    color: '#BCBCBC',
-  },
-];
-
-const initialState = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-  datasets: [
-    {
-      data: [8, 8, 8, 8, 8],
-      strokeWidth: 2,
-      color: () => `rgb(188, 188, 188)`,
-    },
-    {
-      data: [8, 8, 8, 8, 8],
-      strokeWidth: 2,
-      color: () => `rgb(191, 139, 89)`,
-    },
-    {
-      data: [8, 8, 8, 8, 8],
-      strokeWidth: 2,
-      color: () => `rgb(109,175,124)`,
-    },
-  ],
-};
 
 const data = (data: any) => {
   return {
