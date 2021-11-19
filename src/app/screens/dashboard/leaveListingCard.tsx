@@ -8,7 +8,7 @@ import {
   requestStyle,
 } from "../../../assets/styles";
 import { useWindowDimensions } from "react-native";
-import RenderHtml from "react-native-render-html";
+import { RenderHtmlComponent } from "../../common/renderHtml";
 
 
 const ListingCard = ({ index, listLength, item,module }) => {
@@ -25,12 +25,8 @@ const ListingCard = ({ index, listLength, item,module }) => {
     <View>
       <Text style={cardStyle.titleText}>{item?.title}</Text>
      {module == "Announcements" ? 
-        <RenderHtml
-          contentWidth={width}
-          source={{
-            html: `${item?.subTitle.length > 50 ? item?.subTitle.slice(0, 50)+'...' : item?.subTitle}`,
-          }}
-        />: <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>}
+        <RenderHtmlComponent htmlData={item.subTitle}/>
+        : <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>}
     </View>
     <View>
       <State state={item?.status} />

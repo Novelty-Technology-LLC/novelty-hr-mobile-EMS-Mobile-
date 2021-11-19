@@ -5,7 +5,7 @@ import { cardStyle, listStyle, timeLogStyle } from "../../../assets/styles";
 import { getColor } from "../../utils/listtranform";
 import normalize from "../../utils/normalize";
 import { useWindowDimensions } from "react-native";
-import RenderHtml from "react-native-render-html";
+import { RenderHtmlComponent } from "../renderHtml";
 
 const ListItem = ({
   title,
@@ -33,12 +33,7 @@ const ListItem = ({
     >
       <Text style={cardStyle.titleText}>{title}</Text>
       {module == "Announcements" ? (
-        <RenderHtml
-          contentWidth={width}
-          source={{
-            html: `${subTitle.length > 50 ? subTitle.slice(0, 50)+'...' : subTitle}`,
-          }}
-        />
+        <RenderHtmlComponent htmlData={subTitle} />
       ) : (
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       )}

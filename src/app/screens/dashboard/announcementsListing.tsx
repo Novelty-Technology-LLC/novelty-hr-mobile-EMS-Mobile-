@@ -38,6 +38,8 @@ const AnnouncementListing = (props: any) => {
                   navigate("announcementsDetails", {
                     id: 1,
                     headerText: item.title,
+                    title: item.title,
+                    subTitle: item.subTitle,
                   })
                 }
               >
