@@ -7,7 +7,8 @@ import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getRequest } from "../../services";
 import { ListingCard } from "./leaveListingCard";
 
-const AnnouncementListing = () => {
+const AnnouncementListing = (props:any) => {
+  const module = props.route.params.module;
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -36,6 +37,7 @@ const AnnouncementListing = () => {
                   index={index}
                   item={item}
                   list={list.length}
+                  module ={module}
                 />
               </TouchableOpacity>
             );

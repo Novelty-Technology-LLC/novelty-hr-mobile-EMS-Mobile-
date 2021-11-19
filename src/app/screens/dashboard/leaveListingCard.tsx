@@ -7,9 +7,13 @@ import {
   listingStyle,
   requestStyle,
 } from "../../../assets/styles";
+import { useWindowDimensions } from "react-native";
+import RenderHtml from "react-native-render-html";
 
-const ListingCard = ({ index, listLength, item }) => (
-  <View
+
+const ListingCard = ({ index, listLength, item,module }) => {
+  const { width } = useWindowDimensions();
+  return <View
     key={index}
     style={[
       listingStyle.container,
@@ -20,11 +24,17 @@ const ListingCard = ({ index, listLength, item }) => (
   >
     <View>
       <Text style={cardStyle.titleText}>{item?.title}</Text>
-      <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+     {module == "Announcements" ? 
+        <RenderHtml
+          contentWidth={width}
+          source={{
+            html: `${item?.subTitle.length > 50 ? item?.subTitle.slice(0, 50)+'...' : item?.subTitle}`,
+          }}
+        />: <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>}
     </View>
     <View>
       <State state={item?.status} />
     </View>
   </View>
-);
+};
 export { ListingCard };
