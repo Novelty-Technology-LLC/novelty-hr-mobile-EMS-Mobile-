@@ -5,6 +5,7 @@ import { TimeLogContext, useTimeLog } from "../reducer";
 import { EmployeeListing } from "../screens/dashboard/employeeListing";
 import { EmployeeDetail } from "../screens/dashboard/employeeDetail";
 import { AnnouncementListing } from "../screens/dashboard/announcementsListing";
+import { AnnouncementDetail } from "../screens/dashboard/announcementsDetail";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -23,6 +24,10 @@ const DashNav = () => {
         <DashStack.Screen
           name="announcementsListing"
           component={AnnouncementListing}
+        />
+         <DashStack.Screen
+          name="announcementsDetails"
+          component={AnnouncementDetail}
         />
         <DashStack.Screen
           name="holidayeventslisting"
