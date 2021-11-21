@@ -13,13 +13,15 @@ const ListItem = ({
   isLast,
   type,
   module,
+  date,
 }: {
   title: string;
   subTitle: string;
   isLast: boolean;
   type?: string;
   module?: string;
-}) => {
+  date?: string;
+}) => {  
   const indicatorColor = getColor(type, colors.lightbrown);
   const { width } = useWindowDimensions();
   return (
@@ -37,6 +39,7 @@ const ListItem = ({
       ) : (
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       )}
+      {date && <Text>{date}</Text>}
       <View
         style={[
           timeLogStyle.indicator,

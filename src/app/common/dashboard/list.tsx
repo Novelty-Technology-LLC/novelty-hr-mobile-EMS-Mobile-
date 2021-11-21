@@ -35,6 +35,7 @@ const List = ({ list }: { list: any }) => {
                 key={index}
                 title={item?.title}
                 subTitle={item?.subTitle}
+                date={item?.date}
                 isLast={2 === index}
                 type={item?.type}
                 module={list.module}

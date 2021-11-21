@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { Linking, Alert } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import VersionCheck from 'react-native-version-check';
-import { checkVersion } from 'react-native-check-version';
-import { AuthContext, useAuth } from '../reducer';
-import { getUser, getToken } from '../utils';
-import { Login, SplashScreen } from '../screens';
-import { createStackNavigator } from '@react-navigation/stack';
-import TabNavigator from './tabNavigator';
-import Invalid from '../screens/auth_screen/invalid';
-import Loading from '../screens/auth_screen/loading';
-import { navigationRef } from '../utils/navigation';
+import React, { useEffect } from "react";
+import { Linking, Alert } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import VersionCheck from "react-native-version-check";
+import { checkVersion } from "react-native-check-version";
+import { AuthContext, useAuth } from "../reducer";
+import { getUser, getToken } from "../utils";
+import { Login, SplashScreen } from "../screens";
+import { createStackNavigator } from "@react-navigation/stack";
+import TabNavigator from "./tabNavigator";
+import Invalid from "../screens/auth_screen/invalid";
+import Loading from "../screens/auth_screen/loading";
+import { navigationRef } from "../utils/navigation";
 
 const Root = createStackNavigator();
 
@@ -31,21 +31,21 @@ const RootNavigation = () => {
       const version = await checkVersion();
       if (version.needsUpdate) {
         Alert.alert(
-          'New Update Available',
-          'New version of app is available',
+          "New Update Available",
+          "New version of app is available",
           [
             {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
             },
-            { text: 'UPDATE', onPress: () => goToStore() },
+            { text: "UPDATE", onPress: () => goToStore() },
           ],
           { cancelable: false }
         );
       }
     } catch (e) {
-      console.log('errror checking version');
+      console.log("errror checking version");
     }
   };
   useEffect(() => {
@@ -53,10 +53,10 @@ const RootNavigation = () => {
       try {
         let userToken = await getToken();
 
-        dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+        dispatch({ type: "RESTORE_TOKEN", token: userToken });
         const user = await getUser();
 
-        dispatch({ type: 'STORE_USER', user: JSON.parse(user) });
+        dispatch({ type: "STORE_USER", user: JSON.parse(user) });
       } catch (e) {
         console.log(e);
       }
@@ -66,21 +66,21 @@ const RootNavigation = () => {
   }, []);
 
   const deepLinking = {
-    prefixes: ['noveltyhrmobile://'],
+    prefixes: ["noveltyhrmobile://"],
     config: {
       screens: {
         BottomTabs: {
-          path: 'bottom_tabs',
+          path: "bottom_tabs",
           screens: {
             Activity: {
-              path: 'activity',
+              path: "activity",
               exact: true,
             },
             Home: {
-              path: 'home',
+              path: "home",
               screens: {
                 LeaveList: {
-                  path: 'leaveList',
+                  path: "leaveList",
                   exact: true,
                 },
               },

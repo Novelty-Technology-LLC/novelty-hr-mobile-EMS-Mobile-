@@ -181,7 +181,7 @@ const DashBoard = () => {
           )}
         </View>
         <View style={{ height: 20 }} />
-        <View style={{ width: "100%" }}>
+        <View style={{ width: "100%", paddingBottom: 25 }}>
           {!announcementLoading ? (
             <List
               list={{

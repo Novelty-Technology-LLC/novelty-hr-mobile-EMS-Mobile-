@@ -9,13 +9,27 @@ import { navigate } from "../../utils/navigation";
 import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = (props: any) => {
-  const module = props.route.params.module;
+  const params = props.route.params;
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     (async () => {
       try {
-        var response = await getRequest("/webportal/announcements", {});
+        var response: any = await getRequest("/webportal/announcements", {});
+
+        if (params.notification) {
+          var findAnnouncement = response.find(
+            (item: any) => item.id == params.id
+          );
+          navigate("announcementsDetails", {
+            headerText: findAnnouncement.title,
+            title: findAnnouncement.title,
+            subTitle: findAnnouncement.subTitle,
+            date: findAnnouncement.date,
+          });
+        }
+
         setList(response);
         setLoading(false);
       } catch (error) {}
@@ -36,10 +50,10 @@ const AnnouncementListing = (props: any) => {
               <TouchableOpacity
                 onPress={() =>
                   navigate("announcementsDetails", {
-                    id: 1,
                     headerText: item.title,
                     title: item.title,
                     subTitle: item.subTitle,
+                    date: item.date,
                   })
                 }
               >
@@ -47,7 +61,7 @@ const AnnouncementListing = (props: any) => {
                   index={index}
                   item={item}
                   list={list.length}
-                  module={module}
+                  module={params.module}
                 />
               </TouchableOpacity>
             );
