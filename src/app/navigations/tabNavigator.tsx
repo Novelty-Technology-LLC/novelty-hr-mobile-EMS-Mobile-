@@ -35,6 +35,7 @@ const TabNavigator = () => {
               navigate("announcementsListing", {
                 id: remoteMessage.data.announcement_id,
                 notification: true,
+                module: "Announcements",
               });
             } else {
               dispatch({ type: "Notification", payload: remoteMessage.data });
@@ -54,6 +55,7 @@ const TabNavigator = () => {
           navigate("announcementsListing", {
             id: remoteMessage.data.announcement_id,
             notification: true,
+            module: "Announcements",
           });
         } else {
           dispatch({ type: "Notification", payload: remoteMessage.data });

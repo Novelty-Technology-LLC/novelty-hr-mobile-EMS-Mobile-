@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
+import { theme } from '..';
 import colors from '../../colors';
 import { fonts } from '../theme';
 
@@ -35,6 +36,11 @@ const cardStyle = StyleSheet.create({
     marginTop: normalize(5),
     alignSelf: 'flex-start',
   },
+  dateText:{
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.xxs),
+    color: colors.fontGrey,
+  }
 });
 
 export { cardStyle };

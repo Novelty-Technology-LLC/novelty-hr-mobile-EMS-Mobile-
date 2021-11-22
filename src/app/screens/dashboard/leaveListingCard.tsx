@@ -9,9 +9,9 @@ import {
 } from "../../../assets/styles";
 import { useWindowDimensions } from "react-native";
 import { RenderHtmlComponent } from "../../common/renderHtml";
+import { getShortDate } from "../../utils";
 
 const ListingCard = ({ index, listLength, item, module }) => {
-  const { width } = useWindowDimensions();
   return (
     <View
       key={index}
@@ -22,18 +22,31 @@ const ListingCard = ({ index, listLength, item, module }) => {
         },
       ]}
     >
-      <View>
-        <Text style={cardStyle.titleText}>{item?.title}</Text>
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingRight: 10,
+          }}
+        >
+          <Text style={cardStyle.titleText}>
+            {item.title.length > 40
+              ? item.title.slice(0, 40) + "..."
+              : item.title}
+          </Text>
+          {module == "Announcements" && (
+            <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
+              {getShortDate(item.date)}
+            </Text>
+          )}
+        </View>
         {module == "Announcements" ? (
           <RenderHtmlComponent htmlData={item.subTitle} />
         ) : (
           <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
         )}
-         {item?.date && (
-        <View>
-          <Text>{item.date}</Text>
-        </View>
-      )}
       </View>
       <View>
         <State state={item?.status} />

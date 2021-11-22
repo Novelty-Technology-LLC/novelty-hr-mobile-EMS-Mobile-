@@ -17,10 +17,9 @@ const AnnouncementListing = (props: any) => {
     (async () => {
       try {
         var response: any = await getRequest("/webportal/announcements", {});
-
         if (params.notification) {
           var findAnnouncement = response.find(
-            (item: any) => item.id == params.id
+            (item: any) => item.id == +params.id
           );
           navigate("announcementsDetails", {
             headerText: findAnnouncement.title,
@@ -29,7 +28,6 @@ const AnnouncementListing = (props: any) => {
             date: findAnnouncement.date,
           });
         }
-
         setList(response);
         setLoading(false);
       } catch (error) {}
