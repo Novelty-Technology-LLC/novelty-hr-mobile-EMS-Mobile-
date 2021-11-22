@@ -36,7 +36,7 @@ const HolidayEventListing = (props: any) => {
         {loading ? (
           <ListPlaceholder />
         ) : list?.length > 0 ? (
-          transformList(list, 'Holiday&Events', false, false).map(
+          transformList(list, 'Holiday&Events', false, false,true).map(
             (item, index) => {
               return (
                 <View
