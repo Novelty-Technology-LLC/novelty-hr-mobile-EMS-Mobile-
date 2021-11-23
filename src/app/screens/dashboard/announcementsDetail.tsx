@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { cardStyle, headerTxtStyle, listingStyle } from "../../../assets/styles";
+import { Text, View, ScrollView } from "react-native";
+import {
+  cardStyle,
+  headerTxtStyle,
+  listingStyle,
+} from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { RenderHtmlComponent } from "../../common/renderHtml";
 import { getFullDate } from "../../utils";
@@ -17,13 +21,20 @@ const AnnouncementDetail = (props: any) => {
             : params.title}
         </Text>
       </Header>
-      <View style={{ padding: 20 }}>
-        <Text style={{ fontWeight: "700" }}>{params.title}</Text>
-        <RenderHtmlComponent htmlData={params.subTitle} parse />
-        <Text style={[cardStyle.dateText,{alignSelf: "flex-end",fontSize:12}]}>
-          {getFullDate(params.date)}
-        </Text>
-      </View>
+      <ScrollView>
+        <View style={{ padding: 20 }}>
+          <Text style={{ fontWeight: "700" }}>{params.title}</Text>
+          <RenderHtmlComponent htmlData={params.subTitle} parse />
+          <Text
+            style={[
+              cardStyle.dateText,
+              { alignSelf: "flex-end", fontSize: 12 },
+            ]}
+          >
+            {getFullDate(params.date)}
+          </Text>
+        </View>
+      </ScrollView>
     </View>
   );
 };
