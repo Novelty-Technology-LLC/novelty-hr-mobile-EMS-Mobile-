@@ -14,7 +14,7 @@ const ProfileInfoComponent = ({user}) => (
         <View style={style.icon}>
           <Icon name="account-circle" color={colors.primary} size={25} />
           <Text style={style.text}>
-            {user.first_name + " " + user.last_name}
+            {user?.first_name + " " + user.last_name}
           </Text>
         </View>
         <View style={style.icon}>

@@ -37,7 +37,7 @@ const EmployeeDetail = (props: any) => {
           />
         </View>
       </Header>
-      {loading && !data ? (
+      {loading ? (
         <ListPlaceholder />
       ) : (
         <ProfileInfoComponent user={data} />
