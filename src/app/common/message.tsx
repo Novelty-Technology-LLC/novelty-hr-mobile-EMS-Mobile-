@@ -1,8 +1,9 @@
-import colors from '../../assets/colors';
-import Snackbar from 'react-native-snackbar';
-import { fonts } from '../../assets/styles';
+import Snackbar from "react-native-snackbar";
+import { WSnackBar } from "react-native-smart-tip";
+import { fonts } from "../../assets/styles";
+import colors from "../../assets/colors";
 
-const snackBarMessage = (msg) => {
+const snackBarMessage = (msg: string) => {
   Snackbar.show({
     text: msg,
     textColor: colors.white,
@@ -12,4 +13,15 @@ const snackBarMessage = (msg) => {
   });
 };
 
-export { snackBarMessage };
+const showToast = (msg: string, success = true) => {
+  const snackBarOpts = {
+    data: msg,
+    position: WSnackBar.position.TOP,
+    duration: WSnackBar.duration.LONG, 
+    textColor: "#ffffff",
+    backgroundColor: success ? colors.green : colors.red,
+  };
+  WSnackBar.show(snackBarOpts);
+};
+
+export { snackBarMessage, showToast };

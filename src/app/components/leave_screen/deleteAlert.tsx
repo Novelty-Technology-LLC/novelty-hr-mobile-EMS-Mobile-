@@ -4,7 +4,7 @@ import normalize from 'react-native-normalize';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import colors from '../../../assets/colors';
 import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, snackBarMessage } from '../../common';
+import { AppIcon, showToast, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { RequestContext, TimeLogContext } from '../../reducer';
 import { deleteRequest, cancelLeave } from '../../services';
@@ -41,7 +41,7 @@ const DeleteAlert = ({
           dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
           dispatchRequest({ type: 'CANCEL', payload: data.leave });
           setLoading(false);
-          snackBarMessage('Request Cancelled');
+          showToast('Request Cancelled');
         })
         .catch((err) => console.log(err));
     } else {
@@ -49,7 +49,7 @@ const DeleteAlert = ({
         .then(async (data) => {
           dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
           dispatchRequest({ type: 'DELETE', payload: item.id });
-          snackBarMessage('Request deleted');
+          showToast('Request deleted');
           setLoading(false);
         })
         .catch((err) => console.log(err));
@@ -57,11 +57,12 @@ const DeleteAlert = ({
     hide();
   };
 
+
   const onTimeLogDelete = () => {
     deleteTimeLog(item.id)
       .then(() => {
         dispatchTimeLog({ type: 'DELETE', payload: item.id });
-        snackBarMessage('TimeLog deleted');
+        showToast('TimeLog deleted');
       })
       .catch((err) => console.log(err));
     hide();
