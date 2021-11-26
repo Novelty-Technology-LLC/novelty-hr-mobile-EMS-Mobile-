@@ -84,6 +84,7 @@ const TabNavigator = () => {
         item.notification_token === token
     );
 
+    
     const data = {
       id: user.id,
       notification_token: token,

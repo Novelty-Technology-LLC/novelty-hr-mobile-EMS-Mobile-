@@ -1,12 +1,12 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import React from "react";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { View, Text } from "react-native";
 import { SmallHeader } from ".";
 import colors from "../../assets/colors";
 import { profileStyle as style } from "../../assets/styles/tabs";
 import { formatPhoneNumber } from "../utils";
 
-const ProfileInfoComponent = ({user}) => (
+const ProfileInfoComponent = ({ user }: { user: any }) => (
   <>
     <View style={style.infoView}>
       <View style={style.body}>
@@ -69,4 +69,4 @@ const ProfileInfoComponent = ({user}) => (
   </>
 );
 
-export {ProfileInfoComponent};
+export { ProfileInfoComponent };

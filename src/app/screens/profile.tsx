@@ -98,7 +98,6 @@ const Profile = ({ navigation }: any) => {
   };
 
   let uri = image ? image.path : state?.user?.image_url;
-
   return state?.user ? (
     <View style={style.container}>
       <Header icon={true} navigation={navigation}>
@@ -157,7 +156,7 @@ const Profile = ({ navigation }: any) => {
             </View>
           )}
         </View>
-      <ProfileInfoComponent user={state}/>
+      <ProfileInfoComponent user={state.user}/>
       </ScrollView>
     </View>
   ) : (
