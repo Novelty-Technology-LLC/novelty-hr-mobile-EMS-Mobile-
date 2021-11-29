@@ -1,10 +1,17 @@
-import { useScrollToTop } from '@react-navigation/native';
-import React, { useContext, useEffect, useState } from 'react';
-import { View, FlatList, ScrollView, RefreshControl, ActivityIndicator,Text } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { myRequestsStyle as style } from '../../../assets/styles';
-import { AuthContext, TimeLogContext } from '../../reducer';
-import { getFilteredTimeLogs } from '../../services/timeLogService';
+import { useScrollToTop } from "@react-navigation/native";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  View,
+  FlatList,
+  ScrollView,
+  RefreshControl,
+  ActivityIndicator,
+  Text,
+} from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { myRequestsStyle as style } from "../../../assets/styles";
+import { AuthContext, TimeLogContext } from "../../reducer";
+import { getFilteredTimeLogs } from "../../services/timeLogService";
 import {
   getUser,
   initialState,
@@ -12,23 +19,22 @@ import {
   marking,
   stringifyDate,
   totalWeekHours,
-} from '../../utils';
-import { DaysRemaining } from '../leave_screen/daysRemaining';
-import Swipe from '../leave_screen/swipe';
-import { QuotaPlaceHolder, UserPlaceHolder } from '../loader';
-import { DaySelect } from './daySelect';
-import { EmptyContainer, SmallHeader } from '../../common';
-import { TimeLog } from './timelog';
-import { RequestButton } from '../requestButton';
-import { dateRange, todayDate } from '../../utils/dateFilter';
-import Week from './week';
-import normalize from 'react-native-normalize';
-import { dashboardStyle as ds, headerTxtStyle } from '../../../assets/styles';
-import { Header as HoursHeader, LineChartComponent } from '../../components';
-import { thisWeek, getDay } from '../../utils/dateFilter';
-import { getRequest } from '../../services';
-import colors from '../../../assets/colors';
-
+} from "../../utils";
+import { DaysRemaining } from "../leave_screen/daysRemaining";
+import Swipe from "../leave_screen/swipe";
+import { QuotaPlaceHolder, UserPlaceHolder } from "../loader";
+import { DaySelect } from "./daySelect";
+import { EmptyContainer, SmallHeader } from "../../common";
+import { TimeLog } from "./timelog";
+import { RequestButton } from "../requestButton";
+import { dateRange, todayDate } from "../../utils/dateFilter";
+import Week from "./week";
+import normalize from "react-native-normalize";
+import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
+import { Header as HoursHeader, LineChartComponent } from "../../components";
+import { thisWeek, getDay } from "../../utils/dateFilter";
+import { getRequest } from "../../services";
+import colors from "../../../assets/colors";
 
 const data = (data: any) => {
   return {
@@ -53,7 +59,7 @@ const data = (data: any) => {
   };
 };
 
-const TimeLogs = () => {
+const TimeLogs = (props:any) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState<Date>(new Date());
@@ -61,7 +67,7 @@ const TimeLogs = () => {
   const [activeLoading, setActiveLoading] = useState(false);
   const ref = React.useRef(null);
   const [selectedHrs, setSelectedHrs] = useState(0);
-  const [selectedDay, setSelectedDay] = useState('Today');
+  const [selectedDay, setSelectedDay] = useState("Today");
   const [initial, setinitial] = useState(true);
   const [logTime, setLogTime] = useState(thisWeek());
   const [loader, setLoader] = useState(false);
@@ -73,12 +79,11 @@ const TimeLogs = () => {
       if (state?.user?.id) {
         try {
           setLoader(true);
-
-          let response: any = await getRequest('/dashboard/timelog', {
+          let response: any = await getRequest("/dashboard/timelog", {
             ...logTime,
             user_id: state.user.id,
-          },);
-
+          });
+          setSelectedDay("Today");
           response = response.filter((item: any) => item);
           const keys = Object.keys(response[0]).map((item) => {
             return {
@@ -89,7 +94,6 @@ const TimeLogs = () => {
           });
 
           const mapData: any = keys.length ? data(keys) : initialState;
-
           setTotalTimeLog(mapData);
           setLoader(false);
         } catch (error) {
@@ -97,8 +101,7 @@ const TimeLogs = () => {
         }
       }
     })();
-  }, [state?.user?.id, logTime, refreshing]);
-
+  }, [state?.user?.id, logTime, refreshing,props.reload]);
 
   const getInitialLogs = async () => {
     try {
@@ -109,7 +112,7 @@ const TimeLogs = () => {
       );
       if (activeLogs) {
         dispatchTimeLog({
-          type: 'CHANGE',
+          type: "CHANGE",
           payload: {
             present: activeLogs,
             past: timelogs.past,
@@ -138,7 +141,7 @@ const TimeLogs = () => {
         );
         if (activeLogs) {
           dispatchTimeLog({
-            type: 'CHANGE',
+            type: "CHANGE",
             payload: {
               present: activeLogs,
               past: timelogs.past,
@@ -193,7 +196,7 @@ const TimeLogs = () => {
         {loading ? (
           <QuotaPlaceHolder />
         ) : (
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
             <DaysRemaining
               total={8}
               remaining={Math.round(selectedHrs)}
@@ -204,13 +207,13 @@ const TimeLogs = () => {
               <DaysRemaining
                 total={40}
                 remaining={Math.round(totalWeekHours(timelogs.past))}
-                title={isThisWeek(timelogs.past[0]) ? 'THIS WEEK' : 'PAST WEEK'}
+                title={isThisWeek(timelogs.past[0]) ? "THIS WEEK" : "PAST WEEK"}
                 timelog={true}
               />
             )}
           </View>
         )}
-        <SmallHeader text={'View'} />
+        <SmallHeader text={"View"} />
         <DaySelect
           handleChange={(date: Date) => {
             setDate(date);
@@ -243,10 +246,13 @@ const TimeLogs = () => {
           />
         ) : (
           !activeLoading && (
-            <EmptyContainer text="You don't have logs this day." containerStyle={{ 'marginTop': normalize(6) }} />
+            <EmptyContainer
+              text="You don't have logs this day."
+              containerStyle={{ marginTop: normalize(6) }}
+            />
           )
         )}
-        <Week loading={loading} refreshing={refreshing} title={'History'} />
+        <Week loading={loading} refreshing={refreshing} title={"History"} />
         <View style={ds.timeLog}>
           <HoursHeader
             title="HOURS WORKED"
@@ -261,7 +267,7 @@ const TimeLogs = () => {
                     ds.border,
                     {
                       borderColor: item.color,
-                      borderStyle: 'solid',
+                      borderStyle: "solid",
                       backgroundColor: item.color,
                     },
                   ]}

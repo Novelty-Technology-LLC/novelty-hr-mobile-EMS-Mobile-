@@ -77,6 +77,7 @@ const DashBoard = () => {
   useEffect(() => {
     (async () => {
       try {
+        setAnnouncementLoading(true)
         setCardLoading(true);
         const data: any = await getDashboard();
         const announcements = await fetchAnnouncements();
@@ -124,7 +125,6 @@ const DashBoard = () => {
 
   fetchAnnouncements = async () => {
     try {
-      setAnnouncementLoading(true)
       var response:any = await getRequest("/webportal/announcements", {
         limit: 3,
       });

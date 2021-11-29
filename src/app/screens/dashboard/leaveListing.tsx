@@ -37,7 +37,13 @@ const LeaveListing = (props: any) => {
           <ListPlaceholder />
         ) : (
           list?.length > 0 &&
-          transformList(list, "Leave", true).map((item, index) => (
+          transformList(
+            list,
+            "Leave",
+            true,
+            false,
+            props?.route?.params?.module === "Leave" ? true : false
+          ).map((item, index) => (
             <ListingCard index={index} item={item} list={list.length} />
           ))
         )}

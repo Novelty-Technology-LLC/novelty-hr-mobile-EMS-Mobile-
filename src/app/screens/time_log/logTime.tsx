@@ -108,12 +108,12 @@ const LogTime = ({ route }: any) => {
                 past: timelogs.past.length > 0 ? data[1] ?? timelogs.past : [],
               },
             });
-            navigation.navigate('timelog');
+            navigation.navigate('timelog',{reload:true});
             setIsLoading(false);
             showToast('TimeLog updated');
           } else {
             checkAndReplace(data, timelogs, dispatchTimeLog);
-            navigation.navigate('timelog');
+            navigation.navigate('timelog',{reload:true});
             setIsLoading(false);
              showToast('TimeLog updated');
           }
