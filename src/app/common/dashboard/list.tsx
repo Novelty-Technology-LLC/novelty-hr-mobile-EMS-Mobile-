@@ -20,7 +20,9 @@ const List = ({ list }: { list: any }) => {
             list?.module,
             false,
             true,
-            list.module == "Holidays & Events" ? true : false
+            list.module == "Holidays & Events" || list.module == "Leave"
+              ? true
+              : false
           ).map((item: any, index: number) => (
             <TouchableOpacity
               onPress={() =>

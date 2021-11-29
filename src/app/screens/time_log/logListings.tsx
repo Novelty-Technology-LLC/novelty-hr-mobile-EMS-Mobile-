@@ -58,7 +58,7 @@ const LogListings = ({ route }: any) => {
           </View>
         )}
         {tasks[0] ? (
-          tasks[1].map((item) => (
+          tasks[1].map((item:any) => (
             <Tasks
               key={item.id}
               value={item}

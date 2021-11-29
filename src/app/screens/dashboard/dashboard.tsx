@@ -79,7 +79,7 @@ const DashBoard = () => {
       try {
         setCardLoading(true);
         const data: any = await getDashboard();
-        const announcements = fetchAnnouncements();
+        const announcements = await fetchAnnouncements();
         setListData(data);
         setRefreshing(false);
         setCardLoading(false);
@@ -124,10 +124,12 @@ const DashBoard = () => {
 
   fetchAnnouncements = async () => {
     try {
-      var response = await getRequest("/webportal/announcements", {
+      setAnnouncementLoading(true)
+      var response:any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
       setAnnouncements(response);
+      setAnnouncementLoading(false)
     } catch (error) {}
   };
 
