@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, TouchableWithoutFeedback } from "react-native";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { getRequest } from "../../services";
 import { header as Header } from "../../common";
@@ -27,21 +27,25 @@ const EmployeeDetail = (props: any) => {
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>{params.name}</Text>
-        <View style={{ marginLeft: normalize(10) }}>
-          <Image
-            style={style.headerImage}
-            source={{
-              uri: params.image,
+        <View
+          style={headerTxtStyle.main}
+        >
+          <Text style={headerTxtStyle.headerText}>{params.name}</Text>
+          <View
+            style={{
+              marginRight: normalize(20),
             }}
-          />
+          >
+            <Image
+              style={style.headerImage}
+              source={{
+                uri: params.image,
+              }}
+            />
+          </View>
         </View>
       </Header>
-      {loading ? (
-        <ListPlaceholder />
-      ) : (
-        <ProfileInfoComponent user={data} />
-      )}
+      {loading ? <ListPlaceholder /> : <ProfileInfoComponent user={data} />}
     </View>
   );
 };
