@@ -2,26 +2,16 @@ import React, { useContext, useState } from 'react';
 import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { headerTxtStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
-import { tabHeader as Header } from '../common';
+import { showToast, tabHeader as Header } from '../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import ImageCropper from 'react-native-image-crop-picker';
-import { formatPhoneNumber } from '../utils';
 import { updateImage } from '../services';
 import normalize from 'react-native-normalize';
-import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
-import { snackBarMessage, snackErrorBottom } from '../common';
-import { SmallHeader } from '../common';
 import { ProfileInfoComponent } from '../common/profileInformation';
-
-const optionsPicker = {
-  skipBackup: true,
-  path: 'images',
-  mediaType: 'photo',
-};
 
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
@@ -87,13 +77,13 @@ const Profile = ({ navigation }: any) => {
         setUser(data);
         setloading(false);
         updateProfileImage({ ...image, visible: false }, data);
-        snackBarMessage('Image uploaded');
+        showToast('Image uploaded');
         cleanImage();
       })
       .catch((err) => {
         setloading(false);
         cleanImage();
-        snackErrorBottom('Something went wrong');
+        showToast('Something went wrong',false);
       });
   };
 

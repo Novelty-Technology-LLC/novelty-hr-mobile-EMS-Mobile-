@@ -16,6 +16,7 @@ import {
   Cards,
   header as Header,
   List,
+  showToast,
   snackBarMessage,
   snackErrorBottom,
 } from "../../common";
@@ -102,10 +103,10 @@ const DashBoard = () => {
       const res: any = await createWork(data);
       res?.data?.data?.id && setId(res?.data?.data?.id);
       if (res?.data?.data?.message) {
-        snackErrorBottom(res?.data?.data?.message);
+        showToast(res?.data?.data?.message,false)
         setLoading(false);
       } else if (res?.data?.status === 200) {
-        snackBarMessage("Successfully changed status.");
+        showToast("Successfully changed status.");
         setToggle(!toggle);
         let newList: any = listData.find(
           (item) => item?.detailRoute === "/employee"
@@ -118,7 +119,7 @@ const DashBoard = () => {
         setLoading(false);
       }
     } catch (error) {
-      snackErrorBottom("Something went wrong");
+      showToast("Something went wrong",false);
       setLoading(false);
     }
   };

@@ -104,14 +104,10 @@ const RequestLeave = ({ route }: any) => {
           req.state === "Pending"
       );
       if (!olddata && checkIfRequested(allrequests, values)) {
-        return snackErrorBottom({
-          message: "Requested date cannot be requested again",
-        });
+        return showToast("Requested date cannot be requested again",false);
       }
       if (olddata && checkIfRequested(allrequests, values, olddata)) {
-        return snackErrorBottom({
-          message: "Requested date cannot be requested again",
-        });
+        return showToast("Requested date cannot be requested again",false);
       }
       const date = JSON.parse(values.date);
       let dayArray = [];

@@ -7,7 +7,7 @@ import {
   deleteAlertStyle,
   deleteAlertStyle as style,
 } from '../../../assets/styles';
-import { AppIcon, snackBarMessage } from '../../common';
+import { AppIcon, showToast, snackBarMessage } from '../../common';
 import { dataType } from '../../interface';
 import { TimeLogContext } from '../../reducer';
 import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
@@ -58,7 +58,7 @@ const DeleteLog = ({
           } else {
             setTasks({ ...tasks, note: task });
           }
-          snackBarMessage(`Task deleted`);
+          showToast(`Task deleted`);
         })
         .catch((err) => console.log(err));
     } else {
@@ -66,7 +66,7 @@ const DeleteLog = ({
         .then(() => {
           navigate('timelog');
           dispatchTimeLog({ type: 'DELETE', payload: value.id });
-          snackBarMessage('TimeLog deleted');
+          showToast('TimeLog deleted');
         })
         .catch((err) => console.log(err));
     }
