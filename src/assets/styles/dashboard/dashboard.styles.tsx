@@ -94,6 +94,7 @@ const dashboardStyle = StyleSheet.create({
     marginTop: normalize(16),
     width: '100%',
     overflow: 'hidden',
+    marginBottom:normalize(50)
   },
   loader: {
     backgroundColor: 'transparent',
