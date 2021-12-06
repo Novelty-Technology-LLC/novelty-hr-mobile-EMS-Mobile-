@@ -83,7 +83,7 @@ const TimeLogs = (props:any) => {
             ...logTime,
             user_id: state.user.id,
           });
-          setSelectedDay("Today");
+          setSelectedDay(selectedDay);
           response = response.filter((item: any) => item);
           const keys = Object.keys(response[0]).map((item) => {
             return {
@@ -92,7 +92,6 @@ const TimeLogs = (props:any) => {
               ),
             };
           });
-
           const mapData: any = keys.length ? data(keys) : initialState;
           setTotalTimeLog(mapData);
           setLoader(false);
@@ -186,6 +185,7 @@ const TimeLogs = (props:any) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={() => {
+              setSelectedDay('Today');
               setinitial(true);
               setRefreshing(true);
               getInitialLogs();

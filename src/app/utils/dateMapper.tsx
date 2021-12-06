@@ -32,7 +32,7 @@ export const dateStringMapper = (
 };
 
 export const getShortDate=(date)=>{
-  return moment(date).format("MMM Do").slice(0,6);
+  return moment(date).format("MMM Do").slice(0,5);
 }
 
 
