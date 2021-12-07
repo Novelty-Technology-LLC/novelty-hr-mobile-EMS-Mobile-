@@ -3,7 +3,7 @@ import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { fonts } from '../theme';
 
-const holidayListingStyle = StyleSheet.create({
+const ListingStyle = StyleSheet.create({
   container: {
     marginHorizontal: normalize(20),
     paddingVertical: normalize(10),
@@ -23,4 +23,4 @@ const holidayListingStyle = StyleSheet.create({
   mainContainer: { flex: 1, backgroundColor: colors.white },
 });
 
-export { holidayListingStyle };
+export { ListingStyle as listingStyle };

@@ -25,6 +25,12 @@ const profileStyle = StyleSheet.create({
     height: normalize(100),
     borderRadius: normalize(50),
   },
+  headerImage: {
+    width: normalize(35),
+    height: normalize(35),
+    borderRadius: normalize(50),
+    
+  },
   imageWrapper: {
     width: normalize(106),
     height: normalize(106),

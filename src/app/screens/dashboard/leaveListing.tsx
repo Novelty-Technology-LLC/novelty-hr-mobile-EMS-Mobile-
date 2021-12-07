@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { ScrollView, Text, View } from "react-native";
 import {
   cardStyle,
   headerTxtStyle,
-  holidayListingStyle,
+  listingStyle,
   requestStyle,
-} from '../../../assets/styles';
-import { header as Header } from '../../common';
-import State from '../../components/leave_screen/state';
-import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
-import { getList } from '../../services';
-import { transformList } from '../../utils/listtranform';
+} from "../../../assets/styles";
+import { header as Header } from "../../common";
+import State from "../../components/leave_screen/state";
+import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
+import { getList } from "../../services";
+import { transformList } from "../../utils/listtranform";
+import { ListingCard } from "./leaveListingCard";
 
 const LeaveListing = (props: any) => {
   const [list, setList] = useState<any>(null);
@@ -20,7 +21,6 @@ const LeaveListing = (props: any) => {
     setLoading(true);
     const getData = async (route: string) => {
       const data = await getList(route);
-
       data && setLoading(false);
       setList(data);
     };
@@ -28,7 +28,7 @@ const LeaveListing = (props: any) => {
   }, []);
 
   return (
-    <View style={holidayListingStyle.mainContainer}>
+    <View style={listingStyle.mainContainer}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>LEAVE</Text>
       </Header>
@@ -37,24 +37,14 @@ const LeaveListing = (props: any) => {
           <ListPlaceholder />
         ) : (
           list?.length > 0 &&
-          transformList(list, 'Leave', true).map((item, index) => (
-            <View
-              key={index}
-              style={[
-                holidayListingStyle.container,
-                {
-                  borderBottomWidth: list.length - 1 === index ? 0 : 1,
-                },
-              ]}
-            >
-              <View>
-                <Text style={cardStyle.titleText}>{item?.title}</Text>
-                <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
-              </View>
-              <View>
-                <State state={item?.status} />
-              </View>
-            </View>
+          transformList(
+            list,
+            "Leave",
+            true,
+            false,
+            props?.route?.params?.module === "Leave" ? true : false
+          ).map((item, index) => (
+            <ListingCard index={index} item={item} list={list.length} />
           ))
         )}
       </ScrollView>

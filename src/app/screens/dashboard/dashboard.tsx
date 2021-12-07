@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -9,114 +9,50 @@ import {
   RefreshControl,
   TouchableOpacity,
   BackHandler,
-} from 'react-native';
-import { AuthContext } from '../../reducer';
-import { dashboardStyle as ds, headerTxtStyle } from '../../../assets/styles';
+} from "react-native";
+import { AuthContext } from "../../reducer";
+import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
 import {
   Cards,
   header as Header,
+  List,
+  showToast,
   snackBarMessage,
   snackErrorBottom,
-} from '../../common';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../../../assets/colors';
-import { getToday } from '../../utils';
-import { createWork, getWork, getDashboard, getRequest } from '../../services';
-import moment from 'moment';
-import normalize from 'react-native-normalize';
-import { DashboardCardPlaceholder } from '../../common';
-import { getCurrentRouteName, navigate } from '../../utils/navigation';
-import { time } from '../../utils/listtranform';
-import { Header as HoursHeader, LineChartComponent } from '../../components';
-import { thisWeek, getDay } from '../../utils/dateFilter';
-
-const marking = [
-  {
-    id: '1',
-    label: 'My Time',
-    color: '#6DAF7C',
-  },
-  {
-    id: '2',
-    label: 'Novelty Average',
-    color: '#BF8B59',
-  },
-  {
-    id: '3',
-    label: 'Base Time',
-    color: '#BCBCBC',
-  },
-];
-
-const initialState = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-  datasets: [
-    {
-      data: [8, 8, 8, 8, 8],
-      strokeWidth: 2,
-      color: () => `rgb(188, 188, 188)`,
-    },
-    {
-      data: [8, 8, 8, 8, 8],
-      strokeWidth: 2,
-      color: () => `rgb(191, 139, 89)`,
-    },
-    {
-      data: [8, 8, 8, 8, 8],
-      strokeWidth: 2,
-      color: () => `rgb(109,175,124)`,
-    },
-  ],
-};
-
-const data = (data: any) => {
-  return {
-    labels: data[0].day.map((item: any) => getDay(item)),
-    datasets: [
-      {
-        data: data[3].threshold,
-        strokeWidth: 2,
-        color: () => `rgb(188, 188, 188)`,
-      },
-      {
-        data: data[1].company_average,
-        strokeWidth: 2,
-        color: () => `rgb(191, 139, 89)`,
-      },
-      {
-        data: data[2].your_log,
-        strokeWidth: 2,
-        color: () => `rgb(109,175,124)`,
-      },
-    ],
-  };
-};
+} from "../../common";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import colors from "../../../assets/colors";
+import { getToday } from "../../utils";
+import { createWork, getWork, getDashboard, getRequest } from "../../services";
+import moment from "moment";
+import normalize from "react-native-normalize";
+import { DashboardCardPlaceholder } from "../../common";
+import { getCurrentRouteName, navigate } from "../../utils/navigation";
+import { time } from "../../utils/listtranform";
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
-  const [logTime, setLogTime] = useState(thisWeek());
-  const [loader, setLoader] = useState(false);
-
-  const [totalTimeLog, setTotalTimeLog] = useState(initialState);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
   }, []);
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      if (getCurrentRouteName() === 'dashboard') {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      if (getCurrentRouteName() === "dashboard") {
         BackHandler.exitApp();
       }
     });
     return () => {
-      BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
+      BackHandler.removeEventListener("hardwareBackPress", BackHandler.exitApp);
     };
   }, []);
 
@@ -126,7 +62,7 @@ const DashBoard = () => {
         setLoading(true);
         const res: any = await getWork({
           user_id: state?.user?.id,
-          date: moment().format('YYYY-MM-DD'),
+          date: moment().format("YYYY-MM-DD"),
         });
         setId(res?.data?.data?.id ?? null);
 
@@ -142,9 +78,10 @@ const DashBoard = () => {
   useEffect(() => {
     (async () => {
       try {
-        setLogTime(thisWeek());
+        setAnnouncementLoading(true)
         setCardLoading(true);
         const data: any = await getDashboard();
+        const announcements = await fetchAnnouncements();
         setListData(data);
         setRefreshing(false);
         setCardLoading(false);
@@ -153,37 +90,6 @@ const DashBoard = () => {
       }
     })();
   }, [refreshing]);
-
-  useEffect(() => {
-    (async () => {
-      if (state?.user?.id) {
-        try {
-          setLoader(true);
-
-          let response: any = await getRequest('/dashboard/timelog', {
-            ...logTime,
-            user_id: state.user.id,
-          });
-
-          response = response.filter((item: any) => item);
-          const keys = Object.keys(response[0]).map((item) => {
-            return {
-              [item]: response.flatMap((val: any) =>
-                val[item] > -1 ? [val[item] || 0] : []
-              ),
-            };
-          });
-
-          const mapData: any = keys.length ? data(keys) : initialState;
-
-          setTotalTimeLog(mapData);
-          setLoader(false);
-        } catch (error) {
-          setLoader(false);
-        }
-      }
-    })();
-  }, [state?.user?.id, logTime, refreshing]);
 
   const ToggleWork = async () => {
     try {
@@ -197,25 +103,35 @@ const DashBoard = () => {
       const res: any = await createWork(data);
       res?.data?.data?.id && setId(res?.data?.data?.id);
       if (res?.data?.data?.message) {
-        snackErrorBottom(res?.data?.data?.message);
+        showToast(res?.data?.data?.message,false)
         setLoading(false);
       } else if (res?.data?.status === 200) {
-        snackBarMessage('Successfully changed status.');
+        showToast("Successfully changed status.");
         setToggle(!toggle);
         let newList: any = listData.find(
-          (item) => item?.detailRoute === '/employee'
+          (item) => item?.detailRoute === "/employee"
         );
         newList.items.map((item) => {
-          if (item?.subTitle === 'Working from Home') {
+          if (item?.subTitle === "Working from Home") {
             item.title = !toggle ? +item.title + 1 : +item.title - 1;
           }
         });
         setLoading(false);
       }
     } catch (error) {
-      snackErrorBottom('Something went wrong');
+      showToast("Something went wrong",false);
       setLoading(false);
     }
+  };
+
+  fetchAnnouncements = async () => {
+    try {
+      var response:any = await getRequest("/webportal/announcements", {
+        limit: 3,
+      });
+      setAnnouncements(response);
+      setAnnouncementLoading(false)
+    } catch (error) {}
   };
 
   return (
@@ -223,7 +139,7 @@ const DashBoard = () => {
       <Header icon={false} container={{ paddingVertical: normalize(4.076) }}>
         <View style={ds.headerContainer}>
           <Text style={headerTxtStyle.headerText}>DASHBOARD</Text>
-          <TouchableOpacity onPress={() => navigate('Profile')}>
+          <TouchableOpacity onPress={() => navigate("Profile")}>
             <Image source={{ uri: state?.user?.image_url }} style={ds.image} />
           </TouchableOpacity>
         </View>
@@ -267,42 +183,20 @@ const DashBoard = () => {
             <DashboardCardPlaceholder />
           )}
         </View>
-        <View style={ds.timeLog}>
-          <HoursHeader
-            title="HOURS WORKED"
-            dropDown={!refreshing && !loading}
-            setLogTime={setLogTime}
-          />
-          <View style={ds.marking}>
-            {marking.map((item, index) => (
-              <View style={ds.markingBody} key={`${index}`}>
-                <View
-                  style={[
-                    ds.border,
-                    {
-                      borderColor: item.color,
-                      borderStyle: 'solid',
-                      backgroundColor: item.color,
-                    },
-                  ]}
-                />
-                <View style={ds.markingGap} />
-                <Text>{item.label}</Text>
-              </View>
-            ))}
-          </View>
-          <View style={ds.chartWrapper}>
-            {loader ? (
-              <View style={ds.loader}>
-                <ActivityIndicator size="large" color={colors.primary} />
-              </View>
-            ) : (
-              <LineChartComponent
-                data={totalTimeLog}
-                days={totalTimeLog.labels.length}
-              />
-            )}
-          </View>
+        <View style={{ height: 20 }} />
+        <View style={{ width: "100%", paddingBottom: 25 }}>
+          {!announcementLoading ? (
+            <List
+              list={{
+                module: "Announcements",
+                message: "No Upcomming Announcements",
+                items: announcements,
+                detailRoute: "announcementsListing",
+              }}
+            />
+          ) : (
+            <DashboardCardPlaceholder />
+          )}
         </View>
       </ScrollView>
     </View>

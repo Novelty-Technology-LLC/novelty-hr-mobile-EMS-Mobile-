@@ -31,5 +31,5 @@ export * from './time_log/day.styles';
 export * from './dashboard/dashboard.styles';
 export * from './common/list.styles';
 export * from './common/carasoul.styles';
-export * from './dashboard/holidayListing.styles';
+export * from './dashboard/listing.styles';
 export * from './common/card.styles';

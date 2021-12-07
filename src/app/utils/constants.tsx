@@ -27,3 +27,42 @@ export const dashboarCard = {
     />
   ),
 };
+
+export const marking = [
+  {
+    id: '1',
+    label: 'My Time',
+    color: '#6DAF7C',
+  },
+  {
+    id: '2',
+    label: 'Novelty Average',
+    color: '#BF8B59',
+  },
+  {
+    id: '3',
+    label: 'Base Time',
+    color: '#BCBCBC',
+  },
+];
+
+export const initialState = {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  datasets: [
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(188, 188, 188)`,
+    },
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(191, 139, 89)`,
+    },
+    {
+      data: [8, 8, 8, 8, 8],
+      strokeWidth: 2,
+      color: () => `rgb(109,175,124)`,
+    },
+  ],
+};

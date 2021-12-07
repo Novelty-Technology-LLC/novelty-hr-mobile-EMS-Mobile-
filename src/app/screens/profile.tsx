@@ -2,25 +2,16 @@ import React, { useContext, useState } from 'react';
 import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { headerTxtStyle } from '../../assets/styles';
 import { profileStyle as style } from '../../assets/styles/tabs';
-import { tabHeader as Header } from '../common';
+import { showToast, tabHeader as Header } from '../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '../../assets/colors';
 import { AuthContext } from '../reducer';
 import ImageCropper from 'react-native-image-crop-picker';
-import { formatPhoneNumber } from '../utils';
 import { updateImage } from '../services';
 import normalize from 'react-native-normalize';
-import { momentdate } from '../utils/momentDate';
 import { storeToken, removeToken, removeUser, setUser } from '../utils';
-import { snackBarMessage, snackErrorBottom } from '../common';
-import { SmallHeader } from '../common';
-
-const optionsPicker = {
-  skipBackup: true,
-  path: 'images',
-  mediaType: 'photo',
-};
+import { ProfileInfoComponent } from '../common/profileInformation';
 
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
@@ -86,18 +77,17 @@ const Profile = ({ navigation }: any) => {
         setUser(data);
         setloading(false);
         updateProfileImage({ ...image, visible: false }, data);
-        snackBarMessage('Image uploaded');
+        showToast('Image uploaded');
         cleanImage();
       })
       .catch((err) => {
         setloading(false);
         cleanImage();
-        snackErrorBottom('Something went wrong');
+        showToast('Something went wrong',false);
       });
   };
 
   let uri = image ? image.path : state?.user?.image_url;
-
   return state?.user ? (
     <View style={style.container}>
       <Header icon={true} navigation={navigation}>
@@ -156,70 +146,7 @@ const Profile = ({ navigation }: any) => {
             </View>
           )}
         </View>
-        <View style={style.infoView}>
-          <View style={style.body}>
-            <SmallHeader text="Personal Information" />
-            <View style={style.icon}>
-              <Icon name="account-circle" color={colors.primary} size={25} />
-              <Text style={style.text}>
-                {state.user.first_name + ' ' + state.user.last_name}
-              </Text>
-            </View>
-            <View style={style.icon}>
-              <Icon name="human-male-female" color={colors.primary} size={25} />
-              <Text style={style.gender}>{state.user.gender}</Text>
-            </View>
-            <View style={style.icon}>
-              <Icon name="cake-variant" color={colors.primary} size={25} />
-              <Text style={style.date}>{state.user.birth_date}</Text>
-            </View>
-            {state.user.blood_group && (
-              <View style={style.icon}>
-                <Icon name="water" color={colors.primary} size={25} />
-                <Text style={style.text}>{state.user?.blood_group}</Text>
-              </View>
-            )}
-          </View>
-        </View>
-        <View style={style.infoView}>
-          <View style={style.body}>
-            <SmallHeader text="Contact Information" />
-            <View style={style.icon}>
-              <Icon name="email-newsletter" color={colors.primary} size={25} />
-              <Text style={style.text}>{state.user.email}</Text>
-            </View>
-            <View style={style.icon}>
-              <Icon name="phone" color={colors.primary} size={25} />
-              <Text style={style.text}>
-                {formatPhoneNumber(state.user.phone)}
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={style.infoView}>
-          <View style={style.body}>
-            <SmallHeader text="Employee Information" />
-
-            <View style={style.icon}>
-              <Icon
-                name="card-account-details"
-                color={colors.primary}
-                size={25}
-              />
-              <Text style={style.text}>{state.user?.employee_id}</Text>
-            </View>
-
-            <View style={style.icon}>
-              <Icon name="location-enter" color={colors.primary} size={25} />
-              <Text style={style.text}>{state.user.join_date}</Text>
-            </View>
-
-            <View style={style.icon}>
-              <Icon name="account-tie" color={colors.primary} size={25} />
-              <Text style={style.designation}>{state.user.designation}</Text>
-            </View>
-          </View>
-        </View>
+      <ProfileInfoComponent user={state.user}/>
       </ScrollView>
     </View>
   ) : (

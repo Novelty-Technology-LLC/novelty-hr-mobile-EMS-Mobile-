@@ -56,7 +56,8 @@ const dashboardStyle = StyleSheet.create({
   wrapContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    flex: 1, width: '100%',
+    flex: 1, 
+    width: '100%',
     justifyContent: 'space-between'
   },
   wrapItem: {
@@ -93,6 +94,7 @@ const dashboardStyle = StyleSheet.create({
     marginTop: normalize(16),
     width: '100%',
     overflow: 'hidden',
+    marginBottom:normalize(50)
   },
   loader: {
     backgroundColor: 'transparent',

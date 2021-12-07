@@ -13,7 +13,7 @@ const Cards = ({ data }: { data: any }) => {
         <Fragment key={`${index}`}>
           <View style={[ds.wrapItem]}>
             {item.type === 'stats' ? (
-              <Carousel items={transformLunchItem(item)} itemsPerInterval={1} />
+              <Carousel items={transformLunchItem(item)} itemsPerInterval={1} module={item.module}/>
             ) : (
               <List list={item} />
             )}

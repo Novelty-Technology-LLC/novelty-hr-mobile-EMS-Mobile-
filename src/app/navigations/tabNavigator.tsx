@@ -1,23 +1,24 @@
-import React, { useContext, useEffect } from 'react';
-import { Linking, Platform } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ScreenStack from './screenStack';
-import colors from '../../assets/colors';
-import { Profile } from '../screens';
-import { AppIcon } from '../common';
-import LogNav from './logStack';
-import DeviceInfo from 'react-native-device-info';
+import React, { useContext, useEffect } from "react";
+import { Linking, Platform } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ScreenStack from "./screenStack";
+import colors from "../../assets/colors";
+import { Profile } from "../screens";
+import { AppIcon } from "../common";
+import LogNav from "./logStack";
+import DeviceInfo from "react-native-device-info";
 import {
   getUser,
   removeToken,
   removeUser,
   setUser,
   storeToken,
-} from '../utils';
-import { store } from '../services';
-import messaging from '@react-native-firebase/messaging';
-import { AuthContext } from '../reducer';
-import DashNav from './dashBoardStack';
+} from "../utils";
+import { store } from "../services";
+import messaging from "@react-native-firebase/messaging";
+import { AuthContext } from "../reducer";
+import DashNav from "./dashBoardStack";
+import { navigate } from "../utils/navigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,8 +31,16 @@ const TabNavigator = () => {
         .getInitialNotification()
         .then((remoteMessage) => {
           if (remoteMessage && Object.keys(remoteMessage.data).length) {
-            dispatch({ type: 'Notification', payload: remoteMessage.data });
-            Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
+            if (remoteMessage.data.type === "announcements") {
+              navigate("announcementsListing", {
+                id: remoteMessage.data.announcement_id,
+                notification: true,
+                module: "Announcements",
+              });
+            } else {
+              dispatch({ type: "Notification", payload: remoteMessage.data });
+              Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
+            }
           }
         });
     };
@@ -42,8 +51,16 @@ const TabNavigator = () => {
     requestUserPermission();
     messaging().onNotificationOpenedApp((remoteMessage) => {
       if (remoteMessage && Object.keys(remoteMessage.data).length) {
-        dispatch({ type: 'Notification', payload: remoteMessage.data });
-        Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
+        if (remoteMessage.data.type === "announcements") {
+          navigate("announcementsListing", {
+            id: remoteMessage.data.announcement_id,
+            notification: true,
+            module: "Announcements",
+          });
+        } else {
+          dispatch({ type: "Notification", payload: remoteMessage.data });
+          Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
+        }
       }
     });
   }, [messaging]);
@@ -67,6 +84,7 @@ const TabNavigator = () => {
         item.notification_token === token
     );
 
+    
     const data = {
       id: user.id,
       notification_token: token,

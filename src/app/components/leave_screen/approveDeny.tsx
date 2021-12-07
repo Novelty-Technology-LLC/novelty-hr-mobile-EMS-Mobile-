@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
-import { Alert, button as Button, snackErrorBottom } from '../../common';
+import { Alert, button as Button, showToast, snackErrorBottom } from '../../common';
 import { dataType } from '../../interface';
 import { EditAlert } from './responseAlert';
 import { checkRequest } from '../../services';
@@ -38,7 +38,7 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
               if (res === 'Pending' || res === 'In Progress') {
                 setShow(true);
               } else {
-                snackErrorBottom({ message: `Request got ${res}` });
+                showToast(`Request got ${res}`,false);
               }
               setisLoading(false);
             })

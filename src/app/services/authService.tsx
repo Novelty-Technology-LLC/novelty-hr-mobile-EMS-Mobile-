@@ -12,6 +12,7 @@ import { setUser, storeToken } from '../utils';
 import { create } from './userService';
 import { mapDataToObject } from '../utils/transformer';
 import { snackErrorBottom } from '../common/error';
+import { showToast } from '../common';
 
 const signInGoogle = async (dispatch: any) => {
   try {
@@ -23,13 +24,13 @@ const signInGoogle = async (dispatch: any) => {
     delete userInfo.user.name;
     const userData = mapDataToObject(userInfo.user);
     createUser(dispatch, userData, userInfo.idToken);
-  } catch (error) {
+  } catch (error:any) {
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
       error.message = 'Sign in error';
     }
-    snackErrorBottom(error);
+    showToast(error?.message,false);
   }
 };
 
@@ -86,13 +87,13 @@ const signInApple = async (dispatch: any) => {
     } else {
       dispatch({ type: 'INVALID' });
     }
-  } catch (error) {
+  } catch (error:any) {
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
       error.message = 'Unknown error occured';
     }
-    snackErrorBottom(error);
+    showToast(error?.message,false);
   }
 };
 

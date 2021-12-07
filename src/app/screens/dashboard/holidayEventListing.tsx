@@ -5,7 +5,7 @@ import colors from '../../../assets/colors';
 import {
   cardStyle,
   headerTxtStyle,
-  holidayListingStyle,
+ listingStyle,
   timeLogStyle,
 } from '../../../assets/styles';
 import { header as Header } from '../../common';
@@ -28,7 +28,7 @@ const HolidayEventListing = (props: any) => {
   }, []);
 
   return (
-    <View style={holidayListingStyle.mainContainer}>
+    <View style={listingStyle.mainContainer}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>HOLIDAYS & EVENTS</Text>
       </Header>
@@ -36,13 +36,13 @@ const HolidayEventListing = (props: any) => {
         {loading ? (
           <ListPlaceholder />
         ) : list?.length > 0 ? (
-          transformList(list, 'Holiday&Events', false, false).map(
+          transformList(list, 'Holiday&Events', false, false,true).map(
             (item, index) => {
               return (
                 <View
                   key={index}
                   style={[
-                    holidayListingStyle.container,
+                    listingStyle.container,
                     {
                       borderBottomWidth: list.length - 1 === index ? 0 : 1,
                       paddingVertical: normalize(15),

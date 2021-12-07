@@ -8,7 +8,7 @@ import {
 import RequestWithImage from './requestWithImage';
 import Textarea from 'react-native-textarea';
 import { dataType } from '../../interface';
-import { AppIcon, snackBarMessage } from '../../common';
+import { AppIcon, showToast, snackBarMessage } from '../../common';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../assets/colors';
 import { AdminRequestContext, AuthContext } from '../../reducer';
@@ -68,7 +68,7 @@ const EditAlert = ({
       });
       navigation.navigate('leaveList');
       setisLoading(true);
-      snackBarMessage('Request replied');
+      showToast('Request replied');
     });
   };
 

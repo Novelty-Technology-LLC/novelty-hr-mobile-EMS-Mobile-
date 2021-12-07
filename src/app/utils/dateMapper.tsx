@@ -11,7 +11,7 @@ export const dateMapper = (start: string, end: string) => {
   }
   return daysCount;
 };
-
+import moment from 'moment';
 export const dateStringMapper = (
   startDate: string,
   endDate: string,
@@ -30,3 +30,12 @@ export const dateStringMapper = (
         end.substring(8, end.length - 4) +
         `${dateOnly ? '' : `(${dateMapper(start, end)} days)`}  `;
 };
+
+export const getShortDate=(date)=>{
+  return moment(date).format("MMM Do").slice(0,5);
+}
+
+
+export const getFullDate=(date)=>{
+  return moment(date).format('LL');
+}

@@ -1,10 +1,12 @@
-import { dateStringMapper } from './dateMapper';
-import { getDayToday } from './momentDate';
-import { checkRepeat } from '../utils';
-import colors from '../../assets/colors';
+import { dateStringMapper } from "./dateMapper";
+import { getDayToday } from "./momentDate";
+import { checkRepeat } from "../utils";
+import colors from "../../assets/colors";
 
-const transformTitle = (title: string) => {
-  return title.length > 18 ? `${title.substring(0, 18)} ...` : title;
+const transformTitle = (title: string, transform: boolean) => {
+  return title.length > 18
+    ? `${title.substring(0, !transform ? 45 : 18)} ...`
+    : title;
 };
 
 const checkToday = (startDate: Date, endDate: Date) => {
@@ -30,27 +32,27 @@ const checkTomorrow = (date: Date) => {
 
 const formatDate = (month: number, day: number, monthdate: number) => {
   let days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
   let months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   return `${months[month]} ${monthdate}, ${days[day]} `;
@@ -63,13 +65,13 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
   let month, day, monthdate;
   const days =
     startDate === endDate
-      ? ''
+      ? ""
       : `\n${dateStringMapper(startDate, endDate, true)}`;
 
   if (checkToday(startDate, endDate)) {
-    return module === 'Leave' ? `On Leave Today ${days}` : 'Today';
+    return module === "Leave" ? `On Leave Today ${days}` : "Today";
   } else if (checkTomorrow(startDate)) {
-    return module === 'Leave' ? `On Leave Tomorrow ${days}` : `Tomorrow`;
+    return module === "Leave" ? `On Leave Tomorrow ${days}` : `Tomorrow`;
   }
 
   if (!isList) {
@@ -86,23 +88,26 @@ export const transformList = (
   itemList: any,
   module: string,
   isList?: boolean,
-  truncate?: boolean
+  truncate?: boolean,
+  transform?: boolean
 ) => {
   const newList = itemList.map((item: any) => ({
-    title: truncate ? transformTitle(item?.title) : item?.title,
-    subTitle: transformDate(item?.leave_date ?? item?.subTitle, module, isList),
+    title: truncate ? transformTitle(item?.title, transform) : item?.title,
+    subTitle: transform
+      ? transformDate(item?.leave_date ?? item?.subTitle, module, isList)
+      : item.subTitle,
     status: item?.status,
     type: item?.type,
+    date: item?.date?.slice(0,10),
   }));
-
   return newList;
 };
 
 export const transformLunchItem = (item: any) => {
-  if (item?.detailRoute === '/lunch') {
+  if (item?.detailRoute === "/lunch") {
     const newItem = item.items.map((item: any) => {
       if (item?.subTitle === getDayToday()) {
-        return { ...item, subTitle: 'Today' };
+        return { ...item, subTitle: "Today", type: "lunch" };
       } else {
         return item;
       }
@@ -119,20 +124,20 @@ export const time = () => {
 
   switch (true) {
     case curHr < 12:
-      return 'Morning';
+      return "Morning";
     case curHr < 17:
-      return 'Afternoon';
+      return "Afternoon";
     case curHr < 21:
-      return 'Evening';
+      return "Evening";
     default:
-      return 'Night';
+      return "Night";
   }
 };
 
 export const getColor = (type: string, defaultColor: string) => {
-  return type === 'holiday'
+  return type === "holiday"
     ? colors.blue
-    : type === 'event'
+    : type === "event"
     ? colors.primary
     : defaultColor;
 };

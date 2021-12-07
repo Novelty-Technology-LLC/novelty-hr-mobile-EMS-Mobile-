@@ -1,40 +1,41 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
 import {
   Text,
   View,
   ActivityIndicator,
   Platform,
   Keyboard,
-} from 'react-native';
+} from "react-native";
 import {
   header as Header,
+  showToast,
   snackBarMessage,
   snackErrorBottom,
-} from '../../common';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
-import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
+} from "../../common";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider } from "@ui-kitten/components";
+import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
 import {
   approveRequest,
   headerTxtStyle,
   requestLeave as style,
-} from '../../../assets/styles';
+} from "../../../assets/styles";
 import {
   CalendarComponent,
   Teams,
   Leavetype,
   Description,
-} from '../../components/request_screen';
-import { button as Button } from '../../common';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { editRequest, postRequest } from '../../services';
-import colors from '../../../assets/colors';
-import { useNavigation } from '@react-navigation/native';
-import { AuthContext, RequestContext } from '../../reducer';
-import { snackErrorTop } from '../../common';
-import { checkIfRequested, checkValidityQuota, dateMapper } from '../../utils';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+} from "../../components/request_screen";
+import { button as Button } from "../../common";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { editRequest, postRequest } from "../../services";
+import colors from "../../../assets/colors";
+import { useNavigation } from "@react-navigation/native";
+import { AuthContext, RequestContext } from "../../reducer";
+import { snackErrorTop } from "../../common";
+import { checkIfRequested, checkValidityQuota, dateMapper } from "../../utils";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -42,11 +43,11 @@ const validationSchema = Yup.object().shape({
       startDate: Yup.date().nullable(),
       endDate: Yup.date().nullable(),
     })
-    .required('Date is required'),
-  type: Yup.string().required().label('type'),
-  note: Yup.string().required('Leave note is required').label('note'),
-  lead: Yup.array().of(Yup.number()).label('lead'),
-  status: Yup.string().label('status'),
+    .required("Date is required"),
+  type: Yup.string().required().label("type"),
+  note: Yup.string().required("Leave note is required").label("note"),
+  lead: Yup.array().of(Yup.number()).label("lead"),
+  status: Yup.string().label("status"),
 });
 
 const RequestLeave = ({ route }: any) => {
@@ -57,21 +58,21 @@ const RequestLeave = ({ route }: any) => {
   const [isLoading, setisLoading] = useState(false);
 
   const initialValues = {
-    date: olddata ? olddata.date : '',
-    type: olddata ? olddata.type : 'PAID TIME OFF',
-    status: olddata ? olddata.state : 'Pending',
-    note: olddata ? olddata.note : '',
+    date: olddata ? olddata.date : "",
+    type: olddata ? olddata.type : "PAID TIME OFF",
+    status: olddata ? olddata.state : "Pending",
+    note: olddata ? olddata.note : "",
     lead: olddata ? olddata.lead : [],
   };
 
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
-        dispatchRequest({ type: 'UPDATEQUOTA', payload: res.data.data.quota });
-        dispatchRequest({ type: 'ADD', payload: res.data.data.leave });
-        navigation.navigate('leaveList');
+        dispatchRequest({ type: "UPDATEQUOTA", payload: res.data.data.quota });
+        dispatchRequest({ type: "ADD", payload: res.data.data.leave });
+        navigation.navigate("leaveList");
         setisLoading(false);
-        snackBarMessage('Request created');
+        showToast("Request created");
       })
       .catch((err) => console.log(err));
   };
@@ -80,11 +81,12 @@ const RequestLeave = ({ route }: any) => {
     editRequest(olddata.id, data)
       .then((res) => {
         res.quota.map((item) => {
-          dispatchRequest({ type: 'UPDATEQUOTA', payload: item });
+          dispatchRequest({ type: "UPDATEQUOTA", payload: item });
         });
-        dispatchRequest({ type: 'UPDATE', payload: res.leave });
-        navigation.navigate('leaveList');
-        snackBarMessage('Request updated');
+        dispatchRequest({ type: "UPDATE", payload: res.leave });
+        navigation.navigate("leaveList");
+        showToast("Request updated");
+
         setisLoading(false);
       })
       .catch((err) => console.log(err));
@@ -97,26 +99,22 @@ const RequestLeave = ({ route }: any) => {
         ...requests.requests,
       ].filter(
         (req) =>
-          req.state === 'Approved' ||
-          req.state === 'In Progress' ||
-          req.state === 'Pending'
+          req.state === "Approved" ||
+          req.state === "In Progress" ||
+          req.state === "Pending"
       );
       if (!olddata && checkIfRequested(allrequests, values)) {
-        return snackErrorBottom({
-          message: 'Requested date cannot be requested again',
-        });
+        return showToast("Requested date cannot be requested again",false);
       }
       if (olddata && checkIfRequested(allrequests, values, olddata)) {
-        return snackErrorBottom({
-          message: 'Requested date cannot be requested again',
-        });
+        return showToast("Requested date cannot be requested again",false);
       }
       const date = JSON.parse(values.date);
       let dayArray = [];
       const startDate = new Date(date.startDate).toString().slice(0, 15);
 
-      let endDate = '';
-      if (date['endDate'] === null) {
+      let endDate = "";
+      if (date["endDate"] === null) {
         endDate = startDate;
       } else {
         endDate = new Date(date.endDate).toString().slice(0, 15);
@@ -171,8 +169,8 @@ const RequestLeave = ({ route }: any) => {
       Keyboard.dismiss();
       olddata ? updateReq(requestData) : submitRequest(requestData);
     } catch (error) {
-      if (!error.message.includes('Selected day exceeds'))
-        error.message = 'Unkonown error occured';
+      if (!error.message.includes("Selected day exceeds"))
+        error.message = "Unkonown error occured";
 
       snackErrorTop(error);
     }
@@ -190,11 +188,11 @@ const RequestLeave = ({ route }: any) => {
         scrollEnabled={true}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.OS === 'ios' ? 180 : 70}
-        extraHeight={Platform.OS === 'android' ? 140 : 50}
+        extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
+        extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
-        keyboardDismissMode={'none'}
+        keyboardDismissMode={"none"}
       >
         <Formik
           validationSchema={validationSchema}

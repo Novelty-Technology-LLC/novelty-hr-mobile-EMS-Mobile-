@@ -9,6 +9,7 @@ import {
 import { headerTxtStyle, requestLeave } from '../../../assets/styles';
 import {
   header as Header,
+  showToast,
   snackBarMessage,
   snackErrorBottom,
 } from '../../common';
@@ -107,23 +108,21 @@ const LogTime = ({ route }: any) => {
                 past: timelogs.past.length > 0 ? data[1] ?? timelogs.past : [],
               },
             });
-            navigation.navigate('timelog');
+            navigation.navigate('timelog',{reload:true});
             setIsLoading(false);
-            snackBarMessage('TimeLog updated');
+            showToast('TimeLog updated');
           } else {
             checkAndReplace(data, timelogs, dispatchTimeLog);
-            navigation.navigate('timelog');
+            navigation.navigate('timelog',{reload:true});
             setIsLoading(false);
-            snackBarMessage('TimeLog updated');
+             showToast('TimeLog updated');
           }
         })
         .catch((err) => console.log(err));
     } else {
       Keyboard.dismiss();
       setIsLoading(false);
-      snackErrorBottom({
-        message: 'You cannot log more than 24 hours a day ',
-      });
+      showToast('You cannot log more than 24 hours a day ',false);
     }
   };
 

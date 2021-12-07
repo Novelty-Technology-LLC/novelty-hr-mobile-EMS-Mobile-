@@ -1,8 +1,15 @@
-import React, { useEffect } from 'react';
-import { View, ScrollView, Text, NativeScrollEvent } from 'react-native';
-import colors from '../../assets/colors';
-import { CarouselStyle } from '../../assets/styles';
-import { UpperCard } from './dashboard/card';
+import React, { useEffect } from "react";
+import {
+  View,
+  ScrollView,
+  Text,
+  NativeScrollEvent,
+  TouchableOpacity,
+} from "react-native";
+import colors from "../../assets/colors";
+import { CarouselStyle } from "../../assets/styles";
+import { navigate } from "../utils/navigation";
+import { UpperCard } from "./dashboard/card";
 
 interface CarouselPropTypes {
   itemsPerInterval?: number;
@@ -24,13 +31,13 @@ export const Carousel = (props: CarouselPropTypes) => {
     try {
       setItems(chunk(props.items.items, 1));
     } catch (error) {
-      console.log('error', error);
+      console.log("error", error);
     }
   }, []);
 
   const scrollHandler = (width: number, intervals: number) => {
     chunk(props.items.items, 1).map((item: any, index: number) => {
-      if (item[0]?.subTitle && item[0]?.subTitle === 'Today') {
+      if (item[0]?.subTitle && item[0]?.subTitle === "Today") {
         ref.scrollTo({
           x: (width / intervals) * index,
           y: 0,
@@ -80,10 +87,16 @@ export const Carousel = (props: CarouselPropTypes) => {
     );
   }
 
-  const isCloseToEnd = ({ layoutMeasurement, contentOffset, contentSize }: NativeScrollEvent) => {
+  const isCloseToEnd = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }: NativeScrollEvent) => {
     const paddingToBottom = 0;
-    return layoutMeasurement.width + contentOffset.x >=
-      contentSize.width - paddingToBottom;
+    return (
+      layoutMeasurement.width + contentOffset.x >=
+      contentSize.width - paddingToBottom
+    );
   };
 
   return (
@@ -116,10 +129,27 @@ export const Carousel = (props: CarouselPropTypes) => {
           return (
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>
-                <View
-                  style={CarouselStyle.item}
-                >
-                  <UpperCard item={{ ...item }} module={props.items.module} containerStyle={{ marginTop: 0 }} />
+                <View style={CarouselStyle.item}>
+                  {props.module !== "Employee" ? (
+                    <UpperCard
+                      item={{ ...item }}
+                      module={props.items.module}
+                      containerStyle={{ marginTop: 0 }}
+                    />
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() =>
+                        item.subTitle == "Total Employees" &&
+                        navigate("employeeListing")
+                      }
+                    >
+                      <UpperCard
+                        item={{ ...item }}
+                        module={props.items.module}
+                        containerStyle={{ marginTop: 0 }}
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
             </View>
