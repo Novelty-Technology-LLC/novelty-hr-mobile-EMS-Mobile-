@@ -82,6 +82,8 @@ const DashBoard = () => {
         setCardLoading(true);
         const data: any = await getDashboard();
         const announcements = await fetchAnnouncements();
+        setAnnouncements(announcements)
+        setAnnouncementLoading(false);
         setListData(data);
         setRefreshing(false);
         setCardLoading(false);
