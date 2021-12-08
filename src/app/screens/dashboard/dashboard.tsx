@@ -122,9 +122,9 @@ const DashBoard = () => {
         showToast("Successfully changed status.");
         setToggle(!toggle);
         let newList: any = listData.find(
-          (item) => item?.detailRoute === "/employee"
+          (item:any) => item?.detailRoute === "/employee"
         );
-        newList.items.map((item) => {
+        newList.items.map((item:any) => {
           if (item?.subTitle === "Working from Home") {
             item.title = !toggle ? +item.title + 1 : +item.title - 1;
           }
