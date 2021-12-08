@@ -49,7 +49,6 @@ const EmployeeListing = (props: any) => {
                     id: item.id,
                     image: item.image,
                     name: item.title,
-                    
                   })
                 }
               >
@@ -57,6 +56,7 @@ const EmployeeListing = (props: any) => {
                   index={index}
                   item={item}
                   list={list.length}
+                  module='employeeList'
                 />
               </TouchableOpacity>
             );

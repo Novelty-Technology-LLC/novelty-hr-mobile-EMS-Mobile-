@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import State from "../../components/leave_screen/state";
 import {
   cardStyle,
@@ -10,6 +10,7 @@ import {
 import { useWindowDimensions } from "react-native";
 import { RenderHtmlComponent } from "../../common/renderHtml";
 import { getShortDate } from "../../utils";
+import { profileStyle as style } from "../../../assets/styles/tabs";
 
 const ListingCard = ({ index, listLength, item, module }) => {
   return (
@@ -41,6 +42,7 @@ const ListingCard = ({ index, listLength, item, module }) => {
               {getShortDate(item.date)}
             </Text>
           )}
+
         </View>
         {module == "Announcements" ? (
           <RenderHtmlComponent htmlData={item.subTitle} />
@@ -48,6 +50,12 @@ const ListingCard = ({ index, listLength, item, module }) => {
           <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
         )}
       </View>
+        {module == "employeeList" &&  <Image
+              style={style.headerImage}
+              source={{
+                uri: item.image,
+              }}
+            />}
       <View>
         <State state={item?.status} />
       </View>
