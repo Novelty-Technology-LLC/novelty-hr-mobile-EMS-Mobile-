@@ -83,7 +83,6 @@ const TimeLogs = (props:any) => {
             ...logTime,
             user_id: state.user.id,
           });
-          setSelectedDay(selectedDay);
           response = response.filter((item: any) => item);
           const keys = Object.keys(response[0]).map((item) => {
             return {
