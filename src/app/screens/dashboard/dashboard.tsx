@@ -75,6 +75,21 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state?.user?.id]);
 
+  const fetchAnnouncements = async () => {
+    try {
+      var response:any = await getRequest("/webportal/announcements", {
+        limit: 3,
+      });
+      console.log('response->${response}',response);
+      
+      setAnnouncements(response);
+      setAnnouncementLoading(false)
+    } catch (error) {
+      console.log('err ->$error',error);
+      
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -82,7 +97,7 @@ const DashBoard = () => {
         setCardLoading(true);
         const data: any = await getDashboard();
         const announcements = await fetchAnnouncements();
-        setAnnouncements(announcements)
+  
         setAnnouncementLoading(false);
         setListData(data);
         setRefreshing(false);
@@ -126,15 +141,6 @@ const DashBoard = () => {
     }
   };
 
-  fetchAnnouncements = async () => {
-    try {
-      var response:any = await getRequest("/webportal/announcements", {
-        limit: 3,
-      });
-      setAnnouncements(response);
-      setAnnouncementLoading(false)
-    } catch (error) {}
-  };
 
   return (
     <View style={ds.safeArea}>
