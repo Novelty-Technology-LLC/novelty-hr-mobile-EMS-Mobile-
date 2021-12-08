@@ -75,14 +75,25 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state?.user?.id]);
 
+  const fetchAnnouncements = async () => {
+    try {
+      var response: any = await getRequest("/webportal/announcements", {
+        limit: 3,
+      });
+
+      setAnnouncements(response);
+      setAnnouncementLoading(false);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     (async () => {
       try {
-        setAnnouncementLoading(true)
+        setAnnouncementLoading(true);
         setCardLoading(true);
         const data: any = await getDashboard();
         const announcements = await fetchAnnouncements();
-        setAnnouncements(announcements)
+
         setAnnouncementLoading(false);
         setListData(data);
         setRefreshing(false);
@@ -105,7 +116,7 @@ const DashBoard = () => {
       const res: any = await createWork(data);
       res?.data?.data?.id && setId(res?.data?.data?.id);
       if (res?.data?.data?.message) {
-        showToast(res?.data?.data?.message,false)
+        showToast(res?.data?.data?.message, false);
         setLoading(false);
       } else if (res?.data?.status === 200) {
         showToast("Successfully changed status.");
@@ -121,19 +132,9 @@ const DashBoard = () => {
         setLoading(false);
       }
     } catch (error) {
-      showToast("Something went wrong",false);
+      showToast("Something went wrong", false);
       setLoading(false);
     }
-  };
-
-  fetchAnnouncements = async () => {
-    try {
-      var response:any = await getRequest("/webportal/announcements", {
-        limit: 3,
-      });
-      setAnnouncements(response);
-      setAnnouncementLoading(false)
-    } catch (error) {}
   };
 
   return (
