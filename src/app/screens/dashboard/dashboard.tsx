@@ -191,7 +191,7 @@ const DashBoard = () => {
             <List
               list={{
                 module: "Announcements",
-                message: "No Upcoming Announcement",
+                message: "No Upcoming Announcements",
                 items: announcements,
                 detailRoute: "announcementsListing",
               }}
