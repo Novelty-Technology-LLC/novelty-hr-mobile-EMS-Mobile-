@@ -42,7 +42,6 @@ const ListingCard = ({ index, listLength, item, module }) => {
               {getShortDate(item.date)}
             </Text>
           )}
-
         </View>
         {module == "Announcements" ? (
           <RenderHtmlComponent htmlData={item.subTitle} />

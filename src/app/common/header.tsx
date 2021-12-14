@@ -23,7 +23,6 @@ const header = ({ onPress = null, icon = false, children, ...props }: any) => {
             name="chevron-left"
             size={30}
             color={color.primary}
-            style={{ marginLeft: normalize(-8) }}
           />
           {children}
         </TouchableWithoutFeedback>
