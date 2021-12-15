@@ -15,11 +15,9 @@ const listStyle = StyleSheet.create({
     borderRadius: normalize(8),
     padding: normalize(10),
     paddingTop: normalize(0),
-    flexGrow: 1
   },
   seeAll: {
     flex:1,
-    
   },
   seeAllText: {
     fontFamily: fonts.poppinsRegular,

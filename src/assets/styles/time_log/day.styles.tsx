@@ -38,7 +38,7 @@ const dayStyle = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: normalize(-5),
+   
   },
   gap: {
     paddingHorizontal: normalize(4),
