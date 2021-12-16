@@ -5,7 +5,8 @@ const { width, height } = Dimensions.get('window');
 
 const headerStyle = StyleSheet.create({
   container: {
-    paddingHorizontal: normalize(20),
+    paddingLeft:normalize(10),
+    paddingRight:normalize(20),
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: normalize(10),

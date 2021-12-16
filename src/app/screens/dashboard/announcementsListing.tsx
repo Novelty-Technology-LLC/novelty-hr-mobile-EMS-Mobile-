@@ -26,6 +26,7 @@ const AnnouncementListing = (props: any) => {
             title: findAnnouncement.title,
             subTitle: findAnnouncement.subTitle,
             date: findAnnouncement.date,
+            html:findAnnouncement.html
           });
         }
         setList(response);
@@ -52,6 +53,7 @@ const AnnouncementListing = (props: any) => {
                     title: item.title,
                     subTitle: item.subTitle,
                     date: item.date,
+                    html:item.html
                   })
                 }
               >

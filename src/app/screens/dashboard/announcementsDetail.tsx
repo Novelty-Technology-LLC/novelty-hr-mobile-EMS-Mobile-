@@ -24,7 +24,7 @@ const AnnouncementDetail = (props: any) => {
       <ScrollView>
         <View style={{ padding: 20 }}>
           <Text style={{ fontWeight: "700" }}>{params.title}</Text>
-          <RenderHtmlComponent htmlData={params.subTitle} parse />
+          <RenderHtmlComponent htmlData={params.html} parse />
           <Text
             style={[
               cardStyle.dateText,
