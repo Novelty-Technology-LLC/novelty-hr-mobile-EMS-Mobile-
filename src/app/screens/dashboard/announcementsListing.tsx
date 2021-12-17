@@ -29,7 +29,7 @@ const AnnouncementListing = (props: any) => {
             html:findAnnouncement.html
           });
         }
-        setList(response);
+        setList(response.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)));
         setLoading(false);
       } catch (error) {}
     })();

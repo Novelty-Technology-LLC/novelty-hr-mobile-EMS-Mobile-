@@ -80,9 +80,7 @@ const DashBoard = () => {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
-
-      setAnnouncements(response);
-      setAnnouncementLoading(false);
+      setAnnouncements(response.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)));
     } catch (error) {}
   };
 
@@ -92,7 +90,7 @@ const DashBoard = () => {
         setAnnouncementLoading(true);
         setCardLoading(true);
         const data: any = await getDashboard();
-        const announcements = await fetchAnnouncements();
+        await fetchAnnouncements();
 
         setAnnouncementLoading(false);
         setListData(data);

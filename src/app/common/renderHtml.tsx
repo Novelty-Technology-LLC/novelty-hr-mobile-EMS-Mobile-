@@ -1,23 +1,19 @@
 import React from "react";
 import { Linking, useWindowDimensions } from "react-native";
-import RenderHtml from "react-native-render-html";
-
+import HTMLView from "react-native-htmlview";
 const RenderHtmlComponent = ({ htmlData, parse = false }) => {
   const { width } = useWindowDimensions();
   return (
-    <RenderHtml
+    <HTMLView
       contentWidth={width}
-      onLinkPress={(evt, href) => { console.log('tt->',href);
-       Linking.openURL(href) }}
-      source={{
-        html: 
-          parse
-            ? htmlData
-            : htmlData?.length > 50
-            ? htmlData?.slice(0, 50) + "..."
-            : htmlData
-        ,
-      }}
+      onLinkPress={(url: string) => Linking.openURL(url)}
+      value={
+        parse
+          ? htmlData
+          : htmlData?.length > 50
+          ? htmlData?.slice(0, 50) + "..."
+          : htmlData
+      }
     />
   );
 };
