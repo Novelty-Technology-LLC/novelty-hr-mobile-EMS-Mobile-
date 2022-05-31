@@ -1,13 +1,13 @@
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../../assets/colors";
-import { listStyle } from "../../../assets/styles";
-import { transformList } from "../../utils/listtranform";
-import { navigate } from "../../utils/navigation";
-import { EmptyContainer } from "../emptyContainer";
-import { AppIcon } from "../icon";
-import { ListItem } from "./listItem";
+import React from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import normalize from 'react-native-normalize'
+import colors from '../../../assets/colors'
+import { listStyle } from '../../../assets/styles'
+import { transformList } from '../../utils/listtranform'
+import { navigate } from '../../utils/navigation'
+import { EmptyContainer } from '../emptyContainer'
+import { AppIcon } from '../icon'
+import { ListItem } from './listItem'
 
 const List = ({ list }: { list: any }) => {
   return (
@@ -20,9 +20,9 @@ const List = ({ list }: { list: any }) => {
             list?.module,
             false,
             true,
-            list.module == "Holidays & Events" || list.module == "Leave"
+            list.module == 'Holidays & Events' || list.module == 'Leave'
               ? true
-              : false
+              : false,
           ).map((item: any, index: number) => (
             <TouchableOpacity
               onPress={() =>
@@ -31,7 +31,7 @@ const List = ({ list }: { list: any }) => {
                   module: list.module,
                 })
               }
-              style={listStyle.seeAll}
+              style={listStyle.seeAllText}
             >
               <ListItem
                 key={index}
@@ -50,15 +50,15 @@ const List = ({ list }: { list: any }) => {
           text={`${
             list.message
               ? list.message
-              : list?.module === "Leave"
-              ? "No Upcoming Leave"
-              : "No Upcoming Holidays and Events"
+              : list?.module === 'Leave'
+              ? 'No Upcoming Leave'
+              : 'No Upcoming Holidays and Events'
           }`}
           containerStyle={{ height: normalize(100) }}
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export { List };
+export { List }

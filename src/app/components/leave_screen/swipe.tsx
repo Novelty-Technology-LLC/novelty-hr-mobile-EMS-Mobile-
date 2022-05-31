@@ -1,14 +1,14 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import colors from '../../../assets/colors';
-import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles';
-import { Alert, AppIcon } from '../../common';
-import { checkRequest } from '../../services';
-import { DeleteAlert } from './deleteAlert';
-import { DeleteLog } from '../time_log/deleteLog';
-import { navigate } from '../../utils/navigation';
-import Normalize from '../../utils/normalize';
+import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react'
+import { TouchableOpacity, View } from 'react-native'
+import colors from '../../../assets/colors'
+import { deleteAlertStyle, swipeStyle as style } from '../../../assets/styles'
+import { Alert, AppIcon } from '../../common'
+import { checkRequest } from '../../services'
+import { DeleteAlert } from './deleteAlert'
+import { DeleteLog } from '../time_log/deleteLog'
+import { navigate } from '../../utils/navigation'
+import Normalize from '../../utils/normalize'
 
 const Swipe = ({
   item,
@@ -19,27 +19,27 @@ const Swipe = ({
   onPress,
   setLoading,
 }: any) => {
-  const navigation = useNavigation();
-  const [showAlert, setShowAlert] = useState(false);
-  const show = () => setShowAlert(true);
-  const hide = () => setShowAlert(false);
+  const navigation = useNavigation()
+  const [showAlert, setShowAlert] = useState(false)
+  const show = () => setShowAlert(true)
+  const hide = () => setShowAlert(false)
   const onEdit = () => {
-    onPress();
+    onPress()
     checkRequest(item.id)
       .then((res) => {
         if (res === 'Pending') {
-          navigation.navigate('requestLeave', item);
+          navigation.navigate('requestLeave', item)
         } else {
-          show();
+          show()
         }
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
 
   const onLogEdit = () => {
-    onPress();
-    navigation.navigate('loglistings', item);
-  };
+    onPress()
+    navigation.navigate('loglistings', item)
+  }
 
   return other ? (
     <View style={style.othercontainer}>
@@ -53,11 +53,15 @@ const Swipe = ({
     <View style={style.container}>
       <TouchableOpacity
         onPress={() => {
-          onLogEdit();
+          onLogEdit()
         }}
         style={deleteAlertStyle.iconContainer}
       >
-        <AppIcon name="square-edit-outline" color={colors.primary} size={Normalize(20)} />
+        <AppIcon
+          name="square-edit-outline"
+          color={colors.primary}
+          size={Normalize(20)}
+        />
       </TouchableOpacity>
       <DeleteAlert
         item={item}
@@ -70,8 +74,8 @@ const Swipe = ({
     <View style={style.tlcontainer}>
       <TouchableOpacity
         onPress={() => {
-          value.item = item;
-          navigate('logtime', value);
+          value.item = item
+          navigate('logtime', value)
         }}
         style={deleteAlertStyle.iconContainer}
       >
@@ -85,7 +89,7 @@ const Swipe = ({
     </View>
   ) : (
     <>
-      {item.state !== 'In Progress' ? (
+      {item.state === 'Pending' ? (
         <View style={style.container}>
           <TouchableOpacity
             onPress={() => onEdit()}
@@ -97,18 +101,22 @@ const Swipe = ({
               size={Normalize(20)}
             />
           </TouchableOpacity>
-          <DeleteAlert item={item} onPress={onPress} />
+          <>
+            <DeleteAlert item={item} other={other} onPress={onPress} />
+          </>
         </View>
       ) : (
         <View style={style.othercontainer}>
-          <DeleteAlert item={item} other={true} onPress={onPress} />
+          <>
+            <DeleteAlert item={item} other={other} onPress={onPress} />
+          </>
         </View>
       )}
       <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
         Your request just got reviewed.You cannot edit now.
       </Alert>
     </>
-  );
-};
+  )
+}
 
-export default Swipe;
+export default Swipe
