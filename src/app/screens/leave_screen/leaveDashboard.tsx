@@ -99,15 +99,14 @@ const LeaveDashboard = () => {
         <View style={style.container}>
           {requests.quota &&
             requests.quota.length > 0 &&
-            requests.quota.map((daysDetail: any) => {
-              console.log('daysDetail================>', daysDetail)
-              ;<DaysRemaining
+            requests.quota.map((daysDetail) => (
+              <DaysRemaining
                 key={daysDetail?.id}
                 total={daysDetail?.leave_total}
                 remaining={daysDetail?.leave_used}
                 title={daysDetail?.leave_type}
               />
-            })}
+            ))}
         </View>
         <MyRequests
           loading={loading}
