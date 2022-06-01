@@ -8,7 +8,7 @@ import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
 import { ListingCard } from "./leaveListingCard";
 
-const EmployeeListing = (props: any) => {
+const WorkFromHomeEmployeeListing = (props: any) => {
   const [list, setList] = useState<any>(null);
   const [loading, setLoading] = useState<any>(null);
 
@@ -16,10 +16,11 @@ const EmployeeListing = (props: any) => {
     setLoading(true);
     (async () => {
       try {
-        let response = await getRequest("webportal/users/user-listing", {});
+        let response = await getRequest(
+          "http://2c98-124-41-240-94.ngrok.io/work",
+          {}
+        );
         response = response.map((item) => {
-          console.log(item, "item with");
-
           return {
             id: item.id,
             title: item.first_name + " " + item.last_name,
@@ -36,7 +37,7 @@ const EmployeeListing = (props: any) => {
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>Employee</Text>
+        <Text style={headerTxtStyle.headerText}>WFH-Employees</Text>
       </Header>
       {loading ? (
         <ListPlaceholder />
@@ -70,4 +71,4 @@ const EmployeeListing = (props: any) => {
   );
 };
 
-export { EmployeeListing };
+export { WorkFromHomeEmployeeListing };

@@ -80,7 +80,9 @@ const DashBoard = () => {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
-      setAnnouncements(response.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)));
+      setAnnouncements(
+        response.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      );
     } catch (error) {}
   };
 
@@ -120,9 +122,9 @@ const DashBoard = () => {
         showToast("Successfully changed status.");
         setToggle(!toggle);
         let newList: any = listData.find(
-          (item:any) => item?.detailRoute === "/employee"
+          (item: any) => item?.detailRoute === "/employee"
         );
-        newList.items.map((item:any) => {
+        newList.items.map((item: any) => {
           if (item?.subTitle === "Working from Home") {
             item.title = !toggle ? +item.title + 1 : +item.title - 1;
           }

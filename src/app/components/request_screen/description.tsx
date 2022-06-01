@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Platform } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Textarea from 'react-native-textarea';
-import { descriptionStyle as style } from '../../../assets/styles';
-import { HashTagButton, SmallHeader } from '../../common';
-import { HashtagPlaceHolder } from '../loader';
-import { getHash } from '../../services/timeLogService';
-import normalize from 'react-native-normalize';
+import React, { useState, useEffect } from "react";
+import { View, Text, Platform } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Textarea from "react-native-textarea";
+import { descriptionStyle as style } from "../../../assets/styles";
+import { HashTagButton, SmallHeader } from "../../common";
+import { HashtagPlaceHolder } from "../loader";
+import { getHash } from "../../services/timeLogService";
+import normalize from "react-native-normalize";
 
 const Description = ({
   handleChange,
@@ -37,7 +37,7 @@ const Description = ({
     const fetch = async () => {
       try {
         setloading(true);
-        const response = await getHash('timelogHashtag');
+        const response = await getHash("timelogHashtag");
         const mapData =
           updatehashtag !== null
             ? response.hashtags.map((item: any) => {
@@ -66,7 +66,7 @@ const Description = ({
   return (
     <View
       style={{
-        flexDirection: 'column',
+        flexDirection: "column",
         marginTop: normalize(timelog ? 10 : -5),
       }}
     >
@@ -76,12 +76,12 @@ const Description = ({
           editlog ? { marginTop: 0 } : {},
           {
             marginTop: normalize(
-              timelog && Platform.OS === 'android' ? -10 : -7
+              timelog && Platform.OS === "android" ? -10 : -7
             ),
           },
         ]}
       >
-        <SmallHeader text={timelog ? 'Task summary' : 'Note'} />
+        <SmallHeader text={timelog ? "Task summary" : "Note"} />
         {timelog && (
           <>
             <View style={style.hashtag}>
@@ -93,7 +93,7 @@ const Description = ({
                     onPress={() => {
                       item.isSelected = !item.isSelected;
                       setType(0),
-                        handleChange('hashtag')(
+                        handleChange("hashtag")(
                           JSON.stringify(
                             hashtag
                               .filter((item) => item.isSelected)
@@ -101,17 +101,21 @@ const Description = ({
                           )
                         );
 
-                      const selectedHashtag = item.isSelected ? item.value : '';
+                      const selectedHashtag = item.isSelected ? item.value : "";
+                      console.log(selectedHashtag, "selectedHashtag");
+
                       let newVal: any = values.note;
-                      const splittedArr = values.note.split(' ');
+                      console.log(values.note);
+
+                      const splittedArr = values.note.split(" ");
 
                       newVal = splittedArr
                         .filter((val) => val && val !== item.value)
-                        .join(' ');
-                      const isEmpty = newVal + selectedHashtag === '';
+                        .join(" ");
+                      const isEmpty = newVal + selectedHashtag === "";
 
-                      handleChange('note')(
-                        isEmpty ? '' : newVal + ' ' + selectedHashtag
+                      handleChange("note")(
+                        isEmpty ? "" : newVal + " " + selectedHashtag
                       );
                     }}
                   >
@@ -134,16 +138,18 @@ const Description = ({
           defaultValue={editHashtag ?? values?.note ?? defaultValue}
           placeholder={
             timelog
-              ? 'Write a short summary about your task..'
-              : 'Write a short note for your leave..'
+              ? "Write a short summary about your task.."
+              : "Write a short note for your leave.."
           }
-          placeholderTextColor={'#c7c7c7'}
-          underlineColorAndroid={'transparent'}
-          name={timelog ? 'task' : 'note'}
-          label={timelog ? 'task' : 'note'}
-          onChangeText={(text: any) =>
-            handleChange(error ? 'note' : 'task')(text)
-          }
+          placeholderTextColor={"#c7c7c7"}
+          underlineColorAndroid={"transparent"}
+          name={timelog ? "task" : "note"}
+          label={timelog ? "task" : "note"}
+          onChangeText={(text: any) => {
+            console.log(text);
+
+            handleChange(error ? "note" : "task")(text);
+          }}
         />
         {error && touched && error.note && touched.note && (
           <Text style={style.error}>{error.note}</Text>

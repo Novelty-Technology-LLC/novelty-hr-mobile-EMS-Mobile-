@@ -1,10 +1,11 @@
 import React from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { View, Text } from "react-native";
+import { View, Text, Linking } from "react-native";
 import { SmallHeader } from ".";
 import colors from "../../assets/colors";
 import { profileStyle as style } from "../../assets/styles/tabs";
 import { formatPhoneNumber } from "../utils";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ProfileInfoComponent = ({ user }: { user: any }) => (
   <>
@@ -36,10 +37,18 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
     <View style={style.infoView}>
       <View style={style.body}>
         <SmallHeader text="Contact Information" />
-        <View style={style.icon}>
-          <Icon name="email-newsletter" color={colors.primary} size={25} />
-          <Text style={style.text}>{user.email}</Text>
-        </View>
+        <TouchableOpacity
+          onPress={() =>
+            Linking.openURL(
+              `mailto:${user.email}?subject=Subject to:&body=write your query`
+            )
+          }
+        >
+          <View style={style.icon}>
+            <Icon name="email-newsletter" color={colors.primary} size={25} />
+            <Text style={style.text}>{user.email}</Text>
+          </View>
+        </TouchableOpacity>
         <View style={style.icon}>
           <Icon name="phone" color={colors.primary} size={25} />
           <Text style={style.text}>{formatPhoneNumber(user.phone)}</Text>

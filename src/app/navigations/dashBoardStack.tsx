@@ -6,6 +6,7 @@ import { EmployeeListing } from "../screens/dashboard/employeeListing";
 import { EmployeeDetail } from "../screens/dashboard/employeeDetail";
 import { AnnouncementListing } from "../screens/dashboard/announcementsListing";
 import { AnnouncementDetail } from "../screens/dashboard/announcementsDetail";
+import { WorkFromHomeEmployeeListing } from "../screens/dashboard/workFromHomeEmployeeListing";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -19,13 +20,17 @@ const DashNav = () => {
       >
         <DashStack.Screen name="dashboard" component={DashBoard} />
         <DashStack.Screen name="leavelisting" component={LeaveListing} />
-        <DashStack.Screen name="employeeListing" component={EmployeeListing} />
+        <DashStack.Screen name="EmployeeListing" component={EmployeeListing} />
+        <DashStack.Screen
+          name="workFromHomeEmployeeListing"
+          component={WorkFromHomeEmployeeListing}
+        />
         <DashStack.Screen name="employeeDetail" component={EmployeeDetail} />
         <DashStack.Screen
           name="announcementsListing"
           component={AnnouncementListing}
         />
-         <DashStack.Screen
+        <DashStack.Screen
           name="announcementsDetails"
           component={AnnouncementDetail}
         />
