@@ -98,8 +98,9 @@ export const transformList = (
       : item.subTitle,
     status: item?.status,
     type: item?.type,
-    date: item?.date?.slice(0,10),
+    date: item?.date?.slice(0, 10),
   }));
+
   return newList;
 };
 
