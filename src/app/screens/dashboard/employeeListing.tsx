@@ -16,10 +16,11 @@ const EmployeeListing = (props: any) => {
     setLoading(true);
     (async () => {
       try {
-        let response = await getRequest("webportal/users/user-listing", {});
-        response = response.map((item) => {
-          console.log(item, "item with");
-
+        let response: any = await getRequest(
+          "webportal/users/user-listing",
+          {}
+        );
+        response = response.map((item: any) => {
           return {
             id: item.id,
             title: item.first_name + " " + item.last_name,

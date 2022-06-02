@@ -12,6 +12,8 @@ import { transformDate } from "../../utils/listtranform";
 
 const AnnouncementDetail = (props: any) => {
   const params = props.route.params;
+  console.log(params);
+
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
