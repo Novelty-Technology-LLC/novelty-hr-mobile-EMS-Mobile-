@@ -11,6 +11,7 @@ const App = (props: any) => {
   useEffect(() => {
     SplashScreen.hide();
     const unsubscribe = messaging().onMessage(async (remoteMessage: any) => {
+      console.log("Perssmion push noticcation ", remoteMessage);
       if (remoteMessage) {
         Platform.OS === "ios" &&
           SetLocalNotification(remoteMessage.notification.body);

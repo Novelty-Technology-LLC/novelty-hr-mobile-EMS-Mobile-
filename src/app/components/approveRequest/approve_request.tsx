@@ -10,6 +10,8 @@ import { ApproveDeny } from "../../components";
 import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
 import { getUser } from "../../utils";
 import { SmallHeader } from "../../common";
+import normalize from "react-native-normalize";
+import Autolink from "react-native-autolink";
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -81,9 +83,19 @@ const Request = ({ data, style, title = null }: any) => {
               </View>
             </View>
             <View style={style.sectionBody}>
-              <Text style={style.note}>{data.note}</Text>
+              <Autolink
+                // Required: the text to parse for links
+                text={data.note}
+                textProps={{ style: style.note }}
+                // Optional: enable email linking
+                email
+                // Optional: enable URL linking
+                url
+                // Optional: custom linking matchers
+              />
+              {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
-            <View>
+            <View style={style.cardFooterContainer}>
               <View style={style.cardFooter}>
                 <Text style={style.remainingLeave}>Remaining Leave :</Text>
                 <Text>

@@ -30,7 +30,11 @@ const Description = ({
   editHashtag?: string;
 }) => {
   const [type, setType] = useState(0);
+  const [ss, setTypes] = useState("");
+  const [sa, setTypea] = useState("");
   const [loading, setloading] = useState(false);
+  const [hash, sethash] = useState(false);
+  const [hashs, sethashs] = useState([false]);
   const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const Description = ({
     };
     fetch();
   }, [updatehashtag]);
-
+  let a: any;
   return (
     <View
       style={{
@@ -92,6 +96,9 @@ const Description = ({
                     key={index}
                     onPress={() => {
                       item.isSelected = !item.isSelected;
+                      sethash(!item.isSelected);
+                      setTypes(item.value);
+                      sethashs([!item.isSelected]);
                       setType(0),
                         handleChange("hashtag")(
                           JSON.stringify(
@@ -105,7 +112,6 @@ const Description = ({
                       console.log(selectedHashtag, "selectedHashtag");
 
                       let newVal: any = values.note;
-                      console.log(values.note);
 
                       const splittedArr = values.note.split(" ");
 
@@ -149,6 +155,20 @@ const Description = ({
             console.log(text);
 
             handleChange(error ? "note" : "task")(text);
+          }}
+          onKeyPress={({ nativeEvent }: any) => {
+            if (nativeEvent.key === "Backspace") {
+              hashtag.filter((item) => {
+                if (item.value === ss) {
+                  item.isSelected = false;
+                }
+                console.log(item);
+              });
+              if (hashtag.filter((item) => item.value === ss)) {
+                // sethash(false);
+              }
+            }
+            // nativeEvent.key === 'Backspace' ? //do action : //other action
           }}
         />
         {error && touched && error.note && touched.note && (

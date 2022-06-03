@@ -23,7 +23,9 @@ const approveRequest = StyleSheet.create({
     alignItems: "center",
     paddingTop: normalize(5),
   },
-
+  cardFooterContainer: {
+    paddingTop: normalize(10),
+  },
   headerDate: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,

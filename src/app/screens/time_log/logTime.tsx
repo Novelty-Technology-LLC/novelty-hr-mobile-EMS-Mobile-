@@ -71,6 +71,10 @@ const LogTime = ({ route }: any) => {
       old: olddata && olddata.id ? olddata : null,
       new: values,
     };
+    console.log(values.hashtag, "sdsdsd");
+    console.log(olddata?.item?.hashtag, "sdsdsd");
+    console.log(dataObj, "sdsdsd");
+
     setIsLoading(true);
 
     const pastData = timelogs.present

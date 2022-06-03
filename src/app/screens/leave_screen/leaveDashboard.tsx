@@ -14,6 +14,7 @@ import { get, getLeaveQuota, getMyRequests, store } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
+import Autolink from "react-native-autolink";
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -110,6 +111,7 @@ const LeaveDashboard = () => {
               />
             ))}
         </View>
+
         <MyRequests
           loading={loading}
           refresh={refresh}
