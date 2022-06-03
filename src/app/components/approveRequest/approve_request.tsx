@@ -1,15 +1,15 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { Text, View, Image, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import State from '../leave_screen/state';
-import { getResponses } from '../../services';
-import getDay, { responseDay, startDate } from '../../utils/getDay';
-import getName, { leadname } from '../../utils/getName';
-import { AuthContext } from '../../reducer';
-import { ApproveDeny } from '../../components';
-import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
-import { getUser } from '../../utils';
-import { SmallHeader } from '../../common';
+import React, { Fragment, useContext, useEffect, useState } from "react";
+import { Text, View, Image, ScrollView } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import State from "../leave_screen/state";
+import { getResponses } from "../../services";
+import getDay, { responseDay, startDate } from "../../utils/getDay";
+import getName, { leadname } from "../../utils/getName";
+import { AuthContext } from "../../reducer";
+import { ApproveDeny } from "../../components";
+import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
+import { getUser } from "../../utils";
+import { SmallHeader } from "../../common";
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -19,7 +19,8 @@ const Request = ({ data, style, title = null }: any) => {
   const [approved, setapproved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [user, setuser] = useState(null);
-
+  const remainingDay = 4;
+  const totalDays = 5;
   const checkReplied = () => {
     data.leave_approvals &&
       data.leave_approvals.map((item) => {
@@ -53,7 +54,7 @@ const Request = ({ data, style, title = null }: any) => {
                 source={
                   data.user.image_url
                     ? { uri: data.user.image_url }
-                    : require('../../../assets/images/person.jpeg')
+                    : require("../../../assets/images/person.jpeg")
                 }
               />
               <View style={style.senderView}>
@@ -82,13 +83,28 @@ const Request = ({ data, style, title = null }: any) => {
             <View style={style.sectionBody}>
               <Text style={style.note}>{data.note}</Text>
             </View>
+            <View>
+              <View style={style.cardFooter}>
+                <Text style={style.remainingLeave}>Remaining Leave :</Text>
+                <Text>
+                  <Text style={style.remainingDays}>{remainingDay}</Text>
+                  <Text style={style.totalDays}>{"/" + totalDays}</Text>
+                  <Text style={style.leaveTypes}>{" PTO's"}</Text>
+                </Text>
+                <Text>
+                  <Text style={style.remainingDays}>{remainingDay}</Text>
+                  <Text style={style.totalDays}>{"/" + totalDays}</Text>
+                  <Text style={style.leaveTypes}>{" Floating Days"}</Text>
+                </Text>
+              </View>
+            </View>
           </View>
           <View style={style.responseView}>
             {loading && <ResponsePlaceHolder />}
             <ScrollView showsVerticalScrollIndicator={false}>
               {responses.length > 0 &&
                 JSON.parse(data.lead).length !==
-                responses[0].pendingResponses.length && (
+                  responses[0].pendingResponses.length && (
                   <>
                     <SmallHeader text="Responses" />
                     {responses[0].responses.map((item: any, i: number) => (
@@ -100,7 +116,7 @@ const Request = ({ data, style, title = null }: any) => {
                               source={
                                 item.user?.image_url
                                   ? { uri: item.user.image_url }
-                                  : require('../../../assets/images/person.jpeg')
+                                  : require("../../../assets/images/person.jpeg")
                               }
                             />
                             <View style={style.senderView}>
@@ -118,14 +134,18 @@ const Request = ({ data, style, title = null }: any) => {
                               </View>
                             </View>
                           </View>
-                          {item.note ? <Text style={style.leadText}>{item.note}</Text> : <></>}
+                          {item.note ? (
+                            <Text style={style.leadText}>{item.note}</Text>
+                          ) : (
+                            <></>
+                          )}
                         </View>
                         <View style={style.spacer} />
                       </Fragment>
                     ))}
                   </>
                 )}
-              {data.state !== 'Denied' && (
+              {data.state !== "Denied" && (
                 <>
                   <View style={style.pendingresponseView}>
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -142,7 +162,7 @@ const Request = ({ data, style, title = null }: any) => {
                                       source={
                                         item.image_url
                                           ? { uri: item.image_url }
-                                          : require('../../../assets/images/person.jpeg')
+                                          : require("../../../assets/images/person.jpeg")
                                       }
                                     />
                                     <View style={style.senderView}>
@@ -171,7 +191,7 @@ const Request = ({ data, style, title = null }: any) => {
               )}
             </ScrollView>
           </View>
-          {title === 'admin' && !approved && user !== data.user.uuid && (
+          {title === "admin" && !approved && user !== data.user.uuid && (
             <View style={style.buttonView}>
               <ApproveDeny title="Approve" style={style} item={data} />
               <ApproveDeny title="Deny" style={style} item={data} />

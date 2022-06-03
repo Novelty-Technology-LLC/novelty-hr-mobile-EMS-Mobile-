@@ -23,27 +23,37 @@ const List = ({ list }: { list: any }) => {
             list.module == "Holidays & Events" || list.module == "Leave"
               ? true
               : false
-          ).map((item: any, index: number) => (
-            <TouchableOpacity
-              onPress={() =>
-                navigate(list?.detailRoute, {
-                  route: list?.detailRoute,
-                  module: list.module,
-                })
-              }
-              style={listStyle.seeAll}
-            >
-              <ListItem
-                key={index}
-                title={item?.title}
-                subTitle={item?.subTitle}
-                date={item?.date}
-                isLast={2 === index}
-                type={item?.type}
-                module={list.module}
-              />
-            </TouchableOpacity>
-          ))}
+          ).map((item: any, index: number) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  list?.module === "Announcements"
+                    ? navigate("announcementsDetails", {
+                        headerText: item.title,
+                        title: item.title,
+                        subTitle: item.subTitle,
+                        date: item.date,
+                        html: item.html,
+                      })
+                    : navigate(list?.detailRoute, {
+                        route: list?.detailRoute,
+                        module: list.module,
+                      });
+                }}
+                style={listStyle.seeAll}
+              >
+                <ListItem
+                  key={index}
+                  title={item?.title}
+                  subTitle={item?.subTitle}
+                  date={item?.date}
+                  isLast={2 === index}
+                  type={item?.type}
+                  module={list.module}
+                />
+              </TouchableOpacity>
+            );
+          })}
         </View>
       ) : (
         <EmptyContainer
@@ -56,6 +66,19 @@ const List = ({ list }: { list: any }) => {
           }`}
           containerStyle={{ height: normalize(100) }}
         />
+      )}
+      {list?.module === "Announcements" && (
+        <View>
+          <TouchableOpacity
+            onPress={() =>
+              navigate("announcementsListing", {
+                notification: "",
+              })
+            }
+          >
+            <Text style={listStyle.seeAllTextOne}>{"SEE ALL"}</Text>
+          </TouchableOpacity>
+        </View>
       )}
     </>
   );

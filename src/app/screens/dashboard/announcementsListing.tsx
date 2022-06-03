@@ -17,7 +17,13 @@ const AnnouncementListing = (props: any) => {
     (async () => {
       try {
         var response: any = await getRequest("/webportal/announcements", {});
-        if (params.notification) {
+        console.log(response, "reseponse");
+        let itemData: any = [];
+
+        response.forEach((element: any): any => {
+          itemData.push(element);
+        });
+        if (params.notification !== "") {
           var findAnnouncement = response.find(
             (item: any) => item.id == +params.id
           );
@@ -26,20 +32,29 @@ const AnnouncementListing = (props: any) => {
             title: findAnnouncement.title,
             subTitle: findAnnouncement.subTitle,
             date: findAnnouncement.date,
-            html:findAnnouncement.html
+            html: findAnnouncement.html,
           });
         }
-        setList(response.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)));
+        setList(
+          response.sort(
+            (a, b) => new Date(b.created_at) - new Date(a.created_at)
+          )
+        );
+        console.log(response, "response");
+
         setLoading(false);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error, "error");
+      }
     })();
   }, []);
+
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>Announcements</Text>
       </Header>
-      {loading ? (
+      {loading || list === null ? (
         <ListPlaceholder />
       ) : (
         <FlatList
@@ -53,7 +68,7 @@ const AnnouncementListing = (props: any) => {
                     title: item.title,
                     subTitle: item.subTitle,
                     date: item.date,
-                    html:item.html
+                    html: item.html,
                   })
                 }
               >

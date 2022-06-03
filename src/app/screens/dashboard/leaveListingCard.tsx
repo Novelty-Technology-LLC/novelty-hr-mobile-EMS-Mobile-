@@ -12,7 +12,7 @@ import { RenderHtmlComponent } from "../../common/renderHtml";
 import { getShortDate } from "../../utils";
 import { profileStyle as style } from "../../../assets/styles/tabs";
 
-const ListingCard = ({ index, listLength, item, module }) => {
+const ListingCard = ({ index, listLength, item, module }: any) => {
   return (
     <View
       key={index}
@@ -33,7 +33,7 @@ const ListingCard = ({ index, listLength, item, module }) => {
           }}
         >
           <Text style={cardStyle.titleText}>
-            {item.title.length > 40
+            {item.title && item.title.length > 40
               ? item.title.slice(0, 40) + "..."
               : item.title}
           </Text>
@@ -49,12 +49,14 @@ const ListingCard = ({ index, listLength, item, module }) => {
           <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
         )}
       </View>
-        {module == "employeeList" &&  <Image
-              style={style.headerImage}
-              source={{
-                uri: item.image,
-              }}
-            />}
+      {module == "employeeList" && (
+        <Image
+          style={style.headerImage}
+          source={{
+            uri: item.image,
+          }}
+        />
+      )}
       <View>
         <State state={item?.status} />
       </View>

@@ -127,8 +127,6 @@ export const Carousel = (props: CarouselPropTypes) => {
         decelerationRate="fast"
       >
         {items.flat(1).map((item: any, index: number) => {
-          console.log(typeof item.title[1]);
-
           return (
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>

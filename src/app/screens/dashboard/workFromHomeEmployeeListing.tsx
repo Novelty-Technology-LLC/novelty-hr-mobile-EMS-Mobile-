@@ -16,11 +16,8 @@ const WorkFromHomeEmployeeListing = (props: any) => {
     setLoading(true);
     (async () => {
       try {
-        let response = await getRequest(
-          "http://2c98-124-41-240-94.ngrok.io/work",
-          {}
-        );
-        response = response.map((item) => {
+        let response: any = await getRequest("work", {});
+        response = response[0].users.map((item: any) => {
           return {
             id: item.id,
             title: item.first_name + " " + item.last_name,
