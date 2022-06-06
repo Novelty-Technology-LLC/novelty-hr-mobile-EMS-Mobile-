@@ -128,6 +128,7 @@ const LogTime = ({ route }: any) => {
     } else {
       Keyboard.dismiss();
       setIsLoading(false);
+      //
       showToast("You cannot log more than 24 hours a day ", false);
     }
   };
