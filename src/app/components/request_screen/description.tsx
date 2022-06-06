@@ -30,11 +30,10 @@ const Description = ({
   editHashtag?: string;
 }) => {
   const [type, setType] = useState(0);
-  const [ss, setTypes] = useState("");
-  const [sa, setTypea] = useState("");
+
   const [loading, setloading] = useState(false);
   const [hash, sethash] = useState(false);
-  const [hashs, sethashs] = useState([false]);
+
   const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {
@@ -66,7 +65,40 @@ const Description = ({
     };
     fetch();
   }, [updatehashtag]);
-  let a: any;
+  const filterTagWords = (word: string) => {
+    //when enter key \n is added in string.to Remove replace(/\n/g, '')
+    const splitedNote = word.replace(/\n/g, "").split(" ");
+    console.log("splitedNote", splitedNote);
+    if (splitedNote.length) {
+      hashtag.forEach((el) => {
+        const exist = splitedNote.find((val) => val === el.label);
+        console.log("exist", exist);
+        el.isSelected = exist ? true : false;
+      });
+    }
+    //  const filteredTags = containedData.filter((el: string) => el);
+
+    //  setSelectedTags(filteredTags);
+    console.log(hashtag);
+    setHashtag([...hashtag]);
+
+    return hashtag;
+  };
+
+  const onValueChanged = (name: string, value: string) => {
+    let filteredhashtag: any;
+
+    if (name === "note") filteredhashtag = filterTagWords(value);
+    handleChange(name)(value);
+    handleChange("hashtag")(
+      JSON.stringify(
+        filteredhashtag
+          .filter((item) => item.isSelected)
+          .map((item) => item.label)
+      )
+    );
+  };
+
   return (
     <View
       style={{
@@ -96,9 +128,7 @@ const Description = ({
                     key={index}
                     onPress={() => {
                       item.isSelected = !item.isSelected;
-                      sethash(!item.isSelected);
-                      setTypes(item.value);
-                      sethashs([!item.isSelected]);
+
                       setType(0),
                         handleChange("hashtag")(
                           JSON.stringify(
@@ -152,23 +182,7 @@ const Description = ({
           name={timelog ? "task" : "note"}
           label={timelog ? "task" : "note"}
           onChangeText={(text: any) => {
-            console.log(text);
-
-            handleChange(error ? "note" : "task")(text);
-          }}
-          onKeyPress={({ nativeEvent }: any) => {
-            if (nativeEvent.key === "Backspace") {
-              hashtag.filter((item) => {
-                if (item.value === ss) {
-                  item.isSelected = false;
-                }
-                console.log(item);
-              });
-              if (hashtag.filter((item) => item.value === ss)) {
-                // sethash(false);
-              }
-            }
-            // nativeEvent.key === 'Backspace' ? //do action : //other action
+            onValueChanged(error ? "note" : "task", text);
           }}
         />
         {error && touched && error.note && touched.note && (

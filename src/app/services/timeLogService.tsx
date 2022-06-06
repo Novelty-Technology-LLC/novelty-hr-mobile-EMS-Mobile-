@@ -1,4 +1,4 @@
-import { api } from '../api/api';
+import { api } from "../api/api";
 
 export const getAllTimeLogs = (id: number) => {
   return new Promise(async (resolve, reject) => {
@@ -32,7 +32,7 @@ export const getFilteredTimeLogs = (
 export const postTimeLog = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.post('/timelog', data);
+      let res = await api.post("/timelog", data);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -69,11 +69,12 @@ export const submitTimeLog = (
 ) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log(values, "values");
+
       let res = await api.post(`/timelog/submitlog_new/`, {
         values,
         params: { selectedDate, historyDate },
       });
-
 
       resolve(res.data.data);
     } catch (error) {
@@ -82,7 +83,7 @@ export const submitTimeLog = (
   });
 };
 
-export const getHash = (params:any) => {
+export const getHash = (params: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/timelog/check/${params}`);
