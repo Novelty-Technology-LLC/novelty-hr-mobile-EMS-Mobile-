@@ -14,6 +14,7 @@ const AnnouncementListing = (props: any) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("params.notification", params.notification);
     (async () => {
       try {
         var response: any = await getRequest("/webportal/announcements", {});

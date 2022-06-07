@@ -14,7 +14,7 @@ import {
   setUser,
   storeToken,
 } from "../utils";
-import { store } from "../services";
+import { getRequest, store } from "../services";
 import messaging from "@react-native-firebase/messaging";
 import { AuthContext } from "../reducer";
 import DashNav from "./dashBoardStack";
@@ -29,14 +29,34 @@ const TabNavigator = () => {
     const initialNotification = () => {
       messaging()
         .getInitialNotification()
-        .then((remoteMessage) => {
+        .then(async (remoteMessage) => {
           if (remoteMessage && Object.keys(remoteMessage.data).length) {
             if (remoteMessage.data.type === "announcements") {
-              navigate("announcementsListing", {
-                id: remoteMessage.data.announcement_id,
-                notification: true,
-                module: "Announcements",
-              });
+              try {
+                var response: any = await getRequest(
+                  "/webportal/announcements",
+                  {}
+                );
+                console.log(response, "reseponse");
+                let itemData: any = [];
+
+                response.forEach((element: any): any => {
+                  itemData.push(element);
+                });
+
+                var findAnnouncement = response.find(
+                  (item: any) => item.id == +remoteMessage.data.announcement_id
+                );
+                navigate("announcementsDetails", {
+                  headerText: findAnnouncement.title,
+                  title: findAnnouncement.title,
+                  subTitle: findAnnouncement.subTitle,
+                  date: findAnnouncement.date,
+                  html: findAnnouncement.html,
+                });
+              } catch (error) {
+                console.log(error, "error");
+              }
             } else {
               dispatch({ type: "Notification", payload: remoteMessage.data });
               Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
@@ -49,14 +69,33 @@ const TabNavigator = () => {
 
   useEffect(() => {
     requestUserPermission();
-    messaging().onNotificationOpenedApp((remoteMessage) => {
+    messaging().onNotificationOpenedApp(async (remoteMessage) => {
       if (remoteMessage && Object.keys(remoteMessage.data).length) {
         if (remoteMessage.data.type === "announcements") {
-          navigate("announcementsListing", {
-            id: remoteMessage.data.announcement_id,
-            notification: true,
-            module: "Announcements",
-          });
+          try {
+            var response: any = await getRequest(
+              "/webportal/announcements",
+              {}
+            );
+            let itemData: any = [];
+
+            response.forEach((element: any): any => {
+              itemData.push(element);
+            });
+
+            var findAnnouncement = response.find(
+              (item: any) => item.id == +remoteMessage.data.announcement_id
+            );
+            navigate("announcementsDetails", {
+              headerText: findAnnouncement.title,
+              title: findAnnouncement.title,
+              subTitle: findAnnouncement.subTitle,
+              date: findAnnouncement.date,
+              html: findAnnouncement.html,
+            });
+          } catch (error) {
+            console.log(error, "error");
+          }
         } else {
           dispatch({ type: "Notification", payload: remoteMessage.data });
           Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
@@ -84,7 +123,6 @@ const TabNavigator = () => {
         item.notification_token === token
     );
 
-    
     const data = {
       id: user.id,
       notification_token: token,

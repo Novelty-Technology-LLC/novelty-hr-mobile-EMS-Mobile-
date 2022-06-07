@@ -50,6 +50,7 @@ const List = ({ list }: { list: any }) => {
                   isLast={2 === index}
                   type={item?.type}
                   module={list.module}
+                  html={item.html}
                 />
               </TouchableOpacity>
             );

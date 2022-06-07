@@ -6,13 +6,16 @@ import {
   listingStyle,
 } from "../../../assets/styles";
 import { header as Header } from "../../common";
-import { RenderHtmlComponent } from "../../common/renderHtml";
+import {
+  RenderHtmlComponent,
+  RenderHtmlComponentForAnnoucementDetail,
+} from "../../common/renderHtml";
 import { getFullDate } from "../../utils";
 import { transformDate } from "../../utils/listtranform";
 
 const AnnouncementDetail = (props: any) => {
   const params = props.route.params;
-  console.log(params);
+  console.log(params.html, "asdasd");
 
   return (
     <View style={listingStyle.mainContainer}>
@@ -26,7 +29,7 @@ const AnnouncementDetail = (props: any) => {
       <ScrollView>
         <View style={{ padding: 20 }}>
           <Text style={{ fontWeight: "700" }}>{params.title}</Text>
-          <RenderHtmlComponent htmlData={params.html} parse />
+          <RenderHtmlComponentForAnnoucementDetail htmlData={params.html} />
           <Text
             style={[
               cardStyle.dateText,
