@@ -79,6 +79,8 @@ const LeaveDashboard = () => {
       getData()
       getRequest()
     }
+    console.log(requests)
+
     runFunction()
   }, [])
 

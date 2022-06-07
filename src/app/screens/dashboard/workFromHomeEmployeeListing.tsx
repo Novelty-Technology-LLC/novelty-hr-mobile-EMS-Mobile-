@@ -8,7 +8,7 @@ import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
 import { ListingCard } from "./leaveListingCard";
 
-const EmployeeListing = (props: any) => {
+const WorkFromHomeEmployeeListing = (props: any) => {
   const [list, setList] = useState<any>(null);
   const [loading, setLoading] = useState<any>(null);
 
@@ -16,11 +16,8 @@ const EmployeeListing = (props: any) => {
     setLoading(true);
     (async () => {
       try {
-        let response: any = await getRequest(
-          "webportal/users/user-listing",
-          {}
-        );
-        response = response.map((item: any) => {
+        let response: any = await getRequest("work", {});
+        response = response[0].users.map((item: any) => {
           return {
             id: item.id,
             title: item.first_name + " " + item.last_name,
@@ -37,7 +34,7 @@ const EmployeeListing = (props: any) => {
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>Employee</Text>
+        <Text style={headerTxtStyle.headerText}>WFH-Employees</Text>
       </Header>
       {loading ? (
         <ListPlaceholder />
@@ -71,4 +68,4 @@ const EmployeeListing = (props: any) => {
   );
 };
 
-export { EmployeeListing };
+export { WorkFromHomeEmployeeListing };

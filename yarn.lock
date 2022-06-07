@@ -7237,6 +7237,11 @@ react-native-check-version@^1.0.9:
   resolved "https://registry.yarnpkg.com/react-native-check-version/-/react-native-check-version-1.0.11.tgz#3c0770f86939e100a2f285cb5f2e891664a2da16"
   integrity sha512-pqQrGA3edyODIURfSfOQqaQkWbA0sIOaPHvMpu6DHodoINcO9Wl2Gx1IBUihhCuv+C825tVeanHssDpJxGehVQ==
 
+react-native-cn-quill@^0.7.15:
+  version "0.7.15"
+  resolved "https://registry.yarnpkg.com/react-native-cn-quill/-/react-native-cn-quill-0.7.15.tgz#f32270dcd9ff31aae69172ecb599ecb65bc1ed34"
+  integrity sha512-JX32hXVP0vqwxLwn0v6LIr3x2l0dHmjyH/+c8//3fFVc+Bvqrn04mfgNB1ieF3vXsJnJiskFwr4aaS+M33Dctw==
+
 react-native-codegen@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.0.6.tgz#b3173faa879cf71bfade8d030f9c4698388f6909"
@@ -7374,7 +7379,7 @@ react-native-smart-tip@^2.3.0:
   dependencies:
     react-native-root-siblings "^4.1.0"
 
-react-native-snackbar@^2.2.4:
+react-native-snackbar@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-native-snackbar/-/react-native-snackbar-2.4.0.tgz#dd9687f5228e379ecd57678a921e546331681bcf"
   integrity sha512-xEDIDxw0ubBHrsvzaMfrZlFoy+ai1WEJZQwyAsG55fqYxUfQM20h+V4v25u+/H/YKY7ZCRMdCZ8zB5JOnbvCQw==

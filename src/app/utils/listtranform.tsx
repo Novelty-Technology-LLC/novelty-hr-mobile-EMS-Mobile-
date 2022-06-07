@@ -98,10 +98,19 @@ export const transformList = (
       : item.subTitle,
     status: item?.status,
     type: item?.type,
+<<<<<<< HEAD
     date: item?.date?.slice(0, 10),
   }))
   return newList
 }
+=======
+    html: item?.html ?? "",
+    date: item?.date?.slice(0, 10),
+  }));
+
+  return newList;
+};
+>>>>>>> 41dd5183015f494d7289463b033520b9afd7e679
 
 export const transformLunchItem = (item: any) => {
   if (item?.detailRoute === '/lunch') {

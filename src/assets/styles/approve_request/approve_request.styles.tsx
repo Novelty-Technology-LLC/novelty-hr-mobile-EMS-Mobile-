@@ -1,7 +1,7 @@
-import { Platform, StyleSheet } from 'react-native';
-import colors from '../../colors';
-import { theme, fonts } from '../theme';
-import normalize from 'react-native-normalize';
+import { Platform, StyleSheet } from "react-native";
+import colors from "../../colors";
+import { theme, fonts } from "../theme";
+import normalize from "react-native-normalize";
 
 const approveRequest = StyleSheet.create({
   container: {
@@ -10,33 +10,48 @@ const approveRequest = StyleSheet.create({
     paddingHorizontal: normalize(20),
   },
   headContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingLeft: normalize(10),
   },
+  cardFooter: {
+    backgroundColor: "#FAFAFA",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignContent: "space-around",
+    alignItems: "center",
+    paddingTop: normalize(5),
+  },
+
   headerDate: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
     marginLeft: normalize(theme.spacing.wider),
   },
+  cardFooterTextStyle: {
+    color: "#8D8D8D",
+  },
+  footer: {
+    flexDirection: "row",
+  },
   headerGap: {
     paddingLeft: normalize(6),
   },
   scrollView: { flex: 1 },
   requestView: {
-    flexDirection: 'column',
-    paddingTop: normalize(5)
+    flexDirection: "column",
+    paddingTop: normalize(5),
   },
   main: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    paddingVertical: normalize(5)
+    paddingVertical: normalize(5),
   },
   imageView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   stateView: {
     ...Platform.select({
@@ -49,9 +64,9 @@ const approveRequest = StyleSheet.create({
     }),
   },
   statusView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   image: {
     width: normalize(40),
@@ -63,17 +78,17 @@ const approveRequest = StyleSheet.create({
   sender: {
     fontSize: normalize(theme.size.base),
     fontFamily: fonts.mulishBold,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
   dateView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: normalize(4),
   },
   leaveType: {
     fontSize: normalize(theme.size.xxs),
     fontFamily: fonts.poppinsMedium,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     color: colors.fontGrey,
   },
   date: {
@@ -81,29 +96,29 @@ const approveRequest = StyleSheet.create({
     color: colors.fontGrey,
   },
   sendView: {
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    alignSelf: 'flex-start',
+    flexDirection: "column",
+    alignItems: "flex-end",
+    alignSelf: "flex-start",
   },
   send: {
     color: colors.white,
     padding: normalize(3),
     backgroundColor: colors.primary,
     borderWidth: 1,
-    overflow: 'hidden',
+    overflow: "hidden",
     borderColor: colors.primary,
     borderRadius: normalize(8),
   },
   sectionView: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   calander: { marginLeft: normalize(10), color: colors.fontGrey },
-  sectionDateView: { flex: 1, flexDirection: 'row', alignItems: 'center' },
+  sectionDateView: { flex: 1, flexDirection: "row", alignItems: "center" },
   sectionDate: {
     marginLeft: normalize(5),
     fontSize: normalize(theme.size.xs),
@@ -111,13 +126,41 @@ const approveRequest = StyleSheet.create({
   },
   sectionBody: {
     paddingLeft: normalize(10),
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   note: {
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.sm),
     lineHeight: normalize(theme.size.lg),
-    paddingTop: normalize(5)
+    paddingTop: normalize(5),
+  },
+  remainingLeave: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.xs),
+    lineHeight: normalize(theme.size.lg),
+    paddingTop: normalize(5),
+    color: "#8D8D8D",
+  },
+  remainingDays: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.md),
+    lineHeight: normalize(theme.size.lg),
+    paddingTop: normalize(5),
+    color: "#BF8B59",
+  },
+  totalDays: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.xs),
+    lineHeight: normalize(theme.size.lg),
+    paddingTop: normalize(5),
+    color: "#BF8B59",
+  },
+  leaveTypes: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: normalize(theme.size.xs),
+    lineHeight: normalize(theme.size.lg),
+    paddingTop: normalize(5),
+    color: "#8D8D8D",
   },
   responseView: {
     flex: 0.9,
@@ -134,14 +177,14 @@ const approveRequest = StyleSheet.create({
   },
   spacer: { marginTop: normalize(theme.spacing.wider) },
   teamWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   teamLeadView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   teamLead: {
     fontFamily: fonts.mulishRegular,
@@ -152,8 +195,8 @@ const approveRequest = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
-    textTransform: 'capitalize',
-    paddingTop: normalize(7)
+    textTransform: "capitalize",
+    paddingTop: normalize(7),
   },
   text: {
     fontFamily: fonts.mulishRegular,
@@ -163,17 +206,17 @@ const approveRequest = StyleSheet.create({
   buttonView: {
     flex: 0.12,
     backgroundColor: colors.white,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
     paddingBottom: normalize(5),
   },
   approve: { color: colors.white, fontFamily: fonts.mulishBold },
   deny: { color: colors.primary, fontFamily: fonts.mulishBold },
   buttonApprove: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     fontFamily: fonts.mulishBold,
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.primary,
@@ -189,9 +232,9 @@ const approveRequest = StyleSheet.create({
     }),
   },
   buttonDeny: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     fontFamily: fonts.mulishBold,
     fontSize: normalize(theme.size.base),
     backgroundColor: colors.white,

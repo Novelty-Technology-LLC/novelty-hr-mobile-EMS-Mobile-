@@ -6,6 +6,7 @@ import {
   NativeScrollEvent,
   TouchableOpacity,
 } from "react-native";
+import Snackbar from "react-native-snackbar";
 import colors from "../../assets/colors";
 import { CarouselStyle } from "../../assets/styles";
 import { navigate } from "../utils/navigation";
@@ -139,8 +140,14 @@ export const Carousel = (props: CarouselPropTypes) => {
                   ) : (
                     <TouchableOpacity
                       onPress={() =>
-                        item.subTitle == "Total Employees" &&
-                        navigate("employeeListing")
+                        item.subTitle === "Total Employees"
+                          ? navigate("EmployeeListing")
+                          : item.title !== 0
+                          ? navigate("workFromHomeEmployeeListing")
+                          : Snackbar.show({
+                              text: "no employee working from home",
+                              duration: Snackbar.LENGTH_SHORT,
+                            })
                       }
                     >
                       <UpperCard
