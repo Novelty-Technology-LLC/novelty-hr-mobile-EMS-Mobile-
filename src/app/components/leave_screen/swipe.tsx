@@ -41,6 +41,7 @@ const Swipe = ({
     navigation.navigate('loglistings', item)
   }
 
+  console.log('timeLOG==>', timelog)
   return other ? (
     <View style={style.othercontainer}>
       {item.state === 'Approved' && (

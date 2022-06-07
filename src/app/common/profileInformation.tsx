@@ -1,11 +1,10 @@
 import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { View, Text, Linking } from 'react-native'
+import { View, Text, Linking, TouchableOpacity } from 'react-native'
 import { SmallHeader } from '.'
 import colors from '../../assets/colors'
 import { profileStyle as style } from '../../assets/styles/tabs'
 import { formatPhoneNumber } from '../utils'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const ProfileInfoComponent = ({ user }: { user: any }) => (
   <>
