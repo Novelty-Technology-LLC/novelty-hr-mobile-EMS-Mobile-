@@ -22,7 +22,6 @@ const checkTomorrow = (date: Date) => {
   let todaydate = new Date()
   let newdate = new Date(date)
   if (new Date().getDay() === 0) return false
-
   return (
     todaydate.getFullYear() === newdate.getFullYear() &&
     todaydate.getMonth() === newdate.getMonth() &&
@@ -98,19 +97,12 @@ export const transformList = (
       : item.subTitle,
     status: item?.status,
     type: item?.type,
-<<<<<<< HEAD
+    html: item?.html ?? '',
     date: item?.date?.slice(0, 10),
   }))
+
   return newList
 }
-=======
-    html: item?.html ?? "",
-    date: item?.date?.slice(0, 10),
-  }));
-
-  return newList;
-};
->>>>>>> 41dd5183015f494d7289463b033520b9afd7e679
 
 export const transformLunchItem = (item: any) => {
   if (item?.detailRoute === '/lunch') {

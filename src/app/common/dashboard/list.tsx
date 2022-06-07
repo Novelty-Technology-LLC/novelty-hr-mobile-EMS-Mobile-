@@ -22,37 +22,13 @@ const List = ({ list }: { list: any }) => {
             true,
             list.module == 'Holidays & Events' || list.module == 'Leave'
               ? true
-<<<<<<< HEAD
               : false,
-          ).map((item: any, index: number) => (
-            <TouchableOpacity
-              onPress={() =>
-                navigate(list?.detailRoute, {
-                  route: list?.detailRoute,
-                  module: list.module,
-                })
-              }
-              style={listStyle.seeAllText}
-            >
-              <ListItem
-                key={index}
-                title={item?.title}
-                subTitle={item?.subTitle}
-                date={item?.date}
-                isLast={2 === index}
-                type={item?.type}
-                module={list.module}
-              />
-            </TouchableOpacity>
-          ))}
-=======
-              : false
           ).map((item: any, index: number) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  list?.module === "Announcements"
-                    ? navigate("announcementsDetails", {
+                  list?.module === 'Announcements'
+                    ? navigate('announcementsDetails', {
                         headerText: item.title,
                         title: item.title,
                         subTitle: item.subTitle,
@@ -62,7 +38,7 @@ const List = ({ list }: { list: any }) => {
                     : navigate(list?.detailRoute, {
                         route: list?.detailRoute,
                         module: list.module,
-                      });
+                      })
                 }}
                 style={listStyle.seeAll}
               >
@@ -76,9 +52,8 @@ const List = ({ list }: { list: any }) => {
                   module={list.module}
                 />
               </TouchableOpacity>
-            );
+            )
           })}
->>>>>>> 41dd5183015f494d7289463b033520b9afd7e679
         </View>
       ) : (
         <EmptyContainer
@@ -92,16 +67,16 @@ const List = ({ list }: { list: any }) => {
           containerStyle={{ height: normalize(100) }}
         />
       )}
-      {list?.module === "Announcements" && (
+      {list?.module === 'Announcements' && (
         <View>
           <TouchableOpacity
             onPress={() =>
-              navigate("announcementsListing", {
-                notification: "",
+              navigate('announcementsListing', {
+                notification: '',
               })
             }
           >
-            <Text style={listStyle.seeAllTextOne}>{"SEE ALL"}</Text>
+            <Text style={listStyle.seeAllTextOne}>{'SEE ALL'}</Text>
           </TouchableOpacity>
         </View>
       )}
