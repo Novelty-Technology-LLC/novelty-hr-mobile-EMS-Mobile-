@@ -30,7 +30,10 @@ const Description = ({
   editHashtag?: string;
 }) => {
   const [type, setType] = useState(0);
+
   const [loading, setloading] = useState(false);
+  const [hash, sethash] = useState(false);
+
   const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {
@@ -62,6 +65,34 @@ const Description = ({
     };
     fetch();
   }, [updatehashtag]);
+  const filterTagWords = (word: string) => {
+    //when enter key \n is added in string.to Remove replace(/\n/g, '')
+    const splitedNote = word.replace(/\n/g, "").split(" ");
+    if (splitedNote.length) {
+      hashtag.forEach((el) => {
+        const exist = splitedNote.find((val) => val === el.label);
+        el.isSelected = exist ? true : false;
+      });
+    }
+
+    setHashtag([...hashtag]);
+
+    return hashtag;
+  };
+
+  const onValueChanged = (name: string, value: string) => {
+    let filteredhashtag: any;
+
+    if (name === "note") filteredhashtag = filterTagWords(value);
+    handleChange(name)(value);
+    handleChange("hashtag")(
+      JSON.stringify(
+        filteredhashtag
+          .filter((item) => item.isSelected)
+          .map((item) => item.label)
+      )
+    );
+  };
 
   return (
     <View
@@ -92,6 +123,7 @@ const Description = ({
                     key={index}
                     onPress={() => {
                       item.isSelected = !item.isSelected;
+
                       setType(0),
                         handleChange("hashtag")(
                           JSON.stringify(
@@ -102,10 +134,8 @@ const Description = ({
                         );
 
                       const selectedHashtag = item.isSelected ? item.value : "";
-                      console.log(selectedHashtag, "selectedHashtag");
 
                       let newVal: any = values.note;
-                      console.log(values.note);
 
                       const splittedArr = values.note.split(" ");
 
@@ -146,9 +176,7 @@ const Description = ({
           name={timelog ? "task" : "note"}
           label={timelog ? "task" : "note"}
           onChangeText={(text: any) => {
-            console.log(text);
-
-            handleChange(error ? "note" : "task")(text);
+            onValueChanged(error ? "note" : "task", text);
           }}
         />
         {error && touched && error.note && touched.note && (

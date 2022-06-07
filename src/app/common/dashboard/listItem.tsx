@@ -15,6 +15,7 @@ const ListItem = ({
   isLast,
   type,
   module,
+  html,
   date,
 }: {
   title: string;
@@ -22,6 +23,7 @@ const ListItem = ({
   isLast: boolean;
   type?: string;
   module?: string;
+  html: any;
   date?: string;
 }) => {
   const indicatorColor = getColor(type, colors.lightbrown);
@@ -52,7 +54,7 @@ const ListItem = ({
         )}
       </View>
       {module == "Announcements" ? (
-        <RenderHtmlComponent htmlData={subTitle} />
+        <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       ) : (
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       )}

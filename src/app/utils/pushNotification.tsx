@@ -1,4 +1,4 @@
-import PushNotification from 'react-native-push-notification';
+import PushNotification from "react-native-push-notification";
 
 // PushNotification.configure({
 //   // (required) Called when a remote or local notification is opened or received
@@ -7,13 +7,14 @@ import PushNotification from 'react-native-push-notification';
 
 export const SetLocalNotification = (message: any) => {
   // checkPermission();
+  console.log("Perssmion push noticcation ", message);
   PushNotification.localNotification({
     autoCancel: true,
     message: message,
     vibrate: true,
     vibration: 300,
     playSound: true,
-    soundName: 'default',
+    soundName: "default",
     actions: '["Yes", "No"]',
   });
 };
