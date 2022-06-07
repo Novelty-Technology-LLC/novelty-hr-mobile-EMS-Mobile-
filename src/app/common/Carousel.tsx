@@ -145,7 +145,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                           ? navigate("EmployeeListing")
                           : item.title !== 0
                           ? navigate("workFromHomeEmployeeListing")
-                          : snackBarMessage("no employee working from home")
+                          : snackBarMessage("No employee working from home")
                       }
                     >
                       <UpperCard

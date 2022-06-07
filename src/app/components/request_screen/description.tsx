@@ -68,18 +68,13 @@ const Description = ({
   const filterTagWords = (word: string) => {
     //when enter key \n is added in string.to Remove replace(/\n/g, '')
     const splitedNote = word.replace(/\n/g, "").split(" ");
-    console.log("splitedNote", splitedNote);
     if (splitedNote.length) {
       hashtag.forEach((el) => {
         const exist = splitedNote.find((val) => val === el.label);
-        console.log("exist", exist);
         el.isSelected = exist ? true : false;
       });
     }
-    //  const filteredTags = containedData.filter((el: string) => el);
 
-    //  setSelectedTags(filteredTags);
-    console.log(hashtag);
     setHashtag([...hashtag]);
 
     return hashtag;
@@ -139,7 +134,6 @@ const Description = ({
                         );
 
                       const selectedHashtag = item.isSelected ? item.value : "";
-                      console.log(selectedHashtag, "selectedHashtag");
 
                       let newVal: any = values.note;
 
