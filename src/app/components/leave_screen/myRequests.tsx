@@ -61,7 +61,46 @@ const MyRequests = ({
     }
     get()
   }, [params])
-
+  const renderItem = (item: any) => {
+    const leaveDate = moment(item.item.leave_date.startDate).format(
+      'YYYY-MM-DD',
+    )
+    const today = moment(new Date()).format('YYYY-MM-DD')
+    if (leaveDate >= today) {
+      if (leaveDate == today && new Date().getHours() >= 10) {
+        return (
+          <Request
+            item={item.item}
+            other={false}
+            onPress={() => navigation.navigate('requestDetail', item.item)}
+          />
+        )
+      } else {
+        return (
+          <Swipeable
+            ref={(ref) => (row[item.index] = ref)}
+            renderRightActions={() => (
+              <Swipe item={item.item} onPress={() => row[item.index].close()} />
+            )}
+          >
+            <Request
+              item={item.item}
+              other={false}
+              onPress={() => navigation.navigate('requestDetail', item.item)}
+            />
+          </Swipeable>
+        )
+      }
+    } else {
+      return (
+        <Request
+          item={item.item}
+          other={false}
+          onPress={() => navigation.navigate('requestDetail', item.item)}
+        />
+      )
+    }
+  }
   return (
     <View style={style.container}>
       <TouchableWithoutFeedback
@@ -92,55 +131,7 @@ const MyRequests = ({
       {requests.requests[0] ? (
         <FlatList
           data={requests.requests}
-          renderItem={(item) => {
-            const date1 = moment(item.item.leave_date.startDate).format(
-              'YYYY-MM-DD',
-            )
-            const today = moment(new Date()).format('YYYY-MM-DD')
-            if (date1 >= today) {
-              if (date1 == today && new Date().getHours() > 10) {
-                return (
-                  <Request
-                    item={item.item}
-                    other={false}
-                    onPress={() =>
-                      navigation.navigate('requestDetail', item.item)
-                    }
-                  />
-                )
-              } else {
-                return (
-                  <Swipeable
-                    ref={(ref) => (row[item.index] = ref)}
-                    renderRightActions={() => (
-                      <Swipe
-                        item={item.item}
-                        onPress={() => row[item.index].close()}
-                      />
-                    )}
-                  >
-                    <Request
-                      item={item.item}
-                      other={false}
-                      onPress={() =>
-                        navigation.navigate('requestDetail', item.item)
-                      }
-                    />
-                  </Swipeable>
-                )
-              }
-            } else {
-              return (
-                <Request
-                  item={item.item}
-                  other={false}
-                  onPress={() =>
-                    navigation.navigate('requestDetail', item.item)
-                  }
-                />
-              )
-            }
-          }}
+          renderItem={renderItem}
           // new Date().getHours() >= 16 && item.item.state === 'Approved'?
           keyExtractor={(item) => item.id}
         />
