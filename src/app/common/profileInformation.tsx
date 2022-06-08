@@ -1,11 +1,11 @@
-import React from "react";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { View, Text, Linking } from "react-native";
-import { SmallHeader } from ".";
-import colors from "../../assets/colors";
-import { profileStyle as style } from "../../assets/styles/tabs";
-import { formatPhoneNumber } from "../utils";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React from 'react'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text, Linking } from 'react-native'
+import { SmallHeader } from '.'
+import colors from '../../assets/colors'
+import { profileStyle as style } from '../../assets/styles/tabs'
+import { formatPhoneNumber } from '../utils'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const ProfileInfoComponent = ({ user }: { user: any }) => (
   <>
@@ -15,7 +15,7 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
         <View style={style.icon}>
           <Icon name="account-circle" color={colors.primary} size={25} />
           <Text style={style.text}>
-            {user?.first_name + " " + user.last_name}
+            {user?.first_name + ' ' + user.last_name}
           </Text>
         </View>
         <View style={style.icon}>
@@ -40,7 +40,7 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
         <TouchableOpacity
           onPress={() =>
             Linking.openURL(
-              `mailto:${user.email}?subject=Subject to:&body=write your query`
+              `mailto:${user.email}?subject=Subject to:&body=write your query`,
             )
           }
         >
@@ -50,7 +50,11 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
           </View>
         </TouchableOpacity>
         <View style={style.icon}>
-          <Icon name="phone" color={colors.primary} size={25} />
+          <TouchableOpacity
+            onPress={() => Linking.openURL(`tel:${user.phone}`)}
+          >
+            <Icon name="phone" color={colors.primary} size={25} />
+          </TouchableOpacity>
           <Text style={style.text}>{formatPhoneNumber(user.phone)}</Text>
         </View>
       </View>
@@ -76,6 +80,6 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
       </View>
     </View>
   </>
-);
+)
 
-export { ProfileInfoComponent };
+export { ProfileInfoComponent }

@@ -1,20 +1,20 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { historyStyle as style } from '../../../assets/styles';
-import { EmptyContainer, SmallHeader } from '../../common';
-import { Request } from './request';
-import Swipe from './swipe';
+import { useNavigation } from '@react-navigation/native'
+import React, { useEffect } from 'react'
+import { View } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { historyStyle as style } from '../../../assets/styles'
+import { EmptyContainer, SmallHeader } from '../../common'
+import { Request } from './request'
+import Swipe from './swipe'
 
 const History = ({ requests, other, refresh }: any) => {
-  const navigation = useNavigation();
-  let row: Array<any> = [];
+  const navigation = useNavigation()
+  let row: Array<any> = []
 
   useEffect(() => {
-    row.map((item) => item.close());
-  }, [refresh]);
+    row.map((item) => item.close())
+  }, [refresh])
 
   return (
     <View style={other ? style.container : null}>
@@ -32,7 +32,8 @@ const History = ({ requests, other, refresh }: any) => {
             ) : item.item.state === 'Denied' ||
               item.item.state === 'Cancelled' ||
               (item.item.state === 'Approved' &&
-                new Date(item.item.leave_date.startDate) < new Date()) ? (
+                new Date(item.item.leave_date.startDate).getTime() <
+                  new Date().getTime()) ? (
               <Request
                 item={item.item}
                 other={other}
@@ -65,7 +66,7 @@ const History = ({ requests, other, refresh }: any) => {
         <EmptyContainer text="You don't have past requests" />
       )}
     </View>
-  );
-};
+  )
+}
 
-export default History;
+export default History

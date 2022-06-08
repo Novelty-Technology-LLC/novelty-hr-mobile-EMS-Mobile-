@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import normalize from 'react-native-normalize';
 export const HR_ID = 1029;
 
-export const dashboarCard = {
+export const dashboarCard:any = {
   Menu: (
     <Image
       source={require('../../assets/images/menu.png')}
