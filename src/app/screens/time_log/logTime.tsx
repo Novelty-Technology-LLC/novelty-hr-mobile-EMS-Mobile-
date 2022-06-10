@@ -59,8 +59,6 @@ const LogTime = ({ route }: any) => {
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
-
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
 
@@ -100,9 +98,6 @@ const LogTime = ({ route }: any) => {
         Object.keys(timelogs.historyDate).length !== 0
           ? { ...timelogs.historyDate }
           : null;
-      console.log(dataObj, "dataObj");
-      console.log(selectedDate, "selectedDate");
-      console.log(historyDate, "historyDate");
 
       submitTimeLog(dataObj, selectedDate, historyDate)
         .then((data) => {

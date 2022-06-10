@@ -1,19 +1,19 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, TouchableWithoutFeedback } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import React, { useState, useContext, useEffect, useCallback } from "react";
+import { View, Text, FlatList, TouchableWithoutFeedback } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
-import { myRequestsStyle as style } from '../../../assets/styles';
-import History from './history';
-import { Request } from './request';
-import Swipe from './swipe';
-import { useNavigation } from '@react-navigation/native';
-import { RequestContext } from '../../reducer';
-import { EmptyContainer, SmallHeader } from '../../common';
-import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
-import { getPastRequests } from '../../services';
-import { UserPlaceHolder } from '../loader';
-import { getLeave } from '../../services';
-import HistoryToggle from '../../common/historyToggle';
+import { myRequestsStyle as style } from "../../../assets/styles";
+import History from "./history";
+import { Request } from "./request";
+import Swipe from "./swipe";
+import { useNavigation } from "@react-navigation/native";
+import { RequestContext } from "../../reducer";
+import { EmptyContainer, SmallHeader } from "../../common";
+import { getUser, mapDataToRequest, mapObjectToRequest } from "../../utils";
+import { getPastRequests } from "../../services";
+import { UserPlaceHolder } from "../loader";
+import { getLeave } from "../../services";
+import HistoryToggle from "../../common/historyToggle";
 
 const MyRequests = ({
   loading,
@@ -26,20 +26,20 @@ const MyRequests = ({
 }) => {
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
-  const { requests, dispatchRequest } = useContext(RequestContext);
+  const { requests, dispatchRequest }: any = useContext(RequestContext);
   let row: Array<any> = [];
 
-  const [toggle, setToggle] = useState('toggle-switch-off');
+  const [toggle, setToggle] = useState("toggle-switch-off");
   const getPast = async () => {
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
       .then((data) => {
         dispatchRequest({
-          type: 'CHANGEPAST',
+          type: "CHANGEPAST",
           payload: mapDataToRequest(data),
         });
       })
-      .catch((err) => console.log('GetLeaveQuota error', err));
+      .catch((err) => console.log("GetLeaveQuota error", err));
   };
 
   const getPastCallback = useCallback(() => getPast(), []);
@@ -47,7 +47,7 @@ const MyRequests = ({
   useEffect(() => {
     getPastCallback();
     row.map((item) => item.close());
-    setToggle('toggle-switch-off');
+    setToggle("toggle-switch-off");
   }, [refresh, params]);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const MyRequests = ({
       if (params) {
         let data = await getLeave(+params);
         data = mapObjectToRequest(data[0]);
-        navigation.navigate('requestDetail', data[0]);
+        navigation.navigate("requestDetail", data[0]);
       }
     };
     get();
@@ -66,7 +66,7 @@ const MyRequests = ({
       <TouchableWithoutFeedback
         onPress={() => {
           setToggle(
-            toggle === 'toggle-switch' ? 'toggle-switch-off' : 'toggle-switch'
+            toggle === "toggle-switch" ? "toggle-switch-off" : "toggle-switch"
           );
         }}
       >
@@ -90,12 +90,12 @@ const MyRequests = ({
         <FlatList
           data={requests.requests}
           renderItem={(item) =>
-            item.item.state === 'In Progress' &&
+            item.item.state === "In Progress" &&
             new Date(item.item.leave_date.startDate) < new Date() ? (
               <Request
                 item={item.item}
                 other={false}
-                onPress={() => navigation.navigate('requestDetail', item.item)}
+                onPress={() => navigation.navigate("requestDetail", item.item)}
               />
             ) : (
               <Swipeable
@@ -111,7 +111,7 @@ const MyRequests = ({
                   item={item.item}
                   other={false}
                   onPress={() =>
-                    navigation.navigate('requestDetail', item.item)
+                    navigation.navigate("requestDetail", item.item)
                   }
                 />
               </Swipeable>
@@ -123,7 +123,7 @@ const MyRequests = ({
         !loading && <EmptyContainer text="You don't have current requests" />
       )}
 
-      {toggle === 'toggle-switch' &&
+      {toggle === "toggle-switch" &&
         (!requests.pastrequests ? (
           <>
             <SmallHeader text="Past Requests" />

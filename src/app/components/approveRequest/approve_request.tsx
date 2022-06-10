@@ -5,7 +5,7 @@ import State from "../leave_screen/state";
 import { getResponses } from "../../services";
 import getDay, { responseDay, startDate } from "../../utils/getDay";
 import getName, { leadname } from "../../utils/getName";
-import { AuthContext } from "../../reducer";
+import { AuthContext, RequestContext } from "../../reducer";
 import { ApproveDeny } from "../../components";
 import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
 import { getUser } from "../../utils";
@@ -21,6 +21,9 @@ const Request = ({ data, style, title = null }: any) => {
   const [approved, setapproved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [user, setuser] = useState(null);
+  const [totalFloatingDays, settotalFloatingDays] = useState(0);
+  const [totalPTODays, settotalPTODays] = useState(0);
+
   const remainingDay = 4;
   const totalDays = 5;
   const checkReplied = () => {
@@ -31,11 +34,21 @@ const Request = ({ data, style, title = null }: any) => {
         }
       });
   };
-
+  const { requests, dispatchRequest }: any = useContext(RequestContext);
+  const as = () => {
+    requests.quota.userLeaveDetail &&
+      requests.quota.userLeaveDetail.forEach((daysDetail: any) => {
+        if (daysDetail.leave_type === "FLOATING DAY") {
+          settotalFloatingDays(daysDetail.leave_total);
+        } else {
+          settotalPTODays(daysDetail.leave_total);
+        }
+      });
+  };
   useEffect(() => {
     setLoading(true);
     getUser().then((user) => setuser(JSON.parse(user).uuid));
-
+    as;
     const getRequest = async () => {
       const res = await getResponses(data.id);
       setresponses(res);
@@ -43,6 +56,9 @@ const Request = ({ data, style, title = null }: any) => {
     };
     getRequest();
     checkReplied();
+  }, []);
+  useEffect(() => {
+    as();
   }, []);
 
   return (
@@ -99,13 +115,17 @@ const Request = ({ data, style, title = null }: any) => {
               <View style={style.cardFooter}>
                 <Text style={style.remainingLeave}>Remaining Leave :</Text>
                 <Text>
-                  <Text style={style.remainingDays}>{remainingDay}</Text>
-                  <Text style={style.totalDays}>{"/" + totalDays}</Text>
+                  <Text style={style.remainingDays}>
+                    {requests.quota.leaveUsedDetails.used_pto_days}
+                  </Text>
+                  <Text style={style.totalDays}>{"/" + totalPTODays}</Text>
                   <Text style={style.leaveTypes}>{" PTO's"}</Text>
                 </Text>
                 <Text>
-                  <Text style={style.remainingDays}>{remainingDay}</Text>
-                  <Text style={style.totalDays}>{"/" + totalDays}</Text>
+                  <Text style={style.remainingDays}>
+                    {requests.quota.leaveUsedDetails.used_floating_days}
+                  </Text>
+                  <Text style={style.totalDays}>{"/" + totalFloatingDays}</Text>
                   <Text style={style.leaveTypes}>{" Floating Days"}</Text>
                 </Text>
               </View>

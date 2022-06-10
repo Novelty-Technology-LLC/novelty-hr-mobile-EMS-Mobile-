@@ -80,7 +80,6 @@ const DashBoard = () => {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
-      console.log(response, "response");
 
       setAnnouncements(
         response.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))

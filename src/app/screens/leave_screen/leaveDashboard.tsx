@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, ScrollView, Text, RefreshControl } from "react-native";
+import { View, ScrollView, Text, RefreshControl, FlatList } from "react-native";
 import { header as Header } from "../../common";
 import { DaysRemaining, MyRequests } from "../../components";
 import {
@@ -20,6 +20,10 @@ const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [totalFloatingDays, settotalFloatingDays] = useState();
+  const [totalPTODays, settotalPTODays] = useState();
+  const [remaningleave, setRemaningLeave] = useState({});
+
   const ref = React.useRef(null);
   const {
     state: { notifdata },
@@ -55,6 +59,7 @@ const LeaveDashboard = () => {
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).id)
       .then((data) => {
+        // setRemaningLeave(data.leaveUsedDetails);
         dispatchRequest({ type: "QUOTA", payload: data });
       })
       .catch((err) => console.log("GetLeaveQuota error", err));
@@ -74,17 +79,16 @@ const LeaveDashboard = () => {
         setLoading(false);
       });
   };
-
+  const runFunction = () => {
+    getData();
+    getRequest();
+  };
   useEffect(() => {
-    const runFunction = () => {
-      getData();
-      getRequest();
-    };
-    console.log(requests);
-
     runFunction();
   }, []);
+  const emptyData: any = [];
 
+  const renderNullItem = () => null;
   useScrollToTop(ref);
   return (
     <View style={style.mainContainer}>
@@ -92,26 +96,30 @@ const LeaveDashboard = () => {
         <Text style={headerTxtStyle.headerText}>Leave Application</Text>
       </Header>
       <ScrollView
+        style={{ flexGrow: 1 }}
+        nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}
         ref={ref}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {requests.quota.length > 0 ? null : <QuotaPlaceHolder />}
+        {Object.keys(requests.quota).length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
-          {requests.quota &&
-            requests.quota.length > 0 &&
-            requests.quota.map((daysDetail) => (
-              <DaysRemaining
-                key={daysDetail.id}
-                total={daysDetail.leave_total}
-                remaining={daysDetail.leave_used}
-                title={daysDetail.leave_type}
-              />
-            ))}
-        </View>
+          {Object.keys(requests.quota).length > 0 &&
+            requests.quota.userLeaveDetail.map((daysDetail) => {
+              console.log(daysDetail, "sdsdr");
 
+              return (
+                <DaysRemaining
+                  key={daysDetail.id}
+                  total={daysDetail.leave_total}
+                  remaining={daysDetail.leave_used}
+                  title={daysDetail.leave_type}
+                />
+              );
+            })}
+        </View>
         <MyRequests
           loading={loading}
           refresh={refresh}

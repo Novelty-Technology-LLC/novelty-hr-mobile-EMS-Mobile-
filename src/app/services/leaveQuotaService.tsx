@@ -3,8 +3,6 @@ import { api } from "../api/api";
 export const getLeaveQuota = (id: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(id);
-
       let res = await api.get(`/leavequota/${id}`);
 
       resolve(res.data.data);

@@ -1,6 +1,6 @@
-import { smallHeaderStyle as style } from '../../assets/styles';
-import React from 'react';
-import { Text, View } from 'react-native';
+import { smallHeaderStyle as style } from "../../assets/styles";
+import React from "react";
+import { Text, View } from "react-native";
 
 const SmallHeader = ({
   text,

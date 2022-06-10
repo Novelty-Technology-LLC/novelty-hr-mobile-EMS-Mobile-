@@ -14,11 +14,9 @@ const AnnouncementListing = (props: any) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("params.notification", params.notification);
     (async () => {
       try {
         var response: any = await getRequest("/webportal/announcements", {});
-        console.log(response, "reseponse");
         let itemData: any = [];
 
         response.forEach((element: any): any => {
@@ -41,7 +39,6 @@ const AnnouncementListing = (props: any) => {
             (a, b) => new Date(b.created_at) - new Date(a.created_at)
           )
         );
-        console.log(response, "response");
 
         setLoading(false);
       } catch (error) {
