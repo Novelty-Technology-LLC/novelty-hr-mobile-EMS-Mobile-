@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react'
-import { View } from 'react-native'
-import { dashboardStyle as ds } from '../../../assets/styles'
-import { transformLunchItem } from '../../utils/listtranform'
-import Carousel from '../Carousel'
-import { List } from './list'
+import React, { Fragment } from 'react';
+import { View } from 'react-native';
+import { dashboardStyle as ds } from '../../../assets/styles';
+import { transformLunchItem } from '../../utils/listtranform';
+import Carousel from '../Carousel';
+import { List } from './list';
 
 const Cards = ({ data }: { data: any }) => {
   return (
-    data.length > 0 &&
+    data?.length > 0 &&
     data.map((item: any, index: number): any => {
       return (
         <Fragment key={`${index}`}>
@@ -23,9 +23,9 @@ const Cards = ({ data }: { data: any }) => {
             )}
           </View>
         </Fragment>
-      )
+      );
     })
-  )
-}
+  );
+};
 
-export { Cards }
+export { Cards };
