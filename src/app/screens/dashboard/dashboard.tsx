@@ -55,23 +55,26 @@ const DashBoard = () => {
       BackHandler.removeEventListener("hardwareBackPress", BackHandler.exitApp);
     };
   }, []);
+  const fetchWork = async () => {
+    try {
+      setLoading(true);
+      const res: any = await getWork({
+        user_id: state?.user?.id,
+        date: moment().format("YYYY-MM-DD"),
+      });
+      res?.data?.data && console.log(res?.data?.data[0].status, "tres");
 
+      setId(res?.data?.data[0].id ?? null);
+
+      setToggle(+res?.data?.data[0].status === 1 ? true : false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchWork = async () => {
-      try {
-        setLoading(true);
-        const res: any = await getWork({
-          user_id: state?.user?.id,
-          date: moment().format("YYYY-MM-DD"),
-        });
-        setId(res?.data?.data?.id ?? null);
+    console.log(toggle, "toggle");
 
-        setToggle(+res?.data?.data?.status === 1 ? true : false);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
     state?.user?.id && fetchWork();
   }, [state?.user?.id]);
 
@@ -166,7 +169,7 @@ const DashBoard = () => {
             <View
               style={[
                 ds.work,
-                toggle
+                toggle === true
                   ? { backgroundColor: colors.greenButton }
                   : { backgroundColor: colors.ash },
               ]}
