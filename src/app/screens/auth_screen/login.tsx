@@ -1,90 +1,90 @@
-import React, { useState, useEffect, useContext, Fragment } from 'react'
-import { Text, View, Platform, Keyboard, TextInput } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { AuthContext } from '../../reducer'
+import React, { useState, useEffect, useContext, Fragment } from "react";
+import { Text, View, Platform, Keyboard, TextInput } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { AuthContext } from "../../reducer";
 import {
   loginStyle as style,
   requestLeave as rstyle,
-} from '../../../assets/styles'
-import { GoogleConfig } from '../../utils'
+} from "../../../assets/styles";
+import { GoogleConfig } from "../../utils";
 import {
   signInApple,
   signInGoogle,
   getLogin,
   createUser,
   signOutGoogle,
-} from '../../services'
-import { buttonui as Logo } from '../../common/ui/buttonUi'
-import LoginWrapper from './loginWrapper'
-import { Formik } from 'formik'
-import { button as Button, snackErrorTop } from '../../common'
-import { useNavigation } from '@react-navigation/native'
+} from "../../services";
+import { buttonui as Logo } from "../../common/ui/buttonUi";
+import LoginWrapper from "./loginWrapper";
+import { Formik } from "formik";
+import { button as Button, snackErrorTop } from "../../common";
+import { useNavigation } from "@react-navigation/native";
 
 let AuthModel = {
-  EmailAddress: '',
-  Password: '',
-}
+  EmailAddress: "",
+  Password: "",
+};
 
 const Login = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [showLoginForm, setLoginForm] = useState(
-    Platform.OS === 'ios' ? true : false,
-  )
-  const { state, dispatch } = useContext(AuthContext)
+    Platform.OS === "ios" ? true : false
+  );
+  const { state, dispatch } = useContext(AuthContext);
   const fetchLogin = async () => {
-    const login = await getLogin()
-    setLoginForm(login?.metadata?.show_login ?? false)
-  }
+    const login = await getLogin();
+    setLoginForm(login?.metadata?.show_login ?? false);
+  };
 
   const submitLogin = (values: any) => {
     if (
-      values.EmailAddress === 'dev@noveltytechnology.com' &&
-      values.Password === 'testPassword'
+      values.EmailAddress === "dev@noveltytechnology.com" &&
+      values.Password === "testPassword"
     ) {
       const user = {
-        email: 'dev@noveltytechnology.com',
+        email: "dev@noveltytechnology.com",
         image_url:
-          'https://lh5.googleusercontent.com/-x6GB2ApSCXU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnhtcm9X9UWnHBQpR4YP9h7d9uPfw/s120/photo.jpg',
-        uuid: '113798347975576059462',
-        idToken: 'alive',
-      }
-      createUser(dispatch, user, user.idToken)
+          "https://lh5.googleusercontent.com/-x6GB2ApSCXU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnhtcm9X9UWnHBQpR4YP9h7d9uPfw/s120/photo.jpg",
+        uuid: "113798347975576059462",
+        idToken: "alive",
+      };
+      createUser(dispatch, user, user.idToken);
     } else {
-      Keyboard.dismiss()
-      snackErrorTop({ message: 'Authentication Failed' })
+      Keyboard.dismiss();
+      snackErrorTop({ message: "Authentication Failed" });
     }
-  }
+  };
 
   const navigate = () => {
     if (state?.isLoading) {
-      return navigation.navigate('loading')
+      return navigation.navigate("loading");
     } else {
       if (state?.user !== null) {
-        return navigation.navigate('BottomTabs', { screen: 'Dashboard' })
+        return navigation.navigate("BottomTabs", { screen: "Dashboard" });
       } else if (state?.isInvalid) {
-        signOutGoogle()
-        return navigation.navigate('invalid')
+        signOutGoogle();
+        return navigation.navigate("invalid");
       } else if (state?.user === null) {
-        return navigation.navigate('login')
+        return navigation.navigate("login");
       }
     }
-  }
+  };
 
   useEffect(() => {
-    if (Platform.OS === 'ios') {
-      fetchLogin()
+    if (Platform.OS === "ios") {
+      fetchLogin();
     }
-    GoogleConfig()
-  }, [])
+    GoogleConfig();
+  }, []);
 
   useEffect(() => {
-    navigate()
-  }, [state])
+    navigate();
+  }, [state]);
 
   return (
     <LoginWrapper>
       <View style={style.buttonView}>
-        {showLoginForm && (
+        {/* {showLoginForm && (
           <View style={style.formWrapper}>
             <Formik
               initialValues={AuthModel}
@@ -128,7 +128,7 @@ const Login = () => {
               )}
             </Formik>
           </View>
-        )}
+        )} */}
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
           <TouchableOpacity
@@ -138,7 +138,7 @@ const Login = () => {
             <Logo name="google" />
           </TouchableOpacity>
 
-          {Platform.OS === 'ios' && (
+          {Platform.OS === "ios" && (
             <View style={style.iconView}>
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}
@@ -150,7 +150,7 @@ const Login = () => {
         </View>
       </View>
     </LoginWrapper>
-  )
-}
+  );
+};
 
-export { Login }
+export { Login };
