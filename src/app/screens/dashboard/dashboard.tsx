@@ -19,6 +19,7 @@ import {
   showToast,
   snackBarMessage,
   snackErrorBottom,
+  snackErrorTop,
 } from '../../common';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../../assets/colors';
@@ -34,7 +35,9 @@ const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
+  const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [leaveStatus, setLeaveStatus] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
@@ -55,23 +58,25 @@ const DashBoard = () => {
       BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp);
     };
   }, []);
+  const fetchWork = async () => {
+    try {
+      setLoading(true);
+      const res: any = await getWork({
+        user_id: state?.user?.id,
+        date: moment().format('YYYY-MM-DD'),
+      });
 
+      setId(res?.data?.data[0].id ?? null);
+      // setUserId(res?.data?.data[0].user_id ?? null);
+
+      setToggle(+res?.data?.data[0].status === 1 ? true : false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchWork = async () => {
-      try {
-        setLoading(true);
-        const res: any = await getWork({
-          user_id: state?.user?.id,
-          date: moment().format('YYYY-MM-DD'),
-        });
-        setId(res?.data?.data?.id ?? null);
-
-        setToggle(+res?.data?.data?.status === 1 ? true : false);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
+    state?.user?.id && fetchLeave();
     state?.user?.id && fetchWork();
   }, [state?.user?.id]);
 
@@ -86,13 +91,32 @@ const DashBoard = () => {
       );
     } catch (error) {}
   };
+  const myFunction = (item: any) => {};
+  const fetchLeave = async () => {
+    try {
+      var response: any = await getRequest('/leave', {});
 
+      response.forEach((item: any) => {
+        var date = moment(new Date()).format('ddd MMM D YYYY');
+
+        if (
+          moment(date).isSame(item.leave_date.startDate) === true &&
+          item.requestor_id === state?.user.id &&
+          item.status === 'Approved'
+        ) {
+          setLeaveStatus(true);
+        }
+      });
+    } catch (error) {}
+  };
   useEffect(() => {
     (async () => {
       try {
         setAnnouncementLoading(true);
         setCardLoading(true);
         const data: any = await getDashboard();
+        await fetchLeave();
+
         await fetchAnnouncements();
 
         setAnnouncementLoading(false);
@@ -106,35 +130,39 @@ const DashBoard = () => {
   }, [refreshing]);
 
   const ToggleWork = async () => {
-    try {
-      setLoading(true);
-      const data = {
-        id,
-        date: getToday(),
-        user_id: state?.user?.id,
-        status: !toggle ? 1 : 0,
-      };
-      const res: any = await createWork(data);
-      res?.data?.data?.id && setId(res?.data?.data?.id);
-      if (res?.data?.data?.message) {
-        showToast(res?.data?.data?.message, false);
-        setLoading(false);
-      } else if (res?.data?.status === 200) {
-        showToast('Successfully changed status.');
-        setToggle(!toggle);
-        let newList: any = listData.find(
-          (item: any) => item?.detailRoute === '/employee'
-        );
-        newList.items.map((item: any) => {
-          if (item?.subTitle === 'Working from Home') {
-            item.title = !toggle ? +item.title + 1 : +item.title - 1;
-          }
-        });
+    if (leaveStatus === true) {
+      snackErrorTop('your are currently at leave');
+    } else {
+      try {
+        setLoading(true);
+        const data = {
+          id,
+          date: getToday(),
+          user_id: state?.user?.id,
+          status: !toggle ? 1 : 0,
+        };
+        const res: any = await createWork(data);
+        res?.data?.data?.id && setId(res?.data?.data?.id);
+        if (res?.data?.data?.message) {
+          showToast(res?.data?.data?.message, false);
+          setLoading(false);
+        } else if (res?.data?.status === 200) {
+          showToast('Successfully changed status.');
+          setToggle(!toggle);
+          let newList: any = listData.find(
+            (item: any) => item?.detailRoute === '/employee'
+          );
+          newList.items.map((item: any) => {
+            if (item?.subTitle === 'Working from Home') {
+              item.title = !toggle ? +item.title + 1 : +item.title - 1;
+            }
+          });
+          setLoading(false);
+        }
+      } catch (error) {
+        showToast('Something went wrong', false);
         setLoading(false);
       }
-    } catch (error) {
-      showToast('Something went wrong', false);
-      setLoading(false);
     }
   };
 
@@ -165,7 +193,7 @@ const DashBoard = () => {
             <View
               style={[
                 ds.work,
-                toggle
+                toggle === true
                   ? { backgroundColor: colors.greenButton }
                   : { backgroundColor: colors.ash },
               ]}
