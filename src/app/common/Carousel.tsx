@@ -30,6 +30,8 @@ export const Carousel = (props: CarouselPropTypes) => {
   const [ref, setRef] = React.useState<any>(null);
 
   useEffect(() => {
+    console.log(items.flat(1), "itesm");
+
     try {
       setItems(chunk(props.items.items, 1));
     } catch (error) {
@@ -100,7 +102,17 @@ export const Carousel = (props: CarouselPropTypes) => {
       contentSize.width - paddingToBottom
     );
   };
+  const as = () => {
+    if (props.module !== "Employee") {
+      return items.flat(1);
+    } else {
+      return items.flat(1).sort((a: any, b: any) => {
+        console.log(b.subTitle.localeCompare(a.subTitle), "ahoasdhjoasjdo");
 
+        return b.subTitle.localeCompare(a.subTitle);
+      });
+    }
+  };
   return (
     <View style={CarouselStyle.container}>
       <ScrollView
@@ -127,7 +139,7 @@ export const Carousel = (props: CarouselPropTypes) => {
         pagingEnabled
         decelerationRate="fast"
       >
-        {items.flat(1).map((item: any, index: number) => {
+        {as().map((item: any, index: number) => {
           return (
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>

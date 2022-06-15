@@ -44,6 +44,7 @@ const LogTime = ({ route }: any) => {
     duration: olddata?.item?.time ?? "60",
     project_id: olddata?.project_id ?? "",
     note: olddata?.item?.task ?? "",
+    hashtag: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -100,9 +101,6 @@ const LogTime = ({ route }: any) => {
         Object.keys(timelogs.historyDate).length !== 0
           ? { ...timelogs.historyDate }
           : null;
-      console.log(dataObj, "dataObj");
-      console.log(selectedDate, "selectedDate");
-      console.log(historyDate, "historyDate");
 
       submitTimeLog(dataObj, selectedDate, historyDate)
         .then((data) => {

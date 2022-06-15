@@ -84,7 +84,7 @@ const Description = ({
     let filteredhashtag: any;
 
     if (name === "note") filteredhashtag = filterTagWords(value);
-    handleChange(name)(value);
+    handleChange(name)("hashtag")(value);
     handleChange("hashtag")(
       JSON.stringify(
         filteredhashtag
@@ -176,7 +176,7 @@ const Description = ({
           name={timelog ? "task" : "note"}
           label={timelog ? "task" : "note"}
           onChangeText={(text: any) => {
-            onValueChanged(error ? "note" : "task", text);
+            onValueChanged(error ? "note" ?? "hashtag" : "task", text);
           }}
         />
         {error && touched && error.note && touched.note && (

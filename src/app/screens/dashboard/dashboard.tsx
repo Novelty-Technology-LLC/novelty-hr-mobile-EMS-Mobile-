@@ -65,7 +65,6 @@ const DashBoard = () => {
         user_id: state?.user?.id,
         date: moment().format("YYYY-MM-DD"),
       });
-      res?.data?.data && console.log(res?.data?.data[0], "tres");
 
       setId(res?.data?.data[0].id ?? null);
       // setUserId(res?.data?.data[0].user_id ?? null);
@@ -93,7 +92,6 @@ const DashBoard = () => {
       );
     } catch (error) {}
   };
-  const myFunction = (item: any) => {};
   const fetchLeave = async () => {
     try {
       var response: any = await getRequest("/leave", {});
@@ -103,7 +101,7 @@ const DashBoard = () => {
 
         if (
           moment(date).isSame(item.leave_date.startDate) === true &&
-          item.requestor_id === state?.user.device_tokens[0].user_id &&
+          item.requestor_id === state?.user.id &&
           item.status === "Approved"
         ) {
           setLeaveStatus(true);
