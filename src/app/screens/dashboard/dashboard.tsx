@@ -77,7 +77,6 @@ const DashBoard = () => {
   };
   useEffect(() => {
     state?.user?.id && fetchLeave();
-
     state?.user?.id && fetchWork();
   }, [state?.user?.id]);
 
