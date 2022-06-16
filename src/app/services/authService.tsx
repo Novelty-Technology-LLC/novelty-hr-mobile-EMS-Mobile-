@@ -1,36 +1,32 @@
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-community/google-signin';
-
-import appleAuth, {
-  AppleAuthRequestOperation,
-  AppleAuthRequestScope,
-} from '@invertase/react-native-apple-authentication';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { appleAuth } from '@invertase/react-native-apple-authentication';
 
 import { setUser, storeToken } from '../utils';
 import { create } from './userService';
 import { mapDataToObject } from '../utils/transformer';
-import { snackErrorBottom } from '../common/error';
 import { showToast } from '../common';
 
 const signInGoogle = async (dispatch: any) => {
   try {
     await GoogleSignin.hasPlayServices();
-    const userInfo: any = await GoogleSignin.signIn();
+    console.log('1');
 
+    const userInfo: any = await GoogleSignin.signIn();
+    console.log('1', userInfo);
     if (!userInfo.idToken) throw new Error('Error while sign in');
     dispatch({ type: 'RESET' });
     delete userInfo.user.name;
     const userData = mapDataToObject(userInfo.user);
     createUser(dispatch, userData, userInfo.idToken);
-  } catch (error:any) {
+  } catch (error: any) {
+    console.log('error', error);
+
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
       error.message = 'Sign in error';
     }
-    showToast(error?.message,false);
+    showToast(error?.message, false);
   }
 };
 
@@ -60,11 +56,8 @@ const signInApple = async (dispatch: any) => {
   try {
     if (!appleAuth.isSupported) throw new Error('Apple signin not supported');
     const data: any = await appleAuth.performRequest({
-      requestedOperation: AppleAuthRequestOperation.LOGIN,
-      requestedScopes: [
-        AppleAuthRequestScope.EMAIL,
-        AppleAuthRequestScope.FULL_NAME,
-      ],
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
     });
 
     if (!data.identityToken || !data.email)
@@ -87,13 +80,13 @@ const signInApple = async (dispatch: any) => {
     } else {
       dispatch({ type: 'INVALID' });
     }
-  } catch (error:any) {
+  } catch (error: any) {
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
       error.message = 'Unknown error occured';
     }
-    showToast(error?.message,false);
+    showToast(error?.message, false);
   }
 };
 
