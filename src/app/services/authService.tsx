@@ -1,26 +1,26 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
 
-import { setUser, storeToken } from '../utils';
+import { GoogleConfig, setUser, storeToken } from '../utils';
 import { create } from './userService';
 import { mapDataToObject } from '../utils/transformer';
 import { showToast } from '../common';
 
 const signInGoogle = async (dispatch: any) => {
   try {
-    await GoogleSignin.hasPlayServices();
-    console.log('1');
+    GoogleConfig();
+    const playService = await GoogleSignin.hasPlayServices();
+    console.log('1', playService);
 
     const userInfo: any = await GoogleSignin.signIn();
-    console.log('1', userInfo);
+    console.log('2');
     if (!userInfo.idToken) throw new Error('Error while sign in');
     dispatch({ type: 'RESET' });
     delete userInfo.user.name;
     const userData = mapDataToObject(userInfo.user);
     createUser(dispatch, userData, userInfo.idToken);
   } catch (error: any) {
-    console.log('error', error);
-
+    console.log('3', error);
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
