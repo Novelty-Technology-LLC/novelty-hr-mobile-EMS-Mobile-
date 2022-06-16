@@ -1,13 +1,13 @@
-import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import normalize from 'react-native-normalize'
-import colors from '../../../assets/colors'
-import { listStyle } from '../../../assets/styles'
-import { transformList } from '../../utils/listtranform'
-import { navigate } from '../../utils/navigation'
-import { EmptyContainer } from '../emptyContainer'
-import { AppIcon } from '../icon'
-import { ListItem } from './listItem'
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../../assets/colors";
+import { listStyle } from "../../../assets/styles";
+import { transformList } from "../../utils/listtranform";
+import { navigate } from "../../utils/navigation";
+import { EmptyContainer } from "../emptyContainer";
+import { AppIcon } from "../icon";
+import { ListItem } from "./listItem";
 
 const List = ({ list }: { list: any }) => {
   return (
@@ -20,15 +20,15 @@ const List = ({ list }: { list: any }) => {
             list?.module,
             false,
             true,
-            list.module == 'Holidays & Events' || list.module == 'Leave'
+            list.module == "Holidays & Events" || list.module == "Leave"
               ? true
-              : false,
+              : false
           ).map((item: any, index: number) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  list?.module === 'Announcements'
-                    ? navigate('announcementsDetails', {
+                  list?.module === "Announcements"
+                    ? navigate("announcementsDetails", {
                         headerText: item.title,
                         title: item.title,
                         subTitle: item.subTitle,
@@ -38,7 +38,7 @@ const List = ({ list }: { list: any }) => {
                     : navigate(list?.detailRoute, {
                         route: list?.detailRoute,
                         module: list.module,
-                      })
+                      });
                 }}
                 style={listStyle.seeAll}
               >
@@ -53,36 +53,37 @@ const List = ({ list }: { list: any }) => {
                   html={item.html}
                 />
               </TouchableOpacity>
-            )
+            );
           })}
+          {/* <Text>"asdasd</Text> */}
         </View>
       ) : (
         <EmptyContainer
           text={`${
             list.message
               ? list.message
-              : list?.module === 'Leave'
-              ? 'No Upcoming Leave'
-              : 'No Upcoming Holidays and Events'
+              : list?.module === "Leave"
+              ? "No Upcoming Leave"
+              : "No Upcoming Holidays and Events"
           }`}
           containerStyle={{ height: normalize(100) }}
         />
       )}
-      {list?.module === 'Announcements' && (
+      {list?.module === "Announcements" && (
         <View>
           <TouchableOpacity
             onPress={() =>
-              navigate('announcementsListing', {
-                notification: '',
+              navigate("announcementsListing", {
+                notification: "",
               })
             }
           >
-            <Text style={listStyle.seeAllTextOne}>{'SEE ALL'}</Text>
+            <Text style={listStyle.seeAllTextOne}>{"SEE ALL"}</Text>
           </TouchableOpacity>
         </View>
       )}
     </>
-  )
-}
+  );
+};
 
-export { List }
+export { List };
