@@ -8,6 +8,7 @@ import { navigate } from "../../utils/navigation";
 import { EmptyContainer } from "../emptyContainer";
 import { AppIcon } from "../icon";
 import { ListItem } from "./listItem";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const List = ({ list }: { list: any }) => {
   return (
@@ -55,6 +56,19 @@ const List = ({ list }: { list: any }) => {
               </TouchableOpacity>
             );
           })}
+          <TouchableOpacity
+            onPress={() =>
+              navigate(list?.detailRoute, {
+                route: list?.detailRoute,
+                module: list.module,
+              })
+            }
+          >
+            <View style={listStyle.seeAllTextOn}>
+              <Text style={listStyle.seeAllTexts}>See All</Text>
+              <Icon name="arrow-right" color={colors.primary} size={12} />
+            </View>
+          </TouchableOpacity>
           {/* <Text>"asdasd</Text> */}
         </View>
       ) : (
@@ -69,7 +83,7 @@ const List = ({ list }: { list: any }) => {
           containerStyle={{ height: normalize(100) }}
         />
       )}
-      {list?.module === "Announcements" && (
+      {/* {list?.module === "Announcements" && (
         <View>
           <TouchableOpacity
             onPress={() =>
@@ -81,7 +95,7 @@ const List = ({ list }: { list: any }) => {
             <Text style={listStyle.seeAllTextOne}>{"SEE ALL"}</Text>
           </TouchableOpacity>
         </View>
-      )}
+      )} */}
     </>
   );
 };

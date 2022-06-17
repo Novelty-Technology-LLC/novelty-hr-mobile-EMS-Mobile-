@@ -11,7 +11,7 @@ import colors from "../../assets/colors";
 import { CarouselStyle } from "../../assets/styles";
 import { navigate } from "../utils/navigation";
 import { UpperCard } from "./dashboard/card";
-import { snackBarMessage } from "./message";
+import { showToast, snackBarMessage } from "./message";
 
 interface CarouselPropTypes {
   itemsPerInterval?: number;
@@ -153,7 +153,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                           ? navigate("EmployeeListing")
                           : item.title !== 0
                           ? navigate("workFromHomeEmployeeListing")
-                          : snackBarMessage("No employee working from home")
+                          : showToast("No employee working from home", false)
                       }
                     >
                       <UpperCard

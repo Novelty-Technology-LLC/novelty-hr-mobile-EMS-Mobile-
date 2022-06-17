@@ -130,7 +130,7 @@ const DashBoard = () => {
 
   const ToggleWork = async () => {
     if (leaveStatus === true) {
-      snackErrorTop("your are currently at leave");
+      showToast("your are currently at leave", false);
     } else {
       try {
         setLoading(true);
