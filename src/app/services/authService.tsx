@@ -8,12 +8,8 @@ import { showToast } from '../common';
 
 const signInGoogle = async (dispatch: any) => {
   try {
-    GoogleConfig();
-    const playService = await GoogleSignin.hasPlayServices();
-    console.log('1', playService);
-
+    await GoogleSignin.hasPlayServices();
     const userInfo: any = await GoogleSignin.signIn();
-    console.log('2');
     if (!userInfo.idToken) throw new Error('Error while sign in');
     dispatch({ type: 'RESET' });
     delete userInfo.user.name;

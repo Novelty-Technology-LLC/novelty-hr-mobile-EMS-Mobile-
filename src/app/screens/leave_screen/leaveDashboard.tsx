@@ -1,20 +1,20 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { View, ScrollView, Text, RefreshControl } from 'react-native';
-import { header as Header } from '../../common';
-import { DaysRemaining, MyRequests } from '../../components';
+import React, { useState, useContext, useEffect } from "react";
+import { View, ScrollView, Text, RefreshControl } from "react-native";
+import { header as Header } from "../../common";
+import { DaysRemaining, MyRequests } from "../../components";
 import {
   headerTxtStyle,
   leaveDashboardStyle as style,
-} from '../../../assets/styles';
-import OtherRequests from '../../components/leave_screen/otherRequests';
-import { RequestButton } from '../../components/requestButton';
-import { RequestContext } from '../../reducer';
-import { getUser, mapDataToRequest, setUser } from '../../utils';
-import { get, getLeaveQuota, getMyRequests, store } from '../../services';
-import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
-import { useScrollToTop } from '@react-navigation/native';
-import { AuthContext } from '../../reducer';
-import Autolink from 'react-native-autolink';
+} from "../../../assets/styles";
+import OtherRequests from "../../components/leave_screen/otherRequests";
+import { RequestButton } from "../../components/requestButton";
+import { RequestContext } from "../../reducer";
+import { getUser, mapDataToRequest, setUser } from "../../utils";
+import { get, getLeaveQuota, getMyRequests, store } from "../../services";
+import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
+import { useScrollToTop } from "@react-navigation/native";
+import { AuthContext } from "../../reducer";
+import Autolink from "react-native-autolink";
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -33,13 +33,13 @@ const LeaveDashboard = () => {
     setIsAdmin(+newuser.is_approver === 1 ? true : false);
     setUser(newuser);
     getLeaveQuota(JSON.parse(user).id).then((data) => {
-      dispatchRequest({ type: 'QUOTA', payload: data });
+      dispatchRequest({ type: "QUOTA", payload: data });
       setRefreshing(false);
     });
 
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
         setRefreshing(false);
       })
@@ -55,9 +55,9 @@ const LeaveDashboard = () => {
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({ type: 'QUOTA', payload: data });
+        dispatchRequest({ type: "QUOTA", payload: data });
       })
-      .catch((err) => console.log('GetLeaveQuota error', err));
+      .catch((err) => console.log("GetLeaveQuota error", err));
   };
 
   const getRequest = async () => {
@@ -67,7 +67,7 @@ const LeaveDashboard = () => {
 
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
       })
       .catch((err) => {
@@ -114,18 +114,18 @@ const LeaveDashboard = () => {
         <MyRequests
           loading={loading}
           refresh={refresh}
-          params={notifdata?.request === 'myrequest' && +notifdata?.leave_id}
+          params={notifdata?.request === "myrequest" && +notifdata?.leave_id}
         />
         {isAdmin && (
           <OtherRequests
             refresh={refresh}
             params={
-              notifdata?.request === 'otherrequest' && +notifdata?.leave_id
+              notifdata?.request === "otherrequest" && +notifdata?.leave_id
             }
           />
         )}
       </ScrollView>
-      <RequestButton screen='requestLeave' />
+      <RequestButton screen="requestLeave" />
     </View>
   );
 };

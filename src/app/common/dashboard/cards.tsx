@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
-import { View } from 'react-native';
-import { dashboardStyle as ds } from '../../../assets/styles';
-import { transformLunchItem } from '../../utils/listtranform';
-import Carousel from '../Carousel';
-import { List } from './list';
+import React, { Fragment } from "react";
+import { View } from "react-native";
+import { dashboardStyle as ds } from "../../../assets/styles";
+import { transformLunchItem } from "../../utils/listtranform";
+import Carousel from "../Carousel";
+import { List } from "./list";
 
 const Cards = ({ data }: { data: any }) => {
   return (
@@ -12,7 +12,7 @@ const Cards = ({ data }: { data: any }) => {
       return (
         <Fragment key={`${index}`}>
           <View style={[ds.wrapItem]}>
-            {item.type === 'stats' ? (
+            {item.type === "stats" ? (
               <Carousel
                 items={transformLunchItem(item)}
                 itemsPerInterval={1}

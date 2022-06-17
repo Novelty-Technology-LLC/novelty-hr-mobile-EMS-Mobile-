@@ -74,6 +74,7 @@ const Login = () => {
     if (Platform.OS === 'ios') {
       fetchLogin();
     }
+    GoogleConfig();
   }, []);
 
   useEffect(() => {

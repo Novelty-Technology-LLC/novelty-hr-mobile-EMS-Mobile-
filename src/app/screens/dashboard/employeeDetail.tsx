@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, TouchableWithoutFeedback } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TouchableWithoutFeedback,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { getRequest } from "../../services";
 import { header as Header } from "../../common";
 import { ProfileInfoComponent } from "../../common/profileInformation";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
-import { profileStyle as style } from "../../../assets/styles/tabs";
+import {
+  profileStyle,
+  profileStyle as style,
+} from "../../../assets/styles/tabs";
 import normalize from "react-native-normalize";
+import colors from "../../../assets/colors";
 
 const EmployeeDetail = (props: any) => {
   const [data, setData] = useState<any>({});
@@ -27,25 +38,37 @@ const EmployeeDetail = (props: any) => {
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
-        <View
-          style={headerTxtStyle.main}
-        >
+        <View style={headerTxtStyle.main}>
           <Text style={headerTxtStyle.headerText}>{params.name}</Text>
-          <View
+          {/* <View
             style={{
               marginRight: normalize(20),
             }}
-          >
-            <Image
-              style={style.headerImage}
-              source={{
-                uri: params.image,
-              }}
-            />
-          </View>
+          ></View> */}
         </View>
       </Header>
-      {loading ? <ListPlaceholder /> : <ProfileInfoComponent user={data} />}
+      {loading ? (
+        <ListPlaceholder />
+      ) : (
+        <ScrollView
+          style={profileStyle.scrollStyle}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={profileStyle.topContainer}></View>
+          <View style={profileStyle.infoStyle}>
+            <ProfileInfoComponent user={data} />
+          </View>
+          <View style={[style.imageWrapper, style.profileContainerWrapper]}>
+            <Image
+              style={[style.image, style.profileImageWrapper]}
+              source={{ uri: params.image }}
+            />
+            {/* <View style={[style.imageWrappers, style.iconCammerWrapper]}>
+              <Icon name="camera" color="white" size={20}></Icon>
+            </View> */}
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
