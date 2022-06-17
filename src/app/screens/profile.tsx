@@ -1,27 +1,35 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, ScrollView, Image, ActivityIndicator } from 'react-native';
-import { headerTxtStyle } from '../../assets/styles';
-import { profileStyle as style } from '../../assets/styles/tabs';
-import { showToast, tabHeader as Header } from '../common';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import colors from '../../assets/colors';
-import { AuthContext } from '../reducer';
-import ImageCropper from 'react-native-image-crop-picker';
-import { updateImage } from '../services';
-import normalize from 'react-native-normalize';
-import { storeToken, removeToken, removeUser, setUser } from '../utils';
-import { ProfileInfoComponent } from '../common/profileInformation';
+import React, { useContext, useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
+import { headerTxtStyle } from "../../assets/styles";
+import { profileStyle, profileStyle as style } from "../../assets/styles/tabs";
+import { showToast, tabHeader as Header } from "../common";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import colors from "../../assets/colors";
+import { AuthContext } from "../reducer";
+import ImageCropper from "react-native-image-crop-picker";
+import { updateImage } from "../services";
+import normalize from "react-native-normalize";
+import { storeToken, removeToken, removeUser, setUser } from "../utils";
+import { ProfileInfoComponent } from "../common/profileInformation";
 
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
+  console.log(state.user, "user");
 
   const cleanImage = () =>
     ImageCropper.clean()
       .then(() => {
-        console.log('removed all tmp images from tmp directory');
+        console.log("removed all tmp images from tmp directory");
       })
       .catch((e) => {});
 
@@ -29,7 +37,7 @@ const Profile = ({ navigation }: any) => {
     setimage(image);
     if (data?.image_url) {
       dispatch({
-        type: 'SET_IMAGE',
+        type: "SET_IMAGE",
         payload: data?.image_url,
       });
     }
@@ -67,7 +75,7 @@ const Profile = ({ navigation }: any) => {
     setloading(true);
     updateImage(state.user.id, {
       data: image.data,
-      name: image.path.split('/').pop(),
+      name: image.path.split("/").pop(),
       type: image.mime,
     })
       .then((data) => {
@@ -77,13 +85,13 @@ const Profile = ({ navigation }: any) => {
         setUser(data);
         setloading(false);
         updateProfileImage({ ...image, visible: false }, data);
-        showToast('Image uploaded');
+        showToast("Image uploaded");
         cleanImage();
       })
       .catch((err) => {
         setloading(false);
         cleanImage();
-        showToast('Something went wrong',false);
+        showToast("Something went wrong", false);
       });
   };
 
@@ -93,60 +101,28 @@ const Profile = ({ navigation }: any) => {
       <Header icon={true} navigation={navigation}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
-      <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
-        <View style={style.imageView}>
-          <View style={style.imageWrapper}>
-            <Image
-              style={style.image}
-              source={{
-                uri,
-              }}
-            />
-          </View>
-          {loading ? (
-            <ActivityIndicator
-              size="large"
-              color={colors.white}
-              style={{ marginTop: normalize(10) }}
-            />
-          ) : (
-            <View style={style.label}>
-              {image && image?.visible !== false ? (
-                <View style={style.confirm}>
-                  <TouchableOpacity onPress={() => setimage(null)}>
-                    <View style={style.label}>
-                      <Icon name="close" color="white" size={20}></Icon>
-                      <Text style={style.labelText}>Cancel</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <View style={style.spacer} />
-                  <TouchableOpacity onPress={confirm}>
-                    <View style={style.label}>
-                      <Icon name="check-bold" color="white" size={20}></Icon>
-                      <Text style={style.labelText}>Confirm</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View style={style.textContainer}>
-                  <TouchableOpacity onPress={() => uploadImage(true)}>
-                    <View style={style.label}>
-                      <Icon name="upload" color="white" size={20}></Icon>
-                      <Text style={style.labelText}>Upload from library</Text>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => uploadImage(false)}>
-                    <View style={style.label}>
-                      <Icon name="camera" color="white" size={20}></Icon>
-                      <Text style={style.labelText}>Take a photo</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          )}
+      <ScrollView
+        style={profileStyle.scrollStyle}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={profileStyle.topContainer}></View>
+        <View style={profileStyle.infoStyle}>
+          <ProfileInfoComponent user={state.user} />
         </View>
-      <ProfileInfoComponent user={state.user}/>
+        {/* <View style={{ ...style.imageView, position: "absolute" }}>
+          
+        </View> */}
+        <View style={[style.imageWrapper, style.profileContainerWrapper]}>
+          <Image
+            style={[style.image, style.profileImageWrapper]}
+            source={{
+              uri,
+            }}
+          />
+          <View style={[style.imageWrappers, style.iconCammerWrapper]}>
+            <Icon name="camera" color="white" size={20}></Icon>
+          </View>
+        </View>
       </ScrollView>
     </View>
   ) : (
@@ -155,3 +131,34 @@ const Profile = ({ navigation }: any) => {
 };
 
 export { Profile };
+
+// {
+//   loading ? (
+//     <ActivityIndicator
+//       size="large"
+//       color={colors.white}
+//       style={{ marginTop: normalize(10) }}
+//     />
+//   ) : (
+//     <View style={style.label}>
+//       {image && image?.visible !== false ? (
+//         <View style={style.confirm}></View>
+//       ) : (
+//         <View style={style.textContainer}>
+//           <TouchableOpacity onPress={() => uploadImage(true)}>
+//             <View style={style.label}>
+//               <Icon name="upload" color="white" size={20}></Icon>
+//               <Text style={style.labelText}>Upload from library</Text>
+//             </View>
+//           </TouchableOpacity>
+//           <TouchableOpacity onPress={() => uploadImage(false)}>
+//             <View style={style.label}>
+//               <Icon name="camera" color="white" size={20}></Icon>
+//               <Text style={style.labelText}>Take a photo</Text>
+//             </View>
+//           </TouchableOpacity>
+//         </View>
+//       )}
+//     </View>
+//   );
+// }

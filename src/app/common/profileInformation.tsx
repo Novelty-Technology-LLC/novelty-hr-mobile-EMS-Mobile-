@@ -1,80 +1,101 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { View, Text, Linking, TouchableOpacity } from 'react-native';
-import { SmallHeader } from '.';
-import colors from '../../assets/colors';
-import { profileStyle as style } from '../../assets/styles/tabs';
-import { formatPhoneNumber } from '../utils';
+import React from "react";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { View, Text, Linking, TouchableOpacity } from "react-native";
+import { SmallHeader } from ".";
+import colors from "../../assets/colors";
+import { profileStyle as style } from "../../assets/styles/tabs";
+import { formatPhoneNumber } from "../utils";
+import { CustomText } from "../components/text";
+import normalize from "react-native-normalize";
+import { fonts } from "../../assets/styles/theme";
+import moment from "moment";
 
 const ProfileInfoComponent = ({ user }: { user: any }) => (
   <>
-    <View style={style.infoView}>
-      <View style={style.body}>
-        <SmallHeader text='Personal Information' />
-        <View style={style.icon}>
-          <Icon name='account-circle' color={colors.primary} size={25} />
-          <Text style={style.text}>
-            {user?.first_name + ' ' + user.last_name}
-          </Text>
-        </View>
-        <View style={style.icon}>
-          <Icon name='human-male-female' color={colors.primary} size={25} />
-          <Text style={style.gender}>{user.gender}</Text>
-        </View>
-        <View style={style.icon}>
-          <Icon name='cake-variant' color={colors.primary} size={25} />
-          <Text style={style.date}>{user.birth_date}</Text>
-        </View>
-        {user.blood_group && (
-          <View style={style.icon}>
-            <Icon name='water' color={colors.primary} size={25} />
-            <Text style={style.text}>{user?.blood_group}</Text>
-          </View>
-        )}
-      </View>
-    </View>
-    <View style={style.infoView}>
-      <View style={style.body}>
-        <SmallHeader text='Contact Information' />
-        <TouchableOpacity
-          onPress={() =>
-            Linking.openURL(
-              `mailto:${user.email}?subject=Subject to:&body=write your query`
-            )
-          }
-        >
-          <View style={style.icon}>
-            <Icon name='email-newsletter' color={colors.primary} size={25} />
-            <Text style={style.text}>{user.email}</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={style.icon}>
+    <View style={{ top: normalize(50) }}>
+      <CustomText
+        text={user?.first_name + " " + user.last_name}
+        style={{
+          color: "black",
+          paddingTop: 5,
+          textAlign: "center",
+          fontSize: 15,
+          // fontWeight: "bold",
+          fontFamily: fonts.PoppinsSemibold,
+        }}
+      />
+      <CustomText
+        text={user.designation}
+        style={{
+          color: "#8D8D8D",
+          textAlign: "center",
+          fontSize: 15,
+          // fontWeight: "bold",
+          fontFamily: fonts.poppinsMedium,
+        }}
+      />
+      <View style={{ ...style.infoView }}>
+        <View style={style.body}>
+          <SmallHeader text="Personal Information" />
           <TouchableOpacity
-            onPress={() => Linking.openURL(`tel:${user.phone}`)}
+            onPress={() =>
+              Linking.openURL(
+                `mailto:${user.email}?subject=Subject to:&body=write your query`
+              )
+            }
           >
-            <Icon name='phone' color={colors.primary} size={25} />
+            <View style={style.icon}>
+              <Icon name="email-newsletter" color={colors.primary} size={25} />
+              <Text style={style.text}>{user.email}</Text>
+            </View>
           </TouchableOpacity>
-          <Text style={style.text}>{formatPhoneNumber(user.phone)}</Text>
+          <View style={style.icon}>
+            <TouchableOpacity
+              onPress={() => Linking.openURL(`tel:${user.phone}`)}
+            >
+              <Icon name="phone" color={colors.primary} size={25} />
+            </TouchableOpacity>
+            <Text style={style.text}>{formatPhoneNumber(user.phone)}</Text>
+          </View>
+          <View style={style.icon}>
+            <Icon name="human-male-female" color={colors.primary} size={25} />
+            <Text style={style.gender}>{user.gender}</Text>
+          </View>
+          <View style={style.icon}>
+            <Icon name="cake-variant" color={colors.primary} size={25} />
+            <Text style={style.date}>{moment(user.birth_date).format()}</Text>
+          </View>
+          {user.blood_group && (
+            <View style={style.icon}>
+              <Icon name="water" color={colors.primary} size={25} />
+              <Text style={style.text}>{user?.blood_group}</Text>
+            </View>
+          )}
         </View>
       </View>
-    </View>
-    <View style={style.infoView}>
-      <View style={style.body}>
-        <SmallHeader text='Employee Information' />
+      <View style={style.infoView}></View>
+      <View style={style.infoView}>
+        <View style={style.body}>
+          <SmallHeader text="Employee Information" />
 
-        <View style={style.icon}>
-          <Icon name='card-account-details' color={colors.primary} size={25} />
-          <Text style={style.text}>{user?.employee_id}</Text>
-        </View>
+          <View style={style.icon}>
+            <Icon
+              name="card-account-details"
+              color={colors.primary}
+              size={25}
+            />
+            <Text style={style.text}>{user?.employee_id}</Text>
+          </View>
 
-        <View style={style.icon}>
-          <Icon name='location-enter' color={colors.primary} size={25} />
-          <Text style={style.text}>{user.join_date}</Text>
-        </View>
+          <View style={style.icon}>
+            <Icon name="location-enter" color={colors.primary} size={25} />
+            <Text style={style.text}>{user.join_date}</Text>
+          </View>
 
-        <View style={style.icon}>
-          <Icon name='account-tie' color={colors.primary} size={25} />
-          <Text style={style.designation}>{user.designation}</Text>
+          {/* <View style={style.icon}>
+            <Icon name="account-tie" color={colors.primary} size={25} />
+            <Text style={style.designation}>{user.designation}</Text>
+          </View> */}
         </View>
       </View>
     </View>
