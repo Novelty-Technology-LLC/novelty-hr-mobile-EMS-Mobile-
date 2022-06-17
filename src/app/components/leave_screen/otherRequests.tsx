@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, TouchableWithoutFeedback } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import React, { useState, useEffect, useContext } from "react";
+import { View, TouchableWithoutFeedback } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 
-import { otherRequestsStyle } from '../../../assets/styles';
-import { Request } from './request';
-import History from './history';
-import { useNavigation } from '@react-navigation/native';
-import { EmptyContainer, SmallHeader } from '../../common';
-import { getAllRequests } from '../../services';
-import { getUser, mapDataToRequest, mapObjectToRequest } from '../../utils';
-import { AdminRequestContext, AuthContext } from '../../reducer';
-import { AdminPlaceHolder } from '../loader';
-import { getLeave } from '../../services';
-import HistoryToggle from '../../common/historyToggle';
+import { otherRequestsStyle } from "../../../assets/styles";
+import { Request } from "./request";
+import History from "./history";
+import { useNavigation } from "@react-navigation/native";
+import { EmptyContainer, SmallHeader } from "../../common";
+import { getAllRequests } from "../../services";
+import { getUser, mapDataToRequest, mapObjectToRequest } from "../../utils";
+import { AdminRequestContext, AuthContext } from "../../reducer";
+import { AdminPlaceHolder } from "../loader";
+import { getLeave } from "../../services";
+import HistoryToggle from "../../common/historyToggle";
 
 const OtherRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
-  const [toggle, setToggle] = useState('toggle-switch-off');
+  const [toggle, setToggle] = useState("toggle-switch-off");
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext(AdminRequestContext);
@@ -29,13 +29,13 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
       .then((data: Array) => {
         let pastreq = data.filter(
           (item) =>
-            item.status === 'Approved' ||
-            item.status === 'Denied' ||
-            item.status === 'Cancelled'
+            item.status === "Approved" ||
+            item.status === "Denied" ||
+            item.status === "Cancelled"
         );
-        let myreq = data.filter((item) => item.status === 'Pending');
+        let myreq = data.filter((item) => item.status === "Pending");
         const progressreq = data.filter(
-          (item) => item.status === 'In Progress'
+          (item) => item.status === "In Progress"
         );
         progressreq.map((req) => {
           for (let i = 0; i < req.leave_approvals.length; i++) {
@@ -51,7 +51,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         });
 
         dispatchAdmin({
-          type: 'CHANGE',
+          type: "CHANGE",
           payload: {
             my: mapDataToRequest(myreq),
             past: mapDataToRequest(pastreq),
@@ -67,7 +67,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
 
   useEffect(() => {
     getAdminRequest();
-    setToggle('toggle-switch-off');
+    setToggle("toggle-switch-off");
   }, [refresh, params]);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
       if (+params) {
         let data = await getLeave(+params);
         data = mapObjectToRequest(data[0]);
-        navigation.navigate('approveLeave', data[0]);
+        navigation.navigate("approveLeave", data[0]);
       }
     };
     get();
@@ -86,7 +86,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
       <TouchableWithoutFeedback
         onPress={() => {
           setToggle(
-            toggle === 'toggle-switch' ? 'toggle-switch-off' : 'toggle-switch'
+            toggle === "toggle-switch" ? "toggle-switch-off" : "toggle-switch"
           );
         }}
       >
@@ -111,7 +111,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
               item={item.item}
               other={true}
               recieved={true}
-              onPress={() => navigation.navigate('approveLeave', item.item)}
+              onPress={() => navigation.navigate("approveLeave", item.item)}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -126,7 +126,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
           <AdminPlaceHolder />
         </>
       )}
-      {toggle === 'toggle-switch' && !loading && (
+      {toggle === "toggle-switch" && !loading && (
         <History other={true} requests={adminrequests.pastadminrequests} />
       )}
     </View>
