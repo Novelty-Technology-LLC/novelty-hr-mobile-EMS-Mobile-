@@ -101,7 +101,6 @@ const MyRequests = ({
       );
     }
   };
-  console.log('requests.pastrequests', requests.pastrequests);
 
   return (
     <View style={style.container}>

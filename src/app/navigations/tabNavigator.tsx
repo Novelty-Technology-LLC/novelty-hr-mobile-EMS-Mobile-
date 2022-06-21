@@ -48,11 +48,11 @@ const TabNavigator = () => {
                   (item: any) => item.id == +remoteMessage.data.announcement_id
                 );
                 navigate('announcementsDetails', {
-                  headerText: findAnnouncement.title,
-                  title: findAnnouncement.title,
-                  subTitle: findAnnouncement.subTitle,
-                  date: findAnnouncement.date,
-                  html: findAnnouncement.html,
+                  headerText: findAnnouncement?.title,
+                  title: findAnnouncement?.title,
+                  subTitle: findAnnouncement?.subTitle,
+                  date: findAnnouncement?.date,
+                  html: findAnnouncement?.html,
                 });
               } catch (error) {
                 console.log(error, 'error');
@@ -87,11 +87,11 @@ const TabNavigator = () => {
               (item: any) => item.id == +remoteMessage.data.announcement_id
             );
             navigate('announcementsDetails', {
-              headerText: findAnnouncement.title,
-              title: findAnnouncement.title,
-              subTitle: findAnnouncement.subTitle,
-              date: findAnnouncement.date,
-              html: findAnnouncement.html,
+              headerText: findAnnouncement?.title,
+              title: findAnnouncement?.title,
+              subTitle: findAnnouncement?.subTitle,
+              date: findAnnouncement?.date,
+              html: findAnnouncement?.html,
             });
           } catch (error) {
             console.log(error, 'error');

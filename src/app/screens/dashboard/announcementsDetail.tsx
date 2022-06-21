@@ -20,15 +20,15 @@ const AnnouncementDetail = (props: any) => {
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>
-          {params.title.length > 25
-            ? params.title.slice(0, 25) + '...'
-            : params.title}
+          {params?.title?.length > 25
+            ? params?.title?.slice(0, 25) + '...'
+            : params?.title}
         </Text>
       </Header>
       <ScrollView>
         <View style={{ padding: 20 }}>
-          <Text style={{ fontWeight: '700' }}>{params.title}</Text>
-          <RenderHtmlComponentForAnnoucementDetail htmlData={params.html} />
+          <Text style={{ fontWeight: '700' }}>{params?.title}</Text>
+          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} />
           <Text
             style={[
               cardStyle.dateText,

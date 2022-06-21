@@ -22,16 +22,17 @@ const AnnouncementListing = (props: any) => {
         response.forEach((element: any): any => {
           itemData.push(element);
         });
-        if (params.notification !== '') {
+
+        if (params.notification) {
           var findAnnouncement = response.find(
             (item: any) => item.id == +params.id
           );
           navigate('announcementsDetails', {
-            headerText: findAnnouncement.title,
-            title: findAnnouncement.title,
-            subTitle: findAnnouncement.subTitle,
-            date: findAnnouncement.date,
-            html: findAnnouncement.html,
+            headerText: findAnnouncement?.title,
+            title: findAnnouncement?.title,
+            subTitle: findAnnouncement?.subTitle,
+            date: findAnnouncement?.date,
+            html: findAnnouncement?.html,
           });
         }
         setList(
