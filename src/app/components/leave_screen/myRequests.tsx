@@ -69,11 +69,18 @@ const MyRequests = ({
     if (leaveDate >= today) {
       if (leaveDate == today && new Date().getHours() >= 10) {
         return (
-          <Request
-            item={item.item}
-            other={false}
-            onPress={() => navigation.navigate('requestDetail', item.item)}
-          />
+          <Swipeable
+            ref={(ref) => (row[item.index] = ref)}
+            renderRightActions={() => (
+              <Swipe item={item.item} onPress={() => row[item.index].close()} />
+            )}
+          >
+            <Request
+              item={item.item}
+              other={false}
+              onPress={() => navigation.navigate('requestDetail', item.item)}
+            />
+          </Swipeable>
         );
       } else {
         return (
