@@ -84,7 +84,7 @@ const Description = ({
     let filteredhashtag: any;
 
     if (name === "note") filteredhashtag = filterTagWords(value);
-    handleChange(name)("hashtag")(value);
+    handleChange(name)(value);
     handleChange("hashtag")(
       JSON.stringify(
         filteredhashtag

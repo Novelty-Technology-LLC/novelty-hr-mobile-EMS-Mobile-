@@ -39,9 +39,7 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
           <SmallHeader text="Personal Information" />
           <TouchableOpacity
             onPress={() =>
-              Linking.openURL(
-                `mailto:${user.email}?subject=Subject to:&body=write your query`
-              )
+              Linking.openURL(`mailto:${user.email}?subject=Subject to:`)
             }
           >
             <View style={style.icon}>
@@ -49,14 +47,15 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
               <Text style={style.text}>{user.email}</Text>
             </View>
           </TouchableOpacity>
-          <View style={style.icon}>
-            <TouchableOpacity
-              onPress={() => Linking.openURL(`tel:${user.phone}`)}
-            >
+          <TouchableOpacity
+            onPress={() => Linking.openURL(`tel:${user.phone}`)}
+          >
+            <View style={style.icon}>
               <Icon name="phone" color={colors.primary} size={25} />
-            </TouchableOpacity>
-            <Text style={style.text}>{formatPhoneNumber(user.phone)}</Text>
-          </View>
+              <Text style={style.text}>{formatPhoneNumber(user.phone)}</Text>
+            </View>
+          </TouchableOpacity>
+
           <View style={style.icon}>
             <Icon name="human-male-female" color={colors.primary} size={25} />
             <Text style={style.gender}>{user.gender}</Text>
