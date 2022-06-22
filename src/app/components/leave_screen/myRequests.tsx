@@ -65,10 +65,23 @@ const MyRequests = ({
     const leaveDate = moment(item.item.leave_date.startDate).format(
       'YYYY-MM-DD'
     );
-    const today = moment(new Date()).format('YYYY-MM-DD');
+    const today = moment().format('YYYY-MM-DD');
     if (leaveDate >= today) {
-      if (leaveDate == today && new Date().getHours() >= 10) {
-        return (
+      if (leaveDate === today) {
+        return new Date().getHours() <= 10 ? (
+          <Swipeable
+            ref={(ref) => (row[item.index] = ref)}
+            renderRightActions={() => (
+              <Swipe item={item.item} onPress={() => row[item.index].close()} />
+            )}
+          >
+            <Request
+              item={item.item}
+              other={false}
+              onPress={() => navigation.navigate('requestDetail', item.item)}
+            />
+          </Swipeable>
+        ) : (
           <Request
             item={item.item}
             other={false}
@@ -101,7 +114,6 @@ const MyRequests = ({
       );
     }
   };
-  console.log('requests.pastrequests', requests.pastrequests);
 
   return (
     <View style={style.container}>
