@@ -36,6 +36,7 @@ import { AuthContext, RequestContext } from "../../reducer";
 import { snackErrorTop } from "../../common";
 import { checkIfRequested, checkValidityQuota, dateMapper } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import moment from "moment";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -93,86 +94,93 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const onSubmit = async (values) => {
-    try {
-      const allrequests = [
-        ...requests.pastrequests,
-        ...requests.requests,
-      ].filter(
-        (req) =>
-          req.state === "Approved" ||
-          req.state === "In Progress" ||
-          req.state === "Pending"
-      );
-      if (!olddata && checkIfRequested(allrequests, values)) {
-        return showToast("Requested date cannot be requested again",false);
-      }
-      if (olddata && checkIfRequested(allrequests, values, olddata)) {
-        return showToast("Requested date cannot be requested again",false);
-      }
-      const date = JSON.parse(values.date);
-      let dayArray = [];
-      const startDate = new Date(date.startDate).toString().slice(0, 15);
+    const leaveDate = moment(values.date.startDate).format("YYYY-MM-DD");
+    const today = moment(new Date()).format("YYYY-MM-DD");
 
-      let endDate = "";
-      if (date["endDate"] === null) {
-        endDate = startDate;
-      } else {
-        endDate = new Date(date.endDate).toString().slice(0, 15);
-      }
-
-      let day = 0;
-      if (olddata) {
-        let oldday = dateMapper(
-          olddata.leave_date.startDate,
-          olddata.leave_date.endDate
+    if (leaveDate == today && new Date().getHours() >= 10) {
+      showToast("You cannot take leave after 10 am");
+    } else {
+      try {
+        const allrequests = [
+          ...requests.pastrequests,
+          ...requests.requests,
+        ].filter(
+          (req) =>
+            req.state === "Approved" ||
+            req.state === "In Progress" ||
+            req.state === "Pending"
         );
-        day = dateMapper(startDate, endDate);
-        if (olddata.type === values.type) {
-          dayArray = [{ days: day - oldday, dayType: values.type }];
-        } else {
-          dayArray = [
-            { days: day, dayType: values.type },
-            { days: -oldday, dayType: olddata.type },
-          ];
+        if (!olddata && checkIfRequested(allrequests, values)) {
+          return showToast("Requested date cannot be requested again", false);
         }
-        dayArray.map((day) => {
-          if (values.type === day.dayType) {
-            // if (checkValidityQuota(requests.quota, values.type, day.days)) {
-            //   throw new Error(`Selected day exceeds ${values.type}`);
-            // }
+        if (olddata && checkIfRequested(allrequests, values, olddata)) {
+          return showToast("Requested date cannot be requested again", false);
+        }
+        const date = JSON.parse(values.date);
+        let dayArray = [];
+        const startDate = new Date(date.startDate).toString().slice(0, 15);
+
+        let endDate = "";
+        if (date["endDate"] === null) {
+          endDate = startDate;
+        } else {
+          endDate = new Date(date.endDate).toString().slice(0, 15);
+        }
+
+        let day = 0;
+        if (olddata) {
+          let oldday = dateMapper(
+            olddata.leave_date.startDate,
+            olddata.leave_date.endDate
+          );
+          day = dateMapper(startDate, endDate);
+          if (olddata.type === values.type) {
+            dayArray = [{ days: day - oldday, dayType: values.type }];
+          } else {
+            dayArray = [
+              { days: day, dayType: values.type },
+              { days: -oldday, dayType: olddata.type },
+            ];
           }
-        });
-      } else {
-        day = dateMapper(startDate, endDate);
-        // if (checkValidityQuota(requests.quota, values.type, day)) {
-        //   throw new Error(`Selected day exceeds ${values.type}`);
-        // }
+          dayArray.map((day) => {
+            if (values.type === day.dayType) {
+              // if (checkValidityQuota(requests.quota, values.type, day.days)) {
+              //   throw new Error(`Selected day exceeds ${values.type}`);
+              // }
+            }
+          });
+        } else {
+          day = dateMapper(startDate, endDate);
+          // if (checkValidityQuota(requests.quota, values.type, day)) {
+          //   throw new Error(`Selected day exceeds ${values.type}`);
+          // }
+        }
+        delete values.date;
+
+        const dayData = olddata ? dayArray : day;
+
+        const requestData = {
+          ...values,
+          leave_date: {
+            startDate,
+            endDate,
+          },
+          day: dayData,
+          requestor_id: state.user.id,
+          requestor_name: state.user.first_name,
+          uuid: state.user.uuid,
+          gender: state.user.gender,
+        };
+
+        setisLoading(true);
+        Keyboard.dismiss();
+        olddata ? updateReq(requestData) : submitRequest(requestData);
+      } catch (error) {
+        if (!error.message.includes("Selected day exceeds"))
+          error.message = "Unkonown error occured";
+
+        snackErrorTop(error);
       }
-      delete values.date;
-
-      const dayData = olddata ? dayArray : day;
-
-      const requestData = {
-        ...values,
-        leave_date: {
-          startDate,
-          endDate,
-        },
-        day: dayData,
-        requestor_id: state.user.id,
-        requestor_name: state.user.first_name,
-        uuid: state.user.uuid,
-        gender: state.user.gender,
-      };
-
-      setisLoading(true);
-      Keyboard.dismiss();
-      olddata ? updateReq(requestData) : submitRequest(requestData);
-    } catch (error) {
-      if (!error.message.includes("Selected day exceeds"))
-        error.message = "Unkonown error occured";
-
-      snackErrorTop(error);
     }
   };
 
