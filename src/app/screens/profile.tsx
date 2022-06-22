@@ -71,30 +71,12 @@ const Profile = ({ navigation }: any) => {
   }) => {
     return (
       <View>
-        <Pressable
-          style={{
-            flexDirection: "row",
-            paddingHorizontal: theme.size.xl,
-            paddingVertical: theme.size.xxs,
-            alignItems: "center",
-          }}
-          onPress={onPress()}
-        >
-          <Icon
-            name={iconName}
-            color="white"
-            size={15}
-            style={{ color: "#8D8D8D" }}
-          ></Icon>
+        <Pressable style={style.bottomSheetMenu} onPress={onPress()}>
+          <Icon name={iconName} color={style.bottomSheetMenuIcon.color} size={15}></Icon>
 
           <CustomText
             text={title}
-            style={{
-              fontFamily: fonts.mulishRegular,
-              fontSize: theme.size.sm,
-              paddingHorizontal: theme.size.sm,
-              alignItems: "center",
-            }}
+            style={style.bottomSheetMenuTitle}
           />
         </Pressable>
       </View>
