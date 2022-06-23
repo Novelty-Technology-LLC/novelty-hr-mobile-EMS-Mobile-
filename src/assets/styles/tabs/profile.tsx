@@ -158,7 +158,7 @@ const profileStyle = StyleSheet.create({
     alignItems: "center",
   },
   bottomSheetMenuIcon: {
-    color: colors.grey,
+    color: colors.darkGrey,
   },
   designation: {
     marginLeft: normalize(10),

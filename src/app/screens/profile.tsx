@@ -37,6 +37,7 @@ import {
 } from "react-native-popup-menu";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { CustomText } from "../components/text";
+import Toast from "react-native-toast-message";
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
@@ -59,7 +60,13 @@ const Profile = ({ navigation }: any) => {
     }
   };
   const refRBSheet = useRef<any>();
-
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "Hello",
+      text2: "This is some something 👋",
+    });
+  };
   const menuForBottomSheet = ({
     title,
     iconName,
@@ -72,12 +79,13 @@ const Profile = ({ navigation }: any) => {
     return (
       <View>
         <Pressable style={style.bottomSheetMenu} onPress={onPress()}>
-          <Icon name={iconName} color={style.bottomSheetMenuIcon.color} size={15}></Icon>
+          <Icon
+            name={iconName}
+            color={style.bottomSheetMenuIcon.color}
+            size={15}
+          ></Icon>
 
-          <CustomText
-            text={title}
-            style={style.bottomSheetMenuTitle}
-          />
+          <CustomText text={title} style={style.bottomSheetMenuTitle} />
         </Pressable>
       </View>
     );

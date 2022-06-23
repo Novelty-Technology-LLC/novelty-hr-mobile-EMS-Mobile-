@@ -23,6 +23,7 @@ const showToast = (msg: string, success = true) => {
     duration: WSnackBar.duration.SHORT,
     textColor: "#ffffff",
     numberOfLines: 2,
+    icon: false,
 
     backgroundColor: success ? colors.green : colors.red,
   };
