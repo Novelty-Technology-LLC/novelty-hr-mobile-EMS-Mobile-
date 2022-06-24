@@ -60,14 +60,11 @@ const DashBoard = () => {
   }, []);
   const fetchWork = async () => {
     try {
-      console.log(state?.user?.id, "asdjasdj");
-
       setLoading(true);
       const res: any = await getWork({
         user_id: state?.user?.id,
         date: moment().format("YYYY-MM-DD"),
       });
-      console.log(res?.data?.data[0].users, "asdasd");
 
       setId(res?.data?.data[0].id ?? null);
       // setUserId(res?.data?.data[0].user_id ?? null);
@@ -79,8 +76,6 @@ const DashBoard = () => {
     }
   };
   useEffect(() => {
-    console.log(toggle);
-
     state?.user?.id && fetchLeave();
     state?.user?.id && fetchWork();
   }, [state?.user?.id]);
