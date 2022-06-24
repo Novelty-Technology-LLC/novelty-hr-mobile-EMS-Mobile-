@@ -188,13 +188,21 @@ const DashBoard = () => {
             <View style={ds.gap} />
             <Text style={ds.name}>{state?.user?.first_name}</Text>
           </View>
-          <TouchableWithoutFeedback onPress={ToggleWork}>
+          <TouchableWithoutFeedback
+            onPress={ToggleWork}
+            style={[
+              ds.work,
+              toggle === true
+                ? { backgroundColor: colors.greenButton }
+                : { backgroundColor: colors.grey },
+            ]}
+          >
             <View
               style={[
                 ds.work,
                 toggle === true
                   ? { backgroundColor: colors.greenButton }
-                  : { backgroundColor: colors.ash },
+                  : { backgroundColor: colors.grey },
               ]}
             >
               {loading ? (

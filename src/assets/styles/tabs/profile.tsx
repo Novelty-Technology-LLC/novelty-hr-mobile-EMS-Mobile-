@@ -53,8 +53,8 @@ const profileStyle = StyleSheet.create({
     alignItems: "center",
   },
   imageWrappers: {
-    width: normalize(36),
-    height: normalize(36),
+    width: normalize(40),
+    height: normalize(40),
     borderRadius: normalize(53),
     borderWidth: normalize(4),
     borderColor: colors.white,
@@ -121,9 +121,11 @@ const profileStyle = StyleSheet.create({
 
   iconCammerWrapper: {
     position: "absolute",
-    bottom: normalize(5),
-    right: -30,
+    bottom: normalize(0),
+    padding: normalize(10),
+    right: -40,
   },
+
   gender: {
     textTransform: "capitalize",
     marginLeft: normalize(8),
@@ -142,6 +144,21 @@ const profileStyle = StyleSheet.create({
         marginTop: normalize(5),
       },
     }),
+  },
+  bottomSheetMenu: {
+    flexDirection: "row",
+    paddingHorizontal: theme.size.xl,
+    paddingVertical: theme.size.xxs,
+    alignItems: "center",
+  },
+  bottomSheetMenuTitle: {
+    fontFamily: fonts.mulishRegular,
+    fontSize: theme.size.sm,
+    paddingHorizontal: theme.size.sm,
+    alignItems: "center",
+  },
+  bottomSheetMenuIcon: {
+    color: colors.darkGrey,
   },
   designation: {
     marginLeft: normalize(10),

@@ -1,4 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import BottomSheet from "react-native-gesture-bottom-sheet";
+
 import {
   View,
   Text,
@@ -6,25 +8,40 @@ import {
   Image,
   ActivityIndicator,
   Dimensions,
+  Button,
+  StyleSheet,
+  Pressable,
 } from "react-native";
-import { headerTxtStyle } from "../../assets/styles";
+import { fonts, headerTxtStyle, theme } from "../../assets/styles";
 import { profileStyle, profileStyle as style } from "../../assets/styles/tabs";
 import { showToast, tabHeader as Header } from "../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import colors from "../../assets/colors";
 import { AuthContext } from "../reducer";
 import ImageCropper from "react-native-image-crop-picker";
 import { updateImage } from "../services";
+import { MenuProvider } from "react-native-popup-menu";
+
 import normalize from "react-native-normalize";
 import { storeToken, removeToken, removeUser, setUser } from "../utils";
 import { ProfileInfoComponent } from "../common/profileInformation";
-
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
+import RBSheet from "react-native-raw-bottom-sheet";
+import { CustomText } from "../components/text";
+import Toast from "react-native-toast-message";
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   const [loading, setloading] = useState(false);
-  console.log(state.user, "user");
 
   const cleanImage = () =>
     ImageCropper.clean()
@@ -42,33 +59,66 @@ const Profile = ({ navigation }: any) => {
       });
     }
   };
+  const refRBSheet = useRef<any>();
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "Hello",
+      text2: "This is some something 👋",
+    });
+  };
+  const menuForBottomSheet = ({
+    title,
+    iconName,
+    onPress,
+  }: {
+    title: string;
+    iconName: string;
+    onPress: Function;
+  }) => {
+    return (
+      <View>
+        <Pressable style={style.bottomSheetMenu} onPress={onPress()}>
+          <Icon
+            name={iconName}
+            color={style.bottomSheetMenuIcon.color}
+            size={15}
+          ></Icon>
 
-  const uploadImage = (pick: boolean) => {
-    const callback = (image: any) => {
-      updateProfileImage(image);
-    };
+          <CustomText text={title} style={style.bottomSheetMenuTitle} />
+        </Pressable>
+      </View>
+    );
+  };
+  const callbackForUploadImage = (image: any) => {
+    updateProfileImage(image);
+  };
+  const uploadImage = () => {
+    refRBSheet.current.close();
+    ImageCropper.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+      includeBase64: true,
+      compressImageQuality: 0.8,
+      cropperCircleOverlay: true,
+    }).then((image) => {
+      callbackForUploadImage(image);
+    });
+  };
+  const openCamera = () => {
+    refRBSheet.current.close();
 
-    pick
-      ? ImageCropper.openPicker({
-          width: 300,
-          height: 400,
-          cropping: true,
-          includeBase64: true,
-          compressImageQuality: 0.8,
-          cropperCircleOverlay: true,
-        }).then((image) => {
-          callback(image);
-        })
-      : ImageCropper.openCamera({
-          width: 300,
-          height: 400,
-          cropping: true,
-          includeBase64: true,
-          compressImageQuality: 0.8,
-          cropperCircleOverlay: true,
-        }).then((image) => {
-          callback(image);
-        });
+    ImageCropper.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+      includeBase64: true,
+      compressImageQuality: 0.8,
+      cropperCircleOverlay: true,
+    }).then((image) => {
+      callbackForUploadImage(image);
+    });
   };
 
   const confirm = () => {
@@ -112,6 +162,7 @@ const Profile = ({ navigation }: any) => {
         {/* <View style={{ ...style.imageView, position: "absolute" }}>
           
         </View> */}
+
         <View style={[style.imageWrapper, style.profileContainerWrapper]}>
           <Image
             style={[style.image, style.profileImageWrapper]}
@@ -119,8 +170,31 @@ const Profile = ({ navigation }: any) => {
               uri,
             }}
           />
-          <View style={[style.imageWrappers, style.iconCammerWrapper]}>
-            <Icon name="camera" color="white" size={20}></Icon>
+          <View style={style.iconCammerWrapper}>
+            <TouchableOpacity
+              style={[style.imageWrappers]}
+              onPress={() => refRBSheet.current.show()}
+            >
+              <Icon name="camera" color="white" size={15}></Icon>
+            </TouchableOpacity>
+            <BottomSheet
+              hasDraggableIcon
+              ref={refRBSheet}
+              height={normalize(150)}
+            >
+              <View>
+                {menuForBottomSheet({
+                  title: "Upload from library",
+                  iconName: "upload",
+                  onPress: () => uploadImage,
+                })}
+                {menuForBottomSheet({
+                  title: "Take a photo",
+                  iconName: "camera",
+                  onPress: () => openCamera,
+                })}
+              </View>
+            </BottomSheet>
           </View>
         </View>
       </ScrollView>
@@ -131,6 +205,33 @@ const Profile = ({ navigation }: any) => {
 };
 
 export { Profile };
+const styles = StyleSheet.create({
+  button: {
+    height: 50,
+    width: 150,
+    backgroundColor: "#140078",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    shadowColor: "#8559da",
+    shadowOpacity: 0.7,
+    shadowOffset: {
+      height: 4,
+      width: 4,
+    },
+    shadowRadius: 5,
+    elevation: 6,
+  },
+  text: {
+    color: "white",
+    fontWeight: "600",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 // {
 //   loading ? (
