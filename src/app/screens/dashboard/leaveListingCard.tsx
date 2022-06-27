@@ -13,6 +13,9 @@ import { getShortDate } from "../../utils";
 import { profileStyle as style } from "../../../assets/styles/tabs";
 
 const ListingCard = ({ index, listLength, item, module }: any) => {
+  console.log(item.image, "item.image");
+  console.log(item.title, "item.image");
+
   return (
     <View
       key={index}

@@ -48,7 +48,7 @@ const profileStyle = StyleSheet.create({
     height: normalize(106),
     borderRadius: normalize(53),
     borderWidth: normalize(6),
-    borderColor: colors.white,
+    borderColor: colors.transparent,
     justifyContent: "center",
     alignItems: "center",
   },

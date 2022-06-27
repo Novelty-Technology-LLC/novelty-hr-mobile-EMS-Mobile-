@@ -94,11 +94,20 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const onSubmit = async (values) => {
-    const leaveDate = moment(values.date.startDate).format("YYYY-MM-DD");
+    const date = JSON.parse(values.date);
+
+    const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
 
-    if (leaveDate == today && new Date().getHours() >= 10) {
-      showToast("You cannot take leave after 10 am");
+    if (
+      moment(leaveDate).format("YYYY-MM-DD") <= today &&
+      Number(moment(new Date()).format("HH")) >= 10
+    ) {
+      if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
+        showToast("Choosen date already passed away", false);
+      } else {
+        showToast("You cannot take leave after 10 am", false);
+      }
     } else {
       try {
         const allrequests = [
