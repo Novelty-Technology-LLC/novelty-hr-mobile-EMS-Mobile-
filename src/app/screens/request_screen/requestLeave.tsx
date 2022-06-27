@@ -104,7 +104,7 @@ const RequestLeave = ({ route }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("Choosen date aleready passed away", false);
+        showToast("Choosen date already passed away", false);
       } else {
         showToast("You cannot take leave after 10 am", false);
       }
