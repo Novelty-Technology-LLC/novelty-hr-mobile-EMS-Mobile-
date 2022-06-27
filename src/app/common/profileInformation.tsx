@@ -63,7 +63,7 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
           <View style={style.icon}>
             <Icon name="cake-variant" color={colors.primary} size={25} />
             <Text style={style.date}>
-              {moment(user.birth_date).format("Do MMM  YYYY")}
+              {moment(user.birth_date).format("LL")}
             </Text>
           </View>
           {user.blood_group && (
