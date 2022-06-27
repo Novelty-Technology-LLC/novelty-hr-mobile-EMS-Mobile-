@@ -104,7 +104,7 @@ const RequestLeave = ({ route }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("Choosen date already passed away", false);
+        showToast("The selected date has passed. ", false);
       } else {
         showToast("You cannot take leave after 10 am", false);
       }
@@ -120,10 +120,10 @@ const RequestLeave = ({ route }: any) => {
             req.state === "Pending"
         );
         if (!olddata && checkIfRequested(allrequests, values)) {
-          return showToast("Requested date cannot be requested again", false);
+          return showToast("You cannot request the same date twice", false);
         }
         if (olddata && checkIfRequested(allrequests, values, olddata)) {
-          return showToast("Requested date cannot be requested again", false);
+          return showToast("You cannot request the same date twice", false);
         }
         const date = JSON.parse(values.date);
         let dayArray = [];
