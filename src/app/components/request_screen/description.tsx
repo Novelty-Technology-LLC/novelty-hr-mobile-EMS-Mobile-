@@ -17,7 +17,7 @@ const Description = ({
   touched,
   values,
   updatehashtag,
-  hashtags,
+
   editHashtag,
 }: {
   handleChange: Function;
@@ -27,7 +27,7 @@ const Description = ({
   error?: any;
   touched?: any;
   values?: any;
-  hashtags?: any;
+
   updatehashtag?: any;
   editHashtag?: string;
 }) => {

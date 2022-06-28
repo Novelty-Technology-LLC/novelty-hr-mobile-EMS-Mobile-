@@ -174,7 +174,6 @@ const LogTime = ({ route }: any) => {
               <Description
                 handleChange={handleChange}
                 timelog={true}
-                hashtags={values.hashtags}
                 defaultValue={olddata && olddata.item && olddata.item.task}
                 updatehashtag={olddata && olddata.item && olddata.item.hashtag}
                 error={errors}
