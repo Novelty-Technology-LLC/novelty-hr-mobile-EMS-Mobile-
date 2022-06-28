@@ -12,9 +12,8 @@ import { RenderHtmlComponent } from "../../common/renderHtml";
 import { getShortDate } from "../../utils";
 import { profileStyle as style } from "../../../assets/styles/tabs";
 
-const ListingCard = ({ index, listLength, item, module }: any) => {
-  console.log(item.image, "item.image");
-  console.log(item.title, "item.image");
+const ListingCard = ({ index, listLength, item, module, sa }: any) => {
+  const [se, us] = useState([{ src: item.image, errored: false }]);
 
   return (
     <View
@@ -54,9 +53,14 @@ const ListingCard = ({ index, listLength, item, module }: any) => {
       </View>
       {module == "employeeList" && (
         <Image
+          key={index}
           style={style.headerImage}
           source={{
             uri: item.image,
+          }}
+          onError={(ev) => {}}
+          onLoadEnd={() => {
+            console.log("stst");
           }}
         />
       )}

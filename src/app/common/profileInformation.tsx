@@ -10,7 +10,13 @@ import normalize from "react-native-normalize";
 import { fonts } from "../../assets/styles/theme";
 import moment from "moment";
 
-const ProfileInfoComponent = ({ user }: { user: any }) => (
+const ProfileInfoComponent = ({
+  user,
+  chekUserInfo = null,
+}: {
+  user: any;
+  chekUserInfo?: any;
+}) => (
   <>
     <View style={{ top: normalize(50) }}>
       <CustomText
@@ -38,9 +44,20 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
         <View style={style.body}>
           <SmallHeader text="Personal Information" />
           <TouchableOpacity
-            onPress={() =>
-              Linking.openURL(`mailto:${user.email}?subject=Subject to:`)
+            disabled={
+              chekUserInfo != null
+                ? user.id !== chekUserInfo.id
+                  ? false
+                  : true
+                : true
             }
+            onPress={() => {
+              if (chekUserInfo != null) {
+                if (user.id !== chekUserInfo.id) {
+                  Linking.openURL(`mailto:${user.email}?subject=Subject to:`);
+                }
+              }
+            }}
           >
             <View style={style.icon}>
               <Icon name="email-newsletter" color={colors.primary} size={25} />
@@ -48,6 +65,7 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
             </View>
           </TouchableOpacity>
           <TouchableOpacity
+            disabled={chekUserInfo != null ? false : true}
             onPress={() => Linking.openURL(`tel:${user.phone}`)}
           >
             <View style={style.icon}>

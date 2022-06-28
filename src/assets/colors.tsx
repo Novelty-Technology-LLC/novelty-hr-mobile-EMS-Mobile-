@@ -11,7 +11,7 @@ export default {
   border: "#f2f2f2",
   buttonOrange: "#ffe6b3",
   buttonGrey: "#f2f2f2",
-  fontGrey: "#8D8D8D",
+  fontGrey: "#b3b3b3",
   lightGrey: "#DBD9D8",
   fontOrange: "#BF8B59",
   snow: "#fafafa",

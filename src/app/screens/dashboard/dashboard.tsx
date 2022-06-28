@@ -104,6 +104,7 @@ const DashBoard = () => {
           item.status === "Approved"
         ) {
           setLeaveStatus(true);
+        } else {
         }
       });
     } catch (error) {}
@@ -129,7 +130,7 @@ const DashBoard = () => {
   }, [refreshing]);
 
   const ToggleWork = async () => {
-    if (leaveStatus === true) {
+    if (leaveStatus) {
       showToast("your are currently at leave", false);
     } else {
       try {
@@ -192,26 +193,39 @@ const DashBoard = () => {
             onPress={ToggleWork}
             style={[
               ds.work,
-              toggle === true
+              toggle
                 ? { backgroundColor: colors.greenButton }
-                : { backgroundColor: colors.grey },
+                : { backgroundColor: colors.fontGrey },
             ]}
           >
             <View
               style={[
                 ds.work,
-                toggle === true
+
+                toggle
                   ? { backgroundColor: colors.greenButton }
-                  : { backgroundColor: colors.grey },
+                  : { backgroundColor: colors.fontGrey },
               ]}
             >
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
-                <Icon name="check-circle" color={colors.white} size={20} />
+                <Icon
+                  name="check-circle"
+                  color={toggle ? colors.white : colors.white}
+                  size={20}
+                />
               )}
               <View style={{ marginHorizontal: 2 }} />
-              <Text style={ds.workText}>Work from Home</Text>
+              <Text
+                style={{
+                  ...ds.workText,
+
+                  color: toggle ? colors.white : colors.white,
+                }}
+              >
+                Work from Home
+              </Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

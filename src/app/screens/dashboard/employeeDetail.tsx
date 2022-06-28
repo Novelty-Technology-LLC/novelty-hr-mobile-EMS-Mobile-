@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -18,11 +18,13 @@ import {
 } from "../../../assets/styles/tabs";
 import normalize from "react-native-normalize";
 import colors from "../../../assets/colors";
+import { AuthContext } from "../../reducer";
 
 const EmployeeDetail = (props: any) => {
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<any>(true);
   const params = props.route.params;
+  const { state, dispatch }: any = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {
@@ -56,7 +58,7 @@ const EmployeeDetail = (props: any) => {
         >
           <View style={profileStyle.topContainer}></View>
           <View style={profileStyle.infoStyle}>
-            <ProfileInfoComponent user={data} />
+            <ProfileInfoComponent user={data} chekUserInfo={state.user} />
           </View>
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
             <Image

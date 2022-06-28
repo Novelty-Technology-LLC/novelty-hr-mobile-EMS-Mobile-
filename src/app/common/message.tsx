@@ -17,10 +17,9 @@ const snackBarMessage = (msg: string) => {
 const showToast = (msg: string, success = true) => {
   const snackBarOpts = {
     data: msg,
-    inEasing: Easing.elastic(50),
     isAllowSlideExit: true,
     position: WSnackBar.position.TOP,
-    duration: WSnackBar.duration.SHORT,
+    duration: WSnackBar.duration.LONG,
     textColor: "#ffffff",
     numberOfLines: 2,
     icon: false,

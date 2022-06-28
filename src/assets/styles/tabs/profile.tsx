@@ -11,6 +11,16 @@ const profileStyle = StyleSheet.create({
   topContainer: {
     height: normalize(122),
   },
+  loader: {
+    backgroundColor: colors.transparent,
+    alignContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    alignSelf: "center",
+    flex: 1,
+    display: "flex",
+    top: 350,
+  },
   scrollStyle: {
     backgroundColor: colors.primary,
     position: "relative",
