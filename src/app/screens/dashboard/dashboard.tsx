@@ -76,42 +76,44 @@ const DashBoard = () => {
     }
   };
   useEffect(() => {
-    state?.user?.id && fetchLeave();
     state?.user?.id && fetchWork();
   }, [state?.user?.id]);
-
+  useEffect(() => {
+    state?.user?.id && fetchLeave();
+  }, [state?.user?.id]);
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
 
-      setAnnouncements(
-        response.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      );
+      setAnnouncements(response);
     } catch (error) {}
   };
   const fetchLeave = async () => {
     try {
       var response: any = await getRequest("/leave", {});
+      var date = moment(new Date()).format("ddd MMM D YYYY");
 
-      response.forEach((item: any) => {
-        var date = moment(new Date()).format("ddd MMM D YYYY");
-
-        if (
-          moment(date).isSame(item.leave_date.startDate) === true &&
-          item.requestor_id === state?.user.id &&
-          item.status === "Approved"
-        ) {
-          setLeaveStatus(true);
-        }
+      var todayLeave = response.find(function (element: any) {
+        return (
+          element.requestor_id === state?.user.id &&
+          moment(date).isSame(element.leave_date.startDate)
+        );
       });
+
+      if (todayLeave.status === "Approved") {
+        setLeaveStatus(true);
+      } else {
+        setLeaveStatus(false);
+      }
     } catch (error) {}
   };
   useEffect(() => {
     (async () => {
       try {
         setAnnouncementLoading(true);
+
         setCardLoading(true);
         const data: any = await getDashboard();
         await fetchLeave();
@@ -129,7 +131,9 @@ const DashBoard = () => {
   }, [refreshing]);
 
   const ToggleWork = async () => {
-    if (leaveStatus === true) {
+    console.log(leaveStatus);
+
+    if (leaveStatus) {
       showToast("your are currently at leave", false);
     } else {
       try {
@@ -192,26 +196,39 @@ const DashBoard = () => {
             onPress={ToggleWork}
             style={[
               ds.work,
-              toggle === true
+              toggle
                 ? { backgroundColor: colors.greenButton }
-                : { backgroundColor: colors.grey },
+                : { backgroundColor: colors.fontGrey },
             ]}
           >
             <View
               style={[
                 ds.work,
-                toggle === true
+
+                toggle
                   ? { backgroundColor: colors.greenButton }
-                  : { backgroundColor: colors.grey },
+                  : { backgroundColor: colors.fontGrey },
               ]}
             >
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
-                <Icon name="check-circle" color={colors.white} size={20} />
+                <Icon
+                  name="check-circle"
+                  color={toggle ? colors.white : colors.white}
+                  size={20}
+                />
               )}
               <View style={{ marginHorizontal: 2 }} />
-              <Text style={ds.workText}>Work from Home</Text>
+              <Text
+                style={{
+                  ...ds.workText,
+
+                  color: toggle ? colors.white : colors.white,
+                }}
+              >
+                Work from Home
+              </Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

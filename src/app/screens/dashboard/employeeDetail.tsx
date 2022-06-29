@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -18,12 +18,17 @@ import {
 } from "../../../assets/styles/tabs";
 import normalize from "react-native-normalize";
 import colors from "../../../assets/colors";
+import { AuthContext } from "../../reducer";
 
 const EmployeeDetail = (props: any) => {
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<any>(true);
   const params = props.route.params;
-
+  const { state, dispatch }: any = useContext(AuthContext);
+  const [onLoadImage, setLoadImage] = useState(true);
+  const imageLoading = () => {
+    setLoadImage(false);
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -56,12 +61,18 @@ const EmployeeDetail = (props: any) => {
         >
           <View style={profileStyle.topContainer}></View>
           <View style={profileStyle.infoStyle}>
-            <ProfileInfoComponent user={data} />
+            <ProfileInfoComponent user={data} chekUserInfo={state.user} />
           </View>
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
             <Image
               style={[style.image, style.profileImageWrapper]}
-              source={{ uri: params.image }}
+              source={
+                onLoadImage
+                  ? { uri: params.image }
+                  : require("../../../assets/images/employee.png")
+              }
+              onPartialLoad={() => imageLoading()}
+              onError={(error) => imageLoading()}
             />
             {/* <View style={[style.imageWrappers, style.iconCammerWrapper]}>
               <Icon name="camera" color="white" size={20}></Icon>

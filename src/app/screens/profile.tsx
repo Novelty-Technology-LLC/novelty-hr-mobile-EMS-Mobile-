@@ -60,13 +60,7 @@ const Profile = ({ navigation }: any) => {
     }
   };
   const refRBSheet = useRef<any>();
-  const showToast = () => {
-    Toast.show({
-      type: "success",
-      text1: "Hello",
-      text2: "This is some something 👋",
-    });
-  };
+
   const menuForBottomSheet = ({
     title,
     iconName,
@@ -104,6 +98,7 @@ const Profile = ({ navigation }: any) => {
       cropperCircleOverlay: true,
     }).then((image) => {
       callbackForUploadImage(image);
+      confirm();
     });
   };
   const openCamera = () => {
@@ -118,7 +113,9 @@ const Profile = ({ navigation }: any) => {
       cropperCircleOverlay: true,
     }).then((image) => {
       callbackForUploadImage(image);
+      confirm();
     });
+    s;
   };
 
   const confirm = () => {
@@ -129,6 +126,7 @@ const Profile = ({ navigation }: any) => {
       type: image.mime,
     })
       .then((data) => {
+        console.log(data);
         removeToken();
         storeToken(JSON.stringify(data));
         removeUser();
@@ -151,6 +149,7 @@ const Profile = ({ navigation }: any) => {
       <Header icon={true} navigation={navigation}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
+
       <ScrollView
         style={profileStyle.scrollStyle}
         showsVerticalScrollIndicator={false}
@@ -167,7 +166,8 @@ const Profile = ({ navigation }: any) => {
           <Image
             style={[style.image, style.profileImageWrapper]}
             source={{
-              uri,
+              uri: uri,
+              cache: "force-cache",
             }}
           />
           <View style={style.iconCammerWrapper}>
@@ -198,6 +198,15 @@ const Profile = ({ navigation }: any) => {
           </View>
         </View>
       </ScrollView>
+      {loading ? (
+        <View style={style.loader}>
+          <ActivityIndicator
+            size="large"
+            color={colors.primary}
+            style={{ marginTop: normalize(10) }}
+          />
+        </View>
+      ) : null}
     </View>
   ) : (
     <></>
@@ -205,33 +214,6 @@ const Profile = ({ navigation }: any) => {
 };
 
 export { Profile };
-const styles = StyleSheet.create({
-  button: {
-    height: 50,
-    width: 150,
-    backgroundColor: "#140078",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    shadowColor: "#8559da",
-    shadowOpacity: 0.7,
-    shadowOffset: {
-      height: 4,
-      width: 4,
-    },
-    shadowRadius: 5,
-    elevation: 6,
-  },
-  text: {
-    color: "white",
-    fontWeight: "600",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 // {
 //   loading ? (
