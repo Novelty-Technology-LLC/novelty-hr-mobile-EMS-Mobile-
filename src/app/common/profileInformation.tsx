@@ -16,8 +16,8 @@ const ProfileInfoComponent = ({
 }: {
   user: any;
   chekUserInfo?: any;
-}) => (
-  <>
+}) => {
+  return (
     <View style={{ top: normalize(50) }}>
       <CustomText
         text={user?.first_name + " " + user.last_name}
@@ -65,8 +65,20 @@ const ProfileInfoComponent = ({
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            disabled={chekUserInfo != null ? false : true}
-            onPress={() => Linking.openURL(`tel:${user.phone}`)}
+            disabled={
+              chekUserInfo != null
+                ? user.id !== chekUserInfo.id
+                  ? false
+                  : true
+                : true
+            }
+            onPress={() => {
+              if (chekUserInfo != null) {
+                if (user.id !== chekUserInfo.id) {
+                  Linking.openURL(`tel:${user.phone}`);
+                }
+              }
+            }}
           >
             <View style={style.icon}>
               <Icon name="phone" color={colors.primary} size={25} />
@@ -78,12 +90,14 @@ const ProfileInfoComponent = ({
             <Icon name="human-male-female" color={colors.primary} size={25} />
             <Text style={style.gender}>{user.gender}</Text>
           </View>
-          <View style={style.icon}>
-            <Icon name="cake-variant" color={colors.primary} size={25} />
-            <Text style={style.date}>
-              {moment(user.birth_date).format("LL")}
-            </Text>
-          </View>
+          {user.birth_date && (
+            <View style={style.icon}>
+              <Icon name="cake-variant" color={colors.primary} size={25} />
+              <Text style={style.date}>
+                {moment(user.birth_date).format("LL")}
+              </Text>
+            </View>
+          )}
           {user.blood_group && (
             <View style={style.icon}>
               <Icon name="water" color={colors.primary} size={25} />
@@ -118,7 +132,7 @@ const ProfileInfoComponent = ({
         </View>
       </View>
     </View>
-  </>
-);
+  );
+};
 
 export { ProfileInfoComponent };

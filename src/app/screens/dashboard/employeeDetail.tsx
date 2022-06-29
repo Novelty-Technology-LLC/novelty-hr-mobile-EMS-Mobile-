@@ -25,7 +25,10 @@ const EmployeeDetail = (props: any) => {
   const [loading, setLoading] = useState<any>(true);
   const params = props.route.params;
   const { state, dispatch }: any = useContext(AuthContext);
-
+  const [onLoadImage, setLoadImage] = useState(true);
+  const imageLoading = () => {
+    setLoadImage(false);
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -63,7 +66,13 @@ const EmployeeDetail = (props: any) => {
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
             <Image
               style={[style.image, style.profileImageWrapper]}
-              source={{ uri: params.image }}
+              source={
+                onLoadImage
+                  ? { uri: params.image }
+                  : require("../../../assets/images/employee.png")
+              }
+              onPartialLoad={() => imageLoading()}
+              onError={(error) => imageLoading()}
             />
             {/* <View style={[style.imageWrappers, style.iconCammerWrapper]}>
               <Icon name="camera" color="white" size={20}></Icon>
