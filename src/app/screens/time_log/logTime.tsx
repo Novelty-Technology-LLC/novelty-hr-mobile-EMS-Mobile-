@@ -57,7 +57,7 @@ const LogTime = ({ route }: any) => {
       .required("Project is required")
       .label("project_id"),
     note: Yup.string().required("Task summary is required").label("note"),
-    hashtags: Yup.array().required("# hashbutton is required"),
+    hashtags: Yup.array().required("Tag is required"),
   });
 
   const onSubmit = async (values) => {

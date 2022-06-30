@@ -88,8 +88,6 @@ const Description = ({
     if (name === "note") filteredhashtag = filterTagWords(value);
     console.log(filteredhashtag, "filteredhashtag");
     console.log(value, "filteredhashtag");
-
-    handleChange(name)(value);
     handleChange("hashtags")(
       JSON.stringify(
         filteredhashtag
@@ -97,6 +95,7 @@ const Description = ({
           .map((item) => item.label)
       )
     );
+    handleChange(name)(value);
   };
 
   return (
@@ -164,6 +163,9 @@ const Description = ({
             </View>
           </>
         )}
+        {error && touched && error.hashtags && touched.hashtags && (
+          <Text style={style.error}>{error.hashtags}</Text>
+        )}
         <Textarea
           containerStyle={
             error ? style.textareaContainer : style.editlogContainer
@@ -189,9 +191,6 @@ const Description = ({
         />
         {error && touched && error.note && touched.note && (
           <Text style={style.error}>{error.note}</Text>
-        )}
-        {error && touched && error.hashtags && touched.hashtags && (
-          <Text style={style.error}>{error.hashtags}</Text>
         )}
       </View>
     </View>
