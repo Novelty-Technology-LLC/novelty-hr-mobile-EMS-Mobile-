@@ -19,11 +19,7 @@ const header = ({ onPress = null, icon = false, children, ...props }: any) => {
           disabled={!icon}
           onPress={icon && (onPress || navigation.goBack)}
         >
-          <Icon
-            name="chevron-left"
-            size={30}
-            color={color.primary}
-          />
+          <Icon name="chevron-left" size={30} color={color.primary} />
           {children}
         </TouchableWithoutFeedback>
       ) : (

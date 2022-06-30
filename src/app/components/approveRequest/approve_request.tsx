@@ -1,17 +1,24 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
-import { Text, View, Image, ScrollView } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import State from "../leave_screen/state";
-import { getResponses } from "../../services";
-import getDay, { responseDay, startDate } from "../../utils/getDay";
-import getName, { leadname } from "../../utils/getName";
-import { AuthContext } from "../../reducer";
-import { ApproveDeny } from "../../components";
-import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
-import { getUser } from "../../utils";
-import { SmallHeader } from "../../common";
-import normalize from "react-native-normalize";
-import Autolink from "react-native-autolink";
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { Text, View, Image, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import State from '../leave_screen/state';
+import { getResponses } from '../../services';
+import getDay, { responseDay, startDate } from '../../utils/getDay';
+import getName, { leadname } from '../../utils/getName';
+import { AuthContext } from '../../reducer';
+import { ApproveDeny } from '../../components';
+import { ResponsePlaceHolder } from '../loader/responsePlaceHolder';
+import { getUser } from '../../utils';
+import { SmallHeader } from '../../common';
+import normalize from 'react-native-normalize';
+import Autolink from 'react-native-autolink';
+
+let leave_quota: any = {
+  total_pto: 0,
+  total_float: 0,
+  used_pto: 0,
+  used_float: 0,
+};
 
 const Request = ({ data, style, title = null }: any) => {
   const { state } = useContext(AuthContext);
@@ -21,8 +28,7 @@ const Request = ({ data, style, title = null }: any) => {
   const [approved, setapproved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [user, setuser] = useState(null);
-  const remainingDay = 4;
-  const totalDays = 5;
+
   const checkReplied = () => {
     data.leave_approvals &&
       data.leave_approvals.map((item) => {
@@ -34,16 +40,39 @@ const Request = ({ data, style, title = null }: any) => {
 
   useEffect(() => {
     setLoading(true);
-    getUser().then((user) => setuser(JSON.parse(user).uuid));
+    getUser().then((user) => {
+      setuser(JSON.parse(user).uuid);
 
-    const getRequest = async () => {
-      const res = await getResponses(data.id);
-      setresponses(res);
-      setLoading(false);
-    };
-    getRequest();
+      getRequest(JSON.parse(user).id);
+    });
+
     checkReplied();
   }, []);
+
+  const getRequest = async (user_id) => {
+    try {
+      const res = await getResponses(data.id, user_id);
+      setresponses(res);
+
+      const pto_leaves = res[0]?.leaveQuota?.find(
+        (item) => item.leave_type === 'PAID TIME OFF'
+      );
+      const float_leaves = res[0]?.leaveQuota?.find(
+        (item) => item.leave_type === 'FLOATING DAY'
+      );
+      leave_quota = {
+        total_pto: pto_leaves?.leave_total,
+        total_float: float_leaves?.leave_total,
+        used_pto: pto_leaves?.leave_used,
+        used_float: float_leaves?.leave_used,
+      };
+      setLoading(false);
+    } catch (error) {
+      console.log('error', error);
+
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -56,7 +85,7 @@ const Request = ({ data, style, title = null }: any) => {
                 source={
                   data.user.image_url
                     ? { uri: data.user.image_url }
-                    : require("../../../assets/images/person.jpeg")
+                    : require('../../../assets/images/person.jpeg')
                 }
               />
               <View style={style.senderView}>
@@ -74,11 +103,11 @@ const Request = ({ data, style, title = null }: any) => {
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name="calendar" size={20} />
+                  <Icon style={style.calander} name='calendar' size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state="Requested">{startDate(data)}</State>
+                  <State state='Requested'>{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -95,30 +124,34 @@ const Request = ({ data, style, title = null }: any) => {
               />
               {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
-            <View style={style.cardFooterContainer}>
-              <View style={style.cardFooter}>
-                <Text style={style.remainingLeave}>Remaining Leave :</Text>
-                <Text>
-                  <Text style={style.remainingDays}>{remainingDay}</Text>
-                  <Text style={style.totalDays}>{"/" + totalDays}</Text>
-                  <Text style={style.leaveTypes}>{" PTO's"}</Text>
-                </Text>
-                <Text>
-                  <Text style={style.remainingDays}>{remainingDay}</Text>
-                  <Text style={style.totalDays}>{"/" + totalDays}</Text>
-                  <Text style={style.leaveTypes}>{" Floating Days"}</Text>
-                </Text>
+            {responses?.length ? (
+              <View style={style.cardFooterContainer}>
+                <View style={style.cardFooter}>
+                  <Text style={style.remainingLeave}>Remaining :</Text>
+                  <Text>
+                    <Text style={style.totalDays}>
+                      {leave_quota.used_pto + '/' + leave_quota.total_pto}
+                    </Text>
+                    <Text style={style.leaveTypes}>{' PTO'}</Text>
+                  </Text>
+                  <Text>
+                    <Text style={style.totalDays}>
+                      {leave_quota.used_float + '/' + leave_quota.total_float}
+                    </Text>
+                    <Text style={style.leaveTypes}>{' Floating '}</Text>
+                  </Text>
+                </View>
               </View>
-            </View>
+            ) : null}
           </View>
           <View style={style.responseView}>
             {loading && <ResponsePlaceHolder />}
             <ScrollView showsVerticalScrollIndicator={false}>
-              {responses.length > 0 &&
+              {responses?.length > 0 &&
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text="Responses" />
+                    <SmallHeader text='Responses' />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -128,7 +161,7 @@ const Request = ({ data, style, title = null }: any) => {
                               source={
                                 item.user?.image_url
                                   ? { uri: item.user.image_url }
-                                  : require("../../../assets/images/person.jpeg")
+                                  : require('../../../assets/images/person.jpeg')
                               }
                             />
                             <View style={style.senderView}>
@@ -157,14 +190,14 @@ const Request = ({ data, style, title = null }: any) => {
                     ))}
                   </>
                 )}
-              {data.state !== "Denied" && (
+              {data.state !== 'Denied' && (
                 <>
                   <View style={style.pendingresponseView}>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                      {responses.length > 0 &&
+                      {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text="Pending Responses" />
+                            <SmallHeader text='Pending Responses' />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i.toString()}>
@@ -174,7 +207,7 @@ const Request = ({ data, style, title = null }: any) => {
                                       source={
                                         item.image_url
                                           ? { uri: item.image_url }
-                                          : require("../../../assets/images/person.jpeg")
+                                          : require('../../../assets/images/person.jpeg')
                                       }
                                     />
                                     <View style={style.senderView}>
@@ -203,10 +236,10 @@ const Request = ({ data, style, title = null }: any) => {
               )}
             </ScrollView>
           </View>
-          {title === "admin" && !approved && user !== data.user.uuid && (
+          {title === 'admin' && !approved && user !== data.user.uuid && (
             <View style={style.buttonView}>
-              <ApproveDeny title="Approve" style={style} item={data} />
-              <ApproveDeny title="Deny" style={style} item={data} />
+              <ApproveDeny title='Approve' style={style} item={data} />
+              <ApproveDeny title='Deny' style={style} item={data} />
             </View>
           )}
         </View>

@@ -34,6 +34,34 @@ const listStyle = StyleSheet.create({
     alignSelf: "flex-end",
     justifyContent: "flex-end",
   },
+  seeAllTextOnes: {
+    // position: "absolute",
+    // bottom: 2,
+    flexDirection: "row",
+    paddingHorizontal: normalize(10),
+    fontFamily: fonts.poppinsRegular,
+    color: colors.primary,
+    // marginRight: normalize(5),
+    fontSize: normalize(12),
+    alignItems: "center",
+    alignContent: "flex-end",
+    alignSelf: "center",
+
+    justifyContent: "flex-end",
+  },
+  seeAllTextOn: {
+    flexDirection: "row",
+    color: colors.primary,
+    alignItems: "center",
+    alignContent: "flex-end",
+
+    justifyContent: "flex-end",
+  },
+  seeAllTexts: {
+    paddingHorizontal: normalize(8),
+    fontSize: normalize(12),
+    color: colors.primary,
+  },
   itemContainer: {
     width: "100%",
     borderBottomColor: colors.brown,

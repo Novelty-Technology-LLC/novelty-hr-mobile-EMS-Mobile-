@@ -26,6 +26,7 @@ const EmployeeListing = (props: any) => {
             title: item.first_name + " " + item.last_name,
             subTitle: item.designation,
             image: item.image_url,
+            error: false,
           };
         });
         setList(response);
@@ -60,6 +61,7 @@ const EmployeeListing = (props: any) => {
                   item={item}
                   list={list.length}
                   module="employeeList"
+                  sa={setList}
                 />
               </TouchableOpacity>
             );

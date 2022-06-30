@@ -131,8 +131,8 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 83
-        versionName "1.8.0"
+        versionCode 85
+        versionName "1.8.2"
         multiDexEnabled true
     }
     splits {
@@ -194,15 +194,12 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    implementation(project(":react-native-community_google-signin"))
-
     implementation "com.google.android.gms:play-services-base:17.5.0"
     implementation "com.google.firebase:firebase-core:16.0.9"
     implementation "com.google.firebase:firebase-messaging:21.1.0"
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':react-native-wheel-picker-android')
-
-
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

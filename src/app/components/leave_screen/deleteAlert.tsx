@@ -32,6 +32,7 @@ const DeleteAlert = ({
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const { dispatchRequest } = useContext(RequestContext);
   const [loading, setLoading] = useState(false);
+  console.log('other', other);
 
   const onDelete = async () => {
     setLoading(true);
@@ -56,7 +57,6 @@ const DeleteAlert = ({
     }
     hide();
   };
-
 
   const onTimeLogDelete = () => {
     deleteTimeLog(item.id)
@@ -107,7 +107,7 @@ const DeleteAlert = ({
         }}
       >
         <View style={[style.container, { marginBottom: normalize(-20) }]}>
-          <AppIcon name="alert" color={colors.buttonRed} size={30} />
+          <AppIcon name='alert' color={colors.buttonRed} size={30} />
           <View style={[style.main, { marginBottom: normalize(-15) }]}>
             <Text style={style.text1}>
               {other ? 'Cancel' : 'Delete'} the{' '}

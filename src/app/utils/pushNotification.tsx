@@ -7,7 +7,6 @@ import PushNotification from "react-native-push-notification";
 
 export const SetLocalNotification = (message: any) => {
   // checkPermission();
-  console.log("Perssmion push noticcation ", message);
   PushNotification.localNotification({
     autoCancel: true,
     message: message,

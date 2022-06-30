@@ -11,7 +11,7 @@ import colors from "../../assets/colors";
 import { CarouselStyle } from "../../assets/styles";
 import { navigate } from "../utils/navigation";
 import { UpperCard } from "./dashboard/card";
-import { snackBarMessage } from "./message";
+import { showToast, snackBarMessage } from "./message";
 
 interface CarouselPropTypes {
   itemsPerInterval?: number;
@@ -100,7 +100,15 @@ export const Carousel = (props: CarouselPropTypes) => {
       contentSize.width - paddingToBottom
     );
   };
-
+  const listOfItems = () => {
+    if (props.module !== "Employee") {
+      return items.flat(1);
+    } else {
+      return items.flat(1).sort((a: any, b: any) => {
+        return b.subTitle.localeCompare(a.subTitle);
+      });
+    }
+  };
   return (
     <View style={CarouselStyle.container}>
       <ScrollView
@@ -127,7 +135,7 @@ export const Carousel = (props: CarouselPropTypes) => {
         pagingEnabled
         decelerationRate="fast"
       >
-        {items.flat(1).map((item: any, index: number) => {
+        {listOfItems().map((item: any, index: number) => {
           return (
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>
@@ -145,7 +153,7 @@ export const Carousel = (props: CarouselPropTypes) => {
                           ? navigate("EmployeeListing")
                           : item.title !== 0
                           ? navigate("workFromHomeEmployeeListing")
-                          : snackBarMessage("No employee working from home")
+                          : showToast("No employee working from home", false)
                       }
                     >
                       <UpperCard

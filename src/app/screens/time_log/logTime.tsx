@@ -44,6 +44,7 @@ const LogTime = ({ route }: any) => {
     duration: olddata?.item?.time ?? "60",
     project_id: olddata?.project_id ?? "",
     note: olddata?.item?.task ?? "",
+    hashtags: [],
   };
 
   const validationSchema = Yup.object().shape({
@@ -56,6 +57,7 @@ const LogTime = ({ route }: any) => {
       .required("Project is required")
       .label("project_id"),
     note: Yup.string().required("Task summary is required").label("note"),
+    hashtags: Yup.array().required("# hashbutton is required"),
   });
 
   const onSubmit = async (values) => {
@@ -100,9 +102,6 @@ const LogTime = ({ route }: any) => {
         Object.keys(timelogs.historyDate).length !== 0
           ? { ...timelogs.historyDate }
           : null;
-      console.log(dataObj, "dataObj");
-      console.log(selectedDate, "selectedDate");
-      console.log(historyDate, "historyDate");
 
       submitTimeLog(dataObj, selectedDate, historyDate)
         .then((data) => {
@@ -175,7 +174,6 @@ const LogTime = ({ route }: any) => {
               <Description
                 handleChange={handleChange}
                 timelog={true}
-                hashtag={values.note}
                 defaultValue={olddata && olddata.item && olddata.item.task}
                 updatehashtag={olddata && olddata.item && olddata.item.hashtag}
                 error={errors}

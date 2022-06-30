@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { headerTxtStyle, listingStyle } from "../../../assets/styles";
-import { header as Header } from "../../common";
-import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
-import { getRequest } from "../../services";
-import { navigate } from "../../utils/navigation";
-import { ListingCard } from "./leaveListingCard";
+import React, { useEffect, useState } from 'react';
+import { FlatList, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { headerTxtStyle, listingStyle } from '../../../assets/styles';
+import { header as Header } from '../../common';
+import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
+import { getRequest } from '../../services';
+import { navigate } from '../../utils/navigation';
+import { ListingCard } from './leaveListingCard';
 
 const AnnouncementListing = (props: any) => {
   const params = props.route.params;
@@ -14,26 +14,25 @@ const AnnouncementListing = (props: any) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("params.notification", params.notification);
     (async () => {
       try {
-        var response: any = await getRequest("/webportal/announcements", {});
-        console.log(response, "reseponse");
+        var response: any = await getRequest('/webportal/announcements', {});
         let itemData: any = [];
 
         response.forEach((element: any): any => {
           itemData.push(element);
         });
-        if (params.notification !== "") {
+
+        if (params.notification) {
           var findAnnouncement = response.find(
             (item: any) => item.id == +params.id
           );
-          navigate("announcementsDetails", {
-            headerText: findAnnouncement.title,
-            title: findAnnouncement.title,
-            subTitle: findAnnouncement.subTitle,
-            date: findAnnouncement.date,
-            html: findAnnouncement.html,
+          navigate('announcementsDetails', {
+            headerText: findAnnouncement?.title,
+            title: findAnnouncement?.title,
+            subTitle: findAnnouncement?.subTitle,
+            date: findAnnouncement?.date,
+            html: findAnnouncement?.html,
           });
         }
         setList(
@@ -41,11 +40,10 @@ const AnnouncementListing = (props: any) => {
             (a, b) => new Date(b.created_at) - new Date(a.created_at)
           )
         );
-        console.log(response, "response");
 
         setLoading(false);
       } catch (error) {
-        console.log(error, "error");
+        console.log(error, 'error');
       }
     })();
   }, []);
@@ -64,7 +62,7 @@ const AnnouncementListing = (props: any) => {
             return (
               <TouchableOpacity
                 onPress={() =>
-                  navigate("announcementsDetails", {
+                  navigate('announcementsDetails', {
                     headerText: item.title,
                     title: item.title,
                     subTitle: item.subTitle,

@@ -17,6 +17,7 @@ const Description = ({
   touched,
   values,
   updatehashtag,
+
   editHashtag,
 }: {
   handleChange: Function;
@@ -26,13 +27,14 @@ const Description = ({
   error?: any;
   touched?: any;
   values?: any;
+
   updatehashtag?: any;
   editHashtag?: string;
 }) => {
   const [type, setType] = useState(0);
 
   const [loading, setloading] = useState(false);
-  const [hash, sethash] = useState(false);
+  const [hash, sethash] = useState([]);
 
   const [hashtag, setHashtag] = useState([]);
 
@@ -84,8 +86,11 @@ const Description = ({
     let filteredhashtag: any;
 
     if (name === "note") filteredhashtag = filterTagWords(value);
+    console.log(filteredhashtag, "filteredhashtag");
+    console.log(value, "filteredhashtag");
+
     handleChange(name)(value);
-    handleChange("hashtag")(
+    handleChange("hashtags")(
       JSON.stringify(
         filteredhashtag
           .filter((item) => item.isSelected)
@@ -124,14 +129,14 @@ const Description = ({
                     onPress={() => {
                       item.isSelected = !item.isSelected;
 
-                      setType(0),
-                        handleChange("hashtag")(
-                          JSON.stringify(
-                            hashtag
-                              .filter((item) => item.isSelected)
-                              .map((item) => item.value)
-                          )
-                        );
+                      setType(0);
+                      handleChange("hashtags")(
+                        JSON.stringify(
+                          hashtag
+                            .filter((item) => item.isSelected)
+                            .map((item) => item.value)
+                        )
+                      );
 
                       const selectedHashtag = item.isSelected ? item.value : "";
 
@@ -175,12 +180,18 @@ const Description = ({
           underlineColorAndroid={"transparent"}
           name={timelog ? "task" : "note"}
           label={timelog ? "task" : "note"}
+          onChange={() => {
+            onValueChanged(error ? "note" : "task", "");
+          }}
           onChangeText={(text: any) => {
             onValueChanged(error ? "note" : "task", text);
           }}
         />
         {error && touched && error.note && touched.note && (
           <Text style={style.error}>{error.note}</Text>
+        )}
+        {error && touched && error.hashtags && touched.hashtags && (
+          <Text style={style.error}>{error.hashtags}</Text>
         )}
       </View>
     </View>
