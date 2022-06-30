@@ -24,7 +24,7 @@ const ProfileInfoComponent = ({ user }: { user: any }) => (
         </View>
         <View style={style.icon}>
           <Icon name="cake-variant" color={colors.primary} size={25} />
-          <Text style={style.date}>{user.birth_date}</Text>
+          <Text style={style.date}>{user?.birth_date}</Text>
         </View>
         {user.blood_group && (
           <View style={style.icon}>

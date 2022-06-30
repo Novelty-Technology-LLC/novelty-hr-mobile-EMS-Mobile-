@@ -1,7 +1,7 @@
-import { Platform, StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import { fonts, theme } from '..';
-import colors from '../../colors';
+import { Platform, StyleSheet } from 'react-native'
+import normalize from 'react-native-normalize'
+import { fonts, theme } from '..'
+import colors from '../../colors'
 
 const dashboardStyle = StyleSheet.create({
   safeArea: {
@@ -56,9 +56,9 @@ const dashboardStyle = StyleSheet.create({
   wrapContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    flex: 1, 
+    flex: 1,
     width: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   wrapItem: {
     width: '49%',
@@ -94,7 +94,7 @@ const dashboardStyle = StyleSheet.create({
     marginTop: normalize(16),
     width: '100%',
     overflow: 'hidden',
-    marginBottom:normalize(50)
+    marginBottom: normalize(50),
   },
   loader: {
     backgroundColor: 'transparent',
@@ -105,6 +105,6 @@ const dashboardStyle = StyleSheet.create({
     alignItems: 'center',
     borderRadius: normalize(4),
   },
-});
+})
 
-export { dashboardStyle };
+export { dashboardStyle }

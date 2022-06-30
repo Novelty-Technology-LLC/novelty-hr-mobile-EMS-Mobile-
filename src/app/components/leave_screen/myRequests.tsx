@@ -67,7 +67,7 @@ const MyRequests = ({
     )
     const today = moment(new Date()).format('YYYY-MM-DD')
     if (leaveDate >= today) {
-      if (leaveDate == today && new Date().getHours() >= 10) {
+      if (leaveDate == today && new Date().getHours() >= 14) {
         return (
           <Request
             item={item.item}

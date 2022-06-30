@@ -26,4 +26,4 @@ export default {
   brown: '#EFE4DB',
   lightbrown: '#f8f3ee',
   blue: '#68749d',
-};
+}
