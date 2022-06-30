@@ -19,7 +19,7 @@ import {
   showToast,
   snackBarMessage,
   snackErrorBottom,
-<<<<<<< HEAD
+  snackErrorTop,
 } from '../../common'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import colors from '../../../assets/colors'
@@ -35,38 +35,14 @@ const DashBoard = () => {
   const { state } = useContext(AuthContext)
   const [toggle, setToggle] = useState(false)
   const [id, setId] = useState(0)
+  const [userId, setUserId] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [leaveStatus, setLeaveStatus] = useState(false)
   const [announcementLoading, setAnnouncementLoading] = useState(false)
   const [listData, setListData] = useState([])
   const [announcements, setAnnouncements] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const [cardLoading, setCardLoading] = useState(true)
-=======
-  snackErrorTop,
-} from "../../common";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import colors from "../../../assets/colors";
-import { getToday } from "../../utils";
-import { createWork, getWork, getDashboard, getRequest } from "../../services";
-import moment from "moment";
-import normalize from "react-native-normalize";
-import { DashboardCardPlaceholder } from "../../common";
-import { getCurrentRouteName, navigate } from "../../utils/navigation";
-import { time } from "../../utils/listtranform";
-
-const DashBoard = () => {
-  const { state } = useContext(AuthContext);
-  const [toggle, setToggle] = useState(false);
-  const [id, setId] = useState(0);
-  const [userId, setUserId] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [leaveStatus, setLeaveStatus] = useState(false);
-  const [announcementLoading, setAnnouncementLoading] = useState(false);
-  const [listData, setListData] = useState([]);
-  const [announcements, setAnnouncements] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-  const [cardLoading, setCardLoading] = useState(true);
->>>>>>> 70fe053ab2a29314f99bcfd44c1ef9c73805e174
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true)
@@ -79,117 +55,70 @@ const DashBoard = () => {
       }
     })
     return () => {
-<<<<<<< HEAD
       BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp)
     }
   }, [])
-=======
-      BackHandler.removeEventListener("hardwareBackPress", BackHandler.exitApp);
-    };
-  }, []);
   const fetchWork = async () => {
     try {
-      setLoading(true);
+      setLoading(true)
       const res: any = await getWork({
         user_id: state?.user?.id,
-        date: moment().format("YYYY-MM-DD"),
-      });
->>>>>>> 70fe053ab2a29314f99bcfd44c1ef9c73805e174
+        date: moment().format('YYYY-MM-DD'),
+      })
 
-      setId(res?.data?.data[0].id ?? null);
+      setId(res?.data?.data[0].id ?? null)
       // setUserId(res?.data?.data[0].user_id ?? null);
 
-      setToggle(+res?.data?.data[0].status === 1 ? true : false);
-      setLoading(false);
+      setToggle(+res?.data?.data[0].status === 1 ? true : false)
+      setLoading(false)
     } catch (error) {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
   useEffect(() => {
-<<<<<<< HEAD
-    const fetchWork = async () => {
-      try {
-        setLoading(true)
-        const res: any = await getWork({
-          user_id: state?.user?.id,
-          date: moment().format('YYYY-MM-DD'),
-        })
-        setId(res?.data?.data?.id ?? null)
-
-        setToggle(+res?.data?.data?.status === 1 ? true : false)
-        setLoading(false)
-      } catch (error) {
-        setLoading(false)
-      }
-    }
     state?.user?.id && fetchWork()
   }, [state?.user?.id])
-
-=======
-    state?.user?.id && fetchWork();
-  }, [state?.user?.id]);
   useEffect(() => {
-    state?.user?.id && fetchLeave();
-  }, [state?.user?.id]);
->>>>>>> 70fe053ab2a29314f99bcfd44c1ef9c73805e174
+    state?.user?.id && fetchLeave()
+  }, [state?.user?.id])
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest('/webportal/announcements', {
         limit: 3,
-<<<<<<< HEAD
       })
-      console.log(response, 'response')
 
-      setAnnouncements(
-        response.sort(
-          (a, b) => new Date(b.created_at) - new Date(a.created_at),
-        ),
-      )
+      setAnnouncements(response)
     } catch (error) {}
   }
-=======
-      });
-
-      setAnnouncements(response);
-    } catch (error) {}
-  };
   const fetchLeave = async () => {
     try {
-      var response: any = await getRequest("/leave", {});
-      var date = moment(new Date()).format("ddd MMM D YYYY");
->>>>>>> 70fe053ab2a29314f99bcfd44c1ef9c73805e174
+      var response: any = await getRequest('/leave', {})
+      var date = moment(new Date()).format('ddd MMM D YYYY')
 
       var todayLeave = response.find(function (element: any) {
         return (
           element.requestor_id === state?.user.id &&
           moment(date).isSame(element.leave_date.startDate)
-        );
-      });
+        )
+      })
 
-      if (todayLeave.status === "Approved") {
-        setLeaveStatus(true);
+      if (todayLeave.status === 'Approved') {
+        setLeaveStatus(true)
       } else {
-        setLeaveStatus(false);
+        setLeaveStatus(false)
       }
     } catch (error) {}
-  };
+  }
   useEffect(() => {
     ;(async () => {
       try {
-<<<<<<< HEAD
         setAnnouncementLoading(true)
+
         setCardLoading(true)
         const data: any = await getDashboard()
+        await fetchLeave()
+
         await fetchAnnouncements()
-=======
-        setAnnouncementLoading(true);
-
-        setCardLoading(true);
-        const data: any = await getDashboard();
-        await fetchLeave();
-
-        await fetchAnnouncements();
->>>>>>> 70fe053ab2a29314f99bcfd44c1ef9c73805e174
 
         setAnnouncementLoading(false)
         setListData(data)
@@ -202,73 +131,41 @@ const DashBoard = () => {
   }, [refreshing])
 
   const ToggleWork = async () => {
-<<<<<<< HEAD
-    try {
-      setLoading(true)
-      const data = {
-        id,
-        date: getToday(),
-        user_id: state?.user?.id,
-        status: !toggle ? 1 : 0,
-      }
-      const res: any = await createWork(data)
-      res?.data?.data?.id && setId(res?.data?.data?.id)
-      if (res?.data?.data?.message) {
-        showToast(res?.data?.data?.message, false)
-        setLoading(false)
-      } else if (res?.data?.status === 200) {
-        showToast('Successfully changed status.')
-        setToggle(!toggle)
-        let newList: any = listData.find(
-          (item: any) => item?.detailRoute === '/employee',
-        )
-        newList.items.map((item: any) => {
-          if (item?.subTitle === 'Working from Home') {
-            item.title = !toggle ? +item.title + 1 : +item.title - 1
-          }
-        })
-        setLoading(false)
-      }
-    } catch (error) {
-      showToast('Something went wrong', false)
-      setLoading(false)
-=======
-    console.log(leaveStatus);
+    console.log(leaveStatus)
 
     if (leaveStatus) {
-      showToast("your are currently at leave", false);
+      showToast('your are currently at leave', false)
     } else {
       try {
-        setLoading(true);
+        setLoading(true)
         const data = {
           id,
           date: getToday(),
           user_id: state?.user?.id,
           status: !toggle ? 1 : 0,
-        };
-        const res: any = await createWork(data);
-        res?.data?.data?.id && setId(res?.data?.data?.id);
+        }
+        const res: any = await createWork(data)
+        res?.data?.data?.id && setId(res?.data?.data?.id)
         if (res?.data?.data?.message) {
-          showToast(res?.data?.data?.message, false);
-          setLoading(false);
+          showToast(res?.data?.data?.message, false)
+          setLoading(false)
         } else if (res?.data?.status === 200) {
-          showToast("Successfully changed status.");
-          setToggle(!toggle);
+          showToast('Successfully changed status.')
+          setToggle(!toggle)
           let newList: any = listData.find(
-            (item: any) => item?.detailRoute === "/employee"
-          );
+            (item: any) => item?.detailRoute === '/employee',
+          )
           newList.items.map((item: any) => {
-            if (item?.subTitle === "Working from Home") {
-              item.title = !toggle ? +item.title + 1 : +item.title - 1;
+            if (item?.subTitle === 'Working from Home') {
+              item.title = !toggle ? +item.title + 1 : +item.title - 1
             }
-          });
-          setLoading(false);
+          })
+          setLoading(false)
         }
       } catch (error) {
-        showToast("Something went wrong", false);
-        setLoading(false);
+        showToast('Something went wrong', false)
+        setLoading(false)
       }
->>>>>>> 70fe053ab2a29314f99bcfd44c1ef9c73805e174
     }
   }
 
