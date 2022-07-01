@@ -9,6 +9,7 @@ import { CustomText } from '../components/text'
 import normalize from 'react-native-normalize'
 import { fonts } from '../../assets/styles/theme'
 import moment from 'moment'
+import { TermPolicy } from './termPolicy'
 
 const ProfileInfoComponent = ({
   user,
@@ -131,6 +132,7 @@ const ProfileInfoComponent = ({
           </View> */}
         </View>
       </View>
+      {/* <TermPolicy /> */}
     </View>
   )
 }

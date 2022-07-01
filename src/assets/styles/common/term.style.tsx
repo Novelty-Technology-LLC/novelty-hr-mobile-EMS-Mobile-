@@ -5,12 +5,25 @@ import { fonts, theme } from '../theme'
 
 export const termPolicyStyle = StyleSheet.create({
   container: {
-    alignContent: 'center',
+    alignContent: 'flex-end',
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   termSection: {
     color: colors.primary,
+    alignContent: 'center',
+    justifyContent: 'center',
   },
-  privacySection: {
+  dashSection: {
     color: colors.primary,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+
+  privacySection: {
+    justifyContent: 'center',
+    color: colors.primary,
+    alignContent: 'center',
   },
 })

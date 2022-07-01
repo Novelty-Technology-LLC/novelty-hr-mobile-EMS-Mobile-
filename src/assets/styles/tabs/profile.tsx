@@ -1,7 +1,7 @@
-import { StyleSheet, Platform, Dimensions } from "react-native";
-import normalize from "react-native-normalize";
-import colors from "../../colors";
-import { fonts, theme } from "../theme";
+import { StyleSheet, Platform, Dimensions } from 'react-native'
+import normalize from 'react-native-normalize'
+import colors from '../../colors'
+import { fonts, theme } from '../theme'
 
 const profileStyle = StyleSheet.create({
   container: {
@@ -13,32 +13,32 @@ const profileStyle = StyleSheet.create({
   },
   loader: {
     backgroundColor: colors.transparent,
-    alignContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    alignSelf: "center",
+    alignContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    alignSelf: 'center',
     flex: 1,
-    display: "flex",
+    display: 'flex',
     top: 350,
   },
   scrollStyle: {
     backgroundColor: colors.primary,
-    position: "relative",
+    position: 'relative',
   },
   infoStyle: {
     borderTopLeftRadius: 22,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderTopRightRadius: 22,
-    height: Dimensions.get("screen").height / 1.5,
+    height: Dimensions.get('screen').height / 1.3,
   },
   imageView: {
     paddingVertical: normalize(20),
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.primary,
   },
   confirm: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   spacer: {
     marginHorizontal: normalize(10),
@@ -59,8 +59,8 @@ const profileStyle = StyleSheet.create({
     borderRadius: normalize(53),
     borderWidth: normalize(6),
     borderColor: colors.transparent,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imageWrappers: {
     width: normalize(40),
@@ -70,12 +70,12 @@ const profileStyle = StyleSheet.create({
     borderColor: colors.white,
     backgroundColor: colors.primary,
 
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   label: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
 
     marginTop: normalize(10),
   },
@@ -86,8 +86,8 @@ const profileStyle = StyleSheet.create({
     fontSize: normalize(theme.size.base),
   },
   infoView: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     paddingHorizontal: normalize(15),
   },
   heading: {
@@ -96,13 +96,13 @@ const profileStyle = StyleSheet.create({
     fontSize: normalize(theme.size.base),
   },
   body: {
-    width: "100%",
-    flexDirection: "column",
+    width: '100%',
+    flexDirection: 'column',
     paddingBottom: normalize(10),
   },
   icon: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: normalize(10),
   },
   msg: {
@@ -117,27 +117,27 @@ const profileStyle = StyleSheet.create({
     }),
   },
   profileContainerWrapper: {
-    position: "absolute",
-    alignContent: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    alignContent: 'center',
+    justifyContent: 'center',
     top: normalize(55),
     left: normalize(136),
   },
   profileImageWrapper: {
-    position: "absolute",
+    position: 'absolute',
     borderWidth: 4,
-    borderColor: "white",
+    borderColor: 'white',
   },
 
   iconCammerWrapper: {
-    position: "absolute",
+    position: 'absolute',
     bottom: normalize(0),
     padding: normalize(10),
     right: -40,
   },
 
   gender: {
-    textTransform: "capitalize",
+    textTransform: 'capitalize',
     marginLeft: normalize(8),
     fontFamily: fonts.poppinsRegular,
     ...Platform.select({
@@ -156,16 +156,16 @@ const profileStyle = StyleSheet.create({
     }),
   },
   bottomSheetMenu: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingHorizontal: theme.size.xl,
     paddingVertical: theme.size.xxs,
-    alignItems: "center",
+    alignItems: 'center',
   },
   bottomSheetMenuTitle: {
     fontFamily: fonts.mulishRegular,
     fontSize: theme.size.sm,
     paddingHorizontal: theme.size.sm,
-    alignItems: "center",
+    alignItems: 'center',
   },
   bottomSheetMenuIcon: {
     color: colors.darkGrey,
@@ -195,15 +195,15 @@ const profileStyle = StyleSheet.create({
     }),
   },
   modalCalender: {
-    width: "95%",
-    alignItems: "center",
+    width: '95%',
+    alignItems: 'center',
     paddingBottom: normalize(25),
   },
   textContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: "90%",
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: '90%',
   },
-});
+})
 
-export { profileStyle };
+export { profileStyle }
