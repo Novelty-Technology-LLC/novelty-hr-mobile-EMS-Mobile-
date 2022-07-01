@@ -5,7 +5,7 @@ import { fonts, theme } from '../theme'
 
 export const termPolicyStyle = StyleSheet.create({
   container: {
-    alignContent: 'flex-end',
+    alignContent: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -18,7 +18,8 @@ export const termPolicyStyle = StyleSheet.create({
     color: colors.primary,
     alignContent: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
+    // marginHorizontal: normalize(5),
+    // paddingHorizontal: normalize(5),
   },
 
   privacySection: {

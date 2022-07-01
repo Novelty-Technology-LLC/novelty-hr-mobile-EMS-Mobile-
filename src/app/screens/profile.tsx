@@ -39,9 +39,14 @@ import RBSheet from 'react-native-raw-bottom-sheet'
 import { CustomText } from '../components/text'
 import Toast from 'react-native-toast-message'
 import { TermPolicy } from '../common/termPolicy'
+import { useNavigation } from '@react-navigation/native'
+import { CustomDivider } from '../common/divider'
+import CustomFullScreenImage from '../common/CustomFullScreenImage'
+import { EmployeeDetail } from './dashboard/employeeDetail'
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext)
   const [image, setimage] = useState(null)
+
   const [loading, setloading] = useState(false)
 
   const cleanImage = () =>
@@ -145,6 +150,7 @@ const Profile = ({ navigation }: any) => {
   }
 
   const confirm = () => {
+    menuRef.current.close()
     setloading(true)
     updateImage(state.user.id, {
       data: image.data,
@@ -168,9 +174,15 @@ const Profile = ({ navigation }: any) => {
       })
   }
 
-  let uri = image ? image.path : state?.user?.image_url
+  let uri = image ? image?.path : state?.user?.image_url
+  const [oldimage, setoldimage] = useState(state.image_url)
+  const cancel = () => {
+    setloading(false)
+    menuRef.current.close()
+    setimage(oldimage)
+  }
   return state?.user ? (
-    <View style={style.container}>
+    <ScrollView style={style.container}>
       <Header icon={true} navigation={navigation}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
@@ -179,7 +191,20 @@ const Profile = ({ navigation }: any) => {
         <View style={profileStyle.topContainer}></View>
         <View style={profileStyle.infoStyle}>
           <ProfileInfoComponent user={state.user} />
-          <View style={{ alignItems: 'center', alignContent: 'center' }}>
+
+          <CustomDivider size="maxlarge" />
+
+          <View
+            style={{
+              flex: 1,
+
+              alignItems: 'flex-end',
+
+              alignContent: 'flex-end',
+
+              justifyContent: 'center',
+            }}
+          >
             <TermPolicy />
           </View>
         </View>
@@ -229,7 +254,7 @@ const Profile = ({ navigation }: any) => {
                 {confirmForBottomSheet({
                   title: 'Close',
                   iconName: 'close',
-                  onPress: () => uploadImage,
+                  onPress: () => cancel,
                 })}
               </View>
             </BottomSheet>
@@ -245,7 +270,7 @@ const Profile = ({ navigation }: any) => {
           />
         </View>
       ) : null}
-    </View>
+    </ScrollView>
   ) : (
     <></>
   )

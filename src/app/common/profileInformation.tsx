@@ -9,7 +9,6 @@ import { CustomText } from '../components/text'
 import normalize from 'react-native-normalize'
 import { fonts } from '../../assets/styles/theme'
 import moment from 'moment'
-import { TermPolicy } from './termPolicy'
 
 const ProfileInfoComponent = ({
   user,
@@ -19,7 +18,7 @@ const ProfileInfoComponent = ({
   chekUserInfo?: any
 }) => {
   return (
-    <View style={{ top: normalize(50) }}>
+    <View style={{ top: normalize(50), flex: 1 }}>
       <CustomText
         text={user?.first_name + ' ' + user.last_name}
         style={{
