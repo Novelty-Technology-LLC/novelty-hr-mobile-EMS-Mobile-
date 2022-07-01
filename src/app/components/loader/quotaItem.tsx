@@ -1,12 +1,12 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import normalize from 'react-native-normalize';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import normalize from 'react-native-normalize'
 import {
   Placeholder,
   PlaceholderMedia,
   PlaceholderLine,
   Fade,
-} from 'rn-placeholder';
+} from 'rn-placeholder'
 
 const QuotaItem = () => {
   return (
@@ -23,8 +23,8 @@ const QuotaItem = () => {
         <PlaceholderLine width={30} />
       </Placeholder>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 0,
   },
-});
+})
 
-export { QuotaItem };
+export { QuotaItem }

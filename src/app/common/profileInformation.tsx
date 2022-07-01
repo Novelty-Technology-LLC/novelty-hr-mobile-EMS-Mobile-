@@ -1,30 +1,30 @@
-import React from "react";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { View, Text, Linking, TouchableOpacity } from "react-native";
-import { SmallHeader } from ".";
-import colors from "../../assets/colors";
-import { profileStyle as style } from "../../assets/styles/tabs";
-import { formatPhoneNumber } from "../utils";
-import { CustomText } from "../components/text";
-import normalize from "react-native-normalize";
-import { fonts } from "../../assets/styles/theme";
-import moment from "moment";
+import React from 'react'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text, Linking, TouchableOpacity } from 'react-native'
+import { SmallHeader } from '.'
+import colors from '../../assets/colors'
+import { profileStyle as style } from '../../assets/styles/tabs'
+import { formatPhoneNumber } from '../utils'
+import { CustomText } from '../components/text'
+import normalize from 'react-native-normalize'
+import { fonts } from '../../assets/styles/theme'
+import moment from 'moment'
 
 const ProfileInfoComponent = ({
   user,
   chekUserInfo = null,
 }: {
-  user: any;
-  chekUserInfo?: any;
+  user: any
+  chekUserInfo?: any
 }) => {
   return (
-    <View style={{ top: normalize(50) }}>
+    <View style={{ top: normalize(50), flex: 1 }}>
       <CustomText
-        text={user?.first_name + " " + user.last_name}
+        text={user?.first_name + ' ' + user.last_name}
         style={{
-          color: "black",
+          color: 'black',
           paddingTop: 5,
-          textAlign: "center",
+          textAlign: 'center',
           fontSize: 15,
           // fontWeight: "bold",
           fontFamily: fonts.PoppinsSemibold,
@@ -33,8 +33,8 @@ const ProfileInfoComponent = ({
       <CustomText
         text={user.designation}
         style={{
-          color: "#8D8D8D",
-          textAlign: "center",
+          color: '#8D8D8D',
+          textAlign: 'center',
           fontSize: 15,
           // fontWeight: "bold",
           fontFamily: fonts.poppinsMedium,
@@ -54,7 +54,7 @@ const ProfileInfoComponent = ({
             onPress={() => {
               if (chekUserInfo != null) {
                 if (user.id !== chekUserInfo.id) {
-                  Linking.openURL(`mailto:${user.email}?subject=Subject to:`);
+                  Linking.openURL(`mailto:${user.email}?subject=Subject to:`)
                 }
               }
             }}
@@ -75,7 +75,7 @@ const ProfileInfoComponent = ({
             onPress={() => {
               if (chekUserInfo != null) {
                 if (user.id !== chekUserInfo.id) {
-                  Linking.openURL(`tel:${user.phone}`);
+                  Linking.openURL(`tel:${user.phone}`)
                 }
               }
             }}
@@ -94,7 +94,7 @@ const ProfileInfoComponent = ({
             <View style={style.icon}>
               <Icon name="cake-variant" color={colors.primary} size={25} />
               <Text style={style.date}>
-                {moment(user.birth_date).format("LL")}
+                {moment(user.birth_date).format('LL')}
               </Text>
             </View>
           )}
@@ -131,8 +131,9 @@ const ProfileInfoComponent = ({
           </View> */}
         </View>
       </View>
+      {/* <TermPolicy /> */}
     </View>
-  );
-};
+  )
+}
 
-export { ProfileInfoComponent };
+export { ProfileInfoComponent }

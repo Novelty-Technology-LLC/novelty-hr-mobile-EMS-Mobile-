@@ -1,16 +1,16 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { DashBoard, HolidayEventListing, LeaveListing } from "../screens";
-import { TimeLogContext, useTimeLog } from "../reducer";
-import { EmployeeListing } from "../screens/dashboard/employeeListing";
-import { EmployeeDetail } from "../screens/dashboard/employeeDetail";
-import { AnnouncementListing } from "../screens/dashboard/announcementsListing";
-import { AnnouncementDetail } from "../screens/dashboard/announcementsDetail";
-import { WorkFromHomeEmployeeListing } from "../screens/dashboard/workFromHomeEmployeeListing";
-const DashStack = createStackNavigator();
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+import { DashBoard, HolidayEventListing, LeaveListing } from '../screens'
+import { TimeLogContext, useTimeLog } from '../reducer'
+import { EmployeeListing } from '../screens/dashboard/employeeListing'
+import { EmployeeDetail } from '../screens/dashboard/employeeDetail'
+import { AnnouncementListing } from '../screens/dashboard/announcementsListing'
+import { AnnouncementDetail } from '../screens/dashboard/announcementsDetail'
+import { WorkFromHomeEmployeeListing } from '../screens/dashboard/workFromHomeEmployeeListing'
+const DashStack = createStackNavigator()
 
 const DashNav = () => {
-  const { timelogs, dispatchTimeLog } = useTimeLog();
+  const { timelogs, dispatchTimeLog } = useTimeLog()
   return (
     <TimeLogContext.Provider value={{ timelogs, dispatchTimeLog }}>
       <DashStack.Navigator
@@ -40,7 +40,7 @@ const DashNav = () => {
         />
       </DashStack.Navigator>
     </TimeLogContext.Provider>
-  );
-};
+  )
+}
 
-export default DashNav;
+export default DashNav
