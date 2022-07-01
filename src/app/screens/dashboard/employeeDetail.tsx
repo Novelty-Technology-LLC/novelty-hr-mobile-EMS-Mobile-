@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Text,
   View,
@@ -6,39 +6,42 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   Dimensions,
-} from "react-native";
-import { headerTxtStyle, listingStyle } from "../../../assets/styles";
-import { getRequest } from "../../services";
-import { header as Header } from "../../common";
-import { ProfileInfoComponent } from "../../common/profileInformation";
-import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
+  TouchableOpacity,
+} from 'react-native'
+import { headerTxtStyle, listingStyle } from '../../../assets/styles'
+import { getRequest } from '../../services'
+import { header as Header } from '../../common'
+import { ProfileInfoComponent } from '../../common/profileInformation'
+import { ListPlaceholder } from '../../components/loader/listPlaceHolder'
 import {
   profileStyle,
   profileStyle as style,
-} from "../../../assets/styles/tabs";
-import normalize from "react-native-normalize";
-import colors from "../../../assets/colors";
-import { AuthContext } from "../../reducer";
+} from '../../../assets/styles/tabs'
+import normalize from 'react-native-normalize'
+import colors from '../../../assets/colors'
+import { AuthContext } from '../../reducer'
+import { useNavigation } from '@react-navigation/native'
 
 const EmployeeDetail = (props: any) => {
-  const [data, setData] = useState<any>({});
-  const [loading, setLoading] = useState<any>(true);
-  const params = props.route.params;
-  const { state, dispatch }: any = useContext(AuthContext);
-  const [onLoadImage, setLoadImage] = useState(true);
+  const [data, setData] = useState<any>({})
+  const [loading, setLoading] = useState<any>(true)
+  const params = props.route.params
+  const { state, dispatch }: any = useContext(AuthContext)
+  const [onLoadImage, setLoadImage] = useState(true)
+  const navigation = useNavigation<any>()
   const imageLoading = () => {
-    setLoadImage(false);
-  };
+    setLoadImage(false)
+  }
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       try {
-        const id = params.id;
-        let response = await getRequest(`user/${id}`, {});
-        setData(response);
-        setLoading(false);
+        const id = params.id
+        let response = await getRequest(`user/${id}`, {})
+        setData(response)
+        setLoading(false)
       } catch (error) {}
-    })();
-  }, []);
+    })()
+  }, [])
 
   return (
     <View style={listingStyle.mainContainer}>
@@ -69,7 +72,7 @@ const EmployeeDetail = (props: any) => {
               source={
                 onLoadImage
                   ? { uri: params.image }
-                  : require("../../../assets/images/employee.png")
+                  : require('../../../assets/images/employee.png')
               }
               onPartialLoad={() => imageLoading()}
               onError={(error) => imageLoading()}
@@ -81,7 +84,7 @@ const EmployeeDetail = (props: any) => {
         </ScrollView>
       )}
     </View>
-  );
-};
+  )
+}
 
-export { EmployeeDetail };
+export { EmployeeDetail }
