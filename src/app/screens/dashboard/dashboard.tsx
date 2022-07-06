@@ -134,7 +134,7 @@ const DashBoard = () => {
     console.log(leaveStatus, 'ls')
 
     if (leaveStatus) {
-      showToast('your are currently at leave', false)
+      showToast('You are currently on leave', false)
     } else {
       try {
         setLoading(true)
