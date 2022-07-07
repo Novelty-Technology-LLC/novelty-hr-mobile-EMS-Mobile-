@@ -21,6 +21,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           console.log('rss=>', item)
 
           return {
+            status: item.status,
             id: item.users[0].id,
             title: item.users[0].first_name + ' ' + item.users[0].last_name,
             subTitle: item.users[0].designation,
@@ -46,6 +47,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           data={list}
           renderItem={({ item, index }) => {
             return (
+              // {status==='1'?
               <TouchableOpacity
                 onPress={() =>
                   navigate('employeeDetail', {
@@ -62,6 +64,9 @@ const WorkFromHomeEmployeeListing = (props: any) => {
                   module="employeeList"
                 />
               </TouchableOpacity>
+              // :
+              // <></>
+              // }
             )
           }}
           keyExtractor={(item) => item.id}
