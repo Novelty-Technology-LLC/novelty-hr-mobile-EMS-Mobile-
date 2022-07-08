@@ -39,6 +39,7 @@ const LogTime = ({ route }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
 
+
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
     duration: olddata?.item?.time ?? "60",
@@ -57,7 +58,7 @@ const LogTime = ({ route }: any) => {
       .required("Project is required")
       .label("project_id"),
     note: Yup.string().required("Task summary is required").label("note"),
-    hashtags: Yup.array().required("# hashbutton is required"),
+    hashtags: Yup.array().max(2, "limit").required("# hashbutton is required"),
   });
 
   const onSubmit = async (values) => {
@@ -83,7 +84,7 @@ const LogTime = ({ route }: any) => {
       .filter(
         (log) =>
           momentdate(log.log_date, "ll") ===
-            momentdate(values.log_date, "ll") &&
+          momentdate(values.log_date, "ll") &&
           log.project_id == values.project_id
       );
 
