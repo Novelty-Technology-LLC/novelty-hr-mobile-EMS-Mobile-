@@ -39,26 +39,28 @@ const Description = ({
   const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {
+
     const fetch = async () => {
       try {
         setloading(true);
         const response = await getHash("timelogHashtag");
+
         const mapData =
           updatehashtag !== null
             ? response.hashtags.map((item: any) => {
-                const hashtag = {
-                  ...item,
-                  isSelected:
-                    updatehashtag?.length && updatehashtag.includes(item.value),
-                };
-                return hashtag;
-              })
+              const hashtag = {
+                ...item,
+                isSelected:
+                  updatehashtag?.length && updatehashtag.includes(item.value),
+              };
+              return hashtag;
+            })
             : response.hashtags.map((item) => {
-                return {
-                  ...item,
-                  isSelected: false,
-                };
-              });
+              return {
+                ...item,
+                isSelected: false,
+              };
+            });
         setHashtag(mapData);
         setloading(false);
       } catch (error) {
@@ -86,8 +88,7 @@ const Description = ({
     let filteredhashtag: any;
 
     if (name === "note") filteredhashtag = filterTagWords(value);
-    console.log(filteredhashtag, "filteredhashtag");
-    console.log(value, "filteredhashtag");
+
 
     handleChange(name)(value);
     handleChange("hashtags")(
