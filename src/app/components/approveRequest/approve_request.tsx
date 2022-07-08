@@ -52,7 +52,10 @@ const Request = ({ data, style, title = null }: any) => {
   const getRequest = async (user_id) => {
     try {
       const res = await getResponses(data.id, user_id);
+      console.log(res[0]?.leaveQuota, "aDSasaSasaS");
+
       setresponses(res);
+
 
       const pto_leaves = res[0]?.leaveQuota?.find(
         (item) => item.leave_type === 'PAID TIME OFF'
@@ -120,7 +123,7 @@ const Request = ({ data, style, title = null }: any) => {
                 email
                 // Optional: enable URL linking
                 url
-                // Optional: custom linking matchers
+              // Optional: custom linking matchers
               />
               {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
@@ -130,13 +133,13 @@ const Request = ({ data, style, title = null }: any) => {
                   <Text style={style.remainingLeave}>Remaining :</Text>
                   <Text>
                     <Text style={style.totalDays}>
-                      {leave_quota.used_pto + '/' + leave_quota.total_pto}
+                      {(leave_quota.total_pto - leave_quota.used_pto) + '/' + leave_quota.total_pto}
                     </Text>
                     <Text style={style.leaveTypes}>{' PTO'}</Text>
                   </Text>
                   <Text>
                     <Text style={style.totalDays}>
-                      {leave_quota.used_float + '/' + leave_quota.total_float}
+                      {(leave_quota.total_float - leave_quota.used_float) + '/' + (leave_quota.total_float)}
                     </Text>
                     <Text style={style.leaveTypes}>{' Floating '}</Text>
                   </Text>
@@ -149,7 +152,7 @@ const Request = ({ data, style, title = null }: any) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               {responses?.length > 0 &&
                 JSON.parse(data.lead).length !==
-                  responses[0].pendingResponses.length && (
+                responses[0].pendingResponses.length && (
                   <>
                     <SmallHeader text='Responses' />
                     {responses[0].responses.map((item: any, i: number) => (
