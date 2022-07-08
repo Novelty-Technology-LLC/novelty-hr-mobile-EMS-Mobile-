@@ -11,29 +11,48 @@ import { ListingCard } from './leaveListingCard'
 const WorkFromHomeEmployeeListing = (props: any) => {
   const [list, setList] = useState<any>(null)
   const [loading, setLoading] = useState<any>(null)
+  let a: any = []
 
   useEffect(() => {
+    workfromHome()
+    console.log(list);
+
+  }, [])
+  const workfromHome = async () => {
     setLoading(true)
-    ;(async () => {
-      try {
-        let response: any = await getRequest('work/all', {})
-        response = response.map((item: any) => {
-          console.log('rss=>', item)
+
+    try {
+      let response: any = await getRequest('work/all', {})
+
+
+      const responses = response.map((item: any) => {
+
+        const res = item.users.map((items: any) => {
+
 
           return {
-            status: item.status,
-            id: item.users[0].id,
-            title: item.users[0].first_name + ' ' + item.users[0].last_name,
-            subTitle: item.users[0].designation,
-            image: item.users[0].image_url,
+            title: items.first_name + ' ' + items.last_name,
+            subTitle: items.designation,
+            image: items.image_url,
           }
-        })
-        // console.log('rsponse=>', response)
-        setList(response)
-        setLoading(false)
-      } catch (error) {}
-    })()
-  }, [])
+        });
+
+        return {
+          res: res,
+          status: item.status,
+          id: item.user_id,
+
+        }
+      })
+      setList(responses)
+      console.log(responses);
+
+      setLoading(false)
+    } catch (error) {
+      console.log(error, "sdcbsdkcj");
+
+    }
+  }
 
   return (
     <View style={listingStyle.mainContainer}>
@@ -46,20 +65,23 @@ const WorkFromHomeEmployeeListing = (props: any) => {
         <FlatList
           data={list}
           renderItem={({ item, index }) => {
+
+            console.log(item, "ssss");
+
             return (
               // {status==='1'?
               <TouchableOpacity
                 onPress={() =>
                   navigate('employeeDetail', {
                     id: item.id,
-                    image: item.image,
-                    name: item.title,
+                    image: item.res[0].image,
+                    name: item.res[0].title,
                   })
                 }
               >
                 <ListingCard
                   index={index}
-                  item={item}
+                  item={item.res[0]}
                   list={list.length}
                   module="employeeList"
                 />
