@@ -66,7 +66,7 @@ const profileStyle = StyleSheet.create({
     width: normalize(40),
     height: normalize(40),
     borderRadius: normalize(53),
-    borderWidth: normalize(4),
+    borderWidth: normalize(2),
     borderColor: colors.white,
     backgroundColor: colors.primary,
 
@@ -125,7 +125,7 @@ const profileStyle = StyleSheet.create({
   },
   profileImageWrapper: {
     position: 'absolute',
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: 'white',
   },
 
@@ -133,7 +133,7 @@ const profileStyle = StyleSheet.create({
     position: 'absolute',
     bottom: normalize(0),
     padding: normalize(10),
-    right: -40,
+    right: normalize(-50),
   },
 
   gender: {
