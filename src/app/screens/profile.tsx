@@ -63,10 +63,13 @@ const Profile = ({ navigation }: any) => {
         type: 'SET_IMAGE',
         payload: data?.image_url,
       })
+      menuRef.current.show()
+
     }
+
   }
-  const refRBSheet = useRef<any>()
-  const menuRef = useRef<any>()
+  const refRBSheet = useRef<any>(null)
+  const menuRef = useRef<any>(null)
 
   const menuForBottomSheet = ({
     title,
@@ -118,7 +121,6 @@ const Profile = ({ navigation }: any) => {
     updateProfileImage(image)
   }
   const uploadImage = () => {
-    refRBSheet.current.close()
     ImageCropper.openPicker({
       width: 300,
       height: 400,
@@ -128,13 +130,14 @@ const Profile = ({ navigation }: any) => {
       cropperCircleOverlay: true,
     }).then((image) => {
       callbackForUploadImage(image)
+      refRBSheet.current.close()
 
-      menuRef.current.show()
       // confirm()
+    }).finally(()=>{
+
     })
   }
   const openCamera = () => {
-    refRBSheet.current.close()
     ImageCropper.openCamera({
       width: 300,
       height: 400,
@@ -143,6 +146,8 @@ const Profile = ({ navigation }: any) => {
       compressImageQuality: 0.8,
       cropperCircleOverlay: true,
     }).then((image) => {
+      refRBSheet.current.close()
+
       callbackForUploadImage(image)
       menuRef.current.show()
       // confirm()
@@ -182,31 +187,22 @@ const Profile = ({ navigation }: any) => {
     setimage(oldimage)
   }
   return state?.user ? (
-    <ScrollView style={style.container}>
-      <Header icon={true} navigation={navigation}>
+    <>
+    <Header icon={true} navigation={navigation}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
+    <ScrollView style={style.container}>
+      
 
       <View style={profileStyle.scrollStyle}>
         <View style={profileStyle.topContainer}></View>
+      
         <View style={profileStyle.infoStyle}>
           <ProfileInfoComponent user={state.user} />
 
           <CustomDivider size="maxlarge" />
 
-          <View
-            style={{
-              flex: 1,
-
-              alignItems: 'flex-end',
-
-              alignContent: 'flex-end',
-
-              justifyContent: 'center',
-            }}
-          >
-            <TermPolicy />
-          </View>
+        
         </View>
         {/* <View style={{ ...style.imageView, position: "absolute" }}>
           
@@ -260,6 +256,7 @@ const Profile = ({ navigation }: any) => {
             </BottomSheet>
           </View>
         </View>
+         
       </View>
       {loading ? (
         <View style={style.loader}>
@@ -271,9 +268,22 @@ const Profile = ({ navigation }: any) => {
         </View>
       ) : null}
     </ScrollView>
+    <View
+            style={{
+              backgroundColor:"white",
+            
+             
+
+              justifyContent: 'center',
+            }}
+          >
+            <TermPolicy />
+          </View>
+    </>
   ) : (
     <></>
   )
+
 }
 
 export { Profile }
