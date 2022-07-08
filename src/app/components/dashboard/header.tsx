@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: colors.primary,
+    fontSize: 12
   },
   text: {
     fontSize: normalize(theme.size.normal),
