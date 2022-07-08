@@ -66,8 +66,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           data={list}
           renderItem={({ item, index }) => {
 
-            console.log(item, "ssss");
-
+            //
             return (
               // {status==='1'?
               <TouchableOpacity
