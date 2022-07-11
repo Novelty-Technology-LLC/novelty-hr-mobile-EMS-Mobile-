@@ -33,7 +33,6 @@ export const Carousel = (props: CarouselPropTypes) => {
     try {
       setItems(chunk(props.items.items, 1));
     } catch (error) {
-      console.log("error", error);
     }
   }, []);
 
@@ -152,8 +151,8 @@ export const Carousel = (props: CarouselPropTypes) => {
                         item.subTitle === "Total Employees"
                           ? navigate("EmployeeListing")
                           : item.title !== 0
-                          ? navigate("workFromHomeEmployeeListing")
-                          : showToast("No employee working from home", false)
+                            ? navigate("workFromHomeEmployeeListing")
+                            : showToast("No employee working from home", false)
                       }
                     >
                       <UpperCard

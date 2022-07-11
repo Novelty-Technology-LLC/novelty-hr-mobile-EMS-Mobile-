@@ -9,7 +9,6 @@ import {
 import { headerTxtStyle, requestLeave } from "../../../assets/styles";
 import {
   header as Header,
-  showToast,
   snackBarMessage,
   snackErrorBottom,
 } from "../../common";
@@ -27,6 +26,7 @@ import { useNavigation } from "@react-navigation/native";
 import colors from "../../../assets/colors";
 import { TimeLogContext } from "../../reducer";
 import { checkAndReplace, momentdate } from "../../utils/momentDate";
+import Normalize from "../../utils/normalize";
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -38,13 +38,13 @@ const LogTime = ({ route }: any) => {
   }
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const [error, setError] = useState<any>(null);
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
     duration: olddata?.item?.time ?? "60",
     project_id: olddata?.project_id ?? "",
     note: olddata?.item?.task ?? "",
-    hashtags: [],
   };
 
   const validationSchema = Yup.object().shape({
@@ -57,78 +57,89 @@ const LogTime = ({ route }: any) => {
       .required("Project is required")
       .label("project_id"),
     note: Yup.string().required("Task summary is required").label("note"),
-    hashtags: Yup.array().required("#hashtag is required"),
   });
 
-  const onSubmit = async (values) => {
-    console.log(values);
-
-    const user = await getUser();
-    values.user_id = JSON.parse(user).id;
-
-    values.hashtag =
-      values?.hashtag?.length > 0
-        ? JSON.parse(values.hashtag)
-        : [].concat(olddata?.item?.hashtag);
-
-    const dataObj = {
-      old: olddata && olddata.id ? olddata : null,
-      new: values,
-    };
-
-    setIsLoading(true);
-
-    const pastData = timelogs.present
-      .concat(timelogs.past)
-      .filter(
-        (log) =>
-          momentdate(log.log_date, "ll") ===
-            momentdate(values.log_date, "ll") &&
-          log.project_id == values.project_id
-      );
-
+  const onSubmit = async (values, { setErrors }: any) => {
     if (
-      (pastData[0] &&
-        checkunder24Hrs(
-          parseInt(pastData[0].duration) + parseInt(values.duration)
-        )) ||
-      !pastData[0]
+      !JSON.parse(values.hashtag)?.length ||
+      !values?.hashtag ||
+      JSON.parse(values.hashtag)?.length > 2
     ) {
-      const selectedDate =
-        Object.keys(timelogs.selectedDate).length !== 0
-          ? { ...timelogs.selectedDate }
-          : null;
-      const historyDate =
-        Object.keys(timelogs.historyDate).length !== 0
-          ? { ...timelogs.historyDate }
-          : null;
-
-      submitTimeLog(dataObj, selectedDate, historyDate)
-        .then((data) => {
-          if (Array.isArray(data)) {
-            dispatchTimeLog({
-              type: "CHANGE",
-              payload: {
-                present: data[0],
-                past: timelogs.past.length > 0 ? data[1] ?? timelogs.past : [],
-              },
-            });
-            navigation.navigate("timelog", { reload: true });
-            setIsLoading(false);
-            showToast("TimeLog updated");
-          } else {
-            checkAndReplace(data, timelogs, dispatchTimeLog);
-            navigation.navigate("timelog", { reload: true });
-            setIsLoading(false);
-            showToast("TimeLog updated");
-          }
-        })
-        .catch((err) => console.log(err));
+      if (JSON.parse(values.hashtag)?.length > 2) {
+        setError("You can only select 2 #hastags");
+      } else {
+        setError("Hashtag cannot be empty");
+      }
     } else {
-      Keyboard.dismiss();
-      setIsLoading(false);
-      //
-      showToast("You cannot log more than 24 hours a day ", false);
+      const user = await getUser();
+      values.user_id = JSON.parse(user).id;
+
+      values.hashtag =
+        values?.hashtag?.length > 0
+          ? JSON.parse(values.hashtag)
+          : [].concat(olddata?.item?.hashtag);
+
+      const dataObj = {
+        old: olddata && olddata.id ? olddata : null,
+        new: values,
+      };
+      setIsLoading(true);
+
+      const pastData = timelogs.present
+        .concat(timelogs.past)
+        .filter(
+          (log) =>
+            momentdate(log.log_date, "ll") ===
+              momentdate(values.log_date, "ll") &&
+            log.project_id == values.project_id
+        );
+
+      if (
+        (pastData[0] &&
+          checkunder24Hrs(
+            parseInt(pastData[0].duration) + parseInt(values.duration)
+          )) ||
+        !pastData[0]
+      ) {
+        const selectedDate =
+          Object.keys(timelogs.selectedDate).length !== 0
+            ? { ...timelogs.selectedDate }
+            : null;
+        const historyDate =
+          Object.keys(timelogs.historyDate).length !== 0
+            ? { ...timelogs.historyDate }
+            : null;
+
+        submitTimeLog(dataObj, selectedDate, historyDate)
+          .then((data) => {
+            console.log(Array.isArray(data));
+
+            if (Array.isArray(data)) {
+              dispatchTimeLog({
+                type: "CHANGE",
+                payload: {
+                  present: data[0],
+                  past: data[1] ? data[1] : timelogs.past,
+                },
+              });
+              navigation.navigate("timelog");
+              setIsLoading(false);
+              snackBarMessage("TimeLog updated");
+            } else {
+              checkAndReplace(data, timelogs, dispatchTimeLog);
+              navigation.navigate("timelog");
+              setIsLoading(false);
+              snackBarMessage("TimeLog updated");
+            }
+          })
+          .catch((err) => console.log(err));
+      } else {
+        Keyboard.dismiss();
+        setIsLoading(false);
+        snackErrorBottom({
+          message: "You cannot log more than 24 hours a day ",
+        });
+      }
     }
   };
 
@@ -151,7 +162,11 @@ const LogTime = ({ route }: any) => {
         <Formik
           validationSchema={validationSchema}
           initialValues={initialValues}
-          onSubmit={(values) => onSubmit(values)}
+          onSubmit={(values, { setErrors }) => {
+            console.log(values, "b jhb");
+
+            onSubmit(values, setErrors);
+          }}
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
@@ -174,9 +189,11 @@ const LogTime = ({ route }: any) => {
               <Description
                 handleChange={handleChange}
                 timelog={true}
+                hashtag={values.note}
                 defaultValue={olddata && olddata.item && olddata.item.task}
                 updatehashtag={olddata && olddata.item && olddata.item.hashtag}
                 error={errors}
+                hashtagError={error}
                 touched={touched}
                 values={values}
               />

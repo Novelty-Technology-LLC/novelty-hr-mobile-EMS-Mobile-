@@ -25,7 +25,7 @@
     "@react-navigation/stack": "^5.9.0",
     "@types/react-native-push-notification": "^7.3.3",
     "@types/yup": "^0.29.8",
-    "@ui-kitten/components": "^5.0.0",
+    "@ui-kitten/components": "^5.1.2",
     "@ui-kitten/moment": "^5.0.0",
     "axios": "^0.21.1",
     "firebase-admin": "^9.3.0",

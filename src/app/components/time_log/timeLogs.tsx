@@ -59,7 +59,7 @@ const data = (data: any) => {
   };
 };
 
-const TimeLogs = (props:any) => {
+const TimeLogs = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState<Date>(new Date());
@@ -99,7 +99,7 @@ const TimeLogs = (props:any) => {
         }
       }
     })();
-  }, [state?.user?.id, logTime, refreshing,props.reload]);
+  }, [state?.user?.id, logTime, refreshing, props.reload]);
 
   const getInitialLogs = async () => {
     try {
