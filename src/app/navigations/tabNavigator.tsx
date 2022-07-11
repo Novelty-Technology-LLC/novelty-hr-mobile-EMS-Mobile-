@@ -37,7 +37,6 @@ const TabNavigator = () => {
                   '/webportal/announcements',
                   {}
                 );
-                console.log(response, 'reseponse');
                 let itemData: any = [];
 
                 response.forEach((element: any): any => {

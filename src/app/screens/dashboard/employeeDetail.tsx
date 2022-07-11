@@ -33,13 +33,19 @@ const EmployeeDetail = (props: any) => {
     setLoadImage(false)
   }
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
+        console.log(params.id);
+
         const id = params.id
         let response = await getRequest(`user/${id}`, {})
+        console.log(response);
+
+
+
         setData(response)
         setLoading(false)
-      } catch (error) {}
+      } catch (error) { }
     })()
   }, [])
 
@@ -64,7 +70,7 @@ const EmployeeDetail = (props: any) => {
         >
           <View style={profileStyle.topContainer}></View>
           <View style={profileStyle.infoStyle}>
-            <ProfileInfoComponent user={data} chekUserInfo={state.user} />
+            <ProfileInfoComponent user={data ?? data} chekUserInfo={state.user} />
           </View>
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
             <Image

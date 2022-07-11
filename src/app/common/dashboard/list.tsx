@@ -30,16 +30,16 @@ const List = ({ list }: { list: any }) => {
                 onPress={() => {
                   list?.module === "Announcements"
                     ? navigate("announcementsDetails", {
-                        headerText: item.title,
-                        title: item.title,
-                        subTitle: item.subTitle,
-                        date: item.date,
-                        html: item.html,
-                      })
+                      headerText: item.title,
+                      title: item.title,
+                      subTitle: item.subTitle,
+                      date: item.date,
+                      html: item.html,
+                    })
                     : navigate(list?.detailRoute, {
-                        route: list?.detailRoute,
-                        module: list.module,
-                      });
+                      route: list?.detailRoute,
+                      module: list.module,
+                    });
                 }}
                 style={listStyle.seeAll}
               >
@@ -72,16 +72,32 @@ const List = ({ list }: { list: any }) => {
           {/* <Text>"asdasd</Text> */}
         </View>
       ) : (
-        <EmptyContainer
-          text={`${
-            list.message
+        <>
+          <EmptyContainer
+            text={`${list.message
               ? list.message
               : list?.module === "Leave"
-              ? "No Upcoming Leave"
-              : "No Upcoming Holidays and Events"
-          }`}
-          containerStyle={{ height: normalize(100) }}
-        />
+                ? "No Upcoming Leave"
+                : "No Upcoming Holidays and Events"
+              }`}
+            containerStyle={{ height: normalize(100) }}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              navigate(list?.detailRoute, {
+                route: list?.detailRoute,
+                module: list.module,
+              })
+            }
+          >
+            <View style={listStyle.seeAllTextOn}>
+              <Text style={listStyle.seeAllTexts}>See All</Text>
+              <Icon name="arrow-right" color={colors.primary} size={12} />
+            </View>
+          </TouchableOpacity>
+        </>
+
+
       )}
       {/* {list?.module === "Announcements" && (
         <View>

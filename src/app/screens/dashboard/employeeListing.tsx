@@ -20,6 +20,7 @@ const EmployeeListing = (props: any) => {
           "webportal/users/user-listing",
           {}
         );
+
         response = response.map((item: any) => {
           return {
             id: item.id,
@@ -31,7 +32,7 @@ const EmployeeListing = (props: any) => {
         });
         setList(response);
         setLoading(false);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 

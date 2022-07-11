@@ -88,7 +88,7 @@ const DashBoard = () => {
       })
 
       setAnnouncements(response)
-    } catch (error) {}
+    } catch (error) { }
   }
   const fetchLeave = async () => {
     try {
@@ -107,10 +107,10 @@ const DashBoard = () => {
       } else {
         setLeaveStatus(false)
       }
-    } catch (error) {}
+    } catch (error) { }
   }
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
         setAnnouncementLoading(true)
 
@@ -131,7 +131,6 @@ const DashBoard = () => {
   }, [refreshing])
 
   const ToggleWork = async () => {
-    console.log(leaveStatus, 'ls')
 
     if (leaveStatus) {
       showToast('You are currently on leave', false)

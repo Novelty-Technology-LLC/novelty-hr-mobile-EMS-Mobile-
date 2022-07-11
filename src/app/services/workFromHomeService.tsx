@@ -7,7 +7,6 @@ const createWork = async (data: object) => {
 
       .then((data) => {
         resolve(data)
-        console.log('resolvedata', data)
       })
       .catch((err) => {
         reject(err)

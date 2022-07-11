@@ -58,8 +58,11 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
           source={{
             uri: item.image,
           }}
-          onError={(ev) => {}}
-          onLoadEnd={() => {}}
+          onError={(currentTarget) => {
+
+
+          }}
+          onLoadEnd={() => { }}
         />
       )}
       <View>

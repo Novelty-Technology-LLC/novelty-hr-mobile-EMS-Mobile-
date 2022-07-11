@@ -53,6 +53,8 @@ const Tasks = ({ value, handleChange, note, groupby = 'Project' }: any) => {
           >
             <TouchableOpacity
               onPress={() => {
+                console.log(value.note);
+
                 value.item = item;
                 navigate('logtime', value);
               }}
