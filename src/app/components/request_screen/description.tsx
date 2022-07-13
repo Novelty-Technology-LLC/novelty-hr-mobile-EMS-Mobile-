@@ -19,6 +19,8 @@ const Description = ({
   values,
   updatehashtag,
   editHashtag,
+  setHashtag,
+  hashtag,
 }: {
   hashtagError: any
   handleChange: Function;
@@ -30,10 +32,11 @@ const Description = ({
   values?: any;
   updatehashtag?: any;
   editHashtag?: string;
+  setHashtag: any;
+  hashtag: any
 }) => {
   const [type, setType] = useState(0);
   const [loading, setloading] = useState(false);
-  const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {
     console.log(updatehashtag);
@@ -66,7 +69,40 @@ const Description = ({
     };
     fetch();
   }, [updatehashtag]);
+  const filterTagWords = (word: string) => {
+    //when enter key \n is added in string.to Remove replace(/\n/g, '')
+    const splitedNote = word.replace(/\n/g, "").split(" ");
+    if (splitedNote.length) {
+      hashtag.forEach((el) => {
+        const exist = splitedNote.find((val) => val === el.label);
+        el.isSelected = exist ? true : false;
+      });
+    }
+    console.log(...hashtag, "bhbhjbh");
 
+    setHashtag([...hashtag]);
+
+    return hashtag;
+  };
+
+  const onValueChanged = (name: string, value: string) => {
+    let filteredhashtag: any;
+
+    if (name === "note") filteredhashtag = filterTagWords(value);
+    console.log(filteredhashtag, "filteredhashtag");
+    console.log(value, "filteredhashtag");
+
+    handleChange(name)(value);
+    setType(0),
+
+      handleChange("hashtag")(
+        JSON.stringify(
+          filteredhashtag
+            .filter((item) => item.isSelected)
+            .map((item) => item.label)
+        )
+      );
+  };
   return (
     <View
       style={{
@@ -112,7 +148,7 @@ const Description = ({
                       newVal = splittedArr
                         .filter((val) => val && val !== item.value)
                         .join(' ');
-                      const isEmpty = newVal + selectedHashtag === [];
+                      const isEmpty = newVal + selectedHashtag === "";
 
                       handleChange('note')(
                         isEmpty ? '' : newVal + ' ' + selectedHashtag
@@ -145,9 +181,15 @@ const Description = ({
           underlineColorAndroid={'transparent'}
           name={timelog ? 'task' : 'note'}
           label={timelog ? 'task' : 'note'}
-          onChangeText={(text: any) =>
-            handleChange(error ? 'note' : 'task')(text)
-          }
+          // onChangeText={(text: any) =>
+          //   onValueChanged(error ? 'note' : 'task')(text)
+          // }
+          onChange={() => {
+            onValueChanged(error ? "note" : "task", "");
+          }}
+          onChangeText={(text: any) => {
+            onValueChanged(error ? "note" : "task", text);
+          }}
         />
         {error && touched && error.note && touched.note && (
           <Text style={style.error}>{error.note}</Text>

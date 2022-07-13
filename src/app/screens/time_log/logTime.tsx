@@ -39,6 +39,7 @@ const LogTime = ({ route }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [error, setError] = useState<any>(null)
+  const [hashtag, setHashtag] = useState([]);
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
@@ -63,8 +64,11 @@ const LogTime = ({ route }: any) => {
   const onSubmit = async (values, { setErrors }: any) => {
 
 
+    console.log(hashtag, "ass");
 
-    if (!JSON.parse(values.hashtag)?.length || !values?.hashtag || JSON.parse(values.hashtag)?.length > 2) {
+
+
+    if (!JSON.parse(values.hashtag)?.length || !values?.hashtag) {
       if (JSON.parse(values.hashtag)?.length > 2) {
         setError('You can only select 2 #hastags');
 
@@ -195,9 +199,10 @@ const LogTime = ({ route }: any) => {
                 touched={touched}
               />
               <Description
+                setHashtag={setHashtag}
                 handleChange={handleChange}
                 timelog={true}
-                hashtag={values.note}
+                hashtag={hashtag}
                 defaultValue={olddata && olddata.item && olddata.item.task}
                 updatehashtag={olddata && olddata.item && olddata.item.hashtag}
                 error={errors}
