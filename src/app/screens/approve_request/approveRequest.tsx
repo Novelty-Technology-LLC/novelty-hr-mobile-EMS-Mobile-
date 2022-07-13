@@ -10,6 +10,9 @@ import getDay from '../../utils/getDay';
 const ApproveRequest = ({ route }: any) => {
   let { dayRange } = getDay(route.params);
   let { name } = getName(route.params);
+  console.log(route.params, "name");
+
+
 
   return (
     <>

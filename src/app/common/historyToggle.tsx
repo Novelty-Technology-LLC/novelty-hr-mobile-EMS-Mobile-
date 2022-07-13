@@ -16,7 +16,7 @@ const HistoryToggle = ({
   setHistory?: Function;
   timelog?: boolean;
   screen?: string;
-  setToggle?: Function;
+  setToggle?: any;
 }) => {
   return (
     <View style={style.row}>

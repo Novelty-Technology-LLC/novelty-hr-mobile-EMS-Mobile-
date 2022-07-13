@@ -9,6 +9,7 @@ import {
 import { headerTxtStyle, requestLeave } from '../../../assets/styles';
 import {
   header as Header,
+  showToast,
   snackBarMessage,
   snackErrorBottom,
 } from '../../common';
@@ -64,7 +65,6 @@ const LogTime = ({ route }: any) => {
   const onSubmit = async (values, { setErrors }: any) => {
 
 
-    console.log(hashtag, "ass");
 
 
 
@@ -136,12 +136,12 @@ const LogTime = ({ route }: any) => {
               });
               navigation.navigate('timelog');
               setIsLoading(false);
-              snackBarMessage('TimeLog updated');
+              showToast('TimeLog updated');
             } else {
               checkAndReplace(data, timelogs, dispatchTimeLog);
               navigation.navigate('timelog');
               setIsLoading(false);
-              snackBarMessage('TimeLog updated');
+              showToast('TimeLog Added');
             }
           })
           .catch((err) => console.log(err));
