@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import CalendarStrip from 'react-native-calendar-strip';
-import colors from '../../../assets/colors';
-import { calenderStyle as style } from '../../../assets/styles';
-import moment from 'moment';
-import { formatDate } from '../../utils';
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import CalendarStrip from "react-native-calendar-strip";
+import colors from "../../../assets/colors";
+import { calenderStyle as style } from "../../../assets/styles";
+import moment from "moment";
+import { formatDate } from "../../utils";
 
 const Calendar = ({
   handleChange,
@@ -21,22 +21,22 @@ const Calendar = ({
 
   const startingDate = defaultValue
     ? moment(defaultValue ? defaultValue : null)
-      .startOf('week')
-      .format('YYYY-MM-DD')
-    : moment().startOf('week').format('YYYY-MM-DD');
+        .startOf("week")
+        .format("YYYY-MM-DD")
+    : moment().startOf("week").format("YYYY-MM-DD");
 
   const [date, setDate] = useState(
-    defaultValue ? moment(defaultValue).format('l') : moment().format('l')
+    defaultValue ? moment(defaultValue).format("l") : moment().format("l")
   );
 
   const onDateSelect = (date: any) => {
     const result = moment(date).format();
     setDate(result);
-    const resDate = formatDate(moment(result).format('L'));
+    const resDate = formatDate(moment(result).format("L"));
     if (other) {
       handleChange(resDate);
     } else {
-      handleChange('log_date')(resDate);
+      handleChange("log_date")(resDate);
     }
   };
 
@@ -49,10 +49,10 @@ const Calendar = ({
       <CalendarStrip
         scrollable
         daySelectionAnimation={{
-          type: 'border',
+          type: "border",
           duration: 200,
           borderWidth: 1,
-          borderHighlightColor: 'white',
+          borderHighlightColor: "white",
         }}
         style={style.main}
         startingDate={startingDate}
@@ -64,14 +64,14 @@ const Calendar = ({
         highlightDateNumberStyle={style.highlight}
         highlightDateContainerStyle={style.highlightContainer}
         highlightDateNameStyle={{ color: colors.black }}
-        disabledDateNameStyle={{ color: 'grey' }}
-        disabledDateNumberStyle={{ color: 'grey' }}
-        iconContainer={{ display: 'none' }}
+        disabledDateNameStyle={{ color: "grey" }}
+        disabledDateNumberStyle={{ color: "grey" }}
+        iconContainer={{ display: "none" }}
         selectedDate={date}
         onDateSelected={(date) => {
           onDateSelect(date);
         }}
-      // datesBlacklist={datesBlacklistFunc}
+        // datesBlacklist={datesBlacklistFunc}
       />
     </View>
   );
