@@ -9,6 +9,7 @@ import {
 import { headerTxtStyle, requestLeave } from '../../../assets/styles';
 import {
   header as Header,
+  showToast,
   snackBarMessage,
   snackErrorBottom,
 } from '../../common';
@@ -39,6 +40,7 @@ const LogTime = ({ route }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
   const [error, setError] = useState<any>(null)
+  const [hashtag, setHashtag] = useState([]);
 
   const initialValues = {
     log_date: olddata ? new Date(olddata.log_date) : new Date().toJSON(),
@@ -64,7 +66,9 @@ const LogTime = ({ route }: any) => {
 
 
 
-    if (!JSON.parse(values.hashtag)?.length || !values?.hashtag || JSON.parse(values.hashtag)?.length > 2) {
+
+
+    if (!JSON.parse(values.hashtag)?.length || !values?.hashtag) {
       if (JSON.parse(values.hashtag)?.length > 2) {
         setError('You can only select 2 #hastags');
 
@@ -132,12 +136,12 @@ const LogTime = ({ route }: any) => {
               });
               navigation.navigate('timelog');
               setIsLoading(false);
-              snackBarMessage('TimeLog updated');
+              showToast('TimeLog updated');
             } else {
               checkAndReplace(data, timelogs, dispatchTimeLog);
               navigation.navigate('timelog');
               setIsLoading(false);
-              snackBarMessage('TimeLog updated');
+              showToast('TimeLog Added');
             }
           })
           .catch((err) => console.log(err));
@@ -195,9 +199,10 @@ const LogTime = ({ route }: any) => {
                 touched={touched}
               />
               <Description
+                setHashtag={setHashtag}
                 handleChange={handleChange}
                 timelog={true}
-                hashtag={values.note}
+                hashtag={hashtag}
                 defaultValue={olddata && olddata.item && olddata.item.task}
                 updatehashtag={olddata && olddata.item && olddata.item.hashtag}
                 error={errors}

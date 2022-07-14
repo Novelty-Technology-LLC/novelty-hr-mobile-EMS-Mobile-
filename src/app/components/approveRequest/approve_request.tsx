@@ -51,7 +51,9 @@ const Request = ({ data, style, title = null }: any) => {
 
   const getRequest = async (user_id) => {
     try {
-      const res = await getResponses(data.id, user_id);
+
+
+      const res = await getResponses(data.id, data.device_tokens[0].user_id);
       console.log(res[0]?.leaveQuota, "aDSasaSasaS");
 
       setresponses(res);
@@ -133,13 +135,13 @@ const Request = ({ data, style, title = null }: any) => {
                   <Text style={style.remainingLeave}>Remaining :</Text>
                   <Text>
                     <Text style={style.totalDays}>
-                      {(leave_quota.total_pto - leave_quota.used_pto) + '/' + leave_quota.total_pto}
+                      {(leave_quota.used_pto) + '/' + leave_quota.total_pto}
                     </Text>
                     <Text style={style.leaveTypes}>{' PTO'}</Text>
                   </Text>
                   <Text>
                     <Text style={style.totalDays}>
-                      {(leave_quota.total_float - leave_quota.used_float) + '/' + (leave_quota.total_float)}
+                      {(leave_quota.used_float) + '/' + (leave_quota.total_float)}
                     </Text>
                     <Text style={style.leaveTypes}>{' Floating '}</Text>
                   </Text>

@@ -126,19 +126,17 @@ const MyRequests = ({
       >
         {/*  new Date(item.item.leave_date.startDate) <= new Date() &&
             new Date().getHours() >= 10 ? */}
-        <View style={style.header}>
+        <View style={[style.header]}>
           <SmallHeader
             text="My Requests"
-            history={requests.pastrequests.length > 0}
+            history={true}
           />
-          {requests.pastrequests.length > 0 && (
-            <HistoryToggle
-              toggle={toggle}
-              screen="leave"
-              setHistory={setHistory}
-              history={history}
-            />
-          )}
+          <HistoryToggle
+            toggle={toggle}
+            screen="leave"
+            setHistory={setHistory}
+            history={history}
+          />
         </View>
       </TouchableWithoutFeedback>
       {loading ? <UserPlaceHolder /> : null}
