@@ -62,6 +62,8 @@ const LogTime = ({ route }: any) => {
   });
 
   const onSubmit = async (values, { setErrors }: any) => {
+    console.log("npp", values);
+
     if (!values?.hashtag || !JSON.parse(values.hashtag)?.length) {
       return setError("Hashtag cannot be empty");
     }
@@ -69,7 +71,7 @@ const LogTime = ({ route }: any) => {
     if (values?.hashtag && JSON.parse(values.hashtag)?.length > 2) {
       return setError("You can only select 2 #hastags");
     }
-
+    return;
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
 
@@ -184,7 +186,6 @@ const LogTime = ({ route }: any) => {
                 touched={touched}
               />
               <Description
-                setHashtag={setHashtag}
                 handleChange={handleChange}
                 timelog={true}
                 hashtag={hashtag}

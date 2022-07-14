@@ -67,6 +67,45 @@ const Description = ({
     fetch();
   }, [updatehashtag]);
 
+  const onTextAreaChange = (text: string) => {
+    onChangeHashTag(hashtagError);
+    let finalText = text;
+    let tag = text.split(" ");
+    let selectedTag = tag[tag.length - 1];
+
+    let findHashTag = -1;
+    if (selectedTag.includes("#")) {
+      if (selectedTag == "#d") {
+        findHashTag = hashtag.findIndex((item: any) => item.value === "#db");
+      } else {
+        findHashTag = hashtag.findIndex((item: any) => {
+          const regExp = new RegExp(selectedTag, "g");
+          return item.value.match(regExp);
+        });
+      }
+    }
+
+    if (findHashTag >= 0) {
+      const isEqual = hashtag[findHashTag].value === selectedTag;
+      if (!isEqual) {
+        hashtag[findHashTag].isSelected = false;
+        if (selectedTag == "#d") {
+          finalText = tag.filter((item: string) => item !== "#d").join(" ");
+        } else {
+          finalText = tag
+            .filter((item: string) => !item.match(new RegExp(selectedTag)))
+            .join(" ");
+        }
+      }
+    }
+    handleChange("hashtag")(
+      JSON.stringify(
+        hashtag.filter((item: any) => item.isSelected).map((item) => item.value)
+      )
+    );
+    handleChange(error ? "note" : "task")(finalText);
+  };
+
   return (
     <View
       style={{
@@ -146,10 +185,7 @@ const Description = ({
           underlineColorAndroid={"transparent"}
           name={timelog ? "task" : "note"}
           label={timelog ? "task" : "note"}
-          onChangeText={(text: any) => {
-            onChangeHashTag(hashtagError);
-            handleChange(error ? "note" : "task")(text);
-          }}
+          onChangeText={onTextAreaChange}
         />
         {error && touched && error.note && touched.note && (
           <Text style={style.error}>{error.note}</Text>
