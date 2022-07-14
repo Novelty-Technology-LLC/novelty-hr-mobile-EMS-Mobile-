@@ -19,7 +19,7 @@ const Header = ({
   dropDown: boolean;
   setLogTime: Function;
 }) => {
-  const [week, setweek] = useState('This Week');
+  const [week, setweek] = useState('This week');
   return (
     <View style={styles.main}>
       <Text style={styles.text}>{title}</Text>

@@ -29,7 +29,7 @@ const Week = ({
     Object.entries(groupByproject([...timelogs.past]))
   );
   const [groupby, setGroupby] = useState('Project');
-  const [week, setWeek] = useState('This Week');
+  const [week, setWeek] = useState('This week');
 
   useEffect(() => {
     setWeeksLogs(

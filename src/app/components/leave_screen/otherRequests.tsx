@@ -93,11 +93,13 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         <View style={otherRequestsStyle.header}>
           <SmallHeader
             text="Requests Received"
-            history={adminrequests.pastadminrequests.length > 0}
+            history={true}
           />
-          {adminrequests.pastadminrequests.length > 0 && (
+          {/* {adminrequests.pastadminrequests.length > 0 && (
             <HistoryToggle toggle={toggle} setToggle={setToggle} />
-          )}
+          )} */}
+          <HistoryToggle toggle={toggle} setToggle={setToggle} />
+
         </View>
       </TouchableWithoutFeedback>
       {loading ? (
@@ -111,7 +113,11 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
               item={item.item}
               other={true}
               recieved={true}
-              onPress={() => navigation.navigate("approveLeave", item.item)}
+              onPress={() => {
+                console.log(item.item);
+
+                navigation.navigate("approveLeave", item.item)
+              }}
             />
           )}
           keyExtractor={(item) => item.id}
