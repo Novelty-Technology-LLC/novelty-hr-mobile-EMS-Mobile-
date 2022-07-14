@@ -60,87 +60,89 @@ const LogTime = ({ route }: any) => {
   });
 
   const onSubmit = async (values, { setErrors }: any) => {
-    if (
-      !JSON.parse(values.hashtag)?.length ||
-      !values?.hashtag ||
-      JSON.parse(values.hashtag)?.length > 2
-    ) {
-      if (JSON.parse(values.hashtag)?.length > 2) {
-        setError("You can only select 2 #hastags");
-      } else {
-        setError("Hashtag cannot be empty");
-      }
-    } else {
-      const user = await getUser();
-      values.user_id = JSON.parse(user).id;
+    console.log("vv", values);
 
-      values.hashtag =
-        values?.hashtag?.length > 0
-          ? JSON.parse(values.hashtag)
-          : [].concat(olddata?.item?.hashtag);
-
-      const dataObj = {
-        old: olddata && olddata.id ? olddata : null,
-        new: values,
-      };
-      setIsLoading(true);
-
-      const pastData = timelogs.present
-        .concat(timelogs.past)
-        .filter(
-          (log) =>
-            momentdate(log.log_date, "ll") ===
-              momentdate(values.log_date, "ll") &&
-            log.project_id == values.project_id
-        );
-
-      if (
-        (pastData[0] &&
-          checkunder24Hrs(
-            parseInt(pastData[0].duration) + parseInt(values.duration)
-          )) ||
-        !pastData[0]
-      ) {
-        const selectedDate =
-          Object.keys(timelogs.selectedDate).length !== 0
-            ? { ...timelogs.selectedDate }
-            : null;
-        const historyDate =
-          Object.keys(timelogs.historyDate).length !== 0
-            ? { ...timelogs.historyDate }
-            : null;
-
-        submitTimeLog(dataObj, selectedDate, historyDate)
-          .then((data) => {
-            console.log(Array.isArray(data));
-
-            if (Array.isArray(data)) {
-              dispatchTimeLog({
-                type: "CHANGE",
-                payload: {
-                  present: data[0],
-                  past: data[1] ? data[1] : timelogs.past,
-                },
-              });
-              navigation.navigate("timelog");
-              setIsLoading(false);
-              snackBarMessage("TimeLog updated");
-            } else {
-              checkAndReplace(data, timelogs, dispatchTimeLog);
-              navigation.navigate("timelog");
-              setIsLoading(false);
-              snackBarMessage("TimeLog updated");
-            }
-          })
-          .catch((err) => console.log(err));
-      } else {
-        Keyboard.dismiss();
-        setIsLoading(false);
-        snackErrorBottom({
-          message: "You cannot log more than 24 hours a day ",
-        });
-      }
+    if (!values?.hashtag || !JSON.parse(values.hashtag)?.length) {
+      return setError("Hashtag cannot be empty");
     }
+
+    if (values?.hashtag && JSON.parse(values.hashtag)?.length > 2) {
+      return setError("You can only select 2 #hastags");
+    }
+    return;
+    const user = await getUser();
+    values.user_id = JSON.parse(user).id;
+
+    values.hashtag =
+      values?.hashtag?.length > 0
+        ? JSON.parse(values.hashtag)
+        : [].concat(olddata?.item?.hashtag);
+
+    const dataObj = {
+      old: olddata && olddata.id ? olddata : null,
+      new: values,
+    };
+    setIsLoading(true);
+
+    const pastData = timelogs.present
+      .concat(timelogs.past)
+      .filter(
+        (log) =>
+          momentdate(log.log_date, "ll") ===
+            momentdate(values.log_date, "ll") &&
+          log.project_id == values.project_id
+      );
+
+    if (
+      (pastData[0] &&
+        checkunder24Hrs(
+          parseInt(pastData[0].duration) + parseInt(values.duration)
+        )) ||
+      !pastData[0]
+    ) {
+      const selectedDate =
+        Object.keys(timelogs.selectedDate).length !== 0
+          ? { ...timelogs.selectedDate }
+          : null;
+      const historyDate =
+        Object.keys(timelogs.historyDate).length !== 0
+          ? { ...timelogs.historyDate }
+          : null;
+
+      submitTimeLog(dataObj, selectedDate, historyDate)
+        .then((data) => {
+          console.log(Array.isArray(data));
+
+          if (Array.isArray(data)) {
+            dispatchTimeLog({
+              type: "CHANGE",
+              payload: {
+                present: data[0],
+                past: data[1] ? data[1] : timelogs.past,
+              },
+            });
+            navigation.navigate("timelog");
+            setIsLoading(false);
+            snackBarMessage("TimeLog updated");
+          } else {
+            checkAndReplace(data, timelogs, dispatchTimeLog);
+            navigation.navigate("timelog");
+            setIsLoading(false);
+            snackBarMessage("TimeLog updated");
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      Keyboard.dismiss();
+      setIsLoading(false);
+      snackErrorBottom({
+        message: "You cannot log more than 24 hours a day ",
+      });
+    }
+  };
+
+  const onChangeHashTag = (value: boolean) => {
+    if (value) setError(null);
   };
 
   return (
@@ -162,60 +164,63 @@ const LogTime = ({ route }: any) => {
         <Formik
           validationSchema={validationSchema}
           initialValues={initialValues}
-          onSubmit={(values, { setErrors }) => {
-            console.log(values, "b jhb");
-
-            onSubmit(values, setErrors);
-          }}
+          onSubmit={(values, { setErrors }) => onSubmit(values, setErrors)}
         >
-          {({ handleChange, handleSubmit, values, errors, touched }) => (
-            <>
-              <Calendar
-                handleChange={handleChange}
-                defaultValue={log_date ? log_date : olddata && olddata.log_date}
-              />
-              <Projects
-                handleChange={handleChange}
-                error={errors}
-                touched={touched}
-                defaultValue={olddata && olddata.project?.id}
-              />
-              <Time
-                handleChange={handleChange}
-                defaultValue={olddata && olddata.item && olddata.item.time}
-                error={errors}
-                touched={touched}
-              />
-              <Description
-                handleChange={handleChange}
-                timelog={true}
-                hashtag={values.note}
-                defaultValue={olddata && olddata.item && olddata.item.task}
-                updatehashtag={olddata && olddata.item && olddata.item.hashtag}
-                error={errors}
-                hashtagError={error}
-                touched={touched}
-                values={values}
-              />
-              <Button onPress={() => !isLoading && handleSubmit()}>
-                <View
-                  style={[
-                    requestLeave.buttonView,
-                    olddata
-                      ? requestLeave.editLogButtonView
-                      : requestLeave.logButtonView,
-                  ]}
-                >
-                  <Text style={requestLeave.buttonText}>
-                    {olddata && olddata.note ? "Update" : "Submit"}
-                  </Text>
-                  {isLoading && (
-                    <ActivityIndicator size={30} color={colors.white} />
-                  )}
-                </View>
-              </Button>
-            </>
-          )}
+          {({ handleChange, handleSubmit, values, errors, touched }) => {
+            return (
+              <>
+                <Calendar
+                  handleChange={handleChange}
+                  defaultValue={
+                    log_date ? log_date : olddata && olddata.log_date
+                  }
+                />
+                <Projects
+                  handleChange={handleChange}
+                  error={errors}
+                  touched={touched}
+                  defaultValue={olddata && olddata.project?.id}
+                />
+                <Time
+                  handleChange={handleChange}
+                  defaultValue={olddata && olddata.item && olddata.item.time}
+                  error={errors}
+                  touched={touched}
+                />
+                <Description
+                  handleChange={handleChange}
+                  timelog={true}
+                  hashtag={values.note}
+                  defaultValue={olddata && olddata.item && olddata.item.task}
+                  updatehashtag={
+                    olddata && olddata.item && olddata.item.hashtag
+                  }
+                  error={errors}
+                  hashtagError={error}
+                  touched={touched}
+                  values={values}
+                  onChangeHashTag={onChangeHashTag}
+                />
+                <Button onPress={() => !isLoading && handleSubmit()}>
+                  <View
+                    style={[
+                      requestLeave.buttonView,
+                      olddata
+                        ? requestLeave.editLogButtonView
+                        : requestLeave.logButtonView,
+                    ]}
+                  >
+                    <Text style={requestLeave.buttonText}>
+                      {olddata && olddata.note ? "Update" : "Submit"}
+                    </Text>
+                    {isLoading && (
+                      <ActivityIndicator size={30} color={colors.white} />
+                    )}
+                  </View>
+                </Button>
+              </>
+            );
+          }}
         </Formik>
       </KeyboardAwareScrollView>
     </>

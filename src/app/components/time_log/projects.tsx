@@ -1,15 +1,15 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { Fragment, useEffect, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import {
   descriptionStyle,
   leaveType as style,
   myRequestsStyle,
-} from '../../../assets/styles';
-import { getAllProjects } from '../../services/projectService';
-import { ProjectPlaceHolder } from '../loader';
-import colors from '../../../assets/colors';
-import { AppIcon, SelectButton, SmallHeader } from '../../common';
-import { getUser } from '../../utils';
+} from "../../../assets/styles";
+import { getAllProjects } from "../../services/projectService";
+import { ProjectPlaceHolder } from "../loader";
+import colors from "../../../assets/colors";
+import { AppIcon, SelectButton, SmallHeader } from "../../common";
+import { getUser } from "../../utils";
 
 const Projects = ({
   handleChange,
@@ -24,7 +24,7 @@ const Projects = ({
 }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showmore, setShowmore] = useState('chevron-down-circle');
+  const [showmore, setShowmore] = useState("chevron-down-circle");
   const [allprojects, setAllprojects] = useState([]);
   const [type, setType] = useState(0);
 
@@ -51,7 +51,7 @@ const Projects = ({
           setAllprojects(data);
         }
         setType(defaultValue ? defaultValue : data[0].id);
-        handleChange('project_id')(
+        handleChange("project_id")(
           defaultValue ? defaultValue.toString() : data[0].id.toString()
         );
       })
@@ -63,7 +63,7 @@ const Projects = ({
   }, []);
 
   useEffect(() => {
-    if (showmore === 'chevron-down-circle') {
+    if (showmore === "chevron-down-circle") {
       if (allprojects.length) {
         let projects = [...allprojects].splice(0, 3);
         const selectedProject = allprojects?.find((x: any) => x.id === type);
@@ -86,23 +86,23 @@ const Projects = ({
             <TouchableOpacity
               onPress={() =>
                 setShowmore(
-                  showmore === 'chevron-up-circle'
-                    ? 'chevron-down-circle'
-                    : 'chevron-up-circle'
+                  showmore === "chevron-up-circle"
+                    ? "chevron-down-circle"
+                    : "chevron-up-circle"
                 )
               }
               disabled={allprojects.length < 5}
             >
               <View style={[style.row]}>
                 <Text style={myRequestsStyle.history}>
-                  {showmore === 'chevron-up-circle' ? 'Show less' : 'Show more'}
+                  {showmore === "chevron-up-circle" ? "Show less" : "Show more"}
                 </Text>
                 <View style={myRequestsStyle.gap} />
                 <AppIcon
                   name={showmore}
                   size={25}
                   color={
-                    showmore !== 'chevron-up-circle'
+                    showmore !== "chevron-up-circle"
                       ? allprojects.length < 5
                         ? colors.secondary
                         : colors.primary
@@ -121,7 +121,7 @@ const Projects = ({
                     key={index}
                     onPress={() => {
                       setType(project.id),
-                        handleChange('project_id')(project.id.toString());
+                        handleChange("project_id")(project.id.toString());
                     }}
                     style={style.projectbutton}
                   >
