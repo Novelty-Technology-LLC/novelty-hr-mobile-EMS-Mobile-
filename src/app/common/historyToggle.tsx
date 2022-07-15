@@ -23,6 +23,7 @@ const HistoryToggle = ({
       {!timelog && <Text style={style.history}> History</Text>}
       <View style={style.gap}></View>
       <TouchableWithoutFeedback
+
         onPress={() => {
           screen === 'timelog' &&
             setToggle(

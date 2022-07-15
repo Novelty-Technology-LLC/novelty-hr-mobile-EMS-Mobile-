@@ -48,22 +48,24 @@ const Profile = ({ navigation }: any) => {
   const [image, setimage] = useState(null)
 
   const [loading, setloading] = useState(false)
+  const [upload, setLoad] = useState(false)
+
 
   const cleanImage = () =>
     ImageCropper.clean()
       .then(() => {
         console.log('removed all tmp images from tmp directory')
       })
-      .catch((e) => {})
+      .catch((e) => { })
 
   const updateProfileImage = (image: any, data?: any) => {
     setimage(image)
+
     if (data?.image_url) {
       dispatch({
         type: 'SET_IMAGE',
         payload: data?.image_url,
       })
-      menuRef.current.show()
 
     }
 
@@ -121,6 +123,8 @@ const Profile = ({ navigation }: any) => {
     updateProfileImage(image)
   }
   const uploadImage = () => {
+    setLoad(true)
+
     ImageCropper.openPicker({
       width: 300,
       height: 400,
@@ -129,15 +133,20 @@ const Profile = ({ navigation }: any) => {
       compressImageQuality: 0.8,
       cropperCircleOverlay: true,
     }).then((image) => {
+
       callbackForUploadImage(image)
-      refRBSheet.current.close()
 
       // confirm()
-    }).finally(()=>{
+    }).finally(() => {
+      console.log("snbjsb");
+
+
 
     })
   }
   const openCamera = () => {
+    setLoad(true)
+
     ImageCropper.openCamera({
       width: 300,
       height: 400,
@@ -146,17 +155,15 @@ const Profile = ({ navigation }: any) => {
       compressImageQuality: 0.8,
       cropperCircleOverlay: true,
     }).then((image) => {
-      refRBSheet.current.close()
 
       callbackForUploadImage(image)
-      menuRef.current.show()
       // confirm()
     })
   }
 
   const confirm = () => {
-    menuRef.current.close()
-    setloading(true)
+    refRBSheet.current.close()
+    setLoad(false)
     updateImage(state.user.id, {
       data: image.data,
       name: image.path.split('/').pop(),
@@ -176,6 +183,9 @@ const Profile = ({ navigation }: any) => {
         setloading(false)
         cleanImage()
         showToast('Something went wrong', false)
+      }).finally(() => {
+        setloading(true)
+
       })
   }
 
@@ -183,102 +193,117 @@ const Profile = ({ navigation }: any) => {
   const [oldimage, setoldimage] = useState(state.image_url)
   const cancel = () => {
     setloading(false)
-    menuRef.current.close()
+    refRBSheet.current.close()
     setimage(oldimage)
+    setLoad(false)
+
   }
   return state?.user ? (
     <>
-    <Header icon={true} navigation={navigation}>
+      <BottomSheet hasDraggableIcon ref={menuRef} height={normalize(150)}>
+        <View>
+          {confirmForBottomSheet({
+            title: 'Confirm',
+            iconName: 'check',
+            onPress: () => confirm,
+          })}
+          {confirmForBottomSheet({
+            title: 'Close',
+            iconName: 'close',
+            onPress: () => cancel,
+          })}
+        </View>
+      </BottomSheet>
+      <BottomSheet
+        hasDraggableIcon
+        ref={refRBSheet}
+        height={normalize(150)}
+      >
+        {upload ? <View>
+          {confirmForBottomSheet({
+            title: 'Confirm',
+            iconName: 'check',
+            onPress: () => confirm,
+          })}
+          {confirmForBottomSheet({
+            title: 'Close',
+            iconName: 'close',
+            onPress: () => cancel,
+          })}
+        </View> : <View>
+          {menuForBottomSheet({
+            title: 'Upload from library',
+            iconName: 'upload',
+            onPress: () => uploadImage,
+          })}
+          {menuForBottomSheet({
+            title: 'Take a photo',
+            iconName: 'camera',
+            onPress: () => openCamera,
+          })}
+        </View>}
+      </BottomSheet>
+      <Header icon={true} navigation={navigation}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
-    <ScrollView style={style.container}>
-      
+      <ScrollView style={style.container}>
 
-      <View style={profileStyle.scrollStyle}>
-        <View style={profileStyle.topContainer}></View>
-      
-        <View style={profileStyle.infoStyle}>
-          <ProfileInfoComponent user={state.user} />
 
-          <CustomDivider size="maxlarge" />
+        <View style={profileStyle.scrollStyle}>
+          <View style={profileStyle.topContainer}></View>
 
-        
-        </View>
-        {/* <View style={{ ...style.imageView, position: "absolute" }}>
+          <View style={profileStyle.infoStyle}>
+            <ProfileInfoComponent user={state.user} />
+
+            <CustomDivider size="maxlarge" />
+
+
+          </View>
+          {/* <View style={{ ...style.imageView, position: "absolute" }}>
           
         </View> */}
-        <View style={[style.imageWrapper, style.profileContainerWrapper]}>
-          <Image
-            style={[style.image, style.profileImageWrapper]}
-            source={{
-              uri: uri,
-              cache: 'force-cache',
-            }}
-          />
-          <View style={style.iconCammerWrapper}>
-            <TouchableOpacity
-              style={[style.imageWrappers]}
-              onPress={() => refRBSheet.current.show()}
-            >
-              <Icon name="camera" color="white" size={15}></Icon>
-            </TouchableOpacity>
-            <BottomSheet
-              hasDraggableIcon
-              ref={refRBSheet}
-              height={normalize(150)}
-            >
-              <View>
-                {menuForBottomSheet({
-                  title: 'Upload from library',
-                  iconName: 'upload',
-                  onPress: () => uploadImage,
-                })}
-                {menuForBottomSheet({
-                  title: 'Take a photo',
-                  iconName: 'camera',
-                  onPress: () => openCamera,
-                })}
-              </View>
-            </BottomSheet>
-            <BottomSheet hasDraggableIcon ref={menuRef} height={normalize(150)}>
-              <View>
-                {confirmForBottomSheet({
-                  title: 'Confirm',
-                  iconName: 'check',
-                  onPress: () => confirm,
-                })}
-                {confirmForBottomSheet({
-                  title: 'Close',
-                  iconName: 'close',
-                  onPress: () => cancel,
-                })}
-              </View>
-            </BottomSheet>
-          </View>
-        </View>
-         
-      </View>
-      {loading ? (
-        <View style={style.loader}>
-          <ActivityIndicator
-            size="large"
-            color={colors.primary}
-            style={{ marginTop: normalize(10) }}
-          />
-        </View>
-      ) : null}
-    </ScrollView>
-    <View
-            style={{
-              backgroundColor:"white",
-            
-             
+          <View style={[style.imageWrapper, style.profileContainerWrapper]}>
+            <Image
+              style={[style.image, style.profileImageWrapper]}
+              source={{
+                uri: uri,
+                cache: 'force-cache',
+              }}
+            />
+            <View style={style.iconCammerWrapper}>
+              <TouchableOpacity
+                style={[style.imageWrappers]}
+                onPress={() => refRBSheet.current.show()}
+              >
+                <Icon name="camera" color="white" size={15}></Icon>
+              </TouchableOpacity>
 
-              justifyContent: 'center',
-            }}
-          >
-            <TermPolicy />
+
+            </View>
           </View>
+
+        </View>
+        {loading ? (
+          <View style={style.loader}>
+            <ActivityIndicator
+              size="large"
+              color={colors.primary}
+              style={{ marginTop: normalize(10) }}
+            />
+          </View>
+        ) : null}
+      </ScrollView>
+      <View
+        style={{
+          backgroundColor: "white",
+
+
+
+          justifyContent: 'center',
+        }}
+      >
+        <TermPolicy />
+      </View>
     </>
   ) : (
     <></>

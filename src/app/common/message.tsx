@@ -1,6 +1,6 @@
 import Snackbar from 'react-native-snackbar'
 import { WSnackBar } from 'react-native-smart-tip'
-import { fonts } from '../../assets/styles'
+import { fonts, theme } from '../../assets/styles'
 import colors from '../../assets/colors'
 import { Easing } from 'react-native'
 
@@ -12,6 +12,22 @@ const snackBarMessage = (msg: string) => {
     fontFamily: fonts.mulishBold,
     duration: Snackbar.LENGTH_LONG,
   })
+}
+
+
+const snackBarMessageAction = (msg: string, success?: Function, failure?: Function) => {
+  const snackBarOpts = {
+    data: msg,
+    isAllowSlideExit: true,
+    position: WSnackBar.position.BOTTOM,
+    duration: WSnackBar.duration.LONG,
+    textColor: '#ffffff',
+    numberOfLines: 2,
+    icon: false,
+
+    backgroundColor: success ? colors.green : colors.red,
+  }
+  WSnackBar.show(snackBarOpts)
 }
 
 const showToast = (msg: string, success = true) => {
