@@ -123,7 +123,6 @@ const Profile = ({ navigation }: any) => {
     updateProfileImage(image)
   }
   const uploadImage = () => {
-    setLoad(true)
 
     ImageCropper.openPicker({
       width: 300,
@@ -133,19 +132,18 @@ const Profile = ({ navigation }: any) => {
       compressImageQuality: 0.8,
       cropperCircleOverlay: true,
     }).then((image) => {
+      setLoad(true)
 
       callbackForUploadImage(image)
 
       // confirm()
     }).finally(() => {
-      console.log("snbjsb");
 
 
 
     })
   }
   const openCamera = () => {
-    setLoad(true)
 
     ImageCropper.openCamera({
       width: 300,
@@ -155,6 +153,7 @@ const Profile = ({ navigation }: any) => {
       compressImageQuality: 0.8,
       cropperCircleOverlay: true,
     }).then((image) => {
+      setLoad(true)
 
       callbackForUploadImage(image)
       // confirm()
@@ -164,6 +163,8 @@ const Profile = ({ navigation }: any) => {
   const confirm = () => {
     refRBSheet.current.close()
     setLoad(false)
+    setloading(true)
+
     updateImage(state.user.id, {
       data: image.data,
       name: image.path.split('/').pop(),
@@ -183,9 +184,6 @@ const Profile = ({ navigation }: any) => {
         setloading(false)
         cleanImage()
         showToast('Something went wrong', false)
-      }).finally(() => {
-        setloading(true)
-
       })
   }
 

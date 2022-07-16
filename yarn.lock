@@ -7937,14 +7937,14 @@ react-native-simple-dialogs@^1.4.0:
 
 react-native-smart-tip@^2.3.0:
   version "2.3.0"
-  resolved "https://registry.npmjs.org/react-native-smart-tip/-/react-native-smart-tip-2.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-smart-tip/-/react-native-smart-tip-2.3.0.tgz#06435b7d563538bd6106ca7d1c4dc5f1d936e2a7"
   integrity sha512-bofnYUvjThZhVcBF5Dc54rUVdl6qjBLgl1CMpOVZDpvJAukxrx9yLa6DrsJ2WLGcuF+Z/FIgIRQ6V+mBUOJzaA==
   dependencies:
     react-native-root-siblings "^4.1.0"
 
 react-native-snackbar@^2.4.0:
   version "2.4.0"
-  resolved "https://registry.npmjs.org/react-native-snackbar/-/react-native-snackbar-2.4.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-snackbar/-/react-native-snackbar-2.4.0.tgz#dd9687f5228e379ecd57678a921e546331681bcf"
   integrity sha512-xEDIDxw0ubBHrsvzaMfrZlFoy+ai1WEJZQwyAsG55fqYxUfQM20h+V4v25u+/H/YKY7ZCRMdCZ8zB5JOnbvCQw==
 
 react-native-splash-screen@^3.2.0:

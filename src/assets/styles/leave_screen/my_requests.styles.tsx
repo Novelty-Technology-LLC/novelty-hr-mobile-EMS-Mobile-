@@ -43,6 +43,7 @@ const myRequestsStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingBottom: normalize(10),
+
     ...Platform.select({
       ios: {
         zIndex: 100,
