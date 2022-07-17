@@ -1,2 +1,2 @@
-export const BASE_URI = "http://localhost:8088/";
+export const BASE_URI = "https://dev-api-ems.noveltytechnology.com/";
 export const COSMIC_URI = "https://api.vitafyhealth.com/api/8osmic/";
