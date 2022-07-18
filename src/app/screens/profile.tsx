@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import BottomSheet from "react-native-gesture-bottom-sheet";
+import BottomSheet from "react-native-raw-bottom-sheet";
 
 import {
   View,
@@ -30,7 +30,7 @@ import { CustomDivider } from "../common/divider";
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
-  const refRBSheet = useRef<any>(null);
+  let refRBSheet = useRef<any>(null);
 
   const [loading, setloading] = useState(false);
   const [upload, setLoad] = useState(false);
@@ -43,7 +43,7 @@ const Profile = ({ navigation }: any) => {
       .catch((e) => {});
 
   const updateProfileImage = (image: any, data?: any) => {
-    setimage(image);
+    setimage(image ?? image.data);
     setLoad(true);
     if (data?.image_url) {
       dispatch({
@@ -64,7 +64,7 @@ const Profile = ({ navigation }: any) => {
   }) => {
     return (
       <View>
-        <Pressable style={style.bottomSheetMenu} onPress={onPress()}>
+        <Pressable style={style.bottomSheetMenu} onPress={onPress}>
           <Icon
             name={iconName}
             color={style.bottomSheetMenuIcon.color}
@@ -80,22 +80,40 @@ const Profile = ({ navigation }: any) => {
     title,
     iconName,
     onPress,
+    isLoading = false,
   }: {
     title: string;
     iconName: string;
     onPress: Function;
+    isLoading?: boolean;
   }) => {
     return (
       <View>
-        <Pressable style={style.bottomSheetMenu} onPress={onPress()}>
-          <Icon
-            name={iconName}
-            color={style.bottomSheetMenuIcon.color}
-            size={15}
-          ></Icon>
-
-          <CustomText text={title} style={style.bottomSheetMenuTitle} />
-        </Pressable>
+        {isLoading ? (
+          <View
+            style={{
+              marginTop: normalize(40),
+              marginLeft: normalize(20),
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ActivityIndicator />
+            <Text style={{ marginLeft: 5 }}>Uploading image...please wait</Text>
+          </View>
+        ) : (
+          <>
+            <Pressable style={style.bottomSheetMenu} onPress={onPress}>
+              <Icon
+                name={iconName}
+                color={style.bottomSheetMenuIcon.color}
+                size={15}
+              />
+              <CustomText text={title} style={style.bottomSheetMenuTitle} />
+            </Pressable>
+          </>
+        )}
       </View>
     );
   };
@@ -113,22 +131,18 @@ const Profile = ({ navigation }: any) => {
     })
       .then((image) => {
         setLoad(true);
-
         callbackForUploadImage(image);
-
         // confirm()
       })
       .finally(() => {})
       .then((image) => {
         callbackForUploadImage(image);
-
-        // confirm()
       })
       .finally(() => {
         console.log("snbjsb");
       });
   };
-  const openCamera = () => {
+  const openCamera = () =>
     ImageCropper.openCamera({
       width: 300,
       height: 400,
@@ -138,17 +152,11 @@ const Profile = ({ navigation }: any) => {
       cropperCircleOverlay: true,
     }).then((image) => {
       setLoad(true);
-
       callbackForUploadImage(image);
-      // confirm()
     });
-  };
 
   const confirm = () => {
-    refRBSheet.current.close();
-    setLoad(false);
     setloading(true);
-
     updateImage(state.user.id, {
       data: image.data,
       name: image.path.split("/").pop(),
@@ -159,18 +167,19 @@ const Profile = ({ navigation }: any) => {
         storeToken(JSON.stringify(data));
         removeUser();
         setUser(data);
-        setloading(false);
         updateProfileImage({ ...image, visible: false }, data);
         showToast("Image uploaded");
         cleanImage();
+        setloading(false);
+        refRBSheet?.current?.close();
+        setLoad(false);
       })
       .catch((err) => {
+        refRBSheet?.current?.close();
+        setLoad(false);
         setloading(false);
         cleanImage();
         showToast("Something went wrong", false);
-      })
-      .finally(() => {
-        setloading(true);
       });
   };
 
@@ -178,37 +187,49 @@ const Profile = ({ navigation }: any) => {
   const [oldimage, setoldimage] = useState(state.image_url);
   const cancel = () => {
     setloading(false);
-    refRBSheet.current.close();
+    refRBSheet?.current?.close();
     setimage(oldimage);
     setLoad(false);
   };
+
   return state?.user ? (
     <>
-      <BottomSheet hasDraggableIcon ref={refRBSheet} height={normalize(150)}>
+      <BottomSheet
+        openDuration={250}
+        ref={refRBSheet}
+        height={normalize(150)}
+        customStyles={{
+          container: {
+            borderRadius: 10,
+          },
+        }}
+      >
         {upload ? (
           <View>
             {confirmForBottomSheet({
               title: "Upload",
               iconName: "check",
-              onPress: () => confirm,
+              isLoading: loading,
+              onPress: confirm,
             })}
-            {confirmForBottomSheet({
-              title: "Close",
-              iconName: "close",
-              onPress: () => cancel,
-            })}
+            {!loading &&
+              confirmForBottomSheet({
+                title: "Close",
+                iconName: "close",
+                onPress: cancel,
+              })}
           </View>
         ) : (
           <View>
             {menuForBottomSheet({
               title: "Upload from library",
               iconName: "upload",
-              onPress: () => uploadImage,
+              onPress: uploadImage,
             })}
             {menuForBottomSheet({
               title: "Take a photo",
               iconName: "camera",
-              onPress: () => openCamera,
+              onPress: openCamera,
             })}
           </View>
         )}
@@ -239,22 +260,13 @@ const Profile = ({ navigation }: any) => {
             <View style={style.iconCammerWrapper}>
               <TouchableOpacity
                 style={[style.imageWrappers]}
-                onPress={() => refRBSheet.current.show()}
+                onPress={() => refRBSheet?.current?.open()}
               >
                 <Icon name="camera" color="white" size={15}></Icon>
               </TouchableOpacity>
             </View>
           </View>
         </View>
-        {loading ? (
-          <View style={style.loader}>
-            <ActivityIndicator
-              size="large"
-              color={colors.primary}
-              style={{ marginTop: normalize(10) }}
-            />
-          </View>
-        ) : null}
       </ScrollView>
       <View
         style={{
