@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "rebuild": "cd android && ./gradlew clean &&  cd .. && yarn android",
-     "build": "cd android && ./gradlew clean &&  ./gradlew bundleRelease"
+    "build": "cd android && ./gradlew clean &&  ./gradlew bundleRelease"
   },
   "dependencies": {
     "@eva-design/eva": "^2.0.0",
