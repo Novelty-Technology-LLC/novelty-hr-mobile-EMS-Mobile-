@@ -99,7 +99,7 @@ const Profile = ({ navigation }: any) => {
               justifyContent: "center",
             }}
           >
-            <ActivityIndicator />
+            <ActivityIndicator color={colors.primary} />
             <Text style={{ marginLeft: 5 }}>Uploading image...please wait</Text>
           </View>
         ) : (

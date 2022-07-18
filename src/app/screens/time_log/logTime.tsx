@@ -132,8 +132,6 @@ const LogTime = ({ route }: any) => {
   };
 
   const onSubmit = async (values, { setErrors }: any) => {
-    console.log(olddata?.item?.taskolddata?.item?.task, values);
-
     if (!values?.hashtag || !JSON.parse(values.hashtag)?.length) {
       if (olddata != null) {
         addHashtag(values);
