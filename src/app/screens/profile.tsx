@@ -8,6 +8,7 @@ import {
   Image,
   ActivityIndicator,
   Pressable,
+  Platform,
 } from "react-native";
 import { headerTxtStyle } from "../../assets/styles";
 import { profileStyle, profileStyle as style } from "../../assets/styles/tabs";
@@ -164,16 +165,17 @@ const Profile = ({ navigation }: any) => {
       type: image.mime,
     })
       .then((data) => {
+        showToast("Image uploaded");
         removeToken();
         storeToken(JSON.stringify(data));
         removeUser();
         setUser(data);
         updateProfileImage({ ...image, visible: false }, data);
-        showToast("Image uploaded");
         cleanImage();
         setloading(false);
         refRBSheet?.current?.close();
         setLoad(false);
+        navigation.navigate("Dashboard");
       })
       .catch((err) => {
         refRBSheet?.current?.close();
