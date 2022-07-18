@@ -70,8 +70,7 @@ const Profile = ({ navigation }: any) => {
             name={iconName}
             color={style.bottomSheetMenuIcon.color}
             size={15}
-          ></Icon>
-
+          />
           <CustomText text={title} style={style.bottomSheetMenuTitle} />
         </Pressable>
       </View>
@@ -223,7 +222,7 @@ const Profile = ({ navigation }: any) => {
               })}
           </View>
         ) : (
-          <View>
+          <View style={{ marginTop: 15 }}>
             {menuForBottomSheet({
               title: "Upload from library",
               iconName: "upload",
