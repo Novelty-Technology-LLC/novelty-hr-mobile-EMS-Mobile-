@@ -55,6 +55,7 @@ const DropDown = ({
       dropDownStyle={{
         backgroundColor: '#fff',
         zIndex: 100,
+
         borderColor: arrowColor,
       }}
       onChangeItem={(item) => {
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: colors.primary,
-    fontSize: normalize(theme.size.sm),
+    fontSize: normalize(theme.size.xs),
     fontFamily: fonts.mulishBold,
   },
 });

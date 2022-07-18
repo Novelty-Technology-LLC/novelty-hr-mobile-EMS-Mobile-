@@ -60,18 +60,7 @@ const LogTime = ({ route }: any) => {
       .label("project_id"),
     note: Yup.string().required("Task summary is required").label("note"),
   });
-
-  const onSubmit = async (values, { setErrors }: any) => {
-    console.log("npp", values);
-
-    if (!values?.hashtag || !JSON.parse(values.hashtag)?.length) {
-      return setError("Hashtag cannot be empty");
-    }
-
-    if (values?.hashtag && JSON.parse(values.hashtag)?.length > 2) {
-      return setError("You can only select 2 #hastags");
-    }
-    return;
+  const addHashtag = async (values: any) => {
     const user = await getUser();
     values.user_id = JSON.parse(user).id;
 
@@ -90,7 +79,7 @@ const LogTime = ({ route }: any) => {
       .filter(
         (log) =>
           momentdate(log.log_date, "ll") ===
-            momentdate(values.log_date, "ll") &&
+          momentdate(values.log_date, "ll") &&
           log.project_id == values.project_id
       );
 
@@ -140,6 +129,91 @@ const LogTime = ({ route }: any) => {
         message: "You cannot log more than 24 hours a day ",
       });
     }
+  }
+
+  const onSubmit = async (values, { setErrors }: any) => {
+    console.log(olddata?.item?.taskolddata?.item?.task, values);
+
+    if (!values?.hashtag || !JSON.parse(values.hashtag)?.length) {
+      if (olddata != null) {
+        addHashtag(values)
+      } else {
+        return setError("Hashtag cannot be empty");
+      }
+    }
+
+    else if (values?.hashtag && JSON.parse(values.hashtag)?.length > 2) {
+      return setError("You can only select 2 #hastags");
+    }
+    addHashtag(values)
+    // const user = await getUser();
+    // values.user_id = JSON.parse(user).id;
+
+    // values.hashtag =
+    //   values?.hashtag?.length > 0
+    //     ? JSON.parse(values.hashtag)
+    //     : [].concat(olddata?.item?.hashtag);
+
+    // const dataObj = {
+    //   old: olddata && olddata.id ? olddata : null,
+    //   new: values,
+    // };
+    // setIsLoading(true);
+    // const pastData = timelogs.present
+    //   .concat(timelogs.past)
+    //   .filter(
+    //     (log) =>
+    //       momentdate(log.log_date, "ll") ===
+    //       momentdate(values.log_date, "ll") &&
+    //       log.project_id == values.project_id
+    //   );
+
+    // if (
+    //   (pastData[0] &&
+    //     checkunder24Hrs(
+    //       parseInt(pastData[0].duration) + parseInt(values.duration)
+    //     )) ||
+    //   !pastData[0]
+    // ) {
+    //   const selectedDate =
+    //     Object.keys(timelogs.selectedDate).length !== 0
+    //       ? { ...timelogs.selectedDate }
+    //       : null;
+    //   const historyDate =
+    //     Object.keys(timelogs.historyDate).length !== 0
+    //       ? { ...timelogs.historyDate }
+    //       : null;
+
+    //   submitTimeLog(dataObj, selectedDate, historyDate)
+    //     .then((data) => {
+    //       console.log(Array.isArray(data));
+
+    //       if (Array.isArray(data)) {
+    //         dispatchTimeLog({
+    //           type: "CHANGE",
+    //           payload: {
+    //             present: data[0],
+    //             past: data[1] ? data[1] : timelogs.past,
+    //           },
+    //         });
+    //         navigation.navigate("timelog");
+    //         setIsLoading(false);
+    //         snackBarMessage("TimeLog updated");
+    //       } else {
+    //         checkAndReplace(data, timelogs, dispatchTimeLog);
+    //         navigation.navigate("timelog");
+    //         setIsLoading(false);
+    //         snackBarMessage("TimeLog updated");
+    //       }
+    //     })
+    //     .catch((err) => console.log(err));
+    // } else {
+    //   Keyboard.dismiss();
+    //   setIsLoading(false);
+    //   snackErrorBottom({
+    //     message: "You cannot log more than 24 hours a day ",
+    //   });
+    // }
   };
 
   const onChangeHashTag = (value: boolean) => {

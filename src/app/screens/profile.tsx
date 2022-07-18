@@ -112,6 +112,14 @@ const Profile = ({ navigation }: any) => {
       cropperCircleOverlay: true,
     })
       .then((image) => {
+        setLoad(true);
+
+        callbackForUploadImage(image);
+
+        // confirm()
+      })
+      .finally(() => {})
+      .then((image) => {
         callbackForUploadImage(image);
 
         // confirm()
@@ -121,8 +129,6 @@ const Profile = ({ navigation }: any) => {
       });
   };
   const openCamera = () => {
-    setLoad(true);
-
     ImageCropper.openCamera({
       width: 300,
       height: 400,
@@ -131,6 +137,8 @@ const Profile = ({ navigation }: any) => {
       compressImageQuality: 0.8,
       cropperCircleOverlay: true,
     }).then((image) => {
+      setLoad(true);
+
       callbackForUploadImage(image);
       // confirm()
     });
@@ -139,6 +147,8 @@ const Profile = ({ navigation }: any) => {
   const confirm = () => {
     refRBSheet.current.close();
     setLoad(false);
+    setloading(true);
+
     updateImage(state.user.id, {
       data: image.data,
       name: image.path.split("/").pop(),
