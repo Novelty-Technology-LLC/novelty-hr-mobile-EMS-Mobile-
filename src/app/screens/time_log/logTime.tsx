@@ -79,7 +79,7 @@ const LogTime = ({ route }: any) => {
       .filter(
         (log) =>
           momentdate(log.log_date, "ll") ===
-          momentdate(values.log_date, "ll") &&
+            momentdate(values.log_date, "ll") &&
           log.project_id == values.project_id
       );
 
@@ -113,12 +113,12 @@ const LogTime = ({ route }: any) => {
             });
             navigation.navigate("timelog");
             setIsLoading(false);
-            snackBarMessage("TimeLog updated");
+            showToast("TimeLog added");
           } else {
             checkAndReplace(data, timelogs, dispatchTimeLog);
             navigation.navigate("timelog");
             setIsLoading(false);
-            snackBarMessage("TimeLog updated");
+            showToast("TimeLog updated");
           }
         })
         .catch((err) => console.log(err));
@@ -129,23 +129,21 @@ const LogTime = ({ route }: any) => {
         message: "You cannot log more than 24 hours a day ",
       });
     }
-  }
+  };
 
   const onSubmit = async (values, { setErrors }: any) => {
     console.log(olddata?.item?.taskolddata?.item?.task, values);
 
     if (!values?.hashtag || !JSON.parse(values.hashtag)?.length) {
       if (olddata != null) {
-        addHashtag(values)
+        addHashtag(values);
       } else {
         return setError("Hashtag cannot be empty");
       }
-    }
-
-    else if (values?.hashtag && JSON.parse(values.hashtag)?.length > 2) {
+    } else if (values?.hashtag && JSON.parse(values.hashtag)?.length > 2) {
       return setError("You can only select 2 #hastags");
     }
-    addHashtag(values)
+    addHashtag(values);
     // const user = await getUser();
     // values.user_id = JSON.parse(user).id;
 

@@ -1,8 +1,8 @@
-import Snackbar from 'react-native-snackbar'
-import { WSnackBar } from 'react-native-smart-tip'
-import { fonts, theme } from '../../assets/styles'
-import colors from '../../assets/colors'
-import { Easing } from 'react-native'
+import Snackbar from "react-native-snackbar";
+import { WSnackBar } from "react-native-smart-tip";
+import { fonts, theme } from "../../assets/styles";
+import colors from "../../assets/colors";
+import { Easing } from "react-native";
 
 const snackBarMessage = (msg: string) => {
   Snackbar.show({
@@ -11,24 +11,27 @@ const snackBarMessage = (msg: string) => {
     backgroundColor: colors.green,
     fontFamily: fonts.mulishBold,
     duration: Snackbar.LENGTH_LONG,
-  })
-}
+  });
+};
 
-
-const snackBarMessageAction = (msg: string, success?: Function, failure?: Function) => {
+const snackBarMessageAction = (
+  msg: string,
+  success?: Function,
+  failure?: Function
+) => {
   const snackBarOpts = {
     data: msg,
     isAllowSlideExit: true,
     position: WSnackBar.position.BOTTOM,
     duration: WSnackBar.duration.LONG,
-    textColor: '#ffffff',
+    textColor: "#ffffff",
     numberOfLines: 2,
     icon: false,
 
     backgroundColor: success ? colors.green : colors.red,
-  }
-  WSnackBar.show(snackBarOpts)
-}
+  };
+  WSnackBar.show(snackBarOpts);
+};
 
 const showToast = (msg: string, success = true) => {
   const snackBarOpts = {
@@ -36,13 +39,12 @@ const showToast = (msg: string, success = true) => {
     isAllowSlideExit: true,
     position: WSnackBar.position.TOP,
     duration: WSnackBar.duration.LONG,
-    textColor: '#ffffff',
+    textColor: "#ffffff",
     numberOfLines: 2,
     icon: false,
-
     backgroundColor: success ? colors.green : colors.red,
-  }
-  WSnackBar.show(snackBarOpts)
-}
+  };
+  WSnackBar.show(snackBarOpts);
+};
 
-export { snackBarMessage, showToast }
+export { snackBarMessage, showToast };
