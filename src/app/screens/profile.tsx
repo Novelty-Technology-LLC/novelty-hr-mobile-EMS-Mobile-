@@ -94,13 +94,14 @@ const Profile = ({ navigation }: any) => {
             style={{
               marginTop: normalize(40),
               marginLeft: normalize(20),
-              flexDirection: "row",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
             <ActivityIndicator color={colors.primary} />
-            <Text style={{ marginLeft: 5 }}>Uploading image...please wait</Text>
+            <Text style={{ marginLeft: 5 }}>Uploading image..</Text>
+            <Text>Please wait</Text>
           </View>
         ) : (
           <>
