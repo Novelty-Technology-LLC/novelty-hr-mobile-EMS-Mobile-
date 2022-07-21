@@ -81,6 +81,8 @@ const RequestLeave = ({ route }: any) => {
   const updateReq = (data) => {
     editRequest(olddata.id, data)
       .then((res) => {
+        console.log(res.leave, "===>re");
+
         res.quota.map((item) => {
           dispatchRequest({ type: "UPDATEQUOTA", payload: item });
         });
@@ -90,11 +92,18 @@ const RequestLeave = ({ route }: any) => {
 
         setisLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setisLoading(false);
+
+        console.log(err)
+      });
   };
 
   const onSubmit = async (values) => {
+
     const date = JSON.parse(values.date);
+    console.log(date.startData);
+
 
     const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
@@ -175,6 +184,8 @@ const RequestLeave = ({ route }: any) => {
             endDate,
           },
           day: dayData,
+          start_date: moment(startDate).format('YYYY-MM-DD'),
+          end_date: moment(endDate).format('YYYY-MM-DD'),
           requestor_id: state.user.id,
           requestor_name: state.user.first_name,
           uuid: state.user.uuid,
@@ -185,6 +196,7 @@ const RequestLeave = ({ route }: any) => {
         Keyboard.dismiss();
         olddata ? updateReq(requestData) : submitRequest(requestData);
       } catch (error) {
+
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
 

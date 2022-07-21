@@ -8,7 +8,7 @@ import { HashtagPlaceHolder } from "../loader";
 import { getHash } from "../../services/timeLogService";
 import normalize from "react-native-normalize";
 
-const Description = ({
+const Description = ({]
   handleChange,
   defaultValue,
   timelog,
@@ -22,16 +22,16 @@ const Description = ({
   onChangeHashTag,
 }: {
   hashtagError: any;
-  handleChange: Function;
-  defaultValue?: string;
-  timelog?: boolean;
-  editlog?: boolean;
-  error?: any;
-  touched?: any;
-  values?: any;
-  updatehashtag?: any;
-  editHashtag?: string;
-  onChangeHashTag: any;
+handleChange: Function;
+defaultValue ?: string;
+timelog ?: boolean;
+editlog ?: boolean;
+error ?: any;
+touched ?: any;
+values ?: any;
+updatehashtag ?: any;
+editHashtag ?: string;
+onChangeHashTag: any;
 }) => {
   const [type, setType] = useState(0);
   const [loading, setloading] = useState(false);

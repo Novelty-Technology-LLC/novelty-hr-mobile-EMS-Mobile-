@@ -69,10 +69,17 @@ export const updateRequest = (id: number, data: dataType) => {
 
 export const editRequest = (id: number, data: dataType) => {
   return new Promise(async (resolve, reject) => {
+    console.log(id, "=====<id");
+    console.log(data, "=====<id");
+
     try {
       let res = await api.put(`/leave/${id}`, data);
+      console.log(res.data.data, "ssssss");
+
       resolve(res.data.data);
     } catch (error) {
+      console.log(error, ":sss");
+
       reject({ success: false, message: error });
     }
   });
