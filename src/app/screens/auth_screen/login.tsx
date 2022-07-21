@@ -84,7 +84,7 @@ const Login = () => {
   return (
     <LoginWrapper>
       <View style={style.buttonView}>
-        {/* {showLoginForm && (
+        {showLoginForm && (
           <View style={style.formWrapper}>
             <Formik
               initialValues={AuthModel}
@@ -128,7 +128,7 @@ const Login = () => {
               )}
             </Formik>
           </View>
-        )} */}
+        )}
         <Text style={style.buttonText}>Continue with</Text>
         <View style={style.loginView}>
           <TouchableOpacity

@@ -34,7 +34,7 @@ import colors from "../../../assets/colors";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext, RequestContext } from "../../reducer";
 import { snackErrorTop } from "../../common";
-import { checkIfRequested, checkValidityQuota, dateMapper } from "../../utils";
+import { checkIfRequested, checkValidityQuota, dateMapper, momentdate } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 
@@ -78,7 +78,10 @@ const RequestLeave = ({ route }: any) => {
       .catch((err) => console.log(err));
   };
 
-  const updateReq = (data) => {
+  const updateReq = (data) =>  {
+data.start_date = momentdate(data.leave_date.startDate,'YYYY-MM-DD')
+data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
+   
     editRequest(olddata.id, data)
       .then((res) => {
         res.quota.map((item) => {

@@ -40,8 +40,6 @@ const createUser = (dispatch: any, user: any, token: any) => {
       dispatch({ type: "SIGN_IN", token });
     })
     .catch((err) => {
-      console.log("err", err.response.data);
-
       if (err?.response?.status === 404) {
         dispatch({ type: "INVALID" });
       }
