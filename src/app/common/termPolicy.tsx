@@ -9,9 +9,7 @@ export const TermPolicy = () => {
       <Text>
         <TouchableOpacity
           onPress={() => {
-            Linking.openURL('https://noveltytechnology.com/').catch((err) =>
-              console.error('Error', err),
-            )
+            Linking.openURL('https://docs.google.com/document/d/1PCeVJ1S39G22S4v7wKEVMOMLovFQiKkLP8reJ2tR6z4/').catch((err) =>{})
           }}
         >
           <Text style={termPolicyStyle.termSection}>
