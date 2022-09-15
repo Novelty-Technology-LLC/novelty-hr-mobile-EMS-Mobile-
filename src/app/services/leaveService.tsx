@@ -1,5 +1,5 @@
-import { api } from '../api/api';
-import { dataType } from '../interface';
+import { api } from "../api/api";
+import { dataType } from "../interface";
 
 export const getAllRequests = (id) => {
   return new Promise(async (resolve, reject) => {
@@ -16,6 +16,7 @@ export const getMyRequests = (id: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/leave/${id}`);
+
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -37,7 +38,7 @@ export const getPastRequests = (id: string) => {
 export const postRequest = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.post('/leave', data);
+      let res = await api.post("/leave", data);
       resolve(res);
     } catch (error) {
       reject({ success: false, message: error });

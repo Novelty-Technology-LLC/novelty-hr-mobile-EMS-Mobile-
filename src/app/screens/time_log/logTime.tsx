@@ -121,7 +121,7 @@ const LogTime = ({ route }: any) => {
             showToast("TimeLog updated");
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     } else {
       Keyboard.dismiss();
       setIsLoading(false);

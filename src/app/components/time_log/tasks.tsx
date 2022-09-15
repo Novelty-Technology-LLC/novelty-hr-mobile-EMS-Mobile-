@@ -1,18 +1,15 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {
-  descriptionStyle,
-  timeLogStyle,
-} from '../../../assets/styles';
-import { Task } from './task';
-import Swipe from '../leave_screen/swipe';
-import { getHrs, momentdate, totalHours } from '../../utils';
-import TaskContext from './taskContext';
-import { navigate } from '../../utils/navigation';
-import normalize from 'react-native-normalize';
+import React, { useContext, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { descriptionStyle, timeLogStyle } from "../../../assets/styles";
+import { Task } from "./task";
+import Swipe from "../leave_screen/swipe";
+import { getHrs, momentdate, totalHours } from "../../utils";
+import TaskContext from "./taskContext";
+import { navigate } from "../../utils/navigation";
+import normalize from "react-native-normalize";
 
-const Tasks = ({ value, handleChange, note, groupby = 'Project' }: any) => {
+const Tasks = ({ value, handleChange, note, groupby = "Project" }: any) => {
   const [loading, setLoading] = useState(false);
   const { tasks, setTasks } = useContext(TaskContext);
   let notes = [];
@@ -25,12 +22,12 @@ const Tasks = ({ value, handleChange, note, groupby = 'Project' }: any) => {
 
   return (
     <View style={descriptionStyle.main}>
-      <View style={[timeLogStyle.rowAlign, { alignItems: 'flex-end' }]}>
+      <View style={[timeLogStyle.rowAlign, { alignItems: "flex-end" }]}>
         {note && (
           <Text style={[timeLogStyle.dateText]}>
-            {groupby === 'Date'
+            {groupby === "Date"
               ? value.project.name
-              : momentdate(value.log_date, 'll')}
+              : momentdate(value.log_date, "ll")}
           </Text>
         )}
       </View>
@@ -53,10 +50,8 @@ const Tasks = ({ value, handleChange, note, groupby = 'Project' }: any) => {
           >
             <TouchableOpacity
               onPress={() => {
-                console.log(value.note);
-
                 value.item = item;
-                navigate('logtime', value);
+                navigate("logtime", value);
               }}
               disabled={loading}
             >
