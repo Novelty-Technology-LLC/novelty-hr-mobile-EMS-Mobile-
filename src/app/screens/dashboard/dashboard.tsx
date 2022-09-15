@@ -196,7 +196,7 @@ const DashBoard = () => {
               <Text style={ds.name}>{state?.user?.first_name}</Text>
             </Text>
 
-            <Text style={ds.workshift}>{worksift}</Text>
+            <Text style={ds.workshift}>{state?.user?.work_shift}</Text>
           </View>
           <TouchableWithoutFeedback
             onPress={ToggleWork}
