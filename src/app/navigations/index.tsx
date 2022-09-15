@@ -36,7 +36,7 @@ const RootNavigation = () => {
           [
             {
               text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
+              onPress: () => {},
               style: "cancel",
             },
             { text: "UPDATE", onPress: () => goToStore() },
@@ -44,9 +44,7 @@ const RootNavigation = () => {
           { cancelable: false }
         );
       }
-    } catch (e) {
-      console.log("errror checking version");
-    }
+    } catch (e) {}
   };
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -57,9 +55,7 @@ const RootNavigation = () => {
         const user = await getUser();
 
         dispatch({ type: "STORE_USER", user: JSON.parse(user) });
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     };
 
     bootstrapAsync();

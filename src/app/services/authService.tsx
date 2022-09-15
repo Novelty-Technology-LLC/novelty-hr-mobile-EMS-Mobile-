@@ -32,6 +32,7 @@ const createUser = (dispatch: any, user: any, token: any) => {
   //     'https://lh3.googleusercontent.com/a-/AOh14Ggsxb3NpBErPwptsikzXju0pFAW71vphZXwQOkL=s120',
   //   uuid: '103684157629101882595',
   // };
+
   create(user)
     .then(async ({ data }: any) => {
       await setUser(data.data);
@@ -70,7 +71,7 @@ const signInApple = async (dispatch: any) => {
           storeToken(data.identityToken);
           dispatch({ type: "SIGN_IN", token: data.identityToken });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     } else {
       dispatch({ type: "INVALID" });
     }
@@ -88,9 +89,7 @@ const signOutGoogle = async () => {
   try {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export { signInGoogle, signInApple, signOutGoogle, createUser };

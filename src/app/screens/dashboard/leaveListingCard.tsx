@@ -39,6 +39,7 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
               ? item.title.slice(0, 40) + "..."
               : item.title}
           </Text>
+
           {module == "Announcements" && (
             <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
               {getShortDate(item.date)}
@@ -48,7 +49,10 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
         {module == "Announcements" ? (
           <RenderHtmlComponent htmlData={item.subTitle} />
         ) : (
-          <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+          <Text style={cardStyle.subTitleText}>
+            <Text>{item?.subTitle}</Text>
+            <Text>{` (${item?.work_shift})`}</Text>
+          </Text>
         )}
       </View>
       {module == "employeeList" && (
@@ -58,11 +62,8 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
           source={{
             uri: item.image,
           }}
-          onError={(currentTarget) => {
-
-
-          }}
-          onLoadEnd={() => { }}
+          onError={(currentTarget) => {}}
+          onLoadEnd={() => {}}
         />
       )}
       <View>

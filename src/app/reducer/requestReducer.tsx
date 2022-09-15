@@ -1,15 +1,15 @@
-import React, { useReducer } from 'react';
-import { mapObjectToRequest } from '../utils';
+import React, { useReducer } from "react";
+import { mapObjectToRequest } from "../utils";
 
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
-    case 'QUOTA':
+    case "QUOTA":
       return {
         ...prevState,
         quota: action.payload,
       };
 
-    case 'UPDATEQUOTA':
+    case "UPDATEQUOTA":
       return {
         ...prevState,
         quota: []
@@ -20,7 +20,7 @@ const RequestReducer = (prevState, action) => {
           .sort((a, b) => (a.leave_type > b.leave_type ? 1 : -1)),
       };
 
-    case 'DELETE':
+    case "DELETE":
       return {
         ...prevState,
         requests: [
@@ -28,19 +28,19 @@ const RequestReducer = (prevState, action) => {
         ],
       };
 
-    case 'CHANGE':
+    case "CHANGE":
       return {
         ...prevState,
         requests: [...action.payload],
       };
 
-    case 'CHANGEPAST':
+    case "CHANGEPAST":
       return {
         ...prevState,
         pastrequests: [...action.payload],
       };
 
-    case 'ADD':
+    case "ADD":
       return {
         ...prevState,
         requests: [].concat(
@@ -48,7 +48,7 @@ const RequestReducer = (prevState, action) => {
           ...prevState.requests
         ),
       };
-    case 'UPDATE':
+    case "UPDATE":
       return {
         ...prevState,
         requests: [].concat(
@@ -57,7 +57,7 @@ const RequestReducer = (prevState, action) => {
         ),
       };
 
-    case 'CANCEL':
+    case "CANCEL":
       return {
         ...prevState,
         requests: [].concat(

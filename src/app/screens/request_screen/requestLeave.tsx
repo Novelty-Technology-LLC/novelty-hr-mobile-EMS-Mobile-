@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,6 +9,7 @@ import {
 import {
   header as Header,
   showToast,
+  SmallHeader,
   snackBarMessage,
   snackErrorBottom,
 } from "../../common";
@@ -34,9 +35,15 @@ import colors from "../../../assets/colors";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext, RequestContext } from "../../reducer";
 import { snackErrorTop } from "../../common";
-import { checkIfRequested, checkValidityQuota, dateMapper, momentdate } from "../../utils";
+import {
+  checkIfRequested,
+  checkValidityQuota,
+  dateMapper,
+  momentdate,
+} from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
+import { CustomRadioButton } from "../../common/radioButton";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -57,7 +64,8 @@ const RequestLeave = ({ route }: any) => {
   const { state } = useContext(AuthContext);
   const { dispatchRequest, requests } = useContext(RequestContext);
   const [isLoading, setisLoading] = useState(false);
-
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  let leave_option = "FULL DAY";
   const initialValues = {
     date: olddata ? olddata.date : "",
     type: olddata ? olddata.type : "PAID TIME OFF",
@@ -75,27 +83,48 @@ const RequestLeave = ({ route }: any) => {
         setisLoading(false);
         showToast("Request created");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setisLoading(false);
+      });
   };
 
-  const updateReq = (data) =>  {
-data.start_date = momentdate(data.leave_date.startDate,'YYYY-MM-DD')
-data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
-   
+  const updateReq = (data) => {
+    data.start_date = momentdate(data.leave_date.startDate, "YYYY-MM-DD");
+    data.end_date = momentdate(data.leave_date.endDate, "YYYY-MM-DD");
+
     editRequest(olddata.id, data)
-      .then((res) => {
+      .then((res: any) => {
         res.quota.map((item) => {
-          dispatchRequest({ type: "UPDATEQUOTA", payload: item });
+          dispatchRequest({
+            type: "UPDATEQUOTA",
+            payload: { ...item, leave_option: res.leave_option },
+          });
         });
+
         dispatchRequest({ type: "UPDATE", payload: res.leave });
         navigation.navigate("leaveList");
         showToast("Request updated");
 
         setisLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
+  useEffect(() => {
+    updateLeaveOption();
+  }, [olddata]);
 
+  const updateLeaveOption = () => {
+    if (olddata?.leave_option === "FIRST HALF") {
+      setSelectedIndex(1);
+      leave_option = "FIRST HALF";
+    } else if (olddata?.leave_option === "SECOND HALF") {
+      leave_option = "SECOND HALF";
+
+      setSelectedIndex(2);
+    } else {
+      setSelectedIndex(0);
+    }
+  };
   const onSubmit = async (values) => {
     const date = JSON.parse(values.date);
 
@@ -129,7 +158,7 @@ data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
           return showToast("You cannot request the same date twice", false);
         }
         const date = JSON.parse(values.date);
-        let dayArray = [];
+        let dayArray: any = [];
         const startDate = new Date(date.startDate).toString().slice(0, 15);
 
         let endDate = "";
@@ -140,11 +169,13 @@ data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
         }
 
         let day = 0;
+
         if (olddata) {
           let oldday = dateMapper(
             olddata.leave_date.startDate,
             olddata.leave_date.endDate
           );
+
           day = dateMapper(startDate, endDate);
           if (olddata.type === values.type) {
             dayArray = [{ days: day - oldday, dayType: values.type }];
@@ -169,7 +200,17 @@ data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
         }
         delete values.date;
 
-        const dayData = olddata ? dayArray : day;
+        let dayData: any = olddata ? dayArray[0].days : day;
+        if (selectedIndex === 0) {
+          dayData = dayData * 1;
+        } else {
+          if (selectedIndex === 1) {
+            leave_option = "FIRST HALF";
+          } else {
+            leave_option = "SECOND HALF";
+          }
+          dayData = dayData * 0.5;
+        }
 
         const requestData = {
           ...values,
@@ -178,6 +219,7 @@ data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
             endDate,
           },
           day: dayData,
+          leave_option: leave_option,
           requestor_id: state.user.id,
           requestor_name: state.user.first_name,
           uuid: state.user.uuid,
@@ -238,6 +280,12 @@ data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.type}
               />
+
+              <CustomRadioButton
+                dataList={DATA}
+                setSelectedIndex={setSelectedIndex}
+                selectedIndex={selectedIndex}
+              />
               <Description
                 handleChange={handleChange}
                 defaultValue={olddata && olddata?.note}
@@ -265,5 +313,15 @@ data.end_date =  momentdate(data.leave_date.endDate,'YYYY-MM-DD')
     </ApplicationProvider>
   );
 };
-
+const DATA = [
+  {
+    title: "Full Day",
+  },
+  {
+    title: "First Half",
+  },
+  {
+    title: "Second Half",
+  },
+];
 export { RequestLeave };

@@ -1,5 +1,5 @@
-import { dataType } from '../interface';
-import { dateStringMapper } from './dateMapper';
+import { dataType } from "../interface";
+import { dateStringMapper } from "./dateMapper";
 interface userType {
   id: number;
   leave_date: { endDate: string; startDate: string };
@@ -12,6 +12,7 @@ interface userType {
   lead: Array<string>;
   createdAt: string;
   updatedAt: string;
+  leave_option: string;
 }
 
 const mapDataToRequest = (requests: any) => {
@@ -35,6 +36,7 @@ const mapDataToRequest = (requests: any) => {
         lead: data.lead,
         leave_date: data.leave_date,
         createdAt: data.createdAt,
+        leave_option: data?.leave_option,
       };
       newRequests.push(newData);
     });
@@ -44,6 +46,7 @@ const mapDataToRequest = (requests: any) => {
 
 const mapObjectToRequest = (data: userType) => {
   let newRequest: Array<dataType> = [];
+
   const newData: dataType = {
     id: data.id,
     date: dateStringMapper(data.leave_date.startDate, data.leave_date.endDate),
@@ -56,6 +59,7 @@ const mapObjectToRequest = (data: userType) => {
     lead: data.lead,
     leave_approvals: data.leave_approvals,
     leave_date: data.leave_date,
+    leave_option: data.leave_option,
     createdAt: data.createdAt,
   };
   newRequest.push(newData);

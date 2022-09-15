@@ -123,9 +123,7 @@ const TimeLogs = (props: any) => {
         setActiveLoading(false);
         setinitial(false);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const onSelect = React.useCallback(
@@ -150,9 +148,7 @@ const TimeLogs = (props: any) => {
           setRefreshing(false);
           setActiveLoading(false);
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     },
     []
   );
@@ -184,7 +180,7 @@ const TimeLogs = (props: any) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={() => {
-              setSelectedDay('Today');
+              setSelectedDay("Today");
               setinitial(true);
               setRefreshing(true);
               getInitialLogs();

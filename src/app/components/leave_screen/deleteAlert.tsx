@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import normalize from 'react-native-normalize';
-import { ConfirmDialog } from 'react-native-simple-dialogs';
-import colors from '../../../assets/colors';
-import { deleteAlertStyle as style } from '../../../assets/styles';
-import { AppIcon, showToast, snackBarMessage } from '../../common';
-import { dataType } from '../../interface';
-import { RequestContext, TimeLogContext } from '../../reducer';
-import { deleteRequest, cancelLeave } from '../../services';
-import { deleteTimeLog } from '../../services/timeLogService';
-import Normalize from '../../utils/normalize';
+import React, { useContext, useState } from "react";
+import { View, TouchableOpacity, Text } from "react-native";
+import normalize from "react-native-normalize";
+import { ConfirmDialog } from "react-native-simple-dialogs";
+import colors from "../../../assets/colors";
+import { deleteAlertStyle as style } from "../../../assets/styles";
+import { AppIcon, showToast, snackBarMessage } from "../../common";
+import { dataType } from "../../interface";
+import { RequestContext, TimeLogContext } from "../../reducer";
+import { deleteRequest, cancelLeave } from "../../services";
+import { deleteTimeLog } from "../../services/timeLogService";
+import Normalize from "../../utils/normalize";
 
 const DeleteAlert = ({
   item,
@@ -32,28 +32,27 @@ const DeleteAlert = ({
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const { dispatchRequest } = useContext(RequestContext);
   const [loading, setLoading] = useState(false);
-  console.log('other', other);
 
   const onDelete = async () => {
     setLoading(true);
     if (other) {
       cancelLeave(item.id)
         .then((data) => {
-          dispatchRequest({ type: 'UPDATEQUOTA', payload: data.quota });
-          dispatchRequest({ type: 'CANCEL', payload: data.leave });
+          dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
+          dispatchRequest({ type: "CANCEL", payload: data.leave });
           setLoading(false);
-          showToast('Request Cancelled');
+          showToast("Request Cancelled");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
-          dispatchRequest({ type: 'UPDATEQUOTA', payload: data });
-          dispatchRequest({ type: 'DELETE', payload: item.id });
-          showToast('Request deleted');
+          dispatchRequest({ type: "UPDATEQUOTA", payload: data });
+          dispatchRequest({ type: "DELETE", payload: item.id });
+          showToast("Request deleted");
           setLoading(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     }
     hide();
   };
@@ -61,14 +60,14 @@ const DeleteAlert = ({
   const onTimeLogDelete = () => {
     deleteTimeLog(item.id)
       .then(() => {
-        dispatchTimeLog({ type: 'DELETE', payload: item.id });
-        showToast('TimeLog deleted');
+        dispatchTimeLog({ type: "DELETE", payload: item.id });
+        showToast("TimeLog deleted");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
     hide();
   };
-  const positive = other ? 'YES' : 'DELETE';
-  const negative = other ? 'NO' : 'CANCEL';
+  const positive = other ? "YES" : "DELETE";
+  const negative = other ? "NO" : "CANCEL";
 
   return (
     <>
@@ -81,7 +80,7 @@ const DeleteAlert = ({
         disabled={loading}
       >
         <AppIcon
-          name={other ? 'close-circle' : 'delete'}
+          name={other ? "close-circle" : "delete"}
           color={colors.buttonRed}
           size={Normalize(20)}
         />
@@ -107,11 +106,11 @@ const DeleteAlert = ({
         }}
       >
         <View style={[style.container, { marginBottom: normalize(-20) }]}>
-          <AppIcon name='alert' color={colors.buttonRed} size={30} />
+          <AppIcon name="alert" color={colors.buttonRed} size={30} />
           <View style={[style.main, { marginBottom: normalize(-15) }]}>
             <Text style={style.text1}>
-              {other ? 'Cancel' : 'Delete'} the{' '}
-              {edittimelog ? 'task ' : timelog ? 'timelog' : 'request'} ?
+              {other ? "Cancel" : "Delete"} the{" "}
+              {edittimelog ? "task " : timelog ? "timelog" : "request"} ?
             </Text>
             <Text style={style.text2}>This can't be undone</Text>
           </View>

@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import normalize from 'react-native-normalize';
-import { ConfirmDialog } from 'react-native-simple-dialogs';
-import colors from '../../../assets/colors';
+import React, { useContext, useState } from "react";
+import { View, TouchableOpacity, Text } from "react-native";
+import normalize from "react-native-normalize";
+import { ConfirmDialog } from "react-native-simple-dialogs";
+import colors from "../../../assets/colors";
 import {
   deleteAlertStyle,
   deleteAlertStyle as style,
-} from '../../../assets/styles';
-import { AppIcon, showToast, snackBarMessage } from '../../common';
-import { dataType } from '../../interface';
-import { TimeLogContext } from '../../reducer';
-import { deleteTimeLog, editTimeLog } from '../../services/timeLogService';
-import { checkAndReplace, totalHours } from '../../utils';
-import { navigate } from '../../utils/navigation';
-import Normalize from '../../utils/normalize';
-import TaskContext from './taskContext';
+} from "../../../assets/styles";
+import { AppIcon, showToast, snackBarMessage } from "../../common";
+import { dataType } from "../../interface";
+import { TimeLogContext } from "../../reducer";
+import { deleteTimeLog, editTimeLog } from "../../services/timeLogService";
+import { checkAndReplace, totalHours } from "../../utils";
+import { navigate } from "../../utils/navigation";
+import Normalize from "../../utils/normalize";
+import TaskContext from "./taskContext";
 
 const DeleteLog = ({
   item,
@@ -60,15 +60,15 @@ const DeleteLog = ({
           }
           showToast(`Task deleted`);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     } else {
       deleteTimeLog(value.id)
         .then(() => {
-          navigate('timelog');
-          dispatchTimeLog({ type: 'DELETE', payload: value.id });
-          showToast('TimeLog deleted');
+          navigate("timelog");
+          dispatchTimeLog({ type: "DELETE", payload: value.id });
+          showToast("TimeLog deleted");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     }
   };
 
@@ -91,7 +91,7 @@ const DeleteLog = ({
         titleStyle={deleteAlertStyle.text1}
         positiveButton={{
           titleStyle: deleteAlertStyle.delete,
-          title: 'DELETE',
+          title: "DELETE",
           onPress: () => {
             onTaskDelete();
             hide();
@@ -99,7 +99,7 @@ const DeleteLog = ({
         }}
         negativeButton={{
           titleStyle: deleteAlertStyle.cancel,
-          title: 'CANCEL',
+          title: "CANCEL",
           onPress: () => hide(),
         }}
       >
