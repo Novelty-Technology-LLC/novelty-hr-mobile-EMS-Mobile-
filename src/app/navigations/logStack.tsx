@@ -1,12 +1,12 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { TimeLog, LogTime, LogListings } from '../screens';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { TimeLog, LogTime, LogListings, FullScreenImage } from "../screens";
 import {
   RequestContext,
   TimeLogContext,
   useRequest,
   useTimeLog,
-} from '../reducer';
+} from "../reducer";
 
 const LogStack = createStackNavigator();
 

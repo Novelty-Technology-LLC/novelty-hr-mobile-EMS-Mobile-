@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { ActivityIndicator, Image, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { customImageStyle } from "../../assets/styles/common/images.styles";
 import { PROFILE_IMAGE } from "../constant/global.constant";
 import { convertByteArrayToImage } from "../utils";
+import { navigate } from "../utils/navigation";
 
 const CustomImage = ({
   image,

@@ -1,12 +1,13 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack'
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 import {
   ApproveRequest,
+  FullScreenImage,
   LeaveApproval,
   LeaveDashboard,
   RequestDetail,
   RequestLeave,
-} from '../screens'
+} from "../screens";
 import {
   AdminRequestContext,
   RequestContext,
@@ -14,14 +15,14 @@ import {
   useAdmin,
   useRequest,
   useTimeLog,
-} from '../reducer'
+} from "../reducer";
 
-const ScreenStack = createStackNavigator()
+const ScreenStack = createStackNavigator();
 
 const ScreenNav = () => {
-  const { requests, dispatchRequest } = useRequest()
-  const { adminrequests, dispatchAdmin } = useAdmin()
-  const { timelogs, dispatchTimeLog } = useTimeLog()
+  const { requests, dispatchRequest } = useRequest();
+  const { adminrequests, dispatchAdmin } = useAdmin();
+  const { timelogs, dispatchTimeLog } = useTimeLog();
   return (
     <RequestContext.Provider value={{ requests, dispatchRequest }}>
       <AdminRequestContext.Provider value={{ adminrequests, dispatchAdmin }}>
@@ -46,7 +47,7 @@ const ScreenNav = () => {
         </TimeLogContext.Provider>
       </AdminRequestContext.Provider>
     </RequestContext.Provider>
-  )
-}
+  );
+};
 
-export default ScreenNav
+export default ScreenNav;
