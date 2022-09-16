@@ -33,6 +33,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
             item.status === "Denied" ||
             item.status === "Cancelled"
         );
+
         let myreq = data.filter((item) => item.status === "Pending");
         const progressreq = data.filter(
           (item) => item.status === "In Progress"
@@ -104,16 +105,18 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
         <FlatList
           extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
-          renderItem={(item) => (
-            <Request
-              item={item.item}
-              other={true}
-              recieved={true}
-              onPress={() => {
-                navigation.navigate("approveLeave", item.item);
-              }}
-            />
-          )}
+          renderItem={(item) => {
+            return (
+              <Request
+                item={item.item}
+                other={true}
+                recieved={true}
+                onPress={() => {
+                  navigation.navigate("approveLeave", item.item);
+                }}
+              />
+            );
+          }}
           keyExtractor={(item) => item.id}
         />
       )}
