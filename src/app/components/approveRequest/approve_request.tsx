@@ -13,6 +13,7 @@ import { SmallHeader } from "../../common";
 import normalize from "react-native-normalize";
 import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
+import CustomImage from "../../common/image";
 
 let leave_quota: any = {
   total_pto: 0,
@@ -81,14 +82,8 @@ const Request = ({ data, style, title = null }: any) => {
         <View style={style.container}>
           <View style={style.requestView}>
             <View style={style.imageView}>
-              <Image
-                style={style.image}
-                source={
-                  data?.user?.image_url
-                    ? { uri: data?.user?.image_url }
-                    : require("../../../assets/images/person.jpeg")
-                }
-              />
+              <CustomImage style={style.image} image={data?.user?.image_url} />
+
               <View style={style.senderView}>
                 <View style={style.statusView}>
                   <Text style={style.sender}>{name}</Text>
