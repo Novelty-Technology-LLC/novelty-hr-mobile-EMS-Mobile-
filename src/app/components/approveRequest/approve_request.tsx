@@ -100,7 +100,9 @@ const Request = ({ data, style, title = null }: any) => {
                   <Text style={style.leaveType}>
                     <Text>{data?.type}</Text>
                     {leave_option !== "FULL DAY" && (
-                      <Text style={style.leaveType}>{`(${leave_option})`}</Text>
+                      <Text
+                        style={style.leaveType}
+                      >{` (${leave_option})`}</Text>
                     )}
                   </Text>
                 </View>

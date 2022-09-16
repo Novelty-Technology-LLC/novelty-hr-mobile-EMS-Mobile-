@@ -31,6 +31,7 @@ import { DashboardCardPlaceholder } from "../../common";
 import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
 import { getWorkShift } from "../../utils/getWorkShift";
+import CustomImage from "../../common/image";
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
@@ -177,7 +178,7 @@ const DashBoard = () => {
         <View style={ds.headerContainer}>
           <Text style={headerTxtStyle.headerText}>DASHBOARD</Text>
           <TouchableOpacity onPress={() => navigate("Profile")}>
-            <Image source={{ uri: state?.user?.image_url }} style={ds.image} />
+            <CustomImage image={state?.user?.image_url} style={ds.image} />
           </TouchableOpacity>
         </View>
       </Header>

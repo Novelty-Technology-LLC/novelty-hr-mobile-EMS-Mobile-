@@ -1,12 +1,13 @@
-import React from 'react';
-import { Image } from 'react-native';
-import normalize from 'react-native-normalize';
+import React from "react";
+import { Image } from "react-native";
+import normalize from "react-native-normalize";
+import { PROFILE_IMAGE } from "../constant/global.constant";
 export const HR_ID = 1029;
 
-export const dashboarCard:any = {
+export const dashboarCard: any = {
   Menu: (
     <Image
-      source={require('../../assets/images/menu.png')}
+      source={require("../../assets/images/menu.png")}
       style={{
         width: normalize(40),
         height: normalize(30),
@@ -17,7 +18,7 @@ export const dashboarCard:any = {
   ),
   Employee: (
     <Image
-      source={require('../../assets/images/employee.png')}
+      source={require("../../assets/images/employee.png")}
       style={{
         width: normalize(42),
         height: normalize(30),
@@ -30,24 +31,32 @@ export const dashboarCard:any = {
 
 export const marking = [
   {
-    id: '1',
-    label: 'My Time',
-    color: '#6DAF7C',
+    id: "1",
+    label: "My Time",
+    color: "#6DAF7C",
   },
   {
-    id: '2',
-    label: 'Novelty Average',
-    color: '#BF8B59',
+    id: "2",
+    label: "Novelty Average",
+    color: "#BF8B59",
   },
   {
-    id: '3',
-    label: 'Base Time',
-    color: '#BCBCBC',
+    id: "3",
+    label: "Base Time",
+    color: "#BCBCBC",
   },
 ];
 
+export const convertByteArrayToImage = (byteArray: string) => {
+  const image = byteArray
+    ? `data:image/png;base64,${byteArray}`
+    : PROFILE_IMAGE;
+
+  return image;
+};
+
 export const initialState = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
   datasets: [
     {
       data: [8, 8, 8, 8, 8],

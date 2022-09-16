@@ -101,8 +101,6 @@ const LogTime = ({ route }: any) => {
 
       submitTimeLog(dataObj, selectedDate, historyDate)
         .then((data) => {
-          console.log(Array.isArray(data));
-
           if (Array.isArray(data)) {
             dispatchTimeLog({
               type: "CHANGE",
