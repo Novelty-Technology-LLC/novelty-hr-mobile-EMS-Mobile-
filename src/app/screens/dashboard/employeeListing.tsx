@@ -13,28 +13,30 @@ const EmployeeListing = (props: any) => {
   const [loading, setLoading] = useState<any>(null);
 
   useEffect(() => {
-    setLoading(true);
-    (async () => {
-      try {
-        let response: any = await getRequest(
-          "webportal/users/user-listing",
-          {}
-        );
-
-        response = response.map((item: any) => {
-          return {
-            id: item.id,
-            title: item.first_name + " " + item.last_name,
-            subTitle: item.designation,
-            image: item.image_url,
-            error: false,
-          };
-        });
-        setList(response);
-        setLoading(false);
-      } catch (error) { }
-    })();
+    listingAllEmployee();
   }, []);
+  const listingAllEmployee = async () => {
+    setLoading(true);
+
+    try {
+      let response: any = await getRequest("webportal/users/user-listing");
+
+      response = response.map((item: any) => {
+        return {
+          id: item.id,
+          title: item.first_name + " " + item.last_name,
+          subTitle: item.designation,
+          image: item.image_url,
+          error: false,
+          work_shift: item?.work_shift,
+        };
+      });
+      setList(response);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={listingStyle.mainContainer}>

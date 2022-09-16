@@ -38,9 +38,7 @@ const Profile = ({ navigation }: any) => {
 
   const cleanImage = () =>
     ImageCropper.clean()
-      .then(() => {
-        console.log("removed all tmp images from tmp directory");
-      })
+      .then(() => {})
       .catch((e) => {});
 
   const updateProfileImage = (image: any, data?: any) => {
@@ -139,9 +137,7 @@ const Profile = ({ navigation }: any) => {
       .then((image) => {
         callbackForUploadImage(image);
       })
-      .finally(() => {
-        console.log("snbjsb");
-      });
+      .finally(() => {});
   };
   const openCamera = () =>
     ImageCropper.openCamera({

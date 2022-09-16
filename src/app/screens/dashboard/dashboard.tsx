@@ -30,6 +30,7 @@ import normalize from "react-native-normalize";
 import { DashboardCardPlaceholder } from "../../common";
 import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
+import { getWorkShift } from "../../utils/getWorkShift";
 
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
@@ -90,6 +91,8 @@ const DashBoard = () => {
       setAnnouncements(response);
     } catch (error) {}
   };
+  const worksift = getWorkShift(state?.user?.work_shift);
+
   const fetchLeave = async () => {
     try {
       var response: any = await getRequest("/leave", {});
@@ -116,7 +119,6 @@ const DashBoard = () => {
 
         setCardLoading(true);
         const data: any = await getDashboard();
-        console.log("data", data);
 
         await fetchLeave();
 
@@ -127,8 +129,6 @@ const DashBoard = () => {
         setRefreshing(false);
         setCardLoading(false);
       } catch (error) {
-        console.log("error", error);
-
         setRefreshing(false);
       }
     })();
@@ -192,7 +192,11 @@ const DashBoard = () => {
           <View>
             <Text style={ds.text}>Good {time()}</Text>
             <View style={ds.gap} />
-            <Text style={ds.name}>{state?.user?.first_name}</Text>
+            <Text style={ds.name}>
+              <Text style={ds.name}>{state?.user?.first_name}</Text>
+            </Text>
+
+            <Text style={ds.workshift}>{state?.user?.work_shift}</Text>
           </View>
           <TouchableWithoutFeedback
             onPress={ToggleWork}
@@ -216,7 +220,7 @@ const DashBoard = () => {
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name="check-circle"
+                  name='check-circle'
                   color={toggle ? colors.white : colors.white}
                   size={20}
                 />

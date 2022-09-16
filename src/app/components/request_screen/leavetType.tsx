@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import normalize from 'react-native-normalize';
-import { leaveType, leaveType as style } from '../../../assets/styles';
-import { SelectButton, SmallHeader } from '../../common';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import normalize from "react-native-normalize";
+import { leaveType, leaveType as style } from "../../../assets/styles";
+import { SelectButton, SmallHeader } from "../../common";
 
 function Leavetype({
   handleChange,
@@ -12,7 +12,7 @@ function Leavetype({
   defaultValue: string;
 }) {
   const [type, setType] = useState(
-    defaultValue ? (defaultValue.toUpperCase() === 'PAID TIME OFF' ? 1 : 0) : 1
+    defaultValue ? (defaultValue.toUpperCase() === "PAID TIME OFF" ? 1 : 0) : 1
   );
 
   return (
@@ -22,7 +22,7 @@ function Leavetype({
         <View style={style.requestBody}>
           <TouchableOpacity
             onPress={() => {
-              setType(1), handleChange('type')('PAID TIME OFF');
+              setType(1), handleChange("type")("PAID TIME OFF");
             }}
             style={leaveType.button}
           >
@@ -31,7 +31,7 @@ function Leavetype({
           <View style={style.spacer}></View>
           <TouchableOpacity
             onPress={() => {
-              setType(0), handleChange('type')('FLOATING DAY');
+              setType(0), handleChange("type")("FLOATING DAY");
             }}
             style={leaveType.button}
           >
