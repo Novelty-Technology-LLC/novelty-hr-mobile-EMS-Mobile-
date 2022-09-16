@@ -11,6 +11,10 @@ import { useWindowDimensions } from "react-native";
 import { RenderHtmlComponent } from "../../common/renderHtml";
 import { getShortDate } from "../../utils";
 import { profileStyle as style } from "../../../assets/styles/tabs";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import colors from "../../../assets/colors";
+import normalize from "react-native-normalize";
+import CustomImage from "../../common/image";
 
 const ListingCard = ({ index, listLength, item, module, sa }: any) => {
   const [se, us] = useState([{ src: item.image, errored: false }]);
@@ -29,6 +33,8 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
         <View
           style={{
             flex: 1,
+            width: "100%",
+
             flexDirection: "row",
             justifyContent: "space-between",
             paddingRight: 10,
@@ -49,22 +55,42 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
         {module == "Announcements" ? (
           <RenderHtmlComponent htmlData={item.subTitle} />
         ) : (
-          <Text style={cardStyle.subTitleText}>
-            <Text>{item?.subTitle}</Text>
-            <Text>{` (${item?.work_shift})`}</Text>
-          </Text>
+          <View style={cardStyle.icon}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
+            >
+              <Icon
+                name="card-account-details"
+                color={colors.fontGrey}
+                size={normalize(12)}
+              />
+              <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
+            >
+              <Icon
+                name="timetable"
+                color={colors.fontGrey}
+                size={normalize(12)}
+              />
+              <Text
+                style={cardStyle.subTitleText}
+              >{`${item?.work_shift}`}</Text>
+            </View>
+          </View>
         )}
       </View>
       {module == "employeeList" && (
-        <Image
-          key={index}
-          style={style.headerImage}
-          source={{
-            uri: item.image,
-          }}
-          onError={(currentTarget) => {}}
-          onLoadEnd={() => {}}
-        />
+        <CustomImage style={style.headerImage} image={item.image} />
       )}
       <View>
         <State state={item?.status} />

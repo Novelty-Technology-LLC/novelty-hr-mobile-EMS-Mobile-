@@ -29,6 +29,8 @@ const EmployeeDetail = (props: any) => {
   const { state, dispatch }: any = useContext(AuthContext);
   const [onLoadImage, setLoadImage] = useState(true);
   const navigation = useNavigation<any>();
+  const [isImageLoadingError, setIsImageLoadingError] = useState(false);
+
   const imageLoading = () => {
     setLoadImage(false);
   };
@@ -78,7 +80,9 @@ const EmployeeDetail = (props: any) => {
                   ? { uri: params.image }
                   : require("../../../assets/images/employee.png")
               }
-              onPartialLoad={() => imageLoading()}
+              onLoadEnd={() => {
+                setIsImageLoadingError(true);
+              }}
               onError={(error) => imageLoading()}
             />
             {/* <View style={[style.imageWrappers, style.iconCammerWrapper]}>
