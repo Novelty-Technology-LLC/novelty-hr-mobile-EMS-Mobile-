@@ -74,10 +74,11 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
   }
 
   if (!isList) {
-    month = new Date(startDate).getMonth();
-    day = new Date(startDate).getDay();
+    month = new Date(startDate).getUTCMonth();
+    day = new Date(startDate).getUTCDay();
     /* todo : holiday date is changed acc to timezone */
-    monthdate = new Date(startDate).getDate();
+    monthdate = new Date(startDate).getUTCDate();
+
     return formatDate(month, day, monthdate);
   } else {
     return dateStringMapper(startDate, endDate);
