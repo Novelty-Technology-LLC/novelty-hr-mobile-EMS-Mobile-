@@ -1,18 +1,33 @@
-import React, { useContext } from "react";
-import { View, Text } from "react-native";
+import React from "react";
+import { StatusBar, View } from "react-native";
 import { settingStyle as style } from "../../assets/styles/tabs";
-import { tabHeader as Header } from "../common";
 import { globalStyle, headerTxtStyle } from "../../assets/styles";
-import { ComingSoon as Soon } from "../common";
-import { AuthContext } from "../reducer";
 import CustomImage from "../common/image";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import colors from "../../assets/colors";
+import { goBack } from "../utils/navigation";
 
-const FullScreenImage = ({ route, navigation }: any) => {
+export const FullImageScreen = ({ route, navigation }: any) => {
+  console.log("route?.image", route?.params?.image);
+
   return (
     <View style={style.container}>
-      <CustomImage image={route?.image} style={globalStyle.fullScreen} />
+      <StatusBar hidden={true} />
+
+      <CustomImage
+        image={route?.params?.image}
+        style={globalStyle.fullScreen}
+        resizemode="contain"
+      />
+      <Icon
+        name="close-circle"
+        color={colors.primary}
+        size={30}
+        style={{ alignSelf: "flex-end", position: "absolute", padding: 15 }}
+        onPress={() => {
+          goBack();
+        }}
+      />
     </View>
   );
 };
-
-export { FullScreenImage };

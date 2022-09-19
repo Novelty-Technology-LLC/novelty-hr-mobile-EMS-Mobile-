@@ -15,6 +15,10 @@ const customImageStyle = StyleSheet.create({
     height: normalize(80),
     width: normalize(80),
   },
+  container: {
+    height: normalize(80),
+    width: normalize(80),
+  },
 });
 
 export { customImageStyle };

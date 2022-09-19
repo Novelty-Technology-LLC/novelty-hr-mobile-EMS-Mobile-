@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 const globalStyle = StyleSheet.create({
   safeArea: {
     flex: 1,
   },
   fullScreen: {
-    width: "100%",
-    height: "100%",
+    backgroundColor: colors.black,
+    flex: 1,
   },
 });
 

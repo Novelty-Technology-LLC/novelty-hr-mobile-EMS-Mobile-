@@ -7,6 +7,7 @@ import {
   useRequest,
   useTimeLog,
 } from "../reducer";
+import { FullImageScreen } from "../screens/full_screen_image";
 
 const LogStack = createStackNavigator();
 
