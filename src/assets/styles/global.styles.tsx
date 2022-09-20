@@ -9,6 +9,11 @@ const globalStyle = StyleSheet.create({
     backgroundColor: colors.black,
     flex: 1,
   },
+  closeIconFullScreen: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    padding: 15,
+  },
 });
 
 export { globalStyle };

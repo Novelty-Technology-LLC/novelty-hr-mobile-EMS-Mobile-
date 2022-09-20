@@ -21,7 +21,7 @@ export const FullImageScreen = ({ route, navigation }: any) => {
         name="close-circle"
         color={colors.primary}
         size={30}
-        style={{ alignSelf: "flex-end", position: "absolute", padding: 15 }}
+        style={globalStyle.closeIconFullScreen}
         onPress={() => {
           goBack();
         }}
