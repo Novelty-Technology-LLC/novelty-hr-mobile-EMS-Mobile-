@@ -1,16 +1,18 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import colors from '../../assets/colors';
-import { leaveDashboardStyle as style } from '../../assets/styles';
-import { AppIcon } from '../common';
-import { navigate } from '../utils/navigation';
+import React from "react";
+import { TouchableOpacity } from "react-native";
+import colors from "../../assets/colors";
+import { leaveDashboardStyle as style } from "../../assets/styles";
+import { AppIcon } from "../common";
+import { navigate } from "../utils/navigation";
 
 const RequestButton = ({
   screen,
   addToList,
   olddata,
+  floatingIcon = "plus",
 }: {
   screen: string;
+  floatingIcon?: string;
   addToList?: Boolean;
   olddata?: Object;
 }) => {
@@ -22,7 +24,7 @@ const RequestButton = ({
           navigate(screen, olddata);
         }}
       >
-        <AppIcon name="plus" color={colors.white} size={30} />
+        <AppIcon name={floatingIcon} color={colors.white} size={30} />
       </TouchableOpacity>
     </>
   );

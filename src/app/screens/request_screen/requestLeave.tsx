@@ -203,7 +203,7 @@ const RequestLeave = ({ route }: any) => {
               { days: -oldday, dayType: olddata.type },
             ];
           }
-          dayArray.map((day) => {
+          dayArray.map((day: any) => {
             if (values.type === day.dayType) {
               // if (checkValidityQuota(requests.quota, values.type, day.days)) {
               //   throw new Error(`Selected day exceeds ${values.type}`);
@@ -253,6 +253,7 @@ const RequestLeave = ({ route }: any) => {
         };
 
         setisLoading(true);
+
         Keyboard.dismiss();
         olddata ? updateReq(requestData) : submitRequest(requestData);
       } catch (error) {

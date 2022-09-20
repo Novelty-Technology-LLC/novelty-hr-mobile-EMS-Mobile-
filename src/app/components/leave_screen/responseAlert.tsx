@@ -1,22 +1,30 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, Platform } from 'react-native';
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, Platform } from "react-native";
 import {
+  approveRequest,
   deleteAlertStyle,
   editAlertStyle as style,
   requestStyle,
-} from '../../../assets/styles';
-import RequestWithImage from './requestWithImage';
-import Textarea from 'react-native-textarea';
-import { dataType } from '../../interface';
-import { AppIcon, showToast, snackBarMessage } from '../../common';
-import { useNavigation } from '@react-navigation/native';
-import colors from '../../../assets/colors';
-import { AdminRequestContext, AuthContext } from '../../reducer';
-import { updateRequest } from '../../services';
-import { ConfirmDialog } from 'react-native-simple-dialogs';
-import normalize from 'react-native-normalize';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+} from "../../../assets/styles";
+import RequestWithImage from "./requestWithImage";
+import Textarea from "react-native-textarea";
+import { dataType } from "../../interface";
+import { AppIcon, showToast, snackBarMessage } from "../../common";
+import { useNavigation } from "@react-navigation/native";
+import colors from "../../../assets/colors";
+import { AdminRequestContext, AuthContext } from "../../reducer";
+import { getResponses, updateRequest } from "../../services";
+import { ConfirmDialog } from "react-native-simple-dialogs";
+import normalize from "react-native-normalize";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { QuotaPlaceHolder } from "../loader";
 
+let leave_quota: any = {
+  total_pto: 0,
+  total_float: 0,
+  used_pto: 0,
+  used_float: 0,
+};
 const EditAlert = ({
   item,
   status,
@@ -31,19 +39,21 @@ const EditAlert = ({
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(true);
   let [action, setAction] = useState(status);
-  const [note, setNote] = useState('');
+  const [note, setNote] = useState("");
   const show = () => setShowAlert(true);
   const hide = () => {
     setShowAlert(false);
     setShow(false);
   };
+  const [loading, setLoading] = useState(false);
 
   const { state } = useContext(AuthContext);
   const { dispatchAdmin } = useContext(AdminRequestContext);
+  const [responses, setresponses] = useState();
 
   const onSubmit = async () => {
-    action === 'Approve' && (action = 'Approved');
-    action === 'Deny' && (action = 'Denied');
+    action === "Approve" && (action = "Approved");
+    action === "Deny" && (action = "Denied");
 
     const newData = {
       leave_id: item.id,
@@ -63,15 +73,44 @@ const EditAlert = ({
     updateRequest(item.id, newData).then((data) => {
       item.state = data.status;
       dispatchAdmin({
-        type: 'REPLY',
+        type: "REPLY",
         payload: item,
       });
-      navigation.navigate('leaveList');
+      navigation.navigate("leaveList");
       setisLoading(true);
-      showToast('Request replied');
+      showToast("Request replied");
     });
   };
+  const getRequest = async (item: any) => {
+    try {
+      const res: any = await getResponses(
+        item.id,
+        item.device_tokens[0].user_id
+      );
 
+      const pto_leaves = res[0]?.leaveQuota?.find(
+        (item) => item.leave_type === "PAID TIME OFF"
+      );
+      const float_leaves = res[0]?.leaveQuota?.find(
+        (item) => item.leave_type === "FLOATING DAY"
+      );
+      leave_quota = {
+        total_pto: pto_leaves?.leave_total,
+        total_float: float_leaves?.leave_total,
+        used_pto: pto_leaves?.leave_used,
+        used_float: float_leaves?.leave_used,
+      };
+      setresponses(leave_quota);
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getRequest(item);
+  }, []);
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <ConfirmDialog
@@ -82,7 +121,7 @@ const EditAlert = ({
         }}
         positiveButton={{
           titleStyle: style.delete,
-          title: 'SUBMIT',
+          title: "SUBMIT",
           onPress: () => {
             onSubmit();
             hide();
@@ -90,70 +129,94 @@ const EditAlert = ({
         }}
         negativeButton={{
           titleStyle: style.cancel,
-          title: 'CANCEL',
+          title: "CANCEL",
           onPress: () => hide(),
         }}
         keyboardDismissMode="on-drag"
-        overlayStyle={Platform.OS === 'ios' && { paddingBottom: 120 }}
+        overlayStyle={Platform.OS === "ios" && { paddingBottom: 120 }}
       >
-        <View
-          style={{ marginBottom: normalize(-15), marginRight: normalize(-3) }}
-        >
-          <View style={style.titleView}>
-            <Text style={style.title}>Your response is ready to go</Text>
-          </View>
-          <View style={style.row}>
-            <RequestWithImage item={item} />
-            <View style={style.gap}></View>
-            <View style={style.stateView}>
-              <View style={requestStyle.rowAlign}>
-                {action === 'Approve' && (
-                  <View style={{ marginRight: 5 }}>
-                    <AppIcon
-                      name="check-circle"
-                      size={15}
-                      color={colors.green}
-                    ></AppIcon>
-                  </View>
-                )}
-                <Text
-                  style={requestStyle.state}
-                  onPress={() => setAction('Approve')}
-                >
-                  Approve
-                </Text>
+        {!responses ? (
+          <QuotaPlaceHolder />
+        ) : (
+          <View
+            style={{ marginBottom: normalize(-15), marginRight: normalize(-3) }}
+          >
+            <View style={style.titleView}>
+              <Text style={style.title}>Your response is ready to go</Text>
+            </View>
+            <View style={style.row}>
+              <RequestWithImage item={item} />
+              <View style={style.gap}></View>
+              <View style={style.stateView}>
+                <View style={requestStyle.rowAlign}>
+                  {action === "Approve" && (
+                    <View style={{ marginRight: 5 }}>
+                      <AppIcon
+                        name="check-circle"
+                        size={15}
+                        color={colors.green}
+                      ></AppIcon>
+                    </View>
+                  )}
+                  <Text
+                    style={requestStyle.state}
+                    onPress={() => setAction("Approve")}
+                  >
+                    Approve
+                  </Text>
+                </View>
+                <View style={requestStyle.rowAlign}>
+                  {action === "Deny" && (
+                    <View style={{ marginRight: 5 }}>
+                      <AppIcon
+                        name="check-circle"
+                        size={15}
+                        color={colors.green}
+                      ></AppIcon>
+                    </View>
+                  )}
+                  <Text
+                    style={requestStyle.state}
+                    onPress={() => setAction("Deny")}
+                  >
+                    Deny
+                  </Text>
+                </View>
               </View>
-              <View style={requestStyle.rowAlign}>
-                {action === 'Deny' && (
-                  <View style={{ marginRight: 5 }}>
-                    <AppIcon
-                      name="check-circle"
-                      size={15}
-                      color={colors.green}
-                    ></AppIcon>
-                  </View>
-                )}
-                <Text
-                  style={requestStyle.state}
-                  onPress={() => setAction('Deny')}
-                >
-                  Deny
+            </View>
+            <View style={{ marginTop: 10 }}></View>
+            <View style={approveRequest.cardFooterContainer}>
+              <View style={approveRequest.cardFooter}>
+                <Text style={approveRequest.remainingLeave}>
+                  {"Remaining :"}
+                </Text>
+                <Text>
+                  <Text style={approveRequest.totalDays}>
+                    {leave_quota.used_pto + "/" + leave_quota.total_pto}
+                  </Text>
+                  <Text style={approveRequest.leaveTypes}>{" PTO"}</Text>
+                </Text>
+                <Text>
+                  <Text style={approveRequest.totalDays}>
+                    {leave_quota.used_float + "/" + leave_quota.total_float}
+                  </Text>
+                  <Text style={approveRequest.leaveTypes}>{" Floating "}</Text>
                 </Text>
               </View>
             </View>
+            <View style={style.main}>
+              <Textarea
+                containerStyle={style.textareaContainer}
+                style={style.textArea}
+                maxLength={200}
+                placeholder={"Write a short note for your response"}
+                placeholderTextColor={"#c7c7c7"}
+                underlineColorAndroid={"transparent"}
+                onChangeText={(data: string) => setNote(data)}
+              />
+            </View>
           </View>
-          <View style={style.main}>
-            <Textarea
-              containerStyle={style.textareaContainer}
-              style={style.textArea}
-              maxLength={200}
-              placeholder={'Write a short note for your response'}
-              placeholderTextColor={'#c7c7c7'}
-              underlineColorAndroid={'transparent'}
-              onChangeText={(data: string) => setNote(data)}
-            />
-          </View>
-        </View>
+        )}
       </ConfirmDialog>
     </View>
   );

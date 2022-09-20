@@ -8,8 +8,6 @@ import colors from "../../assets/colors";
 import { goBack } from "../utils/navigation";
 
 export const FullImageScreen = ({ route, navigation }: any) => {
-  console.log("route?.image", route?.params?.image);
-
   return (
     <View style={style.container}>
       <StatusBar hidden={true} />

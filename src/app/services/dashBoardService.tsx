@@ -1,10 +1,10 @@
-import { api } from '../api/api';
-import { getToday } from '../utils';
+import { api } from "../api/api";
+import { getToday, getYesterday } from "../utils";
 
 const getDashboard = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await api.get('/dashboard', {
+      const res = await api.get("/dashboard", {
         params: {
           todayDate: getToday(),
         },
@@ -19,6 +19,8 @@ const getDashboard = () => {
 
 const getList = (route: string) => {
   return new Promise(async (resolve, reject) => {
+    console.log("routeroute", route);
+
     try {
       const res = await api.get(`/dashboard/${route}`, {
         params: {

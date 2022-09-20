@@ -171,7 +171,7 @@ const Profile = ({ navigation }: any) => {
         setloading(false);
         refRBSheet?.current?.close();
         setLoad(false);
-        navigation.navigate("Dashboard");
+        // navigation.navigate("Dashboard");
       })
       .catch((err) => {
         refRBSheet?.current?.close();
