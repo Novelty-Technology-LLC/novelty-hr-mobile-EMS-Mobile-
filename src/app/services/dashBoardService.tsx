@@ -19,8 +19,6 @@ const getDashboard = () => {
 
 const getList = (route: string) => {
   return new Promise(async (resolve, reject) => {
-    console.log("routeroute", route);
-
     try {
       const res = await api.get(`/dashboard/${route}`, {
         params: {

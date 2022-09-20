@@ -255,6 +255,7 @@ const RequestLeave = ({ route }: any) => {
         setisLoading(true);
 
         Keyboard.dismiss();
+
         olddata ? updateReq(requestData) : submitRequest(requestData);
       } catch (error) {
         if (!error.message.includes("Selected day exceeds"))
