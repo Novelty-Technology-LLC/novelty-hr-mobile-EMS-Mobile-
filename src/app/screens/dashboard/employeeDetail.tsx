@@ -21,6 +21,7 @@ import normalize from "react-native-normalize";
 import colors from "../../../assets/colors";
 import { AuthContext } from "../../reducer";
 import { useNavigation } from "@react-navigation/native";
+import CustomImage from "../../common/image";
 
 const EmployeeDetail = (props: any) => {
   const [data, setData] = useState<any>({});
@@ -73,21 +74,11 @@ const EmployeeDetail = (props: any) => {
             />
           </View>
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
-            <Image
+            <CustomImage
+              fullScreen={false}
+              image={params?.image}
               style={[style.image, style.profileImageWrapper]}
-              source={
-                onLoadImage
-                  ? { uri: params.image }
-                  : require("../../../assets/images/employee.png")
-              }
-              onLoadEnd={() => {
-                setIsImageLoadingError(true);
-              }}
-              onError={(error) => imageLoading()}
             />
-            {/* <View style={[style.imageWrappers, style.iconCammerWrapper]}>
-              <Icon name="camera" color="white" size={20}></Icon>
-            </View> */}
           </View>
         </ScrollView>
       )}

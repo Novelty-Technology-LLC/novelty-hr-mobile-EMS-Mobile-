@@ -14,6 +14,7 @@ import normalize from "react-native-normalize";
 import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import CustomImage from "../../common/image";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 let leave_quota: any = {
   total_pto: 0,

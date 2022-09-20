@@ -1,15 +1,15 @@
-import { StyleSheet, Platform } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import { theme, fonts, color } from '../theme';
+import { StyleSheet, Platform } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import { theme, fonts, color } from "../theme";
 
 const leaveType = StyleSheet.create({
   container: {},
   wrapper: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
     marginHorizontal: normalize(15),
   },
   padNone: {
@@ -22,33 +22,37 @@ const leaveType = StyleSheet.create({
     marginVertical: normalize(10),
   },
   body: {
-    width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  scrollHorizontal: {
+    width: normalize(120),
+    paddingHorizontal: normalize(5),
   },
   requestBody: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: normalize(5),
   },
   button: {
-    width: '48%',
+    width: "48%",
     marginBottom: normalize(15),
   },
   editdate: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
     paddingHorizontal: normalize(15),
   },
   projectbutton: {
     ...Platform.select({
       ios: {
-        width: '31%',
+        width: "31%",
       },
       android: {
-        width: '32%',
+        width: "32%",
       },
     }),
     marginBottom: normalize(5),
@@ -66,15 +70,15 @@ const leaveType = StyleSheet.create({
   },
 
   moreContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
 

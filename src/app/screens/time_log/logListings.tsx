@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { header as Header } from '../../common';
+import React, { useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import { header as Header } from "../../common";
 import {
   leaveType as style,
   requestLeave,
   historyStyle,
   headerTxtStyle,
   theme,
-} from '../../../assets/styles';
-import colors from '../../../assets/colors';
-import { momentdate } from '../../utils';
-import { Tasks } from '../../components/time_log';
-import TaskContext from '../../components/time_log/taskContext';
-import { RequestButton } from '../../components/requestButton';
-import normalize from 'react-native-normalize';
+} from "../../../assets/styles";
+import colors from "../../../assets/colors";
+import { momentdate } from "../../utils";
+import { Tasks } from "../../components/time_log";
+import TaskContext from "../../components/time_log/taskContext";
+import { RequestButton } from "../../components/requestButton";
+import normalize from "react-native-normalize";
 
 const LogListings = ({ route }: any) => {
   let olddata = route.params;
@@ -25,7 +25,7 @@ const LogListings = ({ route }: any) => {
         <Text
           style={[headerTxtStyle.headerText, { marginLeft: normalize(20) }]}
         >
-          {olddata[0] ?? 'Log Time'}
+          {olddata[0] ?? "Log Time"}
         </Text>
       </Header>
       <ScrollView
@@ -37,7 +37,7 @@ const LogListings = ({ route }: any) => {
             <View style={style.padNone}>
               <View style={style.editdate}>
                 <Text style={style.text}>
-                  Project:{' '}
+                  Project:{" "}
                   <Text style={{ color: colors.primary }}>
                     {olddata[0] ?? olddata.project.name}
                   </Text>
@@ -51,14 +51,14 @@ const LogListings = ({ route }: any) => {
                     },
                   ]}
                 >
-                  {momentdate(olddata.log_date, 'll')}
+                  {momentdate(olddata.log_date, "ll")}
                 </Text>
               </View>
             </View>
           </View>
         )}
         {tasks[0] ? (
-          tasks[1].map((item:any) => (
+          tasks[1].map((item: any) => (
             <Tasks
               key={item.id}
               value={item}
@@ -79,7 +79,7 @@ const LogListings = ({ route }: any) => {
           olddata={{
             id: olddata[0] ? null : olddata.id,
             log_date: olddata[0]
-              ? olddata.groupby === 'Date'
+              ? olddata.groupby === "Date"
                 ? olddata[0]
                 : null
               : olddata.log_date,

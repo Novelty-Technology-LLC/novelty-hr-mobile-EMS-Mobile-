@@ -16,14 +16,14 @@ const RequestWithImage = ({ item, onPress }: any) => {
   return (
     <TouchableOpacity onPress={() => onPress && onPress()}>
       <View style={style.row}>
-        <CustomImage style={style.image} image={item.user.image_url} />
+        <CustomImage style={style.image} image={item?.user?.image_url} />
 
         <View>
           <Text style={style.name}>{name}</Text>
           <Text style={style.type}>
             <Text> {item.type}</Text>
             {leave_option !== "FULL DAY" && (
-              <Text> {` (${leave_option})`}</Text>
+              <Text style={style.option}> {` (${leave_option})`}</Text>
             )}
           </Text>
           <View style={style.date}>

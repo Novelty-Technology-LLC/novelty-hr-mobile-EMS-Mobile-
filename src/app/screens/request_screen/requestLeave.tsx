@@ -178,14 +178,32 @@ const RequestLeave = ({ route }: any) => {
 
           day = dateMapper(startDate, endDate);
           if (olddata.type === values.type) {
+            // if (
+            //   olddata.leave_option === "FIRST HALF" ||
+            //   olddata.leave_option === "SECOND HALF"
+            // ) {
+            //   oldday = oldday * 0.5;
+            // } else {
+            //   oldday = oldday * 1;
+            // }
             dayArray = [{ days: day - oldday, dayType: values.type }];
           } else {
+            // if (
+            //   olddata.leave_option === "FIRST HALF" ||
+            //   olddata.leave_option === "SECOND HALF"
+            // ) {
+            //   day = day * 0.5;
+            //   oldday = oldday * 0.5;
+            // } else {
+            //   day = day * 1;
+            //   oldday = oldday * 1;
+            // }
             dayArray = [
               { days: day, dayType: values.type },
               { days: -oldday, dayType: olddata.type },
             ];
           }
-          dayArray.map((day) => {
+          dayArray.map((day: any) => {
             if (values.type === day.dayType) {
               // if (checkValidityQuota(requests.quota, values.type, day.days)) {
               //   throw new Error(`Selected day exceeds ${values.type}`);
@@ -200,16 +218,24 @@ const RequestLeave = ({ route }: any) => {
         }
         delete values.date;
 
-        let dayData: any = olddata ? dayArray[0].days : day;
+        let dayData: any = olddata ? dayArray : day;
         if (selectedIndex === 0) {
-          dayData = dayData * 1;
+          if (Array.isArray(dayData)) {
+            dayData = dayArray;
+          } else {
+            dayData = dayData * 1;
+          }
         } else {
           if (selectedIndex === 1) {
             leave_option = "FIRST HALF";
           } else {
             leave_option = "SECOND HALF";
           }
-          dayData = dayData * 0.5;
+          if (Array.isArray(dayData)) {
+            dayData = dayArray;
+          } else {
+            dayData = dayData * 0.5;
+          }
         }
 
         const requestData = {
@@ -227,7 +253,9 @@ const RequestLeave = ({ route }: any) => {
         };
 
         setisLoading(true);
+
         Keyboard.dismiss();
+
         olddata ? updateReq(requestData) : submitRequest(requestData);
       } catch (error) {
         if (!error.message.includes("Selected day exceeds"))

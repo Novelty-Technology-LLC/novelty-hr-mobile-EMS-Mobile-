@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Platform } from "react-native";
 import {
   descriptionStyle,
   leaveType as style,
@@ -10,6 +10,7 @@ import { ProjectPlaceHolder } from "../loader";
 import colors from "../../../assets/colors";
 import { AppIcon, SelectButton, SmallHeader } from "../../common";
 import { getUser } from "../../utils";
+import normalize from "react-native-normalize";
 
 const Projects = ({
   handleChange,
@@ -47,7 +48,7 @@ const Projects = ({
           );
           setAllprojects(selectedProject.concat(unselectedProject));
         } else {
-          setProjects([...data].splice(0, 3));
+          setProjects(data);
           setAllprojects(data);
         }
         setType(defaultValue ? defaultValue : data[0].id);
@@ -70,7 +71,8 @@ const Projects = ({
         if (!projects.find((x: any) => x.id === type) && selectedProject) {
           projects.unshift(selectedProject);
         }
-        setProjects(projects.splice(0, 3));
+        // setProjects(projects.splice(0, 3));
+        setProjects(allprojects);
       }
     } else {
       setProjects(allprojects);
@@ -113,9 +115,28 @@ const Projects = ({
             </TouchableOpacity>
           </View>
           {loading && <ProjectPlaceHolder />}
-          <View style={style.body}>
-            {projects &&
-              projects.map((project: any, index: number) => (
+          {projects && showmore !== "chevron-up-circle" ? (
+            <FlatList
+              horizontal={true}
+              data={projects}
+              renderItem={({ item, index, separators }) => (
+                <View style={style.scrollHorizontal}>
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      setType(item?.id),
+                        handleChange("project_id")(item?.id.toString());
+                    }}
+                  >
+                    <SelectButton text={item.name} active={type === item.id} />
+                  </TouchableOpacity>
+                </View>
+              )}
+              keyExtractor={(item) => item?.id}
+            />
+          ) : (
+            <View style={[style.body]}>
+              {projects.map((project: any, index: number) => (
                 <Fragment key={index}>
                   <TouchableOpacity
                     key={index}
@@ -133,7 +154,8 @@ const Projects = ({
                   {index % 3 !== 2 && <View style={style.spacer}></View>}
                 </Fragment>
               ))}
-          </View>
+            </View>
+          )}
         </>
         {error.project_id && touched.project_id && (
           <Text style={descriptionStyle.error}>{error.project_id}</Text>
