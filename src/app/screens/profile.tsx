@@ -171,7 +171,7 @@ const Profile = ({ navigation }: any) => {
         setloading(false);
         refRBSheet?.current?.close();
         setLoad(false);
-        navigation.navigate("Dashboard");
+        // navigation.navigate("Dashboard");
       })
       .catch((err) => {
         refRBSheet?.current?.close();
@@ -259,7 +259,9 @@ const Profile = ({ navigation }: any) => {
             <CustomImage
               style={[style.image, style.profileImageWrapper]}
               image={uri}
+              fullScreen={false}
             />
+
             <View style={style.iconCammerWrapper}>
               <TouchableOpacity
                 style={[style.imageWrappers]}
@@ -287,34 +289,3 @@ const Profile = ({ navigation }: any) => {
 };
 
 export { Profile };
-
-// {
-//   loading ? (
-//     <ActivityIndicator
-//       size="large"
-//       color={colors.white}
-//       style={{ marginTop: normalize(10) }}
-//     />
-//   ) : (
-//     <View style={style.label}>
-//       {image && image?.visible !== false ? (
-//         <View style={style.confirm}></View>
-//       ) : (
-//         <View style={style.textContainer}>
-//           <TouchableOpacity onPress={() => uploadImage(true)}>
-//             <View style={style.label}>
-//               <Icon name="upload" color="white" size={20}></Icon>
-//               <Text style={style.labelText}>Upload from library</Text>
-//             </View>
-//           </TouchableOpacity>
-//           <TouchableOpacity onPress={() => uploadImage(false)}>
-//             <View style={style.label}>
-//               <Icon name="camera" color="white" size={20}></Icon>
-//               <Text style={style.labelText}>Take a photo</Text>
-//             </View>
-//           </TouchableOpacity>
-//         </View>
-//       )}
-//     </View>
-//   );
-// }

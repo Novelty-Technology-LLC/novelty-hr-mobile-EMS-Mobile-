@@ -11,6 +11,7 @@ import TabNavigator from "./tabNavigator";
 import Invalid from "../screens/auth_screen/invalid";
 import Loading from "../screens/auth_screen/loading";
 import { navigationRef } from "../utils/navigation";
+import { FullImageScreen } from "../screens/full_screen_image";
 
 const Root = createStackNavigator();
 
@@ -102,6 +103,7 @@ const RootNavigation = () => {
           <Root.Screen name="login" component={Login} />
           <Root.Screen name="loading" component={Loading} />
           <Root.Screen name="invalid" component={Invalid} />
+          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
           <Root.Screen
             name="BottomTabs"
             component={TabNavigator}
