@@ -11,11 +11,18 @@ const transformTitle = (title: string, transform: boolean) => {
 
 const checkToday = (startDate: Date, endDate: Date) => {
   let todaydate = new Date().toDateString();
-  if (new Date().getDay() === 0 || new Date().getDay() === 6) return false;
-  return checkRepeat(
-    { startDate: todaydate, endDate: todaydate },
-    JSON.stringify({ startDate, endDate })
-  );
+
+  if (new Date().getUTCDay() === 0 || new Date().getUTCDay() === 6) {
+    return false;
+  } else {
+    return checkRepeat(
+      { startDate: todaydate, endDate: todaydate },
+      JSON.stringify({
+        startDate: new Date(startDate).toDateString(),
+        endDate: new Date(endDate).toDateString(),
+      })
+    );
+  }
 };
 
 const checkTomorrow = (date: Date) => {
