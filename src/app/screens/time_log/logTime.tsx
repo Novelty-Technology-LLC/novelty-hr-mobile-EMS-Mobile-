@@ -27,7 +27,6 @@ import { useNavigation } from "@react-navigation/native";
 import colors from "../../../assets/colors";
 import { TimeLogContext } from "../../reducer";
 import { checkAndReplace, momentdate } from "../../utils/momentDate";
-import Normalize from "../../utils/normalize";
 
 const LogTime = ({ route }: any) => {
   const navigation = useNavigation();
@@ -101,8 +100,6 @@ const LogTime = ({ route }: any) => {
 
       submitTimeLog(dataObj, selectedDate, historyDate)
         .then((data) => {
-          console.log(Array.isArray(data));
-
           if (Array.isArray(data)) {
             dispatchTimeLog({
               type: "CHANGE",
@@ -121,7 +118,7 @@ const LogTime = ({ route }: any) => {
             showToast("TimeLog updated");
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {});
     } else {
       Keyboard.dismiss();
       setIsLoading(false);

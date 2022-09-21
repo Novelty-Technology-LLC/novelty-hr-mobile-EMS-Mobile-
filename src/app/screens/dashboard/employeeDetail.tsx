@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -7,47 +7,44 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-} from 'react-native'
-import { headerTxtStyle, listingStyle } from '../../../assets/styles'
-import { getRequest } from '../../services'
-import { header as Header } from '../../common'
-import { ProfileInfoComponent } from '../../common/profileInformation'
-import { ListPlaceholder } from '../../components/loader/listPlaceHolder'
+} from "react-native";
+import { headerTxtStyle, listingStyle } from "../../../assets/styles";
+import { getRequest } from "../../services";
+import { header as Header } from "../../common";
+import { ProfileInfoComponent } from "../../common/profileInformation";
+import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import {
   profileStyle,
   profileStyle as style,
-} from '../../../assets/styles/tabs'
-import normalize from 'react-native-normalize'
-import colors from '../../../assets/colors'
-import { AuthContext } from '../../reducer'
-import { useNavigation } from '@react-navigation/native'
+} from "../../../assets/styles/tabs";
+import normalize from "react-native-normalize";
+import colors from "../../../assets/colors";
+import { AuthContext } from "../../reducer";
+import { useNavigation } from "@react-navigation/native";
 
 const EmployeeDetail = (props: any) => {
-  const [data, setData] = useState<any>({})
-  const [loading, setLoading] = useState<any>(true)
-  const params = props.route.params
-  const { state, dispatch }: any = useContext(AuthContext)
-  const [onLoadImage, setLoadImage] = useState(true)
-  const navigation = useNavigation<any>()
+  const [data, setData] = useState<any>({});
+  const [loading, setLoading] = useState<any>(true);
+  const params = props.route.params;
+  const { state, dispatch }: any = useContext(AuthContext);
+  const [onLoadImage, setLoadImage] = useState(true);
+  const navigation = useNavigation<any>();
+  const [isImageLoadingError, setIsImageLoadingError] = useState(false);
+
   const imageLoading = () => {
-    setLoadImage(false)
-  }
+    setLoadImage(false);
+  };
   useEffect(() => {
-    ; (async () => {
+    (async () => {
       try {
-        console.log(params.id);
+        const id = params.id;
+        let response = await getRequest(`user/${id}`, {});
 
-        const id = params.id
-        let response = await getRequest(`user/${id}`, {})
-        console.log(response);
-
-
-
-        setData(response)
-        setLoading(false)
-      } catch (error) { }
-    })()
-  }, [])
+        setData(response);
+        setLoading(false);
+      } catch (error) {}
+    })();
+  }, []);
 
   return (
     <View style={listingStyle.mainContainer}>
@@ -70,7 +67,10 @@ const EmployeeDetail = (props: any) => {
         >
           <View style={profileStyle.topContainer}></View>
           <View style={profileStyle.infoStyle}>
-            <ProfileInfoComponent user={data ?? data} chekUserInfo={state.user} />
+            <ProfileInfoComponent
+              user={data ?? data}
+              chekUserInfo={state.user}
+            />
           </View>
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
             <Image
@@ -78,9 +78,11 @@ const EmployeeDetail = (props: any) => {
               source={
                 onLoadImage
                   ? { uri: params.image }
-                  : require('../../../assets/images/employee.png')
+                  : require("../../../assets/images/employee.png")
               }
-              onPartialLoad={() => imageLoading()}
+              onLoadEnd={() => {
+                setIsImageLoadingError(true);
+              }}
               onError={(error) => imageLoading()}
             />
             {/* <View style={[style.imageWrappers, style.iconCammerWrapper]}>
@@ -90,7 +92,7 @@ const EmployeeDetail = (props: any) => {
         </ScrollView>
       )}
     </View>
-  )
-}
+  );
+};
 
-export { EmployeeDetail }
+export { EmployeeDetail };

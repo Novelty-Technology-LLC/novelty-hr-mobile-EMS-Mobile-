@@ -10,7 +10,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./tabNavigator";
 import Invalid from "../screens/auth_screen/invalid";
 import Loading from "../screens/auth_screen/loading";
-import { navigationRef } from "../utils/navigation";
+import { navigate, navigationRef } from "../utils/navigation";
+import SplashScreens from "react-native-splash-screen";
 
 const Root = createStackNavigator();
 
@@ -36,7 +37,7 @@ const RootNavigation = () => {
           [
             {
               text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
+              onPress: () => {},
               style: "cancel",
             },
             { text: "UPDATE", onPress: () => goToStore() },
@@ -44,9 +45,7 @@ const RootNavigation = () => {
           { cancelable: false }
         );
       }
-    } catch (e) {
-      console.log("errror checking version");
-    }
+    } catch (e) {}
   };
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -57,9 +56,7 @@ const RootNavigation = () => {
         const user = await getUser();
 
         dispatch({ type: "STORE_USER", user: JSON.parse(user) });
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     };
 
     bootstrapAsync();
@@ -90,8 +87,25 @@ const RootNavigation = () => {
       },
     },
   };
+  const tryLocalSignIn = async () => {
+    SplashScreens.hide();
+    try {
+      let userToken = await getToken();
+      if (userToken) {
+        navigate("BottomTabs");
+      } else {
+        navigate("login");
+      }
+    } catch (e) {}
+  };
+  let userToken = getToken();
+
   return (
-    <NavigationContainer linking={deepLinking} ref={navigationRef}>
+    <NavigationContainer
+      linking={deepLinking}
+      ref={navigationRef}
+      onReady={() => tryLocalSignIn()}
+    >
       <AuthContext.Provider value={{ state, dispatch }}>
         <Root.Navigator
           screenOptions={{

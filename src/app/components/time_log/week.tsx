@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { historyStyle, myRequestsStyle } from '../../../assets/styles';
-import { EmptyContainer, SmallHeader } from '../../common';
-import HistoryToggle from '../../common/historyToggle';
-import { UserPlaceHolder } from '../loader';
-import { TimeLog } from './timelog';
-import { TimeLogContext } from '../../reducer';
-import { getUser, groupBydate, groupByproject } from '../../utils';
-import { getFilteredTimeLogs } from '../../services/timeLogService';
-import { thisWeek } from '../../utils/dateFilter';
-import DropDownView from './dropDown';
+import React, { useContext, useEffect, useState } from "react";
+import { View } from "react-native";
+import { historyStyle, myRequestsStyle } from "../../../assets/styles";
+import { EmptyContainer, SmallHeader } from "../../common";
+import HistoryToggle from "../../common/historyToggle";
+import { UserPlaceHolder } from "../loader";
+import { TimeLog } from "./timelog";
+import { TimeLogContext } from "../../reducer";
+import { getUser, groupBydate, groupByproject } from "../../utils";
+import { getFilteredTimeLogs } from "../../services/timeLogService";
+import { thisWeek } from "../../utils/dateFilter";
+import DropDownView from "./dropDown";
 
 const Week = ({
   loading,
@@ -23,18 +23,18 @@ const Week = ({
   last?: boolean;
 }) => {
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
-  const [toggle, setToggle] = useState('toggle-switch-off');
+  const [toggle, setToggle] = useState("toggle-switch-off");
   const [historyLoading, sethistoryLoading] = useState(false);
   const [weeksLogs, setWeeksLogs] = useState<any>(
     Object.entries(groupByproject([...timelogs.past]))
   );
-  const [groupby, setGroupby] = useState('Project');
-  const [week, setWeek] = useState('This week');
+  const [groupby, setGroupby] = useState("Project");
+  const [week, setWeek] = useState("This week");
 
   useEffect(() => {
     setWeeksLogs(
       Object.entries(
-        groupby === 'Project'
+        groupby === "Project"
           ? groupByproject([...timelogs.past])
           : groupBydate([...timelogs.past])
       )
@@ -42,11 +42,11 @@ const Week = ({
   }, [timelogs.past]);
 
   useEffect(() => {
-    if (toggle === 'toggle-switch' && !timelogs.past[0]) {
+    if (toggle === "toggle-switch" && !timelogs.past[0]) {
       getLogs(thisWeek());
-    } else if (toggle === 'toggle-switch-off') {
+    } else if (toggle === "toggle-switch-off") {
       dispatchTimeLog({
-        type: 'RESET',
+        type: "RESET",
       });
     }
   }, [toggle]);
@@ -62,7 +62,7 @@ const Week = ({
       if (historyLogs) {
         if (past) {
           dispatchTimeLog({
-            type: 'SET_PAST',
+            type: "SET_PAST",
             payload: {
               past: [...historyLogs],
               historyDate: filter,
@@ -70,7 +70,7 @@ const Week = ({
           });
         } else {
           dispatchTimeLog({
-            type: 'CHANGE',
+            type: "CHANGE",
             payload: {
               present: timelogs.present,
               past: [...historyLogs],
@@ -81,13 +81,11 @@ const Week = ({
 
         sethistoryLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
-    setToggle('toggle-switch-off');
+    setToggle("toggle-switch-off");
   }, [refreshing]);
 
   return (
@@ -104,7 +102,7 @@ const Week = ({
       <View style={last ? historyStyle.timelogcontainer : null}>
         {loading ? (
           <UserPlaceHolder />
-        ) : toggle === 'toggle-switch' ? (
+        ) : toggle === "toggle-switch" ? (
           <>
             {weeksLogs[0] ? (
               <>

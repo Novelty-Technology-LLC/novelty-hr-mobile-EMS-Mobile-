@@ -2,20 +2,17 @@ import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import { settingStyle as style } from "../../assets/styles/tabs";
 import { tabHeader as Header } from "../common";
-import { headerTxtStyle } from "../../assets/styles";
+import { globalStyle, headerTxtStyle } from "../../assets/styles";
 import { ComingSoon as Soon } from "../common";
 import { AuthContext } from "../reducer";
+import CustomImage from "../common/image";
 
-const ComingSoon = () => {
-  const { state } = useContext(AuthContext);
+const FullScreenImage = ({ route, navigation }: any) => {
   return (
     <View style={style.container}>
-      <Header>
-        <Text style={headerTxtStyle.headerText}>Setting</Text>
-      </Header>
-      <Soon>Welcome to Novelty EMS, {state.user.email}</Soon>
+      <CustomImage image={route?.image} style={globalStyle.fullScreen} />
     </View>
   );
 };
 
-export { ComingSoon };
+export { FullScreenImage };

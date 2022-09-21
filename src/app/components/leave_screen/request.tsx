@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { requestStyle as style } from '../../../assets/styles';
-import RequestWithImage from './requestWithImage';
-import State from './state';
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { requestStyle as style } from "../../../assets/styles";
+import RequestWithImage from "./requestWithImage";
+import State from "./state";
 
-import getDay from '../../utils/getDay';
-import { ApproveDeny } from './approveDeny';
-import { AdminRequestContext, AuthContext } from '../../reducer';
+import getDay from "../../utils/getDay";
+import { ApproveDeny } from "./approveDeny";
+import { AdminRequestContext, AuthContext } from "../../reducer";
+import { getLeaveOption } from "../../utils/getLeaveType";
 
 interface requestPropType {
   item: any;
@@ -33,6 +34,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   useEffect(() => {
     checkReplied();
   }, [adminrequests.adminrequests]);
+  const leave_option = getLeaveOption(item?.leave_option);
 
   return (
     <>
@@ -48,7 +50,12 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                 <State state={item.state} />
               </View>
             </View>
-            <Text style={style.type}>{item.type}</Text>
+            <Text style={style.type}>
+              <Text> {item.type}</Text>
+              {leave_option !== "FULL DAY" && (
+                <Text> {` (${leave_option})`}</Text>
+              )}
+            </Text>
           </View>
         </TouchableOpacity>
       ) : (
@@ -57,7 +64,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           {recieved ? (
             <View style={style.subcontainer}>
               <Text style={style.days}>
-                {day > 1 ? day + ' days ago' : (day = ' Today')}
+                {day > 1 ? day + " days ago" : (day = " Today")}
               </Text>
               <View style={style.status}>
                 <State state={item.state} />

@@ -55,7 +55,7 @@ const Projects = ({
           defaultValue ? defaultValue.toString() : data[0].id.toString()
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 
   useEffect(() => {

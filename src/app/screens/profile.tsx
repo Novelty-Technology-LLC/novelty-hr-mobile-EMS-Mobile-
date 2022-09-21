@@ -27,6 +27,7 @@ import { ProfileInfoComponent } from "../common/profileInformation";
 import { CustomText } from "../components/text";
 import { TermPolicy } from "../common/termPolicy";
 import { CustomDivider } from "../common/divider";
+import CustomImage from "../common/image";
 
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
@@ -38,9 +39,7 @@ const Profile = ({ navigation }: any) => {
 
   const cleanImage = () =>
     ImageCropper.clean()
-      .then(() => {
-        console.log("removed all tmp images from tmp directory");
-      })
+      .then(() => {})
       .catch((e) => {});
 
   const updateProfileImage = (image: any, data?: any) => {
@@ -139,9 +138,7 @@ const Profile = ({ navigation }: any) => {
       .then((image) => {
         callbackForUploadImage(image);
       })
-      .finally(() => {
-        console.log("snbjsb");
-      });
+      .finally(() => {});
   };
   const openCamera = () =>
     ImageCropper.openCamera({
@@ -252,12 +249,16 @@ const Profile = ({ navigation }: any) => {
           
         </View> */}
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
-            <Image
+            {/* <Image
               style={[style.image, style.profileImageWrapper]}
               source={{
                 uri: uri,
                 cache: "force-cache",
               }}
+            /> */}
+            <CustomImage
+              style={[style.image, style.profileImageWrapper]}
+              image={uri}
             />
             <View style={style.iconCammerWrapper}>
               <TouchableOpacity

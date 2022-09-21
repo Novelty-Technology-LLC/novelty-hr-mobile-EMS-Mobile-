@@ -1,32 +1,30 @@
-import { api } from '../api/api'
+import { api } from "../api/api";
 
 const createWork = async (data: object) => {
   return new Promise((resolve, reject) => {
     api
-      .post('/work', data)
+      .post("/work", data)
 
       .then((data) => {
-        resolve(data)
+        resolve(data);
       })
       .catch((err) => {
-        reject(err)
-        console.log('err', err)
-        console.log('err')
-      })
-  })
-}
+        reject(err);
+      });
+  });
+};
 
 const getWork = async (data: object) => {
   return new Promise((resolve, reject) => {
     api
-      .get('/work', {
+      .get("/work", {
         params: {
           data,
         },
       })
       .then((data) => resolve(data))
-      .catch((err) => reject(err))
-  })
-}
+      .catch((err) => reject(err));
+  });
+};
 
-export { createWork, getWork }
+export { createWork, getWork };

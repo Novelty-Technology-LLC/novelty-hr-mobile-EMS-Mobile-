@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../../assets/colors';
+import React, { useEffect, useState } from "react";
+import { ScrollView, Text, View } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../../assets/colors";
 import {
   cardStyle,
   headerTxtStyle,
- listingStyle,
+  listingStyle,
   timeLogStyle,
-} from '../../../assets/styles';
-import { header as Header } from '../../common';
-import { ListPlaceholder } from '../../components/loader/listPlaceHolder';
-import { getList } from '../../services';
-import { getColor, transformList } from '../../utils/listtranform';
+} from "../../../assets/styles";
+import { header as Header } from "../../common";
+import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
+import { getList } from "../../services";
+import { getColor, transformList } from "../../utils/listtranform";
 
 const HolidayEventListing = (props: any) => {
   const [list, setList] = useState<any>(null);
@@ -36,7 +36,7 @@ const HolidayEventListing = (props: any) => {
         {loading ? (
           <ListPlaceholder />
         ) : list?.length > 0 ? (
-          transformList(list, 'Holiday&Events', false, false,true).map(
+          transformList(list, "Holiday&Events", false, false, true).map(
             (item, index) => {
               return (
                 <View
@@ -55,7 +55,7 @@ const HolidayEventListing = (props: any) => {
                   </View>
                   <View
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: "row",
                     }}
                   >
                     <View
@@ -68,11 +68,11 @@ const HolidayEventListing = (props: any) => {
                       ]}
                     />
                     <Text style={cardStyle.subTitleText}>
-                      {item?.type === 'event'
-                        ? 'Event'
-                        : item?.type === 'holiday'
-                        ? 'Holiday'
-                        : ''}
+                      {item?.type === "event"
+                        ? "Event"
+                        : item?.type === "holiday"
+                        ? "Holiday"
+                        : ""}
                     </Text>
                   </View>
                 </View>
