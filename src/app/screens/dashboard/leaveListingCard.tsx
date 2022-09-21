@@ -70,22 +70,24 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
               />
               <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
             </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                alignSelf: "center",
-              }}
-            >
-              <Icon
-                name="timetable"
-                color={colors.fontGrey}
-                size={normalize(12)}
-              />
-              <Text
-                style={cardStyle.subTitleText}
-              >{`${item?.work_shift}`}</Text>
-            </View>
+            {item?.work_shift && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <Icon
+                  name="timetable"
+                  color={colors.fontGrey}
+                  size={normalize(12)}
+                />
+                <Text
+                  style={cardStyle.subTitleText}
+                >{`${item?.work_shift}`}</Text>
+              </View>
+            )}
           </View>
         )}
       </View>

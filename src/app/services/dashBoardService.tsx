@@ -27,9 +27,7 @@ const getList = (route: string) => {
       });
 
       resolve(res.data.data);
-    } catch (error) {
-      reject({ success: false, message: error });
-    }
+    } catch (error) {}
   });
 };
 
