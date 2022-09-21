@@ -26,7 +26,7 @@ const CustomImage = ({
   style?: any;
   uri?: boolean;
   loaderSize?: string;
-  resizemode: ImageResizeMode;
+  resizemode?: ImageResizeMode;
   loaderStyle?: any;
   localImage?: boolean;
   fullScreen?: boolean;
@@ -48,7 +48,7 @@ const CustomImage = ({
             setIsImageLoading(false);
           }}
         />
-      ) : image === null ? (
+      ) : image === null || !image ? (
         <TouchableEffect
           disabled={fullScreen}
           onPress={() => navigate("fullImageScreen", { image: PROFILE_IMAGE })}

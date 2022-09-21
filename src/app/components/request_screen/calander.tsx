@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { RangeCalendar, Calendar } from '@ui-kitten/components';
-import { Text, View } from 'react-native';
-import moment from 'moment';
-import { MomentDateService } from '@ui-kitten/moment';
-import { dateStringMapper, checkRepeat } from '../../utils';
-import { calenderStyle, timeLogStyle } from '../../../assets/styles';
-import { momentdate } from '../../utils/momentDate';
-import colors from '../../../assets/colors';
-import { RequestContext } from '../../reducer';
+import React, { useState, useEffect, useContext } from "react";
+import { RangeCalendar, Calendar } from "@ui-kitten/components";
+import { Text, View } from "react-native";
+import moment from "moment";
+import { MomentDateService } from "@ui-kitten/moment";
+import { dateStringMapper, checkRepeat } from "../../utils";
+import { calenderStyle, timeLogStyle } from "../../../assets/styles";
+import { momentdate } from "../../utils/momentDate";
+import colors from "../../../assets/colors";
+import { RequestContext } from "../../reducer";
 interface calenderPropType {
   style?: any;
   handleChange: Function;
@@ -33,7 +33,7 @@ const CalendarComponent = ({
           endDate: new Date(defaultValue.endDate),
           startDate: new Date(defaultValue.startDate),
         }
-      : ''
+      : ""
   );
   const [date, setDate] = useState(moment());
   const dateService = new MomentDateService();
@@ -43,9 +43,9 @@ const CalendarComponent = ({
   const modalfilter = (date) => momentdate(date) < momentdate();
   let reviewed = [...requests.pastrequests, ...requests.requests].filter(
     (req) =>
-      req.state === 'Approved' ||
-      req.state === 'In Progress' ||
-      req.state === 'Pending'
+      req.state === "Approved" ||
+      req.state === "In Progress" ||
+      req.state === "Pending"
   );
 
   if (olddata_id) {
@@ -64,11 +64,11 @@ const CalendarComponent = ({
             JSON.stringify({ startDate: date, endDate: date })
           )
         ) {
-          req.state === 'Approved'
+          req.state === "Approved"
             ? (approved = true)
-            : req.state === 'In Progress'
+            : req.state === "In Progress"
             ? (inprogress = true)
-            : req.state === 'Pending'
+            : req.state === "Pending"
             ? (pending = true)
             : {};
         }
@@ -98,17 +98,17 @@ const CalendarComponent = ({
 
   useEffect(() => {
     if (!modal) {
-      handleChange('date')(`${JSON.stringify(range)}`);
+      handleChange("date")(`${JSON.stringify(range)}`);
     }
   }, [range]);
 
   return (
     <>
       <View
-        style={modal ? { display: 'none' } : timeLogStyle.indicatorContainer}
+        style={modal ? { display: "none" } : timeLogStyle.indicatorContainer}
       >
         <View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             <View
               style={[
                 timeLogStyle.indicator,
@@ -117,7 +117,7 @@ const CalendarComponent = ({
             ></View>
             <Text style={timeLogStyle.rldate}>Pending</Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             <View
               style={[
                 timeLogStyle.indicator,
@@ -136,12 +136,12 @@ const CalendarComponent = ({
         )}
       </View>
       {modal ? (
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Calendar
             style={timeLogStyle.modalCalender}
             dateService={dateService}
-            max={moment('2022-12-31')}
-            min={moment('2020-01-01')}
+            max={moment("2022-12-31")}
+            min={moment("2020-01-01")}
             date={date}
             onSelect={(nextRange) => {
               setDate(nextRange);
@@ -157,7 +157,9 @@ const CalendarComponent = ({
           min={new Date(2020, 6)}
           filter={filter}
           range={range}
-          onSelect={(nextRange) => setrange(nextRange)}
+          onSelect={(nextRange) => {
+            setrange(nextRange);
+          }}
           style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
           name="date"
           label="date"

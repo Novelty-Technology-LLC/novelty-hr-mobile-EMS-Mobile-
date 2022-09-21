@@ -93,6 +93,12 @@ const approveRequest = StyleSheet.create({
     textTransform: "uppercase",
     color: colors.fontGrey,
   },
+  leaveOption: {
+    fontSize: normalize(theme.size.xxs),
+    fontFamily: fonts.poppinsMedium,
+    textTransform: "lowercase",
+    color: colors.fontGrey,
+  },
   date: {
     fontSize: normalize(theme.size.xxs),
     color: colors.fontGrey,
@@ -197,7 +203,7 @@ const approveRequest = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     lineHeight: normalize(theme.size.lg),
     opacity: 0.7,
-    textTransform: "capitalize",
+    // textTransform: "capitalize",
     paddingTop: normalize(7),
   },
   text: {
