@@ -97,7 +97,7 @@ const Request = ({ data, style, title = null }: any) => {
                     <Text>{data?.type}</Text>
                     {leave_option !== "FULL DAY" && (
                       <Text
-                        style={style.leaveType}
+                        style={style.leaveOption}
                       >{` (${leave_option})`}</Text>
                     )}
                   </Text>

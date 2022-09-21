@@ -43,9 +43,7 @@ const Projects = ({
           const unselectedProject = data.filter(
             (project: any) => project.id !== defaultValue
           );
-          setProjects(
-            selectedProject.concat([...unselectedProject].splice(0, 2))
-          );
+          setProjects(selectedProject.concat([...unselectedProject]));
           setAllprojects(selectedProject.concat(unselectedProject));
         } else {
           setProjects(data);

@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
-import { teamStyle as style } from '../../../assets/styles';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getlead } from '../../services';
-import colors from '../../../assets/colors';
-import { LeadPlaceHolder } from '../loader';
-import { leadname } from '../../utils/getName';
-import { getUser } from '../../utils';
-import { SmallHeader } from '../../common';
+import React, { Component } from "react";
+import { View, Text, Image } from "react-native";
+import { teamStyle as style } from "../../../assets/styles";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { getlead } from "../../services";
+import colors from "../../../assets/colors";
+import { LeadPlaceHolder } from "../loader";
+import { leadname } from "../../utils/getName";
+import { getUser } from "../../utils";
+import { SmallHeader } from "../../common";
+import CustomImage from "../../common/image";
 
 class Teams extends Component {
   user = {};
@@ -34,14 +35,14 @@ class Teams extends Component {
               }
             });
           } else {
-            if (val.is_default_approver === '1') {
+            if (val.is_default_approver === "1") {
               val.selected = val.first_name;
               this.data.push(val);
             }
           }
         });
         this.setState({ lead: [...this.state.lead].concat(this.data) }, () => {
-          this.props.handleChange('lead')(
+          this.props.handleChange("lead")(
             JSON.stringify(this.state.lead.map((item) => item.id))
           );
         });
@@ -68,7 +69,7 @@ class Teams extends Component {
                     <TouchableOpacity
                       key={val.id}
                       onPress={() => {
-                        if (val.is_default_approver !== '1') {
+                        if (val.is_default_approver !== "1") {
                           if (val.selected) {
                             val.selected = false;
                           } else {
@@ -77,7 +78,7 @@ class Teams extends Component {
                           this.setState(
                             { lead: [...new Set(this.state.lead.concat(val))] },
                             () => {
-                              this.props.handleChange('lead')(
+                              this.props.handleChange("lead")(
                                 JSON.stringify(
                                   this.state.lead
                                     .filter((item) => item.selected)
@@ -91,14 +92,11 @@ class Teams extends Component {
                     >
                       <View style={style.main} key={i}>
                         <View style={style.imageView}>
-                          <Image
+                          <CustomImage
                             style={style.image}
-                            source={
-                              val.image_url
-                                ? { uri: val.image_url }
-                                : require('../../../assets/images/person.jpeg')
-                            }
+                            image={val.image_url}
                           />
+
                           {this.state.lead.map((item) => {
                             return (
                               item.selected === val.first_name && (
