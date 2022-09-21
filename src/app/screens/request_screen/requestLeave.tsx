@@ -197,25 +197,17 @@ const RequestLeave = ({ route }: any) => {
           // }
         }
 
-        let dayData: any = olddata ? day : day;
+        let dayData: any = day;
 
         if (selectedIndex === 0) {
-          if (Array.isArray(dayData)) {
-            dayData = dayArray;
-          } else {
-            dayData = dayData * 1;
-          }
+          dayData = dayData;
         } else {
           if (selectedIndex === 1) {
             leave_option = "FIRST HALF";
           } else {
             leave_option = "SECOND HALF";
           }
-          if (Array.isArray(dayData)) {
-            dayData = dayArray;
-          } else {
-            dayData = dayData * 0.5;
-          }
+          dayData = dayData * 0.5;
         }
 
         const requestData = {
