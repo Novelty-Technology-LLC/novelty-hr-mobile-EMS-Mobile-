@@ -18,14 +18,17 @@ const LeaveListing = (props: any) => {
   const [loading, setLoading] = useState<any>(null);
 
   useEffect(() => {
-    setLoading(true);
-    const getData = async (route: string) => {
-      const data = await getList(route);
-      data && setLoading(false);
-      setList(data);
-    };
-    getData(props?.route?.params?.route);
+    getallLeaveListing(props?.route?.params?.route);
   }, []);
+
+  const getallLeaveListing = async (routeName: string) => {
+    setLoading(true);
+
+    const data = await getList(routeName);
+
+    setLoading(false);
+    setList(data);
+  };
 
   return (
     <View style={listingStyle.mainContainer}>

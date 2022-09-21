@@ -14,17 +14,15 @@ const createWork = async (data: object) => {
   });
 };
 
-const getWork = async (data: object) => {
-  return new Promise((resolve, reject) => {
+const getWork = (userId: number, date: any) =>
+  new Promise((resolve, reject) => {
     api
-      .get("/work", {
-        params: {
-          data,
-        },
+      .get(`work?userId=${userId}&date=${date}`)
+      .then((data) => {
+        resolve(data.data);
       })
-      .then((data) => resolve(data))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        reject(err);
+      });
   });
-};
-
 export { createWork, getWork };

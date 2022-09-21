@@ -63,15 +63,16 @@ const DashBoard = () => {
   const fetchWork = async () => {
     try {
       setLoading(true);
-      const res: any = await getWork({
-        user_id: state?.user?.id,
-        date: moment().format("YYYY-MM-DD"),
-      });
 
-      setId(res?.data?.data[0].id ?? null);
+      const res: any = await getWork(
+        state?.user?.id,
+        moment().format("YYYY-MM-DD")
+      );
+
+      setId(res?.data?.id ?? null);
       // setUserId(res?.data?.data[0].user_id ?? null);
 
-      setToggle(+res?.data?.data[0].status === 1 ? true : false);
+      setToggle(+res?.data?.status === 1 ? true : false);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -79,10 +80,10 @@ const DashBoard = () => {
   };
   useEffect(() => {
     state?.user?.id && fetchWork();
-  }, [state?.user?.id]);
+  }, []);
   useEffect(() => {
     state?.user?.id && fetchLeave();
-  }, [state?.user?.id]);
+  }, []);
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {

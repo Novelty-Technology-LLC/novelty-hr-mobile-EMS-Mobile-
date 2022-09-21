@@ -21,7 +21,8 @@ const HolidayEventListing = (props: any) => {
     setLoading(true);
     const getData = async (route: string) => {
       const data = await getList(route);
-      data && setLoading(false);
+
+      setLoading(false);
       setList(data);
     };
     getData(props?.route?.params?.route);
