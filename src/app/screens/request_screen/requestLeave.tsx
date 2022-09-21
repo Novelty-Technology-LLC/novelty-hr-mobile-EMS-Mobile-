@@ -167,9 +167,7 @@ const RequestLeave = ({ route }: any) => {
         } else {
           endDate = new Date(date.endDate).toString().slice(0, 15);
         }
-
         let day = 0;
-
         if (olddata) {
           let oldday = dateMapper(
             olddata.leave_date.startDate,
@@ -178,32 +176,14 @@ const RequestLeave = ({ route }: any) => {
 
           day = dateMapper(startDate, endDate);
           if (olddata.type === values.type) {
-            // if (
-            //   olddata.leave_option === "FIRST HALF" ||
-            //   olddata.leave_option === "SECOND HALF"
-            // ) {
-            //   oldday = oldday * 0.5;
-            // } else {
-            //   oldday = oldday * 1;
-            // }
             dayArray = [{ days: day - oldday, dayType: values.type }];
           } else {
-            // if (
-            //   olddata.leave_option === "FIRST HALF" ||
-            //   olddata.leave_option === "SECOND HALF"
-            // ) {
-            //   day = day * 0.5;
-            //   oldday = oldday * 0.5;
-            // } else {
-            //   day = day * 1;
-            //   oldday = oldday * 1;
-            // }
             dayArray = [
               { days: day, dayType: values.type },
               { days: -oldday, dayType: olddata.type },
             ];
           }
-          dayArray.map((day: any) => {
+          dayArray.map((day) => {
             if (values.type === day.dayType) {
               // if (checkValidityQuota(requests.quota, values.type, day.days)) {
               //   throw new Error(`Selected day exceeds ${values.type}`);
@@ -216,9 +196,9 @@ const RequestLeave = ({ route }: any) => {
           //   throw new Error(`Selected day exceeds ${values.type}`);
           // }
         }
-        delete values.date;
 
-        let dayData: any = olddata ? dayArray : day;
+        let dayData: any = olddata ? day : day;
+
         if (selectedIndex === 0) {
           if (Array.isArray(dayData)) {
             dayData = dayArray;
