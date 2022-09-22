@@ -10,9 +10,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./tabNavigator";
 import Invalid from "../screens/auth_screen/invalid";
 import Loading from "../screens/auth_screen/loading";
-import { navigationRef } from "../utils/navigation";
+import { navigate, navigationRef } from "../utils/navigation";
 import { FullImageScreen } from "../screens/full_screen_image";
-
+import SplashScreens from "react-native-splash-screen";
 const Root = createStackNavigator();
 
 const RootNavigation = () => {
@@ -87,8 +87,24 @@ const RootNavigation = () => {
       },
     },
   };
+  const tryLocalSignIn = async () => {
+    SplashScreens.hide();
+    try {
+      let userToken = await getToken();
+      if (userToken) {
+        navigate("BottomTabs");
+      } else {
+        navigate("login");
+      }
+    } catch (e) {}
+  };
+
   return (
-    <NavigationContainer linking={deepLinking} ref={navigationRef}>
+    <NavigationContainer
+      linking={deepLinking}
+      ref={navigationRef}
+      onReady={() => tryLocalSignIn()}
+    >
       <AuthContext.Provider value={{ state, dispatch }}>
         <Root.Navigator
           screenOptions={{
@@ -96,16 +112,16 @@ const RootNavigation = () => {
           }}
         >
           <Root.Screen
-            name='splash'
+            name="splash"
             component={SplashScreen}
             options={{ gestureEnabled: false }}
           />
-          <Root.Screen name='login' component={Login} />
-          <Root.Screen name='loading' component={Loading} />
-          <Root.Screen name='invalid' component={Invalid} />
-          <Root.Screen name='fullImageScreen' component={FullImageScreen} />
+          <Root.Screen name="login" component={Login} />
+          <Root.Screen name="loading" component={Loading} />
+          <Root.Screen name="invalid" component={Invalid} />
+          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
           <Root.Screen
-            name='BottomTabs'
+            name="BottomTabs"
             component={TabNavigator}
             options={{ gestureEnabled: false }}
           />
