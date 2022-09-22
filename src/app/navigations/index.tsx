@@ -98,7 +98,6 @@ const RootNavigation = () => {
       }
     } catch (e) {}
   };
-  let userToken = getToken();
 
   return (
     <NavigationContainer

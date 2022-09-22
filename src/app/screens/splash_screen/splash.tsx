@@ -4,34 +4,21 @@ import normalize from "react-native-normalize";
 import { navigate } from "../../utils/navigation";
 import { getVersion } from "react-native-device-info";
 import { getToken } from "../../utils";
-import { SvgUri } from "react-native-svg";
-import Logo from "../../../assets/images/novelty.svg";
+import Svg, { Path } from "react-native-svg";
 
 const SplashScreen = (props: any) => {
-  const tryLocalSignIn = async () => {
-    try {
-      let userToken = await getToken();
-      if (userToken) {
-        navigate("BottomTabs");
-      } else {
-        navigate("login");
-      }
-    } catch (e) {}
-  };
-
   return (
     <View style={[styles.wrapper]}>
-      {/* <Image
-        source={require("../../../assets/images/novelty.svg")}
-        // autoPlay
-        // loop={false}
-        // onAnimationFinish={tryLocalSignIn}
-      /> */}
-      <SvgUri
-        width="900"
-        height="200"
-        source={require("../../../assets/images/novelty.svg")}
-      />
+      <Svg width={97.951} height={83.239} viewBox="0 0 97.951 83.239">
+        <Path
+          d="M60.009 20.371v15.831l11.066-5.78.013 23.741-22.013 11.806v-39.8L0 0v57.073l14.919 7.964.1-40.05 19.02 10.232-.1 40.05 15.013 7.906v.063l.056-.033.06.033v-.063L86.34 63.364l-.016-39.887 11.627-6.057V0z"
+          fill="#bf8b59"
+        />
+      </Svg>
+      {/* code will be inneed */}
+      {/* <Svg width={97.951} height={83.239} viewBox="0 0 97.951 83.239">
+        <Path/>
+      </Svg> */}
       <View style={styles.version}>
         <Text>Version {getVersion()}</Text>
       </View>
