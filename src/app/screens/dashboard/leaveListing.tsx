@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Dimensions, ScrollView, Text, View } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../../assets/colors";
 import {
   cardStyle,
   headerTxtStyle,
   listingStyle,
   requestStyle,
 } from "../../../assets/styles";
-import { header as Header } from "../../common";
+import { EmptyContainer, header as Header } from "../../common";
 import State from "../../components/leave_screen/state";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getList } from "../../services";
@@ -35,11 +37,10 @@ const LeaveListing = (props: any) => {
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>LEAVE</Text>
       </Header>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView>
         {loading ? (
           <ListPlaceholder />
-        ) : (
-          list?.length > 0 &&
+        ) : list?.length ? (
           transformList(
             list,
             "Leave",
@@ -49,6 +50,16 @@ const LeaveListing = (props: any) => {
           ).map((item, index) => (
             <ListingCard index={index} item={item} list={list.length} />
           ))
+        ) : (
+          <EmptyContainer
+            text={`${"No Upcoming Leave"}`}
+            containerStyle={{
+              backgroundColor: colors.white,
+
+              height: Dimensions.get("window").width,
+              paddingVertical: normalize(10),
+            }}
+          />
         )}
       </ScrollView>
     </View>

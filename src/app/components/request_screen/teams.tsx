@@ -20,6 +20,7 @@ class Teams extends Component {
   };
   list = [];
   data = [];
+  error: any;
 
   async componentDidMount() {
     this.setState({ user: JSON.parse(await getUser()) });
@@ -124,9 +125,9 @@ class Teams extends Component {
             <LeadPlaceHolder />
           )}
         </View>
-        {/* {this.props.error.lead && this.props.touched.lead && (
+        {this.props.error.lead && (
           <Text style={style.error}>Please select your lead.</Text>
-        )} */}
+        )}
       </>
     );
   }

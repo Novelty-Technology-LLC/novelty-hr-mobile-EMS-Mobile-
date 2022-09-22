@@ -116,6 +116,7 @@ const Projects = ({
           {projects && showmore !== "chevron-up-circle" ? (
             <View style={[style.body]}>
               <FlatList
+                showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 data={projects}
                 renderItem={({ item, index, separators }) => (

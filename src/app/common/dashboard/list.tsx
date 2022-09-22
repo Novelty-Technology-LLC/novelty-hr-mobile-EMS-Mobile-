@@ -66,7 +66,7 @@ const List = ({ list }: { list: any }) => {
           >
             <View style={listStyle.seeAllTextOn}>
               <Text style={listStyle.seeAllTexts}>See All</Text>
-              <Icon name='arrow-right' color={colors.primary} size={12} />
+              <Icon name="arrow-right" color={colors.primary} size={12} />
             </View>
           </TouchableOpacity>
           {/* <Text>"asdasd</Text> */}
@@ -81,7 +81,11 @@ const List = ({ list }: { list: any }) => {
                 ? "No Upcoming Leave"
                 : "No Upcoming Holidays and Events"
             }`}
-            containerStyle={{ height: normalize(100) }}
+            containerStyle={{
+              height: normalize(150),
+              borderBottomColor: colors.snow,
+              paddingVertical: normalize(10),
+            }}
           />
           <TouchableOpacity
             onPress={() =>
@@ -93,7 +97,7 @@ const List = ({ list }: { list: any }) => {
           >
             <View style={listStyle.seeAllTextOn}>
               <Text style={listStyle.seeAllTexts}>See All</Text>
-              <Icon name='arrow-right' color={colors.primary} size={12} />
+              <Icon name="arrow-right" color={colors.primary} size={12} />
             </View>
           </TouchableOpacity>
         </>

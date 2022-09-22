@@ -1,22 +1,27 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import { theme, fonts } from '../theme';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import { theme, fonts, color } from "../theme";
 
 const teamStyle = StyleSheet.create({
   container: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  error: {
+    paddingVertical: normalize(10),
+    paddingHorizontal: normalize(15),
+    color: colors.red,
   },
 
   loading: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: normalize(180),
   },
   text: {
@@ -29,21 +34,21 @@ const teamStyle = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   },
   main: {
     marginLeft: normalize(15),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   spacing: { marginLeft: normalize(0) },
   imageView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   image: {
     width: normalize(60),
@@ -59,7 +64,7 @@ const teamStyle = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
   },
   iconContainer: {
-    position: 'absolute',
+    position: "absolute",
     right: 6,
     top: 2,
     zIndex: 2,
