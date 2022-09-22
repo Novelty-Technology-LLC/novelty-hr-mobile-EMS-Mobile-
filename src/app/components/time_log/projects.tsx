@@ -114,24 +114,29 @@ const Projects = ({
           </View>
           {loading && <ProjectPlaceHolder />}
           {projects && showmore !== "chevron-up-circle" ? (
-            <FlatList
-              horizontal={true}
-              data={projects}
-              renderItem={({ item, index, separators }) => (
-                <View style={style.scrollHorizontal}>
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => {
-                      setType(item?.id),
-                        handleChange("project_id")(item?.id.toString());
-                    }}
-                  >
-                    <SelectButton text={item.name} active={type === item.id} />
-                  </TouchableOpacity>
-                </View>
-              )}
-              keyExtractor={(item) => item?.id}
-            />
+            <View style={[style.body]}>
+              <FlatList
+                horizontal={true}
+                data={projects}
+                renderItem={({ item, index, separators }) => (
+                  <View style={style.scrollHorizontal}>
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => {
+                        setType(item?.id),
+                          handleChange("project_id")(item?.id.toString());
+                      }}
+                    >
+                      <SelectButton
+                        text={item.name}
+                        active={type === item.id}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+                keyExtractor={(item) => item?.id}
+              />
+            </View>
           ) : (
             <View style={[style.body]}>
               {projects.map((project: any, index: number) => (
