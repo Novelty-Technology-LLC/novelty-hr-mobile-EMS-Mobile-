@@ -82,7 +82,7 @@ const Projects = ({
       <View style={[style.wrapper]}>
         <>
           <View style={style.moreContainer}>
-            <SmallHeader text="Choose a Project" history={true} />
+            <SmallHeader text='Choose a Project' history={true} />
             <TouchableOpacity
               onPress={() =>
                 setShowmore(
@@ -116,6 +116,7 @@ const Projects = ({
           {projects && showmore !== "chevron-up-circle" ? (
             <View style={[style.body]}>
               <FlatList
+                showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 data={projects}
                 renderItem={({ item, index, separators }) => (
