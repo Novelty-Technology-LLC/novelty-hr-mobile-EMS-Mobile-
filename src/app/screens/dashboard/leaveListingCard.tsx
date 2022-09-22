@@ -60,13 +60,13 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                alignSelf: "center",
               }}
             >
               <Icon
-                name="card-account-details"
+                name='card-account-details'
                 color={colors.fontGrey}
                 size={normalize(12)}
+                style={{ marginRight: normalize(5) }}
               />
               <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
             </View>
@@ -75,13 +75,13 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  alignSelf: "center",
                 }}
               >
                 <Icon
-                  name="timetable"
+                  name='timetable'
                   color={colors.fontGrey}
                   size={normalize(12)}
+                  style={{ marginRight: normalize(5) }}
                 />
                 <Text
                   style={cardStyle.subTitleText}

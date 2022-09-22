@@ -15,7 +15,7 @@ const cardStyle = StyleSheet.create({
     borderRadius: normalize(8),
   },
   icon: {
-    flexDirection: "row",
+    flexDirection: "column",
     flexWrap: "wrap",
 
     justifyContent: "space-between",
@@ -39,7 +39,6 @@ const cardStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(12),
     color: colors.fontGrey,
-    marginLeft: 5,
   },
   indicator: { position: "absolute", top: normalize(17), right: normalize(0) },
   detailIndicator: {

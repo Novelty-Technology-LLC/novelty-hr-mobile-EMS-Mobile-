@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  ActivityIndicator,
-  Image,
-  ImageResizeMode,
-  Pressable,
-  View,
-} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ActivityIndicator, Image, ImageResizeMode, View } from "react-native";
 import { TouchableEffect } from "react-native-simple-dialogs";
 import { customImageStyle } from "../../assets/styles/common/images.styles";
 import { PROFILE_IMAGE } from "../constant/global.constant";
@@ -21,6 +14,7 @@ const CustomImage = ({
   localImage = false,
   fullScreen = true,
   resizemode = "cover",
+  containerStyle,
 }: {
   image: string;
   style?: any;
@@ -30,6 +24,7 @@ const CustomImage = ({
   loaderStyle?: any;
   localImage?: boolean;
   fullScreen?: boolean;
+  containerStyle?: any;
 }) => {
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isImageLoadingError, setIsImageLoadingError] = useState(false);
@@ -50,6 +45,7 @@ const CustomImage = ({
         />
       ) : image === null || !image ? (
         <TouchableEffect
+          style={containerStyle}
           disabled={fullScreen}
           onPress={() => navigate("fullImageScreen", { image: PROFILE_IMAGE })}
         >
@@ -69,6 +65,7 @@ const CustomImage = ({
         </TouchableEffect>
       ) : (
         <TouchableEffect
+          style={containerStyle}
           disabled={fullScreen}
           onPress={() => navigate("fullImageScreen", { image: image })}
         >

@@ -27,7 +27,6 @@ const ListItem = ({
   date?: string;
 }) => {
   const indicatorColor = getColor(type, colors.lightbrown);
-  const { width } = useWindowDimensions();
   return (
     <View
       style={[

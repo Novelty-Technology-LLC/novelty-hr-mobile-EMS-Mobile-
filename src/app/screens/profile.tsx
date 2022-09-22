@@ -243,7 +243,7 @@ const Profile = ({ navigation }: any) => {
           <View style={profileStyle.infoStyle}>
             <ProfileInfoComponent user={state.user} />
 
-            <CustomDivider size="maxlarge" />
+            <CustomDivider size='maxlarge' />
           </View>
           {/* <View style={{ ...style.imageView, position: "absolute" }}>
           
@@ -257,17 +257,17 @@ const Profile = ({ navigation }: any) => {
               }}
             /> */}
             <CustomImage
-              style={[style.image, style.profileImageWrapper]}
+              containerStyle={style.profileImageWrapper}
+              style={[style.image]}
               image={uri}
               fullScreen={false}
             />
-
-            <View style={style.iconCammerWrapper}>
+            <View style={style.iconCameraWrapper}>
               <TouchableOpacity
                 style={[style.imageWrappers]}
                 onPress={() => refRBSheet?.current?.open()}
               >
-                <Icon name="camera" color="white" size={15}></Icon>
+                <Icon name='camera' color='white' size={15}></Icon>
               </TouchableOpacity>
             </View>
           </View>
@@ -276,7 +276,7 @@ const Profile = ({ navigation }: any) => {
       <View
         style={{
           backgroundColor: "white",
-
+          paddingVertical: normalize(20),
           justifyContent: "center",
         }}
       >

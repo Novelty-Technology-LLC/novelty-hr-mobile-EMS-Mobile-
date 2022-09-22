@@ -63,7 +63,8 @@ const EmployeeDetail = (props: any) => {
             <CustomImage
               fullScreen={false}
               image={params?.image}
-              style={[style.image, style.profileImageWrapper]}
+              style={[style.image]}
+              containerStyle={style.profileImageWrapper}
             />
           </View>
         </ScrollView>

@@ -12,15 +12,7 @@ import {
 } from "react-native";
 import { AuthContext } from "../../reducer";
 import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
-import {
-  Cards,
-  header as Header,
-  List,
-  showToast,
-  snackBarMessage,
-  snackErrorBottom,
-  snackErrorTop,
-} from "../../common";
+import { Cards, header as Header, List, showToast } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { getToday } from "../../utils";
@@ -60,6 +52,7 @@ const DashBoard = () => {
       BackHandler.removeEventListener("hardwareBackPress", BackHandler.exitApp);
     };
   }, []);
+
   const fetchWork = async () => {
     try {
       setLoading(true);
@@ -71,19 +64,20 @@ const DashBoard = () => {
 
       setId(res?.data?.id ?? null);
       // setUserId(res?.data?.data[0].user_id ?? null);
-
       setToggle(+res?.data?.status === 1 ? true : false);
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     state?.user?.id && fetchWork();
-  }, []);
+  }, [state, refreshing]);
+
   useEffect(() => {
     state?.user?.id && fetchLeave();
-  }, []);
+  }, [refreshing]);
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {
@@ -93,7 +87,6 @@ const DashBoard = () => {
       setAnnouncements(response);
     } catch (error) {}
   };
-  const worksift = getWorkShift(state?.user?.work_shift);
 
   const fetchLeave = async () => {
     try {
