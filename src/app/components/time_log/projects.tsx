@@ -82,7 +82,7 @@ const Projects = ({
       <View style={[style.wrapper]}>
         <>
           <View style={style.moreContainer}>
-            <SmallHeader text="Choose a Project" history={true} />
+            <SmallHeader text='Choose a Project' history={true} />
             <TouchableOpacity
               onPress={() =>
                 setShowmore(
