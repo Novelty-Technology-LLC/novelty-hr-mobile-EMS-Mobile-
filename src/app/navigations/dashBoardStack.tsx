@@ -7,6 +7,7 @@ import { EmployeeDetail } from "../screens/dashboard/employeeDetail";
 import { AnnouncementListing } from "../screens/dashboard/announcementsListing";
 import { AnnouncementDetail } from "../screens/dashboard/announcementsDetail";
 import { WorkFromHomeEmployeeListing } from "../screens/dashboard/workFromHomeEmployeeListing";
+import { FullImageScreen } from "../screens/full_screen_image";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {

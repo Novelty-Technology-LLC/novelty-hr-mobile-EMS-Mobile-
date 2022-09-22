@@ -10,6 +10,7 @@ android/.gradle
 android/app/build
 package-lock.json
 /ios/Pods
+*.env
 # Compiled Java class files
 *.class
 

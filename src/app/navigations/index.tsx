@@ -11,8 +11,8 @@ import TabNavigator from "./tabNavigator";
 import Invalid from "../screens/auth_screen/invalid";
 import Loading from "../screens/auth_screen/loading";
 import { navigate, navigationRef } from "../utils/navigation";
+import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
-
 const Root = createStackNavigator();
 
 const RootNavigation = () => {
@@ -119,6 +119,7 @@ const RootNavigation = () => {
           <Root.Screen name="login" component={Login} />
           <Root.Screen name="loading" component={Loading} />
           <Root.Screen name="invalid" component={Invalid} />
+          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
           <Root.Screen
             name="BottomTabs"
             component={TabNavigator}

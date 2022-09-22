@@ -1,13 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { getRequest } from "../../services";
 import { header as Header } from "../../common";
@@ -17,27 +9,22 @@ import {
   profileStyle,
   profileStyle as style,
 } from "../../../assets/styles/tabs";
-import normalize from "react-native-normalize";
-import colors from "../../../assets/colors";
+
 import { AuthContext } from "../../reducer";
 import { useNavigation } from "@react-navigation/native";
+import CustomImage from "../../common/image";
 
 const EmployeeDetail = (props: any) => {
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<any>(true);
   const params = props.route.params;
   const { state, dispatch }: any = useContext(AuthContext);
-  const [onLoadImage, setLoadImage] = useState(true);
-  const navigation = useNavigation<any>();
-  const [isImageLoadingError, setIsImageLoadingError] = useState(false);
 
-  const imageLoading = () => {
-    setLoadImage(false);
-  };
   useEffect(() => {
     (async () => {
       try {
         const id = params.id;
+
         let response = await getRequest(`user/${id}`, {});
 
         setData(response);
@@ -73,21 +60,11 @@ const EmployeeDetail = (props: any) => {
             />
           </View>
           <View style={[style.imageWrapper, style.profileContainerWrapper]}>
-            <Image
+            <CustomImage
+              fullScreen={false}
+              image={params?.image}
               style={[style.image, style.profileImageWrapper]}
-              source={
-                onLoadImage
-                  ? { uri: params.image }
-                  : require("../../../assets/images/employee.png")
-              }
-              onLoadEnd={() => {
-                setIsImageLoadingError(true);
-              }}
-              onError={(error) => imageLoading()}
             />
-            {/* <View style={[style.imageWrappers, style.iconCammerWrapper]}>
-              <Icon name="camera" color="white" size={20}></Icon>
-            </View> */}
           </View>
         </ScrollView>
       )}

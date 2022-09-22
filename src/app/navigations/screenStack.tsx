@@ -16,6 +16,7 @@ import {
   useRequest,
   useTimeLog,
 } from "../reducer";
+import { FullImageScreen } from "../screens/full_screen_image";
 
 const ScreenStack = createStackNavigator();
 
@@ -35,6 +36,7 @@ const ScreenNav = () => {
             <ScreenStack.Screen name="leaveList" component={LeaveDashboard} />
             <ScreenStack.Screen name="leaveApprove" component={LeaveApproval} />
             <ScreenStack.Screen name="requestLeave" component={RequestLeave} />
+
             <ScreenStack.Screen
               name="approveLeave"
               component={ApproveRequest}

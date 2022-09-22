@@ -1,8 +1,8 @@
-import moment from 'moment';
-import { checkRepeat } from './getQuota';
+import moment from "moment";
+import { checkRepeat } from "./getQuota";
 
 export const stringifyDate = (date: Date) => {
-  return momentdate(JSON.stringify(date).substring(1, 11), 'lll').substring(
+  return momentdate(JSON.stringify(date).substring(1, 11), "lll").substring(
     0,
     12
   );
@@ -13,19 +13,19 @@ export const getDayToday = () => {
 
   switch (day) {
     case 0:
-      return 'Sunday';
+      return "Sunday";
     case 1:
-      return 'Monday';
+      return "Monday";
     case 2:
-      return 'Tuesday';
+      return "Tuesday";
     case 3:
-      return 'Wednesday';
+      return "Wednesday";
     case 4:
-      return 'Thursday';
+      return "Thursday";
     case 5:
-      return 'Friday';
+      return "Friday";
     case 6:
-      return 'Saturday';
+      return "Saturday";
   }
 };
 
@@ -38,11 +38,11 @@ export const momentdate = (date?: Date, format?: string) => {
 };
 
 export const getYesterday = () => {
-  return moment().subtract(1, 'day').format('l');
+  return moment().subtract(2, "day").format("l");
 };
 
 export const getToday = () => {
-  return moment().format('l');
+  return moment().format("l");
 };
 
 export const checkDate = (date: any, selectDate: any) => {
@@ -50,17 +50,17 @@ export const checkDate = (date: any, selectDate: any) => {
 };
 
 export const isThisWeek = (item) => {
-  return moment(item.log_date).add(1, 'day').format('W') ===
-    moment().add(1, 'day').format('W')
+  return moment(item.log_date).add(1, "day").format("W") ===
+    moment().add(1, "day").format("W")
     ? true
     : false;
 };
 
 export const isPastWeek = (item) => {
   return moment(item.log_date)
-    .subtract(1, 'weeks')
-    .add(1, 'day')
-    .format('W') === moment().add(1, 'day').format('W')
+    .subtract(1, "weeks")
+    .add(1, "day")
+    .format("W") === moment().add(1, "day").format("W")
     ? true
     : false;
 };
@@ -72,7 +72,7 @@ export const checkAndReplace = (
 ) => {
   if (checkDate(data.log_date, timelogs.selectedDate.start)) {
     dispatchTimeLog({
-      type: 'EDIT',
+      type: "EDIT",
       payload: {
         present: data,
       },
@@ -91,7 +91,7 @@ export const checkAndReplace = (
         })
       ) &&
       dispatchTimeLog({
-        type: 'EDIT',
+        type: "EDIT",
         payload: {
           past: data,
         },

@@ -167,9 +167,7 @@ const RequestLeave = ({ route }: any) => {
         } else {
           endDate = new Date(date.endDate).toString().slice(0, 15);
         }
-
         let day = 0;
-
         if (olddata) {
           let oldday = dateMapper(
             olddata.leave_date.startDate,
@@ -198,11 +196,11 @@ const RequestLeave = ({ route }: any) => {
           //   throw new Error(`Selected day exceeds ${values.type}`);
           // }
         }
-        delete values.date;
 
-        let dayData: any = olddata ? dayArray[0].days : day;
+        let dayData: any = day;
+
         if (selectedIndex === 0) {
-          dayData = dayData * 1;
+          dayData = dayData;
         } else {
           if (selectedIndex === 1) {
             leave_option = "FIRST HALF";
@@ -227,7 +225,9 @@ const RequestLeave = ({ route }: any) => {
         };
 
         setisLoading(true);
+
         Keyboard.dismiss();
+
         olddata ? updateReq(requestData) : submitRequest(requestData);
       } catch (error) {
         if (!error.message.includes("Selected day exceeds"))
