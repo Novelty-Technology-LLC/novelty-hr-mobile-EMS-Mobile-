@@ -4,7 +4,6 @@ import {
   View,
   TouchableWithoutFeedback,
   ActivityIndicator,
-  Image,
   ScrollView,
   RefreshControl,
   TouchableOpacity,

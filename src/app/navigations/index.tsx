@@ -10,9 +10,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./tabNavigator";
 import Invalid from "../screens/auth_screen/invalid";
 import Loading from "../screens/auth_screen/loading";
-import { navigate, navigationRef } from "../utils/navigation";
+import { navigationRef } from "../utils/navigation";
 import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
+
 const Root = createStackNavigator();
 
 const RootNavigation = () => {
@@ -25,6 +26,21 @@ const RootNavigation = () => {
 
   useEffect(() => {
     checkUpdate();
+  }, []);
+
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      try {
+        let userToken = await getToken();
+
+        dispatch({ type: "RESTORE_TOKEN", token: userToken });
+        const user = await getUser();
+
+        dispatch({ type: "STORE_USER", user: JSON.parse(user) });
+      } catch (e) {}
+    };
+
+    bootstrapAsync();
   }, []);
 
   const checkUpdate = async () => {
@@ -47,20 +63,6 @@ const RootNavigation = () => {
       }
     } catch (e) {}
   };
-  useEffect(() => {
-    const bootstrapAsync = async () => {
-      try {
-        let userToken = await getToken();
-
-        dispatch({ type: "RESTORE_TOKEN", token: userToken });
-        const user = await getUser();
-
-        dispatch({ type: "STORE_USER", user: JSON.parse(user) });
-      } catch (e) {}
-    };
-
-    bootstrapAsync();
-  }, []);
 
   const deepLinking = {
     prefixes: ["noveltyhrmobile://"],
@@ -87,23 +89,12 @@ const RootNavigation = () => {
       },
     },
   };
-  const tryLocalSignIn = async () => {
-    SplashScreens.hide();
-    try {
-      let userToken = await getToken();
-      if (userToken) {
-        navigate("BottomTabs");
-      } else {
-        navigate("login");
-      }
-    } catch (e) {}
-  };
 
   return (
     <NavigationContainer
       linking={deepLinking}
       ref={navigationRef}
-      onReady={() => tryLocalSignIn()}
+      onReady={() => SplashScreens.hide()}
     >
       <AuthContext.Provider value={{ state, dispatch }}>
         <Root.Navigator
@@ -111,6 +102,7 @@ const RootNavigation = () => {
             headerShown: false,
           }}
         >
+          <Root.Screen name='splash' component={SplashScreen} />
           <Root.Screen name='login' component={Login} />
           <Root.Screen name='loading' component={Loading} />
           <Root.Screen name='invalid' component={Invalid} />
