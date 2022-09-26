@@ -17,12 +17,36 @@ const checkToday = (startDate: Date, endDate: Date) => {
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
+
   let startDates = moment(new Date(startDate).toDateString().slice(0, 10))
     .utc()
     .local(true)
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
+
+  if (todaydate === startDates) {
+    return true;
+  } else {
+    return false;
+  }
+
+  // if (todaydate.day() === 0 || todaydate.day() === 6) {
+  //   return false;
+  // } else {
+  //   return checkRepeat(
+  //     { startDate: todaydate, endDate: todaydate },
+  //     JSON.stringify({
+  //       startDate: new Date(startDate).toDateString(),
+  //       endDate: new Date(endDate).toDateString(),
+  //     })
+  //   );
+  // }
+};
+const checkholidayToday = (startDate: Date, endDate: Date) => {
+  let todaydate = new Date().toUTCString().slice(0, 10);
+
+  let startDates = new Date(startDate).toUTCString().slice(0, 10);
 
   if (todaydate === startDates) {
     return true;
@@ -57,6 +81,25 @@ const checkTomorrow = (date: Date) => {
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
+  if (todaydate === newdate) {
+    return true;
+  } else {
+    return false;
+  }
+  // if (new Date().getDay() === 0) return false;
+  // return (
+  //   todaydate.getFullYear() === newdate.getFullYear() &&
+  //   todaydate.getMonth() === newdate.getMonth() &&
+  //   todaydate.getDate() + 1 === newdate.getDate()
+  // );
+};
+const checkHolidayTomorrow = (date: Date) => {
+  const today = new Date();
+
+  let tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  let todaydate = new Date(tomorrow).toUTCString().slice(0, 10);
+  let newdate = new Date(date).toUTCString().slice(0, 10);
   if (todaydate === newdate) {
     return true;
   } else {
@@ -108,9 +151,17 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
       ? ""
       : `\n${dateStringMapper(startDate, endDate, true)}`;
 
-  if (checkToday(startDate, endDate)) {
+  if (
+    module === "Leave"
+      ? checkToday(startDate, endDate)
+      : checkholidayToday(startDate, endDate)
+  ) {
     return module === "Leave" ? `On Leave Today ${days}` : "Today";
-  } else if (checkTomorrow(startDate)) {
+  } else if (
+    module === "Leave"
+      ? checkTomorrow(startDate)
+      : checkHolidayTomorrow(startDate)
+  ) {
     return module === "Leave" ? `On Leave Tomorrow ${days}` : `Tomorrow`;
   }
 

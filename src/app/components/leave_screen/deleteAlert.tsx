@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import normalize from "react-native-normalize";
 import { ConfirmDialog } from "react-native-simple-dialogs";
 import colors from "../../../assets/colors";
@@ -42,8 +42,11 @@ const DeleteAlert = ({
           dispatchRequest({ type: "CANCEL", payload: data.leave });
           setLoading(false);
           showToast("Request Cancelled");
+          hide();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          hide();
+        });
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
@@ -51,20 +54,28 @@ const DeleteAlert = ({
           dispatchRequest({ type: "DELETE", payload: item.id });
           showToast("Request deleted");
           setLoading(false);
+          hide();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          hide();
+        });
     }
-    hide();
   };
 
   const onTimeLogDelete = () => {
+    setLoading(true);
     deleteTimeLog(item.id)
       .then(() => {
         dispatchTimeLog({ type: "DELETE", payload: item.id });
+
         showToast("TimeLog deleted");
+        setLoading(false);
+        hide();
       })
-      .catch((err) => {});
-    hide();
+      .catch((err) => {
+        setLoading(false);
+        hide();
+      });
   };
   const positive = other ? "YES" : "DELETE";
   const negative = other ? "NO" : "CANCEL";
@@ -92,29 +103,56 @@ const DeleteAlert = ({
         dialogStyle={{ borderRadius: 5 }}
         titleStyle={style.text1}
         positiveButton={{
+          // disabled: !loading, to be done later
           titleStyle: style.delete,
-          title: positive,
+          title: !loading ? positive : positive,
           onPress: () => {
             timelog ? onTimeLogDelete() : onDelete();
-            hide();
           },
         }}
         negativeButton={{
+          // disabled: !loading,
           titleStyle: style.cancel,
-          title: negative,
+          title: !loading ? negative : negative,
           onPress: () => hide(),
         }}
       >
-        <View style={[style.container, { marginBottom: normalize(-20) }]}>
-          <AppIcon name="alert" color={colors.buttonRed} size={30} />
-          <View style={[style.main, { marginBottom: normalize(-15) }]}>
-            <Text style={style.text1}>
-              {other ? "Cancel" : "Delete"} the{" "}
-              {edittimelog ? "task " : timelog ? "timelog" : "request"} ?
-            </Text>
-            <Text style={style.text2}>This can't be undone</Text>
+        {loading ? (
+          <View style={{ marginBottom: normalize(-20) }}>
+            <ActivityIndicator
+              size={30}
+              color={colors.primary}
+              style={{ marginLeft: normalize(50) }}
+            />
           </View>
-        </View>
+        ) : (
+          <View style={[style.container, { marginBottom: normalize(-20) }]}>
+            {/* {!loading && (
+              <View
+                style={{
+                  marginBottom: normalize(-20),
+                  position: "absolute",
+                  right: normalize(100),
+                }}
+              >
+                <ActivityIndicator
+                  size={30}
+                  color={colors.primary}
+                  style={{ marginLeft: normalize(50) }}
+                />
+              </View>
+            )} */}
+            <AppIcon name="alert" color={colors.buttonRed} size={30} />
+            <View style={[style.main, { marginBottom: normalize(-15) }]}>
+              <Text style={style.text1}>
+                {other ? "Cancel" : "Delete"} the{" "}
+                {edittimelog ? "task " : timelog ? "timelog" : "request"} ?
+              </Text>
+
+              <Text style={style.text2}>This can't be undone</Text>
+            </View>
+          </View>
+        )}
       </ConfirmDialog>
     </>
   );
