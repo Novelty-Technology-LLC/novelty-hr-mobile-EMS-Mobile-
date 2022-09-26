@@ -179,7 +179,6 @@ const LogTime = ({ route }: any) => {
 
     //   submitTimeLog(dataObj, selectedDate, historyDate)
     //     .then((data) => {
-    //       console.log(Array.isArray(data));
 
     //       if (Array.isArray(data)) {
     //         dispatchTimeLog({
@@ -199,7 +198,7 @@ const LogTime = ({ route }: any) => {
     //         snackBarMessage("TimeLog updated");
     //       }
     //     })
-    //     .catch((err) => console.log(err));
+    //     .catch((err) => {});
     // } else {
     //   Keyboard.dismiss();
     //   setIsLoading(false);

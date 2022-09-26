@@ -72,47 +72,45 @@ const Description = ({
 
     if (timelog) {
       onChangeHashTag(hashtagError);
-      let tag = text.split(" ");
-      let selectedTag = tag[tag.length - 1];
-      const found = hashtag.some((r: any) => tag.includes(r.value));
+      //code will be in need
+      // let tag = text.split(" ");
+      // let selectedTag = tag[tag.length - 1];
 
-      let findHashTag = -1;
+      // let findHashTag = -1;
+      // if (selectedTag.includes("#")) {
+      //   if (selectedTag == "#d") {
+      //     findHashTag = hashtag.findIndex((item: any) => item.value === "#db");
+      //   } else {
+      //     findHashTag = hashtag.findIndex((item: any) => {
+      //       const regExp = new RegExp(selectedTag, "g");
+      //       return item.value.match(regExp);
+      //     });
+      //   }
+      // }
 
-      if (selectedTag.includes("#")) {
-        // if (selectedTag == "#d") {
-        //   findHashTag = hashtag.findIndex((item: any) => {
-        //     item.value === "#db";
-        //   });
-        //   console.log(":ffffff");
-        // } else {
-        //   console.log(":sss");
+      // if (findHashTag >= 0) {
+      //   const isEqual = hashtag[findHashTag].value === selectedTag;
+      //   if (!isEqual) {
+      //     hashtag[findHashTag].isSelected = false;
+      //     if (selectedTag == "#d") {
+      //       finalText = tag.filter((item: string) => item !== "#d").join(" ");
+      //     } else {
+      //       finalText = tag
+      //         .filter((item: string) => !item.match(new RegExp(selectedTag)))
+      //         .join(" ");
+      //     }
+      //   }
+      // }
+      const splitedNote = text.replace(/\n/g, "").split(" ");
 
-        //   findHashTag = hashtag.findIndex((item: any) => {
-        //     const regExp = new RegExp(selectedTag, "g");
-        //     return item.value.match(regExp);
-        //   });
-        // }
-
-        findHashTag = hashtag.findIndex((item: any) => {
-          const regExp = new RegExp(selectedTag, "g");
-
-          return item.value.match(regExp);
+      if (splitedNote.length) {
+        hashtag.forEach((el: any) => {
+          const exist = splitedNote.find((val) => val === el.label);
+          el.isSelected = exist ? true : false;
         });
       }
 
-      if (findHashTag >= 0) {
-        const isEqual = hashtag[findHashTag].value === selectedTag;
-        if (!isEqual) {
-          hashtag[findHashTag].isSelected = false;
-          if (selectedTag == "#d") {
-            finalText = tag.filter((item: string) => item !== "#d").join(" ");
-          } else {
-            finalText = tag
-              .filter((item: string) => !item.match(new RegExp(selectedTag)))
-              .join(" ");
-          }
-        }
-      }
+      setHashtag([...hashtag]);
       handleChange("hashtag")(
         JSON.stringify(
           hashtag
