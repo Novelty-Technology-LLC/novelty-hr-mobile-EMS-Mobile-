@@ -27,6 +27,7 @@ const ListItem = ({
   date?: string;
 }) => {
   const indicatorColor = getColor(type, colors.lightbrown);
+
   return (
     <View
       style={[

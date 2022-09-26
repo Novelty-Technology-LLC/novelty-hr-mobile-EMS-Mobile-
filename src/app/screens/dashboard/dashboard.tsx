@@ -214,7 +214,7 @@ const DashBoard = () => {
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name='check-circle'
+                  name="check-circle"
                   color={toggle ? colors.white : colors.white}
                   size={20}
                 />
