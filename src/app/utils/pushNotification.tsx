@@ -20,6 +20,5 @@ export const SetLocalNotification = (message: any) => {
 
 // export const checkPermission = () => {
 //   PushNotification.checkPermissions((permission) => {
-//     console.log('Perssmion push noticcation ', permission);
 //   });
 // };
