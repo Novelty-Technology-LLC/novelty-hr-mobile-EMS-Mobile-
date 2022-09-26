@@ -45,19 +45,19 @@ const Description = ({
         const mapData =
           updatehashtag !== null
             ? response.hashtags.map((item: any) => {
-              const hashtag = {
-                ...item,
-                isSelected:
-                  updatehashtag?.length && updatehashtag.includes(item.value),
-              };
-              return hashtag;
-            })
+                const hashtag = {
+                  ...item,
+                  isSelected:
+                    updatehashtag?.length && updatehashtag.includes(item.value),
+                };
+                return hashtag;
+              })
             : response.hashtags.map((item) => {
-              return {
-                ...item,
-                isSelected: false,
-              };
-            });
+                return {
+                  ...item,
+                  isSelected: false,
+                };
+              });
         setHashtag(mapData);
         setloading(false);
       } catch (error) {
@@ -72,37 +72,50 @@ const Description = ({
 
     if (timelog) {
       onChangeHashTag(hashtagError);
-      let tag = text.split(" ");
-      let selectedTag = tag[tag.length - 1];
+      //code will be in need
+      // let tag = text.split(" ");
+      // let selectedTag = tag[tag.length - 1];
 
-      let findHashTag = -1;
-      if (selectedTag.includes("#")) {
-        if (selectedTag == "#d") {
-          findHashTag = hashtag.findIndex((item: any) => item.value === "#db");
-        } else {
-          findHashTag = hashtag.findIndex((item: any) => {
-            const regExp = new RegExp(selectedTag, "g");
-            return item.value.match(regExp);
-          });
-        }
+      // let findHashTag = -1;
+      // if (selectedTag.includes("#")) {
+      //   if (selectedTag == "#d") {
+      //     findHashTag = hashtag.findIndex((item: any) => item.value === "#db");
+      //   } else {
+      //     findHashTag = hashtag.findIndex((item: any) => {
+      //       const regExp = new RegExp(selectedTag, "g");
+      //       return item.value.match(regExp);
+      //     });
+      //   }
+      // }
+
+      // if (findHashTag >= 0) {
+      //   const isEqual = hashtag[findHashTag].value === selectedTag;
+      //   if (!isEqual) {
+      //     hashtag[findHashTag].isSelected = false;
+      //     if (selectedTag == "#d") {
+      //       finalText = tag.filter((item: string) => item !== "#d").join(" ");
+      //     } else {
+      //       finalText = tag
+      //         .filter((item: string) => !item.match(new RegExp(selectedTag)))
+      //         .join(" ");
+      //     }
+      //   }
+      // }
+      const splitedNote = text.replace(/\n/g, "").split(" ");
+
+      if (splitedNote.length) {
+        hashtag.forEach((el: any) => {
+          const exist = splitedNote.find((val) => val === el.label);
+          el.isSelected = exist ? true : false;
+        });
       }
 
-      if (findHashTag >= 0) {
-        const isEqual = hashtag[findHashTag].value === selectedTag;
-        if (!isEqual) {
-          hashtag[findHashTag].isSelected = false;
-          if (selectedTag == "#d") {
-            finalText = tag.filter((item: string) => item !== "#d").join(" ");
-          } else {
-            finalText = tag
-              .filter((item: string) => !item.match(new RegExp(selectedTag)))
-              .join(" ");
-          }
-        }
-      }
+      setHashtag([...hashtag]);
       handleChange("hashtag")(
         JSON.stringify(
-          hashtag.filter((item: any) => item.isSelected).map((item) => item.value)
+          hashtag
+            .filter((item: any) => item.isSelected)
+            .map((item) => item.value)
         )
       );
     }
