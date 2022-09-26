@@ -51,6 +51,7 @@ const Tasks = ({ value, handleChange, note, groupby = "Project" }: any) => {
             <TouchableOpacity
               onPress={() => {
                 value.item = item;
+
                 navigate("logtime", value);
               }}
               disabled={loading}
