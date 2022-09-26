@@ -9,6 +9,7 @@ import { EmptyContainer } from "../emptyContainer";
 import { AppIcon } from "../icon";
 import { ListItem } from "./listItem";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import moment from "moment";
 
 const List = ({ list }: { list: any }) => {
   return (

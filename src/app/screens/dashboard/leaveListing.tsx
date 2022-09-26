@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Dimensions, ScrollView, Text, View } from "react-native";
 import normalize from "react-native-normalize";
@@ -47,9 +48,9 @@ const LeaveListing = (props: any) => {
             true,
             false,
             props?.route?.params?.module === "Leave" ? true : false
-          ).map((item, index) => (
-            <ListingCard index={index} item={item} list={list.length} />
-          ))
+          ).map((item, index) => {
+            return <ListingCard index={index} item={item} list={list.length} />;
+          })
         ) : (
           <EmptyContainer
             text={`${"No Upcoming Leave"}`}

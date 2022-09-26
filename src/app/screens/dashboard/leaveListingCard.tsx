@@ -62,12 +62,14 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
                 alignItems: "center",
               }}
             >
-              <Icon
-                name='card-account-details'
-                color={colors.fontGrey}
-                size={normalize(12)}
-                style={{ marginRight: normalize(5) }}
-              />
+              {module == "Announcements" && (
+                <Icon
+                  name="card-account-details"
+                  color={colors.fontGrey}
+                  size={normalize(12)}
+                  style={{ marginRight: normalize(5) }}
+                />
+              )}
               <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
             </View>
             {item?.work_shift && (
@@ -78,7 +80,7 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
                 }}
               >
                 <Icon
-                  name='timetable'
+                  name="timetable"
                   color={colors.fontGrey}
                   size={normalize(12)}
                   style={{ marginRight: normalize(5) }}

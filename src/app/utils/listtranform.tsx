@@ -2,6 +2,7 @@ import { dateStringMapper } from "./dateMapper";
 import { getDayToday } from "./momentDate";
 import { checkRepeat } from "../utils";
 import colors from "../../assets/colors";
+import moment from "moment";
 
 const transformTitle = (title: string, transform: boolean) => {
   return title.length > 18
@@ -10,19 +11,32 @@ const transformTitle = (title: string, transform: boolean) => {
 };
 
 const checkToday = (startDate: Date, endDate: Date) => {
-  let todaydate = new Date().toDateString();
+  let todaydate = moment(new Date().toDateString().slice(0, 10))
+    .format("YYYY-MM-DD")
+    .toString()
+    .slice(0, 10);
+  let startDates = moment(new Date(startDate).toDateString().slice(0, 10))
+    .format("YYYY-MM-DD")
+    .toString()
+    .slice(0, 10);
 
-  if (new Date().getUTCDay() === 0 || new Date().getUTCDay() === 6) {
-    return false;
+  if (todaydate === startDates) {
+    return true;
   } else {
-    return checkRepeat(
-      { startDate: todaydate, endDate: todaydate },
-      JSON.stringify({
-        startDate: new Date(startDate).toDateString(),
-        endDate: new Date(endDate).toDateString(),
-      })
-    );
+    return false;
   }
+
+  // if (todaydate.day() === 0 || todaydate.day() === 6) {
+  //   return false;
+  // } else {
+  //   return checkRepeat(
+  //     { startDate: todaydate, endDate: todaydate },
+  //     JSON.stringify({
+  //       startDate: new Date(startDate).toDateString(),
+  //       endDate: new Date(endDate).toDateString(),
+  //     })
+  //   );
+  // }
 };
 
 const checkTomorrow = (date: Date) => {
@@ -81,10 +95,17 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
   }
 
   if (!isList) {
-    month = new Date(startDate).getUTCMonth();
-    day = new Date(startDate).getUTCDay();
-    /* todo : holiday date is changed acc to timezone */
-    monthdate = new Date(startDate).getUTCDate();
+    if (module === "Leave") {
+      month = new Date(startDate).getMonth();
+      day = new Date(startDate).getDay();
+      /* todo : holiday date is changed acc to timezone */
+      monthdate = new Date(startDate).getDate();
+    } else {
+      month = new Date(startDate).getUTCMonth();
+      day = new Date(startDate).getUTCDay();
+      /* todo : holiday date is changed acc to timezone */
+      monthdate = new Date(startDate).getUTCDate();
+    }
 
     return formatDate(month, day, monthdate);
   } else {

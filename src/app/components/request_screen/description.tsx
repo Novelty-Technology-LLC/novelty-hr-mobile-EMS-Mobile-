@@ -45,19 +45,19 @@ const Description = ({
         const mapData =
           updatehashtag !== null
             ? response.hashtags.map((item: any) => {
-              const hashtag = {
-                ...item,
-                isSelected:
-                  updatehashtag?.length && updatehashtag.includes(item.value),
-              };
-              return hashtag;
-            })
+                const hashtag = {
+                  ...item,
+                  isSelected:
+                    updatehashtag?.length && updatehashtag.includes(item.value),
+                };
+                return hashtag;
+              })
             : response.hashtags.map((item) => {
-              return {
-                ...item,
-                isSelected: false,
-              };
-            });
+                return {
+                  ...item,
+                  isSelected: false,
+                };
+              });
         setHashtag(mapData);
         setloading(false);
       } catch (error) {
@@ -74,17 +74,30 @@ const Description = ({
       onChangeHashTag(hashtagError);
       let tag = text.split(" ");
       let selectedTag = tag[tag.length - 1];
+      const found = hashtag.some((r: any) => tag.includes(r.value));
 
       let findHashTag = -1;
+
       if (selectedTag.includes("#")) {
-        if (selectedTag == "#d") {
-          findHashTag = hashtag.findIndex((item: any) => item.value === "#db");
-        } else {
-          findHashTag = hashtag.findIndex((item: any) => {
-            const regExp = new RegExp(selectedTag, "g");
-            return item.value.match(regExp);
-          });
-        }
+        // if (selectedTag == "#d") {
+        //   findHashTag = hashtag.findIndex((item: any) => {
+        //     item.value === "#db";
+        //   });
+        //   console.log(":ffffff");
+        // } else {
+        //   console.log(":sss");
+
+        //   findHashTag = hashtag.findIndex((item: any) => {
+        //     const regExp = new RegExp(selectedTag, "g");
+        //     return item.value.match(regExp);
+        //   });
+        // }
+
+        findHashTag = hashtag.findIndex((item: any) => {
+          const regExp = new RegExp(selectedTag, "g");
+
+          return item.value.match(regExp);
+        });
       }
 
       if (findHashTag >= 0) {
@@ -102,7 +115,9 @@ const Description = ({
       }
       handleChange("hashtag")(
         JSON.stringify(
-          hashtag.filter((item: any) => item.isSelected).map((item) => item.value)
+          hashtag
+            .filter((item: any) => item.isSelected)
+            .map((item) => item.value)
         )
       );
     }
