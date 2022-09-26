@@ -12,10 +12,14 @@ const transformTitle = (title: string, transform: boolean) => {
 
 const checkToday = (startDate: Date, endDate: Date) => {
   let todaydate = moment(new Date().toDateString().slice(0, 10))
+    .utc()
+    .local(true)
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
   let startDates = moment(new Date(startDate).toDateString().slice(0, 10))
+    .utc()
+    .local(true)
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
@@ -40,14 +44,30 @@ const checkToday = (startDate: Date, endDate: Date) => {
 };
 
 const checkTomorrow = (date: Date) => {
-  let todaydate = new Date();
-  let newdate = new Date(date);
-  if (new Date().getDay() === 0) return false;
-  return (
-    todaydate.getFullYear() === newdate.getFullYear() &&
-    todaydate.getMonth() === newdate.getMonth() &&
-    todaydate.getDate() + 1 === newdate.getDate()
-  );
+  let todaydate = moment(new Date().toDateString().slice(0, 10))
+    .add(1, "day")
+    .utc()
+    .local(true)
+    .format("YYYY-MM-DD")
+    .toString()
+    .slice(0, 10);
+  let newdate = moment(new Date(date).toDateString().slice(0, 10))
+    .utc()
+    .local(true)
+    .format("YYYY-MM-DD")
+    .toString()
+    .slice(0, 10);
+  if (todaydate === newdate) {
+    return true;
+  } else {
+    return false;
+  }
+  // if (new Date().getDay() === 0) return false;
+  // return (
+  //   todaydate.getFullYear() === newdate.getFullYear() &&
+  //   todaydate.getMonth() === newdate.getMonth() &&
+  //   todaydate.getDate() + 1 === newdate.getDate()
+  // );
 };
 
 const formatDate = (month: number, day: number, monthdate: number) => {
