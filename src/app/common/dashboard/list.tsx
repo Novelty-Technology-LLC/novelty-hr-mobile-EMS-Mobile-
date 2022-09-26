@@ -82,7 +82,7 @@ const List = ({ list }: { list: any }) => {
                 : "No Upcoming Holidays and Events"
             }`}
             containerStyle={{
-              height: normalize(150),
+              height: normalize(170),
               borderBottomColor: colors.snow,
               paddingVertical: normalize(10),
             }}
