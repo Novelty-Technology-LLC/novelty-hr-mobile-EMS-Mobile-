@@ -23,12 +23,6 @@ const checkToday = (startDate: Date, endDate: Date) => {
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
-  console.log(
-    moment(todaydate).day().toString(),
-    " moment(todaydate).day().toString()",
-    moment(startDates).day().toString(),
-    "moment(startDates).day().toString()"
-  );
 
   if (todaydate === startDates) {
     return true;
