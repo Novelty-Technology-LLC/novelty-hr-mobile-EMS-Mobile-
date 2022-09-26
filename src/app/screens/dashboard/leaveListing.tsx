@@ -38,7 +38,7 @@ const LeaveListing = (props: any) => {
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>LEAVE</Text>
       </Header>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {loading ? (
           <ListPlaceholder />
         ) : list?.length ? (

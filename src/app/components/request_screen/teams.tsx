@@ -126,7 +126,7 @@ class Teams extends Component {
           )}
         </View>
         {this.props.error.lead && (
-          <Text style={style.error}>Lead is required</Text>
+          <Text style={style.error}>Please select your lead.</Text>
         )}
       </>
     );
