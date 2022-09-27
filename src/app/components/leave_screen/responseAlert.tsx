@@ -70,14 +70,16 @@ const EditAlert = ({
     };
 
     setisLoading(true);
+
     updateRequest(item.id, newData).then((data) => {
       item.state = data.status;
+
       dispatchAdmin({
         type: "REPLY",
         payload: item,
       });
-      navigation.navigate("leaveList");
       setisLoading(true);
+
       showToast("Request replied");
     });
   };
