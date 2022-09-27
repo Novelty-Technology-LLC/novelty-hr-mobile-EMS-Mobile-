@@ -71,17 +71,21 @@ const EditAlert = ({
 
     setisLoading(true);
 
-    updateRequest(item.id, newData).then((data) => {
-      item.state = data.status;
+    updateRequest(item.id, newData)
+      .then((data) => {
+        item.state = data.status;
 
-      dispatchAdmin({
-        type: "REPLY",
-        payload: item,
+        dispatchAdmin({
+          type: "REPLY",
+          payload: item,
+        });
+        setisLoading(true);
+
+        showToast("Request replied");
+      })
+      .catch((error) => {
+        showToast("Something went wrong");
       });
-      setisLoading(true);
-
-      showToast("Request replied");
-    });
   };
   const getRequest = async (item: any) => {
     try {

@@ -232,8 +232,9 @@ const RequestLeave = ({ route }: any) => {
       } catch (error) {
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
+        setisLoading(false);
 
-        snackErrorTop(error);
+        showToast(error.message);
       }
     }
   };
