@@ -52,8 +52,6 @@ const RootNavigation = () => {
         latestVersion: latestVersion,
       }).then((res: any) => {
         if (res?.isNeeded) {
-          console.log("rrr");
-
           Alert.alert(
             "New Update Available",
             "New version of EMS is available",
