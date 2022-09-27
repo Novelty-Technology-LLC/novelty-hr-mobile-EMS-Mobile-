@@ -56,7 +56,7 @@ const RootNavigation = () => {
 
           Alert.alert(
             "New Update Available",
-            "New version of app is available",
+            "New version of EMS is available",
             [
               {
                 text: "Cancel",
