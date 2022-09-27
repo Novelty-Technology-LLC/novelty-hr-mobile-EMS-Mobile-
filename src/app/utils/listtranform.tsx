@@ -200,6 +200,7 @@ export const transformList = (
     type: item?.type,
     html: item?.html ?? "",
     date: item?.date?.slice(0, 10),
+    leave_option: item?.leave_option,
   }));
 
   return newList;
