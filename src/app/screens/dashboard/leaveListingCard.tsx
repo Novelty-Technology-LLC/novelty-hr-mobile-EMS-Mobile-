@@ -63,7 +63,7 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
                 alignItems: "center",
               }}
             >
-              {module == "Announcements" && (
+              {module === "employeeList" && (
                 <Icon
                   name="card-account-details"
                   color={colors.fontGrey}

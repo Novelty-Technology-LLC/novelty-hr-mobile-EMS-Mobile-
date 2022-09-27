@@ -122,12 +122,14 @@ const ProfileInfoComponent = ({
 
           <View style={style.icon}>
             <Icon name="location-enter" color={colors.primary} size={25} />
-            <Text style={style.text}>{user.join_date}</Text>
+            <Text style={style.text}>{user?.join_date}</Text>
           </View>
-          <View style={style.icon}>
-            <Icon name="timetable" color={colors.primary} size={25} />
-            <Text style={style.text}>{user.work_shift}</Text>
-          </View>
+          {user?.work_shift && (
+            <View style={style.icon}>
+              <Icon name="timetable" color={colors.primary} size={25} />
+              <Text style={style.text}>{user?.work_shift}</Text>
+            </View>
+          )}
 
           {/* <View style={style.icon}>
             <Icon name="account-tie" color={colors.primary} size={25} />

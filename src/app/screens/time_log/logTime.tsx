@@ -36,7 +36,6 @@ const LogTime = ({ route }: any) => {
     log_date = olddata.log_date;
     olddata = null;
   }
-  console.log("log_date", olddata);
 
   const [isLoading, setIsLoading] = useState(false);
   const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
