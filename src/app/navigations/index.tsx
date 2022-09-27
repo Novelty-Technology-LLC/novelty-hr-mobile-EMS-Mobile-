@@ -34,7 +34,7 @@ const RootNavigation = () => {
         let userToken = await getToken();
 
         dispatch({ type: "RESTORE_TOKEN", token: userToken });
-        const user = await getUser();
+        const user: any = await getUser();
 
         dispatch({ type: "STORE_USER", user: JSON.parse(user) });
       } catch (e) {}
@@ -45,22 +45,31 @@ const RootNavigation = () => {
 
   const checkUpdate = async () => {
     try {
-      const version = await checkVersion();
-      if (version.needsUpdate) {
-        Alert.alert(
-          "New Update Available",
-          "New version of app is available",
-          [
-            {
-              text: "Cancel",
-              onPress: () => {},
-              style: "cancel",
-            },
-            { text: "UPDATE", onPress: () => goToStore() },
-          ],
-          { cancelable: false }
-        );
-      }
+      const curretVersion = await VersionCheck.getCurrentVersion();
+      const latestVersion = await VersionCheck.getLatestVersion();
+      VersionCheck.needUpdate({
+        currentVersion: curretVersion,
+        latestVersion: latestVersion,
+      }).then((res: any) => {
+        if (res?.isNeeded) {
+          console.log("rrr");
+
+          Alert.alert(
+            "New Update Available",
+            "New version of EMS is available",
+            [
+              {
+                text: "Cancel",
+                onPress: () => {},
+                style: "cancel",
+              },
+              { text: "UPDATE", onPress: () => goToStore() },
+            ],
+            { cancelable: false }
+          );
+        } else {
+        }
+      });
     } catch (e) {}
   };
 
@@ -102,13 +111,13 @@ const RootNavigation = () => {
             headerShown: false,
           }}
         >
-          <Root.Screen name='splash' component={SplashScreen} />
-          <Root.Screen name='login' component={Login} />
-          <Root.Screen name='loading' component={Loading} />
-          <Root.Screen name='invalid' component={Invalid} />
-          <Root.Screen name='fullImageScreen' component={FullImageScreen} />
+          <Root.Screen name="splash" component={SplashScreen} />
+          <Root.Screen name="login" component={Login} />
+          <Root.Screen name="loading" component={Loading} />
+          <Root.Screen name="invalid" component={Invalid} />
+          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
           <Root.Screen
-            name='BottomTabs'
+            name="BottomTabs"
             component={TabNavigator}
             options={{ gestureEnabled: false }}
           />
