@@ -15,6 +15,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import normalize from "react-native-normalize";
 import CustomImage from "../../common/image";
+import { getLeaveOption } from "../../utils/getLeaveType";
 
 const ListingCard = ({ index, listLength, item, module, sa }: any) => {
   const [se, us] = useState([{ src: item.image, errored: false }]);
@@ -89,6 +90,11 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
                   style={cardStyle.subTitleText}
                 >{`${item?.work_shift}`}</Text>
               </View>
+            )}
+            {item?.leave_option && item?.leave_option !== "FULL DAY" && (
+              <Text style={cardStyle.subTitleText}>
+                {getLeaveOption(item?.leave_option)}
+              </Text>
             )}
           </View>
         )}

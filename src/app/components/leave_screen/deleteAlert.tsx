@@ -103,56 +103,50 @@ const DeleteAlert = ({
         dialogStyle={{ borderRadius: 5 }}
         titleStyle={style.text1}
         positiveButton={{
-          // disabled: !loading, to be done later
+          disabled: loading, // to be done later
           titleStyle: style.delete,
-          title: !loading ? positive : positive,
+          title: positive,
           onPress: () => {
             timelog ? onTimeLogDelete() : onDelete();
           },
         }}
         negativeButton={{
-          // disabled: !loading,
+          disabled: loading,
           titleStyle: style.cancel,
-          title: !loading ? negative : negative,
+          title: negative,
           onPress: () => hide(),
         }}
       >
-        {loading ? (
-          <View style={{ marginBottom: normalize(-20) }}>
-            <ActivityIndicator
-              size={30}
-              color={colors.primary}
-              style={{ marginLeft: normalize(50) }}
-            />
-          </View>
-        ) : (
-          <View style={[style.container, { marginBottom: normalize(-20) }]}>
-            {/* {!loading && (
-              <View
-                style={{
-                  marginBottom: normalize(-20),
-                  position: "absolute",
-                  right: normalize(100),
-                }}
-              >
-                <ActivityIndicator
-                  size={30}
-                  color={colors.primary}
-                  style={{ marginLeft: normalize(50) }}
-                />
-              </View>
-            )} */}
-            <AppIcon name="alert" color={colors.buttonRed} size={30} />
-            <View style={[style.main, { marginBottom: normalize(-15) }]}>
-              <Text style={style.text1}>
-                {other ? "Cancel" : "Delete"} the{" "}
-                {edittimelog ? "task " : timelog ? "timelog" : "request"} ?
-              </Text>
-
-              <Text style={style.text2}>This can't be undone</Text>
+        <View style={[style.container, { marginBottom: normalize(-20) }]}>
+          {loading && (
+            <View
+              style={{
+                marginBottom: normalize(-20),
+                position: "absolute",
+                right: normalize(10),
+              }}
+            >
+              <ActivityIndicator
+                size={30}
+                color={colors.primary}
+                style={{ marginLeft: normalize(50) }}
+              />
             </View>
+          )}
+          <AppIcon
+            name="alert"
+            color={loading ? colors.fontGrey : colors.buttonRed}
+            size={30}
+          />
+          <View style={[style.main, { marginBottom: normalize(-15) }]}>
+            <Text style={loading ? style.text1withOpacity : style.text1}>
+              {other ? "Cancel" : "Delete"} the{" "}
+              {edittimelog ? "task " : timelog ? "timelog" : "request"} ?
+            </Text>
+
+            <Text style={style.text2}>This can't be undone</Text>
           </View>
-        )}
+        </View>
       </ConfirmDialog>
     </>
   );

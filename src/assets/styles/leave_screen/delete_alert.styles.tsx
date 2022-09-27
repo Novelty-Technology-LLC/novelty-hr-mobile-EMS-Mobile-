@@ -23,6 +23,14 @@ const deleteAlertStyle = StyleSheet.create({
   },
   text1: {
     fontSize: normalize(theme.size.md),
+    color: colors.fontBlack,
+
+    fontFamily: fonts.mulishBold,
+  },
+  text1withOpacity: {
+    fontSize: normalize(theme.size.md),
+    color: colors.fontGrey,
+
     fontFamily: fonts.mulishBold,
   },
   text2: {

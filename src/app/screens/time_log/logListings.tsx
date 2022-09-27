@@ -71,21 +71,9 @@ const LogListings = ({ route }: any) => {
         )}
         <View style={historyStyle.timelogcontainer}></View>
       </ScrollView>
-
+      {console.log("olddata[0]", olddata)}
       {olddata && (
-        <RequestButton
-          screen="logtime"
-          addToList={true}
-          olddata={{
-            id: olddata[0] ? null : olddata.id,
-            log_date: olddata[0]
-              ? olddata.groupby === "Date"
-                ? olddata[0]
-                : null
-              : olddata.log_date,
-            project: olddata[0] ? olddata[1][0].project : olddata.project,
-          }}
-        />
+        <RequestButton screen="logtime" addToList={true} olddata={olddata} />
       )}
     </TaskContext.Provider>
   );
