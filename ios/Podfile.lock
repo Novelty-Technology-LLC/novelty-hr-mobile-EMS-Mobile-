@@ -344,7 +344,7 @@ PODS:
     - React-Core
   - react-native-uuid-generator (6.1.1):
     - React
-  - react-native-version-check (3.4.2):
+  - react-native-version-check (3.4.3):
     - React
   - React-perflogger (0.64.3)
   - React-RCTActionSheet (0.64.3):
@@ -713,7 +713,7 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-uuid-generator: 82ffa2a1cac94242ebed52c4dedc5044d3412717
-  react-native-version-check: d8b8900e6ce03ae1568cb22ef9451f2508188883
+  react-native-version-check: e85c2e21d0955b7cdfd91c0ddacc3edf14b7abd7
   React-perflogger: cc76a4254d19640f1d8ad1c66fdee800414b805c
   React-RCTActionSheet: 7448f049318d8d7e8a9a1ebb742ada721757eea8
   React-RCTAnimation: fb9b3fa1a4a9f5e6ab01b3368693ce69860ba76a
