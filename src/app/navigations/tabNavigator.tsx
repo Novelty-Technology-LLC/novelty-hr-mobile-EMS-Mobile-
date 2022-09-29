@@ -6,7 +6,7 @@ import colors from "../../assets/colors";
 import { Profile } from "../screens";
 import { AppIcon } from "../common";
 import LogNav from "./logStack";
-import DeviceInfo from "react-native-device-info";
+import { getUniqueId } from "react-native-device-info";
 import {
   getUser,
   removeToken,
@@ -109,7 +109,7 @@ const TabNavigator = () => {
 
     let user = await getUser();
     user = JSON.parse(user);
-    const device_id = DeviceInfo.getUniqueId();
+    const device_id = await getUniqueId();
 
     const isValid = user.device_tokens?.some(
       (item) =>

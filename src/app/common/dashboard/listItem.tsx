@@ -8,6 +8,7 @@ import { useWindowDimensions } from "react-native";
 import { RenderHtmlComponent } from "../renderHtml";
 import { responseDay } from "../../utils/getDay";
 import { getShortDate } from "../../utils";
+import { getLeaveOption } from "../../utils/getLeaveType";
 
 const ListItem = ({
   title,
@@ -17,9 +18,11 @@ const ListItem = ({
   module,
   html,
   date,
+  leave_option,
 }: {
   title: string;
   subTitle: string;
+  leave_option: string;
   isLast: boolean;
   type?: string;
   module?: string;
@@ -57,6 +60,11 @@ const ListItem = ({
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       ) : (
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
+      )}
+      {module === "Leave" && leave_option !== "FULL DAY" && (
+        <Text style={cardStyle.subTitleText}>
+          {`${getLeaveOption(leave_option)}`}
+        </Text>
       )}
       <View
         style={[

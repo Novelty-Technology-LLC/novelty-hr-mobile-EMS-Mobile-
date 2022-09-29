@@ -47,6 +47,7 @@ const List = ({ list }: { list: any }) => {
                   key={index}
                   title={item?.title}
                   subTitle={item?.subTitle}
+                  leave_option={item?.leave_option}
                   date={item?.date}
                   isLast={2 === index}
                   type={item?.type}
