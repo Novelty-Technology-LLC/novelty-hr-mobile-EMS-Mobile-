@@ -58,12 +58,6 @@ const ListItem = ({
       </View>
       {module == "Announcements" ? (
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
-      ) : module == "Leave" ? (
-        !leave_option || leave_option === "FULL DAY" ? (
-          <Text style={cardStyle.subTitleText}>{subTitle}</Text>
-        ) : (
-          <Text style={cardStyle.subTitleText}>{subTitle}</Text>
-        )
       ) : (
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       )}

@@ -31,7 +31,6 @@ const checkToday = (startDate: Date, endDate: Date) => {
   if (todaydate === startDates) {
     return true;
   } else {
-    // return false;
     return checkRepeat(
       { startDate: todaydate, endDate: todaydate },
       JSON.stringify({
@@ -41,7 +40,7 @@ const checkToday = (startDate: Date, endDate: Date) => {
     );
   }
 
-  // if (todaydate.day() === 0 || todaydate.day() === 6) {
+  // if (todaydate.day() === 0 || todaydate.day() === 6) { */previous  code/*
   //   return false;
   // } else {
   //   return checkRepeat(
@@ -65,17 +64,13 @@ const checkholidayToday = (startDate: Date, endDate: Date) => {
     return false;
   }
 
-  // if (todaydate.day() === 0 || todaydate.day() === 6) {
-  //   return false;
-  // } else {
-  return checkRepeat(
-    { startDate: todaydate, endDate: todaydate },
-    JSON.stringify({
-      startDate: new Date(startDate).toDateString(),
-      endDate: new Date(endDate).toDateString(),
-    })
-  );
-  // }
+  // return checkRepeat(        /* can be used later*/
+  //   { startDate: todaydate, endDate: todaydate },
+  //   JSON.stringify({
+  //     startDate: new Date(startDate).toDateString(),
+  //     endDate: new Date(endDate).toDateString(),
+  //   })
+  // );
 };
 
 const checkTomorrow = (date: Date) => {
