@@ -12,14 +12,17 @@ const transformTitle = (title: string, transform: boolean) => {
 
 const checkToday = (startDate: Date, endDate: Date) => {
   let todaydate = moment(new Date().toDateString().slice(0, 10))
-    .utc()
     .local(true)
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
 
   let startDates = moment(new Date(startDate).toDateString().slice(0, 10))
-    .utc()
+    .local(true)
+    .format("YYYY-MM-DD")
+    .toString()
+    .slice(0, 10);
+  let endDates = moment(new Date(endDate).toDateString().slice(0, 10))
     .local(true)
     .format("YYYY-MM-DD")
     .toString()
@@ -28,10 +31,16 @@ const checkToday = (startDate: Date, endDate: Date) => {
   if (todaydate === startDates) {
     return true;
   } else {
-    return false;
+    return checkRepeat(
+      { startDate: todaydate, endDate: todaydate },
+      JSON.stringify({
+        startDate: startDates,
+        endDate: endDates,
+      })
+    );
   }
 
-  // if (todaydate.day() === 0 || todaydate.day() === 6) {
+  // if (todaydate.day() === 0 || todaydate.day() === 6) { */previous  code/*
   //   return false;
   // } else {
   //   return checkRepeat(
@@ -43,6 +52,7 @@ const checkToday = (startDate: Date, endDate: Date) => {
   //   );
   // }
 };
+
 const checkholidayToday = (startDate: Date, endDate: Date) => {
   let todaydate = new Date().toUTCString().slice(0, 10);
 
@@ -54,29 +64,24 @@ const checkholidayToday = (startDate: Date, endDate: Date) => {
     return false;
   }
 
-  // if (todaydate.day() === 0 || todaydate.day() === 6) {
-  //   return false;
-  // } else {
-  //   return checkRepeat(
-  //     { startDate: todaydate, endDate: todaydate },
-  //     JSON.stringify({
-  //       startDate: new Date(startDate).toDateString(),
-  //       endDate: new Date(endDate).toDateString(),
-  //     })
-  //   );
-  // }
+  // return checkRepeat(        /* can be used later*/
+  //   { startDate: todaydate, endDate: todaydate },
+  //   JSON.stringify({
+  //     startDate: new Date(startDate).toDateString(),
+  //     endDate: new Date(endDate).toDateString(),
+  //   })
+  // );
 };
 
 const checkTomorrow = (date: Date) => {
   let todaydate = moment(new Date().toDateString().slice(0, 10))
     .add(1, "day")
-    .utc()
+
     .local(true)
     .format("YYYY-MM-DD")
     .toString()
     .slice(0, 10);
   let newdate = moment(new Date(date).toDateString().slice(0, 10))
-    .utc()
     .local(true)
     .format("YYYY-MM-DD")
     .toString()
@@ -147,9 +152,7 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
 
   let month, day, monthdate;
   const days =
-    startDate === endDate
-      ? ""
-      : `\n${dateStringMapper(startDate, endDate, true)}`;
+    startDate === endDate ? "" : `\n${dateStringMapper(startDate, endDate)}`;
 
   if (
     module === "Leave"
@@ -166,16 +169,17 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
   }
 
   if (!isList) {
+    const convertedDate = new Date(startDate);
+
     if (module === "Leave") {
       month = new Date(startDate).getMonth();
       day = new Date(startDate).getDay();
-      /* todo : holiday date is changed acc to timezone */
       monthdate = new Date(startDate).getDate();
     } else {
-      month = new Date(startDate).getUTCMonth();
-      day = new Date(startDate).getUTCDay();
-      /* todo : holiday date is changed acc to timezone */
-      monthdate = new Date(startDate).getUTCDate();
+      month = moment(startDate.toString().slice(0, 10)).month();
+      day = moment(startDate.toString().slice(0, 10)).day();
+
+      monthdate = moment(startDate.toString().slice(0, 10)).date();
     }
 
     return formatDate(month, day, monthdate);
@@ -191,17 +195,19 @@ export const transformList = (
   truncate?: boolean,
   transform?: boolean
 ) => {
-  const newList = itemList.map((item: any) => ({
-    title: truncate ? transformTitle(item?.title, transform) : item?.title,
-    subTitle: transform
-      ? transformDate(item?.leave_date ?? item?.subTitle, module, isList)
-      : item.subTitle,
-    status: item?.status,
-    type: item?.type,
-    html: item?.html ?? "",
-    date: item?.date?.slice(0, 10),
-    leave_option: item?.leave_option,
-  }));
+  const newList = itemList.map((item: any) => {
+    return {
+      title: truncate ? transformTitle(item?.title, transform) : item?.title,
+      subTitle: transform
+        ? transformDate(item?.leave_date ?? item?.subTitle, module, isList)
+        : item.subTitle,
+      status: item?.status,
+      type: item?.type,
+      html: item?.html ?? "",
+      date: item?.date?.slice(0, 10),
+      leave_option: item?.leave_option,
+    };
+  });
 
   return newList;
 };

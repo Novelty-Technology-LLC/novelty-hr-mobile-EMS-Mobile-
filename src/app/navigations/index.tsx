@@ -47,6 +47,8 @@ const RootNavigation = () => {
     try {
       const curretVersion = await VersionCheck.getCurrentVersion();
       const latestVersion = await VersionCheck.getLatestVersion();
+      console.log("curretVersion", curretVersion, latestVersion);
+
       VersionCheck.needUpdate({
         currentVersion: curretVersion,
         latestVersion: latestVersion,

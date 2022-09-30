@@ -19,7 +19,9 @@ const Cards = ({ data }: { data: any }) => {
                 module={item.module}
               />
             ) : (
-              <List list={item} />
+              <>
+                <List list={item} />
+              </>
             )}
           </View>
         </Fragment>

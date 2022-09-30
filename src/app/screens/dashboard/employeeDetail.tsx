@@ -29,7 +29,9 @@ const EmployeeDetail = (props: any) => {
 
         setData(response);
         setLoading(false);
-      } catch (error) {}
+      } catch (error) {
+        setLoading(false);
+      }
     })();
   }, []);
 
