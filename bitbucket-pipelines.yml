@@ -15,4 +15,5 @@ pipelines:
             caches:       # caching speed up subsequent execution https://support.atlassian.com/bitbucket-cloud/docs/cache-dependencies/
               - gradle
             script:
+              - yarn 
               - yarn build
