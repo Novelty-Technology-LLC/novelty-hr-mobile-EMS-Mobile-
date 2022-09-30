@@ -12,6 +12,7 @@ pipelines:
           - gradle
         script:
           - yarn install --frozen-lockfile
+          - gradle wrapper
           - yarn build
         artifacts:
           - android/app/build/outputs/**
