@@ -4,14 +4,15 @@
 image: reactnativecommunity/react-native-android:5.1
 
 pipelines:
-  default:
-    - step:
-        name: Build Android
-        caches:
-          - node
-          - gradle
-        script:
-          - yarn install --frozen-lockfile
-          - yarn build
-        artifacts:
-          - android/app/build/outputs/**
+  custom:
+    dev:
+      - step:
+          name: Build Android
+          caches:
+            - node
+            - gradle
+          script:
+            - yarn install --frozen-lockfile
+            - yarn build
+          artifacts:
+            - android/app/build/outputs/**
