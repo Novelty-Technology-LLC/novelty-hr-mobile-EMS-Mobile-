@@ -90,7 +90,7 @@ const AnnouncementListing = (props: any) => {
           keyExtractor={(item) => item.id}
         />
       )}
-      {auth.user.is_approver === 1 && (
+      {auth.user.is_approver === 0 && (
         <RequestButton screen="addAnnouncement" />
       )}
     </View>
