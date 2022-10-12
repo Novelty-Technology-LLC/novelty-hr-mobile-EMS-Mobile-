@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   ScrollView,
@@ -9,6 +9,8 @@ import {
 import Snackbar from "react-native-snackbar";
 import colors from "../../assets/colors";
 import { CarouselStyle } from "../../assets/styles";
+import { AuthContext } from "../reducer";
+import { MenuContext } from "../reducer/menuReducer";
 import { navigate } from "../utils/navigation";
 import { UpperCard } from "./dashboard/card";
 import { showToast, snackBarMessage } from "./message";
@@ -17,11 +19,14 @@ interface CarouselPropTypes {
   itemsPerInterval?: number;
   theme?: any;
   items: any;
+  module: any;
 }
 
 export const Carousel = (props: CarouselPropTypes) => {
   const itemsPerInterval =
     props.itemsPerInterval === undefined ? 1 : props.itemsPerInterval;
+  const { state, dispatch } = useContext(AuthContext);
+  const { menu, dispatchMenu } = useContext(MenuContext);
 
   const [interval, setInterval] = React.useState(1);
   const [intervals, setIntervals] = React.useState(1);
@@ -31,10 +36,42 @@ export const Carousel = (props: CarouselPropTypes) => {
 
   useEffect(() => {
     try {
-      setItems(chunk(props.items.items, 1));
-    } catch (error) {
-    }
+
+      if (props.module === 'Menu') {
+        dispatchMenu({ type: 'SET_ITEMS', payload: props.items.items });
+      } else {
+        setItems(chunk(props.items.items, 1));
+      }
+    } catch (error) { }
   }, []);
+
+  useEffect(() => {
+    if (props.module === 'Menu') {
+      setItems(chunk(menu.items, 1));
+    }
+  }, [menu.items])
+
+  const navigateOnPress = (item: any) => {
+    console.log(state.user.is_approver)
+    if (props.module === 'Employee') {
+      item.subTitle === "Total Employees"
+        ? navigate("EmployeeListing")
+        : item.title !== 0
+          ? navigate("workFromHomeEmployeeListing")
+          : showToast("No employee working from home", false)
+
+    } else if (props.module === 'Menu') {
+      navigate('menuListing')
+    }
+  }
+
+  const checkIfPressable = () => {
+    if (props.module === 'Employee') return true;
+
+    if (props.module == 'Menu' && state.user.is_approver == 1) return true;
+
+    return false;
+  }
 
   const scrollHandler = (width: number, intervals: number) => {
     chunk(props.items.items, 1).map((item: any, index: number) => {
@@ -67,7 +104,7 @@ export const Carousel = (props: CarouselPropTypes) => {
     }
   };
 
-  const chunk = (arr: [], size: number) =>
+  const chunk = (arr: any[], size: number) =>
     Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
       arr.slice(i * size, i * size + size)
     );
@@ -139,29 +176,17 @@ export const Carousel = (props: CarouselPropTypes) => {
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>
                 <View style={CarouselStyle.item}>
-                  {props.module !== "Employee" ? (
+
+                  <TouchableOpacity
+                    onPress={() => navigateOnPress(item)}
+                    disabled={!checkIfPressable()}
+                  >
                     <UpperCard
                       item={{ ...item }}
                       module={props.items.module}
                       containerStyle={{ marginTop: 0 }}
                     />
-                  ) : (
-                    <TouchableOpacity
-                      onPress={() =>
-                        item.subTitle === "Total Employees"
-                          ? navigate("EmployeeListing")
-                          : item.title !== 0
-                            ? navigate("workFromHomeEmployeeListing")
-                            : showToast("No employee working from home", false)
-                      }
-                    >
-                      <UpperCard
-                        item={{ ...item }}
-                        module={props.items.module}
-                        containerStyle={{ marginTop: 0 }}
-                      />
-                    </TouchableOpacity>
-                  )}
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
