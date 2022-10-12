@@ -13,12 +13,21 @@ import {
 import { AuthContext } from "../../reducer";
 import { useNavigation } from "@react-navigation/native";
 import CustomImage from "../../common/image";
+import { RequestButton } from "../../components/requestButton";
 
 const EmployeeDetail = (props: any) => {
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<any>(true);
   const params = props.route.params;
   const { state, dispatch }: any = useContext(AuthContext);
+
+  useEffect(() => {
+
+    if (params.updated) {
+      setData(params.data)
+    }
+
+  }, [props.route.params])
 
   useEffect(() => {
     (async () => {
@@ -71,6 +80,13 @@ const EmployeeDetail = (props: any) => {
           </View>
         </ScrollView>
       )}
+      {(state.user.is_approver == 0 && !loading) &&
+        <RequestButton
+          screen="editEmployeeDetail"
+          floatingIcon="pencil"
+          olddata={data}
+        />
+      }
     </View>
   );
 };

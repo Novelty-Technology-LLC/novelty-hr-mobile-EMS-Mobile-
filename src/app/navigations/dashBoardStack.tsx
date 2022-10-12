@@ -8,6 +8,7 @@ import { AnnouncementListing } from "../screens/dashboard/announcementsListing";
 import { AnnouncementDetail } from "../screens/dashboard/announcementsDetail";
 import { WorkFromHomeEmployeeListing } from "../screens/dashboard/workFromHomeEmployeeListing";
 import { FullImageScreen } from "../screens/full_screen_image";
+import { EditEmployeeDetail } from "../screens/dashboard/editEmployeeDetail";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -27,6 +28,7 @@ const DashNav = () => {
           component={WorkFromHomeEmployeeListing}
         />
         <DashStack.Screen name="employeeDetail" component={EmployeeDetail} />
+        <DashStack.Screen name="editEmployeeDetail" component={EditEmployeeDetail} />
         <DashStack.Screen
           name="announcementsListing"
           component={AnnouncementListing}
