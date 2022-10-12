@@ -53,7 +53,7 @@ const TabNavigator = () => {
                   date: findAnnouncement?.date,
                   html: findAnnouncement?.html,
                 });
-              } catch (error) {}
+              } catch (error) { }
             } else {
               dispatch({ type: "Notification", payload: remoteMessage.data });
               Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
@@ -90,7 +90,7 @@ const TabNavigator = () => {
               date: findAnnouncement?.date,
               html: findAnnouncement?.html,
             });
-          } catch (error) {}
+          } catch (error) { }
         } else {
           dispatch({ type: "Notification", payload: remoteMessage.data });
           Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
