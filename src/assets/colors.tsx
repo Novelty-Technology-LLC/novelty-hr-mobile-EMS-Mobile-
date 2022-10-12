@@ -28,4 +28,5 @@ export default {
   blue: "#68749d",
   darkBlue: "#0f42f2",
   darkGrey: "#8D8D8D",
+  disabledButton: "#BF8B5980",
 };
