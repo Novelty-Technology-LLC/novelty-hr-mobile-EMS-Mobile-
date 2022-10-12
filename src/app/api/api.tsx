@@ -22,6 +22,7 @@ api.interceptors.request.use(
 
 api.interceptors.request.use(async (req) => {
   let userToken = await getToken();
+
   req.headers.authorization = userToken;
   req.headers["requestsource"] = "localhost";
   req.headers["Accept"] = "application/json";
@@ -31,3 +32,14 @@ api.interceptors.request.use(async (req) => {
   req.headers["Expires"] = "0";
   return req;
 });
+
+api.interceptors.response.use((res) => {
+  return res;
+},
+  (err) => {
+    const error = err.toJSON();
+    if (error.message === 'Network Error') {
+      throw 'Please check your connection.';
+    }
+    throw error;
+  })
