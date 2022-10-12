@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../../colors";
 import { theme } from "../theme";
 
 export const commonInputFieldStyle = StyleSheet.create({
@@ -9,7 +10,7 @@ export const commonInputFieldStyle = StyleSheet.create({
     paddingBottom: theme.size.xxs,
     paddingLeft: 0,
     backgroundColor: "#fff",
-    color: "#404040",
+    color: colors.label,
   },
   floatingField: {
     flexDirection: "row",
@@ -31,7 +32,7 @@ export const commonInputFieldStyle = StyleSheet.create({
     elevation: 4,
   },
   label: {
-    color: "#404040",
+    color: colors.label,
     paddingHorizontal: theme.size.xxxs,
   },
   inputStyle: {

@@ -5,6 +5,7 @@ import { onChange } from "react-native-reanimated";
 import { Platform } from "react-native";
 import { textAreaStyle } from "./textArea";
 import { commonInputFieldStyle } from "../../../assets/styles/common/text_input.style";
+import colors from "../../../assets/colors";
 
 const alignSelf: any = {
   start: "flex-start",
@@ -41,7 +42,7 @@ export const CustomTextArea = ({
         textAreaStyle.textarea,
         {
           ...commonInputFieldStyle.floatingFieldContainer,
-          borderColor: "#0000001A",
+          borderColor: colors.darkBlack,
           shadowColor: "grey",
           ...Platform.select({
             android: {

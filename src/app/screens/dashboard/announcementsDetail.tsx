@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
 import {
   cardStyle,
+  globalStyle,
   headerTxtStyle,
   listingStyle,
 } from "../../../assets/styles";
@@ -28,7 +29,7 @@ const AnnouncementDetail = (props: any) => {
       </Header>
       <ScrollView>
         <View style={{ padding: 20 }}>
-          <Text style={{ fontWeight: "700" }}>{params?.title}</Text>
+          <Text style={globalStyle.titleWeight}>{params?.title}</Text>
           <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} />
           <Text
             style={[

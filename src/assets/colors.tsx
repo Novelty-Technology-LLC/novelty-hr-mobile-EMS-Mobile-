@@ -6,6 +6,7 @@ export default {
   buttonRed: "#f75151",
   yellow: "#ffc03d",
   black: "#000",
+  darkBlack: "#0000001A",
   white: "#fff",
   grey: "#f2f2f2",
   border: "#f2f2f2",
@@ -28,5 +29,6 @@ export default {
   blue: "#68749d",
   darkBlue: "#0f42f2",
   darkGrey: "#8D8D8D",
+  label: "#404040",
   disabledButton: "#BF8B5980",
 };
