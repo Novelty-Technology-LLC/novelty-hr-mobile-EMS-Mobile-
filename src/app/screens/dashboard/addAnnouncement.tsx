@@ -1,6 +1,6 @@
 import { View, Text, Platform, Button, ScrollView } from "react-native";
 import { header as Header, showToast } from "../../common";
-import { headerTxtStyle, theme } from "../../../assets/styles";
+import { fonts, headerTxtStyle, theme } from "../../../assets/styles";
 import { Formik } from "formik";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { CustomDivider } from "../../common/divider";
@@ -170,7 +170,6 @@ const AddAnnouncement = (props: any) => {
                     containerStyle={{
                       minHeight: 200,
                       backgroundColor: colors.grey,
-                      marginBottom: 2,
                     }}
                     ref={descriptionRef}
                     initialContentHTML={values.description}
@@ -186,8 +185,13 @@ const AddAnnouncement = (props: any) => {
                     }}
                   />
                   <RichToolbar
-                    actions={[actions.insertLink, actions.undo]}
+                    actions={[actions.insertLink]}
                     editor={descriptionRef}
+                    style={{
+                      backgroundColor: colors.grey,
+                      alignItems: "flex-end",
+                      paddingHorizontal: theme.size.xxs,
+                    }}
                   />
                   {errors.description && touched.description && (
                     <Text style={customTextFieldStyles.error}>

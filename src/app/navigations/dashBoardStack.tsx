@@ -30,13 +30,8 @@ const DashNav = () => {
           >
             <DashStack.Screen name="dashboard" component={DashBoard} />
             <DashStack.Screen name="leavelisting" component={LeaveListing} />
-            <DashStack.Screen
-              name="EmployeeListing"
-              component={EmployeeListing}
-            />
             <DashStack.Screen name="menuListing" component={MenuListing} />
             <DashStack.Screen name="editMenu" component={EditMenu} />
-            <DashStack.Screen name="leavelisting" component={LeaveListing} />
             <DashStack.Screen
               name="EmployeeListing"
               component={EmployeeListing}

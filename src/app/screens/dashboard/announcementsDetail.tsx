@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
 import {
   cardStyle,
@@ -12,10 +12,13 @@ import {
   RenderHtmlComponentForAnnoucementDetail,
 } from "../../common/renderHtml";
 import { RequestButton } from "../../components/requestButton";
+import { AuthContext } from "../../reducer";
 import { getFullDate } from "../../utils";
 import { transformDate } from "../../utils/listtranform";
 
 const AnnouncementDetail = (props: any) => {
+  const { state: auth } = useContext(AuthContext);
+
   const params = props.route.params;
 
   return (
@@ -41,11 +44,13 @@ const AnnouncementDetail = (props: any) => {
           </Text>
         </View>
       </ScrollView>
-      <RequestButton
-        floatingIcon="pencil"
-        screen="addAnnouncement"
-        olddata={{ isEdit: true, data: props.route.params }}
-      />
+      {auth.user.is_approver === 1 && (
+        <RequestButton
+          floatingIcon="pencil"
+          screen="addAnnouncement"
+          olddata={{ isEdit: true, data: props.route.params }}
+        />
+      )}
     </View>
   );
 };

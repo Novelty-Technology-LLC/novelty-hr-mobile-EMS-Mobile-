@@ -6,6 +6,7 @@ import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { RequestButton } from "../../components/requestButton";
+import { AuthContext } from "../../reducer";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
@@ -13,6 +14,8 @@ import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = (props: any) => {
   const { state } = useContext(AnnouncementContext);
+  const { state: auth } = useContext(AuthContext);
+
   const params = props.route.params;
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -87,7 +90,9 @@ const AnnouncementListing = (props: any) => {
           keyExtractor={(item) => item.id}
         />
       )}
-      <RequestButton screen="addAnnouncement" />
+      {auth.user.is_approver === 1 && (
+        <RequestButton screen="addAnnouncement" />
+      )}
     </View>
   );
 };
