@@ -17,7 +17,7 @@ import normalize from "react-native-normalize";
 import CustomImage from "../../common/image";
 import { getLeaveOption } from "../../utils/getLeaveType";
 
-const ListingCard = ({ index, listLength, item, module, sa }: any) => {
+const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
   const [se, us] = useState([{ src: item.image, errored: false }]);
 
   return (

@@ -78,7 +78,6 @@
     "react-native-version-check": "^3.4.3",
     "react-native-webview": "^11.23.1",
     "react-native-wheel-picker-android": "^2.0.6",
-    "react-summernote": "^2.0.2",
     "rn-placeholder": "^3.0.3",
     "uuid": "^8.3.0",
     "yup": "^0.29.3"

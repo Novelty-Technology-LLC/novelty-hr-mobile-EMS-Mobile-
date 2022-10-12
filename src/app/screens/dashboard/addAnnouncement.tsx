@@ -18,11 +18,12 @@ import {
 import { CustomButton } from "../../common/customButtom";
 import { Calendar } from "@ui-kitten/components";
 import { CustomTextInput } from "../../common/customTextInput";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import React from "react";
 import { goBack } from "../../utils/navigation";
 import colors from "../../../assets/colors";
 import { customTextFieldStyles } from "../../../assets/styles/common/custom_text_field.styles";
+import { AnnouncementContext } from "../../reducer/announcementreducer";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -37,6 +38,7 @@ export const formatDate = (date: any, format = "L") => {
   }
 };
 const AddAnnouncement = (props: any) => {
+  const { dispatch } = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
   const updateData = props?.route?.params?.data ?? " ";
   const titleRef = useRef<any>();
@@ -84,8 +86,13 @@ const AddAnnouncement = (props: any) => {
     }
   };
   const addAppoinmentData = async (payload: any) => {
+    showToast("Added Successfully");
     addAnnouncementService(payload)
       .then((item: any) => {
+        dispatch({
+          type: "ADD_ANNOUNCEMENT",
+          payload: { item },
+        });
         setLoading(false);
         goBack();
         showToast("Added Successfully");

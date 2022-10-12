@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import { FlatList, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { RequestButton } from "../../components/requestButton";
+import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
 import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = (props: any) => {
+  const { state } = useContext(AnnouncementContext);
   const params = props.route.params;
-
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -73,6 +75,7 @@ const AnnouncementListing = (props: any) => {
                 }
               >
                 <ListingCard
+                  state={state}
                   index={index}
                   item={item}
                   list={list.length}
