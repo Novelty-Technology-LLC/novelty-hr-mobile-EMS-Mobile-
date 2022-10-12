@@ -7,8 +7,6 @@ const initialState: any = {
 const reducer = (state: any = initialState, action: any) => {
   switch (action.type) {
     case "ADD_ANNOUNCEMENT":
-      console.log(action.payload, "action.payload");
-
       return {
         ...state,
         announcementData: [action.payload, ...state.announcementData],
