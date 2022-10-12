@@ -47,6 +47,7 @@ const TabNavigator = () => {
                   (item: any) => item.id == +remoteMessage.data.announcement_id
                 );
                 navigate("announcementsDetails", {
+                  id: findAnnouncement?.id,
                   headerText: findAnnouncement?.title,
                   title: findAnnouncement?.title,
                   subTitle: findAnnouncement?.subTitle,
@@ -84,6 +85,7 @@ const TabNavigator = () => {
               (item: any) => item.id == +remoteMessage.data.announcement_id
             );
             navigate("announcementsDetails", {
+              id: findAnnouncement?.id,
               headerText: findAnnouncement?.title,
               title: findAnnouncement?.title,
               subTitle: findAnnouncement?.subTitle,

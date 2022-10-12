@@ -8,6 +8,7 @@ import { AnnouncementListing } from "../screens/dashboard/announcementsListing";
 import { AnnouncementDetail } from "../screens/dashboard/announcementsDetail";
 import { WorkFromHomeEmployeeListing } from "../screens/dashboard/workFromHomeEmployeeListing";
 import { FullImageScreen } from "../screens/full_screen_image";
+import AddAnnouncement from "../screens/dashboard/addAnnouncement";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -35,6 +36,7 @@ const DashNav = () => {
           name="announcementsDetails"
           component={AnnouncementDetail}
         />
+        <DashStack.Screen name="addAnnouncement" component={AddAnnouncement} />
         <DashStack.Screen
           name="holidayeventslisting"
           component={HolidayEventListing}

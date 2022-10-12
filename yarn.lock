@@ -2866,6 +2866,11 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
+codemirror@^5.26.0:
+  version "5.65.9"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.65.9.tgz#ec70c92aa206ee4c9853d5f1e7c4ed356cdab68c"
+  integrity sha512-19Jox5sAKpusTDgqgKB5dawPpQcY+ipQK7xoEI+MVucEF9qqFaXpeqY1KaoyGBso/wHQoDa4HMMxMjdsS3Zzzw==
+
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz"
@@ -3676,15 +3681,15 @@ escape-html@~1.0.3:
   resolved "https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
 
+escape-string-regexp@2.0.0, escape-string-regexp@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz"
+  integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
+
 escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
-
-escape-string-regexp@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz"
-  integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
 escape-string-regexp@^4.0.0:
   version "4.0.0"
@@ -4953,7 +4958,7 @@ interpret@^1.0.0:
   resolved "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
-invariant@^2.2.2, invariant@^2.2.4:
+invariant@2.2.4, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -7822,6 +7827,11 @@ react-native-flash-message@^0.2.1:
     prop-types "^15.8.1"
     react-native-iphone-x-helper "^1.3.1"
 
+react-native-floating-label-input@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-floating-label-input/-/react-native-floating-label-input-1.4.2.tgz#4db85aca6ef8509f0c4fb369b55b1fd1915ebe1e"
+  integrity sha512-fHN+gQC+ghZgRuB+gJfNNo5IJRDy0grOia0gJpEmXbx9YqPud6nonQYunGWaHc9/b9GpL5n1q4VgWvZDTV+QLQ==
+
 react-native-gesture-bottom-sheet@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/react-native-gesture-bottom-sheet/-/react-native-gesture-bottom-sheet-1.1.0.tgz"
@@ -7880,6 +7890,11 @@ react-native-normalize@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/react-native-normalize/-/react-native-normalize-1.0.1.tgz"
   integrity sha512-QYs95xhARhlcWWcDC77r4nVfxa3pDSfIBx2gdYZ+DOcLhSdPzRHFivWbGu3mL01JcvE69pMK7BmbPCda28vXwA==
+
+react-native-pell-rich-editor@^1.8.8:
+  version "1.8.8"
+  resolved "https://registry.yarnpkg.com/react-native-pell-rich-editor/-/react-native-pell-rich-editor-1.8.8.tgz#c6299635de49d8facfded7175d064c0ff89dbc7d"
+  integrity sha512-pPpj3rVEbmOcGbUMiutuQhpxp5HzOQlhVGhZ6B7aWlsliWWDtsi+lu3RXNV+g62PcQ07qDDtZwKOx1fSzff6HQ==
 
 react-native-permissions@^3.0.0-beta.2:
   version "3.3.1"
@@ -7977,7 +7992,7 @@ react-native-swipe-gestures@^1.0.5:
 
 react-native-textarea@^1.0.4:
   version "1.0.4"
-  resolved "https://registry.npmjs.org/react-native-textarea/-/react-native-textarea-1.0.4.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-textarea/-/react-native-textarea-1.0.4.tgz#c250e3c03234adfb82ca9da490fac3db29c06e63"
   integrity sha512-XM78hqlpUom+YOtjZn69sPZn3ReRXsJfjV0t790k/qNPuc7NG8akfU7vSeKsuRSRH2zVaqk5FbxdkITkeh+3jw==
   dependencies:
     prop-types "^15.5.10"
@@ -8025,6 +8040,14 @@ react-native-version-check@^3.4.3:
     lodash.isnil "^4.0.0"
     lodash.pick "^4.4.0"
     semver "^6.1.1"
+
+react-native-webview@^11.23.1:
+  version "11.23.1"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-11.23.1.tgz#6a4bf2620e491dd4fecf4e6dc079005117fae12c"
+  integrity sha512-bmqsdg4RYOUYD37R9XTrQALm7eD62KbLNPRfgvpLGd1SjaurvAjjsLrLN4mt6yOtKOMKeZvlcAl3x6De6cCQsA==
+  dependencies:
+    escape-string-regexp "2.0.0"
+    invariant "2.2.4"
 
 react-native-wheel-picker-android@^2.0.6:
   version "2.0.6"
@@ -8075,6 +8098,15 @@ react-refresh@^0.4.0:
   version "0.4.3"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
   integrity sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA==
+
+react-summernote@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-summernote/-/react-summernote-2.0.2.tgz#7be8ff8f38c286ffb0d6d99a1ef5360b027d30a8"
+  integrity sha512-wVceqtDtz7PaPN7Agh2I22TZY+H0FZpjZuNDQB+Rpx0zSZeeYIBcltI6//XY6vDmOy4AOHpltEBFbYHMyo+Ibw==
+  dependencies:
+    codemirror "^5.26.0"
+    prop-types "^15.5.10"
+    summernote "^0.8.15"
 
 react-test-renderer@16.13.1:
   version "16.13.1"
@@ -9112,6 +9144,11 @@ sumchecker@^3.0.1:
   integrity sha512-MvjXzkz/BOfyVDkG0oFOtBxHX2u3gKbMHIF/dXblZsgD3BWOFLmHovIpZY7BykJdAjcqRCBi1WYBNdEC9yI7vg==
   dependencies:
     debug "^4.1.0"
+
+summernote@^0.8.15:
+  version "0.8.20"
+  resolved "https://registry.yarnpkg.com/summernote/-/summernote-0.8.20.tgz#395905f2cec0aceebc712edc019d91b8ef88f7cf"
+  integrity sha512-W9RhjQjsn+b1s9xiJQgJbCiYGJaDAc9CdEqXo+D13WuStG8lCdtKaO5AiNiSSMJsQJN2EfGSwbBQt+SFE2B8Kw==
 
 superstruct@^0.6.2:
   version "0.6.2"

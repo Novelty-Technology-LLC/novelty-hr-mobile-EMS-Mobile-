@@ -6,7 +6,7 @@ import colors from "../../assets/colors";
 const RenderHtmlComponent = ({ htmlData, parse = false }: any) => {
   const { width } = useWindowDimensions();
   const webViewStyle = StyleSheet.create({
-    p: { color: "red" },
+    p: { color: colors.black },
     a: { color: "green" },
   });
   return (
@@ -30,8 +30,8 @@ const RenderHtmlComponentForAnnoucementDetail = ({
 }: any) => {
   const { width } = useWindowDimensions();
   const webViewStyle = StyleSheet.create({
-    p: { color: colors.fontGrey },
-    a: { color: "red" },
+    p: { color: colors.darkBlue },
+    a: { color: colors.darkBlue },
   });
 
   return (

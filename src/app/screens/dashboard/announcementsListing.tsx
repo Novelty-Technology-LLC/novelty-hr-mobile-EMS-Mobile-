@@ -4,12 +4,14 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
+import { RequestButton } from "../../components/requestButton";
 import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
 import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = (props: any) => {
   const params = props.route.params;
+
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +20,6 @@ const AnnouncementListing = (props: any) => {
       try {
         var response: any = await getRequest("/webportal/announcements", {});
         let itemData: any = [];
-
         response.forEach((element: any): any => {
           itemData.push(element);
         });
@@ -28,6 +29,7 @@ const AnnouncementListing = (props: any) => {
             (item: any) => item.id == +params.id
           );
           navigate("announcementsDetails", {
+            id: findAnnouncement?.id,
             headerText: findAnnouncement?.title,
             title: findAnnouncement?.title,
             subTitle: findAnnouncement?.subTitle,
@@ -61,11 +63,12 @@ const AnnouncementListing = (props: any) => {
               <TouchableOpacity
                 onPress={() =>
                   navigate("announcementsDetails", {
-                    headerText: item.title,
-                    title: item.title,
-                    subTitle: item.subTitle,
-                    date: item.date,
-                    html: item.html,
+                    id: item?.id,
+                    headerText: item?.title,
+                    title: item?.title,
+                    subTitle: item?.subTitle,
+                    date: item?.date,
+                    html: item?.html,
                   })
                 }
               >
@@ -81,6 +84,7 @@ const AnnouncementListing = (props: any) => {
           keyExtractor={(item) => item.id}
         />
       )}
+      <RequestButton screen="addAnnouncement" />
     </View>
   );
 };
