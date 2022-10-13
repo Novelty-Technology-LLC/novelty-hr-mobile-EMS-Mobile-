@@ -38,7 +38,7 @@ export const formatDate = (date: any, format = "L") => {
   }
 };
 const AddAnnouncement = (props: any) => {
-  const { dispatch } = useContext(AnnouncementContext);
+  const { state, dispatch }: any = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
   const updateData = props?.route?.params?.data ?? " ";
   const titleRef = useRef<any>();
@@ -55,7 +55,7 @@ const AddAnnouncement = (props: any) => {
     html: "",
     date: moment(),
   });
-  let announcementId = props?.route?.params?.data?.id;
+  const announcementId = props?.route?.params?.data?.id;
 
   useEffect(() => {
     isEdit
@@ -73,7 +73,6 @@ const AddAnnouncement = (props: any) => {
         ...values,
         html: values.description,
       };
-
       updateAppoinmentData(payload, announcementId);
     } else {
       const body = {
@@ -82,16 +81,16 @@ const AddAnnouncement = (props: any) => {
         html: values.description,
         date: moment(),
       };
-      addAppoinmentData(body);
+      const info = { ...body, id: announcementId };
+      addAppoinmentData(body, info);
     }
   };
-  const addAppoinmentData = async (payload: any) => {
-    showToast("Added Successfully");
+  const addAppoinmentData = (payload: any, info: any) => {
     addAnnouncementService(payload)
       .then((item: any) => {
         dispatch({
           type: "ADD_ANNOUNCEMENT",
-          payload: { item },
+          payload: { announcementData: info },
         });
         setLoading(false);
         goBack();
@@ -106,13 +105,16 @@ const AddAnnouncement = (props: any) => {
   const updateAppoinmentData = async (payload: any, id: any) => {
     updateAnnouncementService(payload, id)
       .then((item: any) => {
+        dispatch({
+          type: "UPDATE_ANNOUNCEMENT",
+          payload: { announcementData: payload, index: id },
+        });
         setLoading(false);
         goBack();
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
         setLoading(false);
-        goBack();
         showToast("something went wrong");
         setError("something went wrong");
       });
@@ -175,7 +177,7 @@ const AddAnnouncement = (props: any) => {
                     initialContentHTML={values.description}
                     editorStyle={{
                       backgroundColor: colors.grey,
-                      color: colors.black,
+                      color: colors.fontBlack,
                     }}
                     placeholder={"Description"}
                     disabled={false}

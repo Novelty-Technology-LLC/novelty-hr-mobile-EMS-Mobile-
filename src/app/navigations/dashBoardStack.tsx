@@ -9,7 +9,10 @@ import { AnnouncementDetail } from "../screens/dashboard/announcementsDetail";
 import { WorkFromHomeEmployeeListing } from "../screens/dashboard/workFromHomeEmployeeListing";
 import { FullImageScreen } from "../screens/full_screen_image";
 import AddAnnouncement from "../screens/dashboard/addAnnouncement";
-import { AnnouncementContext } from "../reducer/announcementreducer";
+import {
+  AnnouncementContext,
+  AnnouncementReducer,
+} from "../reducer/announcementreducer";
 import { useContext } from "react";
 import { MenuListing } from "../screens/dashboard/menuListing";
 import { EditMenu } from "../screens/dashboard/editMenu";
@@ -18,7 +21,7 @@ const DashStack = createStackNavigator();
 
 const DashNav = () => {
   const { timelogs, dispatchTimeLog } = useTimeLog();
-  const { state, dispatch } = useContext(AnnouncementContext);
+  const { state, dispatch } = AnnouncementReducer();
   return (
     <TimeLogContext.Provider value={{ timelogs, dispatchTimeLog }}>
       <AnnouncementContext.Provider value={{ state, dispatch }}>

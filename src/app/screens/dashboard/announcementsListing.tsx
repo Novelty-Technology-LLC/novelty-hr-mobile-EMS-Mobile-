@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { FlatList, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Swipeable, TouchableOpacity } from "react-native-gesture-handler";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
+import Swipe from "../../components/leave_screen/swipe";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { RequestButton } from "../../components/requestButton";
 import { AuthContext } from "../../reducer";
@@ -13,8 +14,9 @@ import { navigate } from "../../utils/navigation";
 import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = (props: any) => {
-  const { state } = useContext(AnnouncementContext);
-  const { state: auth } = useContext(AuthContext);
+  const { state, dispatch }: any = useContext(AnnouncementContext);
+
+  const { state: auth }: any = useContext(AuthContext);
 
   const params = props.route.params;
   const [list, setList] = useState([]);
@@ -24,6 +26,11 @@ const AnnouncementListing = (props: any) => {
     (async () => {
       try {
         var response: any = await getRequest("/webportal/announcements", {});
+
+        await dispatch({
+          type: "SET_ANNOUNCEMENT_DATA",
+          payload: { announcementData: response },
+        });
         let itemData: any = [];
         response.forEach((element: any): any => {
           itemData.push(element);
@@ -31,7 +38,7 @@ const AnnouncementListing = (props: any) => {
 
         if (params.notification) {
           var findAnnouncement = response.find(
-            (item: any) => item.id == +params.id
+            (item: any) => +item.id == +params.id
           );
           navigate("announcementsDetails", {
             id: findAnnouncement?.id,
@@ -62,7 +69,7 @@ const AnnouncementListing = (props: any) => {
         <ListPlaceholder />
       ) : (
         <FlatList
-          data={list}
+          data={state?.announcementData}
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity
@@ -78,7 +85,7 @@ const AnnouncementListing = (props: any) => {
                 }
               >
                 <ListingCard
-                  state={state}
+                  state={item}
                   index={index}
                   item={item}
                   list={list.length}
@@ -90,7 +97,7 @@ const AnnouncementListing = (props: any) => {
           keyExtractor={(item) => item.id}
         />
       )}
-      {auth.user.is_approver === 0 && (
+      {auth.user.is_approver === 1 && (
         <RequestButton screen="addAnnouncement" />
       )}
     </View>

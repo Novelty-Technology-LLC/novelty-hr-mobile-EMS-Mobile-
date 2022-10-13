@@ -41,20 +41,27 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
             paddingRight: 10,
           }}
         >
-          <Text style={cardStyle.titleText}>
-            {item.title && item.title.length > 40
-              ? item.title.slice(0, 40) + "..."
-              : item.title}
-          </Text>
-
+          {module == "Announcements" ? (
+            <Text style={cardStyle.titleText}>
+              {state?.title && state?.title.length > 40
+                ? state?.title.slice(0, 40) + "..."
+                : state?.title}
+            </Text>
+          ) : (
+            <Text style={cardStyle.titleText}>
+              {item?.title && item?.title?.length > 40
+                ? item?.title.slice(0, 40) + "..."
+                : item?.title}
+            </Text>
+          )}
           {module == "Announcements" && (
             <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
-              {getShortDate(item.date)}
+              {getShortDate(state?.date)}
             </Text>
           )}
         </View>
         {module == "Announcements" ? (
-          <RenderHtmlComponent htmlData={item.subTitle} />
+          <RenderHtmlComponent htmlData={state?.html} />
         ) : (
           <View style={cardStyle.icon}>
             <View

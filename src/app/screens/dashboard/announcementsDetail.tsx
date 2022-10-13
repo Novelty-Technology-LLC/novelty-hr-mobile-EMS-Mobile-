@@ -13,14 +13,14 @@ import {
 } from "../../common/renderHtml";
 import { RequestButton } from "../../components/requestButton";
 import { AuthContext } from "../../reducer";
+import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { getFullDate } from "../../utils";
 import { transformDate } from "../../utils/listtranform";
 
 const AnnouncementDetail = (props: any) => {
-  const { state: auth } = useContext(AuthContext);
-
-  const params = props.route.params;
-
+  const { state: auth }: any = useContext(AuthContext);
+  const { state }: any = useContext(AnnouncementContext);
+  const params = props?.route?.params;
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
@@ -48,7 +48,7 @@ const AnnouncementDetail = (props: any) => {
         <RequestButton
           floatingIcon="pencil"
           screen="addAnnouncement"
-          olddata={{ isEdit: true, data: props.route.params }}
+          olddata={{ isEdit: true, data: params }}
         />
       )}
     </View>
