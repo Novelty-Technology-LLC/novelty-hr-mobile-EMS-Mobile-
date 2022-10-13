@@ -36,42 +36,39 @@ export const Carousel = (props: CarouselPropTypes) => {
 
   useEffect(() => {
     try {
-
-      if (props.module === 'Menu') {
-        dispatchMenu({ type: 'SET_ITEMS', payload: props.items.items });
+      if (props.module === "Menu") {
+        dispatchMenu({ type: "SET_ITEMS", payload: props.items.items });
       } else {
         setItems(chunk(props.items.items, 1));
       }
-    } catch (error) { }
+    } catch (error) {}
   }, []);
 
   useEffect(() => {
-    if (props.module === 'Menu') {
+    if (props.module === "Menu") {
       setItems(chunk(menu.items, 1));
     }
-  }, [menu.items])
+  }, [menu.items]);
 
   const navigateOnPress = (item: any) => {
-    console.log(state.user.is_approver)
-    if (props.module === 'Employee') {
+    if (props.module === "Employee") {
       item.subTitle === "Total Employees"
         ? navigate("EmployeeListing")
         : item.title !== 0
-          ? navigate("workFromHomeEmployeeListing")
-          : showToast("No employee working from home", false)
-
-    } else if (props.module === 'Menu') {
-      navigate('menuListing')
+        ? navigate("workFromHomeEmployeeListing")
+        : showToast("No employee working from home", false);
+    } else if (props.module === "Menu") {
+      navigate("menuListing");
     }
-  }
+  };
 
   const checkIfPressable = () => {
-    if (props.module === 'Employee') return true;
+    if (props.module === "Employee") return true;
 
-    if (props.module == 'Menu' && state.user.is_approver == 1) return true;
+    if (props.module == "Menu" && state.user.is_approver == 1) return true;
 
     return false;
-  }
+  };
 
   const scrollHandler = (width: number, intervals: number) => {
     chunk(props.items.items, 1).map((item: any, index: number) => {
@@ -176,7 +173,6 @@ export const Carousel = (props: CarouselPropTypes) => {
             <View style={CarouselStyle.wrapper} key={index}>
               <View style={CarouselStyle.itemContainer}>
                 <View style={CarouselStyle.item}>
-
                   <TouchableOpacity
                     onPress={() => navigateOnPress(item)}
                     disabled={!checkIfPressable()}

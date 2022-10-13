@@ -57,7 +57,7 @@ const ListItem = ({
         )}
       </View>
       {module == "Announcements" ? (
-        <Text style={cardStyle.subTitleText}>{subTitle}</Text>
+        <RenderHtmlComponent htmlData={subTitle} />
       ) : (
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       )}

@@ -54,7 +54,7 @@ const Swipe = ({
 
   return other ? (
     <View style={style.othercontainer}>
-      {item.state === "Approved" && (
+      {item?.state === "Approved" && (
         <>
           <DeleteAlert item={item} other={other} onPress={onPress} />
         </>

@@ -56,6 +56,21 @@ const dashboardStyle = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
+  pressableText: {
+    color: "#343A40",
+    padding: theme.size.xxxs,
+  },
+  timeBody: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: theme.size.xxs,
+  },
+  pressableContainer: {
+    borderColor: "#e3e1e1",
+    borderWidth: 1,
+    borderRadius: theme.size.xxxs,
+    marginBottom: theme.size.lg,
+  },
   image: {
     height: normalize(40),
     width: normalize(40),
