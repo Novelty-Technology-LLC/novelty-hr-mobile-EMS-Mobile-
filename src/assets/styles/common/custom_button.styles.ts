@@ -4,6 +4,7 @@ import color from '../../../assets/colors';
 import { fonts, theme } from "../theme";
 export const customButtonStyles = StyleSheet.create({
     button: {
+        height: 40,
         marginTop: normalize(5),
         flexDirection: 'row',
         justifyContent: 'center',

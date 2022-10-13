@@ -8,9 +8,11 @@ export const editEmployeeStyles = StyleSheet.create({
         paddingTop: normalize(20),
         backgroundColor: colors.white,
     },
-    nameContainer: {
+    horizontalView: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        flexGrow: 1,
+    },
+    horizontalViewItem: {
+        flex: 1,
     }
 });

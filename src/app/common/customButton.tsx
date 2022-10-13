@@ -37,7 +37,7 @@ export const CustomButton = ({
                 styles.button,
                 buttonStyleFromProps
             ]}
-            disabled={disabled}
+            disabled={disabled || isLoading}
         >
             {isLoading ?
                 <ActivityIndicator style={styles.label} color={colors.white} />

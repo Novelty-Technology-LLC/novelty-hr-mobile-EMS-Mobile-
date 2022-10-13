@@ -27,5 +27,5 @@ export default {
   lightbrown: '#f8f3ee',
   blue: '#68749d',
   darkGrey: '#8D8D8D',
-  disabledButton: 'rgba(191, 139, 89, 0.5)',
+  disabledButton: '#BF8B5980'
 }

@@ -11,3 +11,18 @@ export const updateImage = (id, data) => {
     }
   });
 };
+
+export const updateEmployeeDetail = async (id: number, profileData: any) => {
+  try {
+    const data = JSON.stringify({ 'fiscal_year': '079-080', ...profileData })
+    const response = await api.patch(`user/${id}`, data);
+
+    return response.data.data;
+
+  } catch (error) {
+
+    throw { success: false, message: error };
+  }
+}
+
+

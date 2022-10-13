@@ -15,6 +15,7 @@ const EmployeeListing = (props: any) => {
   useEffect(() => {
     listingAllEmployee();
   }, []);
+
   const listingAllEmployee = async () => {
     setLoading(true);
 
@@ -56,6 +57,7 @@ const EmployeeListing = (props: any) => {
                     id: item.id,
                     image: item.image,
                     name: item.title,
+                    refresh: listingAllEmployee,
                   })
                 }
               >
