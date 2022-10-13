@@ -14,6 +14,7 @@ const globalStyle = StyleSheet.create({
     position: "absolute",
     padding: 15,
   },
+  titleWeight: { fontWeight: "700" },
 });
 
 export { globalStyle };
