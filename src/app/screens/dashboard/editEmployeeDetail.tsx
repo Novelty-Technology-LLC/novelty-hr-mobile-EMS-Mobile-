@@ -24,6 +24,22 @@ import Loading from '../auth_screen/loading';
 const genders = gendersFromConstants;
 const bloodGroups = bloodGroupsFromConstants;
 
+const getInitialForm = (data: any): { [key: string]: string } => {
+    return {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        designation: data.designation,
+        email: data.email,
+        phone: data.phone,
+        gender: data.gender,
+        birth_date: moment(data.birth_date).format("ll"),
+        blood_group: data.blood_group,
+        employee_id: data.employee_id,
+        join_date: data.join_date,
+        work_shift: data.work_shift,
+    };
+}
+
 export const EditEmployeeDetail = ({ route, navigation }: any) => {
 
     const [isFetching, setIsFetching] = useState(false);
@@ -49,23 +65,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
     const initialBloodGroup = getInitial(bloodGroups, data.blood_group);
     const initialDesignation = getInitial(designations, data.designation);
 
-    const initialValues: { [key: string]: string } = useMemo(() => {
-        return {
-            first_name: data.first_name,
-            last_name: data.last_name,
-            designation: data.designation,
-            email: data.email,
-            phone: data.phone,
-            gender: data.gender,
-            birth_date: moment(birthDate).format("ll"),
-            blood_group: data.blood_group,
-            employee_id: data.employee_id,
-            join_date: data.join_date,
-            work_shift: data.work_shift,
-        };
-    }, [])
-
-    const handleSubmit = (values: typeof initialValues) => {
+    const handleSubmit = (values: any) => {
         setIsSubmitting(true);
         updateEmployeeDetail(data.id, values, fiscalYear.current).then(() => {
             setIsSubmitting(false);
@@ -128,7 +128,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                     keyboardShouldPersistTaps='handled'
                 >
                     <Formik
-                        initialValues={initialValues}
+                        initialValues={getInitialForm(data)}
                         onSubmit={handleSubmit}
                         validationSchema={editEmployeeSchema}
 
