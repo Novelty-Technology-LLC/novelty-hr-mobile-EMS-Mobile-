@@ -75,3 +75,21 @@ export const initialState = {
     },
   ],
 };
+
+export const bloodGroups = [
+  { label: 'A +ve', value: 'A +ve' },
+  { label: 'A -ve', value: 'A -ve' },
+  { label: 'B +ve', value: 'B +ve' },
+  { label: 'B -ve', value: 'B -ve' },
+  { label: 'O +ve', value: 'O +ve' },
+  { label: 'O -ve', value: 'O -ve' },
+  { label: 'AB +ve', value: 'AB +ve' },
+  { label: 'AB -ve', value: 'AB -ve' }
+]
+
+export const genders = [
+  { label: 'Male', value: 'Male' },
+  { label: 'Female', value: 'Female' },
+  { label: 'Others', value: 'Others' }
+]
+

@@ -10,12 +10,12 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import moment from "moment";
-import { announcementValidationSchema } from "../../../validation";
+import { announcementValidationSchema } from "../../../validation/announcementSchema";
 import {
   addAnnouncementService,
   updateAnnouncementService,
 } from "../../services";
-import { CustomButton } from "../../common/customButtom";
+import { CustomButton } from "../../common/customButton";
 import { Calendar } from "@ui-kitten/components";
 import { CustomTextInput } from "../../common/customTextInput";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -60,10 +60,10 @@ const AddAnnouncement = (props: any) => {
   useEffect(() => {
     isEdit
       ? setAnnouncementData({
-          ...announcementData,
-          title: updateData.title,
-          description: updateData.html,
-        })
+        ...announcementData,
+        title: updateData.title,
+        description: updateData.html,
+      })
       : setAnnouncementData({ ...announcementData, Date: moment() });
   }, []);
   const onSubmit = async (values: any) => {
@@ -201,7 +201,7 @@ const AddAnnouncement = (props: any) => {
                     </Text>
                   )}
                   {(errors.description && touched.description) ===
-                  true ? null : (
+                    true ? null : (
                     <CustomDivider />
                   )}
                   <CustomButton
