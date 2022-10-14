@@ -1,7 +1,7 @@
 import { Calendar, ApplicationProvider } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import normalize from 'react-native-normalize';
 import { headerTxtStyle, listingStyle, timeLogStyle } from '../../../assets/styles';
@@ -14,12 +14,15 @@ import { Space } from '../../common/space';
 import { navigate } from '../../utils/navigation';
 import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
 import moment from 'moment';
-import { editEmployeeSchema } from '../../yup_schemas';
+import { editEmployeeSchema } from '../../../validation/editEmployeeSchema';
 import { bloodGroups as bloodGroupsFromConstants, genders as gendersFromConstants } from '../../utils';
 import { DropDownItem } from '../../utils/interfaces';
 import { lookupServices } from '../../services/lookupService';
 import { updateEmployeeDetail } from '../../services';
+import Loading from '../auth_screen/loading';
 
+const genders = gendersFromConstants;
+const bloodGroups = bloodGroupsFromConstants;
 
 export const EditEmployeeDetail = ({ route, navigation }: any) => {
 
@@ -30,9 +33,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
     const [joinDate, setJoinDate] = useState(new Date(data.join_date));
     const [workShifts, setWorkShifts] = useState<DropDownItem[]>([]);
     const [designations, setDesignations] = useState<DropDownItem[]>([]);
-    const genders = gendersFromConstants;
-    const bloodGroups = bloodGroupsFromConstants;
-    // const workShifts = [{ label: '9AM - 6PM', value: '9AM - 6PM' }, { label: '11AM - 8PM', value: '11AM - 8PM' }]
+    const fiscalYear = useRef<string>('');
 
     const [isBDCVisible, setBDCVisible] = useState(false);
     const [isJDCVisible, setJDCVisible] = useState(false);
@@ -48,23 +49,25 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
     const initialBloodGroup = getInitial(bloodGroups, data.blood_group);
     const initialDesignation = getInitial(designations, data.designation);
 
-    const initialValues: { [key: string]: string } = {
-        first_name: data.first_name,
-        last_name: data.last_name,
-        designation: data.designation,
-        email: data.email,
-        phone: data.phone,
-        gender: data.gender,
-        birth_date: moment(birthDate).format("ll"),
-        blood_group: data.blood_group,
-        employee_id: data.employee_id,
-        join_date: data.join_date,
-        work_shift: data.work_shift,
-    }
+    const initialValues: { [key: string]: string } = useMemo(() => {
+        return {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            designation: data.designation,
+            email: data.email,
+            phone: data.phone,
+            gender: data.gender,
+            birth_date: moment(birthDate).format("ll"),
+            blood_group: data.blood_group,
+            employee_id: data.employee_id,
+            join_date: data.join_date,
+            work_shift: data.work_shift,
+        };
+    }, [])
 
     const handleSubmit = (values: typeof initialValues) => {
         setIsSubmitting(true);
-        updateEmployeeDetail(data.id, values).then(() => {
+        updateEmployeeDetail(data.id, values, fiscalYear.current).then(() => {
             setIsSubmitting(false);
             showToast('Employee detail successfully updated.');
             navigate('employeeDetail', { updated: true, data: { ...data, ...values } });
@@ -83,13 +86,17 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
     }
 
     const getDropdownValues = () => {
+        setIsFetching(true);
         lookupServices.lookup().then((data: any[]) => {
             const workShiftsFromAPI = data.find(item => item.field === 'work_shift').value.work_shift;
             const designationsFromAPI = data.find(item => item.field === 'designation').value.designation;
             setWorkShifts(workShiftsFromAPI);
             setDesignations(transformDesignations(designationsFromAPI));
+            fiscalYear.current = data.find(item => item.field === 'fiscal_year').value.fiscal_year.find((item: any) => item.active).label ?? '';
         }).catch((err) => {
             console.log(err);
+        }).then(() => {
+            setIsFetching(false);
         });
     }
 
@@ -166,7 +173,8 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                                         items: designations,
                                         onChangeItem: (item) => {
                                             props.handleChange('designation')(item.value)
-                                        }
+                                        },
+                                        disabled: isFetching,
                                     }}
                                 />
 
@@ -318,7 +326,8 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                                         items: workShifts,
                                         onChangeItem: (item) => {
                                             props.handleChange('work_shift')(item.value)
-                                        }
+                                        },
+                                        disabled: isFetching,
                                     }}
                                 />
 
@@ -326,6 +335,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                                     isLoading={isSubmitting}
                                     label='Update'
                                     onPress={props.handleSubmit}
+                                    disabled={isFetching}
                                 />
                             </View>
                         }}

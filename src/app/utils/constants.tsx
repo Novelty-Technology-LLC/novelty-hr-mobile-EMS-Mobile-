@@ -88,8 +88,8 @@ export const bloodGroups = [
 ]
 
 export const genders = [
-  { label: 'Male', value: 'male' },
-  { label: 'Female', value: 'female' },
-  { label: 'Others', value: 'others' }
+  { label: 'Male', value: 'Male' },
+  { label: 'Female', value: 'Female' },
+  { label: 'Others', value: 'Others' }
 ]
 

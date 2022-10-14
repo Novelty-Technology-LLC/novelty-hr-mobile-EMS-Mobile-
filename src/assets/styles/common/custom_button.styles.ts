@@ -4,7 +4,7 @@ import color from '../../../assets/colors';
 import { fonts, theme } from "../theme";
 export const customButtonStyles = StyleSheet.create({
     button: {
-        height: 40,
+        height: normalize(45),
         marginTop: normalize(5),
         flexDirection: 'row',
         justifyContent: 'center',
@@ -28,5 +28,11 @@ export const customButtonStyles = StyleSheet.create({
         fontFamily: fonts.mulishBold,
         paddingVertical: normalize(13),
         color: color.white,
+        fontSize: normalize(theme.size.normal),
+    },
+    buttonText: {
+        textAlign: "center",
+        color: "#ffffff",
+        fontSize: theme.size.base,
     },
 });

@@ -12,9 +12,9 @@ export const updateImage = (id, data) => {
   });
 };
 
-export const updateEmployeeDetail = async (id: number, profileData: any) => {
+export const updateEmployeeDetail = async (id: number, profileData: any, fiscalYear: string) => {
   try {
-    const data = JSON.stringify({ 'fiscal_year': '079-080', ...profileData })
+    const data = JSON.stringify({ 'fiscal_year': fiscalYear, ...profileData })
     const response = await api.patch(`user/${id}`, data);
 
     return response.data.data;

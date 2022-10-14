@@ -22,7 +22,7 @@ const EmployeeDetail = (props: any) => {
   const updateInListing = props.route.params.refresh;
 
   useEffect(() => {
-    if (params.updated) {
+    if (params?.updated) {
       setData(params.data)
       updateInListing();
     }

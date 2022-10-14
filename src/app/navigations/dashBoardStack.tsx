@@ -49,6 +49,10 @@ const DashNav = () => {
               component={EmployeeDetail}
             />
             <DashStack.Screen
+              name="editEmployeeDetail"
+              component={EditEmployeeDetail}
+            />
+            <DashStack.Screen
               name="announcementsListing"
               component={AnnouncementListing}
             />
