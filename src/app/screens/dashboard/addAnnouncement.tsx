@@ -60,10 +60,10 @@ const AddAnnouncement = (props: any) => {
   useEffect(() => {
     isEdit
       ? setAnnouncementData({
-        ...announcementData,
-        title: updateData.title,
-        description: updateData.html,
-      })
+          ...announcementData,
+          title: updateData.title,
+          description: updateData.html,
+        })
       : setAnnouncementData({ ...announcementData, Date: moment() });
   }, []);
   const onSubmit = async (values: any) => {
@@ -81,16 +81,15 @@ const AddAnnouncement = (props: any) => {
         html: values.description,
         date: moment(),
       };
-      const info = { ...body, id: announcementId };
-      addAppoinmentData(body, info);
+      addAppoinmentData(body);
     }
   };
-  const addAppoinmentData = (payload: any, info: any) => {
+  const addAppoinmentData = (payload: any) => {
     addAnnouncementService(payload)
       .then((item: any) => {
         dispatch({
           type: "ADD_ANNOUNCEMENT",
-          payload: { announcementData: info },
+          payload: { announcementData: { ...payload, id: item.data.data.id } },
         });
         setLoading(false);
         goBack();
@@ -201,7 +200,7 @@ const AddAnnouncement = (props: any) => {
                     </Text>
                   )}
                   {(errors.description && touched.description) ===
-                    true ? null : (
+                  true ? null : (
                     <CustomDivider />
                   )}
                   <CustomButton
