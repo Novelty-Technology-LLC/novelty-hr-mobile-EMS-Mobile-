@@ -15,7 +15,14 @@ import { Cards, header as Header, List, showToast } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { getToday } from "../../utils";
-import { createWork, getWork, getDashboard, getRequest } from "../../services";
+import {
+  createWork,
+  getWork,
+  getDashboard,
+  getRequest,
+  getList,
+  shoutOutService,
+} from "../../services";
 import moment from "moment";
 import normalize from "react-native-normalize";
 import { DashboardCardPlaceholder } from "../../common";
@@ -25,7 +32,7 @@ import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
 
 const DashBoard = () => {
-  const { state } = useContext(AuthContext);
+  const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
   const [userId, setUserId] = useState(0);
@@ -33,6 +40,11 @@ const DashBoard = () => {
   const [leaveStatus, setLeaveStatus] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
+  const [list, setList] = useState<any>(null);
+  const [shoutout, setshoutout] = useState<any>([]);
+
+  const [shoutoutLoading, setshoutoutLoading] = useState<any>(false);
+  const [eventloading, setEventloading] = useState<any>(null);
   const [announcements, setAnnouncements] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
@@ -40,8 +52,15 @@ const DashBoard = () => {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
   }, []);
-
+  const getShoutList = (startDate: any, endDate: any) => {
+    shoutOutService(startDate, endDate).then((data: any) => {
+      setshoutoutLoading(true);
+      setshoutout(data);
+      setshoutoutLoading(false);
+    });
+  };
   useEffect(() => {
+    getShoutList(moment(), moment());
     BackHandler.addEventListener("hardwareBackPress", () => {
       if (getCurrentRouteName() === "dashboard") {
         BackHandler.exitApp();
@@ -50,6 +69,17 @@ const DashBoard = () => {
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", BackHandler.exitApp);
     };
+  }, []);
+
+  useEffect(() => {
+    setEventloading(true);
+    const getData = async (route: string) => {
+      const data = await getList(route);
+
+      setEventloading(false);
+      setList(data);
+    };
+    getData("holidayeventslisting");
   }, []);
 
   const fetchWork = async () => {
@@ -239,8 +269,8 @@ const DashBoard = () => {
             <DashboardCardPlaceholder />
           )}
         </View>
-        <View style={{ height: 20 }} />
-        <View style={{ width: "100%", paddingBottom: 25 }}>
+
+        <View style={{ width: "100%", paddingVertical: 25 }}>
           {!announcementLoading ? (
             <List
               list={{
@@ -248,6 +278,20 @@ const DashBoard = () => {
                 message: "No Upcoming Announcements",
                 items: announcements,
                 detailRoute: "announcementsListing",
+              }}
+            />
+          ) : (
+            <DashboardCardPlaceholder />
+          )}
+        </View>
+        <View style={{ width: "100%", paddingBottom: 25 }}>
+          {!shoutoutLoading ? (
+            <List
+              list={{
+                module: "shoutouts",
+                message: "No Shoutouts",
+                items: shoutout,
+                detailRoute: "shoutoutDetail",
               }}
             />
           ) : (

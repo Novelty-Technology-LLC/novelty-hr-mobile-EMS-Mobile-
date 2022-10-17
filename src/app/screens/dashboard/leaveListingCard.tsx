@@ -6,6 +6,7 @@ import {
   headerTxtStyle,
   listingStyle,
   requestStyle,
+  theme,
 } from "../../../assets/styles";
 import { useWindowDimensions } from "react-native";
 import { RenderHtmlComponent } from "../../common/renderHtml";
@@ -30,6 +31,11 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
         },
       ]}
     >
+      {module == "employeeList" && (
+        <View style={{ marginRight: theme.size.lg }}>
+          <CustomImage style={style.headerImage} image={item.image} />
+        </View>
+      )}
       <View style={{ flex: 1 }}>
         <View
           style={{
@@ -106,9 +112,9 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
           </View>
         )}
       </View>
-      {module == "employeeList" && (
+      {/* {module == "employeeList" && (
         <CustomImage style={style.headerImage} image={item.image} />
-      )}
+      )} */}
       <View>
         <State state={item?.status} />
       </View>

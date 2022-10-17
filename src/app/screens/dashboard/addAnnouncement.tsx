@@ -24,6 +24,7 @@ import { goBack } from "../../utils/navigation";
 import colors from "../../../assets/colors";
 import { customTextFieldStyles } from "../../../assets/styles/common/custom_text_field.styles";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
+import { StackActions } from "@react-navigation/native";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -81,16 +82,15 @@ const AddAnnouncement = (props: any) => {
         html: values.description,
         date: moment(),
       };
-      const info = { ...body, id: announcementId };
-      addAppoinmentData(body, info);
+      addAppoinmentData(body);
     }
   };
-  const addAppoinmentData = (payload: any, info: any) => {
+  const addAppoinmentData = (payload: any) => {
     addAnnouncementService(payload)
       .then((item: any) => {
         dispatch({
           type: "ADD_ANNOUNCEMENT",
-          payload: { announcementData: info },
+          payload: { announcementData: { ...payload, id: item.data.data.id } },
         });
         setLoading(false);
         goBack();
@@ -98,7 +98,6 @@ const AddAnnouncement = (props: any) => {
       })
       .catch(async (err: any) => {
         setLoading(false);
-        goBack();
         setError("something went wrong");
       });
   };
@@ -110,7 +109,9 @@ const AddAnnouncement = (props: any) => {
           payload: { announcementData: payload, index: id },
         });
         setLoading(false);
+        // StackActions.pop(2);
         goBack();
+
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {

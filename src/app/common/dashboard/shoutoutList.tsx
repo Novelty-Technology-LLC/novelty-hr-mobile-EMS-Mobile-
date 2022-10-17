@@ -11,27 +11,33 @@ import { getShortDate } from "../../utils";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import { OverlappingAvatars } from "../overlappingAvatars";
 
-const ListItem = ({
-  title,
-  subTitle,
+const ShoutoutListItem = ({
+  receiver,
+  shoutout,
+  shoutout_from,
   isLast,
   type,
   module,
   html,
   date,
   leave_option,
+  avatar,
 }: {
-  title: string;
-  subTitle: string;
+  receiver: [];
+  shoutout: string;
+  shoutout_from: [];
   leave_option: string;
   isLast: boolean;
   type?: string;
   module?: string;
   html: any;
   date?: string;
+  avatar?: any;
 }) => {
   const indicatorColor = getColor(type, colors.lightbrown);
-
+  receiver.map((item: any) => {
+    console.log(item, "item");
+  });
   return (
     <View
       style={[
@@ -49,24 +55,14 @@ const ListItem = ({
         }}
       >
         <Text style={cardStyle.titleText}>
-          {title?.length > 30 ? title.slice(0, 30) + "..." : title}
+          {shoutout?.length > 30 ? shoutout.slice(0, 30) + "..." : shoutout}
         </Text>
-        {module == "Announcements" && (
-          <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
-            {getShortDate(date)}
-          </Text>
-        )}
+        <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
+          {getShortDate(date)}
+        </Text>
+        {/* {module == "shoutouts" && <OverlappingAvatars avatars={avatar} />} */}
       </View>
-      {module == "Announcements" ? (
-        <RenderHtmlComponent htmlData={subTitle} />
-      ) : (
-        <Text style={cardStyle.subTitleText}>{subTitle}</Text>
-      )}
-      {module === "Leave" && leave_option !== "FULL DAY" && (
-        <Text style={cardStyle.subTitleText}>
-          {`${getLeaveOption(leave_option)}`}
-        </Text>
-      )}
+      <Text style={cardStyle.subTitleText}>{shoutout}</Text>
       <View
         style={[
           timeLogStyle.indicator,
@@ -85,4 +81,4 @@ const ListItem = ({
   );
 };
 
-export { ListItem };
+export { ShoutoutListItem };

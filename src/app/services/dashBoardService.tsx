@@ -27,7 +27,7 @@ const getList = (route: string) => {
       });
 
       resolve(res.data.data);
-    } catch (error) { }
+    } catch (error) {}
   });
 };
 
@@ -49,6 +49,17 @@ export const updateAnnouncementService = (body: any, id: any) =>
       .patch(`/webportal/announcements/${id}`, body)
       .then((data) => {
         resolve(data);
+      })
+      .catch((error) => {
+        return reject(error.response.data);
+      });
+  });
+export const shoutOutService = (startDate: any, endDate: any) =>
+  new Promise((resolve, reject) => {
+    api
+      .get(`/shout-out?${startDate}${endDate}`)
+      .then((data) => {
+        resolve(data.data.data.shoutOutData);
       })
       .catch((error) => {
         return reject(error.response.data);

@@ -18,7 +18,7 @@ const AnnouncementListing = (props: any) => {
 
   const { state: auth }: any = useContext(AuthContext);
 
-  const params = props.route.params;
+  const params = props?.route?.params;
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -94,10 +94,10 @@ const AnnouncementListing = (props: any) => {
               </TouchableOpacity>
             );
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item?.id}
         />
       )}
-      {auth.user.is_approver === 1 && (
+      {+auth.user.is_approver === 1 && (
         <RequestButton screen="addAnnouncement" />
       )}
     </View>

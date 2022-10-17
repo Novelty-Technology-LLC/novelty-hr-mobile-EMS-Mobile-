@@ -17,6 +17,7 @@ import { useContext } from "react";
 import { MenuListing } from "../screens/dashboard/menuListing";
 import { EditMenu } from "../screens/dashboard/editMenu";
 import { MenuContext, useMenu } from "../reducer/menuReducer";
+import { ShoutoutDetails } from "../screens/dashboard/shoutoutDetail";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -62,6 +63,14 @@ const DashNav = () => {
             <DashStack.Screen
               name="holidayeventslisting"
               component={HolidayEventListing}
+            />
+            {/* <DashStack.Screen
+              name="shoutoutListing"
+              component={ShoutoutListing}
+            /> */}
+            <DashStack.Screen
+              name="shoutoutDetail"
+              component={ShoutoutDetails}
             />
           </DashStack.Navigator>
         </MenuContext.Provider>
