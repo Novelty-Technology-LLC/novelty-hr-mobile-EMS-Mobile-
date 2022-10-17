@@ -47,13 +47,14 @@ const TabNavigator = () => {
                   (item: any) => item.id == +remoteMessage.data.announcement_id
                 );
                 navigate("announcementsDetails", {
+                  id: findAnnouncement?.id,
                   headerText: findAnnouncement?.title,
                   title: findAnnouncement?.title,
                   subTitle: findAnnouncement?.subTitle,
                   date: findAnnouncement?.date,
                   html: findAnnouncement?.html,
                 });
-              } catch (error) {}
+              } catch (error) { }
             } else {
               dispatch({ type: "Notification", payload: remoteMessage.data });
               Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
@@ -84,13 +85,14 @@ const TabNavigator = () => {
               (item: any) => item.id == +remoteMessage.data.announcement_id
             );
             navigate("announcementsDetails", {
+              id: findAnnouncement?.id,
               headerText: findAnnouncement?.title,
               title: findAnnouncement?.title,
               subTitle: findAnnouncement?.subTitle,
               date: findAnnouncement?.date,
               html: findAnnouncement?.html,
             });
-          } catch (error) {}
+          } catch (error) { }
         } else {
           dispatch({ type: "Notification", payload: remoteMessage.data });
           Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);

@@ -17,7 +17,7 @@ import normalize from "react-native-normalize";
 import CustomImage from "../../common/image";
 import { getLeaveOption } from "../../utils/getLeaveType";
 
-const ListingCard = ({ index, listLength, item, module, sa }: any) => {
+const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
   const [se, us] = useState([{ src: item.image, errored: false }]);
 
   return (
@@ -41,20 +41,27 @@ const ListingCard = ({ index, listLength, item, module, sa }: any) => {
             paddingRight: 10,
           }}
         >
-          <Text style={cardStyle.titleText}>
-            {item.title && item.title.length > 40
-              ? item.title.slice(0, 40) + "..."
-              : item.title}
-          </Text>
-
+          {module == "Announcements" ? (
+            <Text style={cardStyle.titleText}>
+              {state?.title && state?.title.length > 40
+                ? state?.title.slice(0, 40) + "..."
+                : state?.title}
+            </Text>
+          ) : (
+            <Text style={cardStyle.titleText}>
+              {item?.title && item?.title?.length > 40
+                ? item?.title.slice(0, 40) + "..."
+                : item?.title}
+            </Text>
+          )}
           {module == "Announcements" && (
             <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
-              {getShortDate(item.date)}
+              {getShortDate(state?.date)}
             </Text>
           )}
         </View>
         {module == "Announcements" ? (
-          <RenderHtmlComponent htmlData={item.subTitle} />
+          <RenderHtmlComponent htmlData={state?.html} />
         ) : (
           <View style={cardStyle.icon}>
             <View
