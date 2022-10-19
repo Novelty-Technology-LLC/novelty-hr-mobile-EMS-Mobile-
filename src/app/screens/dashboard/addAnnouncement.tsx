@@ -111,8 +111,9 @@ const AddAnnouncement = (props: any) => {
           payload: { announcementData: payload, index: id },
         });
         setLoading(false);
-        // goBack();
-        navigation.popToTop();
+        goBack();
+        goBack();
+        // navigation.popToTop();
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
@@ -188,7 +189,8 @@ const AddAnnouncement = (props: any) => {
                       handleChange("description")(item);
                     }}
                   />
-                  <RichToolbar
+                  {/* code will be in need */}
+                  {/* <RichToolbar
                     actions={[actions.insertLink]}
                     editor={descriptionRef}
                     style={{
@@ -196,7 +198,7 @@ const AddAnnouncement = (props: any) => {
                       alignItems: "flex-end",
                       paddingHorizontal: theme.size.xxs,
                     }}
-                  />
+                  /> */}
                   {errors.description && touched.description && (
                     <Text style={customTextFieldStyles.error}>
                       {errors.description}
