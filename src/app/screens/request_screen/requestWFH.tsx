@@ -45,6 +45,8 @@ import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
 import { Teams } from "../../components/request_screen/teams";
+import { goBack } from "../../utils/navigation";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -53,7 +55,7 @@ const validationSchema = Yup.object().shape({
       endDate: Yup.date().nullable(),
     })
     .required("Date is required"),
-  note: Yup.string().required("Work from home note is required").label("note"),
+  note: Yup.string().required("WFH note is required").label("note"),
   lead: Yup.array().of(Yup.number()).label("lead").required("Lead is required"),
   status: Yup.string().label("status"),
 });
@@ -82,6 +84,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         dispatchWFHRequest({ type: "ADD", payload: res.data.data.leave });
         setisLoading(false);
         showToast("Request created");
+        goBack();
       })
       .catch((err) => {
         setisLoading(false);
@@ -103,7 +106,7 @@ const RequestWFH = ({ route, navigation }: any) => {
 
         dispatchWFHRequest({ type: "UPDATE", payload: res.leave });
         showToast("Request updated");
-
+        navigation.navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
         setisLoading(false);
       })
       .catch((err) => {});
@@ -137,7 +140,7 @@ const RequestWFH = ({ route, navigation }: any) => {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
         showToast("The selected date has passed. ", false);
       } else {
-        showToast("You cannot take leave after 10 am", false);
+        showToast("You cannot take WFH after 10 am", false);
       }
     } else {
       try {
@@ -301,7 +304,9 @@ const RequestWFH = ({ route, navigation }: any) => {
                 disabled={isLoading}
               >
                 <View style={style.buttonView}>
-                  <Text style={style.buttonText}>Submit Request</Text>
+                  <Text style={style.buttonText}>
+                    {olddata ? "Upadate " : "Submit Request"}
+                  </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />
                   )}

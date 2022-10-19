@@ -16,7 +16,13 @@ import { Cards, header as Header, List, showToast } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
 import { getToday } from "../../utils";
-import { createWork, getWork, getDashboard, getRequest } from "../../services";
+import {
+  createWork,
+  getWork,
+  getDashboard,
+  getRequest,
+  getList,
+} from "../../services";
 import moment from "moment";
 import normalize from "react-native-normalize";
 import { DashboardCardPlaceholder } from "../../common";
@@ -29,9 +35,11 @@ import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 const DashBoard = () => {
   const { state } = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
+  const [isActive, setActive] = useState(false);
   const [id, setId] = useState(0);
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadingIsActive, setLoadingIsActive] = useState(false);
   const [leaveStatus, setLeaveStatus] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
@@ -115,6 +123,22 @@ const DashBoard = () => {
 
         setCardLoading(true);
         const data: any = await getDashboard();
+        const TodayDate = new Date();
+        const holidayData: any = await getList("holidayeventslisting");
+
+        if (TodayDate.getDay() !== 0 && TodayDate.getDay() !== 6) {
+          var holidayExits = holidayData.findIndex((x: any) => {
+            return (
+              x.subTitle.slice(0, 9) === new Date().toISOString().slice(0, 9)
+            );
+          });
+
+          if (holidayExits <= -1) {
+            setActive(true);
+          } else {
+            setActive(false);
+          }
+        }
 
         await fetchLeave();
 
@@ -169,7 +193,49 @@ const DashBoard = () => {
   const handleWFH = () => {
     navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
   };
+  const statusClip = (iconName = "home", title = "Home") => {
+    return (
+      <TouchableWithoutFeedback
+        disabled={true}
+        onPress={handleWFH}
+        style={[
+          toggle
+            ? { backgroundColor: colors.greenButton }
+            : { backgroundColor: colors.fontGrey },
+        ]}
+      >
+        <View
+          style={[
+            ds.office,
 
+            toggle
+              ? { backgroundColor: colors.fontGrey }
+              : { backgroundColor: colors.brown },
+          ]}
+        >
+          {loading ? (
+            <ActivityIndicator color={colors.white} />
+          ) : (
+            <Icon
+              name={iconName}
+              color={toggle ? colors.primary : colors.greenButton}
+              size={15}
+            />
+          )}
+          <View style={{ marginHorizontal: 2 }} />
+          <Text
+            style={{
+              ...ds.officeText,
+
+              color: toggle ? colors.primary : colors.greenButton,
+            }}
+          >
+            {title}
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  };
   return (
     <View style={ds.safeArea}>
       <Header icon={false} container={{ paddingVertical: normalize(4.076) }}>
@@ -240,44 +306,9 @@ const DashBoard = () => {
                   </Text>
                 </View>
               </TouchableWithoutFeedback> */}
-              <TouchableWithoutFeedback
-                onPress={handleWFH}
-                style={[
-                  toggle
-                    ? { backgroundColor: colors.greenButton }
-                    : { backgroundColor: colors.fontGrey },
-                ]}
-              >
-                <View
-                  style={[
-                    ds.office,
-
-                    toggle
-                      ? { backgroundColor: colors.fontGrey }
-                      : { backgroundColor: colors.brown },
-                  ]}
-                >
-                  {loading ? (
-                    <ActivityIndicator color={colors.white} />
-                  ) : (
-                    <Icon
-                      name="home"
-                      color={toggle ? colors.primary : colors.greenButton}
-                      size={15}
-                    />
-                  )}
-                  <View style={{ marginHorizontal: 2 }} />
-                  <Text
-                    style={{
-                      ...ds.officeText,
-
-                      color: toggle ? colors.primary : colors.greenButton,
-                    }}
-                  >
-                    Home
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
+              {leaveStatus
+                ? statusClip("briefcase-clock", "OnLeave")
+                : isActive && statusClip()}
             </View>
 
             {/* <Text style={ds.workshift}>{state?.user?.work_shift}</Text> */}
@@ -307,7 +338,7 @@ const DashBoard = () => {
                   color: toggle ? colors.white : colors.white,
                 }}
               >
-                Request WFH
+                WFH
               </Text>
               <View style={{ marginHorizontal: 2 }} />
               {loading ? (

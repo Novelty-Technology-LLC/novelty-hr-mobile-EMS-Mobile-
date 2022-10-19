@@ -21,7 +21,7 @@ const RequestWithImage = ({ item, onPress, type }: any) => {
         <View>
           <Text style={style.name}>{name}</Text>
           <Text style={style.type}>
-            <Text> {type}</Text>
+            {type !== "WFH" && <Text> {type}</Text>}
             {work_option && (
               <Text style={style.option}> {`${work_option}`}</Text>
             )}

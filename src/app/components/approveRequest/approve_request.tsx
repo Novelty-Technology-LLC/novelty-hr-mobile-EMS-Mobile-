@@ -159,20 +159,15 @@ const Request = ({
                   </View>
                 </View>
               ) : (
-                <View style={style.cardFooterContainer}>
+                <View style={style.cardWFHFooter}>
                   <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining :</Text>
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" PTO"}</Text>
-                    </Text>
+                    <Text style={style.remainingLeave}>Remaining Quota :</Text>
+                    {/* <Text></Text> */}
                     <Text>
                       <Text style={style.totalDays}>
                         {leave_quota.used_float + "/" + leave_quota.total_float}
                       </Text>
-                      <Text style={style.leaveTypes}>{" Floating "}</Text>
+                      <Text style={style.leaveTypes}>{" WFH "}</Text>
                     </Text>
                   </View>
                 </View>

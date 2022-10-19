@@ -265,6 +265,7 @@ const RequestLeave = ({ route }: any) => {
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
               <CalendarComponent
+                workfromHome={false}
                 style={style}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.leave_date}
@@ -303,7 +304,9 @@ const RequestLeave = ({ route }: any) => {
                 disabled={isLoading}
               >
                 <View style={style.buttonView}>
-                  <Text style={style.buttonText}>Submit Request</Text>
+                  <Text style={style.buttonText}>
+                    {olddata ? "Upadate " : "Submit Request"}
+                  </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />
                   )}

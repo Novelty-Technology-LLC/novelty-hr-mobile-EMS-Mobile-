@@ -40,7 +40,7 @@ const CalendarComponent = ({
   );
   const [date, setDate] = useState(moment());
   const dateService = new MomentDateService();
-  // const { requests } = useContext(RequestContext);
+  const { requests } = useContext(RequestContext);
   const { requestsWFH } = useContext(RequestWFHContext);
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;

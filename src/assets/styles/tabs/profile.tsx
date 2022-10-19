@@ -123,7 +123,7 @@ const profileStyle = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     top: normalize(50),
-    left: normalize(136),
+    left: normalize(135),
   },
   profileImageWrapper: {
     position: "absolute",
@@ -131,11 +131,10 @@ const profileStyle = StyleSheet.create({
 
   iconCameraWrapper: {
     position: "absolute",
-    bottom: normalize(-10),
+    bottom: normalize(-2),
     padding: normalize(10),
-    right: -50,
+    left: normalize(90),
   },
-
   gender: {
     textTransform: "capitalize",
     marginLeft: normalize(8),

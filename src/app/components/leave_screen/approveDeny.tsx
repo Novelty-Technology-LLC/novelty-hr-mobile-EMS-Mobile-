@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { Alert, button as Button, showToast, snackErrorBottom } from '../../common';
-import { dataType } from '../../interface';
-import { EditAlert } from './responseAlert';
-import { checkRequest } from '../../services';
+import React, { useState } from "react";
+import { View, Text } from "react-native";
+import {
+  Alert,
+  button as Button,
+  showToast,
+  snackErrorBottom,
+} from "../../common";
+import { dataType } from "../../interface";
+import { EditAlert } from "./responseAlert";
+import { checkRequest } from "../../services";
 
 interface approveDenyPropType {
   title: string;
+  screenName: string;
   style: object;
   item: dataType;
 }
 
-const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
+const ApproveDeny = ({
+  style,
+  title,
+  item,
+  screenName = "Leave",
+}: approveDenyPropType) => {
   const [show, setShow] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -24,6 +35,7 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
           status={title}
           setShow={setShow}
           setisLoading={setisLoading}
+          screenName={screenName}
         />
       )}
       <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
@@ -35,10 +47,10 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
           setisLoading(true);
           checkRequest(item.id)
             .then((res) => {
-              if (res === 'Pending' || res === 'In Progress') {
+              if (res === "Pending" || res === "In Progress") {
                 setShow(true);
               } else {
-                showToast(`Request got ${res}`,false);
+                showToast(`Request got ${res}`, false);
               }
               setisLoading(false);
             })
@@ -47,9 +59,9 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
         disabled={isLoading}
       >
         <View
-          style={title === 'Approve' ? style.buttonApprove : style.buttonDeny}
+          style={title === "Approve" ? style.buttonApprove : style.buttonDeny}
         >
-          <Text style={title === 'Approve' ? style.approve : style.deny}>
+          <Text style={title === "Approve" ? style.approve : style.deny}>
             {title}
           </Text>
         </View>

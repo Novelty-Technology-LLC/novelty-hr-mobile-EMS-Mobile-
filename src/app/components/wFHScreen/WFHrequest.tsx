@@ -17,7 +17,7 @@ interface requestPropType {
 }
 
 const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
-  // let { day } = getDay(item);
+  let { day } = getDay(item);
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests } = useContext(AdminRequestContext);
@@ -62,16 +62,26 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
           {recieved ? (
             <View style={style.subcontainer}>
               <Text style={style.days}>
-                {/* {day > 1 ? day + " days ago" : (day = " Today")} */}
+                {day > 1 ? day + " days ago" : (day = " Today")}
               </Text>
               <View style={style.status}>
                 <State state={item.state} />
               </View>
               {!isReplied && (
                 <View style={style.buttonContainer}>
-                  <ApproveDeny title="Approve" style={style} item={item} />
+                  <ApproveDeny
+                    title="Approve"
+                    style={style}
+                    item={item}
+                    screenName="WFH"
+                  />
                   <View style={style.buttonSpacer}></View>
-                  <ApproveDeny title="Deny" style={style} item={item} />
+                  <ApproveDeny
+                    title="Deny"
+                    style={style}
+                    item={item}
+                    screenName="WFH"
+                  />
                 </View>
               )}
             </View>
