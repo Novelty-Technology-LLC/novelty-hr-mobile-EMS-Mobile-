@@ -12,7 +12,7 @@ export const SplashScreen = () => {
         } else {
           navigate("login");
         }
-      } catch (e) {}
+      } catch (e) { }
     };
     tryLocalSignIn();
   }, []);

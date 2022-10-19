@@ -40,7 +40,7 @@ const RootNavigation = () => {
         const user: any = await getUser();
 
         dispatch({ type: "STORE_USER", user: JSON.parse(user) });
-      } catch (e) {}
+      } catch (e) { }
     };
 
     bootstrapAsync();
@@ -61,7 +61,7 @@ const RootNavigation = () => {
             [
               {
                 text: "Cancel",
-                onPress: () => {},
+                onPress: () => { },
                 style: "cancel",
               },
               { text: "UPDATE", onPress: () => goToStore() },
@@ -71,7 +71,7 @@ const RootNavigation = () => {
         } else {
         }
       });
-    } catch (e) {}
+    } catch (e) { }
   };
 
   const deepLinking = {
