@@ -32,10 +32,13 @@ export const dateStringMapper = (
         `${dateOnly ? "" : `(${dateMapper(start, end)} days)`}  `;
 };
 
-export const getShortDate = (date) => {
+export const getShortDate = (date: any) => {
   return moment(date).format("MMM D").slice(0, 6);
 };
+export const getFormatedDate = (date: any) => {
+  return moment(date).format("MMM D,YYYY").slice(0, 11);
+};
 
-export const getFullDate = (date) => {
+export const getFullDate = (date: any) => {
   return moment(date).format("LL");
 };

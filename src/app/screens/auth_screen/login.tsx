@@ -32,6 +32,7 @@ const Login = () => {
     Platform.OS === "ios" ? true : false
   );
   const { state, dispatch } = useContext(AuthContext);
+
   const fetchLogin = async () => {
     const login = await getLogin();
     setLoginForm(login?.metadata?.show_login ?? false);
@@ -98,18 +99,18 @@ const Login = () => {
                 <Fragment>
                   <TextInput
                     style={style.textInput}
-                    placeholder='Email'
+                    placeholder="Email"
                     value={values.EmailAddress}
                     secureTextEntry={false}
-                    keyboardType='email-address'
-                    textContentType='emailAddress'
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
                     onChangeText={handleChange("EmailAddress")}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                   />
                   <TextInput
                     style={style.textInput}
                     value={values.Password}
-                    placeholder='Password'
+                    placeholder="Password"
                     secureTextEntry={true}
                     onChangeText={handleChange("Password")}
                   />
@@ -136,7 +137,7 @@ const Login = () => {
             style={style.iconView}
             onPress={async () => await signInGoogle(dispatch)}
           >
-            <Logo name='google' />
+            <Logo name="google" />
           </TouchableOpacity>
 
           {Platform.OS === "ios" && (
@@ -144,7 +145,7 @@ const Login = () => {
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}
               >
-                <Logo name='apple' />
+                <Logo name="apple" />
               </TouchableOpacity>
             </View>
           )}

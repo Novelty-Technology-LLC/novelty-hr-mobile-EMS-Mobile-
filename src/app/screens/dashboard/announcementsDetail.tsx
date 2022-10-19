@@ -21,6 +21,7 @@ const AnnouncementDetail = (props: any) => {
   const { state: auth }: any = useContext(AuthContext);
   const { state }: any = useContext(AnnouncementContext);
   const params = props?.route?.params;
+
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>

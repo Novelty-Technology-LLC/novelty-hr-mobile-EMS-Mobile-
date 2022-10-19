@@ -9,6 +9,7 @@ import { RenderHtmlComponent } from "../renderHtml";
 import { responseDay } from "../../utils/getDay";
 import { getShortDate } from "../../utils";
 import { getLeaveOption } from "../../utils/getLeaveType";
+import { OverlappingAvatars } from "../overlappingAvatars";
 
 const ListItem = ({
   title,
@@ -48,7 +49,7 @@ const ListItem = ({
         }}
       >
         <Text style={cardStyle.titleText}>
-          {title.length > 30 ? title.slice(0, 30) + "..." : title}
+          {title?.length > 30 ? title.slice(0, 30) + "..." : title}
         </Text>
         {module == "Announcements" && (
           <Text style={[cardStyle.dateText, { fontSize: 11 }]}>

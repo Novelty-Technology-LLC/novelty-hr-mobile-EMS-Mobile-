@@ -16,7 +16,7 @@ const Cards = ({ data }: { data: any }) => {
               <Carousel
                 items={transformLunchItem(item)}
                 itemsPerInterval={1}
-                module={item.module}
+                module={item?.module}
               />
             ) : (
               <>
