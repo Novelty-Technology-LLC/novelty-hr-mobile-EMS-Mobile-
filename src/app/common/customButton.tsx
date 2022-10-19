@@ -1,8 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import normalize from 'react-native-normalize';
 import colors from '../../assets/colors';
+import { theme } from '../../assets/styles';
 import { customButtonStyles as styles } from '../../assets/styles/common/custom_button.styles'
-
 interface Props {
     label: string,
     onPress: () => void,
@@ -12,27 +13,23 @@ interface Props {
     isLoading?: boolean,
     disabled?: boolean,
 }
-
 export const CustomButton = ({
     label,
     onPress,
     width = '100%',
-    fontSize = 16,
+    fontSize = normalize(theme.size.base),
     marginBottom = 25,
     isLoading = false,
     disabled,
 }: Props) => {
-
     const buttonStyleFromProps = {
         width,
         marginBottom,
         backgroundColor: disabled ? colors.disabledButton : colors.primary,
     }
-
     const labelStyleFromProps = {
         fontSize
     };
-
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -40,7 +37,7 @@ export const CustomButton = ({
                 styles.button,
                 buttonStyleFromProps
             ]}
-            disabled={disabled}
+            disabled={disabled || isLoading}
         >
             {isLoading ?
                 <ActivityIndicator style={styles.label} color={colors.white} />
@@ -52,4 +49,3 @@ export const CustomButton = ({
         </TouchableOpacity>
     );
 }
-

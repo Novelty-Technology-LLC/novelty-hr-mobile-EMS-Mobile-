@@ -20,6 +20,7 @@ import { getLeaveOption } from "../../utils/getLeaveType";
 import Svg, { Path } from "react-native-svg";
 import Shoutout from "./../../../assets/images/shoutout.svg";
 import { navigate } from "../../utils/navigation";
+import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
 const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
   const [se, us] = useState([{ src: item.image, errored: false }]);
 
@@ -119,11 +120,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
           <TouchableOpacity onPress={() => navigate("addAnnouncement")}>
             <Image
               source={require("./../../../assets/images/shoutout.png")}
-              style={{
-                width: normalize(20),
-                height: normalize(21),
-                marginTop: normalize(10),
-              }}
+              style={shoutoutDetailStyles.image}
             />
           </TouchableOpacity>
         </View>

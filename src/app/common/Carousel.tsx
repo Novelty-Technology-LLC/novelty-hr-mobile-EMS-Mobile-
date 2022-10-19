@@ -67,7 +67,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   const checkIfPressable = () => {
     if (props.module === "Employee") return true;
 
-    if (props.module == "Menu" && +state.user.is_approver === 1) return true;
+    if (props.module == "Menu" && +state?.user?.is_approver === 1) return true;
 
     return false;
   };

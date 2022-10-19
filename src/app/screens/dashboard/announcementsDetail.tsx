@@ -45,7 +45,7 @@ const AnnouncementDetail = (props: any) => {
           </Text>
         </View>
       </ScrollView>
-      {+auth.user.is_approver === 1 && (
+      {+auth?.user?.is_approver === 1 && (
         <RequestButton
           floatingIcon="pencil"
           screen="addAnnouncement"
