@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { FlatList, Text, View } from "react-native";
-import { Swipeable, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
-import Swipe from "../../components/leave_screen/swipe";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { RequestButton } from "../../components/requestButton";
 import { AuthContext } from "../../reducer";
