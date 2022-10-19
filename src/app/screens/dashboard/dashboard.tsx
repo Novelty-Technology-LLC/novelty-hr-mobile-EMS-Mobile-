@@ -288,7 +288,7 @@ const DashBoard = () => {
           {!shoutoutLoading ? (
             <List
               list={{
-                module: "shoutouts",
+                module: "shoutout",
                 message: "No Shoutouts",
                 items: shoutout,
                 detailRoute: "shoutoutDetail",

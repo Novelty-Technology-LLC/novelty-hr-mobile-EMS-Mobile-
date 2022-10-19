@@ -41,15 +41,8 @@ const ShoutoutListItem = ({
   avatar?: any;
   key?: any;
 }) => {
-  console.log(receiver, "receiver");
-
-  const arr = [...receiver, ...shoutout_from];
-  const receiverData: any = receiver.flat();
-  const senderData: any = shoutout_from.flat();
-  console.log(
-    receiverData.map((item: any) => item.first_name),
-    "rs"
-  );
+  const receiverData: any = receiver;
+  const senderData: any = shoutout_from;
 
   return (
     <TouchableOpacity
@@ -79,7 +72,7 @@ const ShoutoutListItem = ({
           }}
         >
           <Text style={cardStyle.titleText}>
-            {shoutout?.length > 30 ? shoutout.slice(0, 80) + "..." : shoutout}
+            {shoutout?.length > 30 ? shoutout.slice(0, 100) + "..." : shoutout}
           </Text>
           {/* /code will be in need */}
           {/* <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
@@ -100,7 +93,7 @@ const ShoutoutListItem = ({
               );
             })}
           </Text>
-          <Text style={[cardStyle.subTitleText]}> received from </Text>
+          <Text style={[cardStyle.subTitleText]}> received shoutout from </Text>
           <Text style={[cardStyle.subTitleText]}>
             {senderData.map((item: any) => {
               return formatFullName(item.first_name, item.last_name) + ".";

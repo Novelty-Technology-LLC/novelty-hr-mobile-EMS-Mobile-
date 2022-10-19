@@ -22,7 +22,7 @@ export const shoutoutDetailStyles = StyleSheet.create({
     height: normalize(21),
     marginRight: normalize(10),
   },
-  nmae: {
+  name: {
     fontSize: theme.size.xs,
     fontFamily: fonts.poppinsMedium,
     color: colors.fontBlack,
@@ -32,5 +32,17 @@ export const shoutoutDetailStyles = StyleSheet.create({
     fontFamily: fonts.mulishRegular,
     fontSize: normalize(theme.size.xs),
     color: colors.fontGrey,
+  },
+  shoutout: {
+    fontFamily: "Poppins, Regular",
+    color: colors.fontBlack,
+    fontSize: theme.size.sm,
+    textAlign: "justify",
+  },
+  date: {
+    marginTop: theme.size.lg,
+    textAlign: "right",
+    color: colors.fade,
+    fontSize: theme.size.xxs,
   },
 });

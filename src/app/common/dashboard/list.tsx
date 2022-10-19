@@ -13,8 +13,6 @@ import { ShoutoutListItem } from "./shoutoutList";
 import { FlatList } from "react-native-gesture-handler";
 
 const List = ({ list }: { list: any }) => {
-  console.log(list?.items, "list?.items");
-
   return (
     <>
       <View style={globalStyle.row}>
@@ -22,7 +20,7 @@ const List = ({ list }: { list: any }) => {
       </View>
       {list?.items?.length > 0 ? (
         <View style={listStyle.container}>
-          {list?.module !== "shoutouts" &&
+          {list?.module !== "shoutout" &&
             transformList(
               list?.items?.slice(0, 3),
               list?.module,
@@ -43,7 +41,7 @@ const List = ({ list }: { list: any }) => {
                         date: item.date,
                         html: item.html,
                       });
-                    } else if (list?.module === "shoutouts") {
+                    } else if (list?.module === "shoutout") {
                       null;
                     } else
                       navigate(list?.detailRoute, {
@@ -53,7 +51,7 @@ const List = ({ list }: { list: any }) => {
                   }}
                   style={listStyle.seeAll}
                 >
-                  {list.module !== "shoutouts" && (
+                  {list.module !== "shoutout" && (
                     <ListItem
                       key={index}
                       title={item?.title}
@@ -69,7 +67,7 @@ const List = ({ list }: { list: any }) => {
                 </TouchableOpacity>
               );
             })}
-          {list?.module === "shoutouts" && (
+          {list?.module === "shoutout" && (
             <FlatList
               keyExtractor={(item) => item.id.toString()}
               data={list?.items}
@@ -95,7 +93,7 @@ const List = ({ list }: { list: any }) => {
               })
             }
           >
-            {list?.module !== "shoutouts" && (
+            {list?.module !== "shoutout" && (
               <View style={listStyle.seeAllTextOn}>
                 <Text style={listStyle.seeAllTexts}>See All</Text>
                 <Icon name="arrow-right" color={colors.primary} size={12} />
