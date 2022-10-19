@@ -9,8 +9,12 @@ import { EmptyContainer } from "../emptyContainer";
 import { AppIcon } from "../icon";
 import { ListItem } from "./listItem";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { ShoutoutListItem } from "./shoutoutList";
+import { FlatList } from "react-native-gesture-handler";
 
 const List = ({ list }: { list: any }) => {
+  console.log(list?.items, "list?.items");
+
   return (
     <>
       <View style={globalStyle.row}>
@@ -18,59 +22,71 @@ const List = ({ list }: { list: any }) => {
       </View>
       {list?.items?.length > 0 ? (
         <View style={listStyle.container}>
-          {transformList(
-            list?.items?.slice(0, 3),
-            list?.module,
-            false,
-            true,
-            list.module == "Holidays & Events" || list.module == "Leave"
-              ? true
-              : false
-          ).map((item: any, index: number) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  if (list?.module === "Announcements") {
-                    navigate("announcementsDetails", {
-                      headerText: item.title,
-                      title: item.title,
-                      subTitle: item.subTitle,
-                      date: item.date,
-                      html: item.html,
-                    });
-                  } else if (list?.module === "shoutouts") {
-                    navigate("shoutoutDetail", {
-                      headerText: item.receiver,
-                      title: item.shoutout,
-                      subTitle: item.shoutout_from,
-                      date: item.shoutout_date,
-                      avatar: item.avatar,
-                    });
-                  } else
-                    navigate(list?.detailRoute, {
-                      route: list?.detailRoute,
-                      module: list.module,
-                    });
-                }}
-                style={listStyle.seeAll}
-              >
-                {list.module !== "shoutouts" ? (
-                  <ListItem
-                    key={index}
-                    title={item?.title}
-                    subTitle={item?.subTitle}
-                    leave_option={item?.leave_option}
-                    date={item?.date}
+          {list?.module !== "shoutouts" &&
+            transformList(
+              list?.items?.slice(0, 3),
+              list?.module,
+              false,
+              true,
+              list.module == "Holidays & Events" || list.module == "Leave"
+                ? true
+                : false
+            ).map((item: any, index: number) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    if (list?.module === "Announcements") {
+                      navigate("announcementsDetails", {
+                        headerText: item.title,
+                        title: item.title,
+                        subTitle: item.subTitle,
+                        date: item.date,
+                        html: item.html,
+                      });
+                    } else if (list?.module === "shoutouts") {
+                      null;
+                    } else
+                      navigate(list?.detailRoute, {
+                        route: list?.detailRoute,
+                        module: list.module,
+                      });
+                  }}
+                  style={listStyle.seeAll}
+                >
+                  {list.module !== "shoutouts" && (
+                    <ListItem
+                      key={index}
+                      title={item?.title}
+                      subTitle={item?.subTitle}
+                      leave_option={item?.leave_option}
+                      date={item?.date}
+                      isLast={2 === index}
+                      type={item?.type}
+                      module={list.module}
+                      html={item.html}
+                    />
+                  )}
+                </TouchableOpacity>
+              );
+            })}
+          {list?.module === "shoutouts" && (
+            <FlatList
+              keyExtractor={(item) => item.id.toString()}
+              data={list?.items}
+              renderItem={({ item, index }) => {
+                return (
+                  <ShoutoutListItem
+                    date={item.shoutout_date}
                     isLast={2 === index}
-                    type={item?.type}
-                    module={list.module}
-                    html={item.html}
-                    avatar={item.avatar}
+                    // module={list.module}
+                    receiver={item?.receiver}
+                    shoutout={item.shoutout}
+                    shoutout_from={item.shoutout_from}
                   />
-                ) : null}
-              </TouchableOpacity>
-            );
-          })}
+                );
+              }}
+            />
+          )}
           <TouchableOpacity
             onPress={() =>
               navigate(list?.detailRoute, {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import State from "../../components/leave_screen/state";
 import {
   cardStyle,
@@ -17,7 +17,9 @@ import colors from "../../../assets/colors";
 import normalize from "react-native-normalize";
 import CustomImage from "../../common/image";
 import { getLeaveOption } from "../../utils/getLeaveType";
-
+import Svg, { Path } from "react-native-svg";
+import Shoutout from "./../../../assets/images/shoutout.svg";
+import { navigate } from "../../utils/navigation";
 const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
   const [se, us] = useState([{ src: item.image, errored: false }]);
 
@@ -112,9 +114,20 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
           </View>
         )}
       </View>
-      {/* {module == "employeeList" && (
-        <CustomImage style={style.headerImage} image={item.image} />
-      )} */}
+      {module == "employeeList" && (
+        <View style={{ marginRight: theme.size.lg }}>
+          <TouchableOpacity onPress={() => navigate("addAnnouncement")}>
+            <Image
+              source={require("./../../../assets/images/shoutout.png")}
+              style={{
+                width: normalize(20),
+                height: normalize(21),
+                marginTop: normalize(10),
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
       <View>
         <State state={item?.status} />
       </View>

@@ -1,15 +1,24 @@
-import React from "react";
-import { View, Text, Platform } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Platform, TouchableOpacity } from "react-native";
 import colors from "../../../assets/colors";
-import { cardStyle, listStyle, timeLogStyle } from "../../../assets/styles";
+import {
+  cardStyle,
+  listStyle,
+  theme,
+  timeLogStyle,
+} from "../../../assets/styles";
 import { getColor, transformDate } from "../../utils/listtranform";
 import normalize from "../../utils/normalize";
 import { useWindowDimensions } from "react-native";
 import { RenderHtmlComponent } from "../renderHtml";
 import { responseDay } from "../../utils/getDay";
-import { getShortDate } from "../../utils";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import { OverlappingAvatars } from "../overlappingAvatars";
+import { getShortDate } from "../../utils/dateMapper";
+import { FlatList } from "react-native-gesture-handler";
+import { navigate } from "../../utils/navigation";
+import { formatFullName } from "../../utils/constants";
+// import { getShortDate } from "../../utils";
 
 const ShoutoutListItem = ({
   receiver,
@@ -18,66 +27,89 @@ const ShoutoutListItem = ({
   isLast,
   type,
   module,
-  html,
   date,
-  leave_option,
   avatar,
+  key,
 }: {
   receiver: [];
   shoutout: string;
   shoutout_from: [];
-  leave_option: string;
-  isLast: boolean;
+  isLast?: boolean;
   type?: string;
   module?: string;
-  html: any;
   date?: string;
   avatar?: any;
+  key?: any;
 }) => {
-  const indicatorColor = getColor(type, colors.lightbrown);
-  receiver.map((item: any) => {
-    console.log(item, "item");
-  });
+  console.log(receiver, "receiver");
+
+  const arr = [...receiver, ...shoutout_from];
+  const receiverData: any = receiver.flat();
+  const senderData: any = shoutout_from.flat();
+  console.log(
+    receiverData.map((item: any) => item.first_name),
+    "rs"
+  );
+
   return (
-    <View
-      style={[
-        listStyle.itemContainer,
-        {
-          borderBottomWidth: isLast ? 0 : 1,
-        },
-      ]}
+    <TouchableOpacity
+      onPress={() => {
+        navigate("shoutoutDetail", {
+          receiver: receiver,
+          shoutout: shoutout,
+          shoutout_from: shoutout_from,
+          date: date,
+          avatar: avatar,
+        });
+      }}
     >
       <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingRight: 10,
-        }}
-      >
-        <Text style={cardStyle.titleText}>
-          {shoutout?.length > 30 ? shoutout.slice(0, 30) + "..." : shoutout}
-        </Text>
-        <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
-          {getShortDate(date)}
-        </Text>
-        {/* {module == "shoutouts" && <OverlappingAvatars avatars={avatar} />} */}
-      </View>
-      <Text style={cardStyle.subTitleText}>{shoutout}</Text>
-      <View
         style={[
-          timeLogStyle.indicator,
-          cardStyle.indicator,
+          listStyle.itemContainer,
           {
-            backgroundColor: indicatorColor,
-            ...Platform.select({
-              ios: {
-                marginRight: normalize(-1),
-              },
-            }),
+            borderBottomWidth: isLast ? 0 : 1,
           },
         ]}
-      />
-    </View>
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingRight: 10,
+          }}
+        >
+          <Text style={cardStyle.titleText}>
+            {shoutout?.length > 30 ? shoutout.slice(0, 80) + "..." : shoutout}
+          </Text>
+          {/* /code will be in need */}
+          {/* <Text style={[cardStyle.dateText, { fontSize: 11 }]}>
+            {getShortDate(date)}
+          </Text> */}
+          {/* {module == "shoutouts" && <OverlappingAvatars avatars={avatar} />} */}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          <Text style={[cardStyle.subTitleText]}>
+            {receiverData.map((item: any) => {
+              return (
+                formatFullName(item.first_name, item.last_name) + "," + " "
+              );
+            })}
+          </Text>
+          <Text style={[cardStyle.subTitleText]}> received from </Text>
+          <Text style={[cardStyle.subTitleText]}>
+            {senderData.map((item: any) => {
+              return formatFullName(item.first_name, item.last_name) + ".";
+            })}
+          </Text>
+        </View>
+        <View style={{ flexDirection: "row" }}></View>
+      </View>
+    </TouchableOpacity>
   );
 };
 

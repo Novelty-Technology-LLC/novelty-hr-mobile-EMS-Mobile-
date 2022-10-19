@@ -10,12 +10,11 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import moment from "moment";
-import { announcementValidationSchema } from "../../../validation";
 import {
   addAnnouncementService,
   updateAnnouncementService,
 } from "../../services";
-import { CustomButton } from "../../common/customButtom";
+import { CustomButton } from "../../common/customButton";
 import { Calendar } from "@ui-kitten/components";
 import { CustomTextInput } from "../../common/customTextInput";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -24,7 +23,8 @@ import { goBack } from "../../utils/navigation";
 import colors from "../../../assets/colors";
 import { customTextFieldStyles } from "../../../assets/styles/common/custom_text_field.styles";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { StackActions } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
+import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -39,6 +39,7 @@ export const formatDate = (date: any, format = "L") => {
   }
 };
 const AddAnnouncement = (props: any) => {
+  const navigation: any = useNavigation();
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
   const updateData = props?.route?.params?.data ?? " ";
@@ -98,6 +99,7 @@ const AddAnnouncement = (props: any) => {
       })
       .catch(async (err: any) => {
         setLoading(false);
+        goBack();
         setError("something went wrong");
       });
   };
@@ -109,9 +111,8 @@ const AddAnnouncement = (props: any) => {
           payload: { announcementData: payload, index: id },
         });
         setLoading(false);
-        // StackActions.pop(2);
-        goBack();
-
+        // goBack();
+        navigation.popToTop();
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {

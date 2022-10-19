@@ -31,4 +31,5 @@ export default {
   darkGrey: "#8D8D8D",
   label: "#404040",
   disabledButton: "#BF8B5980",
+  fade: "#BCBCBC",
 };

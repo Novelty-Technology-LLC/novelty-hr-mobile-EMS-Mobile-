@@ -54,11 +54,13 @@ const DashBoard = () => {
   }, []);
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
+      const list = data.slice(0, 3);
       setshoutoutLoading(true);
-      setshoutout(data);
+      setshoutout(list);
       setshoutoutLoading(false);
     });
   };
+
   useEffect(() => {
     getShoutList(moment(), moment());
     BackHandler.addEventListener("hardwareBackPress", () => {
@@ -116,7 +118,6 @@ const DashBoard = () => {
       setAnnouncements(response);
     } catch (error) {}
   };
-
   const fetchLeave = async () => {
     try {
       var response: any = await getRequest("/leave", {});
@@ -128,7 +129,6 @@ const DashBoard = () => {
           moment(date).isSame(element.leave_date.startDate)
         );
       });
-
       if (todayLeave.status === "Approved") {
         setLeaveStatus(true);
       } else {
