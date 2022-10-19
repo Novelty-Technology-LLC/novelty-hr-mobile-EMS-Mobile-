@@ -54,7 +54,7 @@ const DashBoard = () => {
   }, []);
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
-      const list = data.slice(0, 3);
+      const list = data.sort().reverse().slice(0, 3);
       setshoutoutLoading(true);
       setshoutout(list);
       setshoutoutLoading(false);
