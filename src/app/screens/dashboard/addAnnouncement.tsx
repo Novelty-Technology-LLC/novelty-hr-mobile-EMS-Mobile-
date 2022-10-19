@@ -10,7 +10,7 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import moment from "moment";
-import { announcementValidationSchema } from "../../../validation/announcementSchema";
+import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
 import {
   addAnnouncementService,
   updateAnnouncementService,
@@ -24,7 +24,7 @@ import { goBack } from "../../utils/navigation";
 import colors from "../../../assets/colors";
 import { customTextFieldStyles } from "../../../assets/styles/common/custom_text_field.styles";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { StackActions } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -39,6 +39,7 @@ export const formatDate = (date: any, format = "L") => {
   }
 };
 const AddAnnouncement = (props: any) => {
+  const navigation: any = useNavigation();
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
   const updateData = props?.route?.params?.data ?? " ";
@@ -82,16 +83,15 @@ const AddAnnouncement = (props: any) => {
         html: values.description,
         date: moment(),
       };
-      const info = { ...body, id: announcementId };
-      addAppoinmentData(body, info);
+      addAppoinmentData(body);
     }
   };
-  const addAppoinmentData = (payload: any, info: any) => {
+  const addAppoinmentData = (payload: any) => {
     addAnnouncementService(payload)
       .then((item: any) => {
         dispatch({
           type: "ADD_ANNOUNCEMENT",
-          payload: { announcementData: info },
+          payload: { announcementData: { ...payload, id: item.data.data.id } },
         });
         setLoading(false);
         goBack();
@@ -111,7 +111,9 @@ const AddAnnouncement = (props: any) => {
           payload: { announcementData: payload, index: id },
         });
         setLoading(false);
-        StackActions.pop(2);
+        goBack();
+        goBack();
+        // navigation.popToTop();
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
@@ -187,7 +189,7 @@ const AddAnnouncement = (props: any) => {
                       handleChange("description")(item);
                     }}
                   />
-                  <RichToolbar
+                  {/* <RichToolbar
                     actions={[actions.insertLink]}
                     editor={descriptionRef}
                     style={{
@@ -195,7 +197,7 @@ const AddAnnouncement = (props: any) => {
                       alignItems: "flex-end",
                       paddingHorizontal: theme.size.xxs,
                     }}
-                  />
+                  /> */}
                   {errors.description && touched.description && (
                     <Text style={customTextFieldStyles.error}>
                       {errors.description}
