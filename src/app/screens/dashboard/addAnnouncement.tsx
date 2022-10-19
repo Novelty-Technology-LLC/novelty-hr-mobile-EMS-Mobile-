@@ -111,8 +111,9 @@ const AddAnnouncement = (props: any) => {
           payload: { announcementData: payload, index: id },
         });
         setLoading(false);
-        // goBack();
-        navigation.popToTop();
+        goBack();
+        goBack();
+        // navigation.popToTop();
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
