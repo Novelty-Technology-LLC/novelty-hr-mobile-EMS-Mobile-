@@ -23,7 +23,13 @@ let leave_quota: any = {
   used_float: 0,
 };
 
-const Request = ({ data, style, title = null }: any) => {
+const Request = ({
+  data,
+  style,
+  title = null,
+  screenName = "Leave",
+  type,
+}: any) => {
   const { state } = useContext(AuthContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
@@ -94,11 +100,16 @@ const Request = ({ data, style, title = null }: any) => {
                 </View>
                 <View style={style.dateView}>
                   <Text style={style.leaveType}>
-                    <Text>{data?.type}</Text>
-                    {leave_option !== "FULL DAY" && (
-                      <Text
-                        style={style.leaveOption}
-                      >{` (${leave_option})`}</Text>
+                    {screenName === "Leave" && <Text>{type}</Text>}
+                    {screenName === "Leave" ? (
+                      leave_option !== "FULL DAY" &&
+                      leave_option && (
+                        <Text
+                          style={style.leaveOption}
+                        >{` (${leave_option})`}</Text>
+                      )
+                    ) : (
+                      <Text style={style.leaveOption}>{`${leave_option}`}</Text>
                     )}
                   </Text>
                 </View>
@@ -129,23 +140,43 @@ const Request = ({ data, style, title = null }: any) => {
               {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
             {responses?.length ? (
-              <View style={style.cardFooterContainer}>
-                <View style={style.cardFooter}>
-                  <Text style={style.remainingLeave}>Remaining :</Text>
-                  <Text>
-                    <Text style={style.totalDays}>
-                      {leave_quota.used_pto + "/" + leave_quota.total_pto}
+              screenName === "Leave" ? (
+                <View style={style.cardFooterContainer}>
+                  <View style={style.cardFooter}>
+                    <Text style={style.remainingLeave}>Remaining :</Text>
+                    <Text>
+                      <Text style={style.totalDays}>
+                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
+                      </Text>
+                      <Text style={style.leaveTypes}>{" PTO"}</Text>
                     </Text>
-                    <Text style={style.leaveTypes}>{" PTO"}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={style.totalDays}>
-                      {leave_quota.used_float + "/" + leave_quota.total_float}
+                    <Text>
+                      <Text style={style.totalDays}>
+                        {leave_quota.used_float + "/" + leave_quota.total_float}
+                      </Text>
+                      <Text style={style.leaveTypes}>{" Floating "}</Text>
                     </Text>
-                    <Text style={style.leaveTypes}>{" Floating "}</Text>
-                  </Text>
+                  </View>
                 </View>
-              </View>
+              ) : (
+                <View style={style.cardFooterContainer}>
+                  <View style={style.cardFooter}>
+                    <Text style={style.remainingLeave}>Remaining :</Text>
+                    <Text>
+                      <Text style={style.totalDays}>
+                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
+                      </Text>
+                      <Text style={style.leaveTypes}>{" PTO"}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={style.totalDays}>
+                        {leave_quota.used_float + "/" + leave_quota.total_float}
+                      </Text>
+                      <Text style={style.leaveTypes}>{" Floating "}</Text>
+                    </Text>
+                  </View>
+                </View>
+              )
             ) : null}
           </View>
           <View style={style.responseView}>

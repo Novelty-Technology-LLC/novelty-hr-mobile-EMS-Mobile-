@@ -8,6 +8,7 @@ import { calenderStyle, timeLogStyle } from "../../../assets/styles";
 import { momentdate } from "../../utils/momentDate";
 import colors from "../../../assets/colors";
 import { RequestContext } from "../../reducer";
+import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
 interface calenderPropType {
   style?: any;
   handleChange: Function;
@@ -15,6 +16,7 @@ interface calenderPropType {
   error?: any;
   touched?: any;
   modal?: boolean;
+  workfromHome?: boolean;
   olddata_id?: number;
 }
 
@@ -26,6 +28,7 @@ const CalendarComponent = ({
   touched,
   modal,
   olddata_id,
+  workfromHome = false,
 }: calenderPropType) => {
   const [range, setrange] = useState<any>(
     defaultValue
@@ -37,16 +40,27 @@ const CalendarComponent = ({
   );
   const [date, setDate] = useState(moment());
   const dateService = new MomentDateService();
-  const { requests } = useContext(RequestContext);
+  // const { requests } = useContext(RequestContext);
+  const { requestsWFH } = useContext(RequestWFHContext);
 
   const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
   const modalfilter = (date) => momentdate(date) < momentdate();
-  let reviewed = [...requests.pastrequests, ...requests.requests].filter(
-    (req) =>
-      req.state === "Approved" ||
-      req.state === "In Progress" ||
-      req.state === "Pending"
-  );
+  let reviewed: any;
+  if (workfromHome) {
+    reviewed = [...requestsWFH.pastrequests, ...requestsWFH.requests].filter(
+      (req) =>
+        req.state === "Approved" ||
+        req.state === "In Progress" ||
+        req.state === "Pending"
+    );
+  } else {
+    reviewed = [...requests.pastrequests, ...requests.requests].filter(
+      (req) =>
+        req.state === "Approved" ||
+        req.state === "In Progress" ||
+        req.state === "Pending"
+    );
+  }
 
   if (olddata_id) {
     reviewed = reviewed.filter((req) => req.id !== olddata_id);

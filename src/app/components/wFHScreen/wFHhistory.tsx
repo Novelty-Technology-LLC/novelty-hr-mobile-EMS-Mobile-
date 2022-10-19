@@ -5,10 +5,12 @@ import { FlatList } from "react-native-gesture-handler";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { historyStyle as style } from "../../../assets/styles";
 import { EmptyContainer, SmallHeader } from "../../common";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import Swipe from "../leave_screen/swipe";
 import { Request } from "./request";
-import Swipe from "./swipe";
+import { WFHRequest } from "./WFHrequest";
 
-const History = ({ requests, other, refresh }: any) => {
+const WFHHistory = ({ requests, other, refresh }: any) => {
   const navigation = useNavigation();
   let row: Array<any> = [];
 
@@ -24,20 +26,30 @@ const History = ({ requests, other, refresh }: any) => {
           data={requests}
           renderItem={(item) =>
             other ? (
-              <Request
+              <WFHRequest
                 item={item.item}
                 other={other}
-                onPress={() => navigation.navigate("requestDetail", item.item)}
+                onPress={() =>
+                  navigation.navigate(
+                    NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                    item.item
+                  )
+                }
               />
             ) : item.item.state === "Denied" ||
               item.item.state === "Cancelled" ||
               (item.item.state === "Approved" &&
                 new Date(item.item.leave_date.startDate).getTime() <
                   new Date().getTime()) ? (
-              <Request
+              <WFHRequest
                 item={item.item}
                 other={other}
-                onPress={() => navigation.navigate("requestDetail", item.item)}
+                onPress={() =>
+                  navigation.navigate(
+                    NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                    item.item
+                  )
+                }
               />
             ) : (
               <Swipeable
@@ -50,11 +62,14 @@ const History = ({ requests, other, refresh }: any) => {
                   />
                 )}
               >
-                <Request
+                <WFHRequest
                   item={item.item}
                   other={other}
                   onPress={() =>
-                    navigation.navigate("requestDetail", item.item)
+                    navigation.navigate(
+                      NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                      item.item
+                    )
                   }
                 />
               </Swipeable>
@@ -69,4 +84,4 @@ const History = ({ requests, other, refresh }: any) => {
   );
 };
 
-export default History;
+export default WFHHistory;

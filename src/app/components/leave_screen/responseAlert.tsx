@@ -151,7 +151,7 @@ const EditAlert = ({
               <Text style={style.title}>Your response is ready to go</Text>
             </View>
             <View style={style.row}>
-              <RequestWithImage item={item} />
+              <RequestWithImage item={item} type={item.type} />
               <View style={style.gap}></View>
               <View style={style.stateView}>
                 <View style={requestStyle.rowAlign}>

@@ -20,7 +20,12 @@ const ApproveRequest = ({ route }: any) => {
           </View>
         </View>
       </Header>
-      <Request data={route.params} style={style} title="admin" />
+      <Request
+        data={route.params}
+        style={style}
+        title="admin"
+        type={route.params.type}
+      />
     </>
   );
 };

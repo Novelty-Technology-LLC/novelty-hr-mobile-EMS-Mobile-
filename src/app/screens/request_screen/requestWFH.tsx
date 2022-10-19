@@ -23,7 +23,6 @@ import {
 } from "../../../assets/styles";
 import {
   CalendarComponent,
-  Teams,
   Leavetype,
   Description,
 } from "../../components/request_screen";
@@ -32,8 +31,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { editRequest, postRequest } from "../../services";
 import colors from "../../../assets/colors";
-import { useNavigation } from "@react-navigation/native";
-import { AuthContext, RequestContext } from "../../reducer";
+import { StackActions, useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../reducer";
 import { snackErrorTop } from "../../common";
 import {
   checkIfRequested,
@@ -44,6 +43,8 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
+import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
+import { Teams } from "../../components/request_screen/teams";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -52,23 +53,20 @@ const validationSchema = Yup.object().shape({
       endDate: Yup.date().nullable(),
     })
     .required("Date is required"),
-  type: Yup.string().required().label("type"),
-  note: Yup.string().required("Leave note is required").label("note"),
+  note: Yup.string().required("Work from home note is required").label("note"),
   lead: Yup.array().of(Yup.number()).label("lead").required("Lead is required"),
   status: Yup.string().label("status"),
 });
 
-const RequestLeave = ({ route }: any) => {
+const RequestWFH = ({ route, navigation }: any) => {
   const olddata = route.params;
-  const navigation = useNavigation();
   const { state } = useContext(AuthContext);
-  const { dispatchRequest, requests } = useContext(RequestContext);
+  const { dispatchWFHRequest, requestsWFH } = useContext(RequestWFHContext);
   const [isLoading, setisLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   let leave_option = "FULL DAY";
   const initialValues = {
     date: olddata ? olddata.date : "",
-    type: olddata ? olddata.type : "PAID TIME OFF",
     status: olddata ? olddata.state : "Pending",
     note: olddata ? olddata.note : "",
     lead: olddata ? olddata.lead : [],
@@ -77,9 +75,11 @@ const RequestLeave = ({ route }: any) => {
   const submitRequest = (data) => {
     postRequest(data)
       .then((res) => {
-        dispatchRequest({ type: "UPDATEQUOTA", payload: res.data.data.quota });
-        dispatchRequest({ type: "ADD", payload: res.data.data.leave });
-        navigation.navigate("leaveList");
+        dispatchWFHRequest({
+          type: "UPDATEQUOTA",
+          payload: res.data.data.quota,
+        });
+        dispatchWFHRequest({ type: "ADD", payload: res.data.data.leave });
         setisLoading(false);
         showToast("Request created");
       })
@@ -95,14 +95,13 @@ const RequestLeave = ({ route }: any) => {
     editRequest(olddata.id, data)
       .then((res: any) => {
         res.quota.map((item) => {
-          dispatchRequest({
+          dispatchWFHRequest({
             type: "UPDATEQUOTA",
             payload: { ...item, leave_option: res.leave_option },
           });
         });
 
-        dispatchRequest({ type: "UPDATE", payload: res.leave });
-        navigation.navigate("leaveList");
+        dispatchWFHRequest({ type: "UPDATE", payload: res.leave });
         showToast("Request updated");
 
         setisLoading(false);
@@ -143,8 +142,8 @@ const RequestLeave = ({ route }: any) => {
     } else {
       try {
         const allrequests = [
-          ...requests.pastrequests,
-          ...requests.requests,
+          ...requestsWFH.pastrequests,
+          ...requestsWFH.requests,
         ].filter(
           (req) =>
             req.state === "Approved" ||
@@ -216,6 +215,7 @@ const RequestLeave = ({ route }: any) => {
             startDate,
             endDate,
           },
+          type: "PAID TIME OFF",
           day: dayData,
           leave_option: leave_option,
           requestor_id: state.user.id,
@@ -243,7 +243,7 @@ const RequestLeave = ({ route }: any) => {
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <Header icon={true}>
         <View style={approveRequest.headContainer}>
-          <Text style={headerTxtStyle.headerText}>Request Leave</Text>
+          <Text style={headerTxtStyle.headerText}>Request WFH</Text>
         </View>
       </Header>
       <KeyboardAwareScrollView
@@ -265,6 +265,7 @@ const RequestLeave = ({ route }: any) => {
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
               <CalendarComponent
+                workfromHome={true}
                 style={style}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.leave_date}
@@ -278,18 +279,15 @@ const RequestLeave = ({ route }: any) => {
                 defaultValue={olddata && olddata.lead}
                 values={values}
               />
-              <Leavetype
-                handleChange={handleChange}
-                defaultValue={olddata && olddata.type}
-              />
 
               <CustomRadioButton
-                title={"Leave Option"}
+                title={"WFH Option"}
                 dataList={DATA}
                 setSelectedIndex={setSelectedIndex}
                 selectedIndex={selectedIndex}
               />
               <Description
+                workfromhome={true}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata?.note}
                 error={errors}
@@ -327,4 +325,4 @@ const DATA = [
     title: "Second Half",
   },
 ];
-export { RequestLeave };
+export { RequestWFH };

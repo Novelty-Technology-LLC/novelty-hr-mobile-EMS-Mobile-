@@ -41,12 +41,26 @@ const dashboardStyle = StyleSheet.create({
   work: {
     flexDirection: "row",
     alignItems: "center",
-    padding: normalize(10),
+    padding: normalize(8),
+    paddingHorizontal: normalize(10),
+    borderRadius: normalize(20),
+    borderColor: colors.lightGrey,
+    borderWidth: 1,
+  },
+  office: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: normalize(10),
+    paddingVertical: normalize(5),
     borderRadius: normalize(20),
     borderColor: colors.lightGrey,
     borderWidth: 1,
   },
   workText: {
+    color: colors.fontGrey,
+    fontSize: normalize(12),
+  },
+  officeText: {
     color: colors.fontGrey,
     fontSize: normalize(12),
   },
@@ -74,6 +88,11 @@ const dashboardStyle = StyleSheet.create({
   image: {
     height: normalize(40),
     width: normalize(40),
+    borderRadius: normalize(20),
+  },
+  officeImage: {
+    height: normalize(20),
+    width: normalize(20),
     borderRadius: normalize(20),
   },
   wrapContainer: {
