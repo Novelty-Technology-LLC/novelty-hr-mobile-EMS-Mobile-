@@ -201,7 +201,7 @@ const DashBoard = () => {
               <Text style={ds.name}>
                 <Text style={ds.name}>{state?.user?.first_name + "  "} </Text>
               </Text>
-              <TouchableWithoutFeedback
+              {/* <TouchableWithoutFeedback
                 onPress={handleWFH}
                 style={[
                   toggle
@@ -239,8 +239,8 @@ const DashBoard = () => {
                     Office
                   </Text>
                 </View>
-              </TouchableWithoutFeedback>
-              {/* <TouchableWithoutFeedback
+              </TouchableWithoutFeedback> */}
+              <TouchableWithoutFeedback
                 onPress={handleWFH}
                 style={[
                   toggle
@@ -261,8 +261,8 @@ const DashBoard = () => {
                     <ActivityIndicator color={colors.white} />
                   ) : (
                     <Icon
-                      name="check-circle"
-                      color={toggle ? colors.primary : colors.primary}
+                      name="home"
+                      color={toggle ? colors.primary : colors.greenButton}
                       size={15}
                     />
                   )}
@@ -271,13 +271,13 @@ const DashBoard = () => {
                     style={{
                       ...ds.officeText,
 
-                      color: toggle ? colors.primary : colors.primary,
+                      color: toggle ? colors.primary : colors.greenButton,
                     }}
                   >
                     Home
                   </Text>
                 </View>
-              </TouchableWithoutFeedback> */}
+              </TouchableWithoutFeedback>
             </View>
 
             {/* <Text style={ds.workshift}>{state?.user?.work_shift}</Text> */}
@@ -314,7 +314,7 @@ const DashBoard = () => {
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name="arrow-right"
+                  name="arrow-top-right"
                   color={toggle ? colors.white : colors.white}
                   size={20}
                 />

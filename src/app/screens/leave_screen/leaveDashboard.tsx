@@ -41,11 +41,6 @@ const LeaveDashboard = () => {
 
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
-        console.log("rrrr", data);
-
-        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
-        console.log("rrrr");
-
         setLoading(false);
         setRefreshing(false);
       })

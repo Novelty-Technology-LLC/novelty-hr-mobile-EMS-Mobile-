@@ -1,29 +1,29 @@
-import { Platform, StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import color from '../../colors';
-import { fonts, theme } from '../theme';
+import { Platform, StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import color from "../../colors";
+import { fonts, theme } from "../theme";
 
 const daysRemainingStyle = StyleSheet.create({
   container: {
-    width: '50%',
-    alignItems: 'center',
+    width: "50%",
+    alignItems: "center",
     paddingBottom: normalize(5),
   },
   logcontainer: {
-    width: '50%',
-    alignItems: 'center',
+    width: "50%",
+    alignItems: "center",
     paddingBottom: normalize(5),
-    paddingTop: normalize(10)
+    paddingTop: normalize(10),
   },
   remaining: {
-    fontWeight: '300',
+    fontWeight: "300",
     fontSize: normalize(35),
     fontFamily: fonts.mulishRegular,
-    marginBottom: 0
+    marginBottom: 0,
   },
   total: {
-    fontWeight: '100',
+    fontWeight: "100",
     fontSize: normalize(20),
     fontFamily: fonts.mulishRegular,
   },
@@ -35,13 +35,13 @@ const daysRemainingStyle = StyleSheet.create({
   title: {
     color: colors.black,
     fontFamily: fonts.mulishBold,
-    textTransform: 'capitalize',
+    // textTransform: "uppercase",
   },
   footer: {
     fontSize: normalize(theme.size.xs),
     color: color.fontGrey,
     fontFamily: fonts.mulishRegular,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
 });
 

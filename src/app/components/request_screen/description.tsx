@@ -196,10 +196,10 @@ const Description = ({
           defaultValue={editHashtag ?? values?.note ?? defaultValue}
           placeholder={
             workfromhome
-              ? timelog
-                ? "Write a short note for your work from home.."
-                : "Write a short summary about your task.."
-              : "Write a short note for your leave.."
+              ? "Write a short note for your work from home.."
+              : timelog
+              ? "Write a short note for your leave.."
+              : "Write a short summary about your task.."
           }
           placeholderTextColor={"#c7c7c7"}
           underlineColorAndroid={"transparent"}

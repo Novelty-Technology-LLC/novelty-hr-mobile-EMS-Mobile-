@@ -124,7 +124,7 @@ const WFHDashboard = () => {
               key={requestsWFH.quota[1].daysDetail?.id}
               total={requestsWFH.quota[1]?.leave_total}
               remaining={requestsWFH.quota[1]?.leave_used}
-              title={"Work From Home"}
+              title={"WFH Quota"}
             />
           )}
         </View>
