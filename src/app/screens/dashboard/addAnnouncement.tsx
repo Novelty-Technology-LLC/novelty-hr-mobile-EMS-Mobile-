@@ -10,7 +10,7 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import moment from "moment";
-import { announcementValidationSchema } from "../../../validation/announcementSchema";
+import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
 import {
   addAnnouncementService,
   updateAnnouncementService,
@@ -24,7 +24,7 @@ import { goBack } from "../../utils/navigation";
 import colors from "../../../assets/colors";
 import { customTextFieldStyles } from "../../../assets/styles/common/custom_text_field.styles";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -189,7 +189,7 @@ const AddAnnouncement = (props: any) => {
                       handleChange("description")(item);
                     }}
                   />
-                  <RichToolbar
+                  {/* <RichToolbar
                     actions={[actions.insertLink]}
                     editor={descriptionRef}
                     style={{
@@ -197,7 +197,7 @@ const AddAnnouncement = (props: any) => {
                       alignItems: "flex-end",
                       paddingHorizontal: theme.size.xxs,
                     }}
-                  />
+                  /> */}
                   {errors.description && touched.description && (
                     <Text style={customTextFieldStyles.error}>
                       {errors.description}
