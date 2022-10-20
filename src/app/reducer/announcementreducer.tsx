@@ -28,22 +28,18 @@ const reducer = (state: any = initialState, action: any) => {
         ],
       };
     case "UPDATE_ANNOUNCEMENT":
-      const findIndex = state.announcementData.findIndex(
-        (findItem: any) => +findItem.Id === +action.payload.index
+      // const findIndex = state.announcementData.findIndex((findItem: any) => {
+      //   return +findItem.id === +action.payload.index;
+      // });
+      const deleteAnnouncemnttDatas = state?.announcementData?.filter(
+        (item: any) => item.id !== +action.payload.index
       );
-      state.announcementData[findIndex] = action.payload.announcementData;
-      // console.log(action.payload, "action.payload");
 
-      // const id = action.payload.index;
-      // const index = state.announcementData.findIndex(
-      //   (value: any) => value.id === id
-      // );
-      // const newItems = [...state.announcementData];
-      // newItems[index] = action.payload.announcementData;
-      return {
-        ...state,
-        announcementData: state.announcementData,
-      };
+      const newData = [action.payload.announcementData].concat(
+        deleteAnnouncemnttDatas
+      );
+
+      return { ...state, announcementData: newData };
     case "DELETE_ANNOUNCEMENT_DATA":
       const deleteAnnouncemnttData = state?.announcementData?.filter(
         (item: any) => item.id !== action.payload.id

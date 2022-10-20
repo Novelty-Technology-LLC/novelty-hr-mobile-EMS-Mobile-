@@ -21,7 +21,6 @@ import { transformDate } from "../../utils/listtranform";
 const AnnouncementDetail = (props: any) => {
   const { state: auth }: any = useContext(AuthContext);
   const params = props?.route?.params;
-  console.log(params, "params");
 
   // console.log(params?.date, getDateWithoutTZ(), "detail");
   // console.log(params?.date?.slice(0, 10), "detaidatel");

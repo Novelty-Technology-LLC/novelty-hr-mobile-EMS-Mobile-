@@ -59,7 +59,6 @@ const AddAnnouncement = (props: any) => {
     date: todayDate,
   });
   const announcementId = props?.route?.params?.data?.id;
-  console.log(todayDate.slice(0, 10), "td");
 
   useEffect(() => {
     isEdit
@@ -83,7 +82,6 @@ const AddAnnouncement = (props: any) => {
         html: values.description,
         title: values.title.trim(),
       };
-      console.log("ee", payload);
 
       updateAppoinmentData(payload, announcementId);
     } else {
@@ -128,33 +126,27 @@ const AddAnnouncement = (props: any) => {
       });
   };
   const updateAppoinmentData = async (payload: any, id: any) => {
-    dispatch({
-      type: "UPDATE_ANNOUNCEMENT",
-      payload: {
-        announcementData: { ...payload, id: id },
-        index: props?.route?.params?.data?.id,
-      },
-    });
-    goBack();
-    goBack();
-    // updateAnnouncementService(payload, props?.route?.params?.data?.id)
-    //   .then((item: any) => {
-    //     console.log(id, "id");
-    //     console.log(payload, "id");
+    updateAnnouncementService(payload, props?.route?.params?.data?.id)
+      .then((item: any) => {
+        dispatch({
+          type: "UPDATE_ANNOUNCEMENT",
+          payload: {
+            announcementData: { ...payload, id: id },
+            index: props?.route?.params?.data?.id,
+          },
+        });
 
-    //     setLoading(false);
-    //     goBack();
-    //     goBack();
-    //     // navigation.popToTop();
-    //     showToast("Update Successfully");
-    //   })
-    //   .catch(async (err: any) => {
-    //     console.log(err, "err");
-
-    //     setLoading(false);
-    //     showToast("something went wrong");
-    //     setError("something went wrong");
-    //   });
+        setLoading(false);
+        goBack();
+        goBack();
+        // navigation.popToTop();
+        showToast("Update Successfully");
+      })
+      .catch(async (err: any) => {
+        setLoading(false);
+        showToast("something went wrong");
+        setError("something went wrong");
+      });
   };
 
   return (

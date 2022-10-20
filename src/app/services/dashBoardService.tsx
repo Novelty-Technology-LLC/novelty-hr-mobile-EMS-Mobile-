@@ -45,16 +45,12 @@ export const addAnnouncementService = (body: any) =>
   });
 export const updateAnnouncementService = (body: any, id: any) =>
   new Promise((resolve, reject) => {
-    console.log(id, "isisisisi");
-
     api
       .patch(`/webportal/announcements/${id}`, body)
       .then((data) => {
         resolve(data);
       })
       .catch((error) => {
-        console.log(error, "error");
-
         return reject(error.response.data);
       });
   });
