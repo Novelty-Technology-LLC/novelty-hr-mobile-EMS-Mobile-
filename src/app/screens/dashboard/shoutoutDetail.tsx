@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
+import normalize from "react-native-normalize";
 import {
   cardStyle,
   globalStyle,

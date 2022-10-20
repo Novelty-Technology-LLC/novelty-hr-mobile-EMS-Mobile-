@@ -14,15 +14,16 @@ const header = ({ onPress = null, icon = false, children, ...props }: any) => {
   return (
     <View style={[style.container, props.container]}>
       {icon ? (
-        <TouchableWithoutFeedback
-          style={style.textView}
-          disabled={!icon}
-          onPress={icon && (onPress || navigation.goBack)}
-        >
-          <Icon name="chevron-left" size={30} color={color.primary} />
+        <>
+          <TouchableWithoutFeedback
+            style={style.textView}
+            disabled={!icon}
+            onPress={icon && (onPress || navigation.goBack)}
+          >
+            <Icon name="chevron-left" size={30} color={color.primary} />
+          </TouchableWithoutFeedback>
           {children}
-        </TouchableWithoutFeedback>
-      ) : (
+        </>) : (
         <>{children}</>
       )}
     </View>

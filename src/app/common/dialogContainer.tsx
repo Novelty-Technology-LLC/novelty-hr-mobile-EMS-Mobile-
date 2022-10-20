@@ -1,6 +1,6 @@
-import React from 'react';
-import { Dialog } from 'react-native-simple-dialogs';
-import { dialogContainerStyle } from '../../assets/styles';
+import React from "react";
+import { Dialog } from "react-native-simple-dialogs";
+import { dialogContainerStyle } from "../../assets/styles";
 
 const DialogContainer = ({
   children,
@@ -8,10 +8,10 @@ const DialogContainer = ({
   setVisible,
   setdotloader = null,
 }: {
-  children: any;
+  children?: any;
   visible: boolean;
   setVisible: Function;
-  setdotloader: Function;
+  setdotloader?: Function;
 }) => {
   return (
     <Dialog

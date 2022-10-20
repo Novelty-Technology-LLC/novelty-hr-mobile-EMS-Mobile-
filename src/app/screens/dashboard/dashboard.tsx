@@ -10,7 +10,11 @@ import {
   BackHandler,
 } from "react-native";
 import { AuthContext } from "../../reducer";
-import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
+import {
+  dashboardStyle as ds,
+  headerTxtStyle,
+  listStyle,
+} from "../../../assets/styles";
 import { Cards, header as Header, List, showToast } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
@@ -30,6 +34,7 @@ import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
 import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
+import { RouteNames } from "../../constant/route_names";
 
 const DashBoard = () => {
   const { state }: any = useContext(AuthContext);
@@ -57,12 +62,10 @@ const DashBoard = () => {
       const list = data.sort().reverse().slice(0, 3);
       setshoutoutLoading(true);
       setshoutout(list);
-      setshoutoutLoading(false);
     });
   };
 
   useEffect(() => {
-    getShoutList(moment(), moment());
     BackHandler.addEventListener("hardwareBackPress", () => {
       if (getCurrentRouteName() === "dashboard") {
         BackHandler.exitApp();
@@ -140,7 +143,7 @@ const DashBoard = () => {
     (async () => {
       try {
         setAnnouncementLoading(true);
-
+        setshoutoutLoading(true);
         setCardLoading(true);
         const data: any = await getDashboard();
 
@@ -148,7 +151,11 @@ const DashBoard = () => {
 
         await fetchAnnouncements();
 
+        getShoutList(moment(), moment());
+
         setAnnouncementLoading(false);
+        setshoutoutLoading(false);
+
         setListData(data);
         setRefreshing(false);
         setCardLoading(false);
