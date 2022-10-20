@@ -11,6 +11,8 @@ import { shoutoutDetailStyles as sds } from "../../../assets/styles/common/shout
 import { header as Header } from "../../common";
 import { formatFullName } from "../../utils/constants";
 import { getFormatedDate } from "../../utils/dateMapper";
+import ShoutoutSVG from '../../../assets/images/shoutout.svg'
+
 const ShoutoutDetails = (props: any) => {
   const params = props?.route?.params;
   const receiverData: any = params.receiver;
@@ -21,9 +23,8 @@ const ShoutoutDetails = (props: any) => {
         <Text style={headerTxtStyle.headerText}>Shoutout </Text>
       </Header>
       <View style={sds.container}>
-        <View style={{ flexDirection: "row" }} >
-          <Image
-            source={require("./../../../assets/images/shoutout.png")}
+        <View style={sds.headerContainer} >
+          <ShoutoutSVG
             style={sds.image}
           />
           <View style={sds.title}>

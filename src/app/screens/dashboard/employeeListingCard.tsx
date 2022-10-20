@@ -16,6 +16,7 @@ import { AppIcon } from "../../common";
 import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
 import { navigate } from "../../utils/navigation";
 import { RouteNames } from "../../constant/route_names";
+import ShoutoutSVG from '../../../assets/images/shoutout.svg'
 
 const EmployeeListingCard = ({ index, item, onPress }: any) => {
     return (
@@ -89,9 +90,11 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
                     marginLeft: normalize(theme.size.normal)
                 }}
             >
-                <Image
+                {/* <Image
                     source={require("./../../../assets/images/shoutout.png")}
                     style={shoutoutDetailStyles.image}
+                /> */}
+                <ShoutoutSVG
                 />
             </TouchableOpacity>
         </View>

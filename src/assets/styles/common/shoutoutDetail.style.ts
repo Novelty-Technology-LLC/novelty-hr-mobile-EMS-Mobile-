@@ -9,19 +9,16 @@ export const shoutoutDetailStyles = StyleSheet.create({
   },
   headerContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: normalize(20),
+    marginBottom: theme.size.xxs,
+    alignItems: 'center'
   },
   title: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: theme.size.xxs,
     flex: 1,
     alignItems: 'center',
   },
   image: {
-    width: normalize(20),
-    height: normalize(21),
     marginRight: normalize(10),
   },
   name: {
