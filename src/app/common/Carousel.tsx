@@ -36,28 +36,30 @@ export const Carousel = (props: CarouselPropTypes) => {
 
   useEffect(() => {
     try {
-      if (props.module === "Menu") {
+      if (props?.module === "Menu") {
         dispatchMenu({ type: "SET_ITEMS", payload: props.items.items });
       } else {
-        setItems(chunk(props.items.items, 1));
+        setItems(chunk(props?.items?.items, 1));
       }
     } catch (error) {}
   }, []);
 
   useEffect(() => {
-    if (props.module === "Menu") {
-      setItems(chunk(menu.items, 1));
+    if (props?.module === "Menu") {
+      setItems(chunk(menu?.items, 1));
     }
   }, [menu.items]);
 
   const navigateOnPress = (item: any) => {
-    if (props.module === "Employee") {
-      item.subTitle === "Total Employees"
-        ? navigate("EmployeeListing")
-        : item.title !== 0
-        ? navigate("workFromHomeEmployeeListing")
-        : showToast("No employee working from home", false);
-    } else if (props.module === "Menu") {
+    if (props?.module === "Employee") {
+      if (item?.subTitle === "Total Employees") {
+        navigate("EmployeeListing");
+      } else {
+        item?.title !== 0
+          ? navigate("workFromHomeEmployeeListing")
+          : showToast("No employee working from home", false);
+      }
+    } else if (props?.module === "Menu") {
       navigate("menuListing");
     }
   };
@@ -65,7 +67,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   const checkIfPressable = () => {
     if (props.module === "Employee") return true;
 
-    if (props.module == "Menu" && state.user.is_approver == 1) return true;
+    if (props.module == "Menu" && +state?.user?.is_approver === 1) return true;
 
     return false;
   };

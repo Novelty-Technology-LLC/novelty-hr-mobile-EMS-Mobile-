@@ -15,6 +15,7 @@ const globalStyle = StyleSheet.create({
     padding: 15,
   },
   titleWeight: { fontWeight: "700" },
+  row: { flexDirection: "row", justifyContent: "space-between" },
 });
 
 export { globalStyle };

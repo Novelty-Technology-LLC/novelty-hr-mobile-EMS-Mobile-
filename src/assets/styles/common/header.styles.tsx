@@ -5,14 +5,13 @@ const { width, height } = Dimensions.get('window');
 
 const headerStyle = StyleSheet.create({
   container: {
-    paddingLeft:normalize(10),
-    paddingRight:normalize(20),
+    paddingLeft: normalize(10),
+    paddingRight: normalize(20),
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: normalize(10),
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
-    justifyContent: 'space-between',
     backgroundColor: colors.white,
   },
   textView: {
@@ -33,6 +32,11 @@ const headerStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  action: {
+    color: colors.primary,
+    marginRight: normalize(15),
+    fontSize: normalize(22)
+  }
 });
 
 export { headerStyle };

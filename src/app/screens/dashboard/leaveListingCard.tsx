@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import State from "../../components/leave_screen/state";
 import {
   cardStyle,
   headerTxtStyle,
   listingStyle,
   requestStyle,
+  theme,
 } from "../../../assets/styles";
 import { useWindowDimensions } from "react-native";
 import { RenderHtmlComponent } from "../../common/renderHtml";
@@ -16,7 +17,11 @@ import colors from "../../../assets/colors";
 import normalize from "react-native-normalize";
 import CustomImage from "../../common/image";
 import { getLeaveOption } from "../../utils/getLeaveType";
-
+import Svg, { Path } from "react-native-svg";
+import Shoutout from "./../../../assets/images/shoutout.svg";
+import { navigate } from "../../utils/navigation";
+import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
+import { RouteNames } from "../../constant/route_names";
 const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
   const [se, us] = useState([{ src: item.image, errored: false }]);
 
@@ -27,9 +32,15 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
         listingStyle.container,
         {
           borderBottomWidth: listLength - 1 === index ? 0 : 1,
+          // width: module === "employeeList" ? '60%' : undefined,
         },
       ]}
     >
+      {module == "employeeList" && (
+        <View style={{ marginRight: theme.size.lg }}>
+          <CustomImage style={style.headerImage} image={item.image} />
+        </View>
+      )}
       <View style={{ flex: 1 }}>
         <View
           style={{
@@ -107,7 +118,14 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
         )}
       </View>
       {module == "employeeList" && (
-        <CustomImage style={style.headerImage} image={item.image} />
+        <View >
+          <TouchableOpacity onPress={() => navigate(RouteNames.createShoutout, item)}>
+            <Image
+              source={require("./../../../assets/images/shoutout.png")}
+              style={shoutoutDetailStyles.image}
+            />
+          </TouchableOpacity>
+        </View>
       )}
       <View>
         <State state={item?.status} />

@@ -54,3 +54,34 @@ export const updateAnnouncementService = (body: any, id: any) =>
         return reject(error.response.data);
       });
   });
+
+
+export const createShoutout = async (props: {
+  receiver: string,
+  shoutout_from: string,
+  shoutout: string,
+  shoutout_date: string,
+}) => {
+  try {
+    const data = JSON.stringify(props);
+
+    const response = await api.post(`/shout-out`, data);
+
+    return response.data.data;
+
+  } catch (error) {
+    throw { success: false, message: error };
+  }
+
+}
+export const shoutOutService = (startDate: any, endDate: any) =>
+  new Promise((resolve, reject) => {
+    api
+      .get(`/shout-out?${startDate}${endDate}`)
+      .then((data) => {
+        resolve(data.data.data.shoutOutData);
+      })
+      .catch((error) => {
+        return reject(error.response.data);
+      });
+  });

@@ -16,7 +16,7 @@ import { default as theme } from '../../../assets/styles/leave_screen/custom-the
 import moment from 'moment';
 import { editEmployeeSchema } from '../../../validation/editEmployeeSchema';
 import { bloodGroups as bloodGroupsFromConstants, genders as gendersFromConstants } from '../../utils';
-import { DropDownItem } from '../../utils/interfaces';
+import { DropDownItem } from '../../interface/dropDownItem';
 import { lookupServices } from '../../services/lookupService';
 import { updateEmployeeDetail } from '../../services';
 import Loading from '../auth_screen/loading';

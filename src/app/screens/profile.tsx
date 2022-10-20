@@ -196,7 +196,7 @@ const Profile = ({ navigation }: any) => {
       <BottomSheet
         openDuration={250}
         ref={refRBSheet}
-        height={normalize(150)}
+        height={normalize(110)}
         customStyles={{
           container: {
             borderRadius: 10,

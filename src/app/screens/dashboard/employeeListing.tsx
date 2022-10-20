@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
+import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
+import { RouteNames } from "../../constant/route_names";
 import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
+import { EmployeeListingCard } from "./employeeListingCard";
 import { ListingCard } from "./leaveListingCard";
 
 const EmployeeListing = (props: any) => {
@@ -51,30 +54,23 @@ const EmployeeListing = (props: any) => {
           data={list}
           renderItem={({ item, index }) => {
             return (
-              <TouchableOpacity
+              <EmployeeListingCard
+                index={index}
+                item={item}
                 onPress={() =>
                   navigate("employeeDetail", {
                     id: item.id,
                     image: item.image,
                     name: item.title,
                     refresh: listingAllEmployee,
-                  })
-                }
-              >
-                <ListingCard
-                  index={index}
-                  item={item}
-                  list={list.length}
-                  module="employeeList"
-                  sa={setList}
-                />
-              </TouchableOpacity>
+                  })}
+              />
             );
           }}
           keyExtractor={(item) => item.id}
         />
       )}
-    </View>
+    </View >
   );
 };
 
