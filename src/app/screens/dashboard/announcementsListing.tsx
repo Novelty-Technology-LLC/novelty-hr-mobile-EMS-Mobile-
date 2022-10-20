@@ -14,10 +14,9 @@ import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = (props: any) => {
   const { state, dispatch }: any = useContext(AnnouncementContext);
-
   const { state: auth }: any = useContext(AuthContext);
-
   const params = props?.route?.params;
+
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +38,6 @@ const AnnouncementListing = (props: any) => {
           var findAnnouncement = response.find(
             (item: any) => +item.id == +params.id
           );
-          console.log(findAnnouncement?.title, "findAnnouncement?.title");
 
           navigate("announcementsDetails", {
             id: findAnnouncement?.id,
@@ -48,6 +46,7 @@ const AnnouncementListing = (props: any) => {
             subTitle: findAnnouncement?.subTitle,
             date: findAnnouncement?.date,
             html: findAnnouncement?.html,
+            dashboard: true,
           });
         }
         setList(
@@ -79,6 +78,7 @@ const AnnouncementListing = (props: any) => {
                   subTitle: item?.subTitle,
                   date: item?.date,
                   html: item?.html,
+                  dashboard: false,
                 })
               }
             >

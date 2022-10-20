@@ -42,6 +42,7 @@ const AddAnnouncement = (props: any) => {
   const navigation: any = useNavigation();
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
+  const dashboard = props?.route?.params?.data?.dashboard ?? false;
   const updateData = props?.route?.params?.data ?? " ";
   const titleRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -58,6 +59,7 @@ const AddAnnouncement = (props: any) => {
     html: "",
     date: todayDate,
   });
+
   const announcementId = props?.route?.params?.data?.id;
   console.log(todayDate.slice(0, 10), "td");
 
@@ -83,7 +85,6 @@ const AddAnnouncement = (props: any) => {
         html: values.description,
         title: values.title.trim(),
       };
-      console.log("ee", payload);
 
       updateAppoinmentData(payload, announcementId);
     } else {
@@ -108,15 +109,6 @@ const AddAnnouncement = (props: any) => {
             },
           },
         });
-        // dispatch({
-        //   type: "SET_ANNOUNCEMENT",
-        //   payload: {
-        //     announcementData: {
-        //       ...payload,
-        //       id: item.data.data.id,
-        //     },
-        //   },
-        // });
         setLoading(false);
         goBack();
         showToast("Added Successfully");
@@ -128,33 +120,28 @@ const AddAnnouncement = (props: any) => {
       });
   };
   const updateAppoinmentData = async (payload: any, id: any) => {
-    dispatch({
-      type: "UPDATE_ANNOUNCEMENT",
-      payload: {
-        announcementData: { ...payload, id: id },
-        index: props?.route?.params?.data?.id,
-      },
-    });
-    goBack();
-    goBack();
-    // updateAnnouncementService(payload, props?.route?.params?.data?.id)
-    //   .then((item: any) => {
-    //     console.log(id, "id");
-    //     console.log(payload, "id");
+    updateAnnouncementService(payload, props?.route?.params?.data?.id)
+      .then((item: any) => {
+        dispatch({
+          type: "UPDATE_ANNOUNCEMENT",
+          payload: {
+            announcementData: { ...payload, id: id },
+            index: props?.route?.params?.data?.id,
+          },
+        });
+        setLoading(false);
+        {
+          navigation.navigate("announcementsListing", {});
+        }
+        showToast("Update Successfully");
+      })
+      .catch(async (err: any) => {
+        console.log(err, "err");
 
-    //     setLoading(false);
-    //     goBack();
-    //     goBack();
-    //     // navigation.popToTop();
-    //     showToast("Update Successfully");
-    //   })
-    //   .catch(async (err: any) => {
-    //     console.log(err, "err");
-
-    //     setLoading(false);
-    //     showToast("something went wrong");
-    //     setError("something went wrong");
-    //   });
+        setLoading(false);
+        showToast("something went wrong", false);
+        setError("something went wrong");
+      });
   };
 
   return (
