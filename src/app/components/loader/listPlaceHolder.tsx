@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import { StyleSheet, View } from 'react-native';
-import normalize from 'react-native-normalize';
-import { Placeholder, PlaceholderLine, Fade } from 'rn-placeholder';
-import colors from '../../../assets/colors';
+import React, { Fragment } from "react";
+import { StyleSheet, View } from "react-native";
+import normalize from "react-native-normalize";
+import { Placeholder, PlaceholderLine, Fade } from "rn-placeholder";
+import colors from "../../../assets/colors";
 const ListPlaceholder = () => {
   return (
     <View style={styles.container}>
@@ -11,8 +11,8 @@ const ListPlaceholder = () => {
           <Placeholder style={styles.main} Animation={Fade}>
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}
             >
               <PlaceholderLine width={40} />
@@ -21,7 +21,7 @@ const ListPlaceholder = () => {
             <PlaceholderLine width={50} style={styles.thinLine} />
             <PlaceholderLine width={50} style={styles.thinLine} />
           </Placeholder>
-          {index % 2 === 0 && <View style={{ marginHorizontal: '1%' }} />}
+          {index % 2 === 0 && <View style={{ marginHorizontal: "1%" }} />}
         </Fragment>
       ))}
     </View>
@@ -36,16 +36,16 @@ const styles = StyleSheet.create({
     margin: normalize(20),
   },
   wrapper: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   main: {
-    width: '100%',
+    width: "100%",
     marginBottom: normalize(20),
     borderBottomWidth: 1,
-    borderBottomColor: colors.lightGrey
+    borderBottomColor: colors.lightGrey,
   },
   thinLine: {
-    height: normalize(8)
-  }
+    height: normalize(8),
+  },
 });

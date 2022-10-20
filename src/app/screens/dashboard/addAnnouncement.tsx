@@ -51,13 +51,15 @@ const AddAnnouncement = (props: any) => {
   const [range, setRange] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>("");
+  const todayDate = moment().toISOString().slice(0, 10);
   const [announcementData, setAnnouncementData] = useState<any>({
     title: "",
     description: "",
     html: "",
-    date: moment(),
+    date: todayDate,
   });
   const announcementId = props?.route?.params?.data?.id;
+  console.log(todayDate.slice(0, 10), "td");
 
   useEffect(() => {
     isEdit
@@ -65,23 +67,31 @@ const AddAnnouncement = (props: any) => {
           ...announcementData,
           title: updateData.title,
           description: updateData.html,
+          date: todayDate,
         })
-      : setAnnouncementData({ ...announcementData, Date: moment() });
+      : setAnnouncementData({
+          ...announcementData,
+          date: todayDate,
+        });
   }, []);
   const onSubmit = async (values: any) => {
     setLoading(true);
     if (isEdit) {
       const payload = {
         ...values,
+        date: todayDate,
         html: values.description,
+        title: values.title.trim(),
       };
+      console.log("ee", payload);
+
       updateAppoinmentData(payload, announcementId);
     } else {
       const body = {
         ...values,
-        title: values.title,
+        title: values.title.trim(),
         html: values.description,
-        date: moment(),
+        date: todayDate.slice(0, 10),
       };
       addAppoinmentData(body);
     }
@@ -91,8 +101,22 @@ const AddAnnouncement = (props: any) => {
       .then((item: any) => {
         dispatch({
           type: "ADD_ANNOUNCEMENT",
-          payload: { announcementData: { ...payload, id: item.data.data.id } },
+          payload: {
+            announcementData: {
+              ...payload,
+              id: item.data.data.id,
+            },
+          },
         });
+        // dispatch({
+        //   type: "SET_ANNOUNCEMENT",
+        //   payload: {
+        //     announcementData: {
+        //       ...payload,
+        //       id: item.data.data.id,
+        //     },
+        //   },
+        // });
         setLoading(false);
         goBack();
         showToast("Added Successfully");
@@ -104,23 +128,33 @@ const AddAnnouncement = (props: any) => {
       });
   };
   const updateAppoinmentData = async (payload: any, id: any) => {
-    updateAnnouncementService(payload, id)
-      .then((item: any) => {
-        dispatch({
-          type: "UPDATE_ANNOUNCEMENT",
-          payload: { announcementData: payload, index: id },
-        });
-        setLoading(false);
-        goBack();
-        goBack();
-        // navigation.popToTop();
-        showToast("Update Successfully");
-      })
-      .catch(async (err: any) => {
-        setLoading(false);
-        showToast("something went wrong");
-        setError("something went wrong");
-      });
+    dispatch({
+      type: "UPDATE_ANNOUNCEMENT",
+      payload: {
+        announcementData: { ...payload, id: id },
+        index: props?.route?.params?.data?.id,
+      },
+    });
+    goBack();
+    goBack();
+    // updateAnnouncementService(payload, props?.route?.params?.data?.id)
+    //   .then((item: any) => {
+    //     console.log(id, "id");
+    //     console.log(payload, "id");
+
+    //     setLoading(false);
+    //     goBack();
+    //     goBack();
+    //     // navigation.popToTop();
+    //     showToast("Update Successfully");
+    //   })
+    //   .catch(async (err: any) => {
+    //     console.log(err, "err");
+
+    //     setLoading(false);
+    //     showToast("something went wrong");
+    //     setError("something went wrong");
+    //   });
   };
 
   return (

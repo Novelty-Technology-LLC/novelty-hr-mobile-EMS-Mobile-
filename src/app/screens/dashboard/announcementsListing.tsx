@@ -39,6 +39,8 @@ const AnnouncementListing = (props: any) => {
           var findAnnouncement = response.find(
             (item: any) => +item.id == +params.id
           );
+          console.log(findAnnouncement?.title, "findAnnouncement?.title");
+
           navigate("announcementsDetails", {
             id: findAnnouncement?.id,
             headerText: findAnnouncement?.title,
@@ -64,38 +66,34 @@ const AnnouncementListing = (props: any) => {
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>Announcements</Text>
       </Header>
-      {loading || list === null ? (
-        <ListPlaceholder />
-      ) : (
-        <FlatList
-          data={state?.announcementData}
-          renderItem={({ item, index }) => {
-            return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigate("announcementsDetails", {
-                    id: item?.id,
-                    headerText: item?.title,
-                    title: item?.title,
-                    subTitle: item?.subTitle,
-                    date: item?.date,
-                    html: item?.html,
-                  })
-                }
-              >
-                <ListingCard
-                  state={item}
-                  index={index}
-                  item={item}
-                  list={list.length}
-                  module={params.module}
-                />
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={(item) => item?.id}
-        />
-      )}
+      <FlatList
+        data={state?.announcementData}
+        renderItem={({ item, index }) => {
+          return (
+            <TouchableOpacity
+              onPress={() =>
+                navigate("announcementsDetails", {
+                  id: item?.id,
+                  headerText: item?.title,
+                  title: item?.title,
+                  subTitle: item?.subTitle,
+                  date: item?.date,
+                  html: item?.html,
+                })
+              }
+            >
+              <ListingCard
+                state={item}
+                index={index}
+                item={item}
+                list={list.length}
+                module={params.module}
+              />
+            </TouchableOpacity>
+          );
+        }}
+        keyExtractor={(item) => item?.id}
+      />
       {+auth?.user?.is_approver === 1 && (
         <RequestButton screen="addAnnouncement" />
       )}

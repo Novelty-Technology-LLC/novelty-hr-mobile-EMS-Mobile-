@@ -7,7 +7,7 @@ export default {
   yellow: "#ffc03d",
   black: "#000",
   darkBlack: "#0000001A",
-  white: "#fff",
+  white: "#ffff",
   grey: "#f2f2f2",
   border: "#f2f2f2",
   buttonOrange: "#ffe6b3",

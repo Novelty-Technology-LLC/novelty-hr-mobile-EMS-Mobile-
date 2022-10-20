@@ -7,7 +7,9 @@ export const stringifyDate = (date: Date) => {
     12
   );
 };
-
+export const getDateWithoutTZ = () => {
+  return moment.parseZone(new Date()).format("YYYY-MM-D");
+};
 export const getDayToday = () => {
   let day = new Date().getDay();
 

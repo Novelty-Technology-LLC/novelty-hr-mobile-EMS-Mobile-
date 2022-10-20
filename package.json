@@ -33,6 +33,7 @@
     "libphonenumber-js": "^1.9.4",
     "lottie-ios": "^3.2.3",
     "lottie-react-native": "^4.0.2",
+    "moment-timezone": "^0.5.38",
     "pinar": "^0.11.0",
     "react": "16.13.1",
     "react-native": "^0.64.0",
