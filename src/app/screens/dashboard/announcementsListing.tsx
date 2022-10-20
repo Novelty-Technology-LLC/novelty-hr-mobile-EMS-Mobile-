@@ -55,7 +55,7 @@ const AnnouncementListing = (props: any) => {
         );
 
         setLoading(false);
-      } catch (error) {}
+      } catch (error) { }
     })();
   }, []);
 

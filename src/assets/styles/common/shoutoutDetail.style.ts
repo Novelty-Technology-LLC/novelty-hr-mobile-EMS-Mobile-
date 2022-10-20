@@ -16,6 +16,8 @@ export const shoutoutDetailStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: theme.size.xxs,
+    flex: 1,
+    alignItems: 'center',
   },
   image: {
     width: normalize(20),
@@ -34,10 +36,10 @@ export const shoutoutDetailStyles = StyleSheet.create({
     color: colors.fontGrey,
   },
   shoutout: {
-    fontFamily: "Poppins, Regular",
+    fontFamily: fonts.poppinsRegular,
     color: colors.fontBlack,
-    fontSize: theme.size.sm,
-    textAlign: "justify",
+    fontSize: normalize(12),
+    textAlign: 'justify',
   },
   date: {
     marginTop: theme.size.lg,

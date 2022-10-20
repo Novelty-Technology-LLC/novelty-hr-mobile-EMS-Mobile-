@@ -36,7 +36,7 @@ const tabHeader = ({ onPress = null, icon = false, children, navigation }: any) 
   };
 
   return (
-    <View style={style.container}>
+    <View style={[style.container, { justifyContent: 'space-between' }]}>
       {children}
       <View style={style.textView}>
         {icon && (

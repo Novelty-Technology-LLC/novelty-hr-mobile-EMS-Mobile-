@@ -131,8 +131,11 @@ const profileStyle = StyleSheet.create({
 
   iconCameraWrapper: {
     position: "absolute",
-    bottom: normalize(-10),
     padding: normalize(10),
+    // bottom: -20,
+    // right: -30,
+
+    bottom: normalize(-10),
     right: -50,
   },
 

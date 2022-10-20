@@ -10,6 +10,7 @@ const ListingStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: colors.lightGrey,
+    alignItems: 'center',
   },
   title: {
     fontFamily: fonts.mulishBold,

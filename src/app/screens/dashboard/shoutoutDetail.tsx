@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
+import normalize from "react-native-normalize";
 import {
   cardStyle,
   globalStyle,
@@ -20,7 +21,7 @@ const ShoutoutDetails = (props: any) => {
         <Text style={headerTxtStyle.headerText}>Shoutout </Text>
       </Header>
       <View style={sds.container}>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row" }} >
           <Image
             source={require("./../../../assets/images/shoutout.png")}
             style={sds.image}
@@ -31,7 +32,7 @@ const ShoutoutDetails = (props: any) => {
                 return formatFullName(item.first_name, item.last_name) + " ";
               })}
             </Text>
-            <Text style={[cardStyle.subTitleText]}>received shoutout from</Text>
+            <Text style={[cardStyle.subTitleText]}>{'received shoutout from' + ' '}</Text>
             <Text style={[cardStyle.subTitleText]}>
               {senderData.map((item: any) => {
                 return formatFullName(item.first_name, item.last_name);
@@ -42,7 +43,7 @@ const ShoutoutDetails = (props: any) => {
         <Text style={sds.shoutout}>{params.shoutout}</Text>
         <Text style={sds.date}>{getFormatedDate(params.shoutout_date)}</Text>
       </View>
-    </View>
+    </View >
   );
 };
 export { ShoutoutDetails };

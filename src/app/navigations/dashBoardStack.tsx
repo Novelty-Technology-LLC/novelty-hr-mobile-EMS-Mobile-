@@ -19,6 +19,8 @@ import { EditMenu } from "../screens/dashboard/editMenu";
 import { MenuContext, useMenu } from "../reducer/menuReducer";
 import { ShoutoutDetails } from "../screens/dashboard/shoutoutDetail";
 import { EditEmployeeDetail } from "../screens/dashboard/editEmployeeDetail";
+import { RouteNames } from "../constant/route_names";
+import { CreateShoutout } from "../screens/shoutout/createShoutout";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -76,6 +78,10 @@ const DashNav = () => {
             <DashStack.Screen
               name="shoutoutDetail"
               component={ShoutoutDetails}
+            />
+            <DashStack.Screen
+              name={RouteNames.createShoutout}
+              component={CreateShoutout}
             />
           </DashStack.Navigator>
         </MenuContext.Provider>
