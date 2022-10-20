@@ -155,7 +155,7 @@ const DashBoard = () => {
         if (TodayDate.getDay() !== 0 && TodayDate.getDay() !== 6) {
           var holidayExits = holidayData.findIndex((x: any) => {
             return (
-              x.subTitle.slice(0, 9) === new Date().toISOString().slice(0, 9)
+              x.subTitle.slice(0, 10) === new Date().toISOString().slice(0, 10)
             );
           });
 
