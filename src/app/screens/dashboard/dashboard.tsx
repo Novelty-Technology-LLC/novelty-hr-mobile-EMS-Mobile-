@@ -62,6 +62,7 @@ const DashBoard = () => {
       const list = data.sort().reverse().slice(0, 3);
       setshoutoutLoading(true);
       setshoutout(list);
+      setshoutoutLoading(false);
     });
   };
 
