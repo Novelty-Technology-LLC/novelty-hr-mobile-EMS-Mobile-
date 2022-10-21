@@ -74,8 +74,8 @@ const ShoutoutListItem = ({
           <Text style={[cardStyle.subTitleText]}>
             {receiverData.map((item: any, index: any) => {
               {
-                const plus = length - 1 === index ? "" : ",";
-                return formatFullName(item.first_name, item.last_name) + plus;
+                const comma = length - 1 === index ? "" : ",";
+                return formatFullName(item.first_name, item.last_name) + comma;
               }
             })}
           </Text>

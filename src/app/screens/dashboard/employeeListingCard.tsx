@@ -16,6 +16,8 @@ import { AppIcon } from "../../common";
 import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
 import { navigate } from "../../utils/navigation";
 import { RouteNames } from "../../constant/route_names";
+import ShoutoutSVG from '../../../assets/images/shoutout.svg'
+import { employeeListingStyles as styles } from "../../../assets/styles/dashboard/employeeListing.styles";
 
 const EmployeeListingCard = ({ index, item, onPress }: any) => {
     return (
@@ -28,14 +30,14 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
                 },
             ]}
         >
-            <TouchableOpacity onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+            <TouchableOpacity onPress={onPress} style={styles.employeeDetailContainer}>
                 {/* Image */}
                 <View style={{ marginRight: theme.size.lg }}>
                     <CustomImage style={style.headerImage} image={item.image} />
                 </View>
 
                 {/* Details */}
-                <View style={{ flex: 1, }}>
+                <View style={{ flex: 1 }}>
 
                     {/* Name */}
                     <Text style={cardStyle.titleText} numberOfLines={1}>
@@ -45,10 +47,7 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
                     {/* Designation */}
                     <View style={cardStyle.icon}>
                         <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                            }}
+                            style={styles.employeeDetailContainer}
                         >
                             <AppIcon
                                 name="card-account-details"
@@ -63,10 +62,7 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
 
                     {/* Work Shift */}
                     <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                        }}
+                        style={styles.employeeDetailContainer}
                     >
                         <AppIcon
                             name="timetable"
@@ -89,9 +85,7 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
                     marginLeft: normalize(theme.size.normal)
                 }}
             >
-                <Image
-                    source={require("./../../../assets/images/shoutout.png")}
-                    style={shoutoutDetailStyles.image}
+                <ShoutoutSVG
                 />
             </TouchableOpacity>
         </View>

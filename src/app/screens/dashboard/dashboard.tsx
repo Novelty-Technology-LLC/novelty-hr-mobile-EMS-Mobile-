@@ -64,9 +64,7 @@ const DashBoard = () => {
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
       const list = data.sort().reverse().slice(0, 3);
-      setshoutoutLoading(true);
       setshoutout(list);
-      setshoutoutLoading(false);
     });
   };
 
@@ -114,9 +112,7 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state, refreshing]);
 
-  useEffect(() => {
-    state?.user?.id && fetchLeave();
-  }, [refreshing]);
+
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {
@@ -127,7 +123,7 @@ const DashBoard = () => {
         payload: { announcementData: response },
       });
       setAnnouncements(response);
-    } catch (error) {}
+    } catch (error) { }
   };
   const fetchLeave = async () => {
     try {
@@ -145,7 +141,7 @@ const DashBoard = () => {
       } else {
         setLeaveStatus(false);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     (async () => {
@@ -153,20 +149,23 @@ const DashBoard = () => {
         setAnnouncementLoading(true);
         setshoutoutLoading(true);
         setCardLoading(true);
-        const data: any = await getDashboard();
+        await Promise.all([
+          getDashboard(),
+          fetchLeave(),
+          fetchAnnouncements(),
+          getShoutList(moment(), moment())
+        ]).then(values => {
+          const dashboardData: any = values[0];
 
-        await fetchLeave();
+          setAnnouncementLoading(false);
+          setshoutoutLoading(false);
 
-        await fetchAnnouncements();
+          setListData(dashboardData);
+          setCardLoading(false);
 
-        getShoutList(moment(), moment());
+          setRefreshing(false);
+        })
 
-        setAnnouncementLoading(false);
-        setshoutoutLoading(false);
-
-        setListData(data);
-        setRefreshing(false);
-        setCardLoading(false);
       } catch (error) {
         setRefreshing(false);
       }
@@ -285,8 +284,8 @@ const DashBoard = () => {
           )}
         </View>
 
-        <View style={{ width: "100%", paddingVertical: 25 }}>
-          {!announcementLoading ? (
+        {!announcementLoading ? (
+          <View style={{ width: "100%", paddingVertical: 25 }}>
             <List
               list={{
                 module: "Announcements",
@@ -295,12 +294,12 @@ const DashBoard = () => {
                 detailRoute: "announcementsListing",
               }}
             />
-          ) : (
-            <DashboardCardPlaceholder />
-          )}
-        </View>
-        <View style={{ width: "100%", paddingBottom: 25 }}>
-          {!shoutoutLoading ? (
+          </View>
+        ) : (
+          <DashboardCardPlaceholder />
+        )}
+        {!shoutoutLoading ? (
+          <View style={{ width: "100%", paddingBottom: 25 }}>
             <List
               list={{
                 module: "shoutout",
@@ -309,10 +308,10 @@ const DashBoard = () => {
                 detailRoute: "shoutoutDetail",
               }}
             />
-          ) : (
-            <DashboardCardPlaceholder />
-          )}
-        </View>
+          </View>
+        ) : (
+          <DashboardCardPlaceholder />
+        )}
       </ScrollView>
     </View>
   );
