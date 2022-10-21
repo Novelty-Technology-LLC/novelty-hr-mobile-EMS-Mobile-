@@ -62,10 +62,10 @@ const AddAnnouncement = (props: any) => {
   useEffect(() => {
     isEdit
       ? setAnnouncementData({
-          ...announcementData,
-          title: updateData.title,
-          description: updateData.html,
-        })
+        ...announcementData,
+        title: updateData.title,
+        description: updateData.html,
+      })
       : setAnnouncementData({ ...announcementData, Date: moment() });
   }, []);
   const onSubmit = async (values: any) => {
@@ -205,7 +205,7 @@ const AddAnnouncement = (props: any) => {
                     </Text>
                   )}
                   {(errors.description && touched.description) ===
-                  true ? null : (
+                    true ? null : (
                     <CustomDivider />
                   )}
                   <CustomButton

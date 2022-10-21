@@ -31,8 +31,10 @@ import { time } from "../../utils/listtranform";
 import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
 import { RouteNames } from "../../constant/route_names";
+import { ShoutoutContext } from "../../reducer/shoutoutReducer";
 
 const DashBoard = () => {
+  const { shoutoutState } = useContext(ShoutoutContext);
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
@@ -55,7 +57,7 @@ const DashBoard = () => {
   }, []);
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
-      const list = data.slice(0, 3);
+      const list = data.reverse().slice(0, 3);
       setshoutout(list);
     });
   };
@@ -104,6 +106,12 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state, refreshing]);
 
+  // update shoutout list when new shoutout is created
+  useEffect(() => {
+    if (shoutoutState.needUpdate !== -1) {
+      getShoutList(moment(), moment());
+    }
+  }, [shoutoutState]);
 
   const fetchAnnouncements = async () => {
     try {

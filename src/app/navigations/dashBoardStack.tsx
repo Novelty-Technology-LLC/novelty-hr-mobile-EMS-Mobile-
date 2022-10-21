@@ -21,6 +21,7 @@ import { ShoutoutDetails } from "../screens/dashboard/shoutoutDetail";
 import { EditEmployeeDetail } from "../screens/dashboard/editEmployeeDetail";
 import { RouteNames } from "../constant/route_names";
 import { CreateShoutout } from "../screens/shoutout/createShoutout";
+import { ShoutoutContext, useShoutout } from "../reducer/shoutoutReducer";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -30,60 +31,62 @@ const DashNav = () => {
     <TimeLogContext.Provider value={{ timelogs, dispatchTimeLog }}>
       <AnnouncementContext.Provider value={{ state, dispatch }}>
         <MenuContext.Provider value={useMenu()}>
-          <DashStack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <DashStack.Screen name="dashboard" component={DashBoard} />
-            <DashStack.Screen name="leavelisting" component={LeaveListing} />
-            <DashStack.Screen name="menuListing" component={MenuListing} />
-            <DashStack.Screen name="editMenu" component={EditMenu} />
-            <DashStack.Screen
-              name="EmployeeListing"
-              component={EmployeeListing}
-            />
-            <DashStack.Screen
-              name="workFromHomeEmployeeListing"
-              component={WorkFromHomeEmployeeListing}
-            />
-            <DashStack.Screen
-              name="employeeDetail"
-              component={EmployeeDetail}
-            />
-            <DashStack.Screen
-              name="editEmployeeDetail"
-              component={EditEmployeeDetail}
-            />
-            <DashStack.Screen
-              name="announcementsListing"
-              component={AnnouncementListing}
-            />
-            <DashStack.Screen
-              name="announcementsDetails"
-              component={AnnouncementDetail}
-            />
-            <DashStack.Screen
-              name="addAnnouncement"
-              component={AddAnnouncement}
-            />
-            <DashStack.Screen
-              name="holidayeventslisting"
-              component={HolidayEventListing}
-            />
-            {/* <DashStack.Screen
+          <ShoutoutContext.Provider value={useShoutout()}>
+            <DashStack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <DashStack.Screen name="dashboard" component={DashBoard} />
+              <DashStack.Screen name="leavelisting" component={LeaveListing} />
+              <DashStack.Screen name="menuListing" component={MenuListing} />
+              <DashStack.Screen name="editMenu" component={EditMenu} />
+              <DashStack.Screen
+                name="EmployeeListing"
+                component={EmployeeListing}
+              />
+              <DashStack.Screen
+                name="workFromHomeEmployeeListing"
+                component={WorkFromHomeEmployeeListing}
+              />
+              <DashStack.Screen
+                name="employeeDetail"
+                component={EmployeeDetail}
+              />
+              <DashStack.Screen
+                name="editEmployeeDetail"
+                component={EditEmployeeDetail}
+              />
+              <DashStack.Screen
+                name="announcementsListing"
+                component={AnnouncementListing}
+              />
+              <DashStack.Screen
+                name="announcementsDetails"
+                component={AnnouncementDetail}
+              />
+              <DashStack.Screen
+                name="addAnnouncement"
+                component={AddAnnouncement}
+              />
+              <DashStack.Screen
+                name="holidayeventslisting"
+                component={HolidayEventListing}
+              />
+              {/* <DashStack.Screen
               name="shoutoutListing"
               component={ShoutoutListing}
             /> */}
-            <DashStack.Screen
-              name="shoutoutDetail"
-              component={ShoutoutDetails}
-            />
-            <DashStack.Screen
-              name={RouteNames.createShoutout}
-              component={CreateShoutout}
-            />
-          </DashStack.Navigator>
+              <DashStack.Screen
+                name="shoutoutDetail"
+                component={ShoutoutDetails}
+              />
+              <DashStack.Screen
+                name={RouteNames.createShoutout}
+                component={CreateShoutout}
+              />
+            </DashStack.Navigator>
+          </ShoutoutContext.Provider>
         </MenuContext.Provider>
       </AnnouncementContext.Provider>
     </TimeLogContext.Provider>
