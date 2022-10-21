@@ -209,8 +209,8 @@ const Request = ({ data, style, title = null }: any) => {
                                     <Image
                                       style={style.image}
                                       source={
-                                        item.image_url
-                                          ? { uri: item.image_url }
+                                        item?.image_url
+                                          ? { uri: item?.image_url }
                                           : require("../../../assets/images/person.jpeg")
                                       }
                                     />

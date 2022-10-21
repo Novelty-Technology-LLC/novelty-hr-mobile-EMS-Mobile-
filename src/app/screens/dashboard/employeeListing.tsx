@@ -30,7 +30,7 @@ const EmployeeListing = (props: any) => {
           id: item.id,
           title: item.first_name + " " + item.last_name,
           subTitle: item.designation,
-          image: item.image_url,
+          image: item?.image_url,
           error: false,
           work_shift: item?.work_shift,
         };
@@ -59,15 +59,15 @@ const EmployeeListing = (props: any) => {
                 item={item}
                 onPress={() =>
                   navigate("employeeDetail", {
-                    id: item.id,
-                    image: item.image,
-                    name: item.title,
+                    id: item?.id,
+                    image: item?.image,
+                    name: item?.title,
                     refresh: listingAllEmployee,
                   })}
               />
             );
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item?.id}
         />
       )}
     </View >

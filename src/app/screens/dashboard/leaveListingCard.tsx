@@ -23,7 +23,7 @@ import { navigate } from "../../utils/navigation";
 import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
 import { RouteNames } from "../../constant/route_names";
 const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
-  const [se, us] = useState([{ src: item.image, errored: false }]);
+  const [se, us] = useState([{ src: item?.image, errored: false }]);
 
   return (
     <View
@@ -38,7 +38,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
     >
       {module == "employeeList" && (
         <View style={{ marginRight: theme.size.lg }}>
-          <CustomImage style={style.headerImage} image={item.image} />
+          <CustomImage style={style.headerImage} image={item?.image} />
         </View>
       )}
       <View style={{ flex: 1 }}>

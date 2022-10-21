@@ -9,7 +9,7 @@ export const commonInputFieldStyle = StyleSheet.create({
     paddingRight: theme.size.xxs,
     paddingBottom: theme.size.xxs,
     paddingLeft: 0,
-    backgroundColor: "#fff",
+    backgroundColor: colors.grey,
     color: colors.label,
   },
   floatingField: {

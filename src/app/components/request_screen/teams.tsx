@@ -44,7 +44,7 @@ class Teams extends Component {
         });
         this.setState({ lead: [...this.state.lead].concat(this.data) }, () => {
           this.props.handleChange("lead")(
-            JSON.stringify(this.state.lead.map((item) => item.id))
+            JSON.stringify(this.state.lead.map((item) => item?.id))
           );
         });
       });

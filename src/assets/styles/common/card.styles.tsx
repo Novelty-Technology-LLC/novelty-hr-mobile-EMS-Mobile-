@@ -39,6 +39,7 @@ const cardStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(12),
     color: colors.fontGrey,
+    flexWrap: "wrap",
   },
   indicator: { position: "absolute", top: normalize(17), right: normalize(0) },
   detailIndicator: {

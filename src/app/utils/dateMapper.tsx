@@ -36,9 +36,9 @@ export const getShortDate = (date: any) => {
   return moment(date).format("MMM D").slice(0, 6);
 };
 export const getFormatedDate = (date: any) => {
-  return moment(date).format("MMM D,YYYY").slice(0, 11);
+  return moment(date).format("MMM  D,YYYY").slice(0, 11);
 };
 
 export const getFullDate = (date: any) => {
-  return moment(date).format("LL");
+  return moment(date).format("MMM  D,YYYY");
 };

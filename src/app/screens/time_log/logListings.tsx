@@ -60,7 +60,7 @@ const LogListings = ({ route }: any) => {
         {tasks[0] ? (
           tasks[1].map((item: any) => (
             <Tasks
-              key={item.id}
+              key={item?.id}
               value={item}
               note={item.note}
               groupby={olddata.groupby}
