@@ -10,7 +10,6 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import moment from "moment";
-import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
 import {
   addAnnouncementService,
   updateAnnouncementService,
@@ -24,7 +23,8 @@ import { goBack } from "../../utils/navigation";
 import colors from "../../../assets/colors";
 import { customTextFieldStyles } from "../../../assets/styles/common/custom_text_field.styles";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
+import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -189,6 +189,7 @@ const AddAnnouncement = (props: any) => {
                       handleChange("description")(item);
                     }}
                   />
+                  {/* code will be in need */}
                   {/* <RichToolbar
                     actions={[actions.insertLink]}
                     editor={descriptionRef}

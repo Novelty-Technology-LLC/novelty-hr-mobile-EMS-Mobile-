@@ -5,7 +5,7 @@ import colors from "../../assets/colors";
 import moment from "moment";
 
 const transformTitle = (title: string, transform: boolean) => {
-  return title.length > 18
+  return title?.length > 18
     ? `${title.substring(0, !transform ? 45 : 18)} ...`
     : title;
 };
@@ -195,7 +195,10 @@ export const transformList = (
   truncate?: boolean,
   transform?: boolean
 ) => {
-  const newList = itemList.map((item: any) => {
+  if (module === "shoutouts") {
+    return itemList;
+  }
+  const newList = itemList?.map((item: any) => {
     return {
       title: truncate ? transformTitle(item?.title, transform) : item?.title,
       subTitle: transform
@@ -206,6 +209,7 @@ export const transformList = (
       html: item?.html ?? "",
       date: item?.date?.slice(0, 10),
       leave_option: item?.leave_option,
+      avatar: item?.avatars,
     };
   });
 
@@ -214,7 +218,7 @@ export const transformList = (
 
 export const transformLunchItem = (item: any) => {
   if (item?.detailRoute === "/lunch") {
-    const newItem = item.items.map((item: any) => {
+    const newItem = item?.items?.map((item: any) => {
       if (item?.subTitle === getDayToday()) {
         return { ...item, subTitle: "Today", type: "lunch" };
       } else {

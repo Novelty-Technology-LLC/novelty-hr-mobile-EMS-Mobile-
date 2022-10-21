@@ -54,7 +54,8 @@ export const convertByteArrayToImage = (byteArray: string) => {
 
   return image;
 };
-
+export const formatFullName = (firstName: string, lastName: string) =>
+  firstName + " " + (lastName || "");
 export const initialState = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
   datasets: [

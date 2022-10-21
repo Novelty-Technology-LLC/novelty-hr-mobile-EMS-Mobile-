@@ -2,61 +2,89 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../../assets/colors";
-import { listStyle } from "../../../assets/styles";
+import { globalStyle, listStyle } from "../../../assets/styles";
 import { transformList } from "../../utils/listtranform";
 import { navigate } from "../../utils/navigation";
 import { EmptyContainer } from "../emptyContainer";
 import { AppIcon } from "../icon";
 import { ListItem } from "./listItem";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { ShoutoutListItem } from "./shoutoutList";
+import { FlatList } from "react-native-gesture-handler";
 
 const List = ({ list }: { list: any }) => {
   return (
     <>
-      <Text style={listStyle.header}>{list?.module}</Text>
+      <View style={globalStyle.row}>
+        <Text style={listStyle.header}>{list?.module}</Text>
+      </View>
       {list?.items?.length > 0 ? (
         <View style={listStyle.container}>
-          {transformList(
-            list?.items?.slice(0, 3),
-            list?.module,
-            false,
-            true,
-            list.module == "Holidays & Events" || list.module == "Leave"
-              ? true
-              : false
-          ).map((item: any, index: number) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  list?.module === "Announcements"
-                    ? navigate("announcementsDetails", {
+          {list?.module !== "shoutout" &&
+            transformList(
+              list?.items?.slice(0, 3),
+              list?.module,
+              false,
+              true,
+              list.module == "Holidays & Events" || list.module == "Leave"
+                ? true
+                : false
+            ).map((item: any, index: number) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    if (list?.module === "Announcements") {
+                      navigate("announcementsDetails", {
                         headerText: item.title,
                         title: item.title,
                         subTitle: item.subTitle,
                         date: item.date,
                         html: item.html,
-                      })
-                    : navigate(list?.detailRoute, {
+                      });
+                    } else if (list?.module === "shoutout") {
+                      null;
+                    } else
+                      navigate(list?.detailRoute, {
                         route: list?.detailRoute,
                         module: list.module,
                       });
-                }}
-                style={listStyle.seeAll}
-              >
-                <ListItem
-                  key={index}
-                  title={item?.title}
-                  subTitle={item?.subTitle}
-                  leave_option={item?.leave_option}
-                  date={item?.date}
-                  isLast={2 === index}
-                  type={item?.type}
-                  module={list.module}
-                  html={item.html}
-                />
-              </TouchableOpacity>
-            );
-          })}
+                  }}
+                  style={listStyle.seeAll}
+                >
+                  {list.module !== "shoutout" && (
+                    <ListItem
+                      key={index}
+                      title={item?.title}
+                      subTitle={item?.subTitle}
+                      leave_option={item?.leave_option}
+                      date={item?.date}
+                      isLast={2 === index}
+                      type={item?.type}
+                      module={list.module}
+                      html={item.html}
+                    />
+                  )}
+                </TouchableOpacity>
+              );
+            })}
+          {list?.module === "shoutout" && (
+            <FlatList
+              keyExtractor={(item) => item.id.toString()}
+              data={list?.items}
+              renderItem={({ item, index }) => {
+                return (
+                  <ShoutoutListItem
+                    date={item.shoutout_date}
+                    isLast={2 === index}
+                    // module={list.module}
+                    receiver={item?.receiver}
+                    shoutout={item.shoutout}
+                    shoutout_from={item.shoutout_from}
+                  />
+                );
+              }}
+            />
+          )}
           <TouchableOpacity
             onPress={() =>
               navigate(list?.detailRoute, {
@@ -65,12 +93,13 @@ const List = ({ list }: { list: any }) => {
               })
             }
           >
-            <View style={listStyle.seeAllTextOn}>
-              <Text style={listStyle.seeAllTexts}>See All</Text>
-              <Icon name="arrow-right" color={colors.primary} size={12} />
-            </View>
+            {list?.module !== "shoutout" && (
+              <View style={listStyle.seeAllTextOn}>
+                <Text style={listStyle.seeAllTexts}>See All</Text>
+                <Icon name="arrow-right" color={colors.primary} size={12} />
+              </View>
+            )}
           </TouchableOpacity>
-          {/* <Text>"asdasd</Text> */}
         </View>
       ) : (
         <>
@@ -83,12 +112,12 @@ const List = ({ list }: { list: any }) => {
                 : "No Upcoming Holidays and Events"
             }`}
             containerStyle={{
-              height: normalize(170),
+              height: normalize(80),
               borderBottomColor: colors.snow,
               paddingVertical: normalize(10),
             }}
           />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() =>
               navigate(list?.detailRoute, {
                 route: list?.detailRoute,
@@ -100,7 +129,7 @@ const List = ({ list }: { list: any }) => {
               <Text style={listStyle.seeAllTexts}>See All</Text>
               <Icon name="arrow-right" color={colors.primary} size={12} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </>
       )}
       {/* {list?.module === "Announcements" && (
