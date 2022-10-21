@@ -69,6 +69,7 @@ const List = ({ list }: { list: any }) => {
                 </TouchableOpacity>
               );
             })}
+          {}
           {list?.module === "shoutout" && (
             <FlatList
               keyExtractor={(item) => item?.id.toString()}

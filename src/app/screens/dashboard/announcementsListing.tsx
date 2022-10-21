@@ -15,9 +15,10 @@ import { ListingCard } from "./leaveListingCard";
 const AnnouncementListing = (props: any) => {
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const { state: auth }: any = useContext(AuthContext);
-  const params = props?.route?.params;
+  const params = props?.route?.params ?? [];
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(params, "pa");
 
   useEffect(() => {
     (async () => {
@@ -40,11 +41,11 @@ const AnnouncementListing = (props: any) => {
 
           navigate("announcementsDetails", {
             id: findAnnouncement?.id,
-            headerText: findAnnouncement?.title,
-            title: findAnnouncement?.title,
-            subTitle: findAnnouncement?.subTitle,
+            headerText: findAnnouncement?.title.trim(),
+            title: findAnnouncement?.title.trim(),
+            subTitle: findAnnouncement?.subTitle.trim(),
             date: findAnnouncement?.date,
-            html: findAnnouncement?.html,
+            html: findAnnouncement?.html.trim(),
             dashboard: true,
           });
         }
@@ -58,6 +59,7 @@ const AnnouncementListing = (props: any) => {
       } catch (error) {}
     })();
   }, []);
+  console.log(state?.announcementData, "");
 
   return (
     <View style={listingStyle.mainContainer}>

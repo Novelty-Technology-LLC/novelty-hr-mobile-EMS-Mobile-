@@ -82,7 +82,7 @@ const AddAnnouncement = (props: any) => {
       const payload = {
         ...values,
         date: todayDate,
-        html: values.description,
+        html: values.description.trim(),
         title: values.title.trim(),
       };
 
@@ -91,48 +91,35 @@ const AddAnnouncement = (props: any) => {
       const body = {
         ...values,
         title: values.title.trim(),
-        html: values.description,
+        html: values.description.trim(),
         date: todayDate.slice(0, 10),
       };
       addAnnouncementData(body);
     }
   };
   const addAnnouncementData = (payload: any) => {
-    // addAnnouncementService(payload)
-    //   .then((item: any) => {
-    //     dispatch({
-    //       type: "ADD_ANNOUNCEMENT",
-    //       payload: {
-    //         announcementData: {
-    //           ...payload,
-    //           id: item.data.data.id,
-    //         },
-    //       },
-    //     });
-    //     setLoading(false);
-    //     goBack();
-    //     showToast("Added Successfully");
-    //   })
-    //   .catch(async (err: any) => {
-    //     setLoading(false);
-    //     goBack();
-    //     setError("something went wrong");
-    //   });
-    // dispatch({
-    //   type: "ADD_ANNOUNCEMENT",
-    //   payload: {
-    //     announcementData: {
-    //       ...payload,
-    //       id: 190,
-    //     },
-    //   },
-    // });
-
-    setLoading(false);
-    goBack();
-    showToast("Added Successfully");
+    addAnnouncementService(payload)
+      .then((item: any) => {
+        dispatch({
+          type: "ADD_ANNOUNCEMENT",
+          payload: {
+            announcementData: {
+              ...payload,
+              id: item.data.data.id,
+            },
+          },
+        });
+        setLoading(false);
+        goBack();
+        showToast("Added Successfully");
+      })
+      .catch(async (err: any) => {
+        setLoading(false);
+        goBack();
+        setError("something went wrong");
+      });
   };
-  const updateAppoinmentData = async (payload: any, id: any) => {
+  const updateAppoinmentData = (payload: any, id: any) => {
     updateAnnouncementService(payload, props?.route?.params?.data?.id)
       .then((item: any) => {
         dispatch({
@@ -143,9 +130,8 @@ const AddAnnouncement = (props: any) => {
           },
         });
         setLoading(false);
-        {
-          navigation.navigate("announcementsListing", { item });
-        }
+        goBack();
+        goBack();
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
@@ -201,7 +187,7 @@ const AddAnnouncement = (props: any) => {
                     error={errors.title}
                     touched={touched.title}
                   />
-                  <CustomTextArea
+                  {/* <CustomTextArea
                     onChange={(item: any) => {
                       values.description = item;
                       handleChange("description")(item);
@@ -212,8 +198,8 @@ const AddAnnouncement = (props: any) => {
                     returnKeyType={"done"}
                     maxLength={255}
                     keyboardType="default"
-                  />
-                  {/* <RichEditor
+                  /> */}
+                  <RichEditor
                     useContainer={false}
                     containerStyle={{
                       minHeight: 200,
@@ -228,10 +214,10 @@ const AddAnnouncement = (props: any) => {
                     placeholder={"Description"}
                     disabled={false}
                     onChange={(item: any) => {
-                      values.description = item;
+                      values.description = item.trim();
                       handleChange("description")(item);
                     }}
-                  /> */}
+                  />
                   {/* code will be in need */}
                   {/* <RichToolbar
                     actions={[actions.insertLink]}

@@ -57,6 +57,7 @@ const DashBoard = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
+  console.log(announcementState, "announcementState");
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -291,7 +292,7 @@ const DashBoard = () => {
               list={{
                 module: "Announcements",
                 message: "No Upcoming Announcements",
-                items: announcements,
+                items: announcementState.announcementData,
                 detailRoute: "announcementsListing",
               }}
             />
