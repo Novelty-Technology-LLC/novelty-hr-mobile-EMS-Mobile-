@@ -54,7 +54,7 @@ const TabNavigator = () => {
                   date: findAnnouncement?.date,
                   html: findAnnouncement?.html,
                 });
-              } catch (error) { }
+              } catch (error) {}
             } else {
               dispatch({ type: "Notification", payload: remoteMessage.data });
               Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
@@ -68,8 +68,8 @@ const TabNavigator = () => {
   useEffect(() => {
     requestUserPermission();
     messaging().onNotificationOpenedApp(async (remoteMessage) => {
-      if (remoteMessage && Object.keys(remoteMessage.data).length) {
-        if (remoteMessage.data.type === "announcements") {
+      if (remoteMessage && Object.keys(remoteMessage?.data).length) {
+        if (remoteMessage?.data.type === "announcements") {
           try {
             var response: any = await getRequest(
               "/webportal/announcements",
@@ -82,7 +82,7 @@ const TabNavigator = () => {
             });
 
             var findAnnouncement = response.find(
-              (item: any) => item.id == +remoteMessage.data.announcement_id
+              (item: any) => item?.id == +remoteMessage?.data?.announcement_id
             );
             navigate("announcementsDetails", {
               id: findAnnouncement?.id,
@@ -92,10 +92,10 @@ const TabNavigator = () => {
               date: findAnnouncement?.date,
               html: findAnnouncement?.html,
             });
-          } catch (error) { }
+          } catch (error) {}
         } else {
-          dispatch({ type: "Notification", payload: remoteMessage.data });
-          Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
+          dispatch({ type: "Notification", payload: remoteMessage?.data });
+          Linking.openURL(`noveltyhrmobile://${remoteMessage?.data?.url}`);
         }
       }
     });

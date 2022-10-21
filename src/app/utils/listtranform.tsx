@@ -200,10 +200,11 @@ export const transformList = (
   }
   const newList = itemList?.map((item: any) => {
     return {
+      id: item?.id,
       title: truncate ? transformTitle(item?.title, transform) : item?.title,
       subTitle: transform
         ? transformDate(item?.leave_date ?? item?.subTitle, module, isList)
-        : item.subTitle,
+        : item.html,
       status: item?.status,
       type: item?.type,
       html: item?.html ?? "",

@@ -14,10 +14,8 @@ import { ListingCard } from "./leaveListingCard";
 
 const AnnouncementListing = (props: any) => {
   const { state, dispatch }: any = useContext(AnnouncementContext);
-
   const { state: auth }: any = useContext(AuthContext);
-
-  const params = props?.route?.params;
+  const params = props?.route?.params ?? [];
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,13 +37,15 @@ const AnnouncementListing = (props: any) => {
           var findAnnouncement = response.find(
             (item: any) => +item.id == +params.id
           );
+
           navigate("announcementsDetails", {
             id: findAnnouncement?.id,
-            headerText: findAnnouncement?.title,
-            title: findAnnouncement?.title,
-            subTitle: findAnnouncement?.subTitle,
+            headerText: findAnnouncement?.title.trim(),
+            title: findAnnouncement?.title.trim(),
+            subTitle: findAnnouncement?.subTitle.trim(),
             date: findAnnouncement?.date,
-            html: findAnnouncement?.html,
+            html: findAnnouncement?.html.trim(),
+            dashboard: true,
           });
         }
         setList(
@@ -55,7 +55,7 @@ const AnnouncementListing = (props: any) => {
         );
 
         setLoading(false);
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, []);
 
@@ -64,7 +64,7 @@ const AnnouncementListing = (props: any) => {
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>Announcements</Text>
       </Header>
-      {loading || list === null ? (
+      {loading ? (
         <ListPlaceholder />
       ) : (
         <FlatList
@@ -80,6 +80,7 @@ const AnnouncementListing = (props: any) => {
                     subTitle: item?.subTitle,
                     date: item?.date,
                     html: item?.html,
+                    dashboard: false,
                   })
                 }
               >

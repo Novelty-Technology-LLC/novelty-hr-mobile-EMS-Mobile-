@@ -36,7 +36,7 @@ const DeleteAlert = ({
   const onDelete = async () => {
     setLoading(true);
     if (other) {
-      cancelLeave(item.id)
+      cancelLeave(item?.id)
         .then((data) => {
           dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
           dispatchRequest({ type: "CANCEL", payload: data.leave });
@@ -64,9 +64,9 @@ const DeleteAlert = ({
 
   const onTimeLogDelete = () => {
     setLoading(true);
-    deleteTimeLog(item.id)
+    deleteTimeLog(item?.id)
       .then(() => {
-        dispatchTimeLog({ type: "DELETE", payload: item.id });
+        dispatchTimeLog({ type: "DELETE", payload: item?.id });
 
         showToast("TimeLog deleted");
         setLoading(false);

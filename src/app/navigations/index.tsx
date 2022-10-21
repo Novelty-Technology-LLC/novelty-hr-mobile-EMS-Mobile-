@@ -16,6 +16,7 @@ import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
 import { ApplicationProvider } from "@ui-kitten/components";
 import { theme } from "../../assets/styles";
+import colors from "../../assets/colors";
 
 const Root = createStackNavigator();
 
@@ -40,7 +41,7 @@ const RootNavigation = () => {
         const user: any = await getUser();
 
         dispatch({ type: "STORE_USER", user: JSON.parse(user) });
-      } catch (e) { }
+      } catch (e) {}
     };
 
     bootstrapAsync();
@@ -61,7 +62,7 @@ const RootNavigation = () => {
             [
               {
                 text: "Cancel",
-                onPress: () => { },
+                onPress: () => {},
                 style: "cancel",
               },
               { text: "UPDATE", onPress: () => goToStore() },
@@ -71,7 +72,7 @@ const RootNavigation = () => {
         } else {
         }
       });
-    } catch (e) { }
+    } catch (e) {}
   };
 
   const deepLinking = {
@@ -106,7 +107,7 @@ const RootNavigation = () => {
       ref={navigationRef}
       onReady={() => SplashScreens.hide()}
     >
-      <ApplicationProvider
+      {/* <ApplicationProvider
         {...eva}
         theme={eva.light}
         customMapping={{
@@ -197,20 +198,20 @@ const RootNavigation = () => {
                         paddingVertical: 0,
                         contentBorderWidth: 0,
                         contentBorderColor: "transparent",
-                        backgroundColor: theme.color.normal_text_color,
+                        // backgroundColor: color.normal_text_color,
                       },
 
                       today: {
                         contentBorderRadius: 50,
                         contentBorderColor: "transparent",
-                        contentBackgroundColor: theme.color.light_grey,
+                        // contentBackgroundColor: colors.light_grey,
                       },
                       range: {
                         borderRadius: 30,
                         paddingVertical: 10,
                         borderWidth: 15,
                         borderColor: "transparent",
-                        backgroundColor: theme.color.background_color,
+                        // backgroundColor: color.background_color,
                       },
                     },
                   },
@@ -219,26 +220,26 @@ const RootNavigation = () => {
             },
           },
         }}
-      >
-        <AuthContext.Provider value={{ state, dispatch }}>
-          <Root.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Root.Screen name="splash" component={SplashScreen} />
-            <Root.Screen name="login" component={Login} />
-            <Root.Screen name="loading" component={Loading} />
-            <Root.Screen name="invalid" component={Invalid} />
-            <Root.Screen name="fullImageScreen" component={FullImageScreen} />
-            <Root.Screen
-              name="BottomTabs"
-              component={TabNavigator}
-              options={{ gestureEnabled: false }}
-            />
-          </Root.Navigator>
-        </AuthContext.Provider>
-      </ApplicationProvider>
+      > */}
+      <AuthContext.Provider value={{ state, dispatch }}>
+        <Root.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Root.Screen name="splash" component={SplashScreen} />
+          <Root.Screen name="login" component={Login} />
+          <Root.Screen name="loading" component={Loading} />
+          <Root.Screen name="invalid" component={Invalid} />
+          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
+          <Root.Screen
+            name="BottomTabs"
+            component={TabNavigator}
+            options={{ gestureEnabled: false }}
+          />
+        </Root.Navigator>
+      </AuthContext.Provider>
+      {/* </ApplicationProvider> */}
     </NavigationContainer>
   );
 };

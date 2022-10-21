@@ -25,6 +25,7 @@ import { customTextFieldStyles } from "../../../assets/styles/common/custom_text
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
+import { CustomTextArea } from "../../components/textArea";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -42,6 +43,7 @@ const AddAnnouncement = (props: any) => {
   const navigation: any = useNavigation();
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
+  const dashboard = props?.route?.params?.data?.dashboard ?? false;
   const updateData = props?.route?.params?.data ?? " ";
   const titleRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -51,12 +53,14 @@ const AddAnnouncement = (props: any) => {
   const [range, setRange] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>("");
+  const todayDate = moment().toISOString().slice(0, 10);
   const [announcementData, setAnnouncementData] = useState<any>({
     title: "",
     description: "",
     html: "",
-    date: moment(),
+    date: todayDate,
   });
+
   const announcementId = props?.route?.params?.data?.id;
 
   useEffect(() => {
@@ -65,33 +69,45 @@ const AddAnnouncement = (props: any) => {
           ...announcementData,
           title: updateData.title,
           description: updateData.html,
+          date: todayDate,
         })
-      : setAnnouncementData({ ...announcementData, Date: moment() });
+      : setAnnouncementData({
+          ...announcementData,
+          date: todayDate,
+        });
   }, []);
   const onSubmit = async (values: any) => {
     setLoading(true);
     if (isEdit) {
       const payload = {
         ...values,
-        html: values.description,
+        date: todayDate,
+        html: values.description.trim(),
+        title: values.title.trim(),
       };
+
       updateAppoinmentData(payload, announcementId);
     } else {
       const body = {
         ...values,
-        title: values.title,
-        html: values.description,
-        date: moment(),
+        title: values.title.trim(),
+        html: values.description.trim(),
+        date: todayDate.slice(0, 10),
       };
-      addAppoinmentData(body);
+      addAnnouncementData(body);
     }
   };
-  const addAppoinmentData = (payload: any) => {
+  const addAnnouncementData = (payload: any) => {
     addAnnouncementService(payload)
       .then((item: any) => {
         dispatch({
           type: "ADD_ANNOUNCEMENT",
-          payload: { announcementData: { ...payload, id: item.data.data.id } },
+          payload: {
+            announcementData: {
+              ...payload,
+              id: item.data.data.id,
+            },
+          },
         });
         setLoading(false);
         goBack();
@@ -103,22 +119,24 @@ const AddAnnouncement = (props: any) => {
         setError("something went wrong");
       });
   };
-  const updateAppoinmentData = async (payload: any, id: any) => {
-    updateAnnouncementService(payload, id)
+  const updateAppoinmentData = (payload: any, id: any) => {
+    updateAnnouncementService(payload, props?.route?.params?.data?.id)
       .then((item: any) => {
         dispatch({
           type: "UPDATE_ANNOUNCEMENT",
-          payload: { announcementData: payload, index: id },
+          payload: {
+            announcementData: { ...payload, id: id },
+            index: props?.route?.params?.data?.id,
+          },
         });
         setLoading(false);
         goBack();
         goBack();
-        // navigation.popToTop();
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
         setLoading(false);
-        showToast("something went wrong");
+        showToast("something went wrong", false);
         setError("something went wrong");
       });
   };
@@ -169,7 +187,18 @@ const AddAnnouncement = (props: any) => {
                     error={errors.title}
                     touched={touched.title}
                   />
-
+                  {/* <CustomTextArea
+                    onChange={(item: any) => {
+                      values.description = item;
+                      handleChange("description")(item);
+                    }}
+                    descriptionRef={descriptionRef}
+                    defaultValue={values.description}
+                    placeholder="Description"
+                    returnKeyType={"done"}
+                    maxLength={255}
+                    keyboardType="default"
+                  /> */}
                   <RichEditor
                     useContainer={false}
                     containerStyle={{
@@ -185,7 +214,7 @@ const AddAnnouncement = (props: any) => {
                     placeholder={"Description"}
                     disabled={false}
                     onChange={(item: any) => {
-                      values.description = item;
+                      values.description = item.trim();
                       handleChange("description")(item);
                     }}
                   />

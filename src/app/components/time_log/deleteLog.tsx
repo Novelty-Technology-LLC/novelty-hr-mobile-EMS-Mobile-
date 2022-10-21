@@ -40,7 +40,7 @@ const DeleteLog = ({
     }
 
     if (taskList.length > 1) {
-      let task = taskList.filter((val) => val.id !== item.id);
+      let task = taskList.filter((val) => val.id !== item?.id);
       let values = {
         duration: totalHours({ note: task }),
         log_date: value.log_date,

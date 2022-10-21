@@ -27,7 +27,7 @@ const Swipe = ({
   const hide = () => setShowAlert(false);
   const onEdit = () => {
     onPress();
-    checkRequest(item.id)
+    checkRequest(item?.id)
       .then((res) => {
         if (res === "Pending") {
           navigation.navigate("requestLeave", item);

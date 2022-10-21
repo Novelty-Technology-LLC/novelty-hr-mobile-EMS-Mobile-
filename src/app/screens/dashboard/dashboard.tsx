@@ -10,7 +10,11 @@ import {
   BackHandler,
 } from "react-native";
 import { AuthContext } from "../../reducer";
-import { dashboardStyle as ds, headerTxtStyle, listStyle } from "../../../assets/styles";
+import {
+  dashboardStyle as ds,
+  headerTxtStyle,
+  listStyle,
+} from "../../../assets/styles";
 import { Cards, header as Header, List, showToast } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
@@ -30,9 +34,13 @@ import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
 import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
+import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { RouteNames } from "../../constant/route_names";
 
 const DashBoard = () => {
+  const { state: announcementState, dispatch }: any =
+    useContext(AnnouncementContext);
+
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
@@ -55,8 +63,10 @@ const DashBoard = () => {
   }, []);
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
-      const list = data.slice(0, 3);
+      const list = data.sort().reverse().slice(0, 3);
+      setshoutoutLoading(true);
       setshoutout(list);
+      setshoutoutLoading(false);
     });
   };
 
@@ -112,9 +122,12 @@ const DashBoard = () => {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
-
+      await dispatch({
+        type: "SET_ANNOUNCEMENT_DATA",
+        payload: { announcementData: response },
+      });
       setAnnouncements(response);
-    } catch (error) { }
+    } catch (error) {}
   };
   const fetchLeave = async () => {
     try {
@@ -132,7 +145,7 @@ const DashBoard = () => {
       } else {
         setLeaveStatus(false);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
     (async () => {
@@ -278,7 +291,7 @@ const DashBoard = () => {
               list={{
                 module: "Announcements",
                 message: "No Upcoming Announcements",
-                items: announcements,
+                items: announcementState.announcementData,
                 detailRoute: "announcementsListing",
               }}
             />
