@@ -30,8 +30,6 @@ const ListItem = ({
   html: any;
   date?: string;
 }) => {
-  console.log(subTitle, "=>subTitle");
-
   const indicatorColor = getColor(type, colors.lightbrown);
 
   return (

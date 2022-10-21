@@ -18,7 +18,6 @@ const AnnouncementListing = (props: any) => {
   const params = props?.route?.params ?? [];
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(params, "pa");
 
   useEffect(() => {
     (async () => {
@@ -59,7 +58,6 @@ const AnnouncementListing = (props: any) => {
       } catch (error) {}
     })();
   }, []);
-  console.log(state?.announcementData, "");
 
   return (
     <View style={listingStyle.mainContainer}>
