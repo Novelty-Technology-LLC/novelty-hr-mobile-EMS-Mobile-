@@ -23,7 +23,7 @@ import {
   bloodGroups as bloodGroupsFromConstants,
   genders as gendersFromConstants,
 } from "../../utils";
-import { DropDownItem } from "../../utils/interfaces";
+import { DropDownItem } from "../../interface/dropDownItem";
 import { lookupServices } from "../../services/lookupService";
 import { updateEmployeeDetail } from "../../services";
 import Loading from "../auth_screen/loading";
@@ -123,7 +123,6 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
 
   // useEffect(() => {
   //     const unsubscribe = navigation.addListener('beforeRemove', (e: any) => {
-  //         console.log(isSubmitting)
   //         if (isSubmitting)
   //             e.preventDefault();
   //     });

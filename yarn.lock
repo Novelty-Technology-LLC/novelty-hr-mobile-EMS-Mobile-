@@ -946,9 +946,9 @@
   resolved "https://registry.npmjs.org/@eva-design/dss/-/dss-2.1.1.tgz"
   integrity sha512-Z6rZSodsQHWW1yDuiop1glJU8xKJSdKTPoWWCBsQWXYMNwTAEPgcZV69HNlnerB+T++jwj2jeoBzO24CTc0PmQ==
 
-"@eva-design/eva@^2.0.0":
+"@eva-design/eva@^2.1.1":
   version "2.1.1"
-  resolved "https://registry.npmjs.org/@eva-design/eva/-/eva-2.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/@eva-design/eva/-/eva-2.1.1.tgz#ad237ae76d63e7c474b3a0755c697490bbe5a4bc"
   integrity sha512-WS1ykETXyq0Kxa0aFlPMBeftEtBeTDv9qEUeQ4VvbTETMc7hsZPSkPr2HudtQhFihiM72GFfwAK6GIAlF6GXdQ==
 
 "@eva-design/processor@^2.0.0":

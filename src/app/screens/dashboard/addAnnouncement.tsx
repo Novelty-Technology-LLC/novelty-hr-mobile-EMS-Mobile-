@@ -62,7 +62,6 @@ const AddAnnouncement = (props: any) => {
   });
 
   const announcementId = props?.route?.params?.data?.id;
-  console.log(todayDate.slice(0, 10), "td");
 
   useEffect(() => {
     isEdit
@@ -128,15 +127,12 @@ const AddAnnouncement = (props: any) => {
     //     },
     //   },
     // });
-    console.log(payload, "pu");
 
     setLoading(false);
     goBack();
     showToast("Added Successfully");
   };
   const updateAppoinmentData = async (payload: any, id: any) => {
-    console.log("update", payload);
-
     updateAnnouncementService(payload, props?.route?.params?.data?.id)
       .then((item: any) => {
         dispatch({
@@ -153,7 +149,6 @@ const AddAnnouncement = (props: any) => {
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
-        console.log(err, "err");
         setLoading(false);
         showToast("something went wrong", false);
         setError("something went wrong");

@@ -21,13 +21,17 @@ export const dropDownInputStyles = StyleSheet.create({
         borderBottomRightRadius: normalize(4)
     },
     innerContainer: {
+        height: normalize(50),
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
     },
     dropdown: {
         // borderColor: colors.primary,
-        backgroundColor: colors.grey,
+        // backgroundColor: colors.grey,
+        marginTop: 3,
+        borderWidth: 0.3,
+        elevation: 2,
     },
     icon: {
         color: colors.primary,

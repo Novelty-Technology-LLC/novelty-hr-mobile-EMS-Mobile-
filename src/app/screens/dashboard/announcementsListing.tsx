@@ -16,11 +16,8 @@ const AnnouncementListing = (props: any) => {
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const { state: auth }: any = useContext(AuthContext);
   const params = props?.route?.params;
-  console.log(params, "params of listing");
-
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(loading, "lf");
 
   useEffect(() => {
     (async () => {
