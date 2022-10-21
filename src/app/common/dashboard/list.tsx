@@ -35,12 +35,12 @@ const List = ({ list }: { list: any }) => {
                   onPress={() => {
                     if (list?.module === "Announcements") {
                       navigate("announcementsDetails", {
-                        headerText: item.title,
-                        title: item.title,
-                        subTitle: item.subTitle,
-                        date: item.date,
-                        html: item.html,
-                        id: item.id,
+                        headerText: item?.title,
+                        title: item?.title,
+                        subTitle: item?.subTitle,
+                        date: item?.date,
+                        html: item?.html,
+                        id: item?.id,
                         dashboard: true,
                       });
                     } else if (list?.module === "shoutout") {
@@ -71,7 +71,7 @@ const List = ({ list }: { list: any }) => {
             })}
           {list?.module === "shoutout" && (
             <FlatList
-              keyExtractor={(item) => item.id.toString()}
+              keyExtractor={(item) => item?.id.toString()}
               data={list?.items}
               renderItem={({ item, index }) => {
                 return (

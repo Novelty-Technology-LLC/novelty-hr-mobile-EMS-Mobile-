@@ -237,7 +237,7 @@ const TimeLogs = (props: any) => {
                 <TimeLog item={item.item} />
               </Swipeable>
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item?.id}
           />
         ) : (
           !activeLoading && (

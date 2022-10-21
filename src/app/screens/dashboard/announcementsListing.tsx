@@ -16,9 +16,11 @@ const AnnouncementListing = (props: any) => {
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const { state: auth }: any = useContext(AuthContext);
   const params = props?.route?.params;
+  console.log(params, "params of listing");
 
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(loading, "lf");
 
   useEffect(() => {
     (async () => {
@@ -65,35 +67,39 @@ const AnnouncementListing = (props: any) => {
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>Announcements</Text>
       </Header>
-      <FlatList
-        data={state?.announcementData}
-        renderItem={({ item, index }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigate("announcementsDetails", {
-                  id: item?.id,
-                  headerText: item?.title,
-                  title: item?.title,
-                  subTitle: item?.subTitle,
-                  date: item?.date,
-                  html: item?.html,
-                  dashboard: false,
-                })
-              }
-            >
-              <ListingCard
-                state={item}
-                index={index}
-                item={item}
-                list={list.length}
-                module={params.module}
-              />
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item?.id}
-      />
+      {loading ? (
+        <ListPlaceholder />
+      ) : (
+        <FlatList
+          data={state?.announcementData}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigate("announcementsDetails", {
+                    id: item?.id,
+                    headerText: item?.title,
+                    title: item?.title,
+                    subTitle: item?.subTitle,
+                    date: item?.date,
+                    html: item?.html,
+                    dashboard: false,
+                  })
+                }
+              >
+                <ListingCard
+                  state={item}
+                  index={index}
+                  item={item}
+                  list={list.length}
+                  module={params.module}
+                />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item?.id}
+        />
+      )}
       {+auth?.user?.is_approver === 1 && (
         <RequestButton screen="addAnnouncement" />
       )}

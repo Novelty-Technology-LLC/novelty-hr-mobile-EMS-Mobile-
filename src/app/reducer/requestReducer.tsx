@@ -53,7 +53,7 @@ const RequestReducer = (prevState, action) => {
         ...prevState,
         requests: [].concat(
           mapObjectToRequest(action.payload),
-          ...prevState.requests.filter((item) => item.id !== action.payload.id)
+          ...prevState.requests.filter((item) => item?.id !== action.payload.id)
         ),
       };
 
@@ -61,12 +61,12 @@ const RequestReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [].concat(
-          ...prevState.requests.filter((item) => item.id !== action.payload.id)
+          ...prevState.requests.filter((item) => item?.id !== action.payload.id)
         ),
         pastrequests: [].concat(
           mapObjectToRequest(action.payload),
           ...prevState.pastrequests.filter(
-            (item) => item.id !== action.payload.id
+            (item) => item?.id !== action.payload.id
           )
         ),
       };

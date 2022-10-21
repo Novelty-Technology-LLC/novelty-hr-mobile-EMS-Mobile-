@@ -30,8 +30,12 @@ import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
 import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
+import { AnnouncementContext } from "../../reducer/announcementreducer";
 
 const DashBoard = () => {
+  const { state: announcementState, dispatch }: any =
+    useContext(AnnouncementContext);
+
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
@@ -114,7 +118,10 @@ const DashBoard = () => {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
-
+      await dispatch({
+        type: "SET_ANNOUNCEMENT_DATA",
+        payload: { announcementData: response },
+      });
       setAnnouncements(response);
     } catch (error) {}
   };

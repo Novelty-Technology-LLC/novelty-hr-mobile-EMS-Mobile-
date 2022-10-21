@@ -56,7 +56,7 @@ const EditAlert = ({
     action === "Deny" && (action = "Denied");
 
     const newData = {
-      leave_id: item.id,
+      leave_id: item?.id,
       action,
       note,
       requested_to: state.user.id,
@@ -90,7 +90,7 @@ const EditAlert = ({
   const getRequest = async (item: any) => {
     try {
       const res: any = await getResponses(
-        item.id,
+        item?.id,
         item.device_tokens[0].user_id
       );
 

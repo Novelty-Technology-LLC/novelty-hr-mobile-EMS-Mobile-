@@ -25,6 +25,7 @@ import { customTextFieldStyles } from "../../../assets/styles/common/custom_text
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
+import { CustomTextArea } from "../../components/textArea";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -94,32 +95,48 @@ const AddAnnouncement = (props: any) => {
         html: values.description,
         date: todayDate.slice(0, 10),
       };
-      addAppoinmentData(body);
+      addAnnouncementData(body);
     }
   };
-  const addAppoinmentData = (payload: any) => {
-    addAnnouncementService(payload)
-      .then((item: any) => {
-        dispatch({
-          type: "ADD_ANNOUNCEMENT",
-          payload: {
-            announcementData: {
-              ...payload,
-              id: item.data.data.id,
-            },
-          },
-        });
-        setLoading(false);
-        goBack();
-        showToast("Added Successfully");
-      })
-      .catch(async (err: any) => {
-        setLoading(false);
-        goBack();
-        setError("something went wrong");
-      });
+  const addAnnouncementData = (payload: any) => {
+    // addAnnouncementService(payload)
+    //   .then((item: any) => {
+    //     dispatch({
+    //       type: "ADD_ANNOUNCEMENT",
+    //       payload: {
+    //         announcementData: {
+    //           ...payload,
+    //           id: item.data.data.id,
+    //         },
+    //       },
+    //     });
+    //     setLoading(false);
+    //     goBack();
+    //     showToast("Added Successfully");
+    //   })
+    //   .catch(async (err: any) => {
+    //     setLoading(false);
+    //     goBack();
+    //     setError("something went wrong");
+    //   });
+    // dispatch({
+    //   type: "ADD_ANNOUNCEMENT",
+    //   payload: {
+    //     announcementData: {
+    //       ...payload,
+    //       id: 190,
+    //     },
+    //   },
+    // });
+    console.log(payload, "pu");
+
+    setLoading(false);
+    goBack();
+    showToast("Added Successfully");
   };
   const updateAppoinmentData = async (payload: any, id: any) => {
+    console.log("update", payload);
+
     updateAnnouncementService(payload, props?.route?.params?.data?.id)
       .then((item: any) => {
         dispatch({
@@ -131,13 +148,12 @@ const AddAnnouncement = (props: any) => {
         });
         setLoading(false);
         {
-          navigation.navigate("announcementsListing", {});
+          navigation.navigate("announcementsListing", { item });
         }
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
         console.log(err, "err");
-
         setLoading(false);
         showToast("something went wrong", false);
         setError("something went wrong");
@@ -190,8 +206,19 @@ const AddAnnouncement = (props: any) => {
                     error={errors.title}
                     touched={touched.title}
                   />
-
-                  <RichEditor
+                  <CustomTextArea
+                    onChange={(item: any) => {
+                      values.description = item;
+                      handleChange("description")(item);
+                    }}
+                    descriptionRef={descriptionRef}
+                    defaultValue={values.description}
+                    placeholder="Description"
+                    returnKeyType={"done"}
+                    maxLength={255}
+                    keyboardType="default"
+                  />
+                  {/* <RichEditor
                     useContainer={false}
                     containerStyle={{
                       minHeight: 200,
@@ -209,7 +236,7 @@ const AddAnnouncement = (props: any) => {
                       values.description = item;
                       handleChange("description")(item);
                     }}
-                  />
+                  /> */}
                   {/* code will be in need */}
                   {/* <RichToolbar
                     actions={[actions.insertLink]}

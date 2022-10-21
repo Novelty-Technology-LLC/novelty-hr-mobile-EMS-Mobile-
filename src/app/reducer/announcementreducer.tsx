@@ -28,22 +28,22 @@ const reducer = (state: any = initialState, action: any) => {
         ],
       };
     case "UPDATE_ANNOUNCEMENT":
-      // const updatedEmployees = state.announcementData.map((employee: any) => {
-      //   if (employee.id === action.payload.index) {
-      //     return action.payload.announcementData;
-      //   }
-      //   return employee;
-      // });
-
-      // return {
-      //   ...state,
-      //   announcementData: updatedEmployees,
-      // };
-      const oldData = state?.announcementData?.filter((item: any) => {
-        return item.id !== action?.payload?.index;
+      const updatedEmployees = state.announcementData.map((employee: any) => {
+        if (employee.id === action.payload.index) {
+          return action.payload.announcementData;
+        }
+        return employee;
       });
-      const newData = [action?.state?.announcementData].concat(oldData);
-      return { ...state, announcementData: newData };
+
+      return {
+        ...state,
+        announcementData: updatedEmployees,
+      };
+    // const oldData = state?.announcementData?.filter((item: any) => {
+    //   return item.id !== action?.payload?.index;
+    // });
+    // const newData = [action?.state?.announcementData].concat(oldData);
+    // return { ...state, announcementData: newData };
     case "DELETE_ANNOUNCEMENT_DATA":
       const deleteAnnouncemnttData = state?.announcementData?.filter(
         (item: any) => item.id !== action?.payload?.id
