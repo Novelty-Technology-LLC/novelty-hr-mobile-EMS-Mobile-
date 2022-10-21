@@ -1,24 +1,8 @@
-import React, { useState } from "react";
-import { View, Text, Platform, TouchableOpacity } from "react-native";
-import colors from "../../../assets/colors";
-import {
-  cardStyle,
-  listStyle,
-  theme,
-  timeLogStyle,
-} from "../../../assets/styles";
-import { getColor, transformDate } from "../../utils/listtranform";
-import normalize from "../../utils/normalize";
-import { useWindowDimensions } from "react-native";
-import { RenderHtmlComponent } from "../renderHtml";
-import { responseDay } from "../../utils/getDay";
-import { getLeaveOption } from "../../utils/getLeaveType";
-import { OverlappingAvatars } from "../overlappingAvatars";
-import { getShortDate } from "../../utils/dateMapper";
-import { FlatList } from "react-native-gesture-handler";
+import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { cardStyle, listStyle } from "../../../assets/styles";
 import { navigate } from "../../utils/navigation";
 import { formatFullName } from "../../utils/constants";
-// import { getShortDate } from "../../utils";
 
 const ShoutoutListItem = ({
   receiver,
@@ -43,6 +27,7 @@ const ShoutoutListItem = ({
 }) => {
   const receiverData: any = receiver;
   const senderData: any = shoutout_from;
+  const length = receiver.length;
 
   return (
     <TouchableOpacity
@@ -87,10 +72,11 @@ const ShoutoutListItem = ({
           }}
         >
           <Text style={[cardStyle.subTitleText]}>
-            {receiverData.map((item: any) => {
-              return (
-                formatFullName(item.first_name, item.last_name) + "," + " "
-              );
+            {receiverData.map((item: any, index: any) => {
+              {
+                const plus = length - 1 === index ? "" : ",";
+                return formatFullName(item.first_name, item.last_name) + plus;
+              }
             })}
           </Text>
           <Text style={[cardStyle.subTitleText]}> received shoutout from </Text>
