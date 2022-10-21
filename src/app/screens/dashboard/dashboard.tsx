@@ -157,24 +157,23 @@ const DashBoard = () => {
         setAnnouncementLoading(true);
         setshoutoutLoading(true);
         setCardLoading(true);
-
-        let dashboardData: any;
         await Promise.all([
           getDashboard(),
           fetchLeave(),
           fetchAnnouncements(),
           getShoutList(moment(), moment())
         ]).then(values => {
-          dashboardData = values[0];
+          const dashboardData: any = values[0];
+
+          setAnnouncementLoading(false);
+          setshoutoutLoading(false);
+
+          setListData(dashboardData);
+          setCardLoading(false);
+
+          setRefreshing(false);
         })
 
-        setAnnouncementLoading(false);
-        setshoutoutLoading(false);
-
-        setListData(dashboardData);
-        setCardLoading(false);
-
-        setRefreshing(false);
       } catch (error) {
         setRefreshing(false);
       }
