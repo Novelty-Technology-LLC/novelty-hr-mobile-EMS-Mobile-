@@ -30,11 +30,11 @@ const AnnouncementDetail = (props: any) => {
       <ScrollView>
         <View style={{ padding: 20 }}>
           <Text style={globalStyle.titleWeight}>{params?.title}</Text>
-          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} />
+          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }} />
           <Text
             style={[
-              cardStyle.dateText,
-              { alignSelf: "flex-end", fontSize: 12 },
+              cardStyle.subTitleText,
+              { alignSelf: "flex-end" },
             ]}
           >
             {getFullDate(params.date)}

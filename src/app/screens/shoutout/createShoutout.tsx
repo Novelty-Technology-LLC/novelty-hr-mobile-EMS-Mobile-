@@ -11,6 +11,7 @@ import { CustomButton } from '../../common/customButton';
 import { CustomTextInput } from '../../common/customTextInput';
 import { Space } from '../../common/space';
 import { AuthContext } from '../../reducer';
+import { ShoutoutContext } from '../../reducer/shoutoutReducer';
 import { createShoutout } from '../../services';
 import { navigationRef } from '../../utils/navigation';
 
@@ -18,6 +19,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { state, dispatch } = useContext(AuthContext);
     const employee = route.params;
+    const { dispatchShoutout } = useContext(ShoutoutContext);
 
     const submit = (shoutout: string) => {
         setIsSubmitting(true);
@@ -29,6 +31,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
         }
 
         createShoutout(submitData).then(() => {
+            dispatchShoutout({ type: 'UPDATE' });
             setIsSubmitting(false);
             showToast('Shoutout created successfully.');
             navigation.goBack();
