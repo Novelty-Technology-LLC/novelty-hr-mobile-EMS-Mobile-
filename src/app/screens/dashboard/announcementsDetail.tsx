@@ -22,9 +22,6 @@ const AnnouncementDetail = (props: any) => {
   const { state: auth }: any = useContext(AuthContext);
   const params = props?.route?.params;
 
-  // console.log(params?.date, getDateWithoutTZ(), "detail");
-  // console.log(params?.date?.slice(0, 10), "detaidatel");
-  // const sliceDate = params?.date?.slice(0, 10);
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
@@ -33,11 +30,11 @@ const AnnouncementDetail = (props: any) => {
       <ScrollView>
         <View style={{ padding: 20 }}>
           <Text style={globalStyle.titleWeight}>{params?.title}</Text>
-          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} />
+          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }} />
           <Text
             style={[
-              cardStyle.dateText,
-              { alignSelf: "flex-end", fontSize: 12 },
+              cardStyle.subTitleText,
+              { alignSelf: "flex-end" },
             ]}
           >
             {getFullDate(params.date)}

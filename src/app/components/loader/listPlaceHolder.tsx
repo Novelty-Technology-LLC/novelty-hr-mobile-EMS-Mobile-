@@ -35,10 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: normalize(20),
   },
-  wrapper: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
   main: {
     width: "100%",
     marginBottom: normalize(20),

@@ -123,7 +123,6 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
 
   // useEffect(() => {
   //     const unsubscribe = navigation.addListener('beforeRemove', (e: any) => {
-  //         console.log(isSubmitting)
   //         if (isSubmitting)
   //             e.preventDefault();
   //     });

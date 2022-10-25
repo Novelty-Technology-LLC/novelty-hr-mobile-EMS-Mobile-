@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../../assets/colors";
@@ -35,11 +35,13 @@ const List = ({ list }: { list: any }) => {
                   onPress={() => {
                     if (list?.module === "Announcements") {
                       navigate("announcementsDetails", {
-                        headerText: item.title,
-                        title: item.title,
-                        subTitle: item.subTitle,
-                        date: item.date,
-                        html: item.html,
+                        headerText: item?.title,
+                        title: item?.title,
+                        subTitle: item?.subTitle,
+                        date: item?.date,
+                        html: item?.html,
+                        id: item?.id,
+                        dashboard: true,
                       });
                     } else if (list?.module === "shoutout") {
                       null;
@@ -67,9 +69,10 @@ const List = ({ list }: { list: any }) => {
                 </TouchableOpacity>
               );
             })}
+          {}
           {list?.module === "shoutout" && (
             <FlatList
-              keyExtractor={(item) => item.id.toString()}
+              keyExtractor={(item) => item?.id.toString()}
               data={list?.items}
               renderItem={({ item, index }) => {
                 return (

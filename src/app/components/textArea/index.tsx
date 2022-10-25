@@ -37,41 +37,44 @@ export const CustomTextArea = ({
   return (
     <Textarea
       ref={descriptionRef}
-      // containerStyle={[textAreaStyle.textareaContainer, commonInputFieldStyle.field]}
+      containerStyle={[
+        textAreaStyle.textareaContainer,
+        commonInputFieldStyle.field,
+      ]}
       style={[
         textAreaStyle.textarea,
-        {
-          ...commonInputFieldStyle.floatingFieldContainer,
-          borderColor: colors.darkBlack,
-          shadowColor: "grey",
-          ...Platform.select({
-            android: {
-              elevation: 4,
-              shadowOpacity: 0.9,
-              shadowRadius: 8,
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-            },
-            ios: {
-              padding: 7,
-              elevation: 1,
-              shadowOpacity: 0.3,
-              shadowRadius: 3,
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-            },
-          }),
-        },
+        // {
+        //   ...commonInputFieldStyle.floatingFieldContainer,
+        //   borderColor: colors.darkBlack,
+        //   shadowColor: "grey",
+        //   ...Platform.select({
+        //     android: {
+        //       elevation: 4,
+        //       shadowOpacity: 0.9,
+        //       shadowRadius: 8,
+        //       shadowOffset: {
+        //         width: 0,
+        //         height: 3,
+        //       },
+        //     },
+        //     ios: {
+        //       padding: 7,
+        //       elevation: 1,
+        //       shadowOpacity: 0.3,
+        //       shadowRadius: 3,
+        //       shadowOffset: {
+        //         width: 0,
+        //         height: 3,
+        //       },
+        //     },
+        //   }),
+        // },
       ]}
       defaultValue={defaultValue}
       onChangeText={onChange}
       maxLength={maxLength}
       placeholder={placeholder}
-      placeholderTextColor="#3E3E3F"
+      placeholderTextColor={colors.fontGrey}
       underlineColorAndroid="transparent"
     />
   );

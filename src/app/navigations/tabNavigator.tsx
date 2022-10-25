@@ -23,13 +23,13 @@ import { navigate } from "../utils/navigation";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch }: any = useContext(AuthContext);
 
   useEffect(() => {
     const initialNotification = () => {
       messaging()
         .getInitialNotification()
-        .then(async (remoteMessage) => {
+        .then(async (remoteMessage: any) => {
           if (remoteMessage && Object.keys(remoteMessage.data).length) {
             if (remoteMessage.data.type === "announcements") {
               try {
@@ -69,9 +69,9 @@ const TabNavigator = () => {
 
   useEffect(() => {
     requestUserPermission();
-    messaging().onNotificationOpenedApp(async (remoteMessage) => {
-      if (remoteMessage && Object.keys(remoteMessage.data).length) {
-        if (remoteMessage.data.type === "announcements") {
+    messaging().onNotificationOpenedApp(async (remoteMessage: any) => {
+      if (remoteMessage && Object.keys(remoteMessage?.data).length) {
+        if (remoteMessage?.data.type === "announcements") {
           try {
             var response: any = await getRequest(
               "/webportal/announcements",
@@ -96,8 +96,8 @@ const TabNavigator = () => {
             });
           } catch (error) {}
         } else {
-          dispatch({ type: "Notification", payload: remoteMessage.data });
-          Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
+          dispatch({ type: "Notification", payload: remoteMessage?.data });
+          Linking.openURL(`noveltyhrmobile://${remoteMessage?.data?.url}`);
         }
       }
     });
@@ -111,12 +111,12 @@ const TabNavigator = () => {
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-    let user = await getUser();
+    let user: any = await getUser();
     user = JSON.parse(user);
     const device_id = await getUniqueId();
 
     const isValid = user.device_tokens?.some(
-      (item) =>
+      (item: any) =>
         item.user_id === user.id &&
         item.device_id === device_id &&
         item.notification_token === token
@@ -130,7 +130,7 @@ const TabNavigator = () => {
     };
 
     if (!isValid) {
-      store(data).then(async (data) => {
+      store(data).then(async (data: any) => {
         await removeUser(),
           await removeToken(),
           await setUser(data),

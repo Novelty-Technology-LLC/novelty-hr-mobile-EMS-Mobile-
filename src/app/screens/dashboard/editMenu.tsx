@@ -35,11 +35,11 @@ export const EditMenu = ({ navigation, route }: any) => {
   const onSubmit = () => {
     setIsLoading(true);
     menuServices
-      .editMenu(item.id, menuText)
+      .editMenu(item?.id, menuText)
       .then(() => {
         dispatchMenu({
           type: "UPDATE_ITEM",
-          payload: { id: item.id, value: menuText },
+          payload: { id: item?.id, value: menuText },
         });
         showToast("Menu updated successfully.");
 

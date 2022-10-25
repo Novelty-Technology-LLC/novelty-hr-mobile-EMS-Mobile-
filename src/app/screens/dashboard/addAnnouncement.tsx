@@ -25,6 +25,7 @@ import { customTextFieldStyles } from "../../../assets/styles/common/custom_text
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
+import { CustomTextArea } from "../../components/textArea";
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -42,6 +43,7 @@ const AddAnnouncement = (props: any) => {
   const navigation: any = useNavigation();
   const { state, dispatch }: any = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
+  const dashboard = props?.route?.params?.data?.dashboard ?? false;
   const updateData = props?.route?.params?.data ?? " ";
   const titleRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -58,20 +60,21 @@ const AddAnnouncement = (props: any) => {
     html: "",
     date: todayDate,
   });
+
   const announcementId = props?.route?.params?.data?.id;
 
   useEffect(() => {
     isEdit
       ? setAnnouncementData({
-          ...announcementData,
-          title: updateData.title,
-          description: updateData.html,
-          date: todayDate,
-        })
+        ...announcementData,
+        title: updateData.title,
+        description: updateData.html,
+        date: todayDate,
+      })
       : setAnnouncementData({
-          ...announcementData,
-          date: todayDate,
-        });
+        ...announcementData,
+        date: todayDate,
+      });
   }, []);
   const onSubmit = async (values: any) => {
     setLoading(true);
@@ -79,7 +82,7 @@ const AddAnnouncement = (props: any) => {
       const payload = {
         ...values,
         date: todayDate,
-        html: values.description,
+        html: values.description.trim(),
         title: values.title.trim(),
       };
 
@@ -88,13 +91,13 @@ const AddAnnouncement = (props: any) => {
       const body = {
         ...values,
         title: values.title.trim(),
-        html: values.description,
+        html: values.description.trim(),
         date: todayDate.slice(0, 10),
       };
-      addAppoinmentData(body);
+      addAnnouncementData(body);
     }
   };
-  const addAppoinmentData = (payload: any) => {
+  const addAnnouncementData = (payload: any) => {
     addAnnouncementService(payload)
       .then((item: any) => {
         dispatch({
@@ -106,15 +109,6 @@ const AddAnnouncement = (props: any) => {
             },
           },
         });
-        // dispatch({
-        //   type: "SET_ANNOUNCEMENT",
-        //   payload: {
-        //     announcementData: {
-        //       ...payload,
-        //       id: item.data.data.id,
-        //     },
-        //   },
-        // });
         setLoading(false);
         goBack();
         showToast("Added Successfully");
@@ -125,7 +119,11 @@ const AddAnnouncement = (props: any) => {
         setError("something went wrong");
       });
   };
+<<<<<<< HEAD
   const updateAppoinmentData = async (payload: any, id: any) => {
+=======
+  const updateAppoinmentData = (payload: any, id: any) => {
+>>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
     updateAnnouncementService(payload, props?.route?.params?.data?.id)
       .then((item: any) => {
         dispatch({
@@ -135,16 +133,26 @@ const AddAnnouncement = (props: any) => {
             index: props?.route?.params?.data?.id,
           },
         });
+<<<<<<< HEAD
 
         setLoading(false);
         goBack();
         goBack();
         // navigation.popToTop();
+=======
+        setLoading(false);
+        goBack();
+        goBack();
+>>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
         setLoading(false);
+<<<<<<< HEAD
         showToast("something went wrong");
+=======
+        showToast("something went wrong", false);
+>>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
         setError("something went wrong");
       });
   };
@@ -195,7 +203,18 @@ const AddAnnouncement = (props: any) => {
                     error={errors.title}
                     touched={touched.title}
                   />
-
+                  {/* <CustomTextArea
+                    onChange={(item: any) => {
+                      values.description = item;
+                      handleChange("description")(item);
+                    }}
+                    descriptionRef={descriptionRef}
+                    defaultValue={values.description}
+                    placeholder="Description"
+                    returnKeyType={"done"}
+                    maxLength={255}
+                    keyboardType="default"
+                  /> */}
                   <RichEditor
                     useContainer={false}
                     containerStyle={{
@@ -211,7 +230,7 @@ const AddAnnouncement = (props: any) => {
                     placeholder={"Description"}
                     disabled={false}
                     onChange={(item: any) => {
-                      values.description = item;
+                      values.description = item.trim();
                       handleChange("description")(item);
                     }}
                   />
@@ -231,7 +250,7 @@ const AddAnnouncement = (props: any) => {
                     </Text>
                   )}
                   {(errors.description && touched.description) ===
-                  true ? null : (
+                    true ? null : (
                     <CustomDivider />
                   )}
                   <CustomButton

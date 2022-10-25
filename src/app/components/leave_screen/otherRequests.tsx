@@ -45,7 +45,7 @@ const OtherRequests = ({ refresh, params = 0 }: any) => {
               pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
             }
           }
-          const common = pastreq.map((item) => item.id);
+          const common = pastreq.map((item) => item?.id);
           if (common.includes(req.id)) return;
           myreq = myreq.concat(req);
           myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
