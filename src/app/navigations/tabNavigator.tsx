@@ -23,13 +23,13 @@ import { navigate } from "../utils/navigation";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch }: any = useContext(AuthContext);
 
   useEffect(() => {
     const initialNotification = () => {
       messaging()
         .getInitialNotification()
-        .then(async (remoteMessage) => {
+        .then(async (remoteMessage: any) => {
           if (remoteMessage && Object.keys(remoteMessage.data).length) {
             if (remoteMessage.data.type === "announcements") {
               try {
@@ -42,9 +42,11 @@ const TabNavigator = () => {
                 response.forEach((element: any): any => {
                   itemData.push(element);
                 });
-
+                const id = JSON.parse(
+                  remoteMessage.data.announcement_id.toString()
+                );
                 var findAnnouncement = response.find(
-                  (item: any) => item.id == +remoteMessage.data.announcement_id
+                  (item: any) => item.id == +id
                 );
                 navigate("announcementsDetails", {
                   id: findAnnouncement?.id,
@@ -67,7 +69,7 @@ const TabNavigator = () => {
 
   useEffect(() => {
     requestUserPermission();
-    messaging().onNotificationOpenedApp(async (remoteMessage) => {
+    messaging().onNotificationOpenedApp(async (remoteMessage: any) => {
       if (remoteMessage && Object.keys(remoteMessage?.data).length) {
         if (remoteMessage?.data.type === "announcements") {
           try {
@@ -80,10 +82,10 @@ const TabNavigator = () => {
             response.forEach((element: any): any => {
               itemData.push(element);
             });
-
-            var findAnnouncement = response.find(
-              (item: any) => item?.id == +remoteMessage?.data?.announcement_id
+            const id = JSON.parse(
+              remoteMessage.data.announcement_id.toString()
             );
+            var findAnnouncement = response.find((item: any) => item.id == +id);
             navigate("announcementsDetails", {
               id: findAnnouncement?.id,
               headerText: findAnnouncement?.title,
@@ -109,12 +111,12 @@ const TabNavigator = () => {
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-    let user = await getUser();
+    let user: any = await getUser();
     user = JSON.parse(user);
     const device_id = await getUniqueId();
 
     const isValid = user.device_tokens?.some(
-      (item) =>
+      (item: any) =>
         item.user_id === user.id &&
         item.device_id === device_id &&
         item.notification_token === token
@@ -128,7 +130,7 @@ const TabNavigator = () => {
     };
 
     if (!isValid) {
-      store(data).then(async (data) => {
+      store(data).then(async (data: any) => {
         await removeUser(),
           await removeToken(),
           await setUser(data),
