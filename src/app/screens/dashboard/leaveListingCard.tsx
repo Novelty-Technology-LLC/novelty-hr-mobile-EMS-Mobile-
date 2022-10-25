@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import State from "../../components/leave_screen/state";
 import {
   cardStyle,
@@ -21,8 +21,9 @@ import Svg, { Path } from "react-native-svg";
 import Shoutout from "./../../../assets/images/shoutout.svg";
 import { navigate } from "../../utils/navigation";
 import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
+import { RouteNames } from "../../constant/route_names";
 const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
-  const [se, us] = useState([{ src: item.image, errored: false }]);
+  const [se, us] = useState([{ src: item?.image, errored: false }]);
 
   return (
     <View
@@ -31,12 +32,13 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
         listingStyle.container,
         {
           borderBottomWidth: listLength - 1 === index ? 0 : 1,
+          // width: module === "employeeList" ? '60%' : undefined,
         },
       ]}
     >
       {module == "employeeList" && (
         <View style={{ marginRight: theme.size.lg }}>
-          <CustomImage style={style.headerImage} image={item.image} />
+          <CustomImage style={style.headerImage} image={item?.image} />
         </View>
       )}
       <View style={{ flex: 1 }}>
@@ -70,7 +72,8 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
           )}
         </View>
         {module == "Announcements" ? (
-          <RenderHtmlComponent htmlData={state?.html} />
+          <RenderHtmlComponent htmlData={state?.html} style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }} />
+          // <Text>{state?.html}</Text>
         ) : (
           <View style={cardStyle.icon}>
             <View
@@ -116,8 +119,8 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
         )}
       </View>
       {module == "employeeList" && (
-        <View style={{ marginRight: theme.size.lg }}>
-          <TouchableOpacity onPress={() => navigate("addAnnouncement")}>
+        <View >
+          <TouchableOpacity onPress={() => navigate(RouteNames.createShoutout, item)}>
             <Image
               source={require("./../../../assets/images/shoutout.png")}
               style={shoutoutDetailStyles.image}

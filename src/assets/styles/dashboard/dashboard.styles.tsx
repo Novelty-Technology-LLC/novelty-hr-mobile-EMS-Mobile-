@@ -10,7 +10,7 @@ const dashboardStyle = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingTop: normalize(15),
+    paddingTop: normalize(20),
     backgroundColor: colors.white,
     paddingHorizontal: normalize(20),
   },

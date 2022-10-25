@@ -61,15 +61,15 @@ const WorkFromHomeEmployeeListing = (props: any) => {
               <TouchableOpacity
                 onPress={() =>
                   navigate("employeeDetail", {
-                    id: item.id,
-                    image: item.res[0].image,
-                    name: item.res[0].title,
+                    id: item?.id,
+                    image: item?.res[0]?.image,
+                    name: item?.res[0]?.title,
                   })
                 }
               >
                 <ListingCard
                   index={index}
-                  item={item.res[0]}
+                  item={item?.res[0]}
                   list={list.length}
                   module="employeeList"
                 />

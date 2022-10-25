@@ -1,3 +1,4 @@
+import moment from "moment-timezone";
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
 import {
@@ -14,38 +15,33 @@ import {
 import { RequestButton } from "../../components/requestButton";
 import { AuthContext } from "../../reducer";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { getFullDate } from "../../utils";
+import { getDateWithoutTZ, getFullDate } from "../../utils";
 import { transformDate } from "../../utils/listtranform";
 
 const AnnouncementDetail = (props: any) => {
   const { state: auth }: any = useContext(AuthContext);
-  const { state }: any = useContext(AnnouncementContext);
   const params = props?.route?.params;
 
   return (
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
-        <Text style={headerTxtStyle.headerText}>
-          {params?.title?.length > 25
-            ? params?.title?.slice(0, 25) + "..."
-            : params?.title}
-        </Text>
+        <Text style={headerTxtStyle.headerText}>{params?.title}</Text>
       </Header>
       <ScrollView>
         <View style={{ padding: 20 }}>
           <Text style={globalStyle.titleWeight}>{params?.title}</Text>
-          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} />
+          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }} />
           <Text
             style={[
-              cardStyle.dateText,
-              { alignSelf: "flex-end", fontSize: 12 },
+              cardStyle.subTitleText,
+              { alignSelf: "flex-end" },
             ]}
           >
             {getFullDate(params.date)}
           </Text>
         </View>
       </ScrollView>
-      {+auth?.user?.is_approver === 1 && (
+      {+auth?.user?.is_approver === 1 && params.date === getDateWithoutTZ() && (
         <RequestButton
           floatingIcon='pencil'
           screen='addAnnouncement'

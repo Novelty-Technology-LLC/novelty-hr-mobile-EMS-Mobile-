@@ -4,6 +4,7 @@ import DropDownPicker, { DropDownPickerProps } from 'react-native-dropdown-picke
 import { customTextFieldStyles } from '../../assets/styles/common/custom_text_field.styles';
 import { dropDownInputStyles as styles } from '../../assets/styles/common/drop_down_input.styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AppIcon } from './icon';
 
 export const DropDownInput = ({
     error,
@@ -19,7 +20,7 @@ export const DropDownInput = ({
     return (
         <View style={customTextFieldStyles.textinputContainer}>
             <View style={styles.innerContainer}>
-                {icon && <Icon
+                {icon && <AppIcon
                     name={icon}
                     style={styles.icon}
                 />}

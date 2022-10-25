@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { Alert, button as Button, showToast, snackErrorBottom } from '../../common';
-import { dataType } from '../../interface';
-import { EditAlert } from './responseAlert';
-import { checkRequest } from '../../services';
+import React, { useState } from "react";
+import { View, Text } from "react-native";
+import {
+  Alert,
+  button as Button,
+  showToast,
+  snackErrorBottom,
+} from "../../common";
+import { dataType } from "../../interface";
+import { EditAlert } from "./responseAlert";
+import { checkRequest } from "../../services";
 
 interface approveDenyPropType {
   title: string;
@@ -33,12 +38,12 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
       <Button
         onPress={() => {
           setisLoading(true);
-          checkRequest(item.id)
+          checkRequest(item?.id)
             .then((res) => {
-              if (res === 'Pending' || res === 'In Progress') {
+              if (res === "Pending" || res === "In Progress") {
                 setShow(true);
               } else {
-                showToast(`Request got ${res}`,false);
+                showToast(`Request got ${res}`, false);
               }
               setisLoading(false);
             })
@@ -47,9 +52,9 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
         disabled={isLoading}
       >
         <View
-          style={title === 'Approve' ? style.buttonApprove : style.buttonDeny}
+          style={title === "Approve" ? style.buttonApprove : style.buttonDeny}
         >
-          <Text style={title === 'Approve' ? style.approve : style.deny}>
+          <Text style={title === "Approve" ? style.approve : style.deny}>
             {title}
           </Text>
         </View>

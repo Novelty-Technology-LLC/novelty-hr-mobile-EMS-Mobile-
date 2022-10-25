@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { View, TextInput, Text, TextInputProps, StyleProp, ViewStyle } from 'react-native';
 import { customTextFieldStyles as styles } from '../../assets/styles/common/custom_text_field.styles'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AppIcon } from './icon';
 
 export const CustomTextInput = forwardRef(({
   error,
@@ -24,7 +24,7 @@ export const CustomTextInput = forwardRef(({
   return (
     <View style={[styles.textinputContainer, style]}>
       <View style={styles.innerContainer}>
-        {icon && <Icon
+        {icon && <AppIcon
           name={icon}
           style={styles.icon}
         />}

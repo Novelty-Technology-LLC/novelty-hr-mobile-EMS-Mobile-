@@ -3,11 +3,13 @@ import { StyleSheet } from "react-native";
 import { Linking, useWindowDimensions } from "react-native";
 import HTMLView from "react-native-htmlview";
 import colors from "../../assets/colors";
-const RenderHtmlComponent = ({ htmlData, parse = false }: any) => {
+const RenderHtmlComponent = ({ htmlData, parse = false, style }: any) => {
   const { width } = useWindowDimensions();
   const webViewStyle = StyleSheet.create({
-    p: { color: colors.black },
+
+    // p: { color: colors.red },
     a: { color: "green" },
+    ...style,
   });
   return (
     <HTMLView
@@ -18,8 +20,8 @@ const RenderHtmlComponent = ({ htmlData, parse = false }: any) => {
         parse
           ? { htmlData }
           : htmlData?.length > 50
-          ? htmlData?.slice(0, 50) + "..."
-          : htmlData
+            ? htmlData?.slice(0, 50) + "..."
+            : htmlData
       }
     />
   );
@@ -27,11 +29,13 @@ const RenderHtmlComponent = ({ htmlData, parse = false }: any) => {
 const RenderHtmlComponentForAnnoucementDetail = ({
   htmlData,
   parse = false,
+  style,
 }: any) => {
   const { width } = useWindowDimensions();
   const webViewStyle = StyleSheet.create({
     p: { color: colors.darkBlue },
     a: { color: colors.darkBlue },
+    ...style,
   });
 
   return (

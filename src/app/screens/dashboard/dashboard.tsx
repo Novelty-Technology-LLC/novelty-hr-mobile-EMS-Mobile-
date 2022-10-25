@@ -10,7 +10,11 @@ import {
   BackHandler,
 } from "react-native";
 import { AuthContext } from "../../reducer";
-import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
+import {
+  dashboardStyle as ds,
+  headerTxtStyle,
+  listStyle,
+} from "../../../assets/styles";
 import { Cards, header as Header, List, showToast } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
@@ -30,8 +34,15 @@ import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
 import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
+import { AnnouncementContext } from "../../reducer/announcementreducer";
+import { RouteNames } from "../../constant/route_names";
+import { ShoutoutContext } from "../../reducer/shoutoutReducer";
 
 const DashBoard = () => {
+  const { state: announcementState, dispatch }: any =
+    useContext(AnnouncementContext);
+
+  const { shoutoutState } = useContext(ShoutoutContext);
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
@@ -54,15 +65,12 @@ const DashBoard = () => {
   }, []);
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
-      const list = data.slice(0, 3);
-      setshoutoutLoading(true);
+      const list = data.sort().reverse().slice(0, 3);
       setshoutout(list);
-      setshoutoutLoading(false);
     });
   };
 
   useEffect(() => {
-    getShoutList(moment(), moment());
     BackHandler.addEventListener("hardwareBackPress", () => {
       if (getCurrentRouteName() === "dashboard") {
         BackHandler.exitApp();
@@ -106,17 +114,24 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state, refreshing]);
 
+  // update shoutout list when new shoutout is created
   useEffect(() => {
-    state?.user?.id && fetchLeave();
-  }, [refreshing]);
+    if (shoutoutState.needUpdate !== -1) {
+      getShoutList(moment(), moment());
+    }
+  }, [shoutoutState]);
+
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
-
+      await dispatch({
+        type: "SET_ANNOUNCEMENT_DATA",
+        payload: { announcementData: response },
+      });
       setAnnouncements(response);
-    } catch (error) {}
+    } catch (error) { }
   };
   const fetchLeave = async () => {
     try {
@@ -134,24 +149,31 @@ const DashBoard = () => {
       } else {
         setLeaveStatus(false);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     (async () => {
       try {
         setAnnouncementLoading(true);
-
+        setshoutoutLoading(true);
         setCardLoading(true);
-        const data: any = await getDashboard();
+        await Promise.all([
+          getDashboard(),
+          fetchLeave(),
+          fetchAnnouncements(),
+          getShoutList(moment(), moment())
+        ]).then(values => {
+          const dashboardData: any = values[0];
 
-        await fetchLeave();
+          setAnnouncementLoading(false);
+          setshoutoutLoading(false);
 
-        await fetchAnnouncements();
+          setListData(dashboardData);
+          setCardLoading(false);
 
-        setAnnouncementLoading(false);
-        setListData(data);
-        setRefreshing(false);
-        setCardLoading(false);
+          setRefreshing(false);
+        })
+
       } catch (error) {
         setRefreshing(false);
       }
@@ -270,22 +292,22 @@ const DashBoard = () => {
           )}
         </View>
 
-        <View style={{ width: "100%", paddingVertical: 25 }}>
-          {!announcementLoading ? (
+        {!announcementLoading ? (
+          <View style={{ width: "100%", paddingVertical: 25 }}>
             <List
               list={{
                 module: "Announcements",
                 message: "No Upcoming Announcements",
-                items: announcements,
+                items: announcementState.announcementData,
                 detailRoute: "announcementsListing",
               }}
             />
-          ) : (
-            <DashboardCardPlaceholder />
-          )}
-        </View>
-        <View style={{ width: "100%", paddingBottom: 25 }}>
-          {!shoutoutLoading ? (
+          </View>
+        ) : (
+          <DashboardCardPlaceholder />
+        )}
+        {!shoutoutLoading ? (
+          <View style={{ width: "100%", paddingBottom: 25 }}>
             <List
               list={{
                 module: "shoutout",
@@ -294,10 +316,10 @@ const DashBoard = () => {
                 detailRoute: "shoutoutDetail",
               }}
             />
-          ) : (
-            <DashboardCardPlaceholder />
-          )}
-        </View>
+          </View>
+        ) : (
+          <DashboardCardPlaceholder />
+        )}
       </ScrollView>
     </View>
   );
