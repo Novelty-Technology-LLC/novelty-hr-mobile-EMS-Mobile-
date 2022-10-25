@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import State from "../../components/leave_screen/state";
 import {
   cardStyle,
@@ -109,7 +109,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
                 >{`${item?.work_shift}`}</Text>
               </View>
             )}
-            {item?.leave_option && item?.leave_option !== "FULL DAY" && (
+            {item?.leave_option && (
               <Text style={cardStyle.subTitleText}>
                 {getLeaveOption(item?.leave_option)}
               </Text>
@@ -118,8 +118,10 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
         )}
       </View>
       {module == "employeeList" && (
-        <View >
-          <TouchableOpacity onPress={() => navigate(RouteNames.createShoutout, item)}>
+        <View>
+          <TouchableOpacity
+            onPress={() => navigate(RouteNames.createShoutout, item)}
+          >
             <Image
               source={require("./../../../assets/images/shoutout.png")}
               style={shoutoutDetailStyles.image}
