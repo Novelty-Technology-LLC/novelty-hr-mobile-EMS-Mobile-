@@ -66,10 +66,6 @@ const DashBoard = () => {
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
       const list = data.sort().reverse().slice(0, 3);
-<<<<<<< HEAD
-      setshoutoutLoading(true);
-=======
->>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
       setshoutout(list);
       setshoutoutLoading(false);
     });
@@ -166,8 +162,8 @@ const DashBoard = () => {
           getDashboard(),
           fetchLeave(),
           fetchAnnouncements(),
-          getShoutList(moment(), moment())
-        ]).then(values => {
+          getShoutList(moment(), moment()),
+        ]).then((values) => {
           const dashboardData: any = values[0];
 
           setAnnouncementLoading(false);
@@ -177,8 +173,7 @@ const DashBoard = () => {
           setCardLoading(false);
 
           setRefreshing(false);
-        })
-
+        });
       } catch (error) {
         setRefreshing(false);
       }

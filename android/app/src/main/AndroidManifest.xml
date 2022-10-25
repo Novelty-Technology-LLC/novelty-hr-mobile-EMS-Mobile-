@@ -48,10 +48,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-<<<<<<< HEAD
-=======
            
->>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize"

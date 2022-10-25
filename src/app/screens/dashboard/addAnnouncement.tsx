@@ -66,15 +66,15 @@ const AddAnnouncement = (props: any) => {
   useEffect(() => {
     isEdit
       ? setAnnouncementData({
-        ...announcementData,
-        title: updateData.title,
-        description: updateData.html,
-        date: todayDate,
-      })
+          ...announcementData,
+          title: updateData.title,
+          description: updateData.html,
+          date: todayDate,
+        })
       : setAnnouncementData({
-        ...announcementData,
-        date: todayDate,
-      });
+          ...announcementData,
+          date: todayDate,
+        });
   }, []);
   const onSubmit = async (values: any) => {
     setLoading(true);
@@ -119,11 +119,7 @@ const AddAnnouncement = (props: any) => {
         setError("something went wrong");
       });
   };
-<<<<<<< HEAD
-  const updateAppoinmentData = async (payload: any, id: any) => {
-=======
   const updateAppoinmentData = (payload: any, id: any) => {
->>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
     updateAnnouncementService(payload, props?.route?.params?.data?.id)
       .then((item: any) => {
         dispatch({
@@ -133,26 +129,14 @@ const AddAnnouncement = (props: any) => {
             index: props?.route?.params?.data?.id,
           },
         });
-<<<<<<< HEAD
-
         setLoading(false);
         goBack();
         goBack();
-        // navigation.popToTop();
-=======
-        setLoading(false);
-        goBack();
-        goBack();
->>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
         showToast("Update Successfully");
       })
       .catch(async (err: any) => {
         setLoading(false);
-<<<<<<< HEAD
-        showToast("something went wrong");
-=======
         showToast("something went wrong", false);
->>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
         setError("something went wrong");
       });
   };
@@ -250,7 +234,7 @@ const AddAnnouncement = (props: any) => {
                     </Text>
                   )}
                   {(errors.description && touched.description) ===
-                    true ? null : (
+                  true ? null : (
                     <CustomDivider />
                   )}
                   <CustomButton

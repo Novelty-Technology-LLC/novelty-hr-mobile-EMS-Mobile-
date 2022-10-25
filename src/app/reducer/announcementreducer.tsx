@@ -28,20 +28,6 @@ const reducer = (state: any = initialState, action: any) => {
         ],
       };
     case "UPDATE_ANNOUNCEMENT":
-<<<<<<< HEAD
-      // const findIndex = state.announcementData.findIndex((findItem: any) => {
-      //   return +findItem.id === +action.payload.index;
-      // });
-      const deleteAnnouncemnttDatas = state?.announcementData?.filter(
-        (item: any) => item.id !== +action.payload.index
-      );
-
-      const newData = [action.payload.announcementData].concat(
-        deleteAnnouncemnttDatas
-      );
-
-      return { ...state, announcementData: newData };
-=======
       const updatedEmployees = state.announcementData.map((employee: any) => {
         if (employee.id === action.payload.index) {
           return action.payload.announcementData;
@@ -58,7 +44,6 @@ const reducer = (state: any = initialState, action: any) => {
     // });
     // const newData = [action?.state?.announcementData].concat(oldData);
     // return { ...state, announcementData: newData };
->>>>>>> 98ac482b9958fd55d7241dc782d95edcc6d73b95
     case "DELETE_ANNOUNCEMENT_DATA":
       const deleteAnnouncemnttData = state?.announcementData?.filter(
         (item: any) => item.id !== action?.payload?.id
