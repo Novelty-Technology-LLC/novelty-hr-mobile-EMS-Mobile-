@@ -18,6 +18,7 @@ import { ApplicationProvider } from "@ui-kitten/components";
 import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
 import {
   approveRequest,
+  fonts,
   headerTxtStyle,
   requestLeave as style,
 } from "../../../assets/styles";
@@ -44,6 +45,8 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
+import { Size } from "@ui-kitten/components/devsupport";
+import normalize from "react-native-normalize";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -60,12 +63,15 @@ const validationSchema = Yup.object().shape({
 
 const RequestLeave = ({ route }: any) => {
   const olddata = route.params;
+
   const navigation = useNavigation();
   const { state } = useContext(AuthContext);
   const { dispatchRequest, requests } = useContext(RequestContext);
   const [isLoading, setisLoading] = useState(false);
+  const [quotaMsg, setQuota] = useState("");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   let leave_option = "FULL DAY";
+
   const initialValues = {
     date: olddata ? olddata.date : "",
     type: olddata ? olddata.type : "PAID TIME OFF",
@@ -118,8 +124,9 @@ const RequestLeave = ({ route }: any) => {
   }, []);
   const showQuotaToast = () => {
     const response = requests?.quota?.map((item: any) => item?.leave_used <= 0);
+
     const leaveQuotaBool = response?.every((element: any) => element === true);
-    !leaveQuotaBool && showToast("Your leave is <=0", false);
+    leaveQuotaBool && setQuota("You have exceeded your leave quota.");
   };
   const updateLeaveOption = () => {
     if (olddata?.leave_option === "FIRST HALF") {
@@ -271,6 +278,8 @@ const RequestLeave = ({ route }: any) => {
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
+              {quotaMsg ? <Text style={style.quotaMsg}>{quotaMsg}</Text> : null}
+
               <CalendarComponent
                 style={style}
                 handleChange={handleChange}

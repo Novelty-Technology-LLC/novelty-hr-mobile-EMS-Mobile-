@@ -1,7 +1,8 @@
-import { Platform, StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import color from '../../colors';
-import { theme, fonts } from '../theme';
+import { Platform, StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import color from "../../colors";
+import { theme, fonts } from "../theme";
 
 const requestLeave = StyleSheet.create({
   container: {
@@ -10,7 +11,7 @@ const requestLeave = StyleSheet.create({
   },
   calendar: {
     borderWidth: 0,
-    width: 'auto',
+    width: "auto",
   },
   error: {
     color: color.red,
@@ -19,13 +20,13 @@ const requestLeave = StyleSheet.create({
   },
   buttonView: {
     marginTop: normalize(5),
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: color.primary,
     marginHorizontal: normalize(19),
     marginBottom: normalize(20),
-    overflow: 'hidden',
+    overflow: "hidden",
     ...Platform.select({
       ios: {
         borderRadius: normalize(4),
@@ -53,6 +54,13 @@ const requestLeave = StyleSheet.create({
     paddingVertical: normalize(13),
     color: color.white,
     fontSize: normalize(theme.size.normal),
+  },
+  quotaMsg: {
+    color: colors.red,
+    fontFamily: fonts.poppinsRegular,
+    marginHorizontal: normalize(20),
+    marginTop: normalize(20),
+    fontSize: normalize(13),
   },
 });
 
