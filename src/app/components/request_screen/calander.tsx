@@ -3,7 +3,11 @@ import { RangeCalendar, Calendar } from "@ui-kitten/components";
 import { Text, View } from "react-native";
 import moment from "moment";
 import { MomentDateService } from "@ui-kitten/moment";
-import { dateStringMapper, checkRepeat } from "../../utils";
+import {
+  dateStringMapper,
+  checkRepeat,
+  checkRepeatLeaveDays,
+} from "../../utils";
 import { calenderStyle, timeLogStyle } from "../../../assets/styles";
 import { momentdate } from "../../utils/momentDate";
 import colors from "../../../assets/colors";
@@ -27,6 +31,8 @@ const CalendarComponent = ({
   modal,
   olddata_id,
 }: calenderPropType) => {
+  const currentDate = new Date();
+
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
@@ -59,7 +65,7 @@ const CalendarComponent = ({
     if (date.getDay() !== 0 && date.getDay() !== 6) {
       reviewed.map((req) => {
         if (
-          checkRepeat(
+          checkRepeatLeaveDays(
             req.leave_date,
             JSON.stringify({ startDate: date, endDate: date })
           )
@@ -147,13 +153,13 @@ const CalendarComponent = ({
               setDate(nextRange);
               handleChange(nextRange);
             }}
-            name="date"
-            label="date"
+            name='date'
+            label='date'
           />
         </View>
       ) : (
         <RangeCalendar
-          max={new Date(2022, 12)}
+          max={new Date(currentDate.getFullYear() + 1, 7)}
           min={new Date(2020, 6)}
           filter={filter}
           range={range}
@@ -161,8 +167,8 @@ const CalendarComponent = ({
             setrange(nextRange);
           }}
           style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
-          name="date"
-          label="date"
+          name='date'
+          label='date'
           renderDay={DayCell}
         />
       )}
