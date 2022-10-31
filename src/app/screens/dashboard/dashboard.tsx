@@ -131,7 +131,7 @@ const DashBoard = () => {
         payload: { announcementData: response },
       });
       setAnnouncements(response);
-    } catch (error) { }
+    } catch (error) {}
   };
   const fetchLeave = async () => {
     try {
@@ -149,7 +149,7 @@ const DashBoard = () => {
       } else {
         setLeaveStatus(false);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
     (async () => {
@@ -161,8 +161,8 @@ const DashBoard = () => {
           getDashboard(),
           fetchLeave(),
           fetchAnnouncements(),
-          getShoutList(moment(), moment())
-        ]).then(values => {
+          getShoutList(moment(), moment()),
+        ]).then((values) => {
           const dashboardData: any = values[0];
 
           setAnnouncementLoading(false);
@@ -172,8 +172,7 @@ const DashBoard = () => {
           setCardLoading(false);
 
           setRefreshing(false);
-        })
-
+        });
       } catch (error) {
         setRefreshing(false);
       }

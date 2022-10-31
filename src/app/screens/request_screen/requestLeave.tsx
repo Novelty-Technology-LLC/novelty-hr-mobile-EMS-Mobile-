@@ -113,6 +113,12 @@ const RequestLeave = ({ route }: any) => {
     updateLeaveOption();
   }, [olddata]);
 
+  useEffect(() => {
+    const response = requests?.quota?.map((item: any) => item?.leave_used <= 0);
+    const leaveQuotaBool = response?.every((element: any) => element === true);
+    !leaveQuotaBool && showToast("Your leave is 0", false);
+  }, []);
+
   const updateLeaveOption = () => {
     if (olddata?.leave_option === "FIRST HALF") {
       setSelectedIndex(1);
