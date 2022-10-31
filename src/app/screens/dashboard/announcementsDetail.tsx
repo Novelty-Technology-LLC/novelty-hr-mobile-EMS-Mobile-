@@ -8,15 +8,11 @@ import {
   listingStyle,
 } from "../../../assets/styles";
 import { header as Header } from "../../common";
-import {
-  RenderHtmlComponent,
-  RenderHtmlComponentForAnnoucementDetail,
-} from "../../common/renderHtml";
+import { RenderHtmlComponentForAnnoucementDetail } from "../../common/renderHtml";
 import { RequestButton } from "../../components/requestButton";
 import { AuthContext } from "../../reducer";
-import { AnnouncementContext } from "../../reducer/announcementreducer";
+
 import { getDateWithoutTZ, getFullDate } from "../../utils";
-import { transformDate } from "../../utils/listtranform";
 
 const AnnouncementDetail = (props: any) => {
   const { state: auth }: any = useContext(AuthContext);
@@ -30,21 +26,19 @@ const AnnouncementDetail = (props: any) => {
       <ScrollView>
         <View style={{ padding: 20 }}>
           <Text style={globalStyle.titleWeight}>{params?.title}</Text>
-          <RenderHtmlComponentForAnnoucementDetail htmlData={params?.html} style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }} />
-          <Text
-            style={[
-              cardStyle.subTitleText,
-              { alignSelf: "flex-end" },
-            ]}
-          >
+          <RenderHtmlComponentForAnnoucementDetail
+            htmlData={params?.html}
+            style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }}
+          />
+          <Text style={[cardStyle.subTitleText, { alignSelf: "flex-end" }]}>
             {getFullDate(params.date)}
           </Text>
         </View>
       </ScrollView>
       {+auth?.user?.is_approver === 1 && params.date === getDateWithoutTZ() && (
         <RequestButton
-          floatingIcon="pencil"
-          screen="addAnnouncement"
+          floatingIcon='pencil'
+          screen='addAnnouncement'
           olddata={{ isEdit: true, data: params }}
         />
       )}

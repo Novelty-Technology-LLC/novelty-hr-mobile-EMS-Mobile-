@@ -98,7 +98,7 @@ const AnnouncementListing = (props: any) => {
         />
       )}
       {+auth?.user?.is_approver === 1 && (
-        <RequestButton screen="addAnnouncement" />
+        <RequestButton screen='addAnnouncement' />
       )}
     </View>
   );

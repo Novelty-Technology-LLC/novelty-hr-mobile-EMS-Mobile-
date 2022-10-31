@@ -4,11 +4,7 @@ import { fonts, headerTxtStyle, theme } from "../../../assets/styles";
 import { Formik } from "formik";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { CustomDivider } from "../../common/divider";
-import {
-  actions,
-  RichEditor,
-  RichToolbar,
-} from "react-native-pell-rich-editor";
+import { RichEditor } from "react-native-pell-rich-editor";
 import moment from "moment";
 import {
   addAnnouncementService,
@@ -23,9 +19,9 @@ import { goBack } from "../../utils/navigation";
 import colors from "../../../assets/colors";
 import { customTextFieldStyles } from "../../../assets/styles/common/custom_text_field.styles";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { announcementValidationSchema } from "../../../validation/announcementValidationSchema";
-import { CustomTextArea } from "../../components/textArea";
+
 const now = new Date();
 const date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 export const formatDateToISO = (date: any) => moment(date)?.toISOString();
@@ -40,8 +36,7 @@ export const formatDate = (date: any, format = "L") => {
   }
 };
 const AddAnnouncement = (props: any) => {
-  const navigation: any = useNavigation();
-  const { state, dispatch }: any = useContext(AnnouncementContext);
+  const { dispatch }: any = useContext(AnnouncementContext);
   const isEdit = props?.route?.params?.isEdit ?? false;
   const dashboard = props?.route?.params?.data?.dashboard ?? false;
   const updateData = props?.route?.params?.data ?? " ";
@@ -76,27 +71,25 @@ const AddAnnouncement = (props: any) => {
           date: todayDate,
         });
   }, []);
+
   const onSubmit = async (values: any) => {
+    const payload = {
+      ...values,
+      date: todayDate,
+      html: values.description.replace(/&nbsp;/g, "").trim(),
+      description: values.description
+        .replace(/(<([^>]+)>)/gi, "")
+        .replace(/&nbsp;/g, ""),
+      title: values.title.replace(/^\s+|\s+$/gm, ""),
+    };
     setLoading(true);
     if (isEdit) {
-      const payload = {
-        ...values,
-        date: todayDate,
-        html: values.description.trim(),
-        title: values.title.trim(),
-      };
-
-      updateAppoinmentData(payload, announcementId);
+      updateAppoinmentData({ ...payload, date: todayDate }, announcementId);
     } else {
-      const body = {
-        ...values,
-        title: values.title.trim(),
-        html: values.description.trim(),
-        date: todayDate.slice(0, 10),
-      };
-      addAnnouncementData(body);
+      addAnnouncementData(payload);
     }
   };
+
   const addAnnouncementData = (payload: any) => {
     addAnnouncementService(payload)
       .then((item: any) => {
@@ -163,7 +156,7 @@ const AddAnnouncement = (props: any) => {
           extraScrollHeight={Platform.OS === "ios" ? 180 : 100}
           extraHeight={Platform.OS === "android" ? 160 : 50}
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps='handled'
           keyboardDismissMode={"none"}
         >
           <Formik
@@ -238,7 +231,7 @@ const AddAnnouncement = (props: any) => {
                     <CustomDivider />
                   )}
                   <CustomButton
-                    label="Submit"
+                    label='Submit'
                     onPress={handleSubmit}
                     isLoading={loading}
                   />

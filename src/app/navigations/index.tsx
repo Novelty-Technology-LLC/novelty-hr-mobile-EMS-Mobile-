@@ -51,6 +51,8 @@ const RootNavigation = () => {
     try {
       const curretVersion = await VersionCheck.getCurrentVersion();
       const latestVersion = await VersionCheck.getLatestVersion();
+      console.log("curretVersion", curretVersion, latestVersion);
+
       VersionCheck.needUpdate({
         currentVersion: curretVersion,
         latestVersion: latestVersion,
@@ -227,13 +229,13 @@ const RootNavigation = () => {
             headerShown: false,
           }}
         >
-          <Root.Screen name="splash" component={SplashScreen} />
-          <Root.Screen name="login" component={Login} />
-          <Root.Screen name="loading" component={Loading} />
-          <Root.Screen name="invalid" component={Invalid} />
-          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
+          <Root.Screen name='splash' component={SplashScreen} />
+          <Root.Screen name='login' component={Login} />
+          <Root.Screen name='loading' component={Loading} />
+          <Root.Screen name='invalid' component={Invalid} />
+          <Root.Screen name='fullImageScreen' component={FullImageScreen} />
           <Root.Screen
-            name="BottomTabs"
+            name='BottomTabs'
             component={TabNavigator}
             options={{ gestureEnabled: false }}
           />
