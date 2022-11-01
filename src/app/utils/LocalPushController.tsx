@@ -25,9 +25,7 @@ export const setLocalNotification = async (notification: {
 };
 
 export const checkPermission = () => {
-  PushNotification.checkPermissions((permission: any) => {
-    console.log("Perssmion push noticcation ", permission);
-  });
+  PushNotification.checkPermissions((permission: any) => {});
 };
 
 export const createChanel = () => {

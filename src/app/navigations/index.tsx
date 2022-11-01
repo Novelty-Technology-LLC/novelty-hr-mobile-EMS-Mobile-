@@ -25,7 +25,6 @@ const RootNavigation = () => {
 
   const goToStore = async () => {
     const url = await VersionCheck.getStoreUrl();
-    console.log(url, "url");
 
     Linking.openURL(url);
   };
@@ -53,7 +52,6 @@ const RootNavigation = () => {
     try {
       const curretVersion = await VersionCheck.getCurrentVersion();
       const latestVersion = await VersionCheck.getLatestVersion();
-      console.log("curretVersion", curretVersion, latestVersion);
 
       VersionCheck.needUpdate({
         currentVersion: curretVersion,
