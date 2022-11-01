@@ -25,6 +25,8 @@ const RootNavigation = () => {
 
   const goToStore = async () => {
     const url = await VersionCheck.getStoreUrl();
+    console.log(url, "url");
+
     Linking.openURL(url);
   };
 
@@ -229,13 +231,13 @@ const RootNavigation = () => {
             headerShown: false,
           }}
         >
-          <Root.Screen name='splash' component={SplashScreen} />
-          <Root.Screen name='login' component={Login} />
-          <Root.Screen name='loading' component={Loading} />
-          <Root.Screen name='invalid' component={Invalid} />
-          <Root.Screen name='fullImageScreen' component={FullImageScreen} />
+          <Root.Screen name="splash" component={SplashScreen} />
+          <Root.Screen name="login" component={Login} />
+          <Root.Screen name="loading" component={Loading} />
+          <Root.Screen name="invalid" component={Invalid} />
+          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
           <Root.Screen
-            name='BottomTabs'
+            name="BottomTabs"
             component={TabNavigator}
             options={{ gestureEnabled: false }}
           />

@@ -10,22 +10,27 @@ import { ConfirmDialog } from "react-native-simple-dialogs";
 import DeviceInfo from "react-native-device-info";
 import { CommonActions } from "@react-navigation/native";
 
-const tabHeader = ({ onPress = null, icon = false, children, navigation }: any) => {
+const tabHeader = ({
+  onPress = null,
+  icon = false,
+  children,
+  navigation,
+}: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatch } = useContext<any>(AuthContext);
 
-  const device_id = DeviceInfo.getUniqueId();
-
   const onLogout = async () => {
     const user_id = await getUser();
+    const device_id = await DeviceInfo.getUniqueId();
+
     logOutUser({ device_id, user_id: JSON.parse(user_id).id }).then((data) => {
       // Reset stack navigation while logging out
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: 'login' }]
+          routes: [{ name: "login" }],
         })
       );
       dispatch({ type: "SIGN_OUT" });
@@ -36,7 +41,7 @@ const tabHeader = ({ onPress = null, icon = false, children, navigation }: any) 
   };
 
   return (
-    <View style={[style.container, { justifyContent: 'space-between' }]}>
+    <View style={[style.container, { justifyContent: "space-between" }]}>
       {children}
       <View style={style.textView}>
         {icon && (

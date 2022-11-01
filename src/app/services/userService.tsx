@@ -32,11 +32,15 @@ const get = (id: number) => {
 
 const logOutUser = (body) => {
   return new Promise(async (resolve, reject) => {
+    console.log(body, "body");
+
     try {
       let res = await api.post("/user/logout", body);
 
       resolve(res.data.data);
     } catch (error) {
+      console.log(error, "errro");
+
       reject({ success: false, message: error });
     }
   });
