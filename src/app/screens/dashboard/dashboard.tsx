@@ -266,7 +266,7 @@ const DashBoard = () => {
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name="check-circle"
+                  name='check-circle'
                   color={toggle ? colors.white : colors.white}
                   size={20}
                 />
@@ -306,7 +306,7 @@ const DashBoard = () => {
         ) : (
           <DashboardCardPlaceholder />
         )}
-        {!shoutoutLoading ? (
+        {/* {!shoutoutLoading ? (
           <View style={{ width: "100%", paddingBottom: 25 }}>
             <List
               list={{
@@ -319,7 +319,7 @@ const DashBoard = () => {
           </View>
         ) : (
           <DashboardCardPlaceholder />
-        )}
+        )} */}
       </ScrollView>
     </View>
   );

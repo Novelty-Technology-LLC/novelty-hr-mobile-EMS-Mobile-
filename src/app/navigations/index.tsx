@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Linking, Alert } from "react-native";
+import { Linking, Alert, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import VersionCheck from "react-native-version-check";
 import { checkVersion } from "react-native-check-version";
@@ -14,6 +14,7 @@ import Loading from "../screens/auth_screen/loading";
 import { navigationRef } from "../utils/navigation";
 import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
+import DeviceInfo from "react-native-device-info";
 import { ApplicationProvider } from "@ui-kitten/components";
 import { theme } from "../../assets/styles";
 import colors from "../../assets/colors";
@@ -24,8 +25,18 @@ const RootNavigation = () => {
   const { state, dispatch } = useAuth();
 
   const goToStore = async () => {
-    const url = await VersionCheck.getStoreUrl();
-    Linking.openURL(url);
+    try {
+      let url = "";
+      if (Platform.OS == "ios") {
+        url = await VersionCheck.getAppStoreUrl({
+          appID: "1536008045",
+        });
+      } else {
+        url = await VersionCheck.getStoreUrl();
+      }
+
+      Linking.openURL(url);
+    } catch (error) {}
   };
 
   useEffect(() => {
