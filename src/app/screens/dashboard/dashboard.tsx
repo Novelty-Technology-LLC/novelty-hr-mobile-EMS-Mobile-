@@ -66,7 +66,6 @@ const DashBoard = () => {
   const getShoutList = (startDate: any, endDate: any) => {
     shoutOutService(startDate, endDate).then((data: any) => {
       const list = data.sort().reverse().slice(0, 3);
-      setshoutout(list);
       setshoutoutLoading(false);
     });
   };
@@ -165,11 +164,18 @@ const DashBoard = () => {
           getShoutList(moment(), moment()),
         ]).then((values) => {
           const dashboardData: any = values[0];
+          var filteredArray = dashboardData.filter((e: any) => {
+            return e?.detailRoute !== "/shoutout";
+          });
+          var shoutoutData = dashboardData.filter((e: any) => {
+            return e?.detailRoute === "/shoutout";
+          });
 
           setAnnouncementLoading(false);
           setshoutoutLoading(false);
+          setshoutout(shoutoutData[0]?.items);
 
-          setListData(dashboardData);
+          setListData(filteredArray);
           setCardLoading(false);
 
           setRefreshing(false);
