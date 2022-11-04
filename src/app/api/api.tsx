@@ -33,13 +33,15 @@ api.interceptors.request.use(async (req) => {
   return req;
 });
 
-api.interceptors.response.use((res) => {
-  return res;
-},
+api.interceptors.response.use(
+  (res) => {
+    return res;
+  },
   (err) => {
     const error = err.toJSON();
-    if (error.message === 'Network Error') {
-      throw 'Please check your connection.';
+    if (error.message === "Network Error") {
+      throw "Please check your connection.";
     }
     throw error;
-  })
+  }
+);

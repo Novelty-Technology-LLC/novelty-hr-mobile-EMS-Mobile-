@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { Linking, Alert, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import VersionCheck from "react-native-version-check";
-import { checkVersion } from "react-native-check-version";
-import * as eva from "@eva-design/eva";
+
 import { AuthContext, useAuth } from "../reducer";
 import { getUser, getToken } from "../utils";
 import { Login, SplashScreen } from "../screens";
@@ -14,10 +13,6 @@ import Loading from "../screens/auth_screen/loading";
 import { navigationRef } from "../utils/navigation";
 import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
-import DeviceInfo from "react-native-device-info";
-import { ApplicationProvider } from "@ui-kitten/components";
-import { theme } from "../../assets/styles";
-import colors from "../../assets/colors";
 
 const Root = createStackNavigator();
 
@@ -62,7 +57,6 @@ const RootNavigation = () => {
     try {
       const curretVersion = await VersionCheck.getCurrentVersion();
       const latestVersion = await VersionCheck.getLatestVersion();
-      console.log("curretVersion", curretVersion, latestVersion);
 
       VersionCheck.needUpdate({
         currentVersion: curretVersion,

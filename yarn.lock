@@ -1308,7 +1308,7 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@react-native-community/async-storage@^1.12.0":
+"@react-native-community/async-storage@^1.12.1":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.12.1.tgz#25f821b4f6b13abe005ad67e47c6f1cee9f27b24"
   integrity sha512-70WGaH3PKYASi4BThuEEKMkyAgE9k7VytBqmgPRx3MzJx9/MkspwqJGmn3QLCgHLIFUgF1pit2mWICbRJ3T3lg==
@@ -7768,7 +7768,7 @@ react-native-chart-kit@^6.11.0:
     paths-js "^0.4.10"
     point-in-polygon "^1.0.1"
 
-react-native-check-version@^1.0.9:
+react-native-check-version@^1.0.20:
   version "1.0.20"
   resolved "https://registry.yarnpkg.com/react-native-check-version/-/react-native-check-version-1.0.20.tgz#3c8e5adea93ddc4e35f1267437b1b09af65a6ff6"
   integrity sha512-6j65iI62zzkzs2SHzTLXOQr7TP1h4td7a3nh1QQdQ3TsCIMa8ptgp4gA/7bx8CtZuiURGQCL06r/lt9OjC23Xg==
