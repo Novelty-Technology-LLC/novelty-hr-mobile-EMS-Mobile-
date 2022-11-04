@@ -69,20 +69,20 @@ const List = ({ list }: { list: any }) => {
                 </TouchableOpacity>
               );
             })}
-          {}
+
           {list?.module === "shoutout" && (
             <FlatList
-              keyExtractor={(item) => item?.id.toString()}
+              // keyExtractor={(item) => item?.id.toString()}
               data={list?.items}
-              renderItem={({ item, index }) => {
+              renderItem={({ item, index }: any) => {
                 return (
                   <ShoutoutListItem
-                    date={item.shoutout_date}
+                    date={item?.shoutout_date}
                     isLast={2 === index}
                     // module={list.module}
                     receiver={item?.receiver}
-                    shoutout={item.shoutout}
-                    shoutout_from={item.shoutout_from}
+                    shoutout={item?.shoutout}
+                    shoutout_from={item?.shoutout_from}
                   />
                 );
               }}

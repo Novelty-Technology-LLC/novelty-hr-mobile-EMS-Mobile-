@@ -72,18 +72,22 @@ const ShoutoutListItem = ({
           }}
         >
           <Text style={[cardStyle.subTitleText]}>
-            {receiverData.map((item: any, index: any) => {
-              {
-                const comma = length - 1 === index ? "" : ",";
-                return formatFullName(item.first_name, item.last_name) + comma;
-              }
-            })}
+            {receiverData.length &&
+              receiverData.map((item: any, index: any) => {
+                {
+                  const comma = length - 1 === index ? "" : ",";
+                  return (
+                    formatFullName(item?.first_name, item?.last_name) + comma
+                  );
+                }
+              })}
           </Text>
           <Text style={[cardStyle.subTitleText]}> received shoutout from </Text>
           <Text style={[cardStyle.subTitleText]}>
-            {senderData.map((item: any) => {
-              return formatFullName(item.first_name, item.last_name) + ".";
-            })}
+            {senderData.length &&
+              senderData.map((item: any) => {
+                return formatFullName(item?.first_name, item?.last_name) + ".";
+              })}
           </Text>
         </View>
         <View style={{ flexDirection: "row" }}></View>
