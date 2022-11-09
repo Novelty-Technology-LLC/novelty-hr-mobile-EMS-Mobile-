@@ -99,7 +99,6 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
   };
 
   const getDropdownValues = () => {
-    setIsFetching(true);
     lookupServices
       .lookup()
       .then((data: any[]) => {
@@ -116,9 +115,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
             .find((item) => item.field === "fiscal_year")
             .value.fiscal_year.find((item: any) => item.active).label ?? "";
       })
-      .catch((err) => {
-        setIsFetching(false);
-      });
+      .catch((err) => {});
   };
 
   // useEffect(() => {
@@ -365,7 +362,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                     isLoading={isSubmitting}
                     label="Update"
                     onPress={props.handleSubmit}
-                    disabled={isFetching}
+                    disabled={false}
                   />
                 </View>
               );

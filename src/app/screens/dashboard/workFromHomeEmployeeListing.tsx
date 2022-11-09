@@ -58,24 +58,24 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           renderItem={({ item, index }) => {
             //
             return (
-              <EmployeeListingCard index={index} item={item} />
               // {status==='1'?
-              // <TouchableOpacity
-              //   onPress={() =>
-              //     navigate("employeeDetail", {
-              //       id: item?.id,
-              //       image: item?.res[0]?.image,
-              //       name: item?.res[0]?.title,
-              //     })
-              //   }
-              // >
-              //   <ListingCard
-              //     index={index}
-              //     item={item?.res[0]}
-              //     list={list.length}
-              //     module="employeeList"
-              //   />
-              // </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigate("employeeDetail", {
+                    id: item?.id,
+                    image: item?.res[0]?.image,
+                    name: item?.res[0]?.title,
+                    refresh: workfromHome,
+                  })
+                }
+              >
+                <ListingCard
+                  index={index}
+                  item={item?.res[0]}
+                  list={list.length}
+                  module="employeeList"
+                />
+              </TouchableOpacity>
               // :
               // <></>
               // }

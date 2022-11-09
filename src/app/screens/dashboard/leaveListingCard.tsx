@@ -121,7 +121,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
           </View>
         )}
       </View>
-      {module == "employeeList" && (
+      {/* {module == "employeeList" && (
         <View>
           <TouchableOpacity
             onPress={() => navigate(RouteNames.createShoutout, item)}
@@ -132,7 +132,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
             />
           </TouchableOpacity>
         </View>
-      )}
+      )} */}
       <View>
         <State state={item?.status} />
       </View>
