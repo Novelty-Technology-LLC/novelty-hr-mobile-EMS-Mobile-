@@ -83,13 +83,15 @@ const EmployeeDetail = (props: any) => {
           </View>
         </ScrollView>
       )}
-      {state.user.is_approver == 1 && !loading && (
-        <RequestButton
-          screen="editEmployeeDetail"
-          floatingIcon="pencil"
-          olddata={data}
-        />
-      )}
+      {state.user?.is_default_approver &&
+        state.user?.is_default_approver == 1 &&
+        !loading && (
+          <RequestButton
+            screen="editEmployeeDetail"
+            floatingIcon="pencil"
+            olddata={data}
+          />
+        )}
     </View>
   );
 };
