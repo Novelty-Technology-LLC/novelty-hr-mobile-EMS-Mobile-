@@ -62,6 +62,7 @@ export const EditMenu = ({ navigation, route }: any) => {
         <View style={dashboardStyle.body}>
           <Text style={menuStyles.title}>{item.subTitle}</Text>
           <Formik
+            enableReinitialize={true}
             initialValues={{ menu: `${item.title}` }}
             onSubmit={onSubmit}
             validationSchema={schema}

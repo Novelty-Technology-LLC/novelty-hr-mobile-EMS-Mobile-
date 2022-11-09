@@ -6,6 +6,7 @@ import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
+import { EmployeeListingCard } from "./employeeListingCard";
 import { ListingCard } from "./leaveListingCard";
 
 const WorkFromHomeEmployeeListing = (props: any) => {
@@ -57,23 +58,24 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           renderItem={({ item, index }) => {
             //
             return (
+              <EmployeeListingCard index={index} item={item} />
               // {status==='1'?
-              <TouchableOpacity
-                onPress={() =>
-                  navigate("employeeDetail", {
-                    id: item?.id,
-                    image: item?.res[0]?.image,
-                    name: item?.res[0]?.title,
-                  })
-                }
-              >
-                <ListingCard
-                  index={index}
-                  item={item?.res[0]}
-                  list={list.length}
-                  module="employeeList"
-                />
-              </TouchableOpacity>
+              // <TouchableOpacity
+              //   onPress={() =>
+              //     navigate("employeeDetail", {
+              //       id: item?.id,
+              //       image: item?.res[0]?.image,
+              //       name: item?.res[0]?.title,
+              //     })
+              //   }
+              // >
+              //   <ListingCard
+              //     index={index}
+              //     item={item?.res[0]}
+              //     list={list.length}
+              //     module="employeeList"
+              //   />
+              // </TouchableOpacity>
               // :
               // <></>
               // }

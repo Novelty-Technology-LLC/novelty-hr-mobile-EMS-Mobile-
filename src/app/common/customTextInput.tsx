@@ -35,6 +35,7 @@ export const CustomTextInput = forwardRef(
       <View style={[styles.textinputContainer, style]}>
         <View style={styles.innerContainer}>
           {icon && <AppIcon name={icon} style={styles.icon} />}
+
           <TextInput
             style={[styles.textInput]}
             autoFocus={true}
@@ -42,6 +43,7 @@ export const CustomTextInput = forwardRef(
               // nextFieldRef?.current?.focus();
             }}
             onChangeText={onChange}
+            {...textInputProps}
           />
         </View>
         {error && touched ? <Text style={styles.error}>{error}</Text> : null}

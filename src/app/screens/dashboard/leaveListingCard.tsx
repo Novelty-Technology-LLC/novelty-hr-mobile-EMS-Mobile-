@@ -73,7 +73,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
         </View>
         {module == "Announcements" ? (
           <RenderHtmlComponent
-            htmlData={state?.html}
+            htmlData={state?.html.trim()}
             style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }}
           />
         ) : (

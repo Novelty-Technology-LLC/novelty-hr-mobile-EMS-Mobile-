@@ -27,7 +27,7 @@ const AnnouncementDetail = (props: any) => {
         <View style={{ padding: 20 }}>
           <Text style={globalStyle.titleWeight}>{params?.title}</Text>
           <RenderHtmlComponentForAnnoucementDetail
-            htmlData={params?.html}
+            htmlData={params?.html.trim()}
             style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }}
           />
           <Text style={[cardStyle.subTitleText, { alignSelf: "flex-end" }]}>
@@ -37,8 +37,8 @@ const AnnouncementDetail = (props: any) => {
       </ScrollView>
       {+auth?.user?.is_approver === 1 && params.date === getDateWithoutTZ() && (
         <RequestButton
-          floatingIcon='pencil'
-          screen='addAnnouncement'
+          floatingIcon="pencil"
+          screen="addAnnouncement"
           olddata={{ isEdit: true, data: params }}
         />
       )}

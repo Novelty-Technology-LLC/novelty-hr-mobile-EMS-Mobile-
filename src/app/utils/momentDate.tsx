@@ -42,6 +42,9 @@ export const momentdate = (date?: Date, format?: string) => {
 export const getYesterday = () => {
   return moment().subtract(2, "day").format("l");
 };
+export const getTommorow = () => {
+  return moment().add(1, "day").format("l");
+};
 
 export const getToday = () => {
   return moment().format("l");

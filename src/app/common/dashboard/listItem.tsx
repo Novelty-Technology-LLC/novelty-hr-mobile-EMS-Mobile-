@@ -57,10 +57,14 @@ const ListItem = ({
           </Text>
         )}
       </View>
+
       {module == "Announcements" ? (
-        <RenderHtmlComponent htmlData={subTitle} style={{ div: cardStyle.subTitleText }} />
-        // <Text style={cardStyle.subTitleText}>{subTitle}</Text>
+        <RenderHtmlComponent
+          htmlData={subTitle.trim()}
+          style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }}
+        />
       ) : (
+        // <Text style={cardStyle.subTitleText}>{subTitle}</Text>
         <Text style={cardStyle.subTitleText}>{subTitle}</Text>
       )}
       {module === "Leave" && leave_option !== "FULL DAY" && (

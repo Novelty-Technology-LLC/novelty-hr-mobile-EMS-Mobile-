@@ -164,6 +164,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                       textInputProps={{
                         placeholder: "First Name",
                         value: props.values.first_name,
+                        autoFocus: true,
                       }}
                       onChange={props.handleChange("first_name")}
                     />
