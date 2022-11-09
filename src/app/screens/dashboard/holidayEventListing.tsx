@@ -50,8 +50,10 @@ const HolidayEventListing = (props: any) => {
                     },
                   ]}
                 >
-                  <View>
-                    <Text style={cardStyle.titleText}>{item?.title}</Text>
+                  <View style={{ flex: 1 }}>
+                    <Text numberOfLines={2} style={[cardStyle.titleText]}>
+                      {item?.title}
+                    </Text>
                     <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
                   </View>
                   <View

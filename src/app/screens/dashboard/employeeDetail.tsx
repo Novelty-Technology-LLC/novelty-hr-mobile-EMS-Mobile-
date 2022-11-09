@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
-import { headerStyle, headerTxtStyle, listingStyle } from "../../../assets/styles";
+import {
+  headerStyle,
+  headerTxtStyle,
+  listingStyle,
+} from "../../../assets/styles";
 import { getRequest } from "../../services";
 import { AppIcon, header as Header } from "../../common";
 import { ProfileInfoComponent } from "../../common/profileInformation";
@@ -26,11 +30,10 @@ const EmployeeDetail = (props: any) => {
 
   useEffect(() => {
     if (params?.updated) {
-      setData(params.data)
+      setData(params.data);
       updateInListing();
     }
-
-  }, [props.route.params])
+  }, [props.route.params]);
 
   useEffect(() => {
     (async () => {
@@ -51,7 +54,9 @@ const EmployeeDetail = (props: any) => {
     <View style={listingStyle.mainContainer}>
       <Header icon={true}>
         <View style={headerTxtStyle.main}>
-          <Text style={headerTxtStyle.headerText} numberOfLines={1}>{params.name}</Text>
+          <Text style={headerTxtStyle.headerText} numberOfLines={1}>
+            {params.name}
+          </Text>
         </View>
       </Header>
       {loading ? (
@@ -78,13 +83,13 @@ const EmployeeDetail = (props: any) => {
           </View>
         </ScrollView>
       )}
-      {(state.user.is_approver == 1 && !loading) &&
+      {state.user.is_approver == 1 && !loading && (
         <RequestButton
           screen="editEmployeeDetail"
           floatingIcon="pencil"
           olddata={data}
         />
-      }
+      )}
     </View>
   );
 };

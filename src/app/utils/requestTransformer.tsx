@@ -26,7 +26,7 @@ const mapDataToRequest = (requests: any) => {
           data.leave_date.startDate,
           data.leave_date.endDate
         ),
-        type: data.type.toUpperCase(),
+        type: data?.type ? data?.type.toUpperCase() : data?.type,
         state: data.status,
         sender: data.requestor_id.toString(),
         note: data.note,

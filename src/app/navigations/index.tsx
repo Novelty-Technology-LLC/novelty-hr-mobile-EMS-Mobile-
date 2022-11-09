@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Linking, Alert } from "react-native";
+import { Linking, Alert, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import VersionCheck from "react-native-version-check";
-import { checkVersion } from "react-native-check-version";
-import * as eva from "@eva-design/eva";
+
 import { AuthContext, useAuth } from "../reducer";
 import { getUser, getToken } from "../utils";
 import { Login, SplashScreen } from "../screens";
@@ -14,9 +13,6 @@ import Loading from "../screens/auth_screen/loading";
 import { navigationRef } from "../utils/navigation";
 import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
-import { ApplicationProvider } from "@ui-kitten/components";
-import { theme } from "../../assets/styles";
-import colors from "../../assets/colors";
 
 const Root = createStackNavigator();
 
@@ -24,9 +20,18 @@ const RootNavigation = () => {
   const { state, dispatch } = useAuth();
 
   const goToStore = async () => {
-    const url = await VersionCheck.getStoreUrl();
+    try {
+      let url = "";
+      if (Platform.OS == "ios") {
+        url = await VersionCheck.getAppStoreUrl({
+          appID: "1536008045",
+        });
+      } else {
+        url = await VersionCheck.getStoreUrl();
+      }
 
-    Linking.openURL(url);
+      Linking.openURL(url);
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -229,13 +234,13 @@ const RootNavigation = () => {
             headerShown: false,
           }}
         >
-          <Root.Screen name="splash" component={SplashScreen} />
-          <Root.Screen name="login" component={Login} />
-          <Root.Screen name="loading" component={Loading} />
-          <Root.Screen name="invalid" component={Invalid} />
-          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
+          <Root.Screen name='splash' component={SplashScreen} />
+          <Root.Screen name='login' component={Login} />
+          <Root.Screen name='loading' component={Loading} />
+          <Root.Screen name='invalid' component={Invalid} />
+          <Root.Screen name='fullImageScreen' component={FullImageScreen} />
           <Root.Screen
-            name="BottomTabs"
+            name='BottomTabs'
             component={TabNavigator}
             options={{ gestureEnabled: false }}
           />

@@ -14,9 +14,9 @@ buildscript {
     ext {
         firebaseVersion = "17.3.4"
         buildToolsVersion = "30.0.2"
-        minSdkVersion = 16
-        compileSdkVersion = 30
-        targetSdkVersion = 30
+        minSdkVersion = 21
+        compileSdkVersion = 31
+        targetSdkVersion = 31
         supportLibVersion = "27.1.1"
         googlePlayServicesAuthVersion = "19.2.0" 
     }
@@ -34,6 +34,12 @@ buildscript {
 }
 
 allprojects {
+     def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
+    configurations.all {
+        resolutionStrategy {
+            force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION 
+        }
+    }
     repositories {
         mavenLocal()
         maven {

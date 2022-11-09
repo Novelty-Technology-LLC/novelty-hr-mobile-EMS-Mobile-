@@ -18,6 +18,7 @@ import { ConfirmDialog } from "react-native-simple-dialogs";
 import normalize from "react-native-normalize";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { QuotaPlaceHolder } from "../loader";
+import { goBack } from "../../utils/navigation";
 
 let leave_quota: any = {
   total_pto: 0,
@@ -30,13 +31,15 @@ const EditAlert = ({
   status,
   setShow,
   setisLoading,
+  fromStack,
 }: {
   item: dataType;
   status: string;
   setShow: Function;
+  fromStack: boolean;
   setisLoading: Function;
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [showAlert, setShowAlert] = useState(true);
   let [action, setAction] = useState(status);
   const [note, setNote] = useState("");
@@ -80,7 +83,11 @@ const EditAlert = ({
           payload: item,
         });
         setisLoading(true);
-
+        if (!fromStack) {
+          navigation.popToTop();
+        } else {
+          hide();
+        }
         showToast("Request replied");
       })
       .catch((error) => {

@@ -242,8 +242,18 @@ const Request = ({ data, style, title = null }: any) => {
           </View>
           {title === "admin" && !approved && user !== data.user.uuid && (
             <View style={style.buttonView}>
-              <ApproveDeny title="Approve" style={style} item={data} />
-              <ApproveDeny title="Deny" style={style} item={data} />
+              <ApproveDeny
+                title="Approve"
+                style={style}
+                item={data}
+                fromStack={false}
+              />
+              <ApproveDeny
+                title="Deny"
+                style={style}
+                item={data}
+                fromStack={false}
+              />
             </View>
           )}
         </View>

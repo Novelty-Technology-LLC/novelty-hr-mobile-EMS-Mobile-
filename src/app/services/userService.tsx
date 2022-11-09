@@ -6,7 +6,9 @@ const create = async (data: object) => {
     api
       .post("/user/add", data)
       .then((data) => resolve(data))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        reject(err);
+      });
   });
 };
 

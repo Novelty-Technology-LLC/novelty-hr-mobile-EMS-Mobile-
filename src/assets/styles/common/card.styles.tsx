@@ -33,7 +33,10 @@ const cardStyle = StyleSheet.create({
     marginTop: 6,
   },
   titleText: {
+    flexDirection: "row",
+
     fontFamily: fonts.mulishBold,
+    flexWrap: "wrap",
   },
   subTitleText: {
     fontFamily: fonts.poppinsMedium,

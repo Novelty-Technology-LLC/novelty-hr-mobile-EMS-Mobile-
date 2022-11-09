@@ -312,7 +312,7 @@ const DashBoard = () => {
         ) : (
           <DashboardCardPlaceholder />
         )}
-        {!shoutoutLoading ? (
+        {/* {!shoutoutLoading ? (
           <View style={{ width: "100%", paddingBottom: 25 }}>
             <List
               list={{
@@ -325,7 +325,7 @@ const DashBoard = () => {
           </View>
         ) : (
           <DashboardCardPlaceholder />
-        )}
+        )} */}
       </ScrollView>
     </View>
   );

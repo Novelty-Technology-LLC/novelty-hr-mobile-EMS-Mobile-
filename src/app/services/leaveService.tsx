@@ -12,7 +12,7 @@ export const getAllRequests = (id) => {
   });
 };
 
-export const getMyRequests = (id: string) => {
+export const getMyRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/leave/${id}`);
@@ -24,7 +24,7 @@ export const getMyRequests = (id: string) => {
   });
 };
 
-export const getPastRequests = (id: string) => {
+export const getPastRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/leave/past/${id}`);

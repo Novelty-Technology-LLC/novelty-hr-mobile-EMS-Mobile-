@@ -81,3 +81,20 @@ export const checkIfRequested = (
   });
   return repeat;
 };
+export const checkIfRequestedForLeave = (
+  allrequests: Array<Object>,
+  values: Object,
+  olddata?: Object
+) => {
+  let repeat = false;
+  if (olddata) {
+    allrequests = allrequests.filter((req) => req.id !== olddata.id);
+  }
+
+  allrequests.map((request) => {
+    if (checkRepeatLeaveDays(request.leave_date, values.date)) {
+      repeat = true;
+    }
+  });
+  return repeat;
+};

@@ -9,14 +9,21 @@ import {
 import { dataType } from "../../interface";
 import { EditAlert } from "./responseAlert";
 import { checkRequest } from "../../services";
+import { goBack } from "../../utils/navigation";
 
 interface approveDenyPropType {
   title: string;
   style: object;
   item: dataType;
+  fromStack: boolean;
 }
 
-const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
+const ApproveDeny = ({
+  style,
+  title,
+  item,
+  fromStack,
+}: approveDenyPropType) => {
   const [show, setShow] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -28,6 +35,7 @@ const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
           item={item}
           status={title}
           setShow={setShow}
+          fromStack={fromStack}
           setisLoading={setisLoading}
         />
       )}

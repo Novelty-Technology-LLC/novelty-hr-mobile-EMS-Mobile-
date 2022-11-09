@@ -40,9 +40,11 @@ const createUser = (dispatch: any, user: any, token: any) => {
       await storeToken(token);
       dispatch({ type: "SIGN_IN", token });
     })
-    .catch((err) => {
-      if (err?.response?.status === 404) {
+    .catch((err: any) => {
+      if (err?.message === "Request failed with status code 404") {
         dispatch({ type: "INVALID" });
+      } else {
+        dispatch({ type: "ERROR" });
       }
     });
 };

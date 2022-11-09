@@ -38,6 +38,7 @@ import { AuthContext, RequestContext } from "../../reducer";
 import { snackErrorTop } from "../../common";
 import {
   checkIfRequested,
+  checkIfRequestedForLeave,
   checkValidityQuota,
   dateMapper,
   momentdate,
@@ -165,10 +166,10 @@ const RequestLeave = ({ route }: any) => {
             req.state === "In Progress" ||
             req.state === "Pending"
         );
-        if (!olddata && checkIfRequested(allrequests, values)) {
+        if (!olddata && checkIfRequestedForLeave(allrequests, values)) {
           return showToast("You cannot request the same date twice", false);
         }
-        if (olddata && checkIfRequested(allrequests, values, olddata)) {
+        if (olddata && checkIfRequestedForLeave(allrequests, values, olddata)) {
           return showToast("You cannot request the same date twice", false);
         }
         const date = JSON.parse(values.date);

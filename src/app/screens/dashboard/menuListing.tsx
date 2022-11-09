@@ -11,9 +11,13 @@ import { navigate } from "../../utils/navigation";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import normalize from "react-native-normalize";
 import { MenuContext } from "../../reducer/menuReducer";
+import { AuthContext } from "../../reducer";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export const MenuListing = ({ route }: { route: any }) => {
   const { menu } = useContext(MenuContext);
+  const { state }: any = useContext(AuthContext);
+
   const items = menu.items;
 
   return (
@@ -25,7 +29,15 @@ export const MenuListing = ({ route }: { route: any }) => {
         data={items}
         renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity onPress={() => navigate("editMenu", { item })}>
+            <TouchableWithoutFeedback
+              disabled={
+                state.user?.is_default_approver &&
+                state.user?.is_default_approver == 1
+                  ? false
+                  : true
+              }
+              onPress={() => navigate("editMenu", { item })}
+            >
               <View
                 style={[
                   listingStyle.container,
@@ -40,9 +52,12 @@ export const MenuListing = ({ route }: { route: any }) => {
                   </Text>
                 </View>
 
-                <Icon name="chevron-right" size={normalize(25)} />
+                {state.user?.is_default_approver &&
+                  state.user?.is_default_approver == 1 && (
+                    <Icon name="chevron-right" size={normalize(25)} />
+                  )}
               </View>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           );
         }}
         keyExtractor={(item) => item?.id}
