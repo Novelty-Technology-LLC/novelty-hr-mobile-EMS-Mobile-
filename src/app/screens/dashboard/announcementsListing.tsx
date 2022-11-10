@@ -97,8 +97,8 @@ const AnnouncementListing = (props: any) => {
           keyExtractor={(item) => item?.id}
         />
       )}
-      {state.user?.is_default_approver &&
-        +state.user?.is_default_approver === 1 && (
+      {auth.user?.is_default_approver &&
+        +auth.user?.is_default_approver === 1 && (
           <RequestButton screen="addAnnouncement" />
         )}
     </View>
