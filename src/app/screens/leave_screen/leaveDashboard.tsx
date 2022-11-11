@@ -82,7 +82,7 @@ const LeaveDashboard = () => {
     };
 
     runFunction();
-  }, []);
+  }, [requests.requests.length]);
 
   useScrollToTop(ref);
   return (

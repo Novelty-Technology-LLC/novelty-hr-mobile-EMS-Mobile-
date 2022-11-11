@@ -81,16 +81,16 @@ const DashBoard = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setEventloading(true);
-    const getData = async (route: string) => {
-      const data = await getList(route);
+  // useEffect(() => {
+  //   setEventloading(true);
+  //   const getData = async (route: string) => {
+  //     const data = await getList(route);
 
-      setEventloading(false);
-      setList(data);
-    };
-    getData("holidayeventslisting");
-  }, []);
+  //     setEventloading(false);
+  //     setList(data);
+  //   };
+  //   getData("holidayeventslisting");
+  // }, []);
 
   const fetchWork = async () => {
     try {
@@ -297,7 +297,6 @@ const DashBoard = () => {
             <DashboardCardPlaceholder />
           )}
         </View>
-
         {!announcementLoading ? (
           <View style={{ width: "100%", paddingVertical: 25 }}>
             <List
