@@ -57,7 +57,7 @@ export const Carousel = (props: CarouselPropTypes) => {
       } else {
         item?.title !== 0
           ? navigate("workFromHomeEmployeeListing")
-          : showToast("No employee working from home", false);
+          : showToast("No employee working from home today", false);
       }
     } else if (props?.module === "Menu") {
       navigate("menuListing");
@@ -67,7 +67,7 @@ export const Carousel = (props: CarouselPropTypes) => {
   const checkIfPressable = () => {
     if (props.module === "Employee") return true;
 
-    if (props.module == "Menu" && +state?.user?.is_approver === 1) return true;
+    if (props.module == "Menu") return true;
 
     return false;
   };

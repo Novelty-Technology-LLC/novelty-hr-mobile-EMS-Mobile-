@@ -137,7 +137,7 @@ const MyRequests = ({
           />
         </View>
       </TouchableWithoutFeedback>
-      {loading ? <UserPlaceHolder /> : null}
+      {/* {loading ? <UserPlaceHolder /> : null} */}
       {requests.requests[0] ? (
         <FlatList
           data={requests.requests}

@@ -1,29 +1,42 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Linking, useWindowDimensions } from "react-native";
 import HTMLView from "react-native-htmlview";
 import colors from "../../assets/colors";
+import { CustomText } from "../components/text";
 const RenderHtmlComponent = ({ htmlData, parse = false, style }: any) => {
   const { width } = useWindowDimensions();
   const webViewStyle = StyleSheet.create({
-
-    // p: { color: colors.red },
     a: { color: "green" },
+    p: { color: colors.darkBlue },
+
     ...style,
   });
+
+  const getHTMLValue = (value: any) => {
+    return value.slice(0, 50);
+  };
+
   return (
-    <HTMLView
-      contentWidth={width}
-      onLinkPress={(url: string) => Linking.openURL(url)}
-      stylesheet={webViewStyle}
-      value={
-        parse
-          ? { htmlData }
-          : htmlData?.length > 50
-            ? htmlData?.slice(0, 50) + "..."
-            : htmlData
-      }
-    />
+    <>
+      {htmlData?.length > 50 ? (
+        <HTMLView
+          // renderNode={renderNode}
+          contentWidth={width}
+          onLinkPress={(url: string) => Linking.openURL(url)}
+          stylesheet={webViewStyle}
+          value={getHTMLValue(htmlData.replace(/&nbsp;/g, "").trim())}
+        />
+      ) : (
+        <HTMLView
+          // renderNode={() => renderNode(htmlData)}
+          contentWidth={width}
+          onLinkPress={(url: string) => Linking.openURL(url)}
+          stylesheet={webViewStyle}
+          value={htmlData}
+        />
+      )}
+    </>
   );
 };
 const RenderHtmlComponentForAnnoucementDetail = ({

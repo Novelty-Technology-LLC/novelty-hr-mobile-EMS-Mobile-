@@ -61,7 +61,11 @@ const ListItem = ({
       {module == "Announcements" ? (
         <RenderHtmlComponent
           htmlData={subTitle.trim()}
-          style={{ div: cardStyle.subTitleText, p: cardStyle.subTitleText }}
+          style={{
+            div: cardStyle.subTitleText,
+            p: cardStyle.subTitleText,
+            span: cardStyle.subTitleText,
+          }}
         />
       ) : (
         // <Text style={cardStyle.subTitleText}>{subTitle}</Text>
