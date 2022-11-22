@@ -27,7 +27,7 @@ const getList = (route: string) => {
       });
 
       resolve(res.data.data);
-    } catch (error) {}
+    } catch (error) { }
   });
 };
 
@@ -82,3 +82,13 @@ export const shoutOutService = (startDate: any, endDate: any) =>
         return reject(error.response.data);
       });
   });
+
+export const getShoutoutByID = async (shoutoutID: string) => {
+  try {
+    const response = await api.get(`/shout-out/${shoutoutID}`);
+
+    return response.data.data.shoutOutData;
+  } catch (error) {
+    throw { success: false, message: error };
+  }
+}

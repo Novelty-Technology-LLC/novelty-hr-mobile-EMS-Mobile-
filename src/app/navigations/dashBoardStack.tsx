@@ -73,10 +73,6 @@ const DashNav = () => {
                 name="holidayeventslisting"
                 component={HolidayEventListing}
               />
-              {/* <DashStack.Screen
-              name="shoutoutListing"
-              component={ShoutoutListing}
-            /> */}
               <DashStack.Screen
                 name="shoutoutDetail"
                 component={ShoutoutDetails}

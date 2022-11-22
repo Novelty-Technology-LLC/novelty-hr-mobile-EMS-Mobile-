@@ -26,17 +26,17 @@ export const dateStringMapper = (
     end.substring(8, end.length - 4)
     ? start.substring(4, start.length - 4) + "(1 day)"
     : start.substring(4, start.length - 5) +
-        "-" +
-        `${nextmonth ? nextmonth + " " : ""}` +
-        end.substring(8, end.length - 4) +
-        `${dateOnly ? "" : `(${dateMapper(start, end)} days)`}  `;
+    "-" +
+    `${nextmonth ? nextmonth + " " : ""}` +
+    end.substring(8, end.length - 4) +
+    `${dateOnly ? "" : `(${dateMapper(start, end)} days)`}  `;
 };
 
 export const getShortDate = (date: any) => {
   return moment(date).format("MMM D").slice(0, 6);
 };
 export const getFormatedDate = (date: any) => {
-  return moment(date).format("MMM  D,YYYY").slice(0, 11);
+  return moment(date).format("MMM  D, YYYY");
 };
 
 export const getFullDate = (date: any) => {

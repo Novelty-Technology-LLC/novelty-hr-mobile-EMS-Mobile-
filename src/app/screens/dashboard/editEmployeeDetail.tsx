@@ -26,7 +26,6 @@ import {
 import { DropDownItem } from "../../interface/dropDownItem";
 import { lookupServices } from "../../services/lookupService";
 import { updateEmployeeDetail } from "../../services";
-import Loading from "../auth_screen/loading";
 
 const genders = gendersFromConstants;
 const bloodGroups = bloodGroupsFromConstants;
@@ -115,18 +114,8 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
             .find((item) => item.field === "fiscal_year")
             .value.fiscal_year.find((item: any) => item.active).label ?? "";
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
-
-  // useEffect(() => {
-  //     const unsubscribe = navigation.addListener('beforeRemove', (e: any) => {
-  //         if (isSubmitting)
-  //             e.preventDefault();
-  //     });
-
-  //     return unsubscribe;
-
-  // }, [navigation, isSubmitting])
 
   useEffect(() => {
     getDropdownValues();
@@ -161,7 +150,6 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                       textInputProps={{
                         placeholder: "First Name",
                         value: props.values.first_name,
-                        autoFocus: true,
                       }}
                       onChange={props.handleChange("first_name")}
                     />

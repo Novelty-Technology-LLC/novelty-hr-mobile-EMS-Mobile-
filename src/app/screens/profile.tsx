@@ -39,8 +39,8 @@ const Profile = ({ navigation }: any) => {
 
   const cleanImage = () =>
     ImageCropper.clean()
-      .then(() => {})
-      .catch((e) => {});
+      .then(() => { })
+      .catch((e) => { });
 
   const updateProfileImage = (image: any, data?: any) => {
     setimage(image ?? image.data);
@@ -134,11 +134,11 @@ const Profile = ({ navigation }: any) => {
         callbackForUploadImage(image);
         // confirm()
       })
-      .finally(() => {})
+      .finally(() => { })
       .then((image) => {
         callbackForUploadImage(image);
       })
-      .finally(() => {});
+      .finally(() => { });
   };
   const openCamera = () =>
     ImageCropper.openCamera({

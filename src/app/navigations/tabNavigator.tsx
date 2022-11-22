@@ -56,7 +56,10 @@ const TabNavigator = () => {
                   date: findAnnouncement?.date,
                   html: findAnnouncement?.html,
                 });
-              } catch (error) {}
+              } catch (error) { }
+            } else if (remoteMessage?.data.type === "shoutout") {
+              handleShoutoutNotification(remoteMessage?.data.id.toString());
+
             } else {
               dispatch({ type: "Notification", payload: remoteMessage.data });
               Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
@@ -94,7 +97,9 @@ const TabNavigator = () => {
               date: findAnnouncement?.date,
               html: findAnnouncement?.html,
             });
-          } catch (error) {}
+          } catch (error) { }
+        } else if (remoteMessage?.data.type === "shoutout") {
+          handleShoutoutNotification(remoteMessage?.data.id.toString());
         } else {
           dispatch({ type: "Notification", payload: remoteMessage?.data });
           Linking.openURL(`noveltyhrmobile://${remoteMessage?.data?.url}`);
@@ -102,6 +107,12 @@ const TabNavigator = () => {
       }
     });
   }, [messaging]);
+
+  const handleShoutoutNotification = (shoutoutID: string) => {
+    navigate("shoutoutDetail", {
+      id: shoutoutID
+    });
+  }
 
   async function requestUserPermission() {
     const token = await messaging().getToken();

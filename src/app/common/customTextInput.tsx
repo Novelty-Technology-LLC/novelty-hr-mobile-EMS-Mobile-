@@ -37,10 +37,11 @@ export const CustomTextInput = forwardRef(
           {icon && <AppIcon name={icon} style={styles.icon} />}
 
           <TextInput
+            ref={ref}
             style={[styles.textInput]}
             autoFocus={true}
             onSubmitEditing={() => {
-              // nextFieldRef?.current?.focus();
+              nextFieldRef?.current?.focus();
             }}
             onChangeText={onChange}
             {...textInputProps}
