@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 import { cardStyle, listingStyle, theme } from "../../../assets/styles";
@@ -11,8 +11,11 @@ import { navigate } from "../../utils/navigation";
 import { RouteNames } from "../../constant/route_names";
 import ShoutoutSVG from "../../../assets/images/shoutout.svg";
 import { employeeListingStyles as styles } from "../../../assets/styles/dashboard/employeeListing.styles";
+import { AuthContext } from "../../reducer";
 
 const EmployeeListingCard = ({ index, item, onPress }: any) => {
+  const { state, dispatch }: any = useContext(AuthContext);
+
   return (
     <View
       key={index}
@@ -71,14 +74,16 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
       </TouchableOpacity>
 
       {/* Shouout  */}
-      <TouchableOpacity
-        onPress={() => navigate(RouteNames.createShoutout, item)}
-        style={{
-          marginLeft: normalize(theme.size.normal),
-        }}
-      >
-        <ShoutoutSVG />
-      </TouchableOpacity>
+      {state?.user?.id !== item?.id && (
+        <TouchableOpacity
+          onPress={() => navigate(RouteNames.createShoutout, item)}
+          style={{
+            marginLeft: normalize(theme.size.normal),
+          }}
+        >
+          <ShoutoutSVG />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
