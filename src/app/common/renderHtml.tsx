@@ -16,17 +16,7 @@ const RenderHtmlComponent = ({ htmlData, parse = false, style }: any) => {
   const getHTMLValue = (value: any) => {
     return value.slice(0, 50);
   };
-  function renderNode(node) {
-    node.children?.map((e) => {});
 
-    return node.children?.map((e) => {
-      return (
-        <View>
-          <Text>{e.data}</Text>
-        </View>
-      );
-    });
-  }
   return (
     <>
       {htmlData?.length > 50 ? (
