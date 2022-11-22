@@ -33,11 +33,13 @@ const ShoutoutListItem = ({
     <TouchableOpacity
       onPress={() => {
         navigate("shoutoutDetail", {
-          receiver: receiver,
-          shoutout: shoutout,
-          shoutout_from: shoutout_from,
-          date: date,
-          avatar: avatar,
+          detail: {
+            receiver: receiver,
+            shoutout: shoutout,
+            shoutout_from: shoutout_from,
+            date: date,
+            avatar: avatar,
+          },
         });
       }}
     >

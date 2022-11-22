@@ -9,7 +9,7 @@ import { EmptyContainer } from "../emptyContainer";
 import { AppIcon } from "../icon";
 import { ListItem } from "./listItem";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { ShoutoutListItem } from "./shoutoutList";
+import { ShoutoutListItem } from "./shoutouListItem";
 import { FlatList } from "react-native-gesture-handler";
 
 const List = ({ list }: { list: any }) => {
@@ -75,6 +75,7 @@ const List = ({ list }: { list: any }) => {
               // keyExtractor={(item) => item?.id.toString()}
               data={list?.items}
               renderItem={({ item, index }: any) => {
+
                 return (
                   <ShoutoutListItem
                     date={item?.shoutout_date}
@@ -107,13 +108,12 @@ const List = ({ list }: { list: any }) => {
       ) : (
         <>
           <EmptyContainer
-            text={`${
-              list.message
-                ? list.message
-                : list?.module === "Leave"
+            text={`${list.message
+              ? list.message
+              : list?.module === "Leave"
                 ? "No Upcoming Leave"
                 : "No Upcoming Holidays and Events"
-            }`}
+              }`}
             containerStyle={{
               height: normalize(80),
               borderBottomColor: colors.snow,

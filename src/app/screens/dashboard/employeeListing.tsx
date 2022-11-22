@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, View, Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
-import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
-import { RouteNames } from "../../constant/route_names";
 import { getRequest } from "../../services";
 import { navigate } from "../../utils/navigation";
 import { EmployeeListingCard } from "./employeeListingCard";
-import { ListingCard } from "./leaveListingCard";
 
 const EmployeeListing = (props: any) => {
   const [list, setList] = useState<any>(null);

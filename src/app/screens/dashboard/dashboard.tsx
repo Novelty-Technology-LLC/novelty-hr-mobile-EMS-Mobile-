@@ -42,7 +42,7 @@ const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
     useContext(AnnouncementContext);
 
-  const { shoutoutState } = useContext(ShoutoutContext);
+  const { shoutoutState, dispatchShoutout } = useContext(ShoutoutContext);
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [id, setId] = useState(0);
@@ -52,8 +52,6 @@ const DashBoard = () => {
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
   const [list, setList] = useState<any>(null);
-  const [shoutout, setshoutout] = useState<any>([]);
-
   const [shoutoutLoading, setshoutoutLoading] = useState<any>(false);
   const [eventloading, setEventloading] = useState<any>(null);
   const [announcements, setAnnouncements] = useState([]);
@@ -63,12 +61,6 @@ const DashBoard = () => {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
   }, []);
-  const getShoutList = (startDate: any, endDate: any) => {
-    shoutOutService(startDate, endDate).then((data: any) => {
-      const list = data.sort().reverse().slice(0, 3);
-      setshoutoutLoading(false);
-    });
-  };
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => {
@@ -114,13 +106,6 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state, refreshing]);
 
-  // update shoutout list when new shoutout is created
-  useEffect(() => {
-    if (shoutoutState.needUpdate !== -1) {
-      getShoutList(moment(), moment());
-    }
-  }, [shoutoutState]);
-
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {
@@ -131,7 +116,7 @@ const DashBoard = () => {
         payload: { announcementData: response },
       });
       setAnnouncements(response);
-    } catch (error) {}
+    } catch (error) { }
   };
   const fetchLeave = async () => {
     try {
@@ -149,7 +134,7 @@ const DashBoard = () => {
       } else {
         setLeaveStatus(false);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     (async () => {
@@ -161,7 +146,6 @@ const DashBoard = () => {
           getDashboard(),
           fetchLeave(),
           fetchAnnouncements(),
-          getShoutList(moment(), moment()),
         ]).then((values) => {
           const dashboardData: any = values[0];
           var filteredArray = dashboardData.filter((e: any) => {
@@ -171,9 +155,10 @@ const DashBoard = () => {
             return e?.detailRoute === "/shoutout";
           });
 
+          dispatchShoutout({ type: 'SET_SHOUTOUT_LIST', payload: shoutoutData[0]?.items })
+
           setAnnouncementLoading(false);
           setshoutoutLoading(false);
-          setshoutout(shoutoutData[0]?.items);
 
           setListData(filteredArray);
           setCardLoading(false);
@@ -311,20 +296,20 @@ const DashBoard = () => {
         ) : (
           <DashboardCardPlaceholder />
         )}
-        {/* {!shoutoutLoading ? (
+        {!shoutoutLoading ? (
           <View style={{ width: "100%", paddingBottom: 25 }}>
             <List
               list={{
                 module: "shoutout",
                 message: "No Shoutouts",
-                items: shoutout,
+                items: shoutoutState.shoutoutList,
                 detailRoute: "shoutoutDetail",
               }}
             />
           </View>
         ) : (
           <DashboardCardPlaceholder />
-        )} */}
+        )}
       </ScrollView>
     </View>
   );

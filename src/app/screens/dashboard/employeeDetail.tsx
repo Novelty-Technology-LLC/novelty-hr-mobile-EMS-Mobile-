@@ -1,25 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
 import {
-  headerStyle,
   headerTxtStyle,
   listingStyle,
 } from "../../../assets/styles";
 import { getRequest } from "../../services";
-import { AppIcon, header as Header } from "../../common";
+import { header as Header } from "../../common";
 import { ProfileInfoComponent } from "../../common/profileInformation";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import {
   profileStyle,
   profileStyle as style,
 } from "../../../assets/styles/tabs";
-
 import { AuthContext } from "../../reducer";
 import CustomImage from "../../common/image";
 import { RequestButton } from "../../components/requestButton";
-import { Icons } from "../../constant/icons";
-import { navigate } from "../../utils/navigation";
-import { RouteNames } from "../../constant/route_names";
 
 const EmployeeDetail = (props: any) => {
   const [data, setData] = useState<any>({});

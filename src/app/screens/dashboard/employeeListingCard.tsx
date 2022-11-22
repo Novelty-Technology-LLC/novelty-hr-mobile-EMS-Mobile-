@@ -7,7 +7,6 @@ import CustomImage from "../../common/image";
 import colors from "../../../assets/colors";
 import normalize from "react-native-normalize";
 import { AppIcon } from "../../common";
-import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
 import { navigate } from "../../utils/navigation";
 import { RouteNames } from "../../constant/route_names";
 import ShoutoutSVG from "../../../assets/images/shoutout.svg";
@@ -72,14 +71,14 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
       </TouchableOpacity>
 
       {/* Shouout  */}
-      {/* <TouchableOpacity
+      <TouchableOpacity
         onPress={() => navigate(RouteNames.createShoutout, item)}
         style={{
           marginLeft: normalize(theme.size.normal),
         }}
       >
         <ShoutoutSVG />
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
 };
