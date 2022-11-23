@@ -111,12 +111,13 @@ const DashBoard = () => {
       var response: any = await getRequest("/webportal/announcements", {
         limit: 3,
       });
+
       await dispatch({
         type: "SET_ANNOUNCEMENT_DATA",
         payload: { announcementData: response },
       });
       setAnnouncements(response);
-    } catch (error) { }
+    } catch (error) {}
   };
   const fetchLeave = async () => {
     try {
@@ -134,7 +135,7 @@ const DashBoard = () => {
       } else {
         setLeaveStatus(false);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
   useEffect(() => {
     (async () => {
@@ -155,7 +156,10 @@ const DashBoard = () => {
             return e?.detailRoute === "/shoutout";
           });
 
-          dispatchShoutout({ type: 'SET_SHOUTOUT_LIST', payload: shoutoutData[0]?.items })
+          dispatchShoutout({
+            type: "SET_SHOUTOUT_LIST",
+            payload: shoutoutData[0]?.items,
+          });
 
           setAnnouncementLoading(false);
           setshoutoutLoading(false);
