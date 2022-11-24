@@ -35,13 +35,13 @@ const AnnouncementDetail = (props: any) => {
           </Text>
         </View>
       </ScrollView>
-      {+auth?.user?.is_approver === 1 && params.date === getDateWithoutTZ() && (
+      {/* {+auth?.user?.is_approver === 1 && params.date === getDateWithoutTZ() && (
         <RequestButton
           floatingIcon="pencil"
           screen="addAnnouncement"
           olddata={{ isEdit: true, data: params }}
         />
-      )}
+      )} */}
     </View>
   );
 };

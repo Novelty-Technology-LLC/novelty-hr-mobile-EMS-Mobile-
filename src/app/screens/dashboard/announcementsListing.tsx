@@ -23,6 +23,7 @@ const AnnouncementListing = (props: any) => {
     (async () => {
       try {
         var response: any = await getRequest("/webportal/announcements", {});
+        console.log(response, "response");
 
         await dispatch({
           type: "SET_ANNOUNCEMENT_DATA",
