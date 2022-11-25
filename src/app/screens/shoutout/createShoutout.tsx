@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import moment from "moment";
 import React, { useContext, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Platform, Dimensions } from "react-native";
 import normalize from "react-native-normalize";
 import {
   dashboardStyle,
@@ -20,6 +20,7 @@ import { AuthContext } from "../../reducer";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
 import { createShoutout, getShoutoutByID } from "../../services";
 
+const height = Dimensions.get("screen").height;
 export const CreateShoutout = ({ route, navigation }: any) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
@@ -65,7 +66,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
       <ScrollView
         contentContainerStyle={dashboardStyle.body}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
       >
         <Formik
           initialValues={{ shoutout: "" }}
@@ -87,6 +88,9 @@ export const CreateShoutout = ({ route, navigation }: any) => {
                 </Text>
                 <View style={{}}>
                   <CustomTextInput
+                    textInputStyle={{
+                      ...Platform.select({ ios: { height: height / 4 } }),
+                    }}
                     error={props.errors.shoutout}
                     touched={props.touched.shoutout}
                     textInputProps={{
@@ -100,7 +104,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
                   />
                 </View>
                 <CustomButton
-                  label="Submit"
+                  label='Submit'
                   onPress={props.handleSubmit}
                   isLoading={isSubmitting}
                 />

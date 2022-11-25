@@ -20,6 +20,7 @@ export const CustomTextInput = forwardRef(
       icon,
       onChange,
       style,
+      textInputStyle,
     }: {
       error?: string | undefined;
       touched?: boolean;
@@ -28,6 +29,7 @@ export const CustomTextInput = forwardRef(
       textInputProps?: TextInputProps;
       onChange?: (value: string) => void;
       style?: StyleProp<ViewStyle>;
+      textInputStyle?: StyleProp<ViewStyle>;
     },
     ref: any
   ) => {
@@ -35,10 +37,9 @@ export const CustomTextInput = forwardRef(
       <View style={[styles.textinputContainer, style]}>
         <View style={styles.innerContainer}>
           {icon && <AppIcon name={icon} style={styles.icon} />}
-
           <TextInput
             ref={ref}
-            style={[styles.textInput]}
+            style={[styles.textInput, textInputStyle]}
             autoFocus={true}
             onSubmitEditing={() => {
               nextFieldRef?.current?.focus();
