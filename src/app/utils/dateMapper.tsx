@@ -26,10 +26,10 @@ export const dateStringMapper = (
     end.substring(8, end.length - 4)
     ? start.substring(4, start.length - 4) + "(1 day)"
     : start.substring(4, start.length - 5) +
-    "-" +
-    `${nextmonth ? nextmonth + " " : ""}` +
-    end.substring(8, end.length - 4) +
-    `${dateOnly ? "" : `(${dateMapper(start, end)} days)`}  `;
+        "-" +
+        `${nextmonth ? nextmonth + " " : ""}` +
+        end.substring(8, end.length - 4) +
+        `${dateOnly ? "" : `(${dateMapper(start, end)} days)`}  `;
 };
 
 export const getShortDate = (date: any) => {
