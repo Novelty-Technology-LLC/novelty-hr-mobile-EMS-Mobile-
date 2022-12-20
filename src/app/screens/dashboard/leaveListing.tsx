@@ -27,10 +27,14 @@ const LeaveListing = (props: any) => {
   const getallLeaveListing = async (routeName: string) => {
     setLoading(true);
 
-    const data = await getList(routeName);
+    try {
+      const data = await getList(routeName);
 
+      setList(data);
+    } catch (error) {
+      console.log("error");
+    }
     setLoading(false);
-    setList(data);
   };
 
   return (

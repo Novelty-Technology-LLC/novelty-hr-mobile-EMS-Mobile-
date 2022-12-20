@@ -25,21 +25,20 @@ export const checkRepeat = (olddate: Object, newdate: Object) => {
   const old_end = olddate.endDate
     ? new Date(olddate.endDate).getTime()
     : old_start;
+  console.log(old_start.toString(), "old_start.toString()");
 
-  if (old_start_date.toString() === new_end_date.toString()) {
+  if (new_end !== new_start && old_end !== old_start) {
+    if (new_start <= old_end && old_start <= new_end) return true;
+  } else if (new_end === new_start && old_end !== old_start) {
+    if (new_end <= old_end && new_end >= old_start) return true;
+  } else if (old_start === old_end && new_end !== new_start) {
+    if (old_end <= new_end && old_end >= new_start) return true;
+  } else if (old_start.toString() === new_start.toString()) {
     return true;
   } else {
-    if (new_end !== new_start && old_end !== old_start) {
-      if (new_start <= old_end && old_start <= new_end) return true;
-    } else if (new_end === new_start && old_end !== old_start) {
-      if (new_end <= old_end && new_end >= old_start) return true;
-    } else if (old_start === old_end && new_end !== new_start) {
-      if (old_end <= new_end && old_end >= new_start) return true;
-    } else {
-      return new_end === old_end;
-    }
-    return false;
+    return new_end === old_end;
   }
+  return false;
 };
 
 export const checkRepeatLeaveDays = (olddate: Object, newdate: Object) => {
