@@ -153,7 +153,7 @@ const AddAnnouncement = (props: any) => {
           enableOnAndroid={true}
           enableAutomaticScroll={true}
           // style={[gs.container]}
-          extraScrollHeight={Platform.OS === "ios" ? 180 : 100}
+          extraScrollHeight={Platform.OS === "ios" ? 10 : 100}
           extraHeight={Platform.OS === "android" ? 160 : 50}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps='handled'
