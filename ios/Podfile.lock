@@ -342,8 +342,6 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
-  - react-native-uuid-generator (6.1.1):
-    - React
   - react-native-version-check (3.4.3):
     - React
   - react-native-webview (11.23.1):
@@ -431,7 +429,7 @@ PODS:
     - RNFBApp
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNGoogleSignin (8.2.1):
+  - RNGoogleSignin (9.0.2):
     - GoogleSignIn (~> 6.2)
     - React-Core
   - RNImageCropPicker (0.37.3):
@@ -503,7 +501,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
-  - react-native-uuid-generator (from `../node_modules/react-native-uuid-generator`)
   - react-native-version-check (from `../node_modules/react-native-version-check`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -605,8 +602,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
-  react-native-uuid-generator:
-    :path: "../node_modules/react-native-uuid-generator"
   react-native-version-check:
     :path: "../node_modules/react-native-version-check"
   react-native-webview:
@@ -715,7 +710,6 @@ SPEC CHECKSUMS:
   React-jsinspector: d4f6973dd474357dbaaf6f52f31ffc713bf3e766
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-uuid-generator: 82ffa2a1cac94242ebed52c4dedc5044d3412717
   react-native-version-check: e85c2e21d0955b7cdfd91c0ddacc3edf14b7abd7
   react-native-webview: d33e2db8925d090871ffeb232dfa50cb3a727581
   React-perflogger: 5a890ca0911669421b7611661e9b58f91c805f5c
@@ -738,7 +732,7 @@ SPEC CHECKSUMS:
   RNFBApp: 6e20f07b316346d96737191f377777f61f51a8d2
   RNFBMessaging: eb8d1b08795c8718706007ed0743732d00e1acc4
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNGoogleSignin: 3db2d849581299f425f5b61b90cb482a9e68c7af
+  RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
   RNImageCropPicker: 44e2807bc410741f35d4c45b6586aedfe3da39d2
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: c1b56d030d1616239861534d9adb531f8cffab68
@@ -750,6 +744,6 @@ SPEC CHECKSUMS:
   Yoga: d1fc3575b8b68891ff5ef3c276daa855e841eb32
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: d26c8f02b6ea9ccfb283da144ce0d50d7ac76c48
+PODFILE CHECKSUM: 471df9f8b0d2faba029b1a8533036ca41e6fe598
 
 COCOAPODS: 1.11.3

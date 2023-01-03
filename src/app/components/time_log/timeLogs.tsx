@@ -83,6 +83,7 @@ const TimeLogs = (props: any) => {
             ...logTime,
             user_id: state.user.id,
           });
+
           response = response.filter((item: any) => item);
           const keys = Object.keys(response[0]).map((item) => {
             return {
@@ -92,6 +93,7 @@ const TimeLogs = (props: any) => {
             };
           });
           const mapData: any = keys.length ? data(keys) : initialState;
+
           setTotalTimeLog(mapData);
           setLoader(false);
         } catch (error) {
@@ -108,6 +110,7 @@ const TimeLogs = (props: any) => {
         JSON.parse(user).id,
         todayDate()
       );
+
       if (activeLogs) {
         dispatchTimeLog({
           type: "CHANGE",
@@ -250,7 +253,7 @@ const TimeLogs = (props: any) => {
         <Week loading={loading} refreshing={refreshing} title={"History"} />
         <View style={ds.timeLog}>
           <HoursHeader
-            title="HOURS WORKED"
+            title='HOURS WORKED'
             dropDown={!refreshing && !loading}
             setLogTime={setLogTime}
           />
@@ -275,7 +278,7 @@ const TimeLogs = (props: any) => {
           <View style={ds.chartWrapper}>
             {loader ? (
               <View style={ds.loader}>
-                <ActivityIndicator size="large" color={colors.primary} />
+                <ActivityIndicator size='large' color={colors.primary} />
               </View>
             ) : (
               <LineChartComponent
@@ -287,7 +290,7 @@ const TimeLogs = (props: any) => {
         </View>
       </ScrollView>
       <RequestButton
-        screen="logtime"
+        screen='logtime'
         olddata={{
           log_date: stringifyDate(date),
           not_old: true,

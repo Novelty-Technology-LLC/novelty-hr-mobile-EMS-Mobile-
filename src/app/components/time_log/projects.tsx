@@ -113,28 +113,30 @@ const Projects = ({
             </TouchableOpacity>
           </View>
           {loading && <ProjectPlaceHolder />}
-          {projects && showmore !== "chevron-up-circle" ? (
+          {projects?.length && showmore !== "chevron-up-circle" ? (
             <View style={[style.body]}>
               <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 data={projects}
-                renderItem={({ item, index, separators }) => (
-                  <View style={style.scrollHorizontal}>
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => {
-                        setType(item?.id),
-                          handleChange("project_id")(item?.id.toString());
-                      }}
-                    >
-                      <SelectButton
-                        text={item.name}
-                        active={type === item.id}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                )}
+                renderItem={({ item, index, separators }) => {
+                  return (
+                    <View style={style.scrollHorizontal}>
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => {
+                          setType(item?.id),
+                            handleChange("project_id")(item?.id.toString());
+                        }}
+                      >
+                        <SelectButton
+                          text={item?.name}
+                          active={type === item?.id}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  );
+                }}
                 keyExtractor={(item) => item?.id}
               />
             </View>
@@ -151,8 +153,8 @@ const Projects = ({
                     style={style.projectbutton}
                   >
                     <SelectButton
-                      text={project.name}
-                      active={type === project.id}
+                      text={project?.name}
+                      active={type === project?.id}
                     />
                   </TouchableOpacity>
                   {index % 3 !== 2 && <View style={style.spacer}></View>}

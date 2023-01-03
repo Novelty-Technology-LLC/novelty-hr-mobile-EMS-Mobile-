@@ -17,7 +17,6 @@ const EmployeeListing = (props: any) => {
 
   const listingAllEmployee = async () => {
     setLoading(true);
-
     try {
       let response: any = await getRequest("webportal/users/user-listing");
 
@@ -59,14 +58,15 @@ const EmployeeListing = (props: any) => {
                     image: item?.image,
                     name: item?.title,
                     refresh: listingAllEmployee,
-                  })}
+                  })
+                }
               />
             );
           }}
           keyExtractor={(item) => item?.id}
         />
       )}
-    </View >
+    </View>
   );
 };
 

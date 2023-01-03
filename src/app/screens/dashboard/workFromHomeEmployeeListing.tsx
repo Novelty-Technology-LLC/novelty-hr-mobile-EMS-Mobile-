@@ -19,7 +19,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
     setLoading(true);
 
     try {
-      let response: any = await getRequest("work/all", {});
+      let response: any = await getRequest("work", {});
 
       const responses = response.map((item: any) => {
         const res = item.users.map((items: any) => {
@@ -41,7 +41,9 @@ const WorkFromHomeEmployeeListing = (props: any) => {
       setList(responses);
 
       setLoading(false);
-    } catch (error) { }
+    } catch (error) {
+      console.log("err", error);
+    }
   };
 
   return (

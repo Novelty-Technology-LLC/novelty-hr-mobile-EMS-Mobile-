@@ -98,6 +98,7 @@ const LogTime = ({ route }: any) => {
         Object.keys(timelogs.historyDate).length !== 0
           ? { ...timelogs.historyDate }
           : null;
+      console.log("data", dataObj, selectedDate, historyDate);
 
       submitTimeLog(dataObj, selectedDate, historyDate)
         .then((data) => {
@@ -226,7 +227,7 @@ const LogTime = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 100}
         extraHeight={Platform.OS === "android" ? 160 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik

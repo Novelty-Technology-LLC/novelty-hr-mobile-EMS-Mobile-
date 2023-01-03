@@ -1,16 +1,16 @@
-import { Dimensions, Platform, StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import { theme, fonts } from '../theme';
+import { Dimensions, Platform, StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import { theme, fonts } from "../theme";
 
-const width = Dimensions.get('window').width;
+const width = Dimensions.get("window").width;
 
 const timeLogStyle = StyleSheet.create({
   container: {
     paddingVertical: normalize(8),
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.snow,
     paddingHorizontal: normalize(10),
     borderRadius: 2,
@@ -18,14 +18,14 @@ const timeLogStyle = StyleSheet.create({
   },
   dateView: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   total: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     borderTopWidth: normalize(1),
     borderTopColor: colors.lightGrey,
     paddingTop: normalize(5),
@@ -39,7 +39,7 @@ const timeLogStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   type: {
     color: colors.fontGrey,
@@ -73,23 +73,23 @@ const timeLogStyle = StyleSheet.create({
     paddingTop: normalize(theme.spacing.wide),
   },
   row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   rowAlign: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   modalCalender: {
-    maxWidth: '110%',
+    maxWidth: "110%",
     borderWidth: 0,
   },
   indicatorContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: normalize(20),
     marginTop: 10,
   },
@@ -98,7 +98,7 @@ const timeLogStyle = StyleSheet.create({
     height: normalize(10),
     backgroundColor: colors.yellow,
     borderRadius: normalize(8),
-    alignSelf: 'center',
+    alignSelf: "center",
     marginRight: normalize(5),
     marginLeft: normalize(5),
     ...Platform.select({
@@ -110,8 +110,8 @@ const timeLogStyle = StyleSheet.create({
   dateText: {
     marginBottom: 0,
     fontSize: normalize(theme.size.xs),
-    width: '100%',
-    textAlign: 'right',
+    width: "100%",
+    textAlign: "right",
     paddingHorizontal: normalize(5),
   },
 });
