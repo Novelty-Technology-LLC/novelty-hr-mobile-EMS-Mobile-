@@ -129,8 +129,8 @@ const Projects = ({
                       }}
                     >
                       <SelectButton
-                        text={item.name}
-                        active={type === item.id}
+                        text={item?.name}
+                        active={type === item?.id}
                       />
                     </TouchableOpacity>
                   </View>
@@ -151,8 +151,8 @@ const Projects = ({
                     style={style.projectbutton}
                   >
                     <SelectButton
-                      text={project.name}
-                      active={type === project.id}
+                      text={project?.name}
+                      active={type === project?.id}
                     />
                   </TouchableOpacity>
                   {index % 3 !== 2 && <View style={style.spacer}></View>}

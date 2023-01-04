@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "rebuild": "cd android && ./gradlew clean && yarn android",
-    "build": "cd android && ./gradlew clean &&  ./gradlew bundleRelease"
+    "build": "cd android && ./gradlew clean &&  ./gradlew bundleRelease",
+    "apk": "cd android && ./gradlew clean &&  ./gradlew assembleRelease"
   },
   "dependencies": {
     "@eva-design/eva": "^2.0.0",
@@ -27,7 +28,7 @@
     "@types/yup": "^0.29.8",
     "@ui-kitten/components": "^5.0.0",
     "@ui-kitten/moment": "^5.0.0",
-    "axios": "^0.21.1",
+    "axios": "^1.2.2",
     "firebase-admin": "^9.3.0",
     "formik": "^2.1.5",
     "libphonenumber-js": "^1.9.4",
