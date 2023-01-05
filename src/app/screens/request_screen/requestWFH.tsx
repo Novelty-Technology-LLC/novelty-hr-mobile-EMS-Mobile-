@@ -73,17 +73,16 @@ const RequestWFH = ({ route, navigation }: any) => {
     lead: olddata ? olddata.lead : [],
   };
 
-  const submitRequest = (data) => {
-    console.log(data, "d");
+  const submitRequest = async (data) => {
+    console.log(data, "req");
 
-    return;
-    postWFHRequest(data)
+    await postWFHRequest(data)
       .then((res) => {
         dispatchWFHRequest({
           type: "UPDATEQUOTA",
-          payload: res.data.data.quota,
+          payload: res?.data?.data?.quota,
         });
-        dispatchWFHRequest({ type: "ADD", payload: res.data.data.leave });
+        dispatchWFHRequest({ type: "ADD", payload: res?.data?.data?.quota });
         setisLoading(false);
         showToast("Request created");
         goBack();
@@ -131,12 +130,12 @@ const RequestWFH = ({ route, navigation }: any) => {
   };
   const onSubmit = async (values) => {
     console.log(values, "vs");
+    const { date, ...rest } = values;
+    console.log(rest, "rest");
 
-    const date = JSON.parse(values?.date);
-    console.log(date, "dateeeeeee");
-    console.log(date["endDate"] === null, "datssssaaeSS");
+    const dates = JSON.parse(values?.date);
 
-    const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
+    const leaveDate = moment(dates.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
 
     if (
@@ -165,15 +164,16 @@ const RequestWFH = ({ route, navigation }: any) => {
         if (olddata && checkIfRequested(allrequests, values, olddata)) {
           return showToast("You cannot request the same date twice", false);
         }
-        const date = JSON.parse(values.date);
+        const dateParsed = JSON.parse(values.date);
         let dayArray: any = [];
-        const startDate = new Date(date.startDate).toString().slice(0, 15);
+        const startDate = new Date(dateParsed.startDate)
+          .toString()
+          .slice(0, 15);
         let endDate = "";
-        if (date["endDate"] === null) {
-          console.log("ok", startDate);
+        if (dateParsed["endDate"] === null) {
           endDate = startDate;
         } else {
-          endDate = new Date(date.endDate).toString().slice(0, 15);
+          endDate = new Date(dateParsed.endDate).toString().slice(0, 15);
         }
         let day = 0;
         if (olddata) {
@@ -217,18 +217,32 @@ const RequestWFH = ({ route, navigation }: any) => {
           }
           dayData = dayData * 0.5;
         }
-
+        {
+          console.log(state.user.id, "state.user.id");
+        }
         const requestData = {
-          ...values,
+          ...rest,
           startDate: startDate,
           endDate: endDate,
           day: dayData,
           option: option,
-          requestor_id: state.user.id,
+          user_id: state.user.id,
           requestor_name: state.user.first_name,
-          uuid: state.user.uuid,
-          gender: state.user.gender,
+          // uuid: state.user.uuid,
+          // gender: state.user.gender,
         };
+        // const requestData = {
+        //   user_id: "1080",
+        //   lead: "[1026]",
+        //   note: "Test leave",
+        //   status: "In Progress",
+        //   start_date: "2023-01-06",
+        //   end_date: "2023-01-06",
+        //   option: "Half DAY",
+        //   day: 4,
+        //   requestor_name: "Nischal Dangol",
+        // };
+        console.log(requestData, "requestData");
 
         setisLoading(true);
 

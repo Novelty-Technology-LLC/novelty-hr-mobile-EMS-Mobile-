@@ -49,18 +49,21 @@ const mapObjectToRequest = (data: userType) => {
 
   const newData: dataType = {
     id: data.id,
-    date: dateStringMapper(data.leave_date.startDate, data.leave_date.endDate),
+    date: dateStringMapper(
+      data?.leave_date?.startDate,
+      data?.leave_date?.endDate
+    ),
     type: data?.type?.toUpperCase(),
-    state: data.status,
-    sender: data.requestor_id.toString(),
-    note: data.note,
-    user: data.user,
-    device_tokens: data.device_tokens,
-    lead: data.lead,
-    leave_approvals: data.leave_approvals,
-    leave_date: data.leave_date,
-    leave_option: data.leave_option,
-    createdAt: data.createdAt,
+    state: data?.status,
+    sender: data?.requestor_id?.toString(),
+    note: data?.note,
+    user: data?.user,
+    device_tokens: data?.device_tokens,
+    lead: data?.lead,
+    leave_approvals: data?.leave_approvals,
+    leave_date: data?.leave_date,
+    leave_option: data?.leave_option,
+    createdAt: data?.createdAt,
   };
   newRequest.push(newData);
 
