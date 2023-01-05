@@ -8,7 +8,7 @@ import {
 } from "../../../assets/styles";
 import { RequestButton } from "../../components/requestButton";
 import { getUser, mapDataToRequest, setUser } from "../../utils";
-import { get, getMyRequests, getQuota } from "../../services";
+import { get, getMyWfhRequests, getQuota } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
@@ -45,7 +45,7 @@ const WFHDashboard = () => {
       setRefreshing(false);
     });
 
-    getMyRequests(JSON.parse(user).id)
+    getMyWfhRequests(JSON.parse(user).id)
       .then((data) => {
         dispatchWFHRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
@@ -72,9 +72,9 @@ const WFHDashboard = () => {
     const user = await getUser();
     setIsAdmin(+JSON.parse(user).is_approver ? true : false);
 
-    getMyRequests(JSON.parse(user).id)
+    getMyWfhRequests(JSON.parse(user).id)
       .then((data) => {
-        console.log(data, "data");
+        console.log("sdsdsdsd", data, "data");
 
         dispatchWFHRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
@@ -125,12 +125,12 @@ const WFHDashboard = () => {
               />
             ))}
         </View>
-        {/* <MyWFHRequests
+        <MyWFHRequests
           screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
           loading={loading}
           refresh={refresh}
           params={notifdata?.request === "myrequest" && +notifdata?.leave_id}
-        /> */}
+        />
         {isAdmin && (
           <OtherWFHRequests
             screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}

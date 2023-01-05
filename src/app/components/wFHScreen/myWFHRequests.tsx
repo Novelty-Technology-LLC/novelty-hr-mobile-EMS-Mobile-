@@ -6,7 +6,7 @@ import { myRequestsStyle as style } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
 import { getUser, mapDataToRequest, mapObjectToRequest } from "../../utils";
-import { getPastRequests } from "../../services";
+import { getPastRequests, getPastWFHRequests } from "../../services";
 import { UserPlaceHolder } from "../loader";
 import { getLeave } from "../../services";
 import HistoryToggle from "../../common/historyToggle";
@@ -33,11 +33,12 @@ const MyWFHRequests = ({
   const [history, setHistory] = useState(false);
   const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
   let row: Array<any> = [];
+  console.log("requestsWFH", requestsWFH);
 
   const [toggle, setToggle] = useState("toggle-switch-off");
   const getPast = async () => {
     const user = await getUser();
-    getPastRequests(JSON.parse(user).id)
+    getPastWFHRequests(JSON.parse(user).id)
       .then((data) => {
         dispatchWFHRequest({
           type: "CHANGEPAST",
@@ -173,13 +174,13 @@ const MyWFHRequests = ({
       )}
 
       {toggle === "toggle-switch" &&
-        (!requestsWFH.pastrequests ? (
+        (!requestsWFH?.pastrequests ? (
           <>
             <SmallHeader text="Past Requests" />
             <UserPlaceHolder />
           </>
         ) : (
-          <WFHHistory requests={requestsWFH.pastrequests} refresh={refresh} />
+          <WFHHistory requests={requestsWFH?.pastrequests} refresh={refresh} />
         ))}
     </View>
   );

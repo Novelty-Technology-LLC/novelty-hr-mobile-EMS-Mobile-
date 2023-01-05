@@ -123,10 +123,10 @@ const OtherWFHRequests = ({
               />
             );
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item?.id}
         />
       )}
-      {adminrequests.adminrequests.length < 1 && !loading && (
+      {adminrequests?.adminrequests?.length < 1 && !loading && (
         <EmptyContainer text="You have not received any request." />
       )}
       {loading && (
@@ -136,7 +136,7 @@ const OtherWFHRequests = ({
         </>
       )}
       {toggle === "toggle-switch" && !loading && (
-        <WFHHistory other={true} requests={adminrequests.pastadminrequests} />
+        <WFHHistory other={true} requests={adminrequests?.pastadminrequests} />
       )}
     </View>
   );

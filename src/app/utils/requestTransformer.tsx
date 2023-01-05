@@ -20,26 +20,30 @@ const mapDataToRequest = (requests: any) => {
 
   requests.length > 0 &&
     requests.map((data: userType, index: number) => {
+      console.log("datadatadatadata", data);
+
       const newData: dataType = {
         id: data.id,
         date: dateStringMapper(
-          data.leave_date.startDate,
-          data.leave_date.endDate
+          data?.leave_date?.startDate ?? "",
+          data?.leave_date?.endDate ?? ""
         ),
         type: data?.type ? data?.type.toUpperCase() : data?.type,
-        state: data.status,
+        state: data?.status,
         sender: data.requestor_id.toString(),
-        note: data.note,
-        user: data.user,
-        leave_approvals: data.leave_approvals,
-        device_tokens: data.device_tokens,
-        lead: data.lead,
-        leave_date: data.leave_date,
-        createdAt: data.createdAt,
-        leave_option: data?.leave_option,
+        note: data?.note,
+        user: data?.user,
+        leave_approvals: data?.leave_approvals,
+        device_tokens: data?.device_tokens,
+        lead: data?.lead,
+        leave_date: data?.leave_date ?? "",
+        createdAt: data?.createdAt,
+        leave_option: data?.leave_option ?? "",
       };
+
       newRequests.push(newData);
     });
+  console.log("requestsrequestsrequestsrequestsrequests", newRequests);
 
   return newRequests;
 };
