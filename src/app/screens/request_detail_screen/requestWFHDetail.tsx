@@ -8,8 +8,10 @@ import { approveRequest as style } from "../../../assets/styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RequestButton } from "../../components/requestButton";
 import { checkRequest } from "../../services";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import { WFHRequest } from "../../components/wFHScreen/WFHrequest";
 
-const RequestDetail = ({ route }: any) => {
+const RequestWFHDetail = ({ route }: any) => {
   const { date } = route.params;
   const [isReplied, setIsReplied] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -34,10 +36,15 @@ const RequestDetail = ({ route }: any) => {
         </View>
       </Header>
 
-      <Request data={route.params} style={style} type={route.params.type} />
+      <Request
+        data={route.params}
+        style={style}
+        screenName={"WorkFromHome"}
+        type={"Work From Home"}
+      />
       {showAlert && (
         <RequestButton
-          screen="requestLeave"
+          screen={NAVIGATION_ROUTE.Request_WFH}
           floatingIcon="pencil-outline"
           olddata={route?.params}
         />
@@ -46,4 +53,4 @@ const RequestDetail = ({ route }: any) => {
   );
 };
 
-export { RequestDetail };
+export { RequestWFHDetail };

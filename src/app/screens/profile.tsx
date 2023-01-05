@@ -142,7 +142,7 @@ const Profile = ({ navigation }: any) => {
   };
   const openCamera = () =>
     ImageCropper.openCamera({
-      width: 300,
+      width: 400,
       height: 400,
       cropping: true,
       includeBase64: true,

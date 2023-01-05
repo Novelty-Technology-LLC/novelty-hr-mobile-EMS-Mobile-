@@ -3,8 +3,6 @@ import { View, TouchableWithoutFeedback } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { otherRequestsStyle } from "../../../assets/styles";
-import { Request } from "./request";
-import History from "./history";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
 import { getAllRequests } from "../../services";
@@ -13,8 +11,17 @@ import { AdminRequestContext, AuthContext } from "../../reducer";
 import { AdminPlaceHolder } from "../loader";
 import { getLeave } from "../../services";
 import HistoryToggle from "../../common/historyToggle";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import History from "../leave_screen/history";
+import { MyWFHRequests } from "./myWFHRequests";
+import { WFHRequest } from "./WFHrequest";
+import WFHHistory from "./wFHhistory";
 
-const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
+const OtherWFHRequests = ({
+  refresh,
+  params = 0,
+  screenName = "Leave",
+}: any) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState("toggle-switch-off");
   const [loading, setLoading] = useState(false);
@@ -44,7 +51,7 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
               pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
             }
           }
-          const common = pastreq.map((item) => item?.id);
+          const common = pastreq.map((item) => item.id);
           if (common.includes(req.id)) return;
           myreq = myreq.concat(req);
           myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
@@ -106,7 +113,7 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
           data={adminrequests.adminrequests}
           renderItem={(item) => {
             return (
-              <Request
+              <WFHRequest
                 item={item.item}
                 other={true}
                 recieved={true}
@@ -129,10 +136,10 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
         </>
       )}
       {toggle === "toggle-switch" && !loading && (
-        <History other={true} requests={adminrequests.pastadminrequests} />
+        <WFHHistory other={true} requests={adminrequests.pastadminrequests} />
       )}
     </View>
   );
 };
 
-export default React.memo(OtherRequests);
+export default React.memo(OtherWFHRequests);

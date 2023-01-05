@@ -3,11 +3,7 @@ import { View, Text, FlatList, TouchableWithoutFeedback } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import { myRequestsStyle as style } from "../../../assets/styles";
-import History from "./history";
-import { Request } from "./request";
-import Swipe from "./swipe";
 import { useNavigation } from "@react-navigation/native";
-import { RequestContext } from "../../reducer";
 import { EmptyContainer, SmallHeader } from "../../common";
 import { getUser, mapDataToRequest, mapObjectToRequest } from "../../utils";
 import { getPastRequests } from "../../services";
@@ -15,12 +11,18 @@ import { UserPlaceHolder } from "../loader";
 import { getLeave } from "../../services";
 import HistoryToggle from "../../common/historyToggle";
 import moment from "moment";
+import Swipe from "../leave_screen/swipe";
+import History from "../leave_screen/history";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import { WFHRequest } from "./WFHrequest";
+import WFHHistory from "./wFHhistory";
+import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
 
-const MyRequests = ({
+const MyWFHRequests = ({
   loading,
   refresh,
   params,
-  screenName = "requestDetail",
+  screenName,
 }: {
   loading: boolean;
   refresh: number;
@@ -29,7 +31,7 @@ const MyRequests = ({
 }) => {
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
-  const { requests, dispatchRequest } = useContext(RequestContext);
+  const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
   let row: Array<any> = [];
 
   const [toggle, setToggle] = useState("toggle-switch-off");
@@ -37,7 +39,7 @@ const MyRequests = ({
     const user = await getUser();
     getPastRequests(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({
+        dispatchWFHRequest({
           type: "CHANGEPAST",
           payload: mapDataToRequest(data),
         });
@@ -64,31 +66,46 @@ const MyRequests = ({
     get();
   }, [params]);
   const renderItem = (item: any) => {
-    const leaveDate = moment(item.item.leave_date.startDate).format(
+    const workDate = moment(item.item.leave_date.startDate).format(
       "YYYY-MM-DD"
     );
 
     const today = moment().format("YYYY-MM-DD");
-    if (leaveDate >= today) {
-      if (leaveDate === today) {
+    if (workDate >= today) {
+      if (workDate === today) {
         return new Date().getHours() <= 10 ? (
           <Swipeable
+            shouldCancelWhenOutside
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
-              <Swipe item={item.item} onPress={() => row[item.index].close()} />
+              <Swipe
+                item={item.item}
+                screenName={NAVIGATION_ROUTE.Request_WFH}
+                onPress={() => row[item.index].close()}
+              />
             )}
           >
-            <Request
+            <WFHRequest
               item={item.item}
               other={false}
-              onPress={() => navigation.navigate(screenName, item.item)}
+              onPress={() =>
+                navigation.navigate(
+                  NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                  item.item
+                )
+              }
             />
           </Swipeable>
         ) : (
-          <Request
+          <WFHRequest
             item={item.item}
             other={false}
-            onPress={() => navigation.navigate(screenName, item.item)}
+            onPress={() =>
+              navigation.navigate(
+                NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                item.item
+              )
+            }
           />
         );
       } else {
@@ -96,10 +113,14 @@ const MyRequests = ({
           <Swipeable
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
-              <Swipe item={item.item} onPress={() => row[item.index].close()} />
+              <Swipe
+                item={item.item}
+                screenName={NAVIGATION_ROUTE.Request_WFH}
+                onPress={() => row[item.index].close()}
+              />
             )}
           >
-            <Request
+            <WFHRequest
               item={item.item}
               other={false}
               onPress={() => navigation.navigate(screenName, item.item)}
@@ -109,7 +130,7 @@ const MyRequests = ({
       }
     } else {
       return (
-        <Request
+        <WFHRequest
           item={item.item}
           other={false}
           onPress={() => navigation.navigate(screenName, item.item)}
@@ -139,10 +160,10 @@ const MyRequests = ({
           />
         </View>
       </TouchableWithoutFeedback>
-      {/* {loading ? <UserPlaceHolder /> : null} */}
-      {requests.requests[0] ? (
+      {loading ? <UserPlaceHolder /> : null}
+      {requestsWFH.requests[0] ? (
         <FlatList
-          data={requests.requests}
+          data={requestsWFH.requests}
           renderItem={renderItem}
           // new Date().getHours() >= 16 && item.item.state === 'Approved'?
           keyExtractor={(item) => item.id}
@@ -152,16 +173,16 @@ const MyRequests = ({
       )}
 
       {toggle === "toggle-switch" &&
-        (!requests.pastrequests ? (
+        (!requestsWFH.pastrequests ? (
           <>
             <SmallHeader text="Past Requests" />
             <UserPlaceHolder />
           </>
         ) : (
-          <History requests={requests.pastrequests} refresh={refresh} />
+          <WFHHistory requests={requestsWFH.pastrequests} refresh={refresh} />
         ))}
     </View>
   );
 };
 
-export { MyRequests };
+export { MyWFHRequests };

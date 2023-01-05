@@ -32,8 +32,10 @@ const EditAlert = ({
   setShow,
   setisLoading,
   fromStack,
+  screenName = "Leave",
 }: {
   item: dataType;
+  screenName: string;
   status: string;
   setShow: Function;
   fromStack: boolean;
@@ -158,7 +160,10 @@ const EditAlert = ({
               <Text style={style.title}>Your response is ready to go</Text>
             </View>
             <View style={style.row}>
-              <RequestWithImage item={item} />
+              <RequestWithImage
+                item={item}
+                type={screenName === "Leave" ? item.type : "WFH"}
+              />
               <View style={style.gap}></View>
               <View style={style.stateView}>
                 <View style={requestStyle.rowAlign}>
@@ -198,25 +203,44 @@ const EditAlert = ({
               </View>
             </View>
             <View style={{ marginTop: 10 }}></View>
-            <View style={approveRequest.cardFooterContainer}>
-              <View style={approveRequest.cardFooter}>
-                <Text style={approveRequest.remainingLeave}>
-                  {"Remaining :"}
-                </Text>
-                <Text>
-                  <Text style={approveRequest.totalDays}>
-                    {leave_quota.used_pto + "/" + leave_quota.total_pto}
+            {screenName === "Leave" ? (
+              <View style={approveRequest.cardFooterContainer}>
+                <View style={approveRequest.cardFooter}>
+                  <Text style={approveRequest.remainingLeave}>
+                    {"Remaining :"}
                   </Text>
-                  <Text style={approveRequest.leaveTypes}>{" PTO"}</Text>
-                </Text>
-                <Text>
-                  <Text style={approveRequest.totalDays}>
-                    {leave_quota.used_float + "/" + leave_quota.total_float}
+                  <Text>
+                    <Text style={approveRequest.totalDays}>
+                      {leave_quota.used_pto + "/" + leave_quota.total_pto}
+                    </Text>
+                    <Text style={approveRequest.leaveTypes}>{" PTO"}</Text>
                   </Text>
-                  <Text style={approveRequest.leaveTypes}>{" Floating "}</Text>
-                </Text>
+                  <Text>
+                    <Text style={approveRequest.totalDays}>
+                      {leave_quota.used_float + "/" + leave_quota.total_float}
+                    </Text>
+                    <Text style={approveRequest.leaveTypes}>
+                      {" Floating "}
+                    </Text>
+                  </Text>
+                </View>
               </View>
-            </View>
+            ) : (
+              <View style={approveRequest.cardWFHFooter}>
+                <View style={approveRequest.cardFooter}>
+                  <Text style={approveRequest.remainingLeave}>
+                    Remaining Quota :
+                  </Text>
+                  {/* <Text></Text> */}
+                  <Text>
+                    <Text style={approveRequest.totalDays}>
+                      {leave_quota.used_float + "/" + leave_quota.total_float}
+                    </Text>
+                    <Text style={approveRequest.leaveTypes}>{" WFH "}</Text>
+                  </Text>
+                </View>
+              </View>
+            )}
             <View style={style.main}>
               <Textarea
                 containerStyle={style.textareaContainer}

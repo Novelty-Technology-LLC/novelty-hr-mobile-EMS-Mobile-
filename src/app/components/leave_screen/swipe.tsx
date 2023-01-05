@@ -19,6 +19,7 @@ const Swipe = ({
   timelog,
   edittimelog,
   onPress,
+  screenName = "requestLeave",
   setLoading,
 }: any) => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const Swipe = ({
     checkRequest(item?.id)
       .then((res) => {
         if (res === "Pending") {
-          navigation.navigate("requestLeave", item);
+          navigation.navigate(screenName, item);
         } else {
           show();
         }

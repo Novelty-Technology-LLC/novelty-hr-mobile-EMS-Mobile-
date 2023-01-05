@@ -1,6 +1,6 @@
 import { dataType } from "../interface";
 import { dateStringMapper } from "./dateMapper";
-interface userType {
+export interface userType {
   id: number;
   leave_date: { endDate: string; startDate: string };
   note: string;
@@ -50,7 +50,7 @@ const mapObjectToRequest = (data: userType) => {
   const newData: dataType = {
     id: data.id,
     date: dateStringMapper(data.leave_date.startDate, data.leave_date.endDate),
-    type: data.type.toUpperCase(),
+    type: data?.type?.toUpperCase(),
     state: data.status,
     sender: data.requestor_id.toString(),
     note: data.note,

@@ -1,73 +1,82 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, ScrollView, Text, RefreshControl } from "react-native";
 import { header as Header } from "../../common";
-import { DaysRemaining, MyRequests } from "../../components";
+import { DaysRemaining } from "../../components";
 import {
   headerTxtStyle,
   leaveDashboardStyle as style,
 } from "../../../assets/styles";
-import OtherRequests from "../../components/leave_screen/otherRequests";
 import { RequestButton } from "../../components/requestButton";
-import { RequestContext } from "../../reducer";
 import { getUser, mapDataToRequest, setUser } from "../../utils";
-import { get, getLeaveQuota, getMyRequests, store } from "../../services";
+import { get, getMyRequests, getQuota } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
-import Autolink from "react-native-autolink";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import { MyWFHRequests } from "../../components/wFHScreen/myWFHRequests";
+import OtherWFHRequests from "../../components/wFHScreen/otherWFHRequests";
+import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
 
-const LeaveDashboard = () => {
+const WFHDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const ref = React.useRef(null);
+  const [loading, setLoading] = useState(false);
+  const { requestsWFH, dispatchWFHRequest } =
+    useContext<any>(RequestWFHContext);
+  console.log(requestsWFH, "requestsWFH");
+
   const {
     state: { notifdata },
-  } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false);
-  const { requests, dispatchRequest } = useContext(RequestContext);
+  }: any = useContext(AuthContext);
+
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
-    const user = await getUser();
-    const newuser = await get(+JSON.parse(user).id);
+    const user: any = await getUser();
+    const newuser: any = await get(+JSON.parse(user).id);
     setIsAdmin(+newuser.is_approver === 1 ? true : false);
     setUser(newuser);
+    getQuota(JSON.parse(user).id).then((data) => {
+      console.log("sss", data, "rrrr");
 
-    getLeaveQuota(JSON.parse(user).id).then((data) => {
-      dispatchRequest({ type: "QUOTA", payload: data });
+      dispatchWFHRequest({ type: "QUOTA", payload: data });
       setRefreshing(false);
     });
 
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
+        dispatchWFHRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
         setRefreshing(false);
       })
       .catch((err) => {
-        console.log(err);
-
         setLoading(false);
       });
   }, []);
 
-  const getData = async () => {
+  const getWFHQuota = async () => {
     const user = await getUser();
-    getLeaveQuota(JSON.parse(user).id)
-      .then((data) => {
-        dispatchRequest({ type: "QUOTA", payload: data });
+    getQuota(JSON.parse(user).id)
+      .then((data: any) => {
+        console.log(data, "wfh-quota");
+
+        dispatchWFHRequest({ type: "QUOTA", payload: data });
       })
       .catch((err) => {});
   };
 
-  const getRequest = async () => {
+  const getWFHRequest = async () => {
     setLoading(true);
     const user = await getUser();
     setIsAdmin(+JSON.parse(user).is_approver ? true : false);
 
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
+        console.log(data, "data");
+
+        dispatchWFHRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
       })
       .catch((err) => {
@@ -77,18 +86,18 @@ const LeaveDashboard = () => {
 
   useEffect(() => {
     const runFunction = () => {
-      getData();
-      getRequest();
+      getWFHQuota();
+      getWFHRequest();
     };
 
     runFunction();
-  }, [requests?.requests?.length]);
+  }, []);
 
   useScrollToTop(ref);
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
-        <Text style={headerTxtStyle.headerText}>Leave Application</Text>
+        <Text style={headerTxtStyle.headerText}>WFH Application</Text>
       </Header>
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -97,26 +106,34 @@ const LeaveDashboard = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {requests?.quota?.length > 0 ? null : <QuotaPlaceHolder />}
-        <View style={style.container}>
-          {requests.quota &&
-            requests.quota.length > 0 &&
-            requests.quota.map((daysDetail) => (
+        {console.log(requestsWFH?.quota?.length, "equestsWFH?.quota?.length")}
+        {requestsWFH?.quota?.length > 0 ? null : <QuotaPlaceHolder />}
+        <View
+          style={[
+            style.container,
+            { alignItems: "center", flexDirection: "column" },
+          ]}
+        >
+          {requestsWFH?.quota &&
+            requestsWFH?.quota.length > 0 &&
+            requestsWFH?.quota.map((daysDetail) => (
               <DaysRemaining
                 key={daysDetail?.id}
-                total={daysDetail?.leave_total}
-                remaining={daysDetail?.leave_used}
-                title={daysDetail?.leave_type}
+                total={daysDetail?.total}
+                remaining={daysDetail?.remaining}
+                title={"WFH Quota"}
               />
             ))}
         </View>
-        <MyRequests
+        {/* <MyWFHRequests
+          screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
           loading={loading}
           refresh={refresh}
           params={notifdata?.request === "myrequest" && +notifdata?.leave_id}
-        />
+        /> */}
         {isAdmin && (
-          <OtherRequests
+          <OtherWFHRequests
+            screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
             refresh={refresh}
             params={
               notifdata?.request === "otherrequest" && +notifdata?.leave_id
@@ -124,9 +141,9 @@ const LeaveDashboard = () => {
           />
         )}
       </ScrollView>
-      <RequestButton screen="requestLeave" />
+      <RequestButton screen={NAVIGATION_ROUTE.Request_WFH} />
     </View>
   );
 };
 
-export { LeaveDashboard };
+export { WFHDashboard };

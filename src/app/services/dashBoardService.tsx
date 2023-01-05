@@ -27,7 +27,7 @@ const getList = (route: string) => {
       });
 
       resolve(res.data.data);
-    } catch (error) { }
+    } catch (error) {}
   });
 };
 
@@ -91,4 +91,4 @@ export const getShoutoutByID = async (shoutoutID: string) => {
   } catch (error) {
     throw { success: false, message: error };
   }
-}
+};

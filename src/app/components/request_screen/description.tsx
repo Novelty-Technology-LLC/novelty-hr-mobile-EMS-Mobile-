@@ -15,6 +15,7 @@ const Description = ({
   editlog,
   error,
   touched,
+  workfromhome = false,
   hashtagError,
   values,
   updatehashtag,
@@ -25,6 +26,7 @@ const Description = ({
   handleChange: Function;
   defaultValue?: string;
   timelog?: boolean;
+  workfromhome?: boolean;
   editlog?: boolean;
   error?: any;
   touched?: any;
@@ -193,9 +195,11 @@ const Description = ({
           maxLength={200}
           defaultValue={editHashtag ?? values?.note ?? defaultValue}
           placeholder={
-            timelog
-              ? "Write a short summary about your task.."
-              : "Write a short note for your leave.."
+            workfromhome
+              ? "Write a short note for your work from home.."
+              : timelog
+              ? "Write a short note for your leave.."
+              : "Write a short summary about your task.."
           }
           placeholderTextColor={"#c7c7c7"}
           underlineColorAndroid={"transparent"}

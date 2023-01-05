@@ -13,7 +13,16 @@ const createWork = async (data: object) => {
       });
   });
 };
-
+const postWFHRequest = (data: object) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.post("/work", data);
+      resolve(res);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
 const getWork = (userId: number, date: any) =>
   new Promise((resolve, reject) => {
     api
@@ -25,4 +34,16 @@ const getWork = (userId: number, date: any) =>
         reject(err);
       });
   });
-export { createWork, getWork };
+const getQuota = (id: any) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/wfh-quota/${id}`);
+      console.log(res.data.data, "res.data.data");
+
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+export { createWork, getWork, getQuota, postWFHRequest };

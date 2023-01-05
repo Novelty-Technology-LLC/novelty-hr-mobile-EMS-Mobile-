@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { requestStyle as style } from "../../../assets/styles";
-import RequestWithImage from "./requestWithImage";
-import State from "./state";
 
 import getDay from "../../utils/getDay";
-import { ApproveDeny } from "./approveDeny";
 import { AdminRequestContext, AuthContext } from "../../reducer";
 import { getLeaveOption } from "../../utils/getLeaveType";
+import State from "../leave_screen/state";
+import RequestWithImage from "../leave_screen/requestWithImage";
+import { ApproveDeny } from "../leave_screen/approveDeny";
 
 interface requestPropType {
   item: any;
@@ -16,7 +16,7 @@ interface requestPropType {
   onPress?: Function;
 }
 
-const Request = ({ item, other, recieved, onPress }: requestPropType) => {
+const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   let { day } = getDay(item);
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext(AuthContext);
@@ -34,7 +34,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   useEffect(() => {
     checkReplied();
   }, [adminrequests.adminrequests]);
-  const leave_option = getLeaveOption(item?.leave_option);
+  const work_option = getLeaveOption(item?.leave_option);
 
   return (
     <>
@@ -51,16 +51,14 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
               </View>
             </View>
             <Text style={style.type}>
-              <Text> {item.type}</Text>
-              {leave_option !== "FULL DAY" && (
-                <Text> {` (${leave_option})`}</Text>
-              )}
+              {/* <Text> {"Work From Home"}</Text> */}
+              {work_option && <Text> {`${work_option}`}</Text>}
             </Text>
           </View>
         </TouchableOpacity>
       ) : (
         <View style={style.container}>
-          <RequestWithImage item={item} onPress={onPress} type={item.type} />
+          <RequestWithImage item={item} onPress={onPress} type={""} />
           {recieved ? (
             <View style={style.subcontainer}>
               <Text style={style.days}>
@@ -75,14 +73,14 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                     title="Approve"
                     style={style}
                     item={item}
-                    fromStack={true}
+                    screenName="WFH"
                   />
                   <View style={style.buttonSpacer}></View>
                   <ApproveDeny
                     title="Deny"
                     style={style}
                     item={item}
-                    fromStack={true}
+                    screenName="WFH"
                   />
                 </View>
               )}
@@ -98,4 +96,4 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   );
 };
 
-export { Request };
+export { WFHRequest };

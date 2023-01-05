@@ -1,13 +1,11 @@
 import React, { useReducer } from "react";
 import { mapObjectToRequest } from "../utils";
 
-const RequestReducer = (prevState, action) => {
-  console.log(action.type);
+const RequestWFHReducer = (prevState, action) => {
+  console.log(action.payload, "action.payload");
 
   switch (action.type) {
     case "QUOTA":
-      console.log("{ ...action.payload }");
-
       return {
         ...prevState,
         quota: action.payload,
@@ -33,8 +31,6 @@ const RequestReducer = (prevState, action) => {
       };
 
     case "CHANGE":
-      console.log("{ ...action.payload }");
-      console.log({ ...action.type });
       return {
         ...prevState,
         requests: [...action.payload],
@@ -59,7 +55,7 @@ const RequestReducer = (prevState, action) => {
         ...prevState,
         requests: [].concat(
           mapObjectToRequest(action.payload),
-          ...prevState.requests.filter((item) => item?.id !== action.payload.id)
+          ...prevState.requests.filter((item) => item.id !== action.payload.id)
         ),
       };
 
@@ -67,19 +63,19 @@ const RequestReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [].concat(
-          ...prevState.requests.filter((item) => item?.id !== action.payload.id)
+          ...prevState.requests.filter((item) => item.id !== action.payload.id)
         ),
         pastrequests: [].concat(
           mapObjectToRequest(action.payload),
           ...prevState.pastrequests.filter(
-            (item) => item?.id !== action.payload.id
+            (item) => item.id !== action.payload.id
           )
         ),
       };
   }
 };
 
-const RequestContext = React.createContext();
+const RequestWFHContext = React.createContext();
 
 const initialState = {
   requests: [],
@@ -87,13 +83,16 @@ const initialState = {
   pastrequests: [],
 };
 
-const useRequest = () => {
-  const [requests, dispatchRequest] = useReducer(RequestReducer, initialState);
+const useWFHRequest = () => {
+  const [requestsWFH, dispatchWFHRequest] = useReducer(
+    RequestWFHReducer,
+    initialState
+  );
 
   return {
-    requests,
-    dispatchRequest,
+    requestsWFH,
+    dispatchWFHRequest,
   };
 };
 
-export { useRequest, RequestContext };
+export { useWFHRequest, RequestWFHContext };

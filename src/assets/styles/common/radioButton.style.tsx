@@ -9,7 +9,6 @@ const customRadioButtonStyle = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     paddingHorizontal: normalize(15),
-    paddingVertical: normalize(15),
   },
   body: {
     flexDirection: "row",

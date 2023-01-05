@@ -9,10 +9,12 @@ import { SmallHeader } from "./smallHeader";
 
 export const CustomRadioButton = ({
   dataList,
+  title,
   setSelectedIndex,
   selectedIndex,
 }: {
   dataList: any;
+  title: any;
   setSelectedIndex: any;
   selectedIndex: any;
 }) => {
@@ -20,7 +22,7 @@ export const CustomRadioButton = ({
 
   return (
     <View style={customRadioButtonStyle.container}>
-      <SmallHeader text="Leave Option" />
+      <SmallHeader text={title} />
 
       <RadioGroup
         selectedIndex={selectedIndex}

@@ -13,6 +13,7 @@ import { goBack } from "../../utils/navigation";
 
 interface approveDenyPropType {
   title: string;
+  screenName: string;
   style: object;
   item: dataType;
   fromStack: boolean;
@@ -23,6 +24,7 @@ const ApproveDeny = ({
   title,
   item,
   fromStack,
+  screenName = "Leave",
 }: approveDenyPropType) => {
   const [show, setShow] = useState(false);
   const [isLoading, setisLoading] = useState(false);
@@ -37,6 +39,7 @@ const ApproveDeny = ({
           setShow={setShow}
           fromStack={fromStack}
           setisLoading={setisLoading}
+          screenName={screenName}
         />
       )}
       <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
