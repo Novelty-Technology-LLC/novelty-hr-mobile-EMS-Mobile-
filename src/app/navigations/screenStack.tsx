@@ -23,6 +23,8 @@ import {
   useWFHRequest,
 } from "../reducer/requestWorkFromReducer";
 import { RequestWFH } from "../screens/request_screen/requestWFH";
+import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
+import { RequestWFHDetail } from "../screens/request_detail_screen/requestWFHDetail";
 
 const ScreenStack = createStackNavigator();
 
@@ -66,6 +68,10 @@ const ScreenNav = () => {
               <ScreenStack.Screen
                 name="requestDetail"
                 component={RequestDetail}
+              />
+              <ScreenStack.Screen
+                name={NAVIGATION_ROUTE.Request_WFH_DETAIL}
+                component={RequestWFHDetail}
               />
             </ScreenStack.Navigator>
           </RequestWFHContext.Provider>

@@ -15,13 +15,14 @@ const WFHHistory = ({ requests, other, refresh }: any) => {
   let row: Array<any> = [];
 
   useEffect(() => {
-    row.map((item) => item.close());
+    row?.map((item) => item.close());
   }, [refresh]);
+  console.log("requestsrequestsrequests", requests);
 
   return (
     <View style={other ? style.container : null}>
       <SmallHeader text="Past Requests" />
-      {requests.length > 0 ? (
+      {requests?.length > 0 ? (
         <FlatList
           data={requests}
           renderItem={(item) =>
@@ -32,22 +33,22 @@ const WFHHistory = ({ requests, other, refresh }: any) => {
                 onPress={() =>
                   navigation.navigate(
                     NAVIGATION_ROUTE.Request_WFH_DETAIL,
-                    item.item
+                    item?.item
                   )
                 }
               />
-            ) : item.item.state === "Denied" ||
-              item.item.state === "Cancelled" ||
-              (item.item.state === "Approved" &&
-                new Date(item.item.leave_date.startDate).getTime() <
+            ) : item?.item?.state === "Denied" ||
+              item?.item?.state === "Cancelled" ||
+              (item?.item?.state === "Approved" &&
+                new Date(item?.item?.leave_date?.startDate).getTime() <
                   new Date().getTime()) ? (
               <WFHRequest
-                item={item.item}
+                item={item?.item}
                 other={other}
                 onPress={() =>
                   navigation.navigate(
                     NAVIGATION_ROUTE.Request_WFH_DETAIL,
-                    item.item
+                    item?.item
                   )
                 }
               />

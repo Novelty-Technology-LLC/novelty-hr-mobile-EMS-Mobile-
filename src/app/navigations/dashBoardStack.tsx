@@ -41,6 +41,8 @@ import { CreateShoutout } from "../screens/shoutout/createShoutout";
 import { ShoutoutContext, useShoutout } from "../reducer/shoutoutReducer";
 import { WFHDashboard } from "../screens/workFromHomeSreen/wFHDashboard";
 import { RequestWFH } from "../screens/request_screen/requestWFH";
+import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
+import { RequestWFHDetail } from "../screens/request_detail_screen/requestWFHDetail";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -58,69 +60,80 @@ const DashNav = () => {
             <RequestWFHContext.Provider
               value={{ requestsWFH, dispatchWFHRequest }}
             >
-              <RequestContext.Provider value={{ requests, dispatchRequest }}>
-                <DashStack.Navigator
-                  screenOptions={{
-                    headerShown: false,
-                  }}
-                >
-                  <DashStack.Screen name="dashboard" component={DashBoard} />
-                  <DashStack.Screen
-                    name="WFH_DASHBOARD"
-                    component={WFHDashboard}
-                  />
-                  <DashStack.Screen name="Request_WFH" component={RequestWFH} />
-                  <DashStack.Screen
-                    name="leavelisting"
-                    component={LeaveListing}
-                  />
-                  <DashStack.Screen
-                    name="menuListing"
-                    component={MenuListing}
-                  />
-                  <DashStack.Screen name="editMenu" component={EditMenu} />
-                  <DashStack.Screen
-                    name="EmployeeListing"
-                    component={EmployeeListing}
-                  />
-                  <DashStack.Screen
-                    name="workFromHomeEmployeeListing"
-                    component={WorkFromHomeEmployeeListing}
-                  />
-                  <DashStack.Screen
-                    name="employeeDetail"
-                    component={EmployeeDetail}
-                  />
-                  <DashStack.Screen
-                    name="editEmployeeDetail"
-                    component={EditEmployeeDetail}
-                  />
-                  <DashStack.Screen
-                    name="announcementsListing"
-                    component={AnnouncementListing}
-                  />
-                  <DashStack.Screen
-                    name="announcementsDetails"
-                    component={AnnouncementDetail}
-                  />
-                  <DashStack.Screen
-                    name="addAnnouncement"
-                    component={AddAnnouncement}
-                  />
-                  <DashStack.Screen
-                    name="holidayeventslisting"
-                    component={HolidayEventListing}
-                  />
-                  <DashStack.Screen
-                    name="shoutoutDetail"
-                    component={ShoutoutDetails}
-                  />
-                  <DashStack.Screen
-                    name={RouteNames.createShoutout}
-                    component={CreateShoutout}
-                  />
-                </DashStack.Navigator>
-              </RequestContext.Provider>
+              <AdminRequestContext.Provider
+                value={{ adminrequests, dispatchAdmin }}
+              >
+                <RequestContext.Provider value={{ requests, dispatchRequest }}>
+                  <DashStack.Navigator
+                    screenOptions={{
+                      headerShown: false,
+                    }}
+                  >
+                    <DashStack.Screen name="dashboard" component={DashBoard} />
+                    <DashStack.Screen
+                      name="WFH_DASHBOARD"
+                      component={WFHDashboard}
+                    />
+                    <DashStack.Screen
+                      name="Request_WFH"
+                      component={RequestWFH}
+                    />
+                    <DashStack.Screen
+                      name="leavelisting"
+                      component={LeaveListing}
+                    />
+                    <DashStack.Screen
+                      name="menuListing"
+                      component={MenuListing}
+                    />
+                    <DashStack.Screen name="editMenu" component={EditMenu} />
+                    <DashStack.Screen
+                      name="EmployeeListing"
+                      component={EmployeeListing}
+                    />
+                    <DashStack.Screen
+                      name="workFromHomeEmployeeListing"
+                      component={WorkFromHomeEmployeeListing}
+                    />
+                    <DashStack.Screen
+                      name="employeeDetail"
+                      component={EmployeeDetail}
+                    />
+                    <DashStack.Screen
+                      name="editEmployeeDetail"
+                      component={EditEmployeeDetail}
+                    />
+                    <DashStack.Screen
+                      name="announcementsListing"
+                      component={AnnouncementListing}
+                    />
+                    <DashStack.Screen
+                      name="announcementsDetails"
+                      component={AnnouncementDetail}
+                    />
+                    <DashStack.Screen
+                      name="addAnnouncement"
+                      component={AddAnnouncement}
+                    />
+                    <DashStack.Screen
+                      name="holidayeventslisting"
+                      component={HolidayEventListing}
+                    />
+                    <DashStack.Screen
+                      name="shoutoutDetail"
+                      component={ShoutoutDetails}
+                    />
+                    <DashStack.Screen
+                      name={RouteNames.createShoutout}
+                      component={CreateShoutout}
+                    />
+                    <DashStack.Screen
+                      name={NAVIGATION_ROUTE.Request_WFH_DETAIL}
+                      component={RequestWFHDetail}
+                    />
+                  </DashStack.Navigator>
+                </RequestContext.Provider>
+              </AdminRequestContext.Provider>
             </RequestWFHContext.Provider>
           </ShoutoutContext.Provider>
         </MenuContext.Provider>
