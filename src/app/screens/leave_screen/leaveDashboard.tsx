@@ -45,8 +45,6 @@ const LeaveDashboard = () => {
         setRefreshing(false);
       })
       .catch((err) => {
-        console.log(err);
-
         setLoading(false);
       });
   }, []);

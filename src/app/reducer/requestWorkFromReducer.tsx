@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { mapObjectToRequest } from "../utils";
+import { mapObjectToWFHRequest } from "../utils/requestWfhTransformer";
 
 const RequestWFHReducer = (prevState, action) => {
   console.log(action.payload, "action.payload");
@@ -46,7 +46,7 @@ const RequestWFHReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [].concat(
-          mapObjectToRequest(action.payload),
+          mapObjectToWFHRequest(action.payload),
           ...prevState.requests
         ),
       };
@@ -54,7 +54,7 @@ const RequestWFHReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [].concat(
-          mapObjectToRequest(action.payload),
+          mapObjectToWFHRequest(action.payload),
           ...prevState.requests.filter((item) => item.id !== action.payload.id)
         ),
       };
@@ -66,7 +66,7 @@ const RequestWFHReducer = (prevState, action) => {
           ...prevState.requests.filter((item) => item.id !== action.payload.id)
         ),
         pastrequests: [].concat(
-          mapObjectToRequest(action.payload),
+          mapObjectToWFHRequest(action.payload),
           ...prevState.pastrequests.filter(
             (item) => item.id !== action.payload.id
           )

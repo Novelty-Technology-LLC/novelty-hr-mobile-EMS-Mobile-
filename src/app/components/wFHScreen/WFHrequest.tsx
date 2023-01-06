@@ -34,7 +34,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   useEffect(() => {
     checkReplied();
   }, [adminrequests.adminrequests]);
-  const work_option = getLeaveOption(item?.leave_option);
+  const work_option = getLeaveOption(item?.option);
 
   return (
     <>
@@ -45,9 +45,9 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
         >
           <View style={style.dateView}>
             <View style={style.status}>
-              <Text style={style.date}>{item.date}</Text>
+              <Text style={style.date}>{item.start_date}</Text>
               <View style={style.stateView}>
-                <State state={item.state} />
+                <State state={item.status} />
               </View>
             </View>
             <Text style={style.type}>
@@ -65,7 +65,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
                 {day > 1 ? day + " days ago" : (day = " Today")}
               </Text>
               <View style={style.status}>
-                <State state={item.state} />
+                <State state={item.status} />
               </View>
               {!isReplied && (
                 <View style={style.buttonContainer}>
@@ -87,7 +87,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
             </View>
           ) : (
             <View style={style.pastState}>
-              <State state={item.state} />
+              <State state={item.status} />
             </View>
           )}
         </View>

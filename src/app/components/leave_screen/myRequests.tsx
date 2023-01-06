@@ -64,7 +64,7 @@ const MyRequests = ({
     get();
   }, [params]);
   const renderItem = (item: any) => {
-    const leaveDate = moment(item.item.leave_date.startDate).format(
+    const leaveDate = moment(item?.item.leave_date?.startDate).format(
       "YYYY-MM-DD"
     );
 
@@ -96,7 +96,11 @@ const MyRequests = ({
           <Swipeable
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
-              <Swipe item={item.item} onPress={() => row[item.index].close()} />
+              <Swipe
+                item={item.item}
+                onPress={() => row[item.index].close()}
+                isLeave={true}
+              />
             )}
           >
             <Request

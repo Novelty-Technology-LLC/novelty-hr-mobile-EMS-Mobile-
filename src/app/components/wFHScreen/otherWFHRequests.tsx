@@ -5,8 +5,8 @@ import { FlatList } from "react-native-gesture-handler";
 import { otherRequestsStyle } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
-import { getAllRequests } from "../../services";
-import { getUser, mapDataToRequest, mapObjectToRequest } from "../../utils";
+import { getAllRequests, getMyRequest } from "../../services";
+import { getUser, mapDataToRequest } from "../../utils";
 import { AdminRequestContext, AuthContext } from "../../reducer";
 import { AdminPlaceHolder } from "../loader";
 import { getLeave } from "../../services";
@@ -16,6 +16,10 @@ import History from "../leave_screen/history";
 import { MyWFHRequests } from "./myWFHRequests";
 import { WFHRequest } from "./WFHrequest";
 import WFHHistory from "./wFHhistory";
+import {
+  mapDataToWFHRequest,
+  mapObjectToWFHRequest,
+} from "../../utils/requestWfhTransformer";
 
 const OtherWFHRequests = ({
   refresh,
@@ -60,8 +64,8 @@ const OtherWFHRequests = ({
         dispatchAdmin({
           type: "CHANGE",
           payload: {
-            my: mapDataToRequest(myreq),
-            past: mapDataToRequest(pastreq),
+            my: mapDataToWFHRequest(myreq),
+            past: mapDataToWFHRequest(pastreq),
           },
         });
 
@@ -80,8 +84,8 @@ const OtherWFHRequests = ({
   useEffect(() => {
     const get = async () => {
       if (+params) {
-        let data = await getLeave(+params);
-        data = mapObjectToRequest(data[0]);
+        let data = await getMyRequest(+params);
+        data = mapObjectToWFHRequest(data[0]);
         navigation.navigate("approveLeave", data[0]);
       }
     };

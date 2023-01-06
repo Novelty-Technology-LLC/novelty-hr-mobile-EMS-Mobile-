@@ -7,7 +7,8 @@ import { deleteAlertStyle as style } from "../../../assets/styles";
 import { AppIcon, showToast, snackBarMessage } from "../../common";
 import { dataType } from "../../interface";
 import { RequestContext, TimeLogContext } from "../../reducer";
-import { deleteRequest, cancelLeave } from "../../services";
+import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
+import { deleteRequest, cancelLeave, cancelWfh } from "../../services";
 import { deleteTimeLog } from "../../services/timeLogService";
 import Normalize from "../../utils/normalize";
 
@@ -18,6 +19,7 @@ const DeleteAlert = ({
   timelog,
   edittimelog,
   onPress,
+  isLeave,
 }: {
   item: dataType;
   other: boolean;
@@ -25,12 +27,17 @@ const DeleteAlert = ({
   value?: object;
   edittimelog?: boolean;
   onPress?: Function;
+  isLeave?: Boolean;
 }) => {
+  console.log(isLeave, "isLeave??");
+
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const { dispatchRequest } = useContext(RequestContext);
+  const { requestsWFH, dispatchWFHRequest } =
+    useContext<any>(RequestWFHContext);
   const [loading, setLoading] = useState(false);
 
   const onDelete = async () => {
@@ -38,6 +45,8 @@ const DeleteAlert = ({
     if (other) {
       cancelLeave(item?.id)
         .then((data) => {
+          console.log(data, "cancel");
+
           dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
           dispatchRequest({ type: "CANCEL", payload: data.leave });
           setLoading(false);
@@ -45,6 +54,8 @@ const DeleteAlert = ({
           hide();
         })
         .catch((err) => {
+          console.log(err, "errrrrrrrr");
+
           hide();
         });
     } else {

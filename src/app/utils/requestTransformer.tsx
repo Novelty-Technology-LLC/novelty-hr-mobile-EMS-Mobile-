@@ -20,8 +20,6 @@ const mapDataToRequest = (requests: any) => {
 
   requests.length > 0 &&
     requests.map((data: userType, index: number) => {
-      console.log("datadatadatadata", data);
-
       const newData: dataType = {
         id: data.id,
         date: dateStringMapper(
@@ -43,7 +41,6 @@ const mapDataToRequest = (requests: any) => {
 
       newRequests.push(newData);
     });
-  console.log("requestsrequestsrequestsrequestsrequests", newRequests);
 
   return newRequests;
 };

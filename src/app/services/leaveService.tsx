@@ -12,32 +12,10 @@ export const getAllRequests = (id) => {
   });
 };
 
-export const getMyWfhRequests = (id: any) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let res = await api.get(`/work/${id}`);
-
-      resolve(res.data.data);
-    } catch (error) {
-      reject({ success: false, message: error });
-    }
-  });
-};
-
 export const getPastRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/leave/past/${id}`);
-      resolve(res.data.data);
-    } catch (error) {
-      reject({ success: false, message: error });
-    }
-  });
-};
-export const getPastWFHRequests = (id: any) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let res = await api.get(`/work/past/${id}?fiscal_year=078-079`);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

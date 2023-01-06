@@ -5,8 +5,13 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { myRequestsStyle as style } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
-import { getUser, mapDataToRequest, mapObjectToRequest } from "../../utils";
-import { getPastRequests, getPastWFHRequests } from "../../services";
+import { getUser } from "../../utils";
+import {
+  getMyRequest,
+  getPastRequests,
+  getPastWFHRequests,
+  getRequest,
+} from "../../services";
 import { UserPlaceHolder } from "../loader";
 import { getLeave } from "../../services";
 import HistoryToggle from "../../common/historyToggle";
@@ -17,6 +22,7 @@ import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "./WFHrequest";
 import WFHHistory from "./wFHhistory";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
+import { mapObjectToWFHRequest } from "../../utils/requestWfhTransformer";
 
 const MyWFHRequests = ({
   loading,
@@ -32,17 +38,19 @@ const MyWFHRequests = ({
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
   const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
+
   let row: Array<any> = [];
-  console.log("requestsWFH", requestsWFH);
 
   const [toggle, setToggle] = useState("toggle-switch-off");
   const getPast = async () => {
     const user = await getUser();
+    console.log(user, "ss");
+
     getPastWFHRequests(JSON.parse(user).id)
       .then((data) => {
         dispatchWFHRequest({
           type: "CHANGEPAST",
-          payload: mapDataToRequest(data),
+          payload: mapObjectToWFHRequest(data),
         });
       })
       .catch((err) => {});
@@ -59,27 +67,30 @@ const MyWFHRequests = ({
   useEffect(() => {
     const get = async () => {
       if (params) {
-        let data = await getLeave(+params);
-        data = mapObjectToRequest(data[0]);
+        let data = await getMyRequest(+params);
+        console.log(data, "res");
+
+        data = mapObjectToWFHRequest(data[0]);
         navigation.navigate(screenName, data[0]);
       }
     };
     get();
   }, [params]);
   const renderItem = (item: any) => {
-    const workDate = moment(item.item.leave_date.startDate).format(
+    const workDate = moment(item?.item?.leave_date?.startDate).format(
       "YYYY-MM-DD"
     );
 
     const today = moment().format("YYYY-MM-DD");
     if (workDate >= today) {
       if (workDate === today) {
-        return new Date().getHours() <= 10 ? (
+        return new Date().getHours() >= 23 ? (
           <Swipeable
             shouldCancelWhenOutside
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
               <Swipe
+                isLeave={false}
                 item={item.item}
                 screenName={NAVIGATION_ROUTE.Request_WFH}
                 onPress={() => row[item.index].close()}
@@ -115,6 +126,7 @@ const MyWFHRequests = ({
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
               <Swipe
+                isLeave={false}
                 item={item.item}
                 screenName={NAVIGATION_ROUTE.Request_WFH}
                 onPress={() => row[item.index].close()}

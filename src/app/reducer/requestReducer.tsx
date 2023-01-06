@@ -2,12 +2,8 @@ import React, { useReducer } from "react";
 import { mapObjectToRequest } from "../utils";
 
 const RequestReducer = (prevState, action) => {
-  console.log(action.type);
-
   switch (action.type) {
     case "QUOTA":
-      console.log("{ ...action.payload }");
-
       return {
         ...prevState,
         quota: action.payload,
@@ -33,8 +29,6 @@ const RequestReducer = (prevState, action) => {
       };
 
     case "CHANGE":
-      console.log("{ ...action.payload }");
-      console.log({ ...action.type });
       return {
         ...prevState,
         requests: [...action.payload],

@@ -8,7 +8,7 @@ import {
 } from "../../../assets/styles";
 import { RequestButton } from "../../components/requestButton";
 import { getUser, mapDataToRequest, setUser } from "../../utils";
-import { get, getMyWfhRequests, getQuota } from "../../services";
+import { get, getMyRequest, getQuota } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
@@ -16,6 +16,10 @@ import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { MyWFHRequests } from "../../components/wFHScreen/myWFHRequests";
 import OtherWFHRequests from "../../components/wFHScreen/otherWFHRequests";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
+import {
+  mapDataToWFHRequest,
+  mapObjectToWFHRequest,
+} from "../../utils/requestWfhTransformer";
 
 const WFHDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -25,7 +29,6 @@ const WFHDashboard = () => {
   const [loading, setLoading] = useState(false);
   const { requestsWFH, dispatchWFHRequest } =
     useContext<any>(RequestWFHContext);
-  console.log(requestsWFH, "requestsWFH");
 
   const {
     state: { notifdata },
@@ -39,19 +42,24 @@ const WFHDashboard = () => {
     setIsAdmin(+newuser.is_approver === 1 ? true : false);
     setUser(newuser);
     getQuota(JSON.parse(user).id).then((data) => {
-      console.log("sss", data, "rrrr");
-
       dispatchWFHRequest({ type: "QUOTA", payload: data });
       setRefreshing(false);
     });
 
-    getMyWfhRequests(JSON.parse(user).id)
+    await getMyRequest(JSON.parse(user).id)
       .then((data) => {
-        dispatchWFHRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
+        console.log(data, "koj");
+
+        dispatchWFHRequest({
+          type: "CHANGE",
+          payload: mapDataToWFHRequest(data),
+        });
         setLoading(false);
         setRefreshing(false);
       })
       .catch((err) => {
+        console.log(err, "err");
+
         setLoading(false);
       });
   }, []);
@@ -60,8 +68,6 @@ const WFHDashboard = () => {
     const user = await getUser();
     getQuota(JSON.parse(user).id)
       .then((data: any) => {
-        console.log(data, "wfh-quota");
-
         dispatchWFHRequest({ type: "QUOTA", payload: data });
       })
       .catch((err) => {});
@@ -72,11 +78,13 @@ const WFHDashboard = () => {
     const user = await getUser();
     setIsAdmin(+JSON.parse(user).is_approver ? true : false);
 
-    getMyWfhRequests(JSON.parse(user).id)
+    getMyRequest(JSON.parse(user).id)
       .then((data) => {
-        console.log("sdsdsdsd", data, "data");
-
-        dispatchWFHRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
+        console.log(data, "dataz");
+        dispatchWFHRequest({
+          type: "CHANGE",
+          payload: mapDataToWFHRequest(data),
+        });
         setLoading(false);
       })
       .catch((err) => {
@@ -106,7 +114,6 @@ const WFHDashboard = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {console.log(requestsWFH?.quota?.length, "equestsWFH?.quota?.length")}
         {requestsWFH?.quota?.length > 0 ? null : <QuotaPlaceHolder />}
         <View
           style={[

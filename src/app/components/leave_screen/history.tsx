@@ -47,6 +47,7 @@ const History = ({ requests, other, refresh }: any) => {
                     item={item.item}
                     other={true}
                     onPress={() => row[item.index].close()}
+                    isLeave={true}
                   />
                 )}
               >

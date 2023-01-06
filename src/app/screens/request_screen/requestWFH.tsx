@@ -74,15 +74,13 @@ const RequestWFH = ({ route, navigation }: any) => {
   };
 
   const submitRequest = async (data) => {
-    console.log(data, "req");
-
     await postWFHRequest(data)
       .then((res) => {
         dispatchWFHRequest({
           type: "UPDATEQUOTA",
           payload: res?.data?.data?.quota,
         });
-        dispatchWFHRequest({ type: "ADD", payload: res?.data?.data?.quota });
+        dispatchWFHRequest({ type: "ADD", payload: res?.data?.data?.home });
         setisLoading(false);
         showToast("Request created");
         goBack();
@@ -129,9 +127,7 @@ const RequestWFH = ({ route, navigation }: any) => {
     }
   };
   const onSubmit = async (values) => {
-    console.log(values, "vs");
     const { date, ...rest } = values;
-    console.log(rest, "rest");
 
     const dates = JSON.parse(values?.date);
 
@@ -222,8 +218,8 @@ const RequestWFH = ({ route, navigation }: any) => {
         }
         const requestData = {
           ...rest,
-          startDate: startDate,
-          endDate: endDate,
+          start_date: startDate,
+          end_date: endDate,
           day: dayData,
           option: option,
           user_id: state.user.id,
@@ -231,18 +227,6 @@ const RequestWFH = ({ route, navigation }: any) => {
           // uuid: state.user.uuid,
           // gender: state.user.gender,
         };
-        // const requestData = {
-        //   user_id: "1080",
-        //   lead: "[1026]",
-        //   note: "Test leave",
-        //   status: "In Progress",
-        //   start_date: "2023-01-06",
-        //   end_date: "2023-01-06",
-        //   option: "Half DAY",
-        //   day: 4,
-        //   requestor_name: "Nischal Dangol",
-        // };
-        console.log(requestData, "requestData");
 
         setisLoading(true);
 

@@ -7,7 +7,6 @@ import { historyStyle as style } from "../../../assets/styles";
 import { EmptyContainer, SmallHeader } from "../../common";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import Swipe from "../leave_screen/swipe";
-import { Request } from "./request";
 import { WFHRequest } from "./WFHrequest";
 
 const WFHHistory = ({ requests, other, refresh }: any) => {
@@ -17,7 +16,6 @@ const WFHHistory = ({ requests, other, refresh }: any) => {
   useEffect(() => {
     row?.map((item) => item.close());
   }, [refresh]);
-  console.log("requestsrequestsrequests", requests);
 
   return (
     <View style={other ? style.container : null}>
@@ -37,9 +35,9 @@ const WFHHistory = ({ requests, other, refresh }: any) => {
                   )
                 }
               />
-            ) : item?.item?.state === "Denied" ||
-              item?.item?.state === "Cancelled" ||
-              (item?.item?.state === "Approved" &&
+            ) : item?.item?.status === "Denied" ||
+              item?.item?.status === "Cancelled" ||
+              (item?.item?.status === "Approved" &&
                 new Date(item?.item?.leave_date?.startDate).getTime() <
                   new Date().getTime()) ? (
               <WFHRequest
@@ -57,6 +55,7 @@ const WFHHistory = ({ requests, other, refresh }: any) => {
                 ref={(ref) => (row[item.index] = ref)}
                 renderRightActions={() => (
                   <Swipe
+                    isLeave={false}
                     item={item.item}
                     other={true}
                     onPress={() => row[item.index].close()}

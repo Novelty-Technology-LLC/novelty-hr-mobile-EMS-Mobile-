@@ -13,6 +13,20 @@ const createWork = async (data: object) => {
       });
   });
 };
+const getMyRequest = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await api.get(`/work/${id}`);
+      console.log(res.data.data, "res for wfh");
+
+      resolve(res.data.data);
+    } catch (error) {
+      console.log(error, "errrrr");
+
+      reject({ success: false, message: error });
+    }
+  });
+};
 const postWFHRequest = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -38,7 +52,16 @@ const getQuota = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/wfh-quota/${id}`);
-      console.log(res.data.data, "res.data.data");
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+const cancelWfh = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.put(`/work/cancel/${id}`);
 
       resolve(res.data.data);
     } catch (error) {
@@ -46,4 +69,24 @@ const getQuota = (id: any) => {
     }
   });
 };
-export { createWork, getWork, getQuota, postWFHRequest };
+const getPastWFHRequests = (id: any) => {
+  return new Promise(async (resolve, reject) => {
+    console.log("past history");
+
+    try {
+      let res = await api.get(`/work/past/${id}?fiscal_year=079-080`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+export {
+  createWork,
+  getWork,
+  getQuota,
+  postWFHRequest,
+  getMyRequest,
+  getPastWFHRequests,
+  cancelWfh,
+};
