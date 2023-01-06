@@ -5,7 +5,11 @@ import { FlatList } from "react-native-gesture-handler";
 import { otherRequestsStyle } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
-import { getAllRequests, getMyRequest } from "../../services";
+import {
+  getAllRequests,
+  getAllWFHRequests,
+  getMyRequest,
+} from "../../services";
 import { getUser, mapDataToRequest } from "../../utils";
 import { AdminRequestContext, AuthContext } from "../../reducer";
 import { AdminPlaceHolder } from "../loader";
@@ -35,7 +39,7 @@ const OtherWFHRequests = ({
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
-    getAllRequests(JSON.parse(user).id)
+    getAllWFHRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
           (item) =>
@@ -122,7 +126,7 @@ const OtherWFHRequests = ({
                 other={true}
                 recieved={true}
                 onPress={() => {
-                  navigation.navigate("approveLeave", item.item);
+                  navigation.navigate("approveWfhLeave", item.item);
                 }}
               />
             );

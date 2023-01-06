@@ -23,7 +23,7 @@ let leave_quota: any = {
   used_float: 0,
 };
 
-const Request = ({
+const WfhRequest = ({
   data,
   style,
   title = null,

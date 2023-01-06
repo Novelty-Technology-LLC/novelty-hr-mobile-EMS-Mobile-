@@ -43,6 +43,7 @@ import { WFHDashboard } from "../screens/workFromHomeSreen/wFHDashboard";
 import { RequestWFH } from "../screens/request_screen/requestWFH";
 import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
 import { RequestWFHDetail } from "../screens/request_detail_screen/requestWFHDetail";
+import { ApproveWFHRequest } from "../screens/approve_request/approveWfhRequest";
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -126,6 +127,10 @@ const DashNav = () => {
                     <DashStack.Screen
                       name={RouteNames.createShoutout}
                       component={CreateShoutout}
+                    />
+                    <DashStack.Screen
+                      name="approveWfhLeave"
+                      component={ApproveWFHRequest}
                     />
                     <DashStack.Screen
                       name={NAVIGATION_ROUTE.Request_WFH_DETAIL}

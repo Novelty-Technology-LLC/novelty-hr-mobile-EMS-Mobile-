@@ -19,7 +19,7 @@ const DeleteAlert = ({
   timelog,
   edittimelog,
   onPress,
-  isLeave,
+  isLeave = true,
 }: {
   item: dataType;
   other: boolean;
@@ -27,7 +27,7 @@ const DeleteAlert = ({
   value?: object;
   edittimelog?: boolean;
   onPress?: Function;
-  isLeave?: Boolean;
+  isLeave: Boolean;
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
@@ -41,17 +41,39 @@ const DeleteAlert = ({
   const onDelete = async () => {
     setLoading(true);
     if (other) {
-      cancelLeave(item?.id)
-        .then((data) => {
-          dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
-          dispatchRequest({ type: "CANCEL", payload: data.leave });
-          setLoading(false);
-          showToast("Request Cancelled");
-          hide();
-        })
-        .catch((err) => {
-          hide();
-        });
+      if (isLeave) {
+        cancelLeave(item?.id)
+          .then((data) => {
+            console.log(data, "cancel");
+
+            dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
+            dispatchRequest({ type: "CANCEL", payload: data.leave });
+            setLoading(false);
+            showToast("Request Cancelled");
+            hide();
+          })
+          .catch((err) => {
+            console.log(err, "errrrrrrrr");
+
+            hide();
+          });
+      } else {
+        cancelWfh(item?.id)
+          .then((data) => {
+            console.log(data, "cancel");
+
+            dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
+            dispatchRequest({ type: "CANCEL", payload: data.home });
+            setLoading(false);
+            showToast("Request Cancelled");
+            hide();
+          })
+          .catch((err) => {
+            console.log(err, "errrrrrrrr");
+
+            hide();
+          });
+      }
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
