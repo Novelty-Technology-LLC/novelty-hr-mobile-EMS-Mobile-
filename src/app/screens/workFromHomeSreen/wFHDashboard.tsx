@@ -48,8 +48,6 @@ const WFHDashboard = () => {
 
     await getMyRequest(JSON.parse(user).id)
       .then((data) => {
-        console.log(data, "koj");
-
         dispatchWFHRequest({
           type: "CHANGE",
           payload: mapDataToWFHRequest(data),
@@ -59,7 +57,6 @@ const WFHDashboard = () => {
       })
       .catch((err) => {
         console.log(err, "err");
-
         setLoading(false);
       });
   }, []);
@@ -80,7 +77,6 @@ const WFHDashboard = () => {
 
     getMyRequest(JSON.parse(user).id)
       .then((data) => {
-        console.log(data, "dataz");
         dispatchWFHRequest({
           type: "CHANGE",
           payload: mapDataToWFHRequest(data),

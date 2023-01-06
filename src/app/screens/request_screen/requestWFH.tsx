@@ -213,9 +213,6 @@ const RequestWFH = ({ route, navigation }: any) => {
           }
           dayData = dayData * 0.5;
         }
-        {
-          console.log(state.user.id, "state.user.id");
-        }
         const requestData = {
           ...rest,
           start_date: startDate,

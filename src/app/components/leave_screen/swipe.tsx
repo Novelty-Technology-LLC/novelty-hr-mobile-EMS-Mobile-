@@ -23,8 +23,6 @@ const Swipe = ({
   setLoading,
   isLeave,
 }: any) => {
-  console.log(isLeave, "isLeaveisLeave");
-
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);

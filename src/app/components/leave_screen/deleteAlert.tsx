@@ -29,8 +29,6 @@ const DeleteAlert = ({
   onPress?: Function;
   isLeave?: Boolean;
 }) => {
-  console.log(isLeave, "isLeave??");
-
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
@@ -45,8 +43,6 @@ const DeleteAlert = ({
     if (other) {
       cancelLeave(item?.id)
         .then((data) => {
-          console.log(data, "cancel");
-
           dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
           dispatchRequest({ type: "CANCEL", payload: data.leave });
           setLoading(false);
@@ -54,8 +50,6 @@ const DeleteAlert = ({
           hide();
         })
         .catch((err) => {
-          console.log(err, "errrrrrrrr");
-
           hide();
         });
     } else {

@@ -2,8 +2,6 @@ import React, { useReducer } from "react";
 import { mapObjectToWFHRequest } from "../utils/requestWfhTransformer";
 
 const RequestWFHReducer = (prevState, action) => {
-  console.log(action.payload, "action.payload");
-
   switch (action.type) {
     case "QUOTA":
       return {

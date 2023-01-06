@@ -44,7 +44,6 @@ const MyWFHRequests = ({
   const [toggle, setToggle] = useState("toggle-switch-off");
   const getPast = async () => {
     const user = await getUser();
-    console.log(user, "ss");
 
     getPastWFHRequests(JSON.parse(user).id)
       .then((data) => {
@@ -68,7 +67,6 @@ const MyWFHRequests = ({
     const get = async () => {
       if (params) {
         let data = await getMyRequest(+params);
-        console.log(data, "res");
 
         data = mapObjectToWFHRequest(data[0]);
         navigation.navigate(screenName, data[0]);
