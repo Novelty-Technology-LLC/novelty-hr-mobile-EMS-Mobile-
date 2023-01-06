@@ -77,14 +77,14 @@ const MyWFHRequests = ({
     get();
   }, [params]);
   const renderItem = (item: any) => {
-    const workDate = moment(item?.item?.leave_date?.startDate).format(
-      "YYYY-MM-DD"
-    );
+    const workDate = moment(item?.item?.start_date).format("YYYY-MM-DD");
+    console.log("workDateworkDateworkDate", workDate);
+    console.log("item?.itemitem?.item", item?.item);
 
     const today = moment().format("YYYY-MM-DD");
     if (workDate >= today) {
       if (workDate === today) {
-        return new Date().getHours() >= 23 ? (
+        return new Date().getHours() >= 10 ? (
           <Swipeable
             shouldCancelWhenOutside
             ref={(ref) => (row[item.index] = ref)}
@@ -151,6 +151,10 @@ const MyWFHRequests = ({
       );
     }
   };
+  console.log(
+    "requestsWFH?.pastrequestsrequestsWFH?.pastrequestsrequestsWFH?.pastrequests",
+    requestsWFH?.pastrequests
+  );
 
   return (
     <View style={style.container}>

@@ -11,6 +11,20 @@ export const getAllRequests = (id) => {
     }
   });
 };
+export const getAllWFHRequests = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/work/admin/${id}`);
+      console.log("res.data.datares.data.datares.data.data", res.data.data);
+
+      resolve(res.data.data);
+    } catch (error) {
+      console.log("res.data.datares.data.datares.data.data", error);
+
+      reject({ success: false, message: error });
+    }
+  });
+};
 
 export const getPastRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {

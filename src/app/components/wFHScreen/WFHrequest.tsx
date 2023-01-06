@@ -21,6 +21,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext(AuthContext);
   const { adminrequests } = useContext(AdminRequestContext);
+  console.log("itemasbdiabsdkbasjkd", item.start_date);
 
   const checkReplied = () => {
     item.leave_approvals &&
@@ -45,7 +46,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
         >
           <View style={style.dateView}>
             <View style={style.status}>
-              <Text style={style.date}>{item.start_date}</Text>
+              <Text style={style.date}>{item?.start_date}</Text>
               <View style={style.stateView}>
                 <State state={item.status} />
               </View>
@@ -58,7 +59,12 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
         </TouchableOpacity>
       ) : (
         <View style={style.container}>
-          <RequestWithImage item={item} onPress={onPress} type={""} />
+          <RequestWithImage
+            item={item}
+            onPress={onPress}
+            type={""}
+            name={item.start_date}
+          />
           {recieved ? (
             <View style={style.subcontainer}>
               <Text style={style.days}>

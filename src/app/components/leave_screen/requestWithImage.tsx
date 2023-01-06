@@ -9,6 +9,8 @@ import CustomImage from "../../common/image";
 import { getLeaveOption } from "../../utils/getLeaveType";
 
 const RequestWithImage = ({ item, onPress, type }: any) => {
+  console.log("itavsjdbasjdbjlasd", item);
+
   let { dayRange } = getDay(item);
   let { name } = getName(item);
   const work_option = getLeaveOption(item?.leave_option);

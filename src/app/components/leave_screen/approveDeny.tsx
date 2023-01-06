@@ -42,23 +42,34 @@ const ApproveDeny = ({
           screenName={screenName}
         />
       )}
-      <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
+      {/* <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
         This request just got deleted.
-      </Alert>
+      </Alert> */}
 
       <Button
         onPress={() => {
+          console.log("sad asbdjk");
+
           setisLoading(true);
           checkRequest(item?.id)
             .then((res) => {
+              console.log(res, "reseseseahsduab");
+
               if (res === "Pending" || res === "In Progress") {
                 setShow(true);
               } else {
-                showToast(`Request got ${res}`, false);
+                setShow(true);
+
+                // showToast(`Request got ${res}`, false);
               }
               setisLoading(false);
             })
-            .catch((err) => setShowAlert(true));
+            .catch((err) => {
+              console.log();
+
+              setisLoading(false);
+              setShowAlert(true);
+            });
         }}
         disabled={isLoading}
       >
