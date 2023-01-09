@@ -146,8 +146,8 @@ const CalendarComponent = ({
           <Calendar
             style={timeLogStyle.modalCalender}
             dateService={dateService}
-            max={moment("2022-12-31")}
-            min={moment("2020-01-01")}
+            max={moment(new Date())}
+            min={moment("2022-12-01")}
             date={date}
             onSelect={(nextRange) => {
               setDate(nextRange);

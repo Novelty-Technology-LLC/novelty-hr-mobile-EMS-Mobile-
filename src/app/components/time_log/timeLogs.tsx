@@ -106,7 +106,7 @@ const TimeLogs = (props: any) => {
       const user: any = await getUser();
       const activeLogs: any = await getFilteredTimeLogs(
         JSON.parse(user).id,
-        todayDate()
+        JSON.stringify(todayDate())
       );
       if (activeLogs) {
         dispatchTimeLog({
@@ -133,7 +133,7 @@ const TimeLogs = (props: any) => {
         const user: any = await getUser();
         const activeLogs: any = await getFilteredTimeLogs(
           JSON.parse(user).id,
-          dateRange(startDate, endDate ? endDate : startDate)
+          JSON.stringify(dateRange(startDate, endDate ? endDate : startDate))
         );
         if (activeLogs) {
           dispatchTimeLog({
@@ -250,7 +250,7 @@ const TimeLogs = (props: any) => {
         <Week loading={loading} refreshing={refreshing} title={"History"} />
         <View style={ds.timeLog}>
           <HoursHeader
-            title="HOURS WORKED"
+            title='HOURS WORKED'
             dropDown={!refreshing && !loading}
             setLogTime={setLogTime}
           />
@@ -275,7 +275,7 @@ const TimeLogs = (props: any) => {
           <View style={ds.chartWrapper}>
             {loader ? (
               <View style={ds.loader}>
-                <ActivityIndicator size="large" color={colors.primary} />
+                <ActivityIndicator size='large' color={colors.primary} />
               </View>
             ) : (
               <LineChartComponent
@@ -287,7 +287,7 @@ const TimeLogs = (props: any) => {
         </View>
       </ScrollView>
       <RequestButton
-        screen="logtime"
+        screen='logtime'
         olddata={{
           log_date: stringifyDate(date),
           not_old: true,

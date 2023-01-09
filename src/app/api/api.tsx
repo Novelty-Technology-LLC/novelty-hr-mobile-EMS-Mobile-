@@ -11,7 +11,7 @@ export const cosmic_api = axios.create({
 });
 
 api.interceptors.request.use(
-  async (config) => {
+  async (config: any) => {
     config.headers["requestsource"] = "localhost";
     return config;
   },
@@ -20,7 +20,7 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.request.use(async (req) => {
+api.interceptors.request.use(async (req: any) => {
   let userToken = await getToken();
 
   req.headers.authorization = userToken;

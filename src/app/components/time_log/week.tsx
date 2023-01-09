@@ -57,7 +57,7 @@ const Week = ({
       const user: any = await getUser();
       const historyLogs: any = await getFilteredTimeLogs(
         JSON.parse(user).id,
-        filter
+        JSON.stringify(filter)
       );
       if (historyLogs) {
         if (past) {
@@ -96,7 +96,7 @@ const Week = ({
           timelog={true}
           toggle={toggle}
           setToggle={setToggle}
-          screen="timelog"
+          screen='timelog'
         />
       </View>
       <View style={last ? historyStyle.timelogcontainer : null}>
