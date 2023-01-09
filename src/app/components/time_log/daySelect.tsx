@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { dayStyle } from '../../../assets/styles';
-import { CalendarComponent as MCalendar } from '../request_screen/calander';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
-import { default as theme } from '../../../assets/styles/leave_screen/custom-theme.json';
-import Day from './day';
-import { getStringDate } from '../../utils';
-import { DialogContainer } from '../../common';
-import { todayDate, yesterdayDate } from '../../utils/dateFilter';
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import { dayStyle } from "../../../assets/styles";
+import { CalendarComponent as MCalendar } from "../request_screen/calander";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider } from "@ui-kitten/components";
+import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
+import Day from "./day";
+import { getStringDate } from "../../utils";
+import { DialogContainer } from "../../common";
+import { todayDate, yesterdayDate } from "../../utils/dateFilter";
 
 const DaySelect = ({
   handleChange,
@@ -23,7 +23,7 @@ const DaySelect = ({
   const today = todayDate().start;
   const [date, setDate] = useState(today);
   const [modalDate, setModalDate] = useState(today);
-  const [modalDateString, setModalDateString] = useState('');
+  const [modalDateString, setModalDateString] = useState("");
   const yesterday = yesterdayDate().start;
   const [index, setIndex] = useState(2);
   const isSelected = (newdate) => {
@@ -56,22 +56,22 @@ const DaySelect = ({
           modal={true}
         />
         <Day
-          title="Yesterday"
+          title='Yesterday'
           select={isSelected(yesterday) && index === 1}
           onPress={() => {
             setDate(yesterday);
             handleChange(yesterday);
-            setSelectedDay('Yesterday');
+            setSelectedDay("Yesterday");
             setIndex(1);
           }}
         />
         <Day
-          title="Today"
+          title='Today'
           select={isSelected(today) && index === 2}
           onPress={() => {
             setDate(today);
             handleChange(today);
-            setSelectedDay('Today');
+            setSelectedDay("Today");
             setIndex(2);
           }}
         />
