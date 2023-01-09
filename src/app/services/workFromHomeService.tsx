@@ -13,19 +13,19 @@ const createWork = async (data: object) => {
       });
   });
 };
-const getMyRequest = (id) => {
+
+const getMyRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await api.get(`/work/${id}`);
 
       resolve(res.data.data);
     } catch (error) {
-      console.log(error, "errrrr");
-
       reject({ success: false, message: error });
     }
   });
 };
+
 const postWFHRequest = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -36,6 +36,7 @@ const postWFHRequest = (data: object) => {
     }
   });
 };
+
 const getWork = (userId: number, date: any) =>
   new Promise((resolve, reject) => {
     api
@@ -47,16 +48,19 @@ const getWork = (userId: number, date: any) =>
         reject(err);
       });
   });
+
 const getQuota = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/wfh-quota/${id}`);
+
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
     }
   });
 };
+
 const cancelWfh = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -68,6 +72,7 @@ const cancelWfh = (id: number) => {
     }
   });
 };
+
 const getPastWFHRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -78,6 +83,40 @@ const getPastWFHRequests = (id: any) => {
     }
   });
 };
+
+const getAllWFHRequests = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/work/admin/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+const updateWFHRequests = (id: any, data: any) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.put(`/work/update/${id}`, data);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+const getWFHResponses = (id, user_id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/wfh-approve/${id}?user_id=${user_id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
 export {
   createWork,
   getWork,
@@ -86,4 +125,7 @@ export {
   getMyRequest,
   getPastWFHRequests,
   cancelWfh,
+  updateWFHRequests,
+  getAllWFHRequests,
+  getWFHResponses,
 };

@@ -103,7 +103,7 @@ const LeaveDashboard = () => {
               <DaysRemaining
                 key={daysDetail?.id}
                 total={daysDetail?.leave_total}
-                remaining={daysDetail?.leave_used}
+                remaining={daysDetail?.leave_remaining}
                 title={daysDetail?.leave_type}
               />
             ))}
@@ -122,7 +122,7 @@ const LeaveDashboard = () => {
           />
         )}
       </ScrollView>
-      <RequestButton screen="requestLeave" />
+      <RequestButton screen='requestLeave' />
     </View>
   );
 };

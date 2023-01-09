@@ -19,6 +19,7 @@ export interface Request {
   user_id: number;
   user: User[];
   wfh_days: number;
+  users: User[];
 }
 
 export interface DeviceToken {
@@ -57,7 +58,7 @@ const mapDataToWFHRequest = (requests: any) => {
         // total: data?.total,
         fiscal_year: data?.fiscal_year,
         user_id: data?.user_id,
-        user: data?.user,
+        user: data?.users[0],
         // device_tokens: data?.device_tokens,
         lead: data?.lead,
         // leave_approvals: data?.leave_approvals,
@@ -67,6 +68,7 @@ const mapDataToWFHRequest = (requests: any) => {
         updatedAt: data?.updatedAt,
         created_at: data?.createdAt,
         updated_at: data?.updatedAt,
+        device_tokens: data.device_tokens,
         // wfh_days: data?.wfh_days,
       };
 

@@ -124,7 +124,9 @@ const RequestLeave = ({ route }: any) => {
     showQuotaToast();
   }, []);
   const showQuotaToast = () => {
-    const response = requests?.quota?.map((item: any) => item?.leave_used <= 0);
+    const response = requests?.quota?.map(
+      (item: any) => item?.leave_remaining <= 0
+    );
 
     const leaveQuotaBool = response?.every((element: any) => element === true);
     leaveQuotaBool && setQuota("You have exceeded your leave quota.");
@@ -269,7 +271,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik

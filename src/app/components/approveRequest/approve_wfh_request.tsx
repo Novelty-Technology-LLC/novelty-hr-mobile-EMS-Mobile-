@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Text, View, Image, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import State from "../leave_screen/state";
-import { getResponses } from "../../services";
+import { getResponses, getWFHResponses } from "../../services";
 import getDay, { responseDay, startDate } from "../../utils/getDay";
 import getName, { leadname } from "../../utils/getName";
 import { AuthContext } from "../../reducer";
@@ -15,15 +15,14 @@ import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import CustomImage from "../../common/image";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import WfhAlert from "../leave_screen/alert/wfhAlert";
 
-let leave_quota: any = {
-  total_pto: 0,
-  total_float: 0,
-  used_pto: 0,
-  used_float: 0,
+let home_quota: any = {
+  total: 0,
+  remaining: 0,
 };
 
-const WfhRequest = ({
+const WfhRequestApproval = ({
   data,
   style,
   title = null,
@@ -60,28 +59,18 @@ const WfhRequest = ({
 
   const getRequest = async (user_id) => {
     try {
-      const res = await getResponses(data.id, data.device_tokens[0].user_id);
+      const res = await getWFHResponses(data.id, user_id);
 
       setresponses(res);
-
-      const pto_leaves = res[0]?.leaveQuota?.find(
-        (item) => item.leave_type === "PAID TIME OFF"
-      );
-      const float_leaves = res[0]?.leaveQuota?.find(
-        (item) => item.leave_type === "FLOATING DAY"
-      );
-      leave_quota = {
-        total_pto: pto_leaves?.leave_total,
-        total_float: float_leaves?.leave_total,
-        used_pto: pto_leaves?.leave_used,
-        used_float: float_leaves?.leave_used,
+      home_quota = {
+        remaining: res[0]?.homeQuota[0]?.remaining,
+        total: res[0]?.homeQuota[0]?.total,
       };
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
-  const leave_option = getLeaveOption(data?.leave_option);
 
   return (
     <>
@@ -100,17 +89,7 @@ const WfhRequest = ({
                 </View>
                 <View style={style.dateView}>
                   <Text style={style.leaveType}>
-                    {screenName === "Leave" && <Text>{type}</Text>}
-                    {screenName === "Leave" ? (
-                      leave_option !== "FULL DAY" &&
-                      leave_option && (
-                        <Text
-                          style={style.leaveOption}
-                        >{` (${leave_option})`}</Text>
-                      )
-                    ) : (
-                      <Text style={style.leaveOption}>{`${leave_option}`}</Text>
-                    )}
+                    <Text>{type}</Text>
                   </Text>
                 </View>
               </View>
@@ -118,11 +97,11 @@ const WfhRequest = ({
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name="calendar" size={20} />
+                  <Icon style={style.calander} name='calendar' size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state="Requested">{startDate(data)}</State>
+                  <State state='Requested'>{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -139,40 +118,7 @@ const WfhRequest = ({
               />
               {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
-            {responses?.length ? (
-              screenName === "Leave" ? (
-                <View style={style.cardFooterContainer}>
-                  <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining :</Text>
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" PTO"}</Text>
-                    </Text>
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" Floating "}</Text>
-                    </Text>
-                  </View>
-                </View>
-              ) : (
-                <View style={style.cardWFHFooter}>
-                  <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining Quota :</Text>
-                    {/* <Text></Text> */}
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" WFH "}</Text>
-                    </Text>
-                  </View>
-                </View>
-              )
-            ) : null}
+            {true && <WfhAlert responses={home_quota} />}
           </View>
           <View style={style.responseView}>
             {loading && <ResponsePlaceHolder />}
@@ -181,7 +127,7 @@ const WfhRequest = ({
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text="Responses" />
+                    <SmallHeader text='Responses' />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -227,7 +173,7 @@ const WfhRequest = ({
                       {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text="Pending Responses" />
+                            <SmallHeader text='Pending Responses' />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i?.toString()}>
@@ -269,13 +215,13 @@ const WfhRequest = ({
           {title === "admin" && !approved && user !== data?.user?.uuid && (
             <View style={style.buttonView}>
               <ApproveDeny
-                title="Approve"
+                title='Approve'
                 style={style}
                 item={data}
                 fromStack={false}
               />
               <ApproveDeny
-                title="Deny"
+                title='Deny'
                 style={style}
                 item={data}
                 fromStack={false}
@@ -288,4 +234,4 @@ const WfhRequest = ({
   );
 };
 
-export default Request;
+export default WfhRequestApproval;

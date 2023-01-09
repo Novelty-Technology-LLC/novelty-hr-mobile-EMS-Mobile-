@@ -25,11 +25,7 @@ import {
   mapObjectToWFHRequest,
 } from "../../utils/requestWfhTransformer";
 
-const OtherWFHRequests = ({
-  refresh,
-  params = 0,
-  screenName = "Leave",
-}: any) => {
+const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState("toggle-switch-off");
   const [loading, setLoading] = useState(false);
@@ -49,12 +45,13 @@ const OtherWFHRequests = ({
         );
 
         let myreq = data.filter((item) => item.status === "Pending");
+
         const progressreq = data.filter(
           (item) => item.status === "In Progress"
         );
         progressreq.map((req) => {
-          for (let i = 0; i < req.leave_approvals.length; i++) {
-            if (req.leave_approvals[i].requested_to === state.user.id) {
+          for (let i = 0; i < req.wfh_approvals.length; i++) {
+            if (req.wfh_approvals[i].requested_to === state.user.id) {
               pastreq = pastreq.concat(req);
               pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
             }
@@ -76,6 +73,8 @@ const OtherWFHRequests = ({
         setLoading(false);
       })
       .catch((err) => {
+        console.log("err", err);
+
         setLoading(false);
       });
   };
@@ -106,7 +105,7 @@ const OtherWFHRequests = ({
         }}
       >
         <View style={otherRequestsStyle.header}>
-          <SmallHeader text="Requests Received" history={true} />
+          <SmallHeader text='Requests Received' history={true} />
           {/* {adminrequests.pastadminrequests.length > 0 && (
             <HistoryToggle toggle={toggle} setToggle={setToggle} />
           )} */}
@@ -117,7 +116,6 @@ const OtherWFHRequests = ({
         <AdminPlaceHolder />
       ) : (
         <FlatList
-          extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
           renderItem={(item) => {
             return (
@@ -125,9 +123,9 @@ const OtherWFHRequests = ({
                 item={item.item}
                 other={true}
                 recieved={true}
-                onPress={() => {
-                  navigation.navigate("approveWfhLeave", item.item);
-                }}
+                onPress={() =>
+                  navigation.navigate("approveWfhLeave", item.item)
+                }
               />
             );
           }}
@@ -135,11 +133,11 @@ const OtherWFHRequests = ({
         />
       )}
       {adminrequests?.adminrequests?.length < 1 && !loading && (
-        <EmptyContainer text="You have not received any request." />
+        <EmptyContainer text='You have not received any request.' />
       )}
       {loading && (
         <>
-          <SmallHeader text="Past Requests" />
+          <SmallHeader text='Past Requests' />
           <AdminPlaceHolder />
         </>
       )}

@@ -10,6 +10,7 @@ import { RequestButton } from "../../components/requestButton";
 import { checkRequest } from "../../services";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "../../components/wFHScreen/WFHrequest";
+import WfhRequestApproval from "../../components/approveRequest/approve_wfh_request";
 
 const RequestWFHDetail = ({ route }: any) => {
   const { date } = route.params;
@@ -36,7 +37,7 @@ const RequestWFHDetail = ({ route }: any) => {
         </View>
       </Header>
 
-      <Request
+      <WfhRequestApproval
         data={route.params}
         style={style}
         screenName={"WorkFromHome"}
@@ -45,7 +46,7 @@ const RequestWFHDetail = ({ route }: any) => {
       {showAlert && (
         <RequestButton
           screen={NAVIGATION_ROUTE.Request_WFH}
-          floatingIcon="pencil-outline"
+          floatingIcon='pencil-outline'
           olddata={route?.params}
         />
       )}

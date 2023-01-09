@@ -76,8 +76,6 @@ const MyWFHRequests = ({
   }, [params]);
   const renderItem = (item: any) => {
     const workDate = moment(item?.item?.start_date).format("YYYY-MM-DD");
-    console.log("workDateworkDateworkDate", workDate);
-    console.log("item?.itemitem?.item", item?.item);
 
     const today = moment().format("YYYY-MM-DD");
     if (workDate >= today) {
@@ -149,10 +147,6 @@ const MyWFHRequests = ({
       );
     }
   };
-  console.log(
-    "requestsWFH?.pastrequestsrequestsWFH?.pastrequestsrequestsWFH?.pastrequests",
-    requestsWFH?.pastrequests
-  );
 
   return (
     <View style={style.container}>
@@ -166,10 +160,10 @@ const MyWFHRequests = ({
         {/*  new Date(item.item.leave_date.startDate) <= new Date() &&
             new Date().getHours() >= 10 ? */}
         <View style={[style.header]}>
-          <SmallHeader text="My Requests" history={true} />
+          <SmallHeader text='My Requests' history={true} />
           <HistoryToggle
             toggle={toggle}
-            screen="leave"
+            screen='leave'
             setHistory={setHistory}
             history={history}
           />
@@ -190,7 +184,7 @@ const MyWFHRequests = ({
       {toggle === "toggle-switch" &&
         (!requestsWFH?.pastrequests ? (
           <>
-            <SmallHeader text="Past Requests" />
+            <SmallHeader text='Past Requests' />
             <UserPlaceHolder />
           </>
         ) : (

@@ -9,8 +9,6 @@ import CustomImage from "../../common/image";
 import { getLeaveOption } from "../../utils/getLeaveType";
 
 const RequestWithImage = ({ item, onPress, type }: any) => {
-  console.log("itavsjdbasjdbjlasd", item);
-
   let { dayRange } = getDay(item);
   let { name } = getName(item);
   const work_option = getLeaveOption(item?.leave_option);
@@ -29,7 +27,7 @@ const RequestWithImage = ({ item, onPress, type }: any) => {
             )}
           </Text>
           <View style={style.date}>
-            <AppIcon name="calendar" size={18} color={colors.secondary} />
+            <AppIcon name='calendar' size={18} color={colors.secondary} />
             <Text style={style.datetype}>{dayRange}</Text>
           </View>
         </View>

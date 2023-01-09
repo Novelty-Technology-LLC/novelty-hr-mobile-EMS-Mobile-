@@ -30,13 +30,13 @@ const Request = ({
   screenName = "Leave",
   type,
 }: any) => {
-  const { state } = useContext(AuthContext);
+  const { state } = useContext<any>(AuthContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
   const [approved, setapproved] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setuser] = useState(null);
+  const [user, setuser] = useState<any>(null);
 
   const checkReplied = () => {
     data.leave_approvals &&
@@ -60,21 +60,24 @@ const Request = ({
 
   const getRequest = async (user_id) => {
     try {
-      const res = await getResponses(data.id, data.device_tokens[0].user_id);
+      const res: any = await getResponses(
+        data.id,
+        data.device_tokens[0].user_id
+      );
 
       setresponses(res);
 
       const pto_leaves = res[0]?.leaveQuota?.find(
-        (item) => item.leave_type === "PAID TIME OFF"
+        (item: any) => item.leave_type === "PAID TIME OFF"
       );
       const float_leaves = res[0]?.leaveQuota?.find(
-        (item) => item.leave_type === "FLOATING DAY"
+        (item: any) => item.leave_type === "FLOATING DAY"
       );
       leave_quota = {
         total_pto: pto_leaves?.leave_total,
         total_float: float_leaves?.leave_total,
-        used_pto: pto_leaves?.leave_used,
-        used_float: float_leaves?.leave_used,
+        used_pto: pto_leaves?.leave_remaining,
+        used_float: float_leaves?.leave_remaining,
       };
       setLoading(false);
     } catch (error) {
@@ -118,11 +121,11 @@ const Request = ({
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name="calendar" size={20} />
+                  <Icon style={style.calander} name='calendar' size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state="Requested">{startDate(data)}</State>
+                  <State state='Requested'>{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -181,7 +184,7 @@ const Request = ({
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text="Responses" />
+                    <SmallHeader text='Responses' />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -227,7 +230,7 @@ const Request = ({
                       {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text="Pending Responses" />
+                            <SmallHeader text='Pending Responses' />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i?.toString()}>
@@ -269,13 +272,13 @@ const Request = ({
           {title === "admin" && !approved && user !== data?.user?.uuid && (
             <View style={style.buttonView}>
               <ApproveDeny
-                title="Approve"
+                title='Approve'
                 style={style}
                 item={data}
                 fromStack={false}
               />
               <ApproveDeny
-                title="Deny"
+                title='Deny'
                 style={style}
                 item={data}
                 fromStack={false}

@@ -56,7 +56,6 @@ const WFHDashboard = () => {
         setRefreshing(false);
       })
       .catch((err) => {
-        console.log(err, "err");
         setLoading(false);
       });
   }, []);
@@ -66,6 +65,7 @@ const WFHDashboard = () => {
     getQuota(JSON.parse(user).id)
       .then((data: any) => {
         dispatchWFHRequest({ type: "QUOTA", payload: data });
+        setLoading(false);
       })
       .catch((err) => {});
   };
@@ -98,6 +98,7 @@ const WFHDashboard = () => {
   }, []);
 
   useScrollToTop(ref);
+
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
@@ -110,24 +111,28 @@ const WFHDashboard = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {requestsWFH?.quota?.length > 0 ? null : <QuotaPlaceHolder />}
-        <View
-          style={[
-            style.container,
-            { alignItems: "center", flexDirection: "column" },
-          ]}
-        >
-          {requestsWFH?.quota &&
-            requestsWFH?.quota.length > 0 &&
-            requestsWFH?.quota.map((daysDetail) => (
-              <DaysRemaining
-                key={daysDetail?.id}
-                total={daysDetail?.total}
-                remaining={daysDetail?.remaining}
-                title={"WFH Quota"}
-              />
-            ))}
-        </View>
+        {requestsWFH?.quota?.length > 0 ? (
+          <View
+            style={[
+              style.container,
+              { alignItems: "center", flexDirection: "column" },
+            ]}
+          >
+            {requestsWFH?.quota &&
+              requestsWFH?.quota.length > 0 &&
+              requestsWFH?.quota.map((daysDetail) => (
+                <DaysRemaining
+                  key={daysDetail?.id}
+                  total={daysDetail?.total}
+                  remaining={daysDetail?.remaining}
+                  title={"WFH Quota"}
+                />
+              ))}
+          </View>
+        ) : (
+          <QuotaPlaceHolder />
+        )}
+
         <MyWFHRequests
           screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
           loading={loading}
