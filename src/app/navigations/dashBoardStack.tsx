@@ -44,6 +44,7 @@ import { RequestWFH } from "../screens/request_screen/requestWFH";
 import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
 import { RequestWFHDetail } from "../screens/request_detail_screen/requestWFHDetail";
 import { ApproveWFHRequest } from "../screens/approve_request/approveWfhRequest";
+
 const DashStack = createStackNavigator();
 
 const DashNav = () => {
@@ -70,58 +71,58 @@ const DashNav = () => {
                       headerShown: false,
                     }}
                   >
-                    <DashStack.Screen name="dashboard" component={DashBoard} />
+                    <DashStack.Screen name='dashboard' component={DashBoard} />
                     <DashStack.Screen
-                      name="WFH_DASHBOARD"
+                      name='WFH_DASHBOARD'
                       component={WFHDashboard}
                     />
                     <DashStack.Screen
-                      name="Request_WFH"
+                      name='Request_WFH'
                       component={RequestWFH}
                     />
                     <DashStack.Screen
-                      name="leavelisting"
+                      name='leavelisting'
                       component={LeaveListing}
                     />
                     <DashStack.Screen
-                      name="menuListing"
+                      name='menuListing'
                       component={MenuListing}
                     />
-                    <DashStack.Screen name="editMenu" component={EditMenu} />
+                    <DashStack.Screen name='editMenu' component={EditMenu} />
                     <DashStack.Screen
-                      name="EmployeeListing"
+                      name='EmployeeListing'
                       component={EmployeeListing}
                     />
                     <DashStack.Screen
-                      name="workFromHomeEmployeeListing"
+                      name='workFromHomeEmployeeListing'
                       component={WorkFromHomeEmployeeListing}
                     />
                     <DashStack.Screen
-                      name="employeeDetail"
+                      name='employeeDetail'
                       component={EmployeeDetail}
                     />
                     <DashStack.Screen
-                      name="editEmployeeDetail"
+                      name='editEmployeeDetail'
                       component={EditEmployeeDetail}
                     />
                     <DashStack.Screen
-                      name="announcementsListing"
+                      name='announcementsListing'
                       component={AnnouncementListing}
                     />
                     <DashStack.Screen
-                      name="announcementsDetails"
+                      name='announcementsDetails'
                       component={AnnouncementDetail}
                     />
                     <DashStack.Screen
-                      name="addAnnouncement"
+                      name='addAnnouncement'
                       component={AddAnnouncement}
                     />
                     <DashStack.Screen
-                      name="holidayeventslisting"
+                      name='holidayeventslisting'
                       component={HolidayEventListing}
                     />
                     <DashStack.Screen
-                      name="shoutoutDetail"
+                      name='shoutoutDetail'
                       component={ShoutoutDetails}
                     />
                     <DashStack.Screen
@@ -129,7 +130,7 @@ const DashNav = () => {
                       component={CreateShoutout}
                     />
                     <DashStack.Screen
-                      name="approveWfhLeave"
+                      name='approveWfhLeave'
                       component={ApproveWFHRequest}
                     />
                     <DashStack.Screen

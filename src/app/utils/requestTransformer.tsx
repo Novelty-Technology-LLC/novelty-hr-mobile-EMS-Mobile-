@@ -34,6 +34,8 @@ const mapDataToRequest = (requests: any) => {
         leave_approvals: data?.leave_approvals,
         device_tokens: data?.device_tokens,
         lead: data?.lead,
+        end_date: data.end_date,
+        start_date: data.start_date,
         leave_date: data?.leave_date ?? "",
         createdAt: data?.createdAt,
         leave_option: data?.leave_option ?? "",

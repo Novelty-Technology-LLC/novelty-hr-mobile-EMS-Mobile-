@@ -1,16 +1,12 @@
 import { dateStringMapper } from "./dateMapper";
 
 export default getDay = (item) => {
-  let day = new Date(item?.leave_date?.startDate).toString().substr(3, 7);
+  let day = new Date(item?.start_date).toString().substr(3, 7);
+  console.log("day", item?.start_date);
 
-  let dayRange = dateStringMapper(
-    item?.leave_date?.startDate,
-    item?.leave_date?.endDate
-  );
+  let dayRange = dateStringMapper(item?.start_date, item?.end_date);
 
-  let dayType =
-    item?.leave_date?.startDate.slice(3, 10) -
-    +item?.leave_date?.endDate.slice(8, 10);
+  let dayType = item?.start_date.slice(3, 10) - +item?.end_date.slice(8, 10);
 
   return {
     day,

@@ -57,6 +57,7 @@ const MyRequests = ({
     const get = async () => {
       if (params) {
         let data = await getLeave(+params);
+
         data = mapObjectToRequest(data[0]);
         navigation.navigate(screenName, data[0]);
       }
@@ -134,10 +135,10 @@ const MyRequests = ({
         {/*  new Date(item.item.leave_date.startDate) <= new Date() &&
             new Date().getHours() >= 10 ? */}
         <View style={[style.header]}>
-          <SmallHeader text="My Requests" history={true} />
+          <SmallHeader text='My Requests' history={true} />
           <HistoryToggle
             toggle={toggle}
-            screen="leave"
+            screen='leave'
             setHistory={setHistory}
             history={history}
           />
@@ -158,7 +159,7 @@ const MyRequests = ({
       {toggle === "toggle-switch" &&
         (!requests.pastrequests ? (
           <>
-            <SmallHeader text="Past Requests" />
+            <SmallHeader text='Past Requests' />
             <UserPlaceHolder />
           </>
         ) : (
