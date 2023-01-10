@@ -101,7 +101,7 @@ const WFHDashboard = () => {
 
   return (
     <View style={style.mainContainer}>
-      <Header icon={false}>
+      <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>WFH Application</Text>
       </Header>
       <ScrollView

@@ -40,6 +40,7 @@ export const ApproveDeny = forwardRef(
 
     const hide = () => {
       setShow(false);
+      setisLoading(false);
     };
     useImperativeHandle(
       actionRef,

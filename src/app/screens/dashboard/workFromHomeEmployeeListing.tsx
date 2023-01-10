@@ -4,6 +4,7 @@ import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getRequest } from "../../services";
+import { momentdate } from "../../utils";
 import { navigate } from "../../utils/navigation";
 import { EmployeeListingCard } from "./employeeListingCard";
 
@@ -19,14 +20,14 @@ const WorkFromHomeEmployeeListing = (props: any) => {
     setLoading(true);
 
     try {
-      let response: any = await getRequest("work/all", {});
+      let response: any = await getRequest("work/all");
 
       const responses = response.map((item: any) => {
         const res = item.users.map((items: any) => {
           return {
             id: item.user_id,
             title: items?.first_name + " " + items?.last_name,
-            subTitle: items?.designation,
+            subTitle: item?.option,
             image: items?.image_url,
             work_shift: items?.work_shift,
           };
@@ -41,7 +42,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
       setList(responses);
 
       setLoading(false);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (

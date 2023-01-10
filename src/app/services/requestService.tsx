@@ -4,11 +4,7 @@ import { api } from "../api/api";
 export const getRequest = (path: string, query?: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(path, {
-        params: {
-          ...query,
-        },
-      });
+      let res = await api.get(path);
 
       resolve(res.data.data);
     } catch (error) {

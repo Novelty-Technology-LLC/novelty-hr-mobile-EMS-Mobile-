@@ -46,7 +46,7 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
           <View style={cardStyle.icon}>
             <View style={styles.employeeDetailContainer}>
               <AppIcon
-                name="card-account-details"
+                name='card-account-details'
                 color={colors.fontGrey}
                 size={normalize(12)}
                 style={{ marginRight: normalize(5) }}
@@ -60,7 +60,7 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
           {item?.work_shift && (
             <View style={styles.employeeDetailContainer}>
               <AppIcon
-                name="timetable"
+                name='timetable'
                 color={colors.fontGrey}
                 size={normalize(12)}
                 style={{ marginRight: normalize(5) }}

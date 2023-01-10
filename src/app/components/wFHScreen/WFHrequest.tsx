@@ -24,7 +24,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   let { day } = getDay(item);
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext<any>(AuthContext);
-  const { adminrequests } = useContext<any>(AdminRequestContext);
+  const { adminrequests, dispatchAdmin } = useContext<any>(AdminRequestContext);
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
 
@@ -66,7 +66,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   }: {
     action: string;
     note: string;
-    quotaId: string;
+    quotaId?: string;
   }) => {
     alertRef.current?.showSubmitLoading();
     action === "Approve" && (action = "Approved");
@@ -87,6 +87,10 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
 
     updateWFHRequests(item.id, newData)
       .then(() => {
+        dispatchAdmin({
+          type: "REPLY",
+          payload: item,
+        });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();

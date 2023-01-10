@@ -92,14 +92,14 @@ const DashBoard = () => {
     try {
       setLoading(true);
 
-      const res: any = await getWork(
-        state?.user?.id,
-        moment().format("YYYY-MM-DD")
-      );
+      // const res: any = await getWork(
+      //   state?.user?.id,
+      //   moment().format("YYYY-MM-DD")
+      // );
 
-      setId(res?.data?.id ?? null);
-      // setUserId(res?.data?.data[0].user_id ?? null);
-      setToggle(+res?.data?.status === 1 ? true : false);
+      // setId(res?.data?.id ?? null);
+      // // setUserId(res?.data?.data[0].user_id ?? null);
+      // setToggle(+res?.data?.status === 1 ? true : false);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -370,7 +370,7 @@ const DashBoard = () => {
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name="arrow-top-right"
+                  name='arrow-top-right'
                   color={toggle ? colors.white : colors.white}
                   size={20}
                 />
