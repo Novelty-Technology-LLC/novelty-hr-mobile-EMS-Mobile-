@@ -1,7 +1,7 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
 
-import { GoogleConfig, setUser, storeToken } from "../utils";
+import { setUser, storeToken } from "../utils";
 import { create } from "./userService";
 import { mapDataToObject } from "../utils/transformer";
 import { showToast } from "../common";

@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Text, View, Image, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import State from "../leave_screen/state";
-import { getResponses } from "../../services";
+import { getResponses, getWFHResponses } from "../../services";
 import getDay, { responseDay, startDate } from "../../utils/getDay";
 import getName, { leadname } from "../../utils/getName";
 import { AuthContext } from "../../reducer";
@@ -15,28 +15,27 @@ import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import CustomImage from "../../common/image";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import WfhAlert from "../leave_screen/alert/wfhAlert";
 
-let leave_quota: any = {
-  total_pto: 0,
-  total_float: 0,
-  used_pto: 0,
-  used_float: 0,
+let home_quota: any = {
+  total: 0,
+  remaining: 0,
 };
 
-const Request = ({
+const WfhRequestApproval = ({
   data,
   style,
   title = null,
   screenName = "Leave",
   type,
 }: any) => {
-  const { state } = useContext<any>(AuthContext);
+  const { state } = useContext(AuthContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
   const [approved, setapproved] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setuser] = useState<any>(null);
+  const [user, setuser] = useState(null);
 
   const checkReplied = () => {
     data.leave_approvals &&
@@ -60,31 +59,18 @@ const Request = ({
 
   const getRequest = async (user_id) => {
     try {
-      const res: any = await getResponses(
-        data.id,
-        data.device_tokens[0].user_id
-      );
+      const res = await getWFHResponses(data.id, user_id);
 
       setresponses(res);
-
-      const pto_leaves = res[0]?.leaveQuota?.find(
-        (item: any) => item.leave_type === "PAID TIME OFF"
-      );
-      const float_leaves = res[0]?.leaveQuota?.find(
-        (item: any) => item.leave_type === "FLOATING DAY"
-      );
-      leave_quota = {
-        total_pto: pto_leaves?.leave_total,
-        total_float: float_leaves?.leave_total,
-        used_pto: pto_leaves?.leave_remaining,
-        used_float: float_leaves?.leave_remaining,
+      home_quota = {
+        remaining: res[0]?.homeQuota[0]?.remaining,
+        total: res[0]?.homeQuota[0]?.total,
       };
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
-  const leave_option = getLeaveOption(data?.leave_option);
 
   return (
     <>
@@ -103,17 +89,7 @@ const Request = ({
                 </View>
                 <View style={style.dateView}>
                   <Text style={style.leaveType}>
-                    {screenName === "Leave" && <Text>{type}</Text>}
-                    {screenName === "Leave" ? (
-                      leave_option !== "FULL DAY" &&
-                      leave_option && (
-                        <Text
-                          style={style.leaveOption}
-                        >{` (${leave_option})`}</Text>
-                      )
-                    ) : (
-                      <Text style={style.leaveOption}>{`${leave_option}`}</Text>
-                    )}
+                    <Text>{type}</Text>
                   </Text>
                 </View>
               </View>
@@ -142,40 +118,7 @@ const Request = ({
               />
               {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
-            {responses?.length ? (
-              screenName === "Leave" ? (
-                <View style={style.cardFooterContainer}>
-                  <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining :</Text>
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" PTO"}</Text>
-                    </Text>
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" Floating "}</Text>
-                    </Text>
-                  </View>
-                </View>
-              ) : (
-                <View style={style.cardWFHFooter}>
-                  <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining Quota :</Text>
-                    {/* <Text></Text> */}
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" WFH "}</Text>
-                    </Text>
-                  </View>
-                </View>
-              )
-            ) : null}
+            {true && <WfhAlert responses={home_quota} />}
           </View>
           <View style={style.responseView}>
             {loading && <ResponsePlaceHolder />}
@@ -291,4 +234,4 @@ const Request = ({
   );
 };
 
-export default Request;
+export default WfhRequestApproval;

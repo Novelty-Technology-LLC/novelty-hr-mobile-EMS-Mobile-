@@ -18,27 +18,23 @@ import { ApplicationProvider } from "@ui-kitten/components";
 import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
 import {
   approveRequest,
-  fonts,
   headerTxtStyle,
   requestLeave as style,
 } from "../../../assets/styles";
 import {
   CalendarComponent,
-  Teams,
-  Leavetype,
   Description,
 } from "../../components/request_screen";
 import { button as Button } from "../../common";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { editRequest, postRequest } from "../../services";
+import { editRequest, postRequest, postWFHRequest } from "../../services";
 import colors from "../../../assets/colors";
-import { useNavigation } from "@react-navigation/native";
-import { AuthContext, RequestContext } from "../../reducer";
+import { StackActions, useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../reducer";
 import { snackErrorTop } from "../../common";
 import {
   checkIfRequested,
-  checkIfRequestedForLeave,
   checkValidityQuota,
   dateMapper,
   momentdate,
@@ -46,8 +42,10 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
-import { Size } from "@ui-kitten/components/devsupport";
-import normalize from "react-native-normalize";
+import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
+import { Teams } from "../../components/request_screen/teams";
+import { goBack } from "../../utils/navigation";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -56,39 +54,36 @@ const validationSchema = Yup.object().shape({
       endDate: Yup.date().nullable(),
     })
     .required("Date is required"),
-  type: Yup.string().required().label("type"),
-  note: Yup.string().required("Leave note is required").label("note"),
+  note: Yup.string().required("WFH note is required").label("note"),
   lead: Yup.array().of(Yup.number()).label("lead").required("Lead is required"),
   status: Yup.string().label("status"),
 });
 
-const RequestLeave = ({ route }: any) => {
+const RequestWFH = ({ route, navigation }: any) => {
   const olddata = route.params;
-
-  const navigation = useNavigation();
   const { state } = useContext(AuthContext);
-  const { dispatchRequest, requests } = useContext(RequestContext);
+  const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
   const [isLoading, setisLoading] = useState(false);
-  const [quotaMsg, setQuota] = useState("");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  let leave_option = "FULL DAY";
-
+  let option = "FULL DAY";
   const initialValues = {
     date: olddata ? olddata.date : "",
-    type: olddata ? olddata.type : "PAID TIME OFF",
     status: olddata ? olddata.state : "Pending",
     note: olddata ? olddata.note : "",
     lead: olddata ? olddata.lead : [],
   };
 
-  const submitRequest = (data) => {
-    postRequest(data)
+  const submitRequest = async (data) => {
+    await postWFHRequest(data)
       .then((res) => {
-        dispatchRequest({ type: "UPDATEQUOTA", payload: res.data.data.quota });
-        dispatchRequest({ type: "ADD", payload: res.data.data.leave });
-        navigation.navigate("leaveList");
+        dispatchWFHRequest({
+          type: "UPDATEQUOTA",
+          payload: res?.data?.data?.quota,
+        });
+        dispatchWFHRequest({ type: "ADD", payload: res?.data?.data?.home });
         setisLoading(false);
         showToast("Request created");
+        goBack();
       })
       .catch((err) => {
         setisLoading(false);
@@ -102,16 +97,15 @@ const RequestLeave = ({ route }: any) => {
     editRequest(olddata.id, data)
       .then((res: any) => {
         res.quota.map((item) => {
-          dispatchRequest({
+          dispatchWFHRequest({
             type: "UPDATEQUOTA",
-            payload: { ...item, leave_option: res.leave_option },
+            payload: { ...item, option: res.option },
           });
         });
 
-        dispatchRequest({ type: "UPDATE", payload: res.leave });
-        navigation.navigate("leaveList");
+        dispatchWFHRequest({ type: "UPDATE", payload: res.leave });
         showToast("Request updated");
-
+        navigation.navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
         setisLoading(false);
       })
       .catch((err) => {});
@@ -120,32 +114,24 @@ const RequestLeave = ({ route }: any) => {
     updateLeaveOption();
   }, [olddata]);
 
-  useEffect(() => {
-    showQuotaToast();
-  }, []);
-  const showQuotaToast = () => {
-    const response = requests?.quota?.map(
-      (item: any) => item?.leave_remaining <= 0
-    );
-
-    const leaveQuotaBool = response?.every((element: any) => element === true);
-    leaveQuotaBool && setQuota("You have exceeded your leave quota.");
-  };
   const updateLeaveOption = () => {
-    if (olddata?.leave_option === "FIRST HALF") {
+    if (olddata?.option === "FIRST HALF") {
       setSelectedIndex(1);
-      leave_option = "FIRST HALF";
-    } else if (olddata?.leave_option === "SECOND HALF") {
-      leave_option = "SECOND HALF";
+      option = "FIRST HALF";
+    } else if (olddata?.option === "SECOND HALF") {
+      option = "SECOND HALF";
+
       setSelectedIndex(2);
     } else {
       setSelectedIndex(0);
     }
   };
   const onSubmit = async (values) => {
-    const date = JSON.parse(values.date);
+    const { date, ...rest } = values;
 
-    const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
+    const dates = JSON.parse(values?.date);
+
+    const leaveDate = moment(dates.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
 
     if (
@@ -155,34 +141,35 @@ const RequestLeave = ({ route }: any) => {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
         showToast("The selected date has passed. ", false);
       } else {
-        showToast("You cannot take leave after 10 am", false);
+        showToast("You cannot take WFH after 10 am", false);
       }
     } else {
       try {
         const allrequests = [
-          ...requests.pastrequests,
-          ...requests.requests,
+          ...requestsWFH.pastrequests,
+          ...requestsWFH.requests,
         ].filter(
           (req) =>
             req.state === "Approved" ||
             req.state === "In Progress" ||
             req.state === "Pending"
         );
-        if (!olddata && checkIfRequestedForLeave(allrequests, values)) {
+        if (!olddata && checkIfRequested(allrequests, values)) {
           return showToast("You cannot request the same date twice", false);
         }
-        if (olddata && checkIfRequestedForLeave(allrequests, values, olddata)) {
+        if (olddata && checkIfRequested(allrequests, values, olddata)) {
           return showToast("You cannot request the same date twice", false);
         }
-        const date = JSON.parse(values.date);
+        const dateParsed = JSON.parse(values.date);
         let dayArray: any = [];
-        const startDate = new Date(date.startDate).toString().slice(0, 15);
-
+        const startDate = new Date(dateParsed.startDate)
+          .toString()
+          .slice(0, 15);
         let endDate = "";
-        if (date["endDate"] === null) {
+        if (dateParsed["endDate"] === null) {
           endDate = startDate;
         } else {
-          endDate = new Date(date.endDate).toString().slice(0, 15);
+          endDate = new Date(dateParsed.endDate).toString().slice(0, 15);
         }
         let day = 0;
         if (olddata) {
@@ -220,25 +207,22 @@ const RequestLeave = ({ route }: any) => {
           dayData = dayData;
         } else {
           if (selectedIndex === 1) {
-            leave_option = "FIRST HALF";
+            option = "FIRST HALF";
           } else {
-            leave_option = "SECOND HALF";
+            option = "SECOND HALF";
           }
           dayData = dayData * 0.5;
         }
-
         const requestData = {
-          ...values,
-          leave_date: {
-            startDate,
-            endDate,
-          },
+          ...rest,
+          start_date: startDate,
+          end_date: endDate,
           day: dayData,
-          leave_option: leave_option,
-          requestor_id: state.user.id,
+          option: option,
+          user_id: state.user.id,
           requestor_name: state.user.first_name,
-          uuid: state.user.uuid,
-          gender: state.user.gender,
+          // uuid: state.user.uuid,
+          // gender: state.user.gender,
         };
 
         setisLoading(true);
@@ -260,7 +244,7 @@ const RequestLeave = ({ route }: any) => {
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <Header icon={true}>
         <View style={approveRequest.headContainer}>
-          <Text style={headerTxtStyle.headerText}>Request Leave</Text>
+          <Text style={headerTxtStyle.headerText}>Request WFH</Text>
         </View>
       </Header>
       <KeyboardAwareScrollView
@@ -281,10 +265,8 @@ const RequestLeave = ({ route }: any) => {
         >
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
-              {quotaMsg ? <Text style={style.quotaMsg}>{quotaMsg}</Text> : null}
-
               <CalendarComponent
-                workfromHome={false}
+                workfromHome={true}
                 style={style}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata.leave_date}
@@ -298,22 +280,21 @@ const RequestLeave = ({ route }: any) => {
                 defaultValue={olddata && olddata.lead}
                 values={values}
               />
-              <Leavetype
-                handleChange={handleChange}
-                defaultValue={olddata && olddata.type}
-              />
 
               <CustomRadioButton
-                title={"Leave Option"}
+                title={"WFH Option"}
                 dataList={DATA}
                 setSelectedIndex={setSelectedIndex}
                 selectedIndex={selectedIndex}
               />
               <Description
+                workfromhome={true}
                 handleChange={handleChange}
                 defaultValue={olddata && olddata?.note}
                 error={errors}
                 touched={touched}
+                hashtagError={undefined}
+                onChangeHashTag={undefined}
               />
               <Button
                 onPress={() => {
@@ -349,4 +330,4 @@ const DATA = [
     title: "Second Half",
   },
 ];
-export { RequestLeave };
+export { RequestWFH };

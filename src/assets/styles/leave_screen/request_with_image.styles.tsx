@@ -40,7 +40,7 @@ const requestWithImageStyle = StyleSheet.create({
     fontSize: normalize(theme.size.xs),
     color: colors.fontGrey,
     fontFamily: fonts.poppinsMedium,
-    textTransform: "lowercase",
+    textTransform: "capitalize",
     fontWeight: "normal",
   },
   datetype: {

@@ -5,63 +5,77 @@ import { FlatList } from "react-native-gesture-handler";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { historyStyle as style } from "../../../assets/styles";
 import { EmptyContainer, SmallHeader } from "../../common";
-import { Request } from "./request";
-import Swipe from "./swipe";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import Swipe from "../leave_screen/swipe";
+import { WFHRequest } from "./WFHrequest";
 
-const History = ({ requests, other, refresh }: any) => {
+const WFHHistory = ({ requests, other, refresh }: any) => {
   const navigation = useNavigation();
   let row: Array<any> = [];
 
   useEffect(() => {
-    row.map((item) => item.close());
+    row?.map((item) => item.close());
   }, [refresh]);
 
   return (
     <View style={other ? style.container : null}>
       <SmallHeader text="Past Requests" />
-      {requests.length > 0 ? (
+      {requests?.length > 0 ? (
         <FlatList
           data={requests}
           renderItem={(item) =>
             other ? (
-              <Request
+              <WFHRequest
                 item={item.item}
                 other={other}
-                onPress={() => navigation.navigate("requestDetail", item.item)}
+                onPress={() =>
+                  navigation.navigate(
+                    NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                    item?.item
+                  )
+                }
               />
-            ) : item.item.state === "Denied" ||
-              item.item.state === "Cancelled" ||
-              (item.item.state === "Approved" &&
-                new Date(item.item.leave_date.startDate).getTime() <
+            ) : item?.item?.status === "Denied" ||
+              item?.item?.status === "Cancelled" ||
+              (item?.item?.status === "Approved" &&
+                new Date(item?.item?.leave_date?.startDate).getTime() <
                   new Date().getTime()) ? (
-              <Request
-                item={item.item}
+              <WFHRequest
+                item={item?.item}
                 other={other}
-                onPress={() => navigation.navigate("requestDetail", item.item)}
+                onPress={() =>
+                  navigation.navigate(
+                    NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                    item?.item
+                  )
+                }
               />
             ) : (
               <Swipeable
                 ref={(ref) => (row[item.index] = ref)}
                 renderRightActions={() => (
                   <Swipe
+                    isLeave={false}
                     item={item.item}
                     other={true}
                     onPress={() => row[item.index].close()}
-                    isLeave={true}
                   />
                 )}
               >
-                <Request
+                <WFHRequest
                   item={item.item}
                   other={other}
                   onPress={() =>
-                    navigation.navigate("requestDetail", item?.item)
+                    navigation.navigate(
+                      NAVIGATION_ROUTE.Request_WFH_DETAIL,
+                      item.item
+                    )
                   }
                 />
               </Swipeable>
             )
           }
-          keyExtractor={(item) => item?.id}
+          keyExtractor={(item) => item.id}
         />
       ) : (
         <EmptyContainer text="You don't have past requests" />
@@ -70,4 +84,4 @@ const History = ({ requests, other, refresh }: any) => {
   );
 };
 
-export default History;
+export default WFHHistory;

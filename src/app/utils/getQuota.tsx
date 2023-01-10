@@ -8,7 +8,7 @@ export const checkValidityQuota = (
   let isValid = true;
   quota.map((item) => {
     if (item.leave_type === type.toUpperCase()) {
-      isValid = item.leave_used < day;
+      isValid = item.leave_remaining < day;
     }
   });
   return isValid;

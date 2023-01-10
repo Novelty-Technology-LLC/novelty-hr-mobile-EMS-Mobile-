@@ -19,7 +19,9 @@ const Swipe = ({
   timelog,
   edittimelog,
   onPress,
+  screenName = "requestLeave",
   setLoading,
+  isLeave,
 }: any) => {
   const navigation = useNavigation();
   const [showAlert, setShowAlert] = useState(false);
@@ -30,7 +32,7 @@ const Swipe = ({
     checkRequest(item?.id)
       .then((res) => {
         if (res === "Pending") {
-          navigation.navigate("requestLeave", item);
+          navigation.navigate(screenName, item);
         } else {
           show();
         }
@@ -45,7 +47,9 @@ const Swipe = ({
 
   const checkLeaveDate = (date: any) => {
     const current_date = moment().format("YYYY-MM-DD");
-    if (moment(current_date).isSame(momentdate(date.startDate, "YYYY-MM-DD"))) {
+    if (
+      moment(current_date).isSame(momentdate(date?.startDate, "YYYY-MM-DD"))
+    ) {
       return true;
     } else {
       return false;
@@ -56,7 +60,12 @@ const Swipe = ({
     <View style={style.othercontainer}>
       {item?.state === "Approved" && (
         <>
-          <DeleteAlert item={item} other={other} onPress={onPress} />
+          <DeleteAlert
+            item={item}
+            other={other}
+            onPress={onPress}
+            isLeave={isLeave}
+          />
         </>
       )}
     </View>

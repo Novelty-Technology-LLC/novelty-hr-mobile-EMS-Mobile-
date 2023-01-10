@@ -7,7 +7,7 @@ import Request from "../../components/approveRequest/approve_request";
 import getName from "../../utils/getName";
 import getDay from "../../utils/getDay";
 
-const ApproveRequest = ({ route }: any) => {
+const ApproveWFHRequest = ({ route }: any) => {
   let { dayRange } = getDay(route.params);
   let { name } = getName(route.params);
 
@@ -30,4 +30,4 @@ const ApproveRequest = ({ route }: any) => {
   );
 };
 
-export { ApproveRequest };
+export { ApproveWFHRequest };

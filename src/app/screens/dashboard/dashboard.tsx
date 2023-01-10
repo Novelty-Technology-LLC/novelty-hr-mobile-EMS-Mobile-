@@ -8,6 +8,7 @@ import {
   RefreshControl,
   TouchableOpacity,
   BackHandler,
+  Image,
 } from "react-native";
 import { AuthContext } from "../../reducer";
 import {
@@ -35,6 +36,7 @@ import { time } from "../../utils/listtranform";
 import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { RouteNames } from "../../constant/route_names";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
 
@@ -45,9 +47,11 @@ const DashBoard = () => {
   const { shoutoutState, dispatchShoutout } = useContext(ShoutoutContext);
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
+  const [isActive, setActive] = useState(false);
   const [id, setId] = useState(0);
   const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadingIsActive, setLoadingIsActive] = useState(false);
   const [leaveStatus, setLeaveStatus] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
@@ -211,7 +215,52 @@ const DashBoard = () => {
       }
     }
   };
+  const handleWFH = () => {
+    navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
+  };
+  const statusClip = (iconName = "home", title = "Home") => {
+    return (
+      <TouchableWithoutFeedback
+        disabled={true}
+        onPress={handleWFH}
+        style={[
+          toggle
+            ? { backgroundColor: colors.greenButton }
+            : { backgroundColor: colors.fontGrey },
+        ]}
+      >
+        <View
+          style={[
+            ds.office,
 
+            toggle
+              ? { backgroundColor: colors.fontGrey }
+              : { backgroundColor: colors.brown },
+          ]}
+        >
+          {loading ? (
+            <ActivityIndicator color={colors.white} />
+          ) : (
+            <Icon
+              name={iconName}
+              color={toggle ? colors.primary : colors.greenButton}
+              size={15}
+            />
+          )}
+          <View style={{ marginHorizontal: 2 }} />
+          <Text
+            style={{
+              ...ds.officeText,
+
+              color: toggle ? colors.primary : colors.greenButton,
+            }}
+          >
+            {title}
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  };
   return (
     <View style={ds.safeArea}>
       <Header icon={false} container={{ paddingVertical: normalize(4.076) }}>
@@ -233,19 +282,69 @@ const DashBoard = () => {
           <View>
             <Text style={ds.text}>Good {time()}</Text>
             <View style={ds.gap} />
-            <Text style={ds.name}>
-              <Text style={ds.name}>{state?.user?.first_name}</Text>
-            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                padding: normalize(2),
+              }}
+            >
+              <Text style={ds.name}>
+                <Text style={ds.name}>{state?.user?.first_name + "  "} </Text>
+              </Text>
+              {/* <TouchableWithoutFeedback
+                onPress={handleWFH}
+                style={[
+                  toggle
+                    ? { backgroundColor: colors.greenButton }
+                    : { backgroundColor: colors.primary },
+                ]}
+              >
+                <View
+                  style={[
+                    ds.office,
+
+                    toggle
+                      ? { backgroundColor: colors.fontGrey }
+                      : { backgroundColor: colors.primary },
+                  ]}
+                >
+                  {loading ? (
+                    <ActivityIndicator color={colors.white} />
+                  ) : (
+                    <Icon
+                      // name="domain"
+                      name="home"
+                      color={toggle ? colors.primary : colors.white}
+                      size={15}
+                    />
+                  )}
+                  <View style={{ marginHorizontal: 2 }} />
+                  <Text
+                    style={{
+                      ...ds.officeText,
+
+                      color: toggle ? colors.primary : colors.white,
+                    }}
+                  >
+                    Office
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback> */}
+              {leaveStatus
+                ? statusClip("briefcase-clock", "OnLeave")
+                : isActive && statusClip()}
+            </View>
 
             {/* <Text style={ds.workshift}>{state?.user?.work_shift}</Text> */}
           </View>
           <TouchableWithoutFeedback
-            onPress={ToggleWork}
+            onPress={handleWFH}
             style={[
               ds.work,
               toggle
                 ? { backgroundColor: colors.greenButton }
-                : { backgroundColor: colors.fontGrey },
+                : { backgroundColor: colors.brown },
             ]}
           >
             <View
@@ -253,20 +352,10 @@ const DashBoard = () => {
                 ds.work,
 
                 toggle
-                  ? { backgroundColor: colors.greenButton }
-                  : { backgroundColor: colors.fontGrey },
+                  ? { backgroundColor: colors.primary }
+                  : { backgroundColor: colors.primary },
               ]}
             >
-              {loading ? (
-                <ActivityIndicator color={colors.white} />
-              ) : (
-                <Icon
-                  name="check-circle"
-                  color={toggle ? colors.white : colors.white}
-                  size={20}
-                />
-              )}
-              <View style={{ marginHorizontal: 2 }} />
               <Text
                 style={{
                   ...ds.workText,
@@ -274,8 +363,18 @@ const DashBoard = () => {
                   color: toggle ? colors.white : colors.white,
                 }}
               >
-                Work from Home
+                WFH
               </Text>
+              <View style={{ marginHorizontal: 2 }} />
+              {loading ? (
+                <ActivityIndicator color={colors.white} />
+              ) : (
+                <Icon
+                  name="arrow-top-right"
+                  color={toggle ? colors.white : colors.white}
+                  size={20}
+                />
+              )}
             </View>
           </TouchableWithoutFeedback>
         </View>

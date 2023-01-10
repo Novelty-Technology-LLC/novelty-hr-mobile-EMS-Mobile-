@@ -26,6 +26,13 @@ const approveRequest = StyleSheet.create({
     paddingTop: normalize(10),
     alignContent: "center",
   },
+  cardWFHFooter: {
+    backgroundColor: "#FAFAFA",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
   headerDate: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
@@ -96,7 +103,7 @@ const approveRequest = StyleSheet.create({
   leaveOption: {
     fontSize: normalize(theme.size.xxs),
     fontFamily: fonts.poppinsMedium,
-    textTransform: "lowercase",
+    textTransform: "capitalize",
     color: colors.fontGrey,
   },
   date: {

@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import AnimateNumber from 'react-native-countup';
-import { daysRemainingStyle as style } from '../../../assets/styles/';
+import React from "react";
+import { View, Text } from "react-native";
+import AnimateNumber from "react-native-countup";
+import { daysRemainingStyle as style } from "../../../assets/styles/";
 
 interface DaysRemainingPropType {
   total: number;
@@ -37,7 +37,9 @@ const DaysRemaining = ({
         <Text style={style.total}>{total}</Text>
       </Text>
       {timelog && <Text style={style.title}>Hours</Text>}
-      <Text style={timelog ? style.footer : style.title}>{title}</Text>
+      <Text style={timelog ? style.footer : style.title}>
+        {title.toUpperCase()}
+      </Text>
       {!timelog && <Text style={style.footer}>REMAINING</Text>}
     </View>
   );

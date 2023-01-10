@@ -1,26 +1,26 @@
-import React from 'react';
-import { View, Text, Platform } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../../assets/colors';
-import { requestStyle as style } from '../../../assets/styles';
-import { AppIcon } from '../../common';
+import React from "react";
+import { View, Text, Platform } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../../assets/colors";
+import { requestStyle as style } from "../../../assets/styles";
+import { AppIcon } from "../../common";
 
 const State = ({ state, children }: { state: string; children?: any }) => {
   return (
     <View style={style.row}>
-      {state === 'Approved' && (
+      {state === "Approved" && (
         <>
           <AppIcon name="check-circle" size={16} color={colors.greenButton} />
           <Text style={style.state}> {state}</Text>
         </>
       )}
-      {state === 'Cancelled' && (
+      {state === "Cancelled" && (
         <>
           <AppIcon name="close-circle" size={16} color={colors.buttonRed} />
           <Text style={style.state}> {state}</Text>
         </>
       )}
-      {state === 'Denied' && (
+      {state === "Denied" && (
         <>
           <AppIcon
             name="alert-circle"
@@ -30,7 +30,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
           <Text style={style.denyStat}> {state}</Text>
         </>
       )}
-      {state === 'Pending' && (
+      {state === "Pending" && (
         <>
           <View style={style.main}>
             <View style={style.wrapper}>
@@ -46,7 +46,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
           </View>
         </>
       )}
-      {state === 'In Progress' && (
+      {state === "In Progress" && (
         <>
           <View style={style.main}>
             <View style={style.wrapper}>
@@ -63,7 +63,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
         </>
       )}
 
-      {state === 'Requested' && (
+      {state === "Requested" && (
         <>
           <View style={style.main}>
             <View style={style.wrapper}>
@@ -71,7 +71,7 @@ const State = ({ state, children }: { state: string; children?: any }) => {
                 <AppIcon
                   style={style.icon}
                   name="send-circle"
-                  size={Platform.OS === 'ios' ? 20 : 20}
+                  size={Platform.OS === "ios" ? 20 : 20}
                   color={colors.requested}
                 />
               </View>

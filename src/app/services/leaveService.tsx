@@ -12,18 +12,6 @@ export const getAllRequests = (id) => {
   });
 };
 
-export const getMyRequests = (id: any) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let res = await api.get(`/leave/${id}`);
-
-      resolve(res.data.data);
-    } catch (error) {
-      reject({ success: false, message: error });
-    }
-  });
-};
-
 export const getPastRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -83,6 +71,7 @@ export const checkRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/leave/check/${id}`);
+
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -94,6 +83,7 @@ export const cancelLeave = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.put(`/leave/cancel/${id}`);
+
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

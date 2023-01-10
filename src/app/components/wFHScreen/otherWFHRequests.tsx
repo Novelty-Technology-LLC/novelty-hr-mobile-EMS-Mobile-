@@ -3,18 +3,29 @@ import { View, TouchableWithoutFeedback } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { otherRequestsStyle } from "../../../assets/styles";
-import { Request } from "./request";
-import History from "./history";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
-import { getAllRequests } from "../../services";
-import { getUser, mapDataToRequest, mapObjectToRequest } from "../../utils";
+import {
+  getAllRequests,
+  getAllWFHRequests,
+  getMyRequest,
+} from "../../services";
+import { getUser, mapDataToRequest } from "../../utils";
 import { AdminRequestContext, AuthContext } from "../../reducer";
 import { AdminPlaceHolder } from "../loader";
 import { getLeave } from "../../services";
 import HistoryToggle from "../../common/historyToggle";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import History from "../leave_screen/history";
+import { MyWFHRequests } from "./myWFHRequests";
+import { WFHRequest } from "./WFHrequest";
+import WFHHistory from "./wFHhistory";
+import {
+  mapDataToWFHRequest,
+  mapObjectToWFHRequest,
+} from "../../utils/requestWfhTransformer";
 
-const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
+const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
   const navigation = useNavigation();
   const [toggle, setToggle] = useState("toggle-switch-off");
   const [loading, setLoading] = useState(false);
@@ -24,7 +35,7 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
-    getAllRequests(JSON.parse(user).id)
+    getAllWFHRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
           (item) =>
@@ -34,17 +45,18 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
         );
 
         let myreq = data.filter((item) => item.status === "Pending");
+
         const progressreq = data.filter(
           (item) => item.status === "In Progress"
         );
         progressreq.map((req) => {
-          for (let i = 0; i < req.leave_approvals.length; i++) {
-            if (req.leave_approvals[i].requested_to === state.user.id) {
+          for (let i = 0; i < req.wfh_approvals.length; i++) {
+            if (req.wfh_approvals[i].requested_to === state.user.id) {
               pastreq = pastreq.concat(req);
               pastreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
             }
           }
-          const common = pastreq.map((item) => item?.id);
+          const common = pastreq.map((item) => item.id);
           if (common.includes(req.id)) return;
           myreq = myreq.concat(req);
           myreq.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
@@ -53,14 +65,16 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
         dispatchAdmin({
           type: "CHANGE",
           payload: {
-            my: mapDataToRequest(myreq),
-            past: mapDataToRequest(pastreq),
+            my: mapDataToWFHRequest(myreq),
+            past: mapDataToWFHRequest(pastreq),
           },
         });
 
         setLoading(false);
       })
       .catch((err) => {
+        console.log("err", err);
+
         setLoading(false);
       });
   };
@@ -73,8 +87,8 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
   useEffect(() => {
     const get = async () => {
       if (+params) {
-        let data = await getLeave(+params);
-        data = mapObjectToRequest(data[0]);
+        let data = await getMyRequest(+params);
+        data = mapObjectToWFHRequest(data[0]);
         navigation.navigate("approveLeave", data[0]);
       }
     };
@@ -91,7 +105,7 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
         }}
       >
         <View style={otherRequestsStyle.header}>
-          <SmallHeader text="Requests Received" history={true} />
+          <SmallHeader text='Requests Received' history={true} />
           {/* {adminrequests.pastadminrequests.length > 0 && (
             <HistoryToggle toggle={toggle} setToggle={setToggle} />
           )} */}
@@ -102,37 +116,36 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
         <AdminPlaceHolder />
       ) : (
         <FlatList
-          extraData={adminrequests.adminrequests}
           data={adminrequests.adminrequests}
           renderItem={(item) => {
             return (
-              <Request
+              <WFHRequest
                 item={item.item}
                 other={true}
                 recieved={true}
-                onPress={() => {
-                  navigation.navigate("approveLeave", item.item);
-                }}
+                onPress={() =>
+                  navigation.navigate("approveWfhLeave", item.item)
+                }
               />
             );
           }}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item?.id}
         />
       )}
-      {adminrequests.adminrequests.length < 1 && !loading && (
-        <EmptyContainer text="You have not received any request." />
+      {adminrequests?.adminrequests?.length < 1 && !loading && (
+        <EmptyContainer text='You have not received any request.' />
       )}
       {loading && (
         <>
-          <SmallHeader text="Past Requests" />
+          <SmallHeader text='Past Requests' />
           <AdminPlaceHolder />
         </>
       )}
       {toggle === "toggle-switch" && !loading && (
-        <History other={true} requests={adminrequests.pastadminrequests} />
+        <WFHHistory other={true} requests={adminrequests?.pastadminrequests} />
       )}
     </View>
   );
 };
 
-export default React.memo(OtherRequests);
+export default React.memo(OtherWFHRequests);

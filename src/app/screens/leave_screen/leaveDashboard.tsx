@@ -24,7 +24,8 @@ const LeaveDashboard = () => {
   const {
     state: { notifdata },
   } = useContext(AuthContext);
-
+  const [loading, setLoading] = useState(false);
+  const { requests, dispatchRequest } = useContext(RequestContext);
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
@@ -32,6 +33,7 @@ const LeaveDashboard = () => {
     const newuser = await get(+JSON.parse(user).id);
     setIsAdmin(+newuser.is_approver === 1 ? true : false);
     setUser(newuser);
+
     getLeaveQuota(JSON.parse(user).id).then((data) => {
       dispatchRequest({ type: "QUOTA", payload: data });
       setRefreshing(false);
@@ -39,7 +41,6 @@ const LeaveDashboard = () => {
 
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
         setRefreshing(false);
       })
@@ -47,9 +48,6 @@ const LeaveDashboard = () => {
         setLoading(false);
       });
   }, []);
-
-  const [loading, setLoading] = useState(false);
-  const { requests, dispatchRequest } = useContext(RequestContext);
 
   const getData = async () => {
     const user = await getUser();
@@ -105,7 +103,7 @@ const LeaveDashboard = () => {
               <DaysRemaining
                 key={daysDetail?.id}
                 total={daysDetail?.leave_total}
-                remaining={daysDetail?.leave_used}
+                remaining={daysDetail?.leave_remaining}
                 title={daysDetail?.leave_type}
               />
             ))}
@@ -124,7 +122,7 @@ const LeaveDashboard = () => {
           />
         )}
       </ScrollView>
-      <RequestButton screen="requestLeave" />
+      <RequestButton screen='requestLeave' />
     </View>
   );
 };
