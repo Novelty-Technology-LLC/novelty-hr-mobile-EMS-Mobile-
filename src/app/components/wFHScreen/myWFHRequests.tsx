@@ -6,23 +6,19 @@ import { myRequestsStyle as style } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
 import { getUser } from "../../utils";
-import {
-  getMyRequest,
-  getPastRequests,
-  getPastWFHRequests,
-  getRequest,
-} from "../../services";
+import { getMyRequest, getPastWFHRequests } from "../../services";
 import { UserPlaceHolder } from "../loader";
-import { getLeave } from "../../services";
 import HistoryToggle from "../../common/historyToggle";
 import moment from "moment";
 import Swipe from "../leave_screen/swipe";
-import History from "../leave_screen/history";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "./WFHrequest";
 import WFHHistory from "./wFHhistory";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
-import { mapObjectToWFHRequest } from "../../utils/requestWfhTransformer";
+import {
+  mapDataToWFHRequest,
+  mapObjectToWFHRequest,
+} from "../../utils/requestWfhTransformer";
 
 const MyWFHRequests = ({
   loading,
@@ -49,7 +45,7 @@ const MyWFHRequests = ({
       .then((data) => {
         dispatchWFHRequest({
           type: "CHANGEPAST",
-          payload: mapObjectToWFHRequest(data),
+          payload: mapDataToWFHRequest(data),
         });
       })
       .catch((err) => {});

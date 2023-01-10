@@ -76,7 +76,7 @@ const cancelWfh = (id: number) => {
 const getPastWFHRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/work/past/${id}?fiscal_year=079-080`);
+      let res = await api.get(`/work/past/${id}`);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

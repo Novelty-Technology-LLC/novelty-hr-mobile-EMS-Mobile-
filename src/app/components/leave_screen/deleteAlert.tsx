@@ -44,8 +44,6 @@ const DeleteAlert = ({
       if (isLeave) {
         cancelLeave(item?.id)
           .then((data) => {
-            console.log(data, "cancel");
-
             dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
             dispatchRequest({ type: "CANCEL", payload: data.leave });
             setLoading(false);
@@ -53,15 +51,11 @@ const DeleteAlert = ({
             hide();
           })
           .catch((err) => {
-            console.log(err, "errrrrrrrr");
-
             hide();
           });
       } else {
         cancelWfh(item?.id)
           .then((data) => {
-            console.log(data, "cancel");
-
             dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
             dispatchRequest({ type: "CANCEL", payload: data.home });
             setLoading(false);
@@ -69,8 +63,6 @@ const DeleteAlert = ({
             hide();
           })
           .catch((err) => {
-            console.log(err, "errrrrrrrr");
-
             hide();
           });
       }
@@ -161,7 +153,7 @@ const DeleteAlert = ({
             </View>
           )}
           <AppIcon
-            name="alert"
+            name='alert'
             color={loading ? colors.fontGrey : colors.buttonRed}
             size={30}
           />
