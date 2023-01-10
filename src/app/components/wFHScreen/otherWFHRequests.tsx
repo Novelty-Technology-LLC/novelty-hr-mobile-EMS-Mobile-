@@ -103,7 +103,7 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
         }}
       >
         <View style={otherRequestsStyle.header}>
-          <SmallHeader text='Requests Received' history={true} />
+          <SmallHeader text="Requests Received" history={true} />
           {/* {adminrequests.pastadminrequests.length > 0 && (
             <HistoryToggle toggle={toggle} setToggle={setToggle} />
           )} */}
@@ -131,11 +131,11 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
         />
       )}
       {adminrequests?.adminrequests?.length < 1 && !loading && (
-        <EmptyContainer text='You have not received any request.' />
+        <EmptyContainer text="You have not received any request." />
       )}
       {loading && (
         <>
-          <SmallHeader text='Past Requests' />
+          <SmallHeader text="Past Requests" />
           <AdminPlaceHolder />
         </>
       )}
