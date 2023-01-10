@@ -73,8 +73,6 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log("err", err);
-
         setLoading(false);
       });
   };

@@ -11,6 +11,7 @@ import { ApproveDeny } from "../leave_screen/approveDeny";
 import { getQuota, updateWFHRequests } from "../../services";
 import { showToast } from "../../common";
 import { navigationRef } from "../../utils/navigation";
+import { dateStringMapper, formatDate } from "../../utils";
 
 interface requestPropType {
   item: any;
@@ -106,7 +107,9 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
         >
           <View style={style.dateView}>
             <View style={style.status}>
-              <Text style={style.date}>{item?.start_date}</Text>
+              <Text style={style.date}>
+                {dateStringMapper(item?.start_date, item?.end_date)}
+              </Text>
               <View style={style.stateView}>
                 <State state={item.status} />
               </View>
