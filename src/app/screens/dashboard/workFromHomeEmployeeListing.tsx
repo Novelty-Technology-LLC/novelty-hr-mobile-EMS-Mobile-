@@ -4,6 +4,7 @@ import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getRequest } from "../../services";
+import { momentdate } from "../../utils";
 import { navigate } from "../../utils/navigation";
 import { EmployeeListingCard } from "./employeeListingCard";
 
@@ -19,7 +20,10 @@ const WorkFromHomeEmployeeListing = (props: any) => {
     setLoading(true);
 
     try {
-      let response: any = await getRequest("work/all", {});
+      let response: any = await getRequest("work/all", {
+        start_date: momentdate(),
+        end_date: momentdate(),
+      });
 
       const responses = response.map((item: any) => {
         const res = item.users.map((items: any) => {
@@ -41,7 +45,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
       setList(responses);
 
       setLoading(false);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (

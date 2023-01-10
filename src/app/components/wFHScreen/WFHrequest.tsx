@@ -66,7 +66,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   }: {
     action: string;
     note: string;
-    quotaId: string;
+    quotaId?: string;
   }) => {
     alertRef.current?.showSubmitLoading();
     action === "Approve" && (action = "Approved");

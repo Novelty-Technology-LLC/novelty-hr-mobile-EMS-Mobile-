@@ -1,15 +1,21 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Text, View, Image, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import State from "../leave_screen/state";
-import { getResponses } from "../../services";
+import { checkRequest, getResponses, updateRequest } from "../../services";
 import getDay, { responseDay, startDate } from "../../utils/getDay";
 import getName, { leadname } from "../../utils/getName";
-import { AuthContext } from "../../reducer";
+import { AdminRequestContext, AuthContext } from "../../reducer";
 import { ApproveDeny } from "../../components";
 import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
 import { getUser } from "../../utils";
-import { SmallHeader } from "../../common";
+import { showToast, SmallHeader } from "../../common";
 import normalize from "react-native-normalize";
 import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
@@ -30,7 +36,10 @@ const Request = ({
   screenName = "Leave",
   type,
 }: any) => {
+  const alertRef = useRef<any>(null);
+  const actionRef = useRef<any>(null);
   const { state } = useContext<any>(AuthContext);
+  const { dispatchAdmin } = useContext<any>(AdminRequestContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
@@ -51,19 +60,15 @@ const Request = ({
     setLoading(true);
     getUser().then((user) => {
       setuser(JSON.parse(user).uuid);
-
-      getRequest(JSON.parse(user).id);
+      getRequest();
     });
 
     checkReplied();
   }, []);
 
-  const getRequest = async (user_id) => {
+  const getRequest = async () => {
     try {
-      const res: any = await getResponses(
-        data.id,
-        data.device_tokens[0].user_id
-      );
+      const res: any = await getResponses(data.id, data.sender);
 
       setresponses(res);
 
@@ -79,12 +84,78 @@ const Request = ({
         used_pto: pto_leaves?.leave_remaining,
         used_float: float_leaves?.leave_remaining,
       };
+
       setLoading(false);
+      return leave_quota;
     } catch (error) {
       setLoading(false);
     }
   };
   const leave_option = getLeaveOption(data?.leave_option);
+
+  const onPressAlert = (action: string) => {
+    actionRef.current?.showLoading();
+    actionRef.current?.show();
+
+    checkRequest(data?.id)
+      .then((res) => {
+        if (res === "Pending" || res === "In Progress") {
+          setTimeout(async () => {
+            if (alertRef.current) {
+              alertRef.current.setActionHandle(action);
+              alertRef.current.setResponse(await getRequest());
+            }
+          }, 500);
+        }
+        actionRef.current?.hideLoading();
+      })
+      .catch((err) => {
+        actionRef.current?.hideLoading();
+      });
+  };
+
+  const onPressSubmit = ({
+    action,
+    note,
+  }: {
+    action: string;
+    note: string;
+  }) => {
+    alertRef.current?.showSubmitLoading();
+    action === "Approve" && (action = "Approved");
+    action === "Deny" && (action = "Denied");
+
+    const newData: any = {
+      leave_id: data?.id,
+      action,
+      note,
+      requested_to: state.user.id,
+      quotaId: data.sender,
+      notification_token: data.device_tokens?.map(
+        (item: any) => item.notification_token
+      ),
+      lead_name: state.user.first_name,
+      user_name: data.user.first_name,
+      uuid: state.user.uuid,
+    };
+
+    updateRequest(data.id, newData)
+      .then((data: any) => {
+        data.state = data.status;
+        dispatchAdmin({
+          type: "REPLY",
+          payload: data,
+        });
+        actionRef.current?.hideLoading();
+        actionRef.current?.hide();
+        alertRef.current?.hideSubmitLoading();
+        showToast("Request replied");
+      })
+      .catch((error) => {
+        alertRef.current?.hideSubmitLoading();
+        showToast("Something went wrong", false);
+      });
+  };
 
   return (
     <>
@@ -272,16 +343,22 @@ const Request = ({
           {title === "admin" && !approved && user !== data?.user?.uuid && (
             <View style={style.buttonView}>
               <ApproveDeny
+                ref={{ alertRef, actionRef }}
                 title='Approve'
                 style={style}
                 item={data}
                 fromStack={false}
+                onPress={onPressAlert}
+                onPressSubmit={onPressSubmit}
               />
               <ApproveDeny
+                ref={{ alertRef, actionRef }}
                 title='Deny'
                 style={style}
                 item={data}
                 fromStack={false}
+                onPress={onPressAlert}
+                onPressSubmit={onPressSubmit}
               />
             </View>
           )}

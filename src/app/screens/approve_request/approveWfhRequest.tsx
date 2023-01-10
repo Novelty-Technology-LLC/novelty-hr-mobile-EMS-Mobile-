@@ -6,6 +6,7 @@ import { approveRequest as style } from "../../../assets/styles";
 import Request from "../../components/approveRequest/approve_request";
 import getName from "../../utils/getName";
 import getDay from "../../utils/getDay";
+import WfhRequestApproval from "../../components/approveRequest/approve_wfh_request";
 
 const ApproveWFHRequest = ({ route }: any) => {
   let { dayRange } = getDay(route.params);
@@ -20,10 +21,10 @@ const ApproveWFHRequest = ({ route }: any) => {
           </View>
         </View>
       </Header>
-      <Request
+      <WfhRequestApproval
         data={route.params}
         style={style}
-        title="admin"
+        title='admin'
         type={route.params.type}
       />
     </>
