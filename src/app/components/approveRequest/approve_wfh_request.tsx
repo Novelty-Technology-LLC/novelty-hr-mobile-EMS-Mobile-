@@ -1,15 +1,27 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Text, View, Image, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import State from "../leave_screen/state";
-import { getResponses, getWFHResponses } from "../../services";
+import {
+  checkRequest,
+  getQuota,
+  getResponses,
+  getWFHResponses,
+  updateWFHRequests,
+} from "../../services";
 import getDay, { responseDay, startDate } from "../../utils/getDay";
 import getName, { leadname } from "../../utils/getName";
 import { AuthContext } from "../../reducer";
 import { ApproveDeny } from "../../components";
 import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
 import { getUser } from "../../utils";
-import { SmallHeader } from "../../common";
+import { showToast, SmallHeader } from "../../common";
 import normalize from "react-native-normalize";
 import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
@@ -22,13 +34,7 @@ let home_quota: any = {
   remaining: 0,
 };
 
-const WfhRequestApproval = ({
-  data,
-  style,
-  title = null,
-  screenName = "Leave",
-  type,
-}: any) => {
+const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
   const { state } = useContext(AuthContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
@@ -36,6 +42,8 @@ const WfhRequestApproval = ({
   const [approved, setapproved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [user, setuser] = useState(null);
+  const alertRef = useRef<any>(null);
+  const actionRef = useRef<any>(null);
 
   const checkReplied = () => {
     data.leave_approvals &&
@@ -50,7 +58,6 @@ const WfhRequestApproval = ({
     setLoading(true);
     getUser().then((user) => {
       setuser(JSON.parse(user).uuid);
-
       getRequest(JSON.parse(user).id);
     });
 
@@ -72,6 +79,61 @@ const WfhRequestApproval = ({
     }
   };
 
+  const onPressAlert = (action: string) => {
+    actionRef.current?.showLoading();
+    actionRef.current?.show();
+    setTimeout(async () => {
+      if (alertRef.current) {
+        alertRef.current.setActionHandle(action);
+        alertRef.current.setResponse(await getWfhRequest(data.user_id));
+      }
+    }, 500);
+  };
+
+  const getWfhRequest = async (id: number) => {
+    const res: any = await getQuota(id);
+
+    return res[0];
+  };
+
+  const onPressSubmit = ({
+    action,
+    note,
+    quotaId,
+  }: {
+    action: string;
+    note: string;
+    quotaId: string;
+  }) => {
+    alertRef.current?.showSubmitLoading();
+    action === "Approve" && (action = "Approved");
+    action === "Deny" && (action = "Denied");
+
+    const newData: any = {
+      wfh_id: data.id,
+      requested_to: state.user.id,
+      action,
+      note,
+      notification_token: data.device_tokens?.map(
+        (item: any) => item.notification_token
+      ),
+      lead_name: state.user.first_name,
+      user_name: data.user.first_name,
+      quotaId,
+    };
+
+    updateWFHRequests(data.id, newData)
+      .then(() => {
+        actionRef.current?.hideLoading();
+        actionRef.current?.hide();
+        alertRef.current?.hideSubmitLoading();
+        showToast("Request replied");
+      })
+      .catch((err) => {
+        alertRef.current?.hideSubmitLoading();
+        showToast("Something went wrong", false);
+      });
+  };
   return (
     <>
       {data && (
@@ -79,7 +141,6 @@ const WfhRequestApproval = ({
           <View style={style.requestView}>
             <View style={style.imageView}>
               <CustomImage style={style.image} image={data?.user?.image_url} />
-
               <View style={style.senderView}>
                 <View style={style.statusView}>
                   <Text style={style.sender}>{name}</Text>
@@ -215,16 +276,24 @@ const WfhRequestApproval = ({
           {title === "admin" && !approved && user !== data?.user?.uuid && (
             <View style={style.buttonView}>
               <ApproveDeny
+                ref={{ alertRef, actionRef }}
+                onPressSubmit={onPressSubmit}
                 title='Approve'
+                screenName='WFH'
                 style={style}
                 item={data}
                 fromStack={false}
+                onPress={onPressAlert}
               />
               <ApproveDeny
+                ref={{ alertRef, actionRef }}
+                onPressSubmit={onPressSubmit}
                 title='Deny'
+                screenName='WFH'
                 style={style}
                 item={data}
                 fromStack={false}
+                onPress={onPressAlert}
               />
             </View>
           )}

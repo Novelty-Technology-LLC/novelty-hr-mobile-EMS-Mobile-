@@ -1,30 +1,14 @@
-import React, {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { View, Text, Platform } from "react-native";
-import {
-  approveRequest,
-  deleteAlertStyle,
-  editAlertStyle as style,
-  requestStyle,
-} from "../../../assets/styles";
+import { editAlertStyle as style, requestStyle } from "../../../assets/styles";
 import RequestWithImage from "./requestWithImage";
 import Textarea from "react-native-textarea";
 import { dataType } from "../../interface";
-import { AppIcon, showToast, snackBarMessage } from "../../common";
-import { useNavigation } from "@react-navigation/native";
+import { AppIcon } from "../../common";
 import colors from "../../../assets/colors";
-import { AdminRequestContext, AuthContext } from "../../reducer";
-import { getResponses, updateRequest } from "../../services";
 import { ConfirmDialog } from "react-native-simple-dialogs";
 import normalize from "react-native-normalize";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { QuotaPlaceHolder } from "../loader";
-import { goBack } from "../../utils/navigation";
 import LeaveAlert from "./alert/leaveAlert";
 import WfhAlert from "./alert/wfhAlert";
 
@@ -60,14 +44,13 @@ const EditAlert = forwardRef(
     const [action, setAction] = useState("");
     const [note, setNote] = useState("");
     const [submitLoading, setSubmitLoading] = useState(false);
+    const [responses, setresponses] = useState<any>(null);
 
     const hideModal = () => {
       hide();
       setShowAlert(false);
       setShow(false);
     };
-
-    const [responses, setresponses] = useState<any>(null);
 
     useImperativeHandle(
       ref,
@@ -86,7 +69,10 @@ const EditAlert = forwardRef(
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <ConfirmDialog
           visible={showAlert}
-          onTouchOutside={() => setShowAlert(false)}
+          onTouchOutside={() => {
+            setShowAlert(false);
+            hide();
+          }}
           dialogStyle={{
             borderRadius: 5,
           }}
