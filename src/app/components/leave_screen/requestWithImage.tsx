@@ -11,7 +11,7 @@ import { getLeaveOption } from "../../utils/getLeaveType";
 const RequestWithImage = ({ item, onPress, type }: any) => {
   let { dayRange } = getDay(item);
   let { name } = getName(item);
-  const work_option = getLeaveOption(item?.leave_option);
+  const work_option = getLeaveOption(item?.option);
 
   return (
     <TouchableOpacity onPress={() => onPress && onPress()}>
