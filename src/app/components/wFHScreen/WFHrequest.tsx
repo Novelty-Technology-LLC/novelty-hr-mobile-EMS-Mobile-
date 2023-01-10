@@ -24,7 +24,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   let { day } = getDay(item);
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext<any>(AuthContext);
-  const { adminrequests } = useContext<any>(AdminRequestContext);
+  const { adminrequests, dispatchAdmin } = useContext<any>(AdminRequestContext);
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
 
@@ -87,6 +87,10 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
 
     updateWFHRequests(item.id, newData)
       .then(() => {
+        dispatchAdmin({
+          type: "REPLY",
+          payload: item,
+        });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
@@ -141,20 +145,20 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Approve'
+                    title="Approve"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                   <View style={style.buttonSpacer}></View>
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Deny'
+                    title="Deny"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                 </View>
