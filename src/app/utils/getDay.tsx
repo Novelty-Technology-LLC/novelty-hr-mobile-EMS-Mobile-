@@ -1,8 +1,8 @@
 import { dateStringMapper } from "./dateMapper";
 
 export default getDay = (item) => {
+  if (!item?.start_date) return "";
   let day = new Date(item?.start_date).toString().substr(3, 7);
-  console.log("day", item?.start_date);
 
   let dayRange = dateStringMapper(item?.start_date, item?.end_date);
 
