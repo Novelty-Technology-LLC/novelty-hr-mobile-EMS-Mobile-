@@ -6,7 +6,7 @@ export default getDay = (item) => {
 
   let dayRange = dateStringMapper(item?.start_date, item?.end_date);
 
-  let dayType = item?.start_date.slice(3, 10) - +item?.end_date.slice(8, 10);
+  let dayType = item?.start_date?.slice(3, 10) - +item?.end_date.slice(8, 10);
 
   return {
     day,
