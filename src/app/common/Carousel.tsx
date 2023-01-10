@@ -144,6 +144,7 @@ export const Carousel = (props: CarouselPropTypes) => {
       });
     }
   };
+
   return (
     <View style={CarouselStyle.container}>
       <ScrollView
@@ -168,7 +169,7 @@ export const Carousel = (props: CarouselPropTypes) => {
         }}
         scrollEventThrottle={200}
         pagingEnabled
-        decelerationRate="fast"
+        decelerationRate='fast'
       >
         {listOfItems().map((item: any, index: number) => {
           return (

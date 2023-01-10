@@ -20,17 +20,14 @@ const WorkFromHomeEmployeeListing = (props: any) => {
     setLoading(true);
 
     try {
-      let response: any = await getRequest("work/all", {
-        start_date: momentdate(),
-        end_date: momentdate(),
-      });
+      let response: any = await getRequest("work/all");
 
       const responses = response.map((item: any) => {
         const res = item.users.map((items: any) => {
           return {
             id: item.user_id,
             title: items?.first_name + " " + items?.last_name,
-            subTitle: items?.designation,
+            subTitle: item?.option,
             image: items?.image_url,
             work_shift: items?.work_shift,
           };
