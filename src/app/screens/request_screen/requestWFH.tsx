@@ -28,17 +28,10 @@ import {
 import { button as Button } from "../../common";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { editRequest, postRequest, postWFHRequest } from "../../services";
+import { editWfhRequest, postWFHRequest } from "../../services";
 import colors from "../../../assets/colors";
-import { StackActions, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
-import { snackErrorTop } from "../../common";
-import {
-  checkIfRequested,
-  checkValidityQuota,
-  dateMapper,
-  momentdate,
-} from "../../utils";
+import { checkIfRequested, dateMapper, momentdate } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
@@ -94,7 +87,7 @@ const RequestWFH = ({ route, navigation }: any) => {
     data.start_date = momentdate(data.leave_date.startDate, "YYYY-MM-DD");
     data.end_date = momentdate(data.leave_date.endDate, "YYYY-MM-DD");
 
-    editRequest(olddata.id, data)
+    editWfhRequest(olddata.id, data)
       .then((res: any) => {
         res.quota.map((item) => {
           dispatchWFHRequest({
@@ -255,7 +248,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik
