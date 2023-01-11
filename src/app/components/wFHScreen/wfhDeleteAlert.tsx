@@ -6,13 +6,11 @@ import colors from "../../../assets/colors";
 import { deleteAlertStyle as style } from "../../../assets/styles";
 import { AppIcon, showToast, snackBarMessage } from "../../common";
 import { dataType } from "../../interface";
-import { RequestContext, TimeLogContext } from "../../reducer";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
-import { deleteRequest, cancelLeave } from "../../services";
-import { deleteTimeLog } from "../../services/timeLogService";
+import { cancelWfh, deleteWfhRequest } from "../../services";
 import Normalize from "../../utils/normalize";
 
-const DeleteAlert = ({
+export const WFHDeleteAlert = ({
   item,
   other,
   value,
@@ -30,29 +28,31 @@ const DeleteAlert = ({
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
-  const { dispatchTimeLog } = useContext(TimeLogContext);
-  const { dispatchRequest } = useContext(RequestContext);
+  const { requestsWFH, dispatchWFHRequest } =
+    useContext<any>(RequestWFHContext);
   const [loading, setLoading] = useState(false);
 
   const onDelete = async () => {
     setLoading(true);
     if (other) {
-      cancelLeave(item?.id)
+      cancelWfh(item?.id)
         .then((data) => {
-          dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
-          dispatchRequest({ type: "CANCEL", payload: data.leave });
+          dispatchWFHRequest({ type: "UPDATEQUOTA", payload: data.quota });
+          dispatchWFHRequest({ type: "CANCEL", payload: data.home });
           setLoading(false);
           showToast("Request Cancelled");
           hide();
         })
         .catch((err) => {
+          console.log(err, "err");
+
           hide();
         });
     } else {
-      deleteRequest(item.id)
+      deleteWfhRequest(item.id)
         .then(async (data) => {
-          dispatchRequest({ type: "UPDATEQUOTA", payload: data });
-          dispatchRequest({ type: "DELETE", payload: item.id });
+          dispatchWFHRequest({ type: "UPDATEQUOTA", payload: data });
+          dispatchWFHRequest({ type: "DELETE", payload: item.id });
           showToast("Request deleted");
           setLoading(false);
           hide();
@@ -63,21 +63,6 @@ const DeleteAlert = ({
     }
   };
 
-  const onTimeLogDelete = () => {
-    setLoading(true);
-    deleteTimeLog(item?.id)
-      .then(() => {
-        dispatchTimeLog({ type: "DELETE", payload: item?.id });
-
-        showToast("TimeLog deleted");
-        setLoading(false);
-        hide();
-      })
-      .catch((err) => {
-        setLoading(false);
-        hide();
-      });
-  };
   const positive = other ? "YES" : "DELETE";
   const negative = other ? "NO" : "CANCEL";
 
@@ -108,7 +93,7 @@ const DeleteAlert = ({
           titleStyle: style.delete,
           title: positive,
           onPress: () => {
-            timelog ? onTimeLogDelete() : onDelete();
+            onDelete();
           },
         }}
         negativeButton={{
@@ -152,5 +137,3 @@ const DeleteAlert = ({
     </>
   );
 };
-
-export { DeleteAlert };

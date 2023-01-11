@@ -10,7 +10,6 @@ import { getMyRequest, getPastWFHRequests } from "../../services";
 import { UserPlaceHolder } from "../loader";
 import HistoryToggle from "../../common/historyToggle";
 import moment from "moment";
-import Swipe from "../leave_screen/swipe";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "./WFHrequest";
 import WFHHistory from "./wFHhistory";
@@ -19,6 +18,7 @@ import {
   mapDataToWFHRequest,
   mapObjectToWFHRequest,
 } from "../../utils/requestWfhTransformer";
+import { WFHSwipe } from "./wfhSwipe";
 
 const MyWFHRequests = ({
   loading,
@@ -81,7 +81,7 @@ const MyWFHRequests = ({
             shouldCancelWhenOutside
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
-              <Swipe
+              <WFHSwipe
                 isLeave={false}
                 item={item.item}
                 screenName={NAVIGATION_ROUTE.Request_WFH}
@@ -117,7 +117,7 @@ const MyWFHRequests = ({
           <Swipeable
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
-              <Swipe
+              <WFHSwipe
                 isLeave={false}
                 item={item.item}
                 screenName={NAVIGATION_ROUTE.Request_WFH}
@@ -156,10 +156,10 @@ const MyWFHRequests = ({
         {/*  new Date(item.item.leave_date.startDate) <= new Date() &&
             new Date().getHours() >= 10 ? */}
         <View style={[style.header]}>
-          <SmallHeader text='My Requests' history={true} />
+          <SmallHeader text="My Requests" history={true} />
           <HistoryToggle
             toggle={toggle}
-            screen='leave'
+            screen="leave"
             setHistory={setHistory}
             history={history}
           />
@@ -180,7 +180,7 @@ const MyWFHRequests = ({
       {toggle === "toggle-switch" &&
         (!requestsWFH?.pastrequests ? (
           <>
-            <SmallHeader text='Past Requests' />
+            <SmallHeader text="Past Requests" />
             <UserPlaceHolder />
           </>
         ) : (

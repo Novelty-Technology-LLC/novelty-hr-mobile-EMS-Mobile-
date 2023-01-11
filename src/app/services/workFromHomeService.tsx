@@ -72,7 +72,27 @@ const cancelWfh = (id: number) => {
     }
   });
 };
+const deleteWfhRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.delete(`/work/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+const editWfhRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/work-quota/${id}`);
 
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
 const getPastWFHRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -125,6 +145,8 @@ export {
   getMyRequest,
   getPastWFHRequests,
   cancelWfh,
+  editWfhRequest,
+  deleteWfhRequest,
   updateWFHRequests,
   getAllWFHRequests,
   getWFHResponses,
