@@ -9,3 +9,5 @@ export * from './leave_screen/otherRequests';
 export * from './leave_screen/responseAlert';
 export * from './leave_screen/requestWithImage';
 export * from './leave_screen/approveDeny';
+export * from './dashboard/header';
+export * from './dashboard/lineChart';

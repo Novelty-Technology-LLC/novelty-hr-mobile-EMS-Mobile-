@@ -1,4 +1,9 @@
 {
+  "androidStatusBar": {
+    "backgroundColor": "#000000"
+  },
   "name": "noveltyhrmobile",
   "displayName": "Novelty EMS"
+  
 }
+

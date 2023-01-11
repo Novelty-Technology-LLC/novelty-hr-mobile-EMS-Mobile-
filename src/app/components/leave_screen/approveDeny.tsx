@@ -1,44 +1,88 @@
-import React, { useState } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
-import { button as Button } from '../../common';
-import { dataType } from '../../interface';
-import { EditAlert } from './responseAlert';
-import colors from '../../../assets/colors';
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import { View, Text } from "react-native";
+import {
+  Alert,
+  button as Button,
+  showToast,
+  snackErrorBottom,
+} from "../../common";
+import { dataType } from "../../interface";
+import { EditAlert } from "./responseAlert";
+import { checkRequest } from "../../services";
+import { goBack } from "../../utils/navigation";
 
 interface approveDenyPropType {
   title: string;
+  screenName?: string;
   style: object;
   item: dataType;
+  fromStack: boolean;
+  onPress: (action: string) => void;
+  onPressSubmit: ({ note, action }: { note: string; action: string }) => void;
 }
 
-const ApproveDeny = ({ style, title, item }: approveDenyPropType) => {
-  const [show, setShow] = useState(false);
-  const [isLoading, setisLoading] = useState(false);
+export const ApproveDeny = forwardRef(
+  (
+    {
+      style,
+      title,
+      item,
+      fromStack,
+      screenName = "Leave",
+      onPress,
+      onPressSubmit,
+    }: approveDenyPropType,
+    ref: any
+  ) => {
+    const [show, setShow] = useState(false);
+    const [isLoading, setisLoading] = useState(false);
+    const { alertRef, actionRef } = ref;
 
-  return (
-    <View>
-      {show && <EditAlert item={item} status={title} setShow={setShow} />}
-      <Button
-        onPress={() => {
-          setShow(true);
-        }}
-      >
-        <View
-          style={title === 'Approve' ? style.buttonApprove : style.buttonDeny}
-        >
-          <Text style={title === 'Approve' ? style.approve : style.deny}>
-            {title}
-          </Text>
-          {isLoading && (
-            <ActivityIndicator
-              size={30}
-              color={title === 'Approve' ? colors.white : colors.primary}
-            />
-          )}
-        </View>
-      </Button>
-    </View>
-  );
-};
+    const hide = () => {
+      setShow(false);
+      setisLoading(false);
+    };
+    useImperativeHandle(
+      actionRef,
+      () => {
+        return {
+          show: () => setShow(true),
+          hide,
+          showLoading: () => setisLoading(true),
+          hideLoading: () => setisLoading(false),
+        };
+      },
+      []
+    );
 
-export { ApproveDeny };
+    return (
+      <View>
+        {show && (
+          <EditAlert
+            ref={alertRef}
+            onPressSubmit={onPressSubmit}
+            item={item}
+            hide={hide}
+            setShow={setShow}
+            fromStack={fromStack}
+            setisLoading={setisLoading}
+            screenName={screenName}
+          />
+        )}
+        {/* <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
+    This request just got deleted.
+  </Alert> */}
+
+        <Button onPress={() => onPress(title)} disabled={isLoading}>
+          <View
+            style={title === "Approve" ? style.buttonApprove : style.buttonDeny}
+          >
+            <Text style={title === "Approve" ? style.approve : style.deny}>
+              {title}
+            </Text>
+          </View>
+        </Button>
+      </View>
+    );
+  }
+);

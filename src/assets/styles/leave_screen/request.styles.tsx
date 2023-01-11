@@ -5,23 +5,25 @@ import { theme, fonts } from '../theme';
 
 const requestStyle = StyleSheet.create({
   container: {
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(5),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginLeft: normalize(13),
-    marginRight: normalize(20),
     backgroundColor: colors.snow,
-    paddingRight: normalize(10),
+    paddingHorizontal: normalize(10),
     borderRadius: 2,
-    marginVertical: 7,
+    marginTop: normalize(5),
   },
   main: {
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
-  wrapper: { flexDirection: 'row' },
+  wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   requestDate: {
     marginTop: normalize(theme.spacing.wide),
     fontSize: normalize(theme.size.xxs),
@@ -31,19 +33,17 @@ const requestStyle = StyleSheet.create({
   dateView: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingHorizontal: normalize(10),
+    paddingHorizontal: normalize(10)
   },
   status: {
-    ...Platform.select({
-      ios: { marginTop: normalize(3) },
-      android: { marginTop: normalize(4) },
-    }),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   date: {
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.sm),
     color: colors.black,
     fontFamily: fonts.mulishBold,
   },
@@ -55,30 +55,44 @@ const requestStyle = StyleSheet.create({
   },
   type: {
     color: colors.fontGrey,
-    fontSize: normalize(theme.size.xs),
+    fontSize: normalize(11),
     fontFamily: fonts.poppinsMedium,
-    marginTop: normalize(7),
+    marginTop: normalize(0),
   },
   pastState: {
-    marginTop: normalize(3),
+    marginTop: normalize(2.5),
   },
   icon: {
-    transform: [{ rotate: '-40deg' }],
-    backgroundColor: colors.requested,
-    overflow: 'hidden',
+    transform: [{ rotate: '-50deg' }],
+  },
+  stateView: {
     ...Platform.select({
+      android: { marginTop: normalize(7) },
       ios: {
-        padding: normalize(2.9),
-        borderRadius: normalize(8),
+        marginTop: normalize(4),
       },
-      android: { padding: normalize(5), borderRadius: normalize(14) },
     }),
   },
-  stateView: { flexDirection: 'column' },
+  stateViewAdmin: { marginTop: normalize(10) },
   state: {
     fontFamily: fonts.poppinsMedium,
     color: colors.fontGrey,
     fontSize: normalize(theme.size.xs),
+    ...Platform.select({
+      android: {
+        marginTop: normalize(5),
+      },
+    }),
+  },
+  denyStat: {
+    fontFamily: fonts.poppinsMedium,
+    color: colors.fontGrey,
+    fontSize: normalize(theme.size.xs),
+    ...Platform.select({
+      android: {
+        paddingTop: normalize(5),
+      },
+    }),
   },
   row: {
     flexDirection: 'row',
@@ -87,7 +101,8 @@ const requestStyle = StyleSheet.create({
   },
   rowAlign: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   space: {
     ...Platform.select({
@@ -98,13 +113,10 @@ const requestStyle = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    ...Platform.select({
-      ios: { marginTop: normalize(25) },
-      android: { marginTop: normalize(30) },
-    }),
+    marginTop: normalize(5),
   },
   buttonSpacer: {
-    marginLeft: normalize(theme.spacing.wider),
+    marginLeft: normalize(5),
   },
   approve: {
     fontFamily: fonts.mulishBold,
@@ -167,9 +179,6 @@ const requestStyle = StyleSheet.create({
         padding: normalize(5),
       },
     }),
-  },
-  rowAlign: {
-    flexDirection: 'row',
   },
 });
 

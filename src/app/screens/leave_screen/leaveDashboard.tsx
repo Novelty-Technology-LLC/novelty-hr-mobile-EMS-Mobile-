@@ -1,32 +1,46 @@
-import React, { useState, useContext, useEffect ,useMemo} from 'react';
-import { View, ScrollView, Text, RefreshControl } from 'react-native';
-import { header as Header, Loader, Admin } from '../../common';
-import { DaysRemaining, MyRequests } from '../../components';
-import { leaveDashboardStyle as style } from '../../../assets/styles';
-import OtherRequests from '../../components/leave_screen/otherRequests';
-import { RequestButton } from '../../components/requestButton';
-import { headerText } from '../../../assets/styles';
-import { RequestContext } from '../../reducer';
-import { getUser, mapDataToRequest } from '../../utils';
-import { getLeaveQuota, getMyRequests } from '../../services';
-import { QuotaPlaceHolder } from '../../components/loader/quotaPlaceHolder';
+import React, { useState, useContext, useEffect } from "react";
+import { View, ScrollView, Text, RefreshControl } from "react-native";
+import { header as Header } from "../../common";
+import { DaysRemaining, MyRequests } from "../../components";
+import {
+  headerTxtStyle,
+  leaveDashboardStyle as style,
+} from "../../../assets/styles";
+import OtherRequests from "../../components/leave_screen/otherRequests";
+import { RequestButton } from "../../components/requestButton";
+import { RequestContext } from "../../reducer";
+import { getUser, mapDataToRequest, setUser } from "../../utils";
+import { get, getLeaveQuota, getMyRequests, store } from "../../services";
+import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
+import { useScrollToTop } from "@react-navigation/native";
+import { AuthContext } from "../../reducer";
+import Autolink from "react-native-autolink";
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(false);
+  const ref = React.useRef(null);
+  const {
+    state: { notifdata },
+  } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const { requests, dispatchRequest } = useContext(RequestContext);
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
     const user = await getUser();
+    const newuser = await get(+JSON.parse(user).id);
+    setIsAdmin(+newuser.is_approver === 1 ? true : false);
+    setUser(newuser);
+
     getLeaveQuota(JSON.parse(user).id).then((data) => {
-      setDaysDetails(data);
-      dispatchRequest({ type: 'QUOTA', payload: data });
+      dispatchRequest({ type: "QUOTA", payload: data });
       setRefreshing(false);
     });
+
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
         setLoading(false);
         setRefreshing(false);
       })
@@ -35,21 +49,13 @@ const LeaveDashboard = () => {
       });
   }, []);
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { dispatchRequest } = useContext(RequestContext);
-  const [daysDetails, setDaysDetails] = useState([]);
-
   const getData = async () => {
     const user = await getUser();
     getLeaveQuota(JSON.parse(user).id)
       .then((data) => {
-        setDaysDetails(data);
-        dispatchRequest({ type: 'QUOTA', payload: data });
+        dispatchRequest({ type: "QUOTA", payload: data });
       })
-      .catch((err) => console.log('GetLeaveQuota error', err))
-
-
+      .catch((err) => {});
   };
 
   const getRequest = async () => {
@@ -59,7 +65,7 @@ const LeaveDashboard = () => {
 
     getMyRequests(JSON.parse(user).id)
       .then((data) => {
-        dispatchRequest({ type: 'CHANGE', payload: mapDataToRequest(data) });
+        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
         setLoading(false);
       })
       .catch((err) => {
@@ -67,47 +73,58 @@ const LeaveDashboard = () => {
       });
   };
 
-
-
   useEffect(() => {
-    getData();
-    getRequest();
-  }, []);
+    const runFunction = () => {
+      getData();
+      getRequest();
+    };
 
+    runFunction();
+  }, [requests?.requests?.length]);
+
+  useScrollToTop(ref);
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
-        <Text style={headerText}>Leave Application</Text>
+        <Text style={headerTxtStyle.headerText}>Leave Application</Text>
       </Header>
       <ScrollView
+        showsVerticalScrollIndicator={false}
+        ref={ref}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {daysDetails.length > 0 ? null : <QuotaPlaceHolder />}
+        {requests?.quota?.length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
-          {daysDetails &&
-            daysDetails.length > 0 &&
-            daysDetails.map((daysDetail) => (
+          {requests.quota &&
+            requests.quota.length > 0 &&
+            requests.quota.map((daysDetail) => (
               <DaysRemaining
-                key={daysDetail.id}
-                total={daysDetail.leave_total}
-                remaining={daysDetail.leave_used}
-                title={daysDetail.leave_type}
+                key={daysDetail?.id}
+                total={daysDetail?.leave_total}
+                remaining={daysDetail?.leave_remaining}
+                title={daysDetail?.leave_type}
               />
             ))}
         </View>
-        {/* <Admin isAdmin={isAdmin} setIsAdmin={setIsAdmin} /> */}
-        {isAdmin ? (
-          <OtherRequests refresh={refresh} />
-        ) : (
-          <MyRequests loading={loading} refresh={refresh} />
+        <MyRequests
+          loading={loading}
+          refresh={refresh}
+          params={notifdata?.request === "myrequest" && +notifdata?.leave_id}
+        />
+        {isAdmin && (
+          <OtherRequests
+            refresh={refresh}
+            params={
+              notifdata?.request === "otherrequest" && +notifdata?.leave_id
+            }
+          />
         )}
       </ScrollView>
-      <RequestButton />
+      <RequestButton screen='requestLeave' />
     </View>
   );
 };
 
 export { LeaveDashboard };
-

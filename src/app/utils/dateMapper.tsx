@@ -11,13 +11,34 @@ export const dateMapper = (start: string, end: string) => {
   }
   return daysCount;
 };
+import moment from "moment";
+export const dateStringMapper = (
+  startDate: string,
+  endDate: string,
+  dateOnly?: boolean
+) => {
+  const start = new Date(startDate).toString().substring(0, 15);
+  const end = new Date(endDate ?? startDate).toString().substring(0, 15);
 
-export const dateStringMapper = (start: string, end: string) => {
+  let nextmonth =
+    start.substring(4, 7) === end.substring(4, 7) ? null : end.substring(4, 7);
   return start.substring(8, start.length - 4) ===
     end.substring(8, end.length - 4)
-    ? start.substring(4, start.length - 4) + '(1 day)'
+    ? start.substring(4, start.length - 4) + "(1 day)"
     : start.substring(4, start.length - 5) +
-        '-' +
+        "-" +
+        `${nextmonth ? nextmonth + " " : ""}` +
         end.substring(8, end.length - 4) +
-        `(${dateMapper(start, end)} days)`;
+        `${dateOnly ? "" : `(${dateMapper(start, end)} days)`}  `;
+};
+
+export const getShortDate = (date: any) => {
+  return moment(date).format("MMM D").slice(0, 6);
+};
+export const getFormatedDate = (date: any) => {
+  return moment(date).format("MMM  D, YYYY");
+};
+
+export const getFullDate = (date: any) => {
+  return moment(date).format("MMM  D,YYYY");
 };

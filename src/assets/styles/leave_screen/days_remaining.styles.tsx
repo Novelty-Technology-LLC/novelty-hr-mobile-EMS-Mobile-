@@ -1,41 +1,47 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import color from '../../colors';
-import { fonts, theme } from '../theme';
+import { Platform, StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import color from "../../colors";
+import { fonts, theme } from "../theme";
 
 const daysRemainingStyle = StyleSheet.create({
   container: {
-    width: '50%',
-    alignItems: 'center',
-    paddingBottom: normalize(40),
-    borderBottomColor: color.border,
-    borderBottomWidth: 1,
+    width: "50%",
+    alignItems: "center",
+    paddingBottom: normalize(5),
+  },
+  logcontainer: {
+    width: "50%",
+    alignItems: "center",
+    paddingBottom: normalize(5),
+    paddingTop: normalize(10),
   },
   remaining: {
-    fontWeight: '300',
-    fontSize: normalize(theme.size.xxl),
+    fontWeight: "300",
+    fontSize: normalize(35),
     fontFamily: fonts.mulishRegular,
+    marginBottom: 0,
   },
   total: {
-    fontWeight: '100',
-    fontSize: normalize(theme.size.base),
+    fontWeight: "100",
+    fontSize: normalize(20),
     fontFamily: fonts.mulishRegular,
   },
   text: {
     fontSize: normalize(theme.size.xl),
     color: color.primary,
+    paddingBottom: 0,
   },
   title: {
-    fontSize: normalize(theme.size.sm),
     color: colors.black,
-    fontFamily: fonts.PoppinsSemibold,
-    textTransform: 'capitalize',
+    fontFamily: fonts.mulishBold,
+    // textTransform: "uppercase",
   },
   footer: {
-    fontSize: normalize(theme.size.xxs),
-    color: color.secondary,
-    fontFamily: fonts.poppinsRegular,
+    fontSize: normalize(theme.size.xs),
+    color: color.fontGrey,
+    fontFamily: fonts.mulishRegular,
+    textTransform: "capitalize",
   },
 });
 

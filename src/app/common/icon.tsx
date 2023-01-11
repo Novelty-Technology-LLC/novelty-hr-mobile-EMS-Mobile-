@@ -1,8 +1,9 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { IconProps } from 'react-native-vector-icons/Icon';
 
-const AppIcon = ({ style = null, name, color, size }: any) => {
-  return <Icon name={name} color={color} size={size} style={style} />;
+const AppIcon = (props: IconProps) => {
+  return <Icon {...props} />;
 };
 
 export { AppIcon };

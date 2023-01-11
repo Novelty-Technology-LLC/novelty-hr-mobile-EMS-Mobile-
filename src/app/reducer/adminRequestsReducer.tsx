@@ -1,9 +1,8 @@
-import React, { useEffect, useReducer } from 'react';
-import { mapObjectToRequest } from '../utils';
+import React, { useReducer } from "react";
 
 const AdminReducer = (prevState, action) => {
   switch (action.type) {
-    case 'DELETE':
+    case "DELETE":
       return {
         ...prevState,
         adminrequests: [
@@ -13,25 +12,25 @@ const AdminReducer = (prevState, action) => {
         ],
       };
 
-    case 'CHANGE':
+    case "CHANGE":
       return {
         ...prevState,
         adminrequests: [...action.payload.my],
         pastadminrequests: [...action.payload.past],
       };
 
-    case 'UPDATE':
+    case "UPDATE":
       return {
         ...prevState,
         adminrequests: [].concat(
           action.payload,
           ...prevState.adminrequests.filter(
-            (item) => item.id !== action.payload.id
+            (item) => item?.id !== action.payload.id
           )
         ),
       };
 
-    case 'REPLY':
+    case "REPLY":
       return {
         ...prevState,
         adminrequests: [].concat(

@@ -36,6 +36,10 @@ const loginStyle = StyleSheet.create({
     fontFamily: fonts.poppinsMedium,
     fontSize: normalize(theme.size.lg),
   },
+  login: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   message: {
     fontFamily: fonts.poppinsMedium,
@@ -78,6 +82,14 @@ const loginStyle = StyleSheet.create({
   footerText: {
     fontFamily: fonts.poppinsRegular,
     fontSize: normalize(theme.size.xs),
+  },
+  textInput: {
+    borderBottomWidth: 1,
+    borderBottomColor: color.black,
+    padding: normalize(10),
+  },
+  formWrapper: {
+    width: '90%',
   },
 });
 

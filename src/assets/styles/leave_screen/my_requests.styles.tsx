@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import normalize from 'react-native-normalize';
 import colors from '../../colors';
 import { theme, fonts } from '../theme';
@@ -6,14 +6,20 @@ import { theme, fonts } from '../theme';
 const myRequestsStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    marginTop: normalize(20),
+    paddingHorizontal: normalize(15),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: normalize(20),
-    marginHorizontal: normalize(20),
+    marginTop: normalize(10),
+    alignContent: 'center',
+  },
+  logheader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: normalize(20),
   },
   title: {
     fontFamily: fonts.poppinsMedium,
@@ -21,27 +27,42 @@ const myRequestsStyle = StyleSheet.create({
     color: colors.black,
   },
   history: {
-    fontFamily: fonts.poppinsMedium,
+    fontFamily: fonts.mulishRegular,
     color: colors.secondary,
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.xs),
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   gap: {
-    width: normalize(10),
+    width: normalize(5),
   },
-  emptyContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: normalize(35),
-    marginHorizontal: normalize(20),
-    borderRadius: 2,
-    backgroundColor: colors.snow,
+  bgap: { paddingVertical: normalize(60) },
+  dropDownView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: normalize(10),
+
+    ...Platform.select({
+      ios: {
+        zIndex: 100,
+      },
+    }),
   },
-  emptyText: {
-    color: colors.secondary,
+  dropDown: {
+    paddingHorizontal: normalize(10),
+  },
+  dropDownWrapper: {
+    borderWidth: 1,
+    borderColor: colors.primary,
+    backgroundColor: colors.white,
+    padding: normalize(40),
+    ...Platform.select({
+      ios: {
+        zIndex: 1000,
+      },
+    }),
   },
 });
 

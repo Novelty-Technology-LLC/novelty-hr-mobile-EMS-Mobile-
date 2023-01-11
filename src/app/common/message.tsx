@@ -1,16 +1,50 @@
-import { WSnackBar } from 'react-native-smart-tip';
-import colors from '../../assets/colors';
+import Snackbar from "react-native-snackbar";
+import { WSnackBar } from "react-native-smart-tip";
+import { fonts, theme } from "../../assets/styles";
+import colors from "../../assets/colors";
+import { Easing } from "react-native";
 
-const snackBarMessage = (msg) => {
-  const snackBarOpts = {
-    data: msg,
-    position: WSnackBar.position.BOTTOM,
-    duration: WSnackBar.duration.LONG,
+const snackBarMessage = (msg: string) => {
+  Snackbar.show({
+    text: msg,
     textColor: colors.white,
     backgroundColor: colors.green,
-    actionTextColor: '#ff490b',
-  };
-  return WSnackBar.show(snackBarOpts);
+    fontFamily: fonts.mulishBold,
+    duration: Snackbar.LENGTH_LONG,
+  });
 };
 
-export { snackBarMessage };
+const snackBarMessageAction = (
+  msg: string,
+  success?: Function,
+  failure?: Function
+) => {
+  const snackBarOpts = {
+    data: msg,
+    isAllowSlideExit: true,
+    position: WSnackBar.position.BOTTOM,
+    duration: WSnackBar.duration.LONG,
+    textColor: "#ffffff",
+    numberOfLines: 2,
+    icon: false,
+
+    backgroundColor: success ? colors.green : colors.red,
+  };
+  WSnackBar.show(snackBarOpts);
+};
+
+const showToast = (msg: string, success = true) => {
+  const snackBarOpts = {
+    data: msg,
+    isAllowSlideExit: true,
+    position: WSnackBar.position.TOP,
+    duration: WSnackBar.duration.LONG,
+    textColor: "#ffffff",
+    numberOfLines: 2,
+    icon: false,
+    backgroundColor: success ? colors.green : colors.red,
+  };
+  WSnackBar.show(snackBarOpts);
+};
+
+export { snackBarMessage, showToast };

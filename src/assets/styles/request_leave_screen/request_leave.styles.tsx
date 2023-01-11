@@ -1,7 +1,8 @@
-import { Platform, StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import color from '../../colors';
-import { theme, fonts } from '../theme';
+import { Platform, StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import color from "../../colors";
+import { theme, fonts } from "../theme";
 
 const requestLeave = StyleSheet.create({
   container: {
@@ -9,21 +10,23 @@ const requestLeave = StyleSheet.create({
     backgroundColor: color.white,
   },
   calendar: {
-    paddingVertical: 10,
     borderWidth: 0,
-    borderBottomWidth: 1,
-    width: 'auto',
+    width: "auto",
+  },
+  error: {
+    color: color.red,
+    paddingTop: normalize(10),
+    marginLeft: normalize(17),
   },
   buttonView: {
-    marginTop: normalize(23),
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: normalize(5),
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: color.primary,
-    paddingVertical: normalize(2),
     marginHorizontal: normalize(19),
     marginBottom: normalize(20),
-    overflow: 'hidden',
+    overflow: "hidden",
     ...Platform.select({
       ios: {
         borderRadius: normalize(4),
@@ -33,12 +36,31 @@ const requestLeave = StyleSheet.create({
       },
     }),
   },
-
+  logButtonView: {
+    ...Platform.select({
+      android: {
+        marginBottom: normalize(25),
+      },
+      ios: {
+        marginBottom: normalize(0),
+      },
+    }),
+  },
+  editLogButtonView: {
+    marginBottom: normalize(15),
+  },
   buttonText: {
     fontFamily: fonts.mulishBold,
-    paddingVertical: normalize(20),
+    paddingVertical: normalize(13),
     color: color.white,
-    fontSize: normalize(theme.size.base),
+    fontSize: normalize(theme.size.normal),
+  },
+  quotaMsg: {
+    color: colors.red,
+    fontFamily: fonts.poppinsRegular,
+    marginHorizontal: normalize(20),
+    marginTop: normalize(20),
+    fontSize: normalize(13),
   },
 });
 

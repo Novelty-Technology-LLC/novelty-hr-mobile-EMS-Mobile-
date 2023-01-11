@@ -1,26 +1,47 @@
-import React, { useContext, useState } from 'react';
-import { View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { removeToken, removeUser } from '../utils';
-import { headerStyle as style, deleteAlertStyle } from '../../assets/styles';
-import colors from '../../assets/colors';
-import { AuthContext } from '../reducer';
-import Dialog from 'react-native-dialog';
+import React, { useContext, useState } from "react";
+import { View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { removeToken, removeUser, getUser } from "../utils";
+import { headerStyle as style, deleteAlertStyle } from "../../assets/styles";
+import colors from "../../assets/colors";
+import { AuthContext } from "../reducer";
+import { signOutGoogle, logOutUser } from "../services";
+import { ConfirmDialog } from "react-native-simple-dialogs";
+import DeviceInfo from "react-native-device-info";
+import { CommonActions } from "@react-navigation/native";
 
-const tabHeader = ({ onPress = null, icon = false, children }: any) => {
+const tabHeader = ({
+  onPress = null,
+  icon = false,
+  children,
+  navigation,
+}: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext<any>(AuthContext);
 
-  const onLogout = () => {
-    removeUser();
-    removeToken();
-    dispatch({ type: 'SIGN_OUT' });
+  const onLogout = async () => {
+    const user_id = await getUser();
+    const device_id = await DeviceInfo.getUniqueId();
+
+    logOutUser({ device_id, user_id: JSON.parse(user_id).id }).then((data) => {
+      // Reset stack navigation while logging out
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "login" }],
+        })
+      );
+      dispatch({ type: "SIGN_OUT" });
+      signOutGoogle();
+      removeUser();
+      removeToken();
+    });
   };
 
   return (
-    <View style={style.container}>
+    <View style={[style.container, { justifyContent: "space-between" }]}>
       {children}
       <View style={style.textView}>
         {icon && (
@@ -34,33 +55,29 @@ const tabHeader = ({ onPress = null, icon = false, children }: any) => {
           />
         )}
       </View>
-      <Dialog.Container
+      <ConfirmDialog
+        title="Do you want to logout ?"
         visible={showAlert}
-        contentStyle={deleteAlertStyle.dialogContainer}
-      >
-        <View style={deleteAlertStyle.container}>
-          <View style={deleteAlertStyle.main}>
-            <Dialog.Title style={deleteAlertStyle.text1}>
-              Do you want to logout ?
-            </Dialog.Title>
-          </View>
-        </View>
-        <View style={deleteAlertStyle.buttons}>
-          <Dialog.Button
-            label="CANCEL"
-            onPress={hide}
-            style={deleteAlertStyle.cancel}
-          />
-          <Dialog.Button
-            label="LOGOUT"
-            onPress={() => {
-              onLogout();
-              hide();
-            }}
-            style={deleteAlertStyle.delete}
-          />
-        </View>
-      </Dialog.Container>
+        onTouchOutside={() => setShowAlert(false)}
+        contentStyle={{
+          marginTop: -30,
+        }}
+        dialogStyle={{ borderRadius: 5 }}
+        titleStyle={deleteAlertStyle.text1}
+        positiveButton={{
+          titleStyle: deleteAlertStyle.delete,
+          title: "LOGOUT",
+          onPress: () => {
+            onLogout();
+            hide();
+          },
+        }}
+        negativeButton={{
+          titleStyle: deleteAlertStyle.cancel,
+          title: "CANCEL",
+          onPress: () => hide(),
+        }}
+      />
     </View>
   );
 };

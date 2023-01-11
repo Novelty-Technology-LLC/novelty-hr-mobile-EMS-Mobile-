@@ -4,11 +4,13 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 # Node artifact files
+build/
 node_modules/
 android/.gradle
 android/app/build
 package-lock.json
-
+/ios/Pods
+*.env
 # Compiled Java class files
 *.class
 
@@ -19,7 +21,8 @@ package-lock.json
 *.log
 
 # Package files
-*.jar
+*.iml
+
 
 # Maven
 target/
@@ -49,4 +52,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+*.hprof
 

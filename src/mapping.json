@@ -1,0 +1,28 @@
+{
+  "components": {
+    "Button": {
+      "meta": {},
+      "appearances": {
+        "filled": {
+          "mapping": {},
+          "variantGroups": {
+            "status": {
+              "primary": {
+                "backgroundColor": "pink"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Calendar": {
+      "appearances": {
+        "default": {
+          "mapping": {
+            "backgroundColor": "red"
+          }
+        }
+      }
+    }
+  }
+}

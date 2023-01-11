@@ -1,137 +1,169 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
-import Dialog from 'react-native-dialog';
-import { editAlertStyle as style, requestStyle } from '../../../assets/styles';
-import RequestWithImage from './requestWithImage';
-import Textarea from 'react-native-textarea';
-import { dataType } from '../../interface';
-import { AppIcon, snackBarMessage } from '../../common';
-import { useNavigation } from '@react-navigation/native';
-import colors from '../../../assets/colors';
-import { AdminRequestContext, AuthContext } from '../../reducer';
-import { updateRequest } from '../../services';
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import { View, Text, Platform } from "react-native";
+import { editAlertStyle as style, requestStyle } from "../../../assets/styles";
+import RequestWithImage from "./requestWithImage";
+import Textarea from "react-native-textarea";
+import { dataType } from "../../interface";
+import { AppIcon } from "../../common";
+import colors from "../../../assets/colors";
+import { ConfirmDialog } from "react-native-simple-dialogs";
+import normalize from "react-native-normalize";
+import { QuotaPlaceHolder } from "../loader";
+import LeaveAlert from "./alert/leaveAlert";
+import WfhAlert from "./alert/wfhAlert";
 
-const EditAlert = ({
-  item,
-  status,
-  setShow,
-}: {
-  item: dataType;
-  status: string;
-  setShow: Function;
-}) => {
-  const navigation = useNavigation();
-  const [showAlert, setShowAlert] = useState(true);
-  let [action, setAction] = useState(status);
-  const [note, setNote] = useState('');
-  const show = () => setShowAlert(true);
-  const hide = () => {
-    setShowAlert(false);
-    setShow(false);
-  };
-  
-  const { state } = useContext(AuthContext);
-  const { dispatchAdmin } = useContext(AdminRequestContext);
+const EditAlert = forwardRef(
+  (
+    {
+      hide,
+      item,
+      setShow,
+      setisLoading,
+      fromStack,
+      screenName = "Leave",
+      onPressSubmit,
+    }: {
+      hide: () => void;
+      item: dataType;
+      screenName: string;
+      setShow: Function;
+      fromStack: boolean;
+      setisLoading: Function;
+      onPressSubmit: ({
+        note,
+        action,
+      }: {
+        note: string;
+        action: string;
+        quotaId?: string;
+      }) => void;
+    },
+    ref: any
+  ) => {
+    const [showAlert, setShowAlert] = useState(true);
+    const [action, setAction] = useState("");
+    const [note, setNote] = useState("");
+    const [submitLoading, setSubmitLoading] = useState(false);
+    const [responses, setresponses] = useState<any>(null);
 
-  const onSubmit = async () => {
-    const Id = state.user.id;
-
-    action === 'Approve' && (action = 'Approved');
-    action === 'Deny' && (action = 'Denied');
-
-    const newData = {
-      leave_id: item.id,
-      action,
-      note,
-      requested_to: Id,
-      quotaId: item.sender,
+    const hideModal = () => {
+      hide();
+      setShowAlert(false);
+      setShow(false);
     };
-    updateRequest(item.id, newData).then((data) => {
-      item.state = data.status;
-      dispatchAdmin({
-        type: 'REPLY',
-        payload: item,
-      });
-      navigation.navigate('leaveList');
-      snackBarMessage('Request replied');
-    });
-  };
 
-  return (
-    <View>
-      <Dialog.Container
-        visible={showAlert}
-        contentStyle={style.dialogContainer}
-      >
-        <View style={style.titleView}>
-          <Dialog.Title style={style.title}>
-            Your response is ready to go
-          </Dialog.Title>
-        </View>
-        <View style={style.row}>
-          <RequestWithImage item={item} />
-          <View style={style.gap}></View>
-          <View style={style.stateView}>
-            <View style={requestStyle.rowAlign}>
-              {action === 'Approve' && (
-                <AppIcon
-                  name="check-circle"
-                  size={15}
-                  color={colors.green}
-                ></AppIcon>
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          setResponse: (data: any) => setresponses(data),
+          setActionHandle: (val: string) => setAction(val),
+          showSubmitLoading: () => setSubmitLoading(true),
+          hideSubmitLoading: () => setSubmitLoading(false),
+        };
+      },
+      []
+    );
+
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.white }}>
+        <ConfirmDialog
+          visible={showAlert}
+          onTouchOutside={() => {
+            setShowAlert(false);
+            hide();
+          }}
+          dialogStyle={{
+            borderRadius: 5,
+          }}
+          positiveButton={{
+            titleStyle: style.delete,
+            title: submitLoading ? "Submitting.." : responses ? "SUBMIT" : "",
+            onPress: () => {
+              onPressSubmit({ action, note, quotaId: responses.id });
+            },
+          }}
+          negativeButton={{
+            titleStyle: style.cancel,
+            title: "CANCEL",
+            onPress: () => hideModal(),
+          }}
+          keyboardDismissMode='on-drag'
+          overlayStyle={Platform.OS === "ios" && { paddingBottom: 120 }}
+        >
+          {!responses ? (
+            <QuotaPlaceHolder />
+          ) : (
+            <View
+              style={{
+                marginBottom: normalize(-15),
+                marginRight: normalize(-3),
+              }}
+            >
+              <View style={style.titleView}>
+                <Text style={style.title}>Your response is ready to go</Text>
+              </View>
+              <View style={style.row}>
+                <RequestWithImage
+                  item={item}
+                  type={screenName === "Leave" ? item.type : "WFH"}
+                />
+                <View style={style.gap}></View>
+                <View style={style.stateView}>
+                  <View style={requestStyle.rowAlign}>
+                    {action === "Approve" && (
+                      <View style={{ marginRight: 5 }}>
+                        <AppIcon
+                          name='check-circle'
+                          size={15}
+                          color={colors.green}
+                        ></AppIcon>
+                      </View>
+                    )}
+                    <Text style={requestStyle.state}>Approve</Text>
+                  </View>
+                  <View style={requestStyle.rowAlign}>
+                    {action === "Deny" && (
+                      <View style={{ marginRight: 5 }}>
+                        <AppIcon
+                          name='check-circle'
+                          size={15}
+                          color={colors.green}
+                        ></AppIcon>
+                      </View>
+                    )}
+                    <Text
+                      style={requestStyle.state}
+                      onPress={() => setAction("Deny")}
+                    >
+                      Deny
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={{ marginTop: 10 }}></View>
+              {screenName === "Leave" ? (
+                <LeaveAlert responses={responses} />
+              ) : (
+                <WfhAlert responses={responses} />
               )}
-              <Text
-                style={requestStyle.state}
-                onPress={() => setAction('Approve')}
-              >
-                Approve
-              </Text>
+              <View style={style.main}>
+                <Textarea
+                  containerStyle={style.textareaContainer}
+                  style={style.textArea}
+                  maxLength={200}
+                  placeholder={"Write a short note for your response"}
+                  placeholderTextColor={"#c7c7c7"}
+                  underlineColorAndroid={"transparent"}
+                  onChangeText={(data: string) => setNote(data)}
+                />
+              </View>
             </View>
-            <View style={style.semigap}></View>
-            <View style={requestStyle.rowAlign}>
-              {action === 'Deny' && (
-                <AppIcon
-                  name="check-circle"
-                  size={15}
-                  color={colors.green}
-                ></AppIcon>
-              )}
-              <Text
-                style={requestStyle.state}
-                onPress={() => setAction('Deny')}
-              >
-                Deny
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={style.main}>
-          <Text style={style.note}>You can attach a note if you want</Text>
-          <Textarea
-            containerStyle={style.textareaContainer}
-            style={style.textArea}
-            maxLength={120}
-            placeholder={'Write a short note for your response'}
-            placeholderTextColor={'#c7c7c7'}
-            underlineColorAndroid={'transparent'}
-            onChangeText={(data: string) => setNote(data)}
-          />
-        </View>
-        <View style={style.buttons}>
-          <Dialog.Button label="CANCEL" onPress={hide} style={style.cancel} />
-          <View style={style.buttonGap}></View>
-          <Dialog.Button
-            label="SUBMIT"
-            onPress={() => {
-              onSubmit();
-              hide();
-            }}
-            style={style.delete}
-          />
-        </View>
-      </Dialog.Container>
-    </View>
-  );
-};
+          )}
+        </ConfirmDialog>
+      </View>
+    );
+  }
+);
 
 export { EditAlert };

@@ -1,16 +1,24 @@
-import { WSnackBar } from 'react-native-smart-tip';
-import {fonts} from '../../assets/styles/theme'
+import colors from "../../assets/colors";
+import { fonts } from "../../assets/styles/theme";
+import Snackbar from "react-native-snackbar";
 const snackErrorBottom = (err) => {
-  const snackBarOpts = {
-    data: err.message,
-    position: WSnackBar.position.BOTTOM,
-    duration: WSnackBar.duration.LONG,
-    textColor: '#ffffff',
-    fontFamily:fonts.PoppinsSemibold,
-    backgroundColor: '#ff3300',
-    actionTextColor: '#ffffff',
-  };
-  return WSnackBar.show(snackBarOpts);
+  return Snackbar.show({
+    text: err.message || err,
+    textColor: colors.white,
+    backgroundColor: "#ff3300",
+    fontFamily: fonts.mulishBold,
+    duration: Snackbar.LENGTH_LONG,
+  });
 };
 
-export { snackErrorBottom };
+const snackErrorTop = (err: string) => {
+  return Snackbar.show({
+    text: err.message || err,
+    textColor: colors.white,
+    backgroundColor: "#ff3300",
+    fontFamily: fonts.mulishBold,
+    duration: Snackbar.LENGTH_LONG,
+  });
+};
+
+export { snackErrorBottom, snackErrorTop };
