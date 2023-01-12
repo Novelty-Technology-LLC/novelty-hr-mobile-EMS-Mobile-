@@ -10,7 +10,7 @@ import OtherRequests from "../../components/leave_screen/otherRequests";
 import { RequestButton } from "../../components/requestButton";
 import { RequestContext } from "../../reducer";
 import { getUser, mapDataToRequest, setUser } from "../../utils";
-import { get, getLeaveQuota, getMyRequests, store } from "../../services";
+import { get, getLeaveQuota, getMyRequests } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
@@ -26,6 +26,7 @@ const LeaveDashboard = () => {
   } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
+
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
