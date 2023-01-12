@@ -31,7 +31,12 @@ import * as Yup from "yup";
 import { editWfhRequest, postWFHRequest } from "../../services";
 import colors from "../../../assets/colors";
 import { AuthContext } from "../../reducer";
-import { checkIfRequested, dateMapper, momentdate } from "../../utils";
+import {
+  checkIfRequested,
+  dateMapper,
+  dateRange,
+  momentdate,
+} from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
@@ -54,16 +59,17 @@ const validationSchema = Yup.object().shape({
 
 const RequestWFH = ({ route, navigation }: any) => {
   const olddata = route.params;
+
   const { state } = useContext(AuthContext);
   const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
   const [isLoading, setisLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   let option = "FULL DAY";
   const initialValues = {
-    date: olddata ? olddata.date : "",
-    status: olddata ? olddata.state : "Pending",
-    note: olddata ? olddata.note : "",
-    lead: olddata ? olddata.lead : [],
+    date: olddata ? olddata?.date : "",
+    status: olddata ? olddata?.status : "Pending",
+    note: olddata ? olddata?.note : "",
+    lead: olddata ? olddata?.lead : [],
   };
 
   const submitRequest = async (data) => {
@@ -84,8 +90,8 @@ const RequestWFH = ({ route, navigation }: any) => {
   };
 
   const updateReq = (data) => {
-    data.start_date = momentdate(data.leave_date.startDate, "YYYY-MM-DD");
-    data.end_date = momentdate(data.leave_date.endDate, "YYYY-MM-DD");
+    data.start_date = momentdate(data?.start_date, "YYYY-MM-DD");
+    data.end_date = momentdate(data?.end_date, "YYYY-MM-DD");
 
     editWfhRequest(olddata.id, data)
       .then((res: any) => {
@@ -96,7 +102,7 @@ const RequestWFH = ({ route, navigation }: any) => {
           });
         });
 
-        dispatchWFHRequest({ type: "UPDATE", payload: res.leave });
+        dispatchWFHRequest({ type: "UPDATE", payload: res.home });
         showToast("Request updated");
         navigation.navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
         setisLoading(false);
@@ -147,6 +153,7 @@ const RequestWFH = ({ route, navigation }: any) => {
             req.state === "In Progress" ||
             req.state === "Pending"
         );
+
         if (!olddata && checkIfRequested(allrequests, values)) {
           return showToast("You cannot request the same date twice", false);
         }
@@ -218,11 +225,23 @@ const RequestWFH = ({ route, navigation }: any) => {
           // gender: state.user.gender,
         };
 
+        const updateData = {
+          ...rest,
+          start_date: startDate,
+          end_date: endDate,
+          day: dayData,
+          option: option,
+          // user_id: state.user.id,
+          // requestor_name: state.user.first_name,
+          // uuid: state.user.uuid,
+          // gender: state.user.gender,
+        };
+
         setisLoading(true);
 
         Keyboard.dismiss();
 
-        olddata ? updateReq(requestData) : submitRequest(requestData);
+        olddata ? updateReq(updateData) : submitRequest(requestData);
       } catch (error) {
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
@@ -262,7 +281,7 @@ const RequestWFH = ({ route, navigation }: any) => {
                 workfromHome={true}
                 style={style}
                 handleChange={handleChange}
-                defaultValue={olddata && olddata.leave_date}
+                defaultValue={olddata && olddata?.leave_date}
                 olddata_id={olddata && olddata.id}
                 error={errors}
                 touched={touched}

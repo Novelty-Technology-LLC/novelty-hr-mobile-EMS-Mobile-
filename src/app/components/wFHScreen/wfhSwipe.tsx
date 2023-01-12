@@ -4,11 +4,14 @@ import { TouchableOpacity, View } from "react-native";
 import colors from "../../../assets/colors";
 import { deleteAlertStyle, swipeStyle as style } from "../../../assets/styles";
 import { Alert, AppIcon } from "../../common";
-import { checkRequest } from "../../services";
 import Normalize from "../../utils/normalize";
 import moment from "moment";
-import { momentdate } from "../../utils";
+import { dateStringMapper, momentdate } from "../../utils";
 import { WFHDeleteAlert } from "./wfhDeleteAlert";
+import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+import { checkRequest } from "../../services/leaveService";
+import { checkWFHRequest } from "../../services/workFromHomeService";
+import { dateRange } from "../../utils/dateFilter";
 
 export const WFHSwipe = ({
   item,
@@ -27,10 +30,17 @@ export const WFHSwipe = ({
   const hide = () => setShowAlert(false);
   const onEdit = () => {
     onPress();
-    checkRequest(item?.id)
+    // navigation.navigate(NAVIGATION_ROUTE.Request_WFH, item);
+    checkWFHRequest(item?.id)
       .then((res) => {
         if (res === "Pending") {
-          navigation.navigate(screenName, item);
+          navigation.navigate(screenName, {
+            ...item,
+            date: dateRange(
+              item?.start_date.slice(0, 11),
+              item?.end_date.slice(0, 11)
+            ),
+          });
         } else {
           show();
         }
