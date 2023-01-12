@@ -28,24 +28,16 @@ export const WFHSwipe = ({
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
+
   const onEdit = () => {
     onPress();
-    // navigation.navigate(NAVIGATION_ROUTE.Request_WFH, item);
-    checkWFHRequest(item?.id)
-      .then((res) => {
-        if (res === "Pending") {
-          navigation.navigate(screenName, {
-            ...item,
-            date: dateRange(
-              item?.start_date.slice(0, 11),
-              item?.end_date.slice(0, 11)
-            ),
-          });
-        } else {
-          show();
-        }
-      })
-      .catch((err) => {});
+    navigation.navigate(screenName, {
+      ...item,
+      date: {
+        startDate: moment(item?.start_date.slice(0, 10)).format("llll"),
+        endDate: moment(item?.end_date.slice(0, 10)).format("llll"),
+      },
+    });
   };
 
   const onLogEdit = () => {
@@ -81,7 +73,7 @@ export const WFHSwipe = ({
             style={deleteAlertStyle.iconContainer}
           >
             <AppIcon
-              name="square-edit-outline"
+              name='square-edit-outline'
               color={colors.primary}
               size={Normalize(20)}
             />

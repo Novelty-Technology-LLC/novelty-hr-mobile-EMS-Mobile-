@@ -154,20 +154,20 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title="Approve"
+                    title='Approve'
                     style={style}
                     item={item}
-                    screenName="WFH"
+                    screenName='WFH'
                     onPress={onPressAlert}
                   />
                   <View style={style.buttonSpacer}></View>
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title="Deny"
+                    title='Deny'
                     style={style}
                     item={item}
-                    screenName="WFH"
+                    screenName='WFH'
                     onPress={onPressAlert}
                   />
                 </View>

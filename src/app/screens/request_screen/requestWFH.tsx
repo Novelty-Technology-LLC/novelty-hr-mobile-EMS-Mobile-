@@ -243,6 +243,8 @@ const RequestWFH = ({ route, navigation }: any) => {
 
         olddata ? updateReq(updateData) : submitRequest(requestData);
       } catch (error) {
+        console.log("error", error);
+
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
@@ -267,7 +269,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik
@@ -281,7 +283,7 @@ const RequestWFH = ({ route, navigation }: any) => {
                 workfromHome={true}
                 style={style}
                 handleChange={handleChange}
-                defaultValue={olddata && olddata?.leave_date}
+                defaultValue={olddata?.date}
                 olddata_id={olddata && olddata.id}
                 error={errors}
                 touched={touched}
@@ -331,6 +333,7 @@ const RequestWFH = ({ route, navigation }: any) => {
     </ApplicationProvider>
   );
 };
+
 const DATA = [
   {
     title: "Full Day",
@@ -342,4 +345,5 @@ const DATA = [
     title: "Second Half",
   },
 ];
+
 export { RequestWFH };
