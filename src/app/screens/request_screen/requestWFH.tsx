@@ -28,7 +28,7 @@ import {
 import { button as Button } from "../../common";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { editWfhRequest, postWFHRequest } from "../../services";
+import { editRequestWfh, postWFHRequest } from "../../services";
 import colors from "../../../assets/colors";
 import { AuthContext } from "../../reducer";
 import {
@@ -59,7 +59,6 @@ const validationSchema = Yup.object().shape({
 
 const RequestWFH = ({ route, navigation }: any) => {
   const olddata = route.params;
-
   const { state } = useContext(AuthContext);
   const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
   const [isLoading, setisLoading] = useState(false);
@@ -90,16 +89,15 @@ const RequestWFH = ({ route, navigation }: any) => {
   };
 
   const updateReq = (data) => {
-    data.start_date = momentdate(data?.start_date, "YYYY-MM-DD");
-    data.end_date = momentdate(data?.end_date, "YYYY-MM-DD");
-
-    editWfhRequest(olddata.id, data)
+    editRequestWfh(olddata?.id, data)
       .then((res: any) => {
-        res.quota.map((item) => {
-          dispatchWFHRequest({
-            type: "UPDATEQUOTA",
-            payload: { ...item, option: res.option },
-          });
+        const home = { ...res.home };
+        const { option: keyvalue } = home;
+        const quota = { ...res.quota, option: keyvalue };
+
+        dispatchWFHRequest({
+          type: "UPDATEQUOTA",
+          payload: { ...quota },
         });
 
         dispatchWFHRequest({ type: "UPDATE", payload: res.home });
@@ -173,10 +171,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         }
         let day = 0;
         if (olddata) {
-          let oldday = dateMapper(
-            olddata.leave_date.startDate,
-            olddata.leave_date.endDate
-          );
+          let oldday = dateMapper(olddata.date.startDate, olddata.date.endDate);
 
           day = dateMapper(startDate, endDate);
           if (olddata.type === values.type) {
@@ -243,8 +238,6 @@ const RequestWFH = ({ route, navigation }: any) => {
 
         olddata ? updateReq(updateData) : submitRequest(requestData);
       } catch (error) {
-        console.log("error", error);
-
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
@@ -269,7 +262,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik

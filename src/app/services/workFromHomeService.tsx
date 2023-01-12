@@ -93,11 +93,10 @@ const checkWFHRequest = (id: number) => {
     }
   });
 };
-const editWfhRequest = (id: number) => {
+export const editRequestWfh = (id: number, data: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/work-quota/${id}`);
-
+      let res = await api.put(`/work/${id}`, data);
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -157,7 +156,6 @@ export {
   getMyRequest,
   getPastWFHRequests,
   cancelWfh,
-  editWfhRequest,
   deleteWfhRequest,
   updateWFHRequests,
   getAllWFHRequests,
