@@ -89,11 +89,6 @@ const RequestWFH = ({ route, navigation }: any) => {
   };
 
   const updateReq = (data) => {
-    console.log(data, "data");
-
-    // data.start_date = momentdate(data?.start_date, "YYYY-MM-DD");
-    // data.end_date = momentdate(data?.end_date, "YYYY-MM-DD");
-
     editRequestWfh(olddata?.id, data)
       .then((res: any) => {
         const home = { ...res.home };

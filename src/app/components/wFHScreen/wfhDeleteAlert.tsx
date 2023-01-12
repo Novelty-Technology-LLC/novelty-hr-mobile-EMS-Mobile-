@@ -44,8 +44,6 @@ export const WFHDeleteAlert = ({
           hide();
         })
         .catch((err) => {
-          console.log(err, "err");
-
           hide();
         });
     } else {
