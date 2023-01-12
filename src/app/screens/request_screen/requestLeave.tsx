@@ -64,6 +64,7 @@ const validationSchema = Yup.object().shape({
 
 const RequestLeave = ({ route }: any) => {
   const olddata = route.params;
+
   const navigation = useNavigation();
   const { state } = useContext(AuthContext);
   const { dispatchRequest, requests } = useContext(RequestContext);
@@ -270,7 +271,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik

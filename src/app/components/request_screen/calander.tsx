@@ -3,16 +3,12 @@ import { RangeCalendar, Calendar } from "@ui-kitten/components";
 import { Text, View } from "react-native";
 import moment from "moment";
 import { MomentDateService } from "@ui-kitten/moment";
-import {
-  dateStringMapper,
-  checkRepeat,
-  checkRepeatLeaveDays,
-} from "../../utils";
+import { dateStringMapper, checkRepeatLeaveDays } from "../../utils";
 import { calenderStyle, timeLogStyle } from "../../../assets/styles";
-import { momentdate } from "../../utils/momentDate";
 import colors from "../../../assets/colors";
 import { RequestContext } from "../../reducer";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
+
 interface calenderPropType {
   style?: any;
   handleChange: Function;
@@ -34,8 +30,14 @@ const CalendarComponent = ({
   olddata_id,
   workfromHome = false,
 }: calenderPropType) => {
+  let reviewed: any = [];
   const currentDate = new Date();
+  const dateService = new MomentDateService();
+  const { requests } = useContext<any>(RequestContext);
+  const { requestsWFH } = useContext<any>(RequestWFHContext);
+  const filter = (date: any) => date.getDay() !== 0 && date.getDay() !== 6;
 
+  const [date, setDate] = useState(moment());
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
@@ -44,14 +46,7 @@ const CalendarComponent = ({
         }
       : ""
   );
-  const [date, setDate] = useState(moment());
-  const dateService = new MomentDateService();
-  const { requests } = useContext(RequestContext);
-  const { requestsWFH } = useContext(RequestWFHContext);
 
-  const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
-  const modalfilter = (date) => momentdate(date) < momentdate();
-  let reviewed: any = [];
   if (workfromHome) {
     reviewed = [...requestsWFH.pastrequests, ...requestsWFH.requests].filter(
       (req) =>
@@ -122,6 +117,8 @@ const CalendarComponent = ({
     }
   }, [range]);
 
+  console.log("mm", modal, range);
+
   return (
     <>
       <View
@@ -167,8 +164,8 @@ const CalendarComponent = ({
               setDate(nextRange);
               handleChange(nextRange);
             }}
-            name="date"
-            label="date"
+            name='date'
+            label='date'
           />
         </View>
       ) : (
@@ -177,12 +174,10 @@ const CalendarComponent = ({
           min={new Date(2020, 6)}
           filter={filter}
           range={range}
-          onSelect={(nextRange) => {
-            setrange(nextRange);
-          }}
+          onSelect={(nextRange) => setrange(nextRange)}
           style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
-          name="date"
-          label="date"
+          name='date'
+          label='date'
           renderDay={DayCell}
         />
       )}
