@@ -35,6 +35,7 @@ const Login = () => {
 
   const fetchLogin = async () => {
     const login = await getLogin();
+
     setLoginForm(login?.metadata?.show_login ?? false);
   };
 

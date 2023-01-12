@@ -10,6 +10,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import State from "../leave_screen/state";
 import {
   checkRequest,
+  checkWFHRequest,
   getQuota,
   getResponses,
   getWFHResponses,
@@ -82,12 +83,21 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
   const onPressAlert = (action: string) => {
     actionRef.current?.showLoading();
     actionRef.current?.show();
-    setTimeout(async () => {
-      if (alertRef.current) {
-        alertRef.current.setActionHandle(action);
-        alertRef.current.setResponse(await getWfhRequest(data.user_id));
-      }
-    }, 500);
+    checkWFHRequest(data?.id)
+      .then((res) => {
+        if (res === "Pending" || res === "In Progress") {
+          setTimeout(async () => {
+            if (alertRef.current) {
+              alertRef.current.setActionHandle(action);
+              alertRef.current.setResponse(await getWfhRequest(data.user_id));
+            }
+          }, 500);
+        }
+        actionRef.current?.hideLoading();
+      })
+      .catch((err) => {
+        actionRef.current?.hideLoading();
+      });
   };
 
   const getWfhRequest = async (id: number) => {
@@ -158,11 +168,11 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name='calendar' size={20} />
+                  <Icon style={style.calander} name="calendar" size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state='Requested'>{startDate(data)}</State>
+                  <State state="Requested">{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -188,7 +198,7 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text='Responses' />
+                    <SmallHeader text="Responses" />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -234,7 +244,7 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
                       {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text='Pending Responses' />
+                            <SmallHeader text="Pending Responses" />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i?.toString()}>
@@ -278,8 +288,8 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
                 onPressSubmit={onPressSubmit}
-                title='Approve'
-                screenName='WFH'
+                title="Approve"
+                screenName="WFH"
                 style={style}
                 item={data}
                 fromStack={false}
@@ -288,8 +298,8 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
                 onPressSubmit={onPressSubmit}
-                title='Deny'
-                screenName='WFH'
+                title="Deny"
+                screenName="WFH"
                 style={style}
                 item={data}
                 fromStack={false}

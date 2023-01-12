@@ -8,7 +8,7 @@ import { getLeaveOption } from "../../utils/getLeaveType";
 import State from "../leave_screen/state";
 import RequestWithImage from "../leave_screen/requestWithImage";
 import { ApproveDeny } from "../leave_screen/approveDeny";
-import { getQuota, updateWFHRequests } from "../../services";
+import { checkWFHRequest, getQuota, updateWFHRequests } from "../../services";
 import { showToast } from "../../common";
 import { navigationRef } from "../../utils/navigation";
 import { dateStringMapper, formatDate } from "../../utils";
@@ -46,12 +46,21 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   const onPressAlert = (action: string) => {
     actionRef.current?.showLoading();
     actionRef.current?.show();
-    setTimeout(async () => {
-      if (alertRef.current) {
-        alertRef.current.setActionHandle(action);
-        alertRef.current.setResponse(await getRequest(item.user_id));
-      }
-    }, 500);
+    checkWFHRequest(item?.id)
+      .then((res) => {
+        if (res === "Pending" || res === "In Progress") {
+          setTimeout(async () => {
+            if (alertRef.current) {
+              alertRef.current.setActionHandle(action);
+              alertRef.current.setResponse(await getRequest(item.user_id));
+            }
+          }, 500);
+        }
+        actionRef.current?.hideLoading();
+      })
+      .catch((err) => {
+        actionRef.current?.hideLoading();
+      });
   };
 
   const getRequest = async (id: number) => {
@@ -145,20 +154,20 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Approve'
+                    title="Approve"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                   <View style={style.buttonSpacer}></View>
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Deny'
+                    title="Deny"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                 </View>

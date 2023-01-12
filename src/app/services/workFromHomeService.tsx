@@ -82,6 +82,17 @@ const deleteWfhRequest = (id: number) => {
     }
   });
 };
+const checkWFHRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/work/check/${id}`);
+
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
 const editWfhRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -140,6 +151,7 @@ const getWFHResponses = (id, user_id) => {
 export {
   createWork,
   getWork,
+  checkWFHRequest,
   getQuota,
   postWFHRequest,
   getMyRequest,

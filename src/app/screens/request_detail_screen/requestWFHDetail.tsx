@@ -7,7 +7,7 @@ import Request from "../../components/approveRequest/approve_request";
 import { approveRequest as style } from "../../../assets/styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RequestButton } from "../../components/requestButton";
-import { checkRequest } from "../../services";
+import { checkRequest, checkWFHRequest } from "../../services";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "../../components/wFHScreen/WFHrequest";
 import WfhRequestApproval from "../../components/approveRequest/approve_wfh_request";
@@ -21,7 +21,7 @@ const RequestWFHDetail = ({ route }: any) => {
     onEdit();
   }, []);
   const onEdit = () => {
-    checkRequest(route?.params?.id)
+    checkWFHRequest(route?.params?.id)
       .then((res) => {
         if (res === "Pending") {
           setShowAlert(true);
@@ -46,7 +46,7 @@ const RequestWFHDetail = ({ route }: any) => {
       {showAlert && (
         <RequestButton
           screen={NAVIGATION_ROUTE.Request_WFH}
-          floatingIcon='pencil-outline'
+          floatingIcon="pencil-outline"
           olddata={route?.params}
         />
       )}

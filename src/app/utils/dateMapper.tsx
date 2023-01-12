@@ -11,6 +11,15 @@ export const dateMapper = (start: string, end: string) => {
   }
   return daysCount;
 };
+export const dateRange = (start: string, end: string) => {
+  let startDate = new Date(start);
+  let endDate = new Date(end);
+  const date = {
+    startDate: end,
+    endDate: start,
+  };
+  return date;
+};
 import moment from "moment";
 export const dateStringMapper = (
   startDate: string,
