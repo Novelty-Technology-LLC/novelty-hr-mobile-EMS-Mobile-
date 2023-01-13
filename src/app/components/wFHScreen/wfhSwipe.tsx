@@ -73,7 +73,7 @@ export const WFHSwipe = ({
             style={deleteAlertStyle.iconContainer}
           >
             <AppIcon
-              name='square-edit-outline'
+              name="square-edit-outline"
               color={colors.primary}
               size={Normalize(20)}
             />

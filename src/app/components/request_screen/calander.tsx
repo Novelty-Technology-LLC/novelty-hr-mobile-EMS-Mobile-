@@ -50,9 +50,9 @@ const CalendarComponent = ({
   if (workfromHome) {
     reviewed = [...requestsWFH.pastrequests, ...requestsWFH.requests].filter(
       (req) =>
-        req.state === "Approved" ||
-        req.state === "In Progress" ||
-        req.state === "Pending"
+        req.status === "Approved" ||
+        req.status === "In Progress" ||
+        req.status === "Pending"
     );
   } else {
     reviewed = [...requests.pastrequests, ...requests.requests].filter(
@@ -71,25 +71,53 @@ const CalendarComponent = ({
     let approved = false;
     let inprogress = false;
     let pending = false;
-    if (date.getDay() !== 0 && date.getDay() !== 6) {
-      reviewed.map((req) => {
-        if (
-          checkRepeatLeaveDays(
-            req.leave_date,
-            JSON.stringify({ startDate: date, endDate: date })
-          )
-        ) {
-          req.state === "Approved"
-            ? (approved = true)
-            : req.state === "In Progress"
-            ? (inprogress = true)
-            : req.state === "Pending"
-            ? (pending = true)
-            : {};
-        }
-      });
+    if (workfromHome) {
+      if (date.getDay() !== 0 && date.getDay() !== 6) {
+        reviewed.map((req) => {
+          const data = {
+            ...req,
+            date: {
+              startDate: moment(req?.start_date.slice(0, 10)).format("llll"),
+              endDate: moment(req?.end_date.slice(0, 10)).format("llll"),
+            },
+          };
+          if (
+            checkRepeatLeaveDays(
+              data.date,
+              JSON.stringify({ startDate: date, endDate: date })
+            )
+          ) {
+            req.status === "Approved"
+              ? (approved = true)
+              : req.status === "In Progress"
+              ? (inprogress = true)
+              : req.status === "Pending"
+              ? (pending = true)
+              : {};
+          }
+        });
+      }
     }
-
+    {
+      if (date.getDay() !== 0 && date.getDay() !== 6) {
+        reviewed.map((req) => {
+          if (
+            checkRepeatLeaveDays(
+              req.leave_date,
+              JSON.stringify({ startDate: date, endDate: date })
+            )
+          ) {
+            req.state === "Approved"
+              ? (approved = true)
+              : req.state === "In Progress"
+              ? (inprogress = true)
+              : req.state === "Pending"
+              ? (pending = true)
+              : {};
+          }
+        });
+      }
+    }
     return (
       <View
         style={[
@@ -155,7 +183,7 @@ const CalendarComponent = ({
           <Calendar
             style={timeLogStyle.modalCalender}
             dateService={dateService}
-            max={moment(new Date())}
+            max={new Date(currentDate.getFullYear() + 1, 7)}
             min={moment("2022-12-01")}
             date={date}
             onSelect={(nextRange) => {
