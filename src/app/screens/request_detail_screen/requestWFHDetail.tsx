@@ -11,9 +11,11 @@ import { checkRequest, checkWFHRequest } from "../../services";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "../../components/wFHScreen/WFHrequest";
 import WfhRequestApproval from "../../components/approveRequest/approve_wfh_request";
+import moment from "moment";
 
 const RequestWFHDetail = ({ route }: any) => {
   const { date } = route.params;
+  const item = route.params;
   const [isReplied, setIsReplied] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -47,7 +49,13 @@ const RequestWFHDetail = ({ route }: any) => {
         <RequestButton
           screen={NAVIGATION_ROUTE.Request_WFH}
           floatingIcon="pencil-outline"
-          olddata={route?.params}
+          olddata={{
+            ...item,
+            date: {
+              startDate: moment(item?.start_date.slice(0, 10)).format("llll"),
+              endDate: moment(item?.end_date.slice(0, 10)).format("llll"),
+            },
+          }}
         />
       )}
     </>
