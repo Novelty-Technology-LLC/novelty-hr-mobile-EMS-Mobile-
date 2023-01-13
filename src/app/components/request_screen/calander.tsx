@@ -97,8 +97,7 @@ const CalendarComponent = ({
           }
         });
       }
-    }
-    {
+    } else {
       if (date.getDay() !== 0 && date.getDay() !== 6) {
         reviewed.map((req) => {
           if (
