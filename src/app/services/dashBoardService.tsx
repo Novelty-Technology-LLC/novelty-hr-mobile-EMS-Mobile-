@@ -1,12 +1,13 @@
 import { api } from "../api/api";
 import { getToday, getYesterday } from "../utils";
 
-const getDashboard = () => {
+const getDashboard = (user_id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await api.get("/dashboard", {
         params: {
           todayDate: getToday(),
+          user_id,
         },
       });
 
