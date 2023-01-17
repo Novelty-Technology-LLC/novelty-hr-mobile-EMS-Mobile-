@@ -10,6 +10,7 @@ import { RequestContext } from "../../reducer";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
 
 interface calenderPropType {
+  selectedOption?: number;
   style?: any;
   handleChange: Function;
   defaultValue?: object;
@@ -21,6 +22,7 @@ interface calenderPropType {
 }
 
 const CalendarComponent = ({
+  selectedOption = 0,
   style,
   handleChange,
   defaultValue,
@@ -174,7 +176,13 @@ const CalendarComponent = ({
         </View>
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>
-            Total : {dateStringMapper(range.startDate, range.endDate)}
+            Total :{" "}
+            {dateStringMapper(
+              range.startDate,
+              range.endDate,
+              false,
+              selectedOption === 0 ? 1 : 0.5
+            )}
           </Text>
         )}
       </View>
@@ -190,8 +198,8 @@ const CalendarComponent = ({
               setDate(nextRange);
               handleChange(nextRange);
             }}
-            name="date"
-            label="date"
+            name='date'
+            label='date'
           />
         </View>
       ) : (
@@ -202,8 +210,8 @@ const CalendarComponent = ({
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
           style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
-          name="date"
-          label="date"
+          name='date'
+          label='date'
           renderDay={DayCell}
         />
       )}

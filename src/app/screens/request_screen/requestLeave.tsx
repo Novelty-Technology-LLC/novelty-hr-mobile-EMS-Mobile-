@@ -270,7 +270,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik
@@ -283,6 +283,7 @@ const RequestLeave = ({ route }: any) => {
               {quotaMsg ? <Text style={style.quotaMsg}>{quotaMsg}</Text> : null}
 
               <CalendarComponent
+                selectedOption={selectedIndex}
                 workfromHome={false}
                 style={style}
                 handleChange={handleChange}

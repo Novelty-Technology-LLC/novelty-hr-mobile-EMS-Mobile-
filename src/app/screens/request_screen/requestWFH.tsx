@@ -262,7 +262,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik
@@ -273,6 +273,7 @@ const RequestWFH = ({ route, navigation }: any) => {
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
               <CalendarComponent
+                selectedOption={selectedIndex}
                 workfromHome={true}
                 style={style}
                 handleChange={handleChange}

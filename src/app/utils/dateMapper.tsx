@@ -21,10 +21,12 @@ export const dateRange = (start: string, end: string) => {
   return date;
 };
 import moment from "moment";
+
 export const dateStringMapper = (
   startDate: string,
   endDate: string,
-  dateOnly?: boolean
+  dateOnly?: boolean,
+  leaveOption = 1
 ) => {
   const start = new Date(startDate).toString().substring(0, 15);
   const end = new Date(endDate ?? startDate).toString().substring(0, 15);
@@ -38,7 +40,7 @@ export const dateStringMapper = (
         "-" +
         `${nextmonth ? nextmonth + " " : ""}` +
         end.substring(8, end.length - 4) +
-        `${dateOnly ? "" : `(${dateMapper(start, end)} days)`}  `;
+        `${dateOnly ? "" : `(${dateMapper(start, end) * leaveOption} days)`}  `;
 };
 
 export const getShortDate = (date: any) => {
