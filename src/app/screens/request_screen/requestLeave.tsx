@@ -323,7 +323,7 @@ const RequestLeave = ({ route }: any) => {
               >
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>
-                    {olddata ? "Upadate " : "Submit Request"}
+                    {olddata ? "Update " : "Submit Request"}
                   </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />
