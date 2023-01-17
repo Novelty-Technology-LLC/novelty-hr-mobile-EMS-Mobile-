@@ -37,7 +37,6 @@ import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
-import { RouteNames } from "../../constant/route_names";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
 import { LOCALE_DEFAULT } from "@ui-kitten/components/ui/calendar/service/nativeDate.service";
 
