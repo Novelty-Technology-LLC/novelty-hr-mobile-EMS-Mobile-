@@ -370,7 +370,7 @@ const DashBoard = () => {
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name='arrow-top-right'
+                  name="arrow-top-right"
                   color={toggle ? colors.white : colors.white}
                   size={20}
                 />
