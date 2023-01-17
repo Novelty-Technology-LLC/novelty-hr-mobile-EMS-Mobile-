@@ -38,6 +38,7 @@ const CalendarComponent = ({
   const filter = (date: any) => date.getDay() !== 0 && date.getDay() !== 6;
 
   const [date, setDate] = useState(moment());
+
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
@@ -183,7 +184,7 @@ const CalendarComponent = ({
             style={timeLogStyle.modalCalender}
             dateService={dateService}
             max={new Date(currentDate.getFullYear() + 1, 7)}
-            min={moment("2022-12-01")}
+            min={new Date()}
             date={date}
             onSelect={(nextRange) => {
               setDate(nextRange);
@@ -196,7 +197,7 @@ const CalendarComponent = ({
       ) : (
         <RangeCalendar
           max={new Date(currentDate.getFullYear() + 1, 7)}
-          min={new Date(2020, 6)}
+          min={new Date()}
           filter={filter}
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
