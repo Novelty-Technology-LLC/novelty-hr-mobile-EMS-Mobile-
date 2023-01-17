@@ -148,7 +148,7 @@ const DashBoard = () => {
         setshoutoutLoading(true);
         setCardLoading(true);
         await Promise.all([
-          getDashboard(),
+          getDashboard(state?.user.id),
           fetchLeave(),
           fetchAnnouncements(),
         ]).then((values) => {
@@ -177,7 +177,7 @@ const DashBoard = () => {
         setRefreshing(false);
       }
     })();
-  }, [refreshing]);
+  }, [refreshing, state?.user?.id]);
 
   const ToggleWork = async () => {
     if (leaveStatus) {
