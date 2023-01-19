@@ -37,8 +37,8 @@ import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
-import { RouteNames } from "../../constant/route_names";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
+import { LOCALE_DEFAULT } from "@ui-kitten/components/ui/calendar/service/nativeDate.service";
 
 const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
@@ -47,6 +47,7 @@ const DashBoard = () => {
   const { shoutoutState, dispatchShoutout } = useContext(ShoutoutContext);
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
+  const [wfhData, setWfhData] = useState("");
   const [isActive, setActive] = useState(false);
   const [id, setId] = useState(0);
   const [userId, setUserId] = useState(0);
@@ -153,10 +154,18 @@ const DashBoard = () => {
           fetchAnnouncements(),
         ]).then((values) => {
           const dashboardData: any = values[0];
-          var filteredArray = dashboardData.filter((e: any) => {
+          const wfhStatus = dashboardData.filter(
+            (item: any) => item.module === "wfh"
+          );
+          setWfhData(wfhStatus[0].items.status.toLowerCase());
+          const filterSection = dashboardData.filter(
+            (item: any) => item.show === true
+          );
+
+          var filteredArray = filterSection.filter((e: any) => {
             return e?.detailRoute !== "/shoutout";
           });
-          var shoutoutData = dashboardData.filter((e: any) => {
+          var shoutoutData = filterSection.filter((e: any) => {
             return e?.detailRoute === "/shoutout";
           });
 
@@ -350,17 +359,19 @@ const DashBoard = () => {
             <View
               style={[
                 ds.work,
-
-                toggle
-                  ? { backgroundColor: colors.primary }
+                wfhData == "approved"
+                  ? { backgroundColor: colors.greenButton }
+                  : wfhData === "pending"
+                  ? { backgroundColor: colors.brown }
+                  : wfhData === "in progress"
+                  ? { backgroundColor: colors.yellow }
                   : { backgroundColor: colors.primary },
               ]}
             >
               <Text
                 style={{
                   ...ds.workText,
-
-                  color: toggle ? colors.white : colors.white,
+                  color: wfhData === "pending" ? colors.primary : colors.white,
                 }}
               >
                 WFH
@@ -370,9 +381,11 @@ const DashBoard = () => {
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name="home-outline"
+                  name={
+                    wfhData === "office" ? "office-building" : "home-outline"
+                  }
                   // home-outline arrow-top-right
-                  color={toggle ? colors.white : colors.white}
+                  color={wfhData === "pending" ? colors.primary : colors.white}
                   size={20}
                 />
               )}
