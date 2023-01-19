@@ -160,14 +160,15 @@ const RequestWFH = ({ route, navigation }: any) => {
         }
         const dateParsed = JSON.parse(values.date);
         let dayArray: any = [];
-        const startDate = new Date(dateParsed.startDate)
-          .toString()
-          .slice(0, 15);
+
+        const startDate = moment(dateParsed.startDate)
+          .format("YYYY-MM-DD")
+          .toString();
         let endDate = "";
         if (dateParsed["endDate"] === null) {
           endDate = startDate;
         } else {
-          endDate = new Date(dateParsed.endDate).toString().slice(0, 15);
+          endDate = moment(dateParsed.endDate).format("YYYY-MM-DD").toString();
         }
         let day = 0;
         if (olddata) {
