@@ -6,7 +6,7 @@ const getDashboard = (user_id: number) => {
     try {
       const res = await api.get("/dashboard", {
         params: {
-          todayDate: getToday(),
+          todayDate: getToday("YYYY-MM-DD"),
           user_id,
         },
       });
