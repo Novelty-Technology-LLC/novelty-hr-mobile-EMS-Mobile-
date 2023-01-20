@@ -382,7 +382,11 @@ const DashBoard = () => {
               ) : (
                 <Icon
                   name={
-                    wfhData === "office" ? "office-building" : "home-outline"
+                    wfhData === "office" ||
+                    wfhData === "cancelled" ||
+                    wfhData === "deleted"
+                      ? "office-building"
+                      : "home-outline"
                   }
                   // home-outline arrow-top-right
                   color={wfhData === "pending" ? colors.primary : colors.white}
