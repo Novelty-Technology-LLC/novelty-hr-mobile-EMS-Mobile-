@@ -385,7 +385,7 @@ const DashBoard = () => {
                     wfhData === "office" ||
                     wfhData === "cancelled" ||
                     wfhData === "deleted"
-                      ? "office-building"
+                      ? "home-outline"
                       : "home-outline"
                   }
                   // home-outline arrow-top-right
