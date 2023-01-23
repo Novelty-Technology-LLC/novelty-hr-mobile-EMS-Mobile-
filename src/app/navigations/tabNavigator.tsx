@@ -80,6 +80,7 @@ const TabNavigator = () => {
     requestUserPermission();
     messaging().onNotificationOpenedApp(async (remoteMessage: any) => {
       if (remoteMessage && Object.keys(remoteMessage?.data).length) {
+        console.log("remoteMessage.data onappOpened", remoteMessage.data);
         if (remoteMessage.data.type === "work_from_home") {
           navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
             notifdata: remoteMessage.data,

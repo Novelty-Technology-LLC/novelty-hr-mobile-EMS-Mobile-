@@ -134,7 +134,7 @@ const WFHDashboard = ({ route }: { route: any }) => {
           screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
           loading={loading}
           refresh={refresh}
-          params={notifdata?.request === "myrequest" && +notifdata?.wfh_id}
+          params={notifdata?.request === "myrequest" ? +notifdata?.wfh_id : 0}
         />
         {isAdmin && (
           <OtherWFHRequests
