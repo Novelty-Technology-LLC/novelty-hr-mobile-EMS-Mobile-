@@ -30,7 +30,6 @@ const MyRequests = ({
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
-  console.log(requests.requests, "requests.requests");
 
   let row: Array<any> = [];
 
