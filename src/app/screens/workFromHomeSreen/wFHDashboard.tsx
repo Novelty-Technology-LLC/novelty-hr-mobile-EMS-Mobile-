@@ -21,7 +21,7 @@ import {
   mapObjectToWFHRequest,
 } from "../../utils/requestWfhTransformer";
 
-const WFHDashboard = () => {
+const WFHDashboard = ({ route }: { route: any }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -29,10 +29,7 @@ const WFHDashboard = () => {
   const [loading, setLoading] = useState(false);
   const { requestsWFH, dispatchWFHRequest } =
     useContext<any>(RequestWFHContext);
-
-  const {
-    state: { notifdata },
-  }: any = useContext(AuthContext);
+  const notifdata = route?.params?.notifdata;
 
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
@@ -137,14 +134,14 @@ const WFHDashboard = () => {
           screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
           loading={loading}
           refresh={refresh}
-          params={notifdata?.request === "myrequest" && +notifdata?.leave_id}
+          params={notifdata?.request === "myrequest" ? +notifdata?.wfh_id : 0}
         />
         {isAdmin && (
           <OtherWFHRequests
             screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
             refresh={refresh}
             params={
-              notifdata?.request === "otherrequest" && +notifdata?.leave_id
+              notifdata?.request === "otherrequest" ? +notifdata?.wfh_id : 0
             }
           />
         )}

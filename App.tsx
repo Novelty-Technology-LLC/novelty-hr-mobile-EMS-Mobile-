@@ -6,9 +6,11 @@ import messaging from "@react-native-firebase/messaging";
 import { SetLocalNotification } from "./src/app/utils/pushNotification";
 import SplashScreen from "react-native-splash-screen";
 import { WRootToastApp } from "react-native-smart-tip";
+import { requestNotificationPermission } from "./src/app/utils/permission";
 
 const App = (props: any) => {
   useEffect(() => {
+    requestNotificationPermission();
     SplashScreen.hide();
     const unsubscribe = messaging().onMessage(async (remoteMessage: any) => {
       if (remoteMessage) {

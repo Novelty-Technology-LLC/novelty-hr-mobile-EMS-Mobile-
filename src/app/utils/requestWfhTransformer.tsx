@@ -94,7 +94,7 @@ const mapObjectToWFHRequest = (data: Request) => {
     fiscal_year: data?.fiscal_year,
     user_id: data?.user_id,
     user: data?.user,
-    // device_tokens: data?.device_tokens,
+    device_tokens: data?.device_tokens,
     lead: data?.lead,
     // leave_approvals: data?.leave_approvals,
     // leave_date: data?.leave_date,
@@ -103,6 +103,7 @@ const mapObjectToWFHRequest = (data: Request) => {
     updatedAt: data?.updatedAt,
     created_at: data?.createdAt,
     updated_at: data?.updatedAt,
+
     // wfh_days: data?.wfh_days,
   };
   newRequest.push(newData);

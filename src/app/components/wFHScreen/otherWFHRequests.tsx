@@ -5,19 +5,11 @@ import { FlatList } from "react-native-gesture-handler";
 import { otherRequestsStyle } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
-import {
-  getAllRequests,
-  getAllWFHRequests,
-  getMyRequest,
-} from "../../services";
-import { getUser, mapDataToRequest } from "../../utils";
+import { getAllWFHRequests, getWfhDetail } from "../../services";
+import { getUser } from "../../utils";
 import { AdminRequestContext, AuthContext } from "../../reducer";
 import { AdminPlaceHolder } from "../loader";
-import { getLeave } from "../../services";
 import HistoryToggle from "../../common/historyToggle";
-import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
-import History from "../leave_screen/history";
-import { MyWFHRequests } from "./myWFHRequests";
 import { WFHRequest } from "./WFHrequest";
 import WFHHistory from "./wFHhistory";
 import {
@@ -85,9 +77,9 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
   useEffect(() => {
     const get = async () => {
       if (+params) {
-        let data = await getMyRequest(+params);
-        data = mapObjectToWFHRequest(data[0]);
-        navigation.navigate("approveLeave", data[0]);
+        let data: any = await getWfhDetail(+params);
+        data = mapObjectToWFHRequest(data);
+        navigation.navigate("approveWfhLeave", data[0]);
       }
     };
     get();

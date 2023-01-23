@@ -6,7 +6,7 @@ export function navigate(name: string, params?: any) {
   navigationRef.current?.navigate(name, params);
 }
 
-export const goBack = (item?: string) => navigationRef.current?.goBack(item);
+export const goBack = (item?: any) => navigationRef.current?.goBack(item);
 export const getCurrentRouteName = () => {
   return navigationRef.current.getCurrentRoute().name;
 };
