@@ -20,7 +20,7 @@ export const WFHSwipe = ({
   timelog,
   edittimelog,
   onPress,
-  screenName = "requestLeave",
+  screenName = "",
   setLoading,
   isLeave,
 }: any) => {
@@ -66,7 +66,7 @@ export const WFHSwipe = ({
     </View>
   ) : (
     <>
-      {item.status === "Pending" ? (
+      {item.status === "Pending" || item.status === "In Progress" ? (
         <View style={style.container}>
           <TouchableOpacity
             onPress={() => onEdit()}

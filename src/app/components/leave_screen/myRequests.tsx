@@ -30,6 +30,8 @@ const MyRequests = ({
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
+  console.log(requests.requests, "requests.requests");
+
   let row: Array<any> = [];
 
   const [toggle, setToggle] = useState("toggle-switch-off");
@@ -135,10 +137,10 @@ const MyRequests = ({
         {/*  new Date(item.item.leave_date.startDate) <= new Date() &&
             new Date().getHours() >= 10 ? */}
         <View style={[style.header]}>
-          <SmallHeader text='My Requests' history={true} />
+          <SmallHeader text="My Requests" history={true} />
           <HistoryToggle
             toggle={toggle}
-            screen='leave'
+            screen="leave"
             setHistory={setHistory}
             history={history}
           />
@@ -159,7 +161,7 @@ const MyRequests = ({
       {toggle === "toggle-switch" &&
         (!requests.pastrequests ? (
           <>
-            <SmallHeader text='Past Requests' />
+            <SmallHeader text="Past Requests" />
             <UserPlaceHolder />
           </>
         ) : (
