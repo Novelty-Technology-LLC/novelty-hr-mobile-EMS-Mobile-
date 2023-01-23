@@ -22,6 +22,7 @@ interface requestPropType {
 
 const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   let { day } = getDay(item);
+
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext<any>(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext<any>(AdminRequestContext);

@@ -6,13 +6,7 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
-import {
-  header as Header,
-  showToast,
-  SmallHeader,
-  snackBarMessage,
-  snackErrorBottom,
-} from "../../common";
+import { header as Header, showToast } from "../../common";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider } from "@ui-kitten/components";
 import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
@@ -31,12 +25,7 @@ import * as Yup from "yup";
 import { editRequestWfh, postWFHRequest } from "../../services";
 import colors from "../../../assets/colors";
 import { AuthContext } from "../../reducer";
-import {
-  checkIfRequested,
-  dateMapper,
-  dateRange,
-  momentdate,
-} from "../../utils";
+import { checkIfRequested, dateMapper } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
@@ -44,6 +33,18 @@ import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
 import { Teams } from "../../components/request_screen/teams";
 import { goBack } from "../../utils/navigation";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
+
+const DATA = [
+  {
+    title: "Full Day",
+  },
+  {
+    title: "First Half",
+  },
+  {
+    title: "Second Half",
+  },
+];
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -59,8 +60,9 @@ const validationSchema = Yup.object().shape({
 
 const RequestWFH = ({ route, navigation }: any) => {
   const olddata = route.params;
-  const { state } = useContext(AuthContext);
-  const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
+  const { state } = useContext<any>(AuthContext);
+  const { requestsWFH, dispatchWFHRequest } =
+    useContext<any>(RequestWFHContext);
   const [isLoading, setisLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   let option = "FULL DAY";
@@ -71,9 +73,9 @@ const RequestWFH = ({ route, navigation }: any) => {
     lead: olddata ? olddata?.lead : [],
   };
 
-  const submitRequest = async (data) => {
+  const submitRequest = async (data: any) => {
     await postWFHRequest(data)
-      .then((res) => {
+      .then((res: any) => {
         dispatchWFHRequest({
           type: "UPDATEQUOTA",
           payload: res?.data?.data?.quota,
@@ -88,7 +90,7 @@ const RequestWFH = ({ route, navigation }: any) => {
       });
   };
 
-  const updateReq = (data) => {
+  const updateReq = (data: any) => {
     editRequestWfh(olddata?.id, data)
       .then((res: any) => {
         const home = { ...res.home };
@@ -123,7 +125,7 @@ const RequestWFH = ({ route, navigation }: any) => {
       setSelectedIndex(0);
     }
   };
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     const { date, ...rest } = values;
 
     const dates = JSON.parse(values?.date);
@@ -131,10 +133,7 @@ const RequestWFH = ({ route, navigation }: any) => {
     const leaveDate = moment(dates.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
 
-    if (
-      moment(leaveDate).format("YYYY-MM-DD") <= today &&
-      Number(moment(new Date()).format("HH")) >= 10
-    ) {
+    if (false) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
         showToast("The selected date has passed. ", false);
       } else {
@@ -183,7 +182,7 @@ const RequestWFH = ({ route, navigation }: any) => {
               { days: -oldday, dayType: olddata.type },
             ];
           }
-          dayArray.map((day) => {
+          dayArray.map((day: any) => {
             if (values.type === day.dayType) {
               // if (checkValidityQuota(requests.quota, values.type, day.days)) {
               //   throw new Error(`Selected day exceeds ${values.type}`);
@@ -238,7 +237,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         Keyboard.dismiss();
 
         olddata ? updateReq(updateData) : submitRequest(requestData);
-      } catch (error) {
+      } catch (error: any) {
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
@@ -328,17 +327,5 @@ const RequestWFH = ({ route, navigation }: any) => {
     </ApplicationProvider>
   );
 };
-
-const DATA = [
-  {
-    title: "Full Day",
-  },
-  {
-    title: "First Half",
-  },
-  {
-    title: "Second Half",
-  },
-];
 
 export { RequestWFH };
