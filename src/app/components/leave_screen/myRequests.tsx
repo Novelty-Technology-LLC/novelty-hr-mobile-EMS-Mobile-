@@ -30,6 +30,7 @@ const MyRequests = ({
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
+
   let row: Array<any> = [];
 
   const [toggle, setToggle] = useState("toggle-switch-off");

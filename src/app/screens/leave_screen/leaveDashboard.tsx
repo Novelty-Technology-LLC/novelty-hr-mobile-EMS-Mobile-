@@ -65,8 +65,21 @@ const LeaveDashboard = () => {
     setIsAdmin(+JSON.parse(user).is_approver ? true : false);
 
     getMyRequests(JSON.parse(user).id)
-      .then((data) => {
-        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
+      .then((data: any) => {
+        dispatchRequest({
+          type: "CHANGE",
+          payload: mapDataToRequest(
+            data.map((item) => {
+              return {
+                ...item,
+                leave_date: {
+                  startDate: item.start_date,
+                  endDate: item.end_date,
+                },
+              };
+            })
+          ),
+        });
         setLoading(false);
       })
       .catch((err) => {
