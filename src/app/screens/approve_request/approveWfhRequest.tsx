@@ -9,7 +9,6 @@ import getDay from "../../utils/getDay";
 import WfhRequestApproval from "../../components/approveRequest/approve_wfh_request";
 
 const ApproveWFHRequest = ({ route }: any) => {
-  let { dayRange } = getDay(route.params);
   let { name } = getName(route.params);
 
   return (

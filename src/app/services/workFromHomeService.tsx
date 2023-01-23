@@ -26,6 +26,18 @@ const getMyRequest = (id: number) => {
   });
 };
 
+const getWfhDetail = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await api.get(`/work/wfh/detail/${id}`);
+
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
 const postWFHRequest = (data: object) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -160,4 +172,5 @@ export {
   updateWFHRequests,
   getAllWFHRequests,
   getWFHResponses,
+  getWfhDetail,
 };

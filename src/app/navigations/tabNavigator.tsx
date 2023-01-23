@@ -19,6 +19,7 @@ import messaging from "@react-native-firebase/messaging";
 import { AuthContext } from "../reducer";
 import DashNav from "./dashBoardStack";
 import { navigate } from "../utils/navigation";
+import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +32,12 @@ const TabNavigator = () => {
         .getInitialNotification()
         .then(async (remoteMessage: any) => {
           if (remoteMessage && Object.keys(remoteMessage.data).length) {
+            if (remoteMessage.data.type === "work_from_home") {
+              navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
+                notifdata: remoteMessage.data,
+              });
+              return;
+            }
             if (remoteMessage.data.type === "announcements") {
               try {
                 var response: any = await getRequest(
@@ -56,10 +63,9 @@ const TabNavigator = () => {
                   date: findAnnouncement?.date,
                   html: findAnnouncement?.html,
                 });
-              } catch (error) { }
+              } catch (error) {}
             } else if (remoteMessage?.data.type === "shoutout") {
               handleShoutoutNotification(remoteMessage?.data.id.toString());
-
             } else {
               dispatch({ type: "Notification", payload: remoteMessage.data });
               Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
@@ -74,6 +80,12 @@ const TabNavigator = () => {
     requestUserPermission();
     messaging().onNotificationOpenedApp(async (remoteMessage: any) => {
       if (remoteMessage && Object.keys(remoteMessage?.data).length) {
+        if (remoteMessage.data.type === "work_from_home") {
+          navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
+            notifdata: remoteMessage.data,
+          });
+          return;
+        }
         if (remoteMessage?.data.type === "announcements") {
           try {
             var response: any = await getRequest(
@@ -97,7 +109,7 @@ const TabNavigator = () => {
               date: findAnnouncement?.date,
               html: findAnnouncement?.html,
             });
-          } catch (error) { }
+          } catch (error) {}
         } else if (remoteMessage?.data.type === "shoutout") {
           handleShoutoutNotification(remoteMessage?.data.id.toString());
         } else {
@@ -110,9 +122,9 @@ const TabNavigator = () => {
 
   const handleShoutoutNotification = (shoutoutID: string) => {
     navigate("shoutoutDetail", {
-      id: shoutoutID
+      id: shoutoutID,
     });
-  }
+  };
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
@@ -160,38 +172,38 @@ const TabNavigator = () => {
         }}
       >
         <Tab.Screen
-          name="Dashboard"
+          name='Dashboard'
           component={DashNav}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name="home" color={color} size={size} />
+              <AppIcon name='home' color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name="Activity"
+          name='Activity'
           component={LogNav}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name="timer" color={color} size={size} />
+              <AppIcon name='timer' color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name="Home"
+          name='Home'
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name="briefcase-clock" color={color} size={size} />
+              <AppIcon name='briefcase-clock' color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name="Profile"
+          name='Profile'
           component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name="account" color={color} size={size} />
+              <AppIcon name='account' color={color} size={size} />
             ),
           }}
         />
