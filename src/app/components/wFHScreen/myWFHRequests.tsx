@@ -6,7 +6,7 @@ import { myRequestsStyle as style } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
 import { getUser } from "../../utils";
-import { getMyRequest, getPastWFHRequests } from "../../services";
+import { getMyRequest, getPastWFHRequests, getWfhDetail } from "../../services";
 import { UserPlaceHolder } from "../loader";
 import HistoryToggle from "../../common/historyToggle";
 import moment from "moment";
@@ -63,9 +63,8 @@ const MyWFHRequests = ({
   useEffect(() => {
     const get = async () => {
       if (params) {
-        let data: any = await getMyRequest(+params);
-
-        data = mapObjectToWFHRequest(data[0]);
+        let data: any = await getWfhDetail(+params);
+        data = mapObjectToWFHRequest(data);
         navigation.navigate(screenName, data[0]);
       }
     };
