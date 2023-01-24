@@ -136,7 +136,7 @@ const LeaveDashboard = () => {
           />
         )}
       </ScrollView>
-      <RequestButton screen='requestLeave' />
+      <RequestButton screen="requestLeave" />
     </View>
   );
 };

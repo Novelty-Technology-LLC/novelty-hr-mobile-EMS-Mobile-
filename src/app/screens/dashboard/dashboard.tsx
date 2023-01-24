@@ -368,15 +368,6 @@ const DashBoard = () => {
                   : { backgroundColor: colors.primary },
               ]}
             >
-              <Text
-                style={{
-                  ...ds.workText,
-                  color: wfhData === "pending" ? colors.primary : colors.white,
-                }}
-              >
-                WFH
-              </Text>
-              <View style={{ marginHorizontal: 2 }} />
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
@@ -385,14 +376,28 @@ const DashBoard = () => {
                     wfhData === "office" ||
                     wfhData === "cancelled" ||
                     wfhData === "deleted"
-                      ? "home-outline"
+                      ? "domain"
                       : "home-outline"
                   }
                   // home-outline arrow-top-right
                   color={wfhData === "pending" ? colors.primary : colors.white}
+                  style={{ marginRight: 2 }}
                   size={20}
                 />
               )}
+              <Text
+                style={{
+                  ...ds.workText,
+                  color: wfhData === "pending" ? colors.primary : colors.white,
+                }}
+              >
+                {wfhData === "office" ||
+                wfhData === "cancelled" ||
+                wfhData === "deleted"
+                  ? "Work from office"
+                  : "Work from home"}
+              </Text>
+              <View style={{ marginHorizontal: 2 }} />
             </View>
           </TouchableWithoutFeedback>
         </View>
