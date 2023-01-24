@@ -198,8 +198,8 @@ const CalendarComponent = ({
               setDate(nextRange);
               handleChange(nextRange);
             }}
-            name='date'
-            label='date'
+            name="date"
+            label="date"
           />
         </View>
       ) : (
@@ -210,8 +210,8 @@ const CalendarComponent = ({
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
           style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
-          name='date'
-          label='date'
+          name="date"
+          label="date"
           renderDay={DayCell}
         />
       )}
