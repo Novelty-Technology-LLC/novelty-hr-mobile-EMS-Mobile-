@@ -63,6 +63,7 @@ const RequestWFH = ({ route, navigation }: any) => {
   const { state } = useContext<any>(AuthContext);
   const { requestsWFH, dispatchWFHRequest } =
     useContext<any>(RequestWFHContext);
+
   const [isLoading, setisLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   let option = "FULL DAY";
@@ -265,7 +266,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik
@@ -280,7 +281,10 @@ const RequestWFH = ({ route, navigation }: any) => {
                 workfromHome={true}
                 style={style}
                 handleChange={handleChange}
-                defaultValue={olddata?.date}
+                defaultValue={{
+                  startDate: olddata?.start_date,
+                  endDate: olddata?.end_date,
+                }}
                 olddata_id={olddata && olddata.id}
                 error={errors}
                 touched={touched}
