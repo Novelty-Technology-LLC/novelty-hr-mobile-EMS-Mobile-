@@ -281,7 +281,6 @@ const RequestLeave = ({ route }: any) => {
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
               {quotaMsg ? <Text style={style.quotaMsg}>{quotaMsg}</Text> : null}
-
               <CalendarComponent
                 selectedOption={selectedIndex}
                 workfromHome={false}

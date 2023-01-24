@@ -60,13 +60,13 @@ export const WFHSwipe = ({
     <View style={style.othercontainer}>
       {item?.status === "Approved" && (
         <>
-          <WFHDeleteAlert item={item} other={other} onPress={onPress} />
+          <WFHDeleteAlert item={item} other={false} onPress={onPress} />
         </>
       )}
     </View>
   ) : (
     <>
-      {item.status === "Pending" || item.status === "In Progress" ? (
+      {item.status === "Pending" ? (
         <View style={style.container}>
           <TouchableOpacity
             onPress={() => onEdit()}
@@ -79,13 +79,13 @@ export const WFHSwipe = ({
             />
           </TouchableOpacity>
           <>
-            <WFHDeleteAlert item={item} other={other} onPress={onPress} />
+            <WFHDeleteAlert item={item} other={false} onPress={onPress} />
           </>
         </View>
       ) : (
         <View style={style.othercontainer}>
           <>
-            <WFHDeleteAlert item={item} other={true} onPress={onPress} />
+            <WFHDeleteAlert item={item} other={false} onPress={onPress} />
           </>
         </View>
       )}

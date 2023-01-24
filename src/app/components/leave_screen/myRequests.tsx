@@ -70,7 +70,24 @@ const MyRequests = ({
         let data = await getLeave(+params);
 
         data = mapObjectToRequest(data[0]);
+        // getLeave(+params).then((data: any) => {
+        //   dispatchRequest({
+        //     type: "CHANGE",
+        //     payload: mapDataToRequest(
+        //       data[0].map((item: any) => {
+        //         return {
+        //           ...item,
+        //           leave_date: {
+        //             startDate: item.start_date,
+        //             endDate: item.end_date,
+        //           },
+        //         };
+        //       })
+        //     ),
+        //   });
         navigation.navigate(screenName, data[0]);
+        // });
+        // data = mapObjectToRequest(data[0]);
       }
     };
     get();
