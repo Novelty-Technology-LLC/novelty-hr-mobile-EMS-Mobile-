@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { mapObjectToRequest } from "../utils";
+import { mapDataToRequest, mapObjectToRequest } from "../utils";
 
 const RequestReducer = (prevState, action) => {
   switch (action.type) {
@@ -52,7 +52,7 @@ const RequestReducer = (prevState, action) => {
       return {
         ...prevState,
         requests: [].concat(
-          mapObjectToRequest(action.payload),
+          mapDataToRequest([action.payload]),
           ...prevState.requests.filter((item) => item?.id !== action.payload.id)
         ),
       };
