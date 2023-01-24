@@ -44,8 +44,8 @@ const CalendarComponent = ({
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
-          endDate: new Date(defaultValue?.endDate),
-          startDate: new Date(defaultValue?.startDate),
+          endDate: new Date(moment(defaultValue?.endDate, "YYYY-MM-DD")),
+          startDate: new Date(moment(defaultValue?.startDate, "YYYY-MM-DD")),
         }
       : ""
   );
