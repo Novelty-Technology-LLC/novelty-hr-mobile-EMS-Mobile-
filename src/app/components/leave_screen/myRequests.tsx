@@ -40,7 +40,17 @@ const MyRequests = ({
       .then((data) => {
         dispatchRequest({
           type: "CHANGEPAST",
-          payload: mapDataToRequest(data),
+          payload: mapDataToRequest(
+            data?.map((item: any) => {
+              return {
+                ...item,
+                leave_date: {
+                  startDate: item.start_date,
+                  endDate: item.end_date,
+                },
+              };
+            })
+          ),
         });
       })
       .catch((err) => {});
@@ -81,7 +91,7 @@ const MyRequests = ({
             )}
           >
             <Request
-              item={item.item}
+              item={item?.item}
               other={false}
               onPress={() => navigation.navigate(screenName, item.item)}
             />

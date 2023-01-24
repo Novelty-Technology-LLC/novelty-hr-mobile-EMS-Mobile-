@@ -10,8 +10,6 @@ import { AdminRequestContext, AuthContext } from "../../reducer";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import { checkRequest, getResponses, updateRequest } from "../../services";
 import { showToast } from "../../common";
-import { navigationRef } from "../../utils/navigation";
-
 interface requestPropType {
   item: any;
   other?: boolean;
@@ -167,7 +165,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Approve'
+                    title="Approve"
                     style={style}
                     item={item}
                     fromStack={true}
@@ -177,7 +175,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     ref={{ alertRef, actionRef }}
                     onPressSubmit={onPressSubmit}
-                    title='Deny'
+                    title="Deny"
                     style={style}
                     item={item}
                     fromStack={true}
