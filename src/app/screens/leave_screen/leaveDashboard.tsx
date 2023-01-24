@@ -14,7 +14,6 @@ import { get, getLeaveQuota, getMyRequests } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
-import Autolink from "react-native-autolink";
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -41,7 +40,21 @@ const LeaveDashboard = () => {
     });
 
     getMyRequests(JSON.parse(user).id)
-      .then((data) => {
+      .then((data: any) => {
+        dispatchRequest({
+          type: "CHANGE",
+          payload: mapDataToRequest(
+            data.map((item: any) => {
+              return {
+                ...item,
+                leave_date: {
+                  startDate: item.start_date,
+                  endDate: item.end_date,
+                },
+              };
+            })
+          ),
+        });
         setLoading(false);
         setRefreshing(false);
       })
@@ -97,6 +110,7 @@ const LeaveDashboard = () => {
   }, [requests?.requests?.length]);
 
   useScrollToTop(ref);
+
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
@@ -136,7 +150,7 @@ const LeaveDashboard = () => {
           />
         )}
       </ScrollView>
-      <RequestButton screen="requestLeave" />
+      <RequestButton screen='requestLeave' />
     </View>
   );
 };
