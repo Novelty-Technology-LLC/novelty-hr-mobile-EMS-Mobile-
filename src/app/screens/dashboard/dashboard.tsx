@@ -365,6 +365,11 @@ const DashBoard = () => {
                   ? { backgroundColor: colors.brown }
                   : wfhData === "in progress"
                   ? { backgroundColor: colors.yellow }
+                  : wfhData === "office" ||
+                    wfhData === "cancelled" ||
+                    wfhData === "deleted" ||
+                    wfhData === "denied"
+                  ? { backgroundColor: colors.primary }
                   : { backgroundColor: colors.primary },
               ]}
             >
@@ -375,7 +380,8 @@ const DashBoard = () => {
                   name={
                     wfhData === "office" ||
                     wfhData === "cancelled" ||
-                    wfhData === "deleted"
+                    wfhData === "deleted" ||
+                    wfhData === "denied"
                       ? "domain"
                       : "home-outline"
                   }
@@ -393,7 +399,8 @@ const DashBoard = () => {
               >
                 {wfhData === "office" ||
                 wfhData === "cancelled" ||
-                wfhData === "deleted"
+                wfhData === "deleted" ||
+                wfhData === "denied"
                   ? "Work from office"
                   : "Work from home"}
               </Text>
