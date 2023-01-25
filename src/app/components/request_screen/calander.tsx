@@ -44,8 +44,12 @@ const CalendarComponent = ({
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
-          endDate: new Date(moment(defaultValue?.endDate, "YYYY-MM-DD")),
-          startDate: new Date(moment(defaultValue?.startDate, "YYYY-MM-DD")),
+          endDate: new Date(
+            moment(defaultValue?.endDate ?? new Date(), "YYYY-MM-DD")
+          ),
+          startDate: new Date(
+            moment(defaultValue?.startDate ?? new Date(), "YYYY-MM-DD")
+          ),
         }
       : ""
   );
@@ -191,15 +195,13 @@ const CalendarComponent = ({
           <Calendar
             style={timeLogStyle.modalCalender}
             dateService={dateService}
-            max={new Date(currentDate.getFullYear() + 1, 7)}
-            min={new Date()}
             date={date}
             onSelect={(nextRange) => {
               setDate(nextRange);
               handleChange(nextRange);
             }}
-            name="date"
-            label="date"
+            name='date'
+            label='date'
           />
         </View>
       ) : (
@@ -210,8 +212,8 @@ const CalendarComponent = ({
           range={range}
           onSelect={(nextRange) => setrange(nextRange)}
           style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
-          name="date"
-          label="date"
+          name='date'
+          label='date'
           renderDay={DayCell}
         />
       )}

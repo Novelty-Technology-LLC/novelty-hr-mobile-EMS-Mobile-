@@ -216,7 +216,6 @@ const TimeLogs = (props: any) => {
           refreshing={refreshing}
           setSelectedDay={setSelectedDay}
         />
-
         {activeLoading ? (
           <UserPlaceHolder />
         ) : timelogs.present[0] ? (

@@ -26,6 +26,7 @@ const DaySelect = ({
   const [modalDateString, setModalDateString] = useState("");
   const yesterday = yesterdayDate().start;
   const [index, setIndex] = useState(2);
+
   const isSelected = (newdate) => {
     return newdate.toDateString() === new Date(date).toDateString();
   };
