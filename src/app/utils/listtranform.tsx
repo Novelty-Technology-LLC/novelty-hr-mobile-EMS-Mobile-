@@ -184,7 +184,10 @@ export const transformDate = (date: any, module: string, isList: boolean) => {
 
     return formatDate(month, day, monthdate);
   } else {
-    return dateStringMapper(startDate, endDate);
+    return dateStringMapper(
+      moment(startDate).format("YYYY-MM-DD"),
+      moment(endDate).format("YYYY-MM-DD")
+    );
   }
 };
 
@@ -198,6 +201,7 @@ export const transformList = (
   if (module === "shoutouts") {
     return itemList;
   }
+
   const newList = itemList?.map((item: any) => {
     return {
       id: item?.id,
