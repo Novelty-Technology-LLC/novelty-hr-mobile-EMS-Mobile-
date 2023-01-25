@@ -207,7 +207,16 @@ export const transformList = (
       id: item?.id,
       title: truncate ? transformTitle(item?.title, transform) : item?.title,
       subTitle: transform
-        ? transformDate(item?.leave_date ?? item?.subTitle, module, isList)
+        ? transformDate(
+            {
+              startDate: moment(item?.leave_date?.startDate).format(
+                "YYYY-MM-DD"
+              ),
+              endDate: moment(item?.leave_date?.endDate).format("YYYY-MM-DD"),
+            } ?? item?.subTitle,
+            module,
+            isList
+          )
         : item.html,
       status: item?.status,
       type: item?.type,
