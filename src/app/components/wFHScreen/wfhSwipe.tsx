@@ -8,10 +8,6 @@ import Normalize from "../../utils/normalize";
 import moment from "moment";
 import { dateStringMapper, momentdate } from "../../utils";
 import { WFHDeleteAlert } from "./wfhDeleteAlert";
-import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
-import { checkRequest } from "../../services/leaveService";
-import { checkWFHRequest } from "../../services/workFromHomeService";
-import { dateRange } from "../../utils/dateFilter";
 
 export const WFHSwipe = ({
   item,
@@ -73,7 +69,7 @@ export const WFHSwipe = ({
             style={deleteAlertStyle.iconContainer}
           >
             <AppIcon
-              name="square-edit-outline"
+              name='square-edit-outline'
               color={colors.primary}
               size={Normalize(20)}
             />

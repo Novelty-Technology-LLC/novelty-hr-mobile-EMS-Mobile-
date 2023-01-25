@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Text, View } from "react-native";
 import State from "../../components/leave_screen/state";
-import {
-  cardStyle,
-  headerTxtStyle,
-  listingStyle,
-  requestStyle,
-  theme,
-} from "../../../assets/styles";
-import { useWindowDimensions } from "react-native";
+import { cardStyle, listingStyle, theme } from "../../../assets/styles";
+
 import { RenderHtmlComponent } from "../../common/renderHtml";
 import { getShortDate } from "../../utils";
 import { profileStyle as style } from "../../../assets/styles/tabs";
@@ -17,14 +11,8 @@ import colors from "../../../assets/colors";
 import normalize from "react-native-normalize";
 import CustomImage from "../../common/image";
 import { getLeaveOption } from "../../utils/getLeaveType";
-import Svg, { Path } from "react-native-svg";
-import Shoutout from "./../../../assets/images/shoutout.svg";
-import { navigate } from "../../utils/navigation";
-import { shoutoutDetailStyles } from "../../../assets/styles/common/shoutoutDetail.style";
-import { RouteNames } from "../../constant/route_names";
-const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
-  const [se, us] = useState([{ src: item?.image, errored: false }]);
 
+const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
   return (
     <View
       key={index}
@@ -91,7 +79,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
             >
               {module === "employeeList" && (
                 <Icon
-                  name="card-account-details"
+                  name='card-account-details'
                   color={colors.fontGrey}
                   size={normalize(12)}
                   style={{ marginRight: normalize(5) }}
@@ -107,7 +95,7 @@ const ListingCard = ({ index, listLength, item, module, sa, state }: any) => {
                 }}
               >
                 <Icon
-                  name="timetable"
+                  name='timetable'
                   color={colors.fontGrey}
                   size={normalize(12)}
                   style={{ marginRight: normalize(5) }}

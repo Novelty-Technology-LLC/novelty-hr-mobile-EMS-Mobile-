@@ -10,8 +10,7 @@ import RequestWithImage from "../leave_screen/requestWithImage";
 import { ApproveDeny } from "../leave_screen/approveDeny";
 import { checkWFHRequest, getQuota, updateWFHRequests } from "../../services";
 import { showToast } from "../../common";
-import { navigationRef } from "../../utils/navigation";
-import { dateStringMapper, formatDate } from "../../utils";
+import { dateStringMapper } from "../../utils";
 
 interface requestPropType {
   item: any;
