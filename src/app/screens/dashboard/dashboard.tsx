@@ -219,7 +219,7 @@ const DashBoard = () => {
           setLoading(false);
         }
       } catch (error) {
-        showToast("Something went wrong", false);
+        showToast("Something went wrong ❌", false);
         setLoading(false);
       }
     }

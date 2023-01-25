@@ -103,11 +103,11 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
-        showToast("Request replied");
+        showToast("Request replied 👍");
       })
       .catch((err) => {
         alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong", false);
+        showToast("Something went wrong ❌", false);
       });
   };
 

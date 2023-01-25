@@ -111,12 +111,12 @@ const LogTime = ({ route }: any) => {
             });
             navigation.navigate("timelog");
             setIsLoading(false);
-            showToast("TimeLog added");
+            showToast("TimeLog added ⏰");
           } else {
             checkAndReplace(data, timelogs, dispatchTimeLog);
             navigation.navigate("timelog");
             setIsLoading(false);
-            showToast("TimeLog updated");
+            showToast("TimeLog updated ⏰");
           }
         })
         .catch((err) => {});
@@ -226,7 +226,7 @@ const LogTime = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 100}
         extraHeight={Platform.OS === "android" ? 160 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik

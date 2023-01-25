@@ -129,7 +129,7 @@ const AddAnnouncement = (props: any) => {
       })
       .catch(async (err: any) => {
         setLoading(false);
-        showToast("something went wrong", false);
+        showToast("Something went wrong ❌", false);
         setError("something went wrong");
       });
   };
