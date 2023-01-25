@@ -39,8 +39,8 @@ const Profile = ({ navigation }: any) => {
 
   const cleanImage = () =>
     ImageCropper.clean()
-      .then(() => { })
-      .catch((e) => { });
+      .then(() => {})
+      .catch((e) => {});
 
   const updateProfileImage = (image: any, data?: any) => {
     setimage(image ?? image.data);
@@ -134,11 +134,11 @@ const Profile = ({ navigation }: any) => {
         callbackForUploadImage(image);
         // confirm()
       })
-      .finally(() => { })
+      .finally(() => {})
       .then((image) => {
         callbackForUploadImage(image);
       })
-      .finally(() => { });
+      .finally(() => {});
   };
   const openCamera = () =>
     ImageCropper.openCamera({
@@ -178,7 +178,7 @@ const Profile = ({ navigation }: any) => {
         setLoad(false);
         setloading(false);
         cleanImage();
-        showToast("Something went wrong", false);
+        showToast("Something went wrong ❌", false);
       });
   };
 
@@ -243,7 +243,7 @@ const Profile = ({ navigation }: any) => {
           <View style={profileStyle.infoStyle}>
             <ProfileInfoComponent user={state.user} />
 
-            <CustomDivider size="maxlarge" />
+            <CustomDivider size='maxlarge' />
           </View>
           {/* <View style={{ ...style.imageView, position: "absolute" }}>
           
@@ -267,7 +267,7 @@ const Profile = ({ navigation }: any) => {
                 style={[style.imageWrappers]}
                 onPress={() => refRBSheet?.current?.open()}
               >
-                <Icon name="camera" color="white" size={15}></Icon>
+                <Icon name='camera' color='white' size={15}></Icon>
               </TouchableOpacity>
             </View>
           </View>

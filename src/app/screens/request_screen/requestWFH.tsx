@@ -83,7 +83,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         });
         dispatchWFHRequest({ type: "ADD", payload: res?.data?.data?.home });
         setisLoading(false);
-        showToast("Request created");
+        showToast("Request created 🧑🏻‍💻");
         goBack();
       })
       .catch((err) => {
@@ -104,7 +104,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         });
 
         dispatchWFHRequest({ type: "UPDATE", payload: res.home });
-        showToast("Request updated");
+        showToast("Request updated 👨🏽‍💻");
         navigation.navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
         setisLoading(false);
       })
@@ -141,7 +141,7 @@ const RequestWFH = ({ route, navigation }: any) => {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
         showToast("The selected date has passed. ", false);
       } else {
-        showToast("You cannot take WFH after 10 am", false);
+        showToast("You cannot take WFH after 10 am ⏰", false);
       }
     } else {
       try {

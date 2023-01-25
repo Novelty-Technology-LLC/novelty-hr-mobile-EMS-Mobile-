@@ -6,19 +6,12 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
-import {
-  header as Header,
-  showToast,
-  SmallHeader,
-  snackBarMessage,
-  snackErrorBottom,
-} from "../../common";
+import { header as Header, showToast } from "../../common";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider } from "@ui-kitten/components";
 import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
 import {
   approveRequest,
-  fonts,
   headerTxtStyle,
   requestLeave as style,
 } from "../../../assets/styles";
@@ -35,19 +28,10 @@ import { editRequest, postRequest } from "../../services";
 import colors from "../../../assets/colors";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext, RequestContext } from "../../reducer";
-import { snackErrorTop } from "../../common";
-import {
-  checkIfRequested,
-  checkIfRequestedForLeave,
-  checkValidityQuota,
-  dateMapper,
-  momentdate,
-} from "../../utils";
+import { checkIfRequestedForLeave, dateMapper, momentdate } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
-import { Size } from "@ui-kitten/components/devsupport";
-import normalize from "react-native-normalize";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -87,7 +71,7 @@ const RequestLeave = ({ route }: any) => {
         dispatchRequest({ type: "ADD", payload: res.data.data.leave });
         navigation.navigate("leaveList");
         setisLoading(false);
-        showToast("Request created");
+        showToast("Request created 🏝️");
       })
       .catch((err) => {
         setisLoading(false);
@@ -109,7 +93,7 @@ const RequestLeave = ({ route }: any) => {
 
         dispatchRequest({ type: "UPDATE", payload: res.leave });
         navigation.navigate("leaveList");
-        showToast("Request updated");
+        showToast("Request updated 🚢");
 
         setisLoading(false);
       })
@@ -152,9 +136,9 @@ const RequestLeave = ({ route }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("The selected date has passed. ", false);
+        showToast("The selected date has passed.", false);
       } else {
-        showToast("You cannot take leave after 10 am", false);
+        showToast("You cannot take leave after 10 am ⏰", false);
       }
     } else {
       try {
