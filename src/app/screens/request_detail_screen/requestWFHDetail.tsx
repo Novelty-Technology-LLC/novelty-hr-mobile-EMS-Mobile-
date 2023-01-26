@@ -12,10 +12,11 @@ import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "../../components/wFHScreen/WFHrequest";
 import WfhRequestApproval from "../../components/approveRequest/approve_wfh_request";
 import moment from "moment";
+import getDay from "../../utils/getDay";
 
 const RequestWFHDetail = ({ route }: any) => {
-  const { date } = route.params;
   const item = route.params;
+  const { dayRange } = getDay(item);
   const [isReplied, setIsReplied] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -35,7 +36,7 @@ const RequestWFHDetail = ({ route }: any) => {
     <>
       <Header icon={true}>
         <View style={approveRequest.headContainer}>
-          <Text style={headerTxtStyle.headerText}>{date}</Text>
+          <Text style={headerTxtStyle.headerText}>{dayRange}</Text>
         </View>
       </Header>
 
