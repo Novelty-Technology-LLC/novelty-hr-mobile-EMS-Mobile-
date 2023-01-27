@@ -17,9 +17,8 @@ import {
 import { buttonui as Logo } from "../../common/ui/buttonUi";
 import LoginWrapper from "./loginWrapper";
 import { Formik } from "formik";
-import { button as Button, snackErrorTop } from "../../common";
+import { button as Button, showToast, snackErrorTop } from "../../common";
 import { useNavigation } from "@react-navigation/native";
-import SplashLogo from "../../common/ui/splash_logo";
 
 let AuthModel = {
   EmailAddress: "",
@@ -54,7 +53,7 @@ const Login = () => {
       createUser(dispatch, user, user.idToken);
     } else {
       Keyboard.dismiss();
-      snackErrorTop({ message: "Authentication Failed" });
+      showToast("Authentication Failed 🚪", false);
     }
   };
 
@@ -100,18 +99,18 @@ const Login = () => {
                 <Fragment>
                   <TextInput
                     style={style.textInput}
-                    placeholder="Email"
+                    placeholder='Email'
                     value={values.EmailAddress}
                     secureTextEntry={false}
-                    keyboardType="email-address"
-                    textContentType="emailAddress"
+                    keyboardType='email-address'
+                    textContentType='emailAddress'
                     onChangeText={handleChange("EmailAddress")}
-                    autoCapitalize="none"
+                    autoCapitalize='none'
                   />
                   <TextInput
                     style={style.textInput}
                     value={values.Password}
-                    placeholder="Password"
+                    placeholder='Password'
                     secureTextEntry={true}
                     onChangeText={handleChange("Password")}
                   />
@@ -138,7 +137,7 @@ const Login = () => {
             style={style.iconView}
             onPress={async () => await signInGoogle(dispatch)}
           >
-            <Logo name="google" />
+            <Logo name='google' />
           </TouchableOpacity>
 
           {Platform.OS === "ios" && (
@@ -146,7 +145,7 @@ const Login = () => {
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}
               >
-                <Logo name="apple" />
+                <Logo name='apple' />
               </TouchableOpacity>
             </View>
           )}

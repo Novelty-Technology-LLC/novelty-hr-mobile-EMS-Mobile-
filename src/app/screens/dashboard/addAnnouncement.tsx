@@ -104,7 +104,7 @@ const AddAnnouncement = (props: any) => {
         });
         setLoading(false);
         goBack();
-        showToast("Added Successfully");
+        showToast("Added Successfully 👍");
       })
       .catch(async (err: any) => {
         setLoading(false);
@@ -125,7 +125,7 @@ const AddAnnouncement = (props: any) => {
         setLoading(false);
         goBack();
         goBack();
-        showToast("Update Successfully");
+        showToast("Update Successfully 👍");
       })
       .catch(async (err: any) => {
         setLoading(false);

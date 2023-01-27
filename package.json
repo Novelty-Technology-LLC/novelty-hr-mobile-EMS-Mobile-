@@ -42,7 +42,7 @@
     "react-native-check-version": "^1.0.9",
     "react-native-cn-quill": "^0.7.15",
     "react-native-countup": "0.0.2",
-    "react-native-device-info": "^7.2.0",
+    "react-native-device-info": "^10.3.0",
     "react-native-dropdown-picker": "^3.7.6",
     "react-native-dynamic": "^1.0.0",
     "react-native-gesture-handler": "^1.8.0",

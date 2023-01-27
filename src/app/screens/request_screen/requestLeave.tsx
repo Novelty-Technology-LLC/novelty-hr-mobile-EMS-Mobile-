@@ -136,7 +136,7 @@ const RequestLeave = ({ route }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("The selected date has passed.", false);
+        showToast("The selected date has passed ✋", false);
       } else {
         showToast("You cannot take leave after 10 am ⏰", false);
       }
@@ -152,10 +152,10 @@ const RequestLeave = ({ route }: any) => {
             req.state === "Pending"
         );
         if (!olddata && checkIfRequestedForLeave(allrequests, values)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ✋", false);
         }
         if (olddata && checkIfRequestedForLeave(allrequests, values, olddata)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ✋", false);
         }
         const date = JSON.parse(values.date);
         let dayArray: any = [];
@@ -234,7 +234,7 @@ const RequestLeave = ({ route }: any) => {
           error.message = "Unkonown error occured";
         setisLoading(false);
 
-        showToast(error.message);
+        showToast(`${error.message} ❌`, false);
       }
     }
   };

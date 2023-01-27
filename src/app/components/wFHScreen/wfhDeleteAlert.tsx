@@ -40,7 +40,7 @@ export const WFHDeleteAlert = ({
           dispatchWFHRequest({ type: "UPDATEQUOTA", payload: data.quota });
           dispatchWFHRequest({ type: "CANCEL", payload: data.home });
           setLoading(false);
-          showToast("Request Cancelled");
+          showToast("Request Cancelled ❌");
           hide();
         })
         .catch((err) => {
@@ -51,7 +51,7 @@ export const WFHDeleteAlert = ({
         .then(async (data) => {
           dispatchWFHRequest({ type: "UPDATEQUOTA", payload: data });
           dispatchWFHRequest({ type: "DELETE", payload: item.id });
-          showToast("Request deleted");
+          showToast("Request deleted 🗑️");
           setLoading(false);
           hide();
         })
@@ -118,7 +118,7 @@ export const WFHDeleteAlert = ({
             </View>
           )}
           <AppIcon
-            name="alert"
+            name='alert'
             color={loading ? colors.fontGrey : colors.buttonRed}
             size={30}
           />

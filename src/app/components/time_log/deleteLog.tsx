@@ -58,7 +58,7 @@ const DeleteLog = ({
           } else {
             setTasks({ ...tasks, note: task });
           }
-          showToast(`Task deleted`);
+          showToast(`Task deleted 🗑️`);
         })
         .catch((err) => {});
     } else {
@@ -66,7 +66,7 @@ const DeleteLog = ({
         .then(() => {
           navigate("timelog");
           dispatchTimeLog({ type: "DELETE", payload: value.id });
-          showToast("TimeLog deleted");
+          showToast("TimeLog deleted 🗑️");
         })
         .catch((err) => {});
     }
@@ -81,7 +81,7 @@ const DeleteLog = ({
         }}
         style={style.iconContainer}
       >
-        <AppIcon name="delete" color={colors.buttonRed} size={Normalize(16)} />
+        <AppIcon name='delete' color={colors.buttonRed} size={Normalize(16)} />
       </TouchableOpacity>
       <ConfirmDialog
         visible={showAlert}
@@ -104,7 +104,7 @@ const DeleteLog = ({
         }}
       >
         <View style={[style.container, { marginBottom: normalize(-20) }]}>
-          <AppIcon name="alert" color={colors.buttonRed} size={30} />
+          <AppIcon name='alert' color={colors.buttonRed} size={30} />
           <View style={style.main}>
             <Text style={style.text1}>Delete the task ?</Text>
             <Text style={style.text2}>This cant be undone</Text>
