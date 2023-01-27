@@ -97,7 +97,6 @@ const RequestWFH = ({ route, navigation }: any) => {
         const home = { ...res.home };
         const { option: keyvalue } = home;
         const quota = { ...res.quota, option: keyvalue };
-
         dispatchWFHRequest({
           type: "UPDATEQUOTA",
           payload: { ...quota },
@@ -266,7 +265,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik

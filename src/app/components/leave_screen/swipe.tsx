@@ -129,9 +129,9 @@ const Swipe = ({
         <View style={style.othercontainer}>
           <>
             {checkLeaveDate(item.leave_date) ? (
-              <DeleteAlert item={item} other={true} onPress={onPress} />
+              <DeleteAlert item={item} other={false} onPress={onPress} />
             ) : (
-              <DeleteAlert item={item} other={other} onPress={onPress} />
+              <DeleteAlert item={item} other={false} onPress={onPress} />
             )}
           </>
         </View>

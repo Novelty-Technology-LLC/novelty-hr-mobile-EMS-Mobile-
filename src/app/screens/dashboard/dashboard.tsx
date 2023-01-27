@@ -54,6 +54,7 @@ const DashBoard = () => {
   const [loading, setLoading] = useState(false);
   const [loadingIsActive, setLoadingIsActive] = useState(false);
   const [leaveStatus, setLeaveStatus] = useState(false);
+  const [todayLeave, setTodayLeave] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
   const [list, setList] = useState<any>(null);
@@ -124,24 +125,6 @@ const DashBoard = () => {
       setAnnouncements(response);
     } catch (error) {}
   };
-  const fetchLeave = async () => {
-    try {
-      var response: any = await getRequest("/leave", {});
-      var date = moment(new Date()).format("ddd MMM D YYYY");
-
-      var todayLeave = response.find(function (element: any) {
-        return (
-          element.requestor_id === state?.user.id &&
-          moment(date).isSame(element.leave_date.startDate)
-        );
-      });
-      if (todayLeave.status === "Approved") {
-        setLeaveStatus(true);
-      } else {
-        setLeaveStatus(false);
-      }
-    } catch (error) {}
-  };
   useEffect(() => {
     (async () => {
       try {
@@ -150,9 +133,19 @@ const DashBoard = () => {
         setCardLoading(true);
         await Promise.all([
           getDashboard(state?.user.id),
-          fetchLeave(),
           fetchAnnouncements(),
         ]).then((values) => {
+          const filterData = values[0].filter(
+            (item: any) => item.module === "Leave"
+          );
+          const res = filterData.flat()[0].items;
+          const result = res
+            .map((item) => item.user)
+            .filter((item) => {
+              const user = item.id === state?.user.id;
+              return user ? true : false;
+            });
+          setLeaveStatus(result.length ? true : false);
           const dashboardData: any = values[0];
           const wfhStatus = dashboardData.filter(
             (item: any) => item.module === "wfh"
