@@ -161,7 +161,7 @@ const Profile = ({ navigation }: any) => {
       type: image.mime,
     })
       .then((data) => {
-        showToast("Image uploaded");
+        showToast("Image uploaded 🌅");
         removeToken();
         storeToken(JSON.stringify(data));
         removeUser();

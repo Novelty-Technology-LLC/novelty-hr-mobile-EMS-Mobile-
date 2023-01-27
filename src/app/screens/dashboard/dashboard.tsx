@@ -201,45 +201,10 @@ const DashBoard = () => {
     })();
   }, [refreshing, state?.user?.id]);
 
-  const ToggleWork = async () => {
-    if (leaveStatus) {
-      showToast("You are currently on leave", false);
-    } else {
-      try {
-        setLoading(true);
-        const data = {
-          id,
-          date: getToday(),
-          user_id: state?.user?.id,
-          status: !toggle ? 1 : 0,
-        };
-        const res: any = await createWork(data);
-        res?.data?.data?.id && setId(res?.data?.data?.id);
-        if (res?.data?.data?.message) {
-          showToast(res?.data?.data?.message, false);
-          setLoading(false);
-        } else if (res?.data?.status === 200) {
-          showToast("Successfully changed status.");
-          setToggle(!toggle);
-          let newList: any = listData.find(
-            (item: any) => item?.detailRoute === "/employee"
-          );
-          newList.items.map((item: any) => {
-            if (item?.subTitle === "Working from Home") {
-              item.title = !toggle ? +item.title + 1 : +item.title - 1;
-            }
-          });
-          setLoading(false);
-        }
-      } catch (error) {
-        showToast("Something went wrong ❌", false);
-        setLoading(false);
-      }
-    }
-  };
   const handleWFH = () => {
     navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
   };
+
   const statusClip = (iconName = "home", title = "Home") => {
     return (
       <TouchableWithoutFeedback

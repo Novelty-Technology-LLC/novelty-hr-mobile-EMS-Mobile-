@@ -21,7 +21,7 @@ const signInGoogle = async (dispatch: any) => {
     } else {
       error.message = "Sign in error";
     }
-    showToast(error?.message, false);
+    showToast(`${error?.message} ❌`, false);
   }
 };
 
@@ -83,7 +83,7 @@ const signInApple = async (dispatch: any) => {
     } else {
       error.message = "Unknown error occured";
     }
-    showToast(error?.message, false);
+    showToast(`${error?.message} ❌`, false);
   }
 };
 

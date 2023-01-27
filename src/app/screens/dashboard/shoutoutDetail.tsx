@@ -28,7 +28,7 @@ const ShoutoutDetails = (props: any) => {
           setShoutoutDetail(detail);
         })
         .catch(() => {
-          showToast("An error occured.", false);
+          showToast("An error occured. ❌", false);
         });
     }
   };

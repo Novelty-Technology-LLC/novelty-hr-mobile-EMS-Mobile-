@@ -1,25 +1,17 @@
+import { hasDynamicIsland, hasNotch } from "react-native-device-info";
 import Toast from "react-native-toast-message";
 
 const snackBarMessage = (msg: string) => {
   Toast.show({
+    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 5,
     type: "success",
     text1: msg,
   });
 };
 
 const showToast = (msg: string, success = true) => {
-  // const snackBarOpts = {
-  //   data: msg,
-  //   isAllowSlideExit: true,
-  //   position: WSnackBar.position.TOP,
-  //   duration: WSnackBar.duration.LONG,
-  //   textColor: "#ffffff",
-  //   numberOfLines: 2,
-  //   icon: false,
-  //   backgroundColor: success ? colors.green : "#cc3300",
-  // };
-  // WSnackBar.show(snackBarOpts);
   Toast.show({
+    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 5,
     type: success ? "success" : "error",
     text1: msg,
   });

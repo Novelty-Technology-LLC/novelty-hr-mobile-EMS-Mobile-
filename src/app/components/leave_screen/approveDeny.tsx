@@ -1,11 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { View, Text } from "react-native";
-import {
-  Alert,
-  button as Button,
-  showToast,
-  snackErrorBottom,
-} from "../../common";
+import { button as Button } from "../../common";
 import { dataType } from "../../interface";
 import { EditAlert } from "./responseAlert";
 import { checkRequest } from "../../services";

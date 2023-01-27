@@ -8,14 +8,19 @@ import SplashScreen from "react-native-splash-screen";
 import { requestNotificationPermission } from "./src/app/utils/permission";
 import Toast, { ErrorToast, SuccessToast } from "react-native-toast-message";
 import colors from "./src/assets/colors";
+import Normalize from "./src/app/utils/normalize";
 
 const toastConfig = {
   success: (props: any) => (
     <SuccessToast
       {...props}
-      style={{ borderLeftColor: "#33cc33", backgroundColor: "#33cc33" }}
+      style={{
+        width: "95%",
+        borderLeftColor: "#33cc33",
+        backgroundColor: "#33cc33",
+      }}
       text1NumberOfLines={2}
-      text1Style={{ fontSize: 14 }}
+      text1Style={{ fontSize: Normalize(14), color: colors.white }}
     />
   ),
   error: (props: any) => {
@@ -23,17 +28,18 @@ const toastConfig = {
       <ErrorToast
         {...props}
         style={{
-          borderLeftColor: "#e60000",
-          backgroundColor: "#e60000",
+          width: "95%",
+          borderLeftColor: "#ff0033",
+          backgroundColor: "#ff0033",
         }}
         text1NumberOfLines={2}
-        text1Style={{ fontSize: 14, color: colors.white }}
+        text1Style={{ fontSize: Normalize(14), color: colors.white }}
       />
     );
   },
 };
 
-const App = (props: any) => {
+const App = () => {
   useEffect(() => {
     requestNotificationPermission();
     SplashScreen.hide();

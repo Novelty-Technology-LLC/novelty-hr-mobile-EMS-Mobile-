@@ -138,7 +138,7 @@ const RequestWFH = ({ route, navigation }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("The selected date has passed. ", false);
+        showToast("The selected date has passed ✋", false);
       } else {
         showToast("You cannot take WFH after 10 am ⏰", false);
       }
@@ -155,10 +155,10 @@ const RequestWFH = ({ route, navigation }: any) => {
         );
 
         if (!olddata && checkIfRequested(allrequests, values)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ✋", false);
         }
         if (olddata && checkIfRequested(allrequests, values, olddata)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ✋", false);
         }
         const dateParsed = JSON.parse(values.date);
         let dayArray: any = [];
@@ -245,7 +245,7 @@ const RequestWFH = ({ route, navigation }: any) => {
           error.message = "Unkonown error occured";
         setisLoading(false);
 
-        showToast(error.message);
+        showToast(`${error.message} ❌`, false);
       }
     }
   };

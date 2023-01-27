@@ -42,7 +42,7 @@ const DeleteAlert = ({
           dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
           dispatchRequest({ type: "CANCEL", payload: data.leave });
           setLoading(false);
-          showToast("Request Cancelled");
+          showToast("Request Cancelled ❌");
           hide();
         })
         .catch((err) => {
@@ -53,7 +53,7 @@ const DeleteAlert = ({
         .then(async (data) => {
           dispatchRequest({ type: "UPDATEQUOTA", payload: data });
           dispatchRequest({ type: "DELETE", payload: item.id });
-          showToast("Request deleted");
+          showToast("Request deleted 🗑️");
           setLoading(false);
           hide();
         })
@@ -69,7 +69,7 @@ const DeleteAlert = ({
       .then(() => {
         dispatchTimeLog({ type: "DELETE", payload: item?.id });
 
-        showToast("TimeLog deleted");
+        showToast("TimeLog deleted 🗑️");
         setLoading(false);
         hide();
       })
@@ -135,7 +135,7 @@ const DeleteAlert = ({
             </View>
           )}
           <AppIcon
-            name="alert"
+            name='alert'
             color={loading ? colors.fontGrey : colors.buttonRed}
             size={30}
           />
