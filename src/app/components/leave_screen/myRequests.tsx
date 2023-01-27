@@ -100,7 +100,7 @@ const MyRequests = ({
     const today = moment().format("YYYY-MM-DD");
     if (leaveDate >= today) {
       if (leaveDate === today) {
-        return new Date().getHours() <= 10 ? (
+        return new Date().getHours() < 10 ? (
           <Swipeable
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (

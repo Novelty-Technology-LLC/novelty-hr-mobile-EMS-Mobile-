@@ -80,7 +80,6 @@ const TabNavigator = () => {
     requestUserPermission();
     messaging().onNotificationOpenedApp(async (remoteMessage: any) => {
       if (remoteMessage && Object.keys(remoteMessage?.data).length) {
-        console.log("remoteMessage.data onappOpened", remoteMessage.data);
         if (remoteMessage.data.type === "work_from_home") {
           navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
             notifdata: remoteMessage.data,
@@ -173,38 +172,38 @@ const TabNavigator = () => {
         }}
       >
         <Tab.Screen
-          name='Dashboard'
+          name="Dashboard"
           component={DashNav}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name='home' color={color} size={size} />
+              <AppIcon name="home" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name='Activity'
+          name="Activity"
           component={LogNav}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name='timer' color={color} size={size} />
+              <AppIcon name="timer" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name='Home'
+          name="Home"
           component={ScreenStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name='briefcase-clock' color={color} size={size} />
+              <AppIcon name="briefcase-clock" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name='Profile'
+          name="Profile"
           component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name='account' color={color} size={size} />
+              <AppIcon name="account" color={color} size={size} />
             ),
           }}
         />

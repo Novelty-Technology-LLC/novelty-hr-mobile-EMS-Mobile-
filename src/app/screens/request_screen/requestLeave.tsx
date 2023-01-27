@@ -90,8 +90,17 @@ const RequestLeave = ({ route }: any) => {
             payload: { ...item, leave_option: res.leave_option },
           });
         });
-
-        dispatchRequest({ type: "UPDATE", payload: res.leave });
+        const { leave_date, ...rest } = res.leave;
+        dispatchRequest({
+          type: "UPDATE",
+          payload: {
+            ...rest,
+            leave_date: {
+              startDate: moment(leave_date.startDate).format("YYYY-MM-DD"),
+              endDate: moment(leave_date.endDate).format("YYYY-MM-DD"),
+            },
+          },
+        });
         navigation.navigate("leaveList");
         showToast("Request updated 🚢");
 
@@ -254,7 +263,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik
