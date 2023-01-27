@@ -125,25 +125,6 @@ const DashBoard = () => {
       setAnnouncements(response);
     } catch (error) {}
   };
-  // const fetchLeave = async () => {
-  //   try {
-  //     var response: any = await getRequest("/leave", {});
-  //     var date = moment(new Date()).format("ddd MMM D YYYY");
-
-  //     var todayLeave = response.find(function (element: any) {
-  //       return (
-  //         element.requestor_id === state?.user.id &&
-  //         moment(date).isSame(element.leave_date.startDate)
-  //       );
-  //     });
-  //     if (todayLeave.status === "Approved") {
-
-  //       setLeaveStatus(true);
-  //     } else {
-  //       setLeaveStatus(false);
-  //     }
-  //   } catch (error) {}
-  // };
   useEffect(() => {
     (async () => {
       try {
@@ -152,7 +133,6 @@ const DashBoard = () => {
         setCardLoading(true);
         await Promise.all([
           getDashboard(state?.user.id),
-          // fetchLeave(),
           fetchAnnouncements(),
         ]).then((values) => {
           const filterData = values[0].filter(
