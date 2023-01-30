@@ -20,7 +20,7 @@ const RequestDetail = ({ route }: any) => {
   const onEdit = () => {
     checkRequest(route?.params?.id)
       .then((res) => {
-        if (res === "Pending") {
+        if (res === "Pending" && new Date().getHours() < 10) {
           setShowAlert(true);
         }
       })
