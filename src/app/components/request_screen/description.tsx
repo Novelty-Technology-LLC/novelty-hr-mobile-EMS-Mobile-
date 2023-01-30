@@ -197,7 +197,7 @@ const Description = ({
           placeholder={
             workfromhome
               ? "Write a short note for your work from home.."
-              : timelog
+              : !timelog
               ? "Write a short note for your leave.."
               : "Write a short summary about your task.."
           }
