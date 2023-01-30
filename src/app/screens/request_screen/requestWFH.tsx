@@ -53,7 +53,7 @@ const validationSchema = Yup.object().shape({
       endDate: Yup.date().nullable(),
     })
     .required("Date is required"),
-  note: Yup.string().required("WFH note is required").label("note"),
+  note: Yup.string().required("Work from home note is required").label("note"),
   lead: Yup.array().of(Yup.number()).label("lead").required("Lead is required"),
   status: Yup.string().label("status"),
 });
