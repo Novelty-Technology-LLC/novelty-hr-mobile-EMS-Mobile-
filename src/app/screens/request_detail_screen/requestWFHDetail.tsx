@@ -26,7 +26,7 @@ const RequestWFHDetail = ({ route }: any) => {
   const onEdit = () => {
     checkWFHRequest(route?.params?.id)
       .then((res) => {
-        if (res === "Pending") {
+        if (res === "Pending" && new Date().getHours() < 10) {
           setShowAlert(true);
         }
       })
