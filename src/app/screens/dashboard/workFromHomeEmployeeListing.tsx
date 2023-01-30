@@ -17,7 +17,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
     getWFHemployees();
   }, []);
 
-  const formatLeaveOption = (option: string) => {
+  const formatWfhOption = (option: string) => {
     if (option === "FIRST HALF") return "1st half";
     if (option === "SECOND HALF") return "2nd half";
     return option;
@@ -35,7 +35,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           return {
             id: item.user_id,
             title: items?.first_name + " " + items?.last_name,
-            subTitle: formatLeaveOption(item?.option),
+            subTitle: formatWfhOption(item?.option),
             image: items?.image_url,
             work_shift: items?.work_shift,
           };
