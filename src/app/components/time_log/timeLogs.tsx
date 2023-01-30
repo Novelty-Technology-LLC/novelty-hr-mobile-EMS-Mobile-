@@ -63,7 +63,7 @@ const TimeLogs = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState<Date>(new Date());
-  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const { timelogs, dispatchTimeLog } = useContext<any>(TimeLogContext);
   const [activeLoading, setActiveLoading] = useState(false);
   const ref = React.useRef(null);
   const [selectedHrs, setSelectedHrs] = useState(0);
@@ -72,7 +72,7 @@ const TimeLogs = (props: any) => {
   const [logTime, setLogTime] = useState(thisWeek());
   const [loader, setLoader] = useState(false);
   const [totalTimeLog, setTotalTimeLog] = useState(initialState);
-  const { state } = useContext(AuthContext);
+  const { state } = useContext<any>(AuthContext);
 
   useEffect(() => {
     (async () => {
@@ -106,7 +106,7 @@ const TimeLogs = (props: any) => {
       const user: any = await getUser();
       const activeLogs: any = await getFilteredTimeLogs(
         JSON.parse(user).id,
-        JSON.stringify(todayDate())
+        todayDate()
       );
       if (activeLogs) {
         dispatchTimeLog({
@@ -133,7 +133,7 @@ const TimeLogs = (props: any) => {
         const user: any = await getUser();
         const activeLogs: any = await getFilteredTimeLogs(
           JSON.parse(user).id,
-          JSON.stringify(dateRange(startDate, endDate ? endDate : startDate))
+          dateRange(startDate, endDate ? endDate : startDate, "YYYY-MM-DD")
         );
         if (activeLogs) {
           dispatchTimeLog({

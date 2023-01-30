@@ -17,8 +17,8 @@ const toastConfig = {
       {...props}
       style={{
         width: "97%",
-        borderLeftColor: "#33cc33",
-        backgroundColor: "#33cc33",
+        borderLeftColor: "#4BB543",
+        backgroundColor: "#4BB543",
       }}
       text1NumberOfLines={2}
       text1Style={{ fontSize: Normalize(14), color: colors.white }}
@@ -30,8 +30,8 @@ const toastConfig = {
         {...props}
         style={{
           width: "97%",
-          borderLeftColor: "#ff0033",
-          backgroundColor: "#ff0033",
+          borderLeftColor: "#cc0000",
+          backgroundColor: "#cc0000",
         }}
         text1NumberOfLines={2}
         text1Style={{ fontSize: Normalize(14), color: colors.white }}
@@ -42,8 +42,8 @@ const toastConfig = {
 
 const App = () => {
   useEffect(() => {
-    requestNotificationPermission();
     SplashScreen.hide();
+    requestNotificationPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage: any) => {
       if (remoteMessage) {
         Platform.OS === "ios" &&

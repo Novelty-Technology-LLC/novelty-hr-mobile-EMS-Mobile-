@@ -57,7 +57,7 @@ const Week = ({
       const user: any = await getUser();
       const historyLogs: any = await getFilteredTimeLogs(
         JSON.parse(user).id,
-        JSON.stringify(filter)
+        filter
       );
       if (historyLogs) {
         if (past) {
