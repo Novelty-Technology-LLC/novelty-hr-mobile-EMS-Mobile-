@@ -150,7 +150,10 @@ const RequestLeave = ({ route }: any) => {
   const onSubmit = async (values: any) => {
     const date = JSON.parse(values.date);
 
-    if (checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length) {
+    if (
+      !olddata &&
+      checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length
+    ) {
       return showToast(
         "You cannot take work from home twice on same day ✋",
         false

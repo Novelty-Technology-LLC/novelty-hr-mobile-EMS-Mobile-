@@ -119,7 +119,10 @@ const LogTime = ({ route }: any) => {
             showToast("TimeLog updated ⏰");
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          showToast("Someting went wrong ❌", false);
+          setIsLoading(false);
+        });
     } else {
       Keyboard.dismiss();
       setIsLoading(false);
