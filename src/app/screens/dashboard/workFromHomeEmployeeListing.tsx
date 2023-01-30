@@ -16,6 +16,12 @@ const WorkFromHomeEmployeeListing = (props: any) => {
   useEffect(() => {
     getWFHemployees();
   }, []);
+
+  const formatLeaveOption = (option: string) => {
+    if (option === "FIRST HALF") return "1st half";
+    if (option === "SECOND HALF") return "2nd half";
+    return option;
+  };
   const getWFHemployees = async () => {
     setLoading(true);
 
@@ -29,7 +35,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           return {
             id: item.user_id,
             title: items?.first_name + " " + items?.last_name,
-            subTitle: item?.option,
+            subTitle: formatLeaveOption(item?.option),
             image: items?.image_url,
             work_shift: items?.work_shift,
           };

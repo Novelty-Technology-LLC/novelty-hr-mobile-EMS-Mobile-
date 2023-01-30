@@ -154,10 +154,7 @@ const RequestLeave = ({ route }: any) => {
       !olddata &&
       checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length
     ) {
-      return showToast(
-        "You cannot take work from home twice on same day ✋",
-        false
-      );
+      return showToast("You cannot take leave twice on same day ✋", false);
     }
     const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
