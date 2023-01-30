@@ -29,6 +29,7 @@ const toastConfig = {
       <ErrorToast
         {...props}
         style={{
+          height: 50,
           width: "95%",
           borderLeftColor: "#ff0033",
           backgroundColor: "#ff0033",

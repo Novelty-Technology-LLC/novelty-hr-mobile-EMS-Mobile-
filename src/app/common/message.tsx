@@ -27,7 +27,7 @@ const showToast = (msg: string, success = true) => {
   // WSnackBar.show(snackBarOpts);
 
   Toast.show({
-    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 5,
+    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 1,
     type: success ? "success" : "error",
     text1: msg,
   });
