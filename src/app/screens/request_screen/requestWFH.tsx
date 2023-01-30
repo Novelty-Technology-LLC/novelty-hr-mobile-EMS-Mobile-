@@ -138,7 +138,10 @@ const RequestWFH = ({ route, navigation }: any) => {
 
     const dates = JSON.parse(values?.date);
 
-    if (checkIfWfhExist(moment(dates.startDate).format("YYYY-MM-DD")).length) {
+    if (
+      !olddata &&
+      checkIfWfhExist(moment(dates.startDate).format("YYYY-MM-DD")).length
+    ) {
       return showToast(
         "You cannot take work from home twice on same day ✋",
         false

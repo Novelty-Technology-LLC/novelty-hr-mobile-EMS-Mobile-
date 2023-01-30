@@ -16,8 +16,7 @@ const toastConfig = {
     <SuccessToast
       {...props}
       style={{
-        width: "95%",
-
+        width: "97%",
         borderLeftColor: "#33cc33",
         backgroundColor: "#33cc33",
       }}
@@ -30,7 +29,7 @@ const toastConfig = {
       <ErrorToast
         {...props}
         style={{
-          width: "95%",
+          width: "97%",
           borderLeftColor: "#ff0033",
           backgroundColor: "#ff0033",
         }}

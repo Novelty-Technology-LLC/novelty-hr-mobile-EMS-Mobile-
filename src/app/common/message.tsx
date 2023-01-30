@@ -7,7 +7,7 @@ import { fonts } from "../../assets/styles";
 
 const snackBarMessage = (msg: string) => {
   Toast.show({
-    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 5,
+    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 2,
     type: "success",
     text1: msg,
   });
@@ -27,7 +27,7 @@ const showToast = (msg: string, success = true) => {
   // WSnackBar.show(snackBarOpts);
 
   Toast.show({
-    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 5,
+    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 2,
     type: success ? "success" : "error",
     text1: msg,
   });
