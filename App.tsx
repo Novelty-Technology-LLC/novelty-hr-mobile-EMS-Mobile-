@@ -17,6 +17,7 @@ const toastConfig = {
       {...props}
       style={{
         width: "95%",
+
         borderLeftColor: "#33cc33",
         backgroundColor: "#33cc33",
       }}
@@ -29,7 +30,6 @@ const toastConfig = {
       <ErrorToast
         {...props}
         style={{
-          height: 50,
           width: "95%",
           borderLeftColor: "#ff0033",
           backgroundColor: "#ff0033",
