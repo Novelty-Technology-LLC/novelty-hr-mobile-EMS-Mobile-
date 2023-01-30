@@ -16,9 +16,9 @@ const toastConfig = {
     <SuccessToast
       {...props}
       style={{
-        width: "95%",
-        borderLeftColor: "#33cc33",
-        backgroundColor: "#33cc33",
+        width: "97%",
+        borderLeftColor: "#4BB543",
+        backgroundColor: "#4BB543",
       }}
       text1NumberOfLines={2}
       text1Style={{ fontSize: Normalize(14), color: colors.white }}
@@ -29,9 +29,9 @@ const toastConfig = {
       <ErrorToast
         {...props}
         style={{
-          width: "95%",
-          borderLeftColor: "#ff0033",
-          backgroundColor: "#ff0033",
+          width: "97%",
+          borderLeftColor: "#cc0000",
+          backgroundColor: "#cc0000",
         }}
         text1NumberOfLines={2}
         text1Style={{ fontSize: Normalize(14), color: colors.white }}
@@ -42,8 +42,8 @@ const toastConfig = {
 
 const App = () => {
   useEffect(() => {
-    requestNotificationPermission();
     SplashScreen.hide();
+    requestNotificationPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage: any) => {
       if (remoteMessage) {
         Platform.OS === "ios" &&
@@ -54,11 +54,12 @@ const App = () => {
   }, [messaging]);
 
   return (
-    <SafeAreaView style={style.safeArea}>
-      <WRootToastApp>
+    <>
+      <SafeAreaView style={style.safeArea}>
         <RootNavigation />
-      </WRootToastApp>
-    </SafeAreaView>
+      </SafeAreaView>
+      <Toast config={toastConfig} />
+    </>
   );
 };
 

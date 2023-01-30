@@ -299,7 +299,7 @@ const DashBoard = () => {
                 </View>
               </TouchableWithoutFeedback> */}
               {leaveStatus
-                ? statusClip("briefcase-clock", "OnLeave")
+                ? statusClip("briefcase-clock", "On Leave")
                 : isActive && statusClip()}
             </View>
 

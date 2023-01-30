@@ -6,27 +6,31 @@ import colors from "../../assets/colors";
 import { fonts } from "../../assets/styles";
 
 const snackBarMessage = (msg: string) => {
-  Snackbar.show({
-    text: msg,
-    textColor: colors.white,
-    backgroundColor: colors.green,
-    fontFamily: fonts.mulishBold,
-    duration: Snackbar.LENGTH_LONG,
+  Toast.show({
+    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 2,
+    type: "success",
+    text1: msg,
   });
 };
 
 const showToast = (msg: string, success = true) => {
-  const snackBarOpts = {
-    data: msg,
-    isAllowSlideExit: true,
-    position: WSnackBar.position.TOP,
-    duration: WSnackBar.duration.LONG,
-    textColor: "#ffffff",
-    numberOfLines: 2,
-    icon: false,
-    backgroundColor: success ? colors.green : colors.red,
-  };
-  WSnackBar.show(snackBarOpts);
+  // const snackBarOpts = {
+  //   data: msg,
+  //   isAllowSlideExit: true,
+  //   position: WSnackBar.position.TOP,
+  //   duration: WSnackBar.duration.LONG,
+  //   textColor: "#ffffff",
+  //   numberOfLines: 2,
+  //   icon: false,
+  //   backgroundColor: success ? colors.green : colors.red,
+  // };
+  // WSnackBar.show(snackBarOpts);
+
+  Toast.show({
+    topOffset: hasDynamicIsland() ? 55 : hasNotch() ? 40 : 2,
+    type: success ? "success" : "error",
+    text1: msg,
+  });
 };
 
 export { snackBarMessage, showToast };

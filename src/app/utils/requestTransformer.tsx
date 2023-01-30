@@ -13,6 +13,8 @@ export interface userType {
   createdAt: string;
   updatedAt: string;
   leave_option: string;
+  start_date: string;
+  end_date: string;
 }
 
 const mapDataToRequest = (requests: any) => {
@@ -56,6 +58,8 @@ const mapObjectToRequest = (data: userType) => {
       data?.leave_date?.startDate,
       data?.leave_date?.endDate
     ),
+    start_date: data.start_date,
+    end_date: data.end_date,
     type: data?.type?.toUpperCase(),
     state: data?.status,
     sender: data?.requestor_id?.toString(),

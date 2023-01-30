@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const dateMapper = (start: string, end: string) => {
   let startDate = new Date(start);
   let endDate = new Date(end);
@@ -11,6 +13,11 @@ export const dateMapper = (start: string, end: string) => {
   }
   return daysCount;
 };
+
+export const getDateDifference = (startDate: string, endDate: string) => {
+  return moment(startDate).diff(endDate);
+};
+
 export const dateRange = (start: string, end: string) => {
   let startDate = new Date(start);
   let endDate = new Date(end);
@@ -20,7 +27,6 @@ export const dateRange = (start: string, end: string) => {
   };
   return date;
 };
-import moment from "moment";
 
 export const dateStringMapper = (
   startDate: string,
@@ -53,4 +59,13 @@ export const getFormatedDate = (date: any) => {
 
 export const getFullDate = (date: any) => {
   return moment(date).format("MMM  D,YYYY");
+};
+
+export const compareDateBetween = (
+  date: string,
+  start_date: string,
+  end_date: string
+) => {
+  if (!start_date) return false;
+  return moment(date).isBetween(start_date, end_date, null, "[]");
 };
