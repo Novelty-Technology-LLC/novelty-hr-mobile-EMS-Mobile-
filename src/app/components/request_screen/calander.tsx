@@ -106,10 +106,17 @@ const CalendarComponent = ({
       }
     } else {
       if (date.getDay() !== 0 && date.getDay() !== 6) {
-        reviewed.map((req) => {
+        reviewed.map((req: any) => {
+          const data = {
+            ...req,
+            date: {
+              startDate: moment(req?.start_date.slice(0, 10)).format("llll"),
+              endDate: moment(req?.end_date.slice(0, 10)).format("llll"),
+            },
+          };
           if (
             checkRepeatLeaveDays(
-              req.leave_date,
+              data.date,
               JSON.stringify({ startDate: date, endDate: date })
             )
           ) {

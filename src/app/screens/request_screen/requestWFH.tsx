@@ -25,7 +25,7 @@ import * as Yup from "yup";
 import { editRequestWfh, postWFHRequest } from "../../services";
 import colors from "../../../assets/colors";
 import { AuthContext } from "../../reducer";
-import { checkIfRequested, dateMapper } from "../../utils";
+import { checkIfRequested, compareDateBetween, dateMapper } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
@@ -125,10 +125,22 @@ const RequestWFH = ({ route, navigation }: any) => {
       setSelectedIndex(0);
     }
   };
+
+  const checkIfWfhExist = (date: string) => {
+    const findCurrentWfh = requestsWFH.requests.filter((item: any) => {
+      return compareDateBetween(date, item.start_date, item.end_date);
+    });
+    return findCurrentWfh;
+  };
+
   const onSubmit = async (values: any) => {
     const { date, ...rest } = values;
 
     const dates = JSON.parse(values?.date);
+
+    if (checkIfWfhExist(moment(dates.startDate).format("YYYY-MM-DD")).length) {
+      return showToast("You cannot take same wfh twice ✋", false);
+    }
 
     const leaveDate = moment(dates.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
@@ -265,7 +277,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik

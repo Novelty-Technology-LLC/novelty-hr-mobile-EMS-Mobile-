@@ -28,7 +28,12 @@ import { editRequest, postRequest } from "../../services";
 import colors from "../../../assets/colors";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext, RequestContext } from "../../reducer";
-import { checkIfRequestedForLeave, dateMapper, momentdate } from "../../utils";
+import {
+  checkIfRequestedForLeave,
+  compareDateBetween,
+  dateMapper,
+  momentdate,
+} from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
@@ -49,8 +54,9 @@ const validationSchema = Yup.object().shape({
 const RequestLeave = ({ route }: any) => {
   const olddata = route.params;
   const navigation = useNavigation();
-  const { state } = useContext(AuthContext);
-  const { dispatchRequest, requests } = useContext(RequestContext);
+  const { state } = useContext<any>(AuthContext);
+  const { dispatchRequest, requests } = useContext<any>(RequestContext);
+
   const [isLoading, setisLoading] = useState(false);
   const [quotaMsg, setQuota] = useState("");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -64,9 +70,16 @@ const RequestLeave = ({ route }: any) => {
     lead: olddata ? olddata.lead : [],
   };
 
-  const submitRequest = (data) => {
+  const checkIfLeaveExist = (date: string) => {
+    const findCurrentLeave = requests.requests.filter((item: any) => {
+      return compareDateBetween(date, item.start_date, item.end_date);
+    });
+    return findCurrentLeave;
+  };
+
+  const submitRequest = (data: any) => {
     postRequest(data)
-      .then((res) => {
+      .then((res: any) => {
         dispatchRequest({ type: "UPDATEQUOTA", payload: res.data.data.quota });
         dispatchRequest({ type: "ADD", payload: res.data.data.leave });
         navigation.navigate("leaveList");
@@ -78,13 +91,13 @@ const RequestLeave = ({ route }: any) => {
       });
   };
 
-  const updateReq = (data) => {
+  const updateReq = (data: any) => {
     data.start_date = momentdate(data.leave_date.startDate, "YYYY-MM-DD");
     data.end_date = momentdate(data.leave_date.endDate, "YYYY-MM-DD");
 
     editRequest(olddata.id, data)
       .then((res: any) => {
-        res.quota.map((item) => {
+        res.quota.map((item: any) => {
           dispatchRequest({
             type: "UPDATEQUOTA",
             payload: { ...item, leave_option: res.leave_option },
@@ -134,9 +147,12 @@ const RequestLeave = ({ route }: any) => {
       setSelectedIndex(0);
     }
   };
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     const date = JSON.parse(values.date);
 
+    if (checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length) {
+      return showToast("You cannot take same leave twice ✋", false);
+    }
     const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
 
@@ -192,7 +208,7 @@ const RequestLeave = ({ route }: any) => {
               { days: -oldday, dayType: olddata.type },
             ];
           }
-          dayArray.map((day) => {
+          dayArray.map((day: any) => {
             if (values.type === day.dayType) {
               // if (checkValidityQuota(requests.quota, values.type, day.days)) {
               //   throw new Error(`Selected day exceeds ${values.type}`);
@@ -234,15 +250,12 @@ const RequestLeave = ({ route }: any) => {
         };
 
         setisLoading(true);
-
         Keyboard.dismiss();
-
         olddata ? updateReq(requestData) : submitRequest(requestData);
-      } catch (error) {
+      } catch (error: any) {
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
-
         showToast(`${error.message} ❌`, false);
       }
     }
@@ -263,7 +276,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps='handled'
         keyboardDismissMode={"none"}
       >
         <Formik

@@ -54,3 +54,12 @@ export const getFormatedDate = (date: any) => {
 export const getFullDate = (date: any) => {
   return moment(date).format("MMM  D,YYYY");
 };
+
+export const compareDateBetween = (
+  date: string,
+  start_date: string,
+  end_date: string
+) => {
+  if (!start_date) return false;
+  return moment(date).isBetween(start_date, end_date, null, "[]");
+};
