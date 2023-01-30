@@ -139,7 +139,7 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 151
+        versionCode 154
         versionName "1.9.9"
         multiDexEnabled true
     }
