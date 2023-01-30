@@ -41,6 +41,7 @@ const mapDataToRequest = (requests: any) => {
         leave_date: data?.leave_date ?? "",
         createdAt: data?.createdAt,
         leave_option: data?.leave_option ?? "",
+        option: data?.leave_option ?? "",
       };
 
       newRequests.push(newData);

@@ -151,7 +151,10 @@ const RequestWFH = ({ route, navigation }: any) => {
     const leaveDate = moment(dates.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
 
-    if (false) {
+    if (
+      moment(leaveDate).format("YYYY-MM-DD") <= today &&
+      Number(moment(new Date()).format("HH")) >= 10
+    ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
         showToast("The selected date has passed ✋", false);
       } else {
