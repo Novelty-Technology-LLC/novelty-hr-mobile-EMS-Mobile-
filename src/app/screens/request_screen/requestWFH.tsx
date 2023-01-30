@@ -253,8 +253,6 @@ const RequestWFH = ({ route, navigation }: any) => {
 
         olddata ? updateReq(updateData) : submitRequest(requestData);
       } catch (error: any) {
-        console.log("error", error);
-
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
