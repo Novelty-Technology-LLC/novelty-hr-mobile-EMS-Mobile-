@@ -54,11 +54,12 @@ const App = () => {
   }, [messaging]);
 
   return (
-    <SafeAreaView style={style.safeArea}>
-      <WRootToastApp>
+    <>
+      <SafeAreaView style={style.safeArea}>
         <RootNavigation />
-      </WRootToastApp>
-    </SafeAreaView>
+      </SafeAreaView>
+      <Toast config={toastConfig} />
+    </>
   );
 };
 
