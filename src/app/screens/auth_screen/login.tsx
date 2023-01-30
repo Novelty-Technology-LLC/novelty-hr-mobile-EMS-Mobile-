@@ -17,7 +17,7 @@ import {
 import { buttonui as Logo } from "../../common/ui/buttonUi";
 import LoginWrapper from "./loginWrapper";
 import { Formik } from "formik";
-import { button as Button, showToast, snackErrorTop } from "../../common";
+import { button as Button, showToast } from "../../common";
 import { useNavigation } from "@react-navigation/native";
 
 let AuthModel = {
@@ -30,7 +30,7 @@ const Login = () => {
   const [showLoginForm, setLoginForm] = useState(
     Platform.OS === "ios" ? true : false
   );
-  const { state, dispatch } = useContext(AuthContext);
+  const { state, dispatch } = useContext<any>(AuthContext);
 
   const fetchLogin = async () => {
     const login = await getLogin();

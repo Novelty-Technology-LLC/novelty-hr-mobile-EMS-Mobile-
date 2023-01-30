@@ -129,9 +129,13 @@ export const showAll = () => {
   };
 };
 
-export const dateRange = (startDate: any, endDate: any) => {
+export const dateRange = (
+  startDate: any,
+  endDate: any,
+  format = "D MM YYYY"
+) => {
   return {
-    start: new Date(moment(startDate).format("D MM YYYY")),
+    start: new Date(moment(startDate).format(format)),
     end: new Date(moment(endDate).format("YYYY-MM-DD")),
   };
 };
