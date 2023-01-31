@@ -53,69 +53,14 @@ const checkToday = (startDate: Date, endDate: Date) => {
   // }
 };
 
-const checkholidayToday = (startDate: Date, endDate: Date) => {
-  let todaydate = new Date().toUTCString().slice(0, 10);
-
-  let startDates = new Date(startDate).toUTCString().slice(0, 10);
-
-  if (todaydate === startDates) {
-    return true;
-  } else {
-    return false;
-  }
-
-  // return checkRepeat(        /* can be used later*/
-  //   { startDate: todaydate, endDate: todaydate },
-  //   JSON.stringify({
-  //     startDate: new Date(startDate).toDateString(),
-  //     endDate: new Date(endDate).toDateString(),
-  //   })
-  // );
+const checkholidayToday = (startDate: string, endDate: string) => {
+  return moment(moment().format("YYYY-MM-DD")).isSame(
+    moment(startDate).format("YYYY-MM-DD")
+  );
 };
 
-const checkTomorrow = (date: Date) => {
-  let todaydate = moment(new Date().toDateString().slice(0, 10))
-    .add(1, "day")
-
-    .local(true)
-    .format("YYYY-MM-DD")
-    .toString()
-    .slice(0, 10);
-  let newdate = moment(new Date(date).toDateString().slice(0, 10))
-    .local(true)
-    .format("YYYY-MM-DD")
-    .toString()
-    .slice(0, 10);
-  if (todaydate === newdate) {
-    return true;
-  } else {
-    return false;
-  }
-  // if (new Date().getDay() === 0) return false;
-  // return (
-  //   todaydate.getFullYear() === newdate.getFullYear() &&
-  //   todaydate.getMonth() === newdate.getMonth() &&
-  //   todaydate.getDate() + 1 === newdate.getDate()
-  // );
-};
-const checkHolidayTomorrow = (date: Date) => {
-  const today = new Date();
-
-  let tomorrow = new Date();
-  tomorrow.setDate(today.getDate() + 1);
-  let todaydate = new Date(tomorrow).toUTCString().slice(0, 10);
-  let newdate = new Date(date).toUTCString().slice(0, 10);
-  if (todaydate === newdate) {
-    return true;
-  } else {
-    return false;
-  }
-  // if (new Date().getDay() === 0) return false;
-  // return (
-  //   todaydate.getFullYear() === newdate.getFullYear() &&
-  //   todaydate.getMonth() === newdate.getMonth() &&
-  //   todaydate.getDate() + 1 === newdate.getDate()
-  // );
+const checkHolidayTomorrow = (date: string) => {
+  return moment(moment().format("YYYY-MM-DD")).add(1, "day").isSame(date);
 };
 
 const formatDate = (month: number, day: number, monthdate: number) => {
@@ -146,42 +91,48 @@ const formatDate = (month: number, day: number, monthdate: number) => {
   return `${months[month]} ${monthdate}, ${days[day]} `;
 };
 
+const transfromDateForLeave = (startDate: string, endDate: string) => {
+  if (
+    moment(moment().format("YYYY-MM-DD")).isBetween(
+      startDate,
+      endDate,
+      null,
+      "[]"
+    )
+  ) {
+    return `On Leave Today\n${dateStringMapper(
+      moment(startDate).format("YYYY-MM-DD"),
+      moment(endDate).format("YYYY-MM-DD")
+    )}`;
+  }
+  if (moment(moment().format("YYYY-MM-DD")).add(1, "day").isSame(startDate)) {
+    return `On Leave Tomorrow\n${dateStringMapper(
+      moment(startDate).format("YYYY-MM-DD"),
+      moment(endDate).format("YYYY-MM-DD")
+    )}`;
+  }
+  return `${dateStringMapper(
+    moment(startDate).format("YYYY-MM-DD"),
+    moment(endDate).format("YYYY-MM-DD")
+  )}`;
+};
+
 export const transformDate = (date: any, module: string, isList: boolean) => {
   let startDate = date?.startDate ?? date;
   let endDate = date?.endDate ?? date;
 
   let month, day, monthdate;
-  const days =
-    startDate === endDate ? "" : `\n${dateStringMapper(startDate, endDate)}`;
 
-  if (
-    module === "Leave"
-      ? checkToday(startDate, endDate)
-      : checkholidayToday(startDate, endDate)
-  ) {
-    return module === "Leave" ? `On Leave Today ${days}` : "Today";
-  } else if (
-    module === "Leave"
-      ? checkTomorrow(startDate)
-      : checkHolidayTomorrow(startDate)
-  ) {
-    return module === "Leave" ? `On Leave Tomorrow ${days}` : `Tomorrow`;
+  if (checkholidayToday(startDate, endDate)) {
+    return "Today";
+  } else if (checkHolidayTomorrow(startDate)) {
+    return "Tomorrow";
   }
 
   if (!isList) {
-    const convertedDate = new Date(startDate);
-
-    if (module === "Leave") {
-      month = new Date(startDate).getMonth();
-      day = new Date(startDate).getDay();
-      monthdate = new Date(startDate).getDate();
-    } else {
-      month = moment(startDate.toString().slice(0, 10)).month();
-      day = moment(startDate.toString().slice(0, 10)).day();
-
-      monthdate = moment(startDate.toString().slice(0, 10)).date();
-    }
-
+    month = moment(startDate.toString().slice(0, 10)).month();
+    day = moment(startDate.toString().slice(0, 10)).day();
+    monthdate = moment(startDate.toString().slice(0, 10)).date();
     return formatDate(month, day, monthdate);
   } else {
     return dateStringMapper(
@@ -207,16 +158,19 @@ export const transformList = (
       id: item?.id,
       title: truncate ? transformTitle(item?.title, transform) : item?.title,
       subTitle: transform
-        ? transformDate(
-            {
-              startDate: moment(item?.leave_date?.startDate).format(
-                "YYYY-MM-DD"
-              ),
-              endDate: moment(item?.leave_date?.endDate).format("YYYY-MM-DD"),
-            } ?? item?.subTitle,
-            module,
-            isList
-          )
+        ? module === "Leave"
+          ? transfromDateForLeave(
+              moment(item?.leave_date?.startDate).format("YYYY-MM-DD"),
+              moment(item?.leave_date?.endDate).format("YYYY-MM-DD")
+            )
+          : transformDate(
+              {
+                startDate: item?.subTitle.slice(0, 10).toString(),
+                endDate: item?.subTitle.slice(0, 10).toString(),
+              },
+              module,
+              isList
+            )
         : item.html,
       status: item?.status,
       type: item?.type,
