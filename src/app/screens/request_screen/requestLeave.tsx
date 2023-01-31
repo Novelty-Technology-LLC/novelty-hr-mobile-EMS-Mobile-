@@ -71,17 +71,41 @@ const RequestLeave = ({ route }: any) => {
   };
 
   const checkIfLeaveExist = (date: string) => {
-    const findCurrentLeave = requests.requests.filter((item: any) => {
-      return compareDateBetween(date, item.start_date, item.end_date);
-    });
-    return findCurrentLeave;
+    if (!olddata) {
+      const findCurrentLeave = requests.requests.filter((item: any) => {
+        return compareDateBetween(date, item.start_date, item.end_date);
+      });
+      return findCurrentLeave;
+    } else {
+      const findCurrentLeave = requests.requests
+        .filter(
+          (item: any) =>
+            olddata.id !== item.id &&
+            (item.state === "Approved" ||
+              item.state === "In Progress" ||
+              item.state === "Pending")
+        )
+        .filter((item: any) => {
+          return compareDateBetween(date, item.start_date, item.end_date);
+        });
+      return findCurrentLeave;
+    }
   };
 
   const submitRequest = (data: any) => {
     postRequest(data)
       .then((res: any) => {
         dispatchRequest({ type: "UPDATEQUOTA", payload: res.data.data.quota });
-        dispatchRequest({ type: "ADD", payload: res.data.data.leave });
+        dispatchRequest({
+          type: "ADD",
+          payload: {
+            ...res.data.data,
+            leave_date: {
+              startDate: res.data.data.leave.start_date,
+              endDate: res.data.data.leave.end_date,
+            },
+          },
+        });
         navigation.navigate("leaveList");
         setisLoading(false);
         showToast("Request created 🏝️");
@@ -150,12 +174,10 @@ const RequestLeave = ({ route }: any) => {
   const onSubmit = async (values: any) => {
     const date = JSON.parse(values.date);
 
-    if (
-      !olddata &&
-      checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length
-    ) {
+    if (checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length) {
       return showToast("You cannot take leave twice on same day ✋", false);
     }
+
     const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
 
