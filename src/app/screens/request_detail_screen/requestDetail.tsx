@@ -37,8 +37,8 @@ const RequestDetail = ({ route }: any) => {
       <Request data={route.params} style={style} type={route.params.type} />
       {showAlert && (
         <RequestButton
-          screen="requestLeave"
-          floatingIcon="pencil-outline"
+          screen='requestLeave'
+          floatingIcon='pencil-outline'
           olddata={route?.params}
         />
       )}

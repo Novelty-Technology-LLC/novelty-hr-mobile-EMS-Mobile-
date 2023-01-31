@@ -127,10 +127,25 @@ const RequestWFH = ({ route, navigation }: any) => {
   };
 
   const checkIfWfhExist = (date: string) => {
-    const findCurrentWfh = requestsWFH.requests.filter((item: any) => {
-      return compareDateBetween(date, item.start_date, item.end_date);
-    });
-    return findCurrentWfh;
+    if (!olddata) {
+      const findCurrentWfh = requestsWFH.requests.filter((item: any) => {
+        return compareDateBetween(date, item.start_date, item.end_date);
+      });
+      return findCurrentWfh;
+    } else {
+      const findCurrentWfh = requestsWFH.requests
+        .filter(
+          (item: any) =>
+            olddata.id !== item.id &&
+            (item.status === "Approved" ||
+              item.status === "In Progress" ||
+              item.status === "Pending")
+        )
+        .filter((item: any) => {
+          return compareDateBetween(date, item.start_date, item.end_date);
+        });
+      return findCurrentWfh;
+    }
   };
 
   const onSubmit = async (values: any) => {
@@ -138,10 +153,7 @@ const RequestWFH = ({ route, navigation }: any) => {
 
     const dates = JSON.parse(values?.date);
 
-    if (
-      !olddata &&
-      checkIfWfhExist(moment(dates.startDate).format("YYYY-MM-DD")).length
-    ) {
+    if (checkIfWfhExist(moment(dates.startDate).format("YYYY-MM-DD")).length) {
       return showToast(
         "You cannot take work from home twice on same day ✋",
         false
