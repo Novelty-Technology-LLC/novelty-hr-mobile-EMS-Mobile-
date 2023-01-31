@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import normalize from "react-native-normalize";
