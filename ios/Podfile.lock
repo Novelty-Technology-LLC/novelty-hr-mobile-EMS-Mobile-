@@ -344,9 +344,9 @@ PODS:
     - React-Core
   - react-native-uuid-generator (6.1.1):
     - React
-  - react-native-version-check (3.4.3):
-    - React
-  - react-native-webview (11.23.1):
+  - react-native-version-check (3.4.6):
+    - React-Core
+  - react-native-webview (11.26.0):
     - React-Core
   - React-perflogger (0.64.4)
   - React-RCTActionSheet (0.64.4):
@@ -420,7 +420,7 @@ PODS:
     - React
   - RNCPushNotificationIOS (1.10.1):
     - React-Core
-  - RNDeviceInfo (7.4.0):
+  - RNDeviceInfo (10.3.0):
     - React-Core
   - RNFBApp (13.1.1):
     - Firebase/CoreOnly (= 8.10.0)
@@ -431,7 +431,7 @@ PODS:
     - RNFBApp
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNGoogleSignin (8.2.1):
+  - RNGoogleSignin (8.2.2):
     - GoogleSignIn (~> 6.2)
     - React-Core
   - RNImageCropPicker (0.37.3):
@@ -451,7 +451,7 @@ PODS:
     - React-Core
   - RNSnackbar (2.4.0):
     - React-Core
-  - RNSVG (12.4.4):
+  - RNSVG (12.5.0):
     - React-Core
   - RNVectorIcons (7.1.0):
     - React
@@ -716,8 +716,8 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-uuid-generator: 82ffa2a1cac94242ebed52c4dedc5044d3412717
-  react-native-version-check: e85c2e21d0955b7cdfd91c0ddacc3edf14b7abd7
-  react-native-webview: d33e2db8925d090871ffeb232dfa50cb3a727581
+  react-native-version-check: dc483031cdf65d9e947aea2d6a41142d010c7e59
+  react-native-webview: 994b9f8fbb504d6314dc40d83f94f27c6831b3bf
   React-perflogger: 5a890ca0911669421b7611661e9b58f91c805f5c
   React-RCTActionSheet: bd180e0879f8424a73650c5c28fbef4f3b5b27fb
   React-RCTAnimation: 1004d2b4be1f2cedfdc4cb2326adc95b989e6c6b
@@ -734,17 +734,17 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNCPushNotificationIOS: 87b8d16d3ede4532745e05b03c42cff33a36cc45
-  RNDeviceInfo: 9538a884f862fe4aa0d7cead9f34e292d41ba8f6
+  RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
   RNFBApp: 6e20f07b316346d96737191f377777f61f51a8d2
   RNFBMessaging: eb8d1b08795c8718706007ed0743732d00e1acc4
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNGoogleSignin: 3db2d849581299f425f5b61b90cb482a9e68c7af
+  RNGoogleSignin: 81521697b2c8f97f9a586ac7257b1a1d9b51b115
   RNImageCropPicker: 44e2807bc410741f35d4c45b6586aedfe3da39d2
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: c1b56d030d1616239861534d9adb531f8cffab68
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
   RNSnackbar: be3333a21a453ccc272f41a8add5a71f7d44dfcd
-  RNSVG: ecd661f380a07ba690c9c5929c475a44f432d674
+  RNSVG: 6adc5c52d2488a476248413064b7f2832e639057
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: d1fc3575b8b68891ff5ef3c276daa855e841eb32
