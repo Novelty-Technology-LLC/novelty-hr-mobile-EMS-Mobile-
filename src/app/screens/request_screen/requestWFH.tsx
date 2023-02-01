@@ -350,7 +350,7 @@ const RequestWFH = ({ route, navigation }: any) => {
               >
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>
-                    {olddata ? "Update " : "Submit Request"}
+                    {olddata ? "Update " : "Submit"}
                   </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />

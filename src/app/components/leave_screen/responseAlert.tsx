@@ -80,7 +80,8 @@ const EditAlert = forwardRef(
             titleStyle: style.delete,
             title: submitLoading ? "Submitting.." : responses ? "SUBMIT" : "",
             onPress: () => {
-              onPressSubmit({ action, note, quotaId: responses.id });
+              !submitLoading &&
+                onPressSubmit({ action, note, quotaId: responses.id });
             },
           }}
           negativeButton={{
@@ -141,7 +142,7 @@ const EditAlert = forwardRef(
                   </View>
                 </View>
               </View>
-              <View style={{ marginTop: 10 }}></View>
+              <View style={{ marginTop: 20 }}></View>
               {screenName === "Leave" ? (
                 <LeaveAlert responses={responses} />
               ) : (
