@@ -9,7 +9,6 @@ import { requestNotificationPermission } from "./src/app/utils/permission";
 import Toast, { ErrorToast, SuccessToast } from "react-native-toast-message";
 import colors from "./src/assets/colors";
 import Normalize from "./src/app/utils/normalize";
-import { WRootToastApp } from "react-native-smart-tip";
 
 const toastConfig = {
   success: (props: any) => (
