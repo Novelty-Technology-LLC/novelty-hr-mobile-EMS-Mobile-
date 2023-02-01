@@ -100,10 +100,14 @@ const transfromDateForLeave = (startDate: string, endDate: string) => {
       "[]"
     )
   ) {
-    return `On Leave Today\n${dateStringMapper(
-      moment(startDate).format("YYYY-MM-DD"),
-      moment(endDate).format("YYYY-MM-DD")
-    )}`;
+    if (moment(startDate).isSame(moment(endDate))) {
+      return "On Leave Today";
+    } else {
+      return `On Leave Today\n${dateStringMapper(
+        moment(startDate).format("YYYY-MM-DD"),
+        moment(endDate).format("YYYY-MM-DD")
+      )}`;
+    }
   }
   if (moment(moment().format("YYYY-MM-DD")).add(1, "day").isSame(startDate)) {
     return `On Leave Tomorrow\n${dateStringMapper(
