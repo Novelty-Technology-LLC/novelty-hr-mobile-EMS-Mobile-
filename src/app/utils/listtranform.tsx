@@ -101,8 +101,17 @@ const transfromDateForLeave = (startDate: string, endDate: string) => {
     )
   ) {
     if (moment(startDate).isSame(moment(endDate))) {
+      if (moment().day() === 6 || moment().day() === 0) {
+        return "";
+      }
       return "On Leave Today";
     } else {
+      if (moment().day() === 6 || moment().day() === 0) {
+        return dateStringMapper(
+          moment(startDate).format("YYYY-MM-DD"),
+          moment(endDate).format("YYYY-MM-DD")
+        );
+      }
       return `On Leave Today\n${dateStringMapper(
         moment(startDate).format("YYYY-MM-DD"),
         moment(endDate).format("YYYY-MM-DD")

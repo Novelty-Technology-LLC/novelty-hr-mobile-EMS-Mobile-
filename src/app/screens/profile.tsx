@@ -161,7 +161,7 @@ const Profile = ({ navigation }: any) => {
       type: image.mime,
     })
       .then((data) => {
-        showToast("Image uploaded 🌅");
+        showToast("Image uploaded ");
         removeToken();
         storeToken(JSON.stringify(data));
         removeUser();
@@ -178,7 +178,7 @@ const Profile = ({ navigation }: any) => {
         setLoad(false);
         setloading(false);
         cleanImage();
-        showToast("Something went wrong ❌", false);
+        showToast("Something went wrong ", false);
       });
   };
 

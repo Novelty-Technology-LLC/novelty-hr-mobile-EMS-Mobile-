@@ -108,7 +108,7 @@ const RequestLeave = ({ route }: any) => {
         });
         navigation.navigate("leaveList");
         setisLoading(false);
-        showToast("Request created 🏝️");
+        showToast("Request created ");
       })
       .catch((err) => {
         setisLoading(false);
@@ -139,7 +139,7 @@ const RequestLeave = ({ route }: any) => {
           },
         });
         navigation.navigate("leaveList");
-        showToast("Request updated 🚢");
+        showToast("Request updated ");
 
         setisLoading(false);
       })
@@ -175,7 +175,7 @@ const RequestLeave = ({ route }: any) => {
     const date = JSON.parse(values.date);
 
     if (checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length) {
-      return showToast("You cannot take leave twice on same day ✋", false);
+      return showToast("You cannot take leave twice on same day ", false);
     }
 
     const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
@@ -186,9 +186,9 @@ const RequestLeave = ({ route }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("The selected date has passed ✋", false);
+        showToast("The selected date has passed ", false);
       } else {
-        showToast("You cannot take leave after 10 am ⏰", false);
+        showToast("You cannot take leave after 10 am ", false);
       }
     } else {
       try {
@@ -202,10 +202,10 @@ const RequestLeave = ({ route }: any) => {
             req.state === "Pending"
         );
         if (!olddata && checkIfRequestedForLeave(allrequests, values)) {
-          return showToast("You cannot request the same date twice ✋", false);
+          return showToast("You cannot request the same date twice ", false);
         }
         if (olddata && checkIfRequestedForLeave(allrequests, values, olddata)) {
-          return showToast("You cannot request the same date twice ✋", false);
+          return showToast("You cannot request the same date twice ", false);
         }
         const date = JSON.parse(values.date);
         let dayArray: any = [];
@@ -281,7 +281,7 @@ const RequestLeave = ({ route }: any) => {
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
-        showToast(`${error.message} ❌`, false);
+        showToast(`${error.message} `, false);
       }
     }
   };
@@ -354,7 +354,7 @@ const RequestLeave = ({ route }: any) => {
               >
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>
-                    {olddata ? "Update " : "Submit Request"}
+                    {olddata ? "Update " : "Submit"}
                   </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />

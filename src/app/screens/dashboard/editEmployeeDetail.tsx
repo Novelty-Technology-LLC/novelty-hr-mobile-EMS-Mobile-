@@ -75,14 +75,14 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
     updateEmployeeDetail(data.id, values, fiscalYear.current)
       .then(() => {
         setIsSubmitting(false);
-        showToast("Employee detail successfully updated 👍");
+        showToast("Employee detail successfully updated ");
         navigate("employeeDetail", {
           updated: true,
           data: { ...data, ...values },
         });
       })
       .catch((err) => {
-        showToast(`${err.message} ❌`, false);
+        showToast(`${err.message} `, false);
         setIsSubmitting(false);
       });
   };

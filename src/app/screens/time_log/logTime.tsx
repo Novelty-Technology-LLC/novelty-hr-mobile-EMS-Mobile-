@@ -111,22 +111,22 @@ const LogTime = ({ route }: any) => {
             });
             navigation.navigate("timelog");
             setIsLoading(false);
-            showToast("TimeLog added ⏰");
+            showToast("TimeLog added ");
           } else {
             checkAndReplace(data, timelogs, dispatchTimeLog);
             navigation.navigate("timelog");
             setIsLoading(false);
-            showToast("TimeLog updated ⏰");
+            showToast("TimeLog updated ");
           }
         })
         .catch((err) => {
-          showToast("Someting went wrong ❌", false);
+          showToast("Someting went wrong ", false);
           setIsLoading(false);
         });
     } else {
       Keyboard.dismiss();
       setIsLoading(false);
-      showToast("You cannot log more than 24 hours a day ✋", false);
+      showToast("You cannot log more than 24 hours a day ", false);
     }
   };
 

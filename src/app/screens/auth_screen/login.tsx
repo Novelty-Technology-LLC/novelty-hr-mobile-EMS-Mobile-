@@ -53,7 +53,7 @@ const Login = () => {
       createUser(dispatch, user, user.idToken);
     } else {
       Keyboard.dismiss();
-      showToast("Authentication Failed 🚪", false);
+      showToast("Authentication Failed ", false);
     }
   };
 

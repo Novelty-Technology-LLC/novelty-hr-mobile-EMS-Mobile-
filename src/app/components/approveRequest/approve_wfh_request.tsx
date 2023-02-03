@@ -134,12 +134,12 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
-        showToast("Request replied 👍");
+        showToast("Request replied ");
         goBack({ reload: true });
       })
       .catch((err) => {
         alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong ❌", false);
+        showToast("Something went wrong ", false);
       });
   };
   return (
@@ -166,11 +166,11 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name="calendar" size={20} />
+                  <Icon style={style.calander} name='calendar' size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state="Requested">{startDate(data)}</State>
+                  <State state='Requested'>{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -196,7 +196,7 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text="Responses" />
+                    <SmallHeader text='Responses' />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -242,7 +242,7 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
                       {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text="Pending Responses" />
+                            <SmallHeader text='Pending Responses' />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i?.toString()}>
@@ -286,8 +286,8 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
                 onPressSubmit={onPressSubmit}
-                title="Approve"
-                screenName="WFH"
+                title='Approve'
+                screenName='WFH'
                 style={style}
                 item={data}
                 fromStack={false}
@@ -296,8 +296,8 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
                 onPressSubmit={onPressSubmit}
-                title="Deny"
-                screenName="WFH"
+                title='Deny'
+                screenName='WFH'
                 style={style}
                 item={data}
                 fromStack={false}

@@ -58,7 +58,7 @@ const DeleteLog = ({
           } else {
             setTasks({ ...tasks, note: task });
           }
-          showToast(`Task deleted 🗑️`);
+          showToast(`Task deleted `);
         })
         .catch((err) => {});
     } else {
@@ -66,7 +66,7 @@ const DeleteLog = ({
         .then(() => {
           navigate("timelog");
           dispatchTimeLog({ type: "DELETE", payload: value.id });
-          showToast("TimeLog deleted 🗑️");
+          showToast("TimeLog deleted ");
         })
         .catch((err) => {});
     }

@@ -9,6 +9,7 @@ const getDashboard = (user_id: number) => {
         params: {
           todayDate: new Date(moment(new Date()).format("YYYY-MM-DD")),
           user_id,
+          day: moment().day(),
         },
       });
 
@@ -27,7 +28,6 @@ const getList = (route: string) => {
           todayDate: getToday(),
         },
       });
-
       resolve(res.data.data);
     } catch (error) {}
   });

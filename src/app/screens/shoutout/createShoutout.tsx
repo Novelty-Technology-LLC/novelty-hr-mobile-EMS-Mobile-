@@ -39,12 +39,12 @@ export const CreateShoutout = ({ route, navigation }: any) => {
       .then(async (shoutoutData) => {
         await appendNewShoutoutToList(shoutoutData.id?.toString());
         setIsSubmitting(false);
-        showToast("Shoutout created successfully 🔊");
+        showToast("Shoutout created successfully ");
         navigation.goBack();
       })
       .catch((err) => {
         if (typeof err.message === "string") showToast(err.message, false);
-        else showToast("An error occured ❌", false);
+        else showToast("An error occured ", false);
       })
       .then(() => {
         setIsSubmitting(false);
