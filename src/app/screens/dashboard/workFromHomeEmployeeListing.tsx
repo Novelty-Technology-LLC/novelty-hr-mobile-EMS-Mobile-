@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { headerTxtStyle, listingStyle } from "../../../assets/styles";
@@ -27,7 +28,9 @@ const WorkFromHomeEmployeeListing = (props: any) => {
 
     try {
       let response: any = await getRequest("work/all", {
-        params: { start_date: new Date() },
+        params: {
+          start_date: new Date(moment(new Date()).format("YYYY-MM-DD")),
+        },
       });
 
       const responses = response.map((item: any) => {
