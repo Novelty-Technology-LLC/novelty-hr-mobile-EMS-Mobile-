@@ -26,8 +26,12 @@ const RequestWFHDetail = ({ route }: any) => {
   const onEdit = () => {
     checkWFHRequest(route?.params?.id)
       .then((res) => {
-        if (res === "Pending" && new Date().getHours() < 10) {
-          setShowAlert(true);
+        if (res === "Pending") {
+          if (item.start_date == moment().format("YYYY-MM-DD")) {
+            moment().hour() < 10 && setShowAlert(true);
+          } else {
+            setShowAlert(true);
+          }
         }
       })
       .catch((err) => {});

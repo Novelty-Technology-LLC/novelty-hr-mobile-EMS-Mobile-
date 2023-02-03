@@ -8,6 +8,7 @@ import { approveRequest as style } from "../../../assets/styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RequestButton } from "../../components/requestButton";
 import { checkRequest } from "../../services";
+import moment from "moment";
 
 const RequestDetail = ({ route }: any) => {
   const { date } = route.params;
@@ -20,8 +21,14 @@ const RequestDetail = ({ route }: any) => {
   const onEdit = () => {
     checkRequest(route?.params?.id)
       .then((res) => {
-        if (res === "Pending" && new Date().getHours() < 10) {
-          setShowAlert(true);
+        if (res === "Pending") {
+          if (
+            route.params.leave_date.startDate == moment().format("YYYY-MM-DD")
+          ) {
+            moment().hour() < 10 && setShowAlert(true);
+          } else {
+            setShowAlert(true);
+          }
         }
       })
       .catch((err) => {});
@@ -37,8 +44,8 @@ const RequestDetail = ({ route }: any) => {
       <Request data={route.params} style={style} type={route.params.type} />
       {showAlert && (
         <RequestButton
-          screen='requestLeave'
-          floatingIcon='pencil-outline'
+          screen="requestLeave"
+          floatingIcon="pencil-outline"
           olddata={route?.params}
         />
       )}
