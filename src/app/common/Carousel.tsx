@@ -57,7 +57,7 @@ export const Carousel = (props: CarouselPropTypes) => {
       } else {
         item?.title !== 0
           ? navigate("workFromHomeEmployeeListing")
-          : showToast("No employee working from home today 👨🏽‍💻", false);
+          : showToast("No employee working from home today", false);
       }
     } else if (props?.module === "Menu") {
       navigate("menuListing");

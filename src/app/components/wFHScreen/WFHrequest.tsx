@@ -103,11 +103,11 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
-        showToast("Request replied 👍");
+        showToast("Request replied ");
       })
       .catch((err) => {
         alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong ❌", false);
+        showToast("Something went wrong ", false);
       });
   };
 
@@ -154,20 +154,20 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title="Approve"
+                    title='Approve'
                     style={style}
                     item={item}
-                    screenName="WFH"
+                    screenName='WFH'
                     onPress={onPressAlert}
                   />
                   <View style={style.buttonSpacer}></View>
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title="Deny"
+                    title='Deny'
                     style={style}
                     item={item}
-                    screenName="WFH"
+                    screenName='WFH'
                     onPress={onPressAlert}
                   />
                 </View>

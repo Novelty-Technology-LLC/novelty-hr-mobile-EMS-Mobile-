@@ -298,9 +298,9 @@ const DashBoard = () => {
                   </Text>
                 </View>
               </TouchableWithoutFeedback> */}
-              {leaveStatus
+              {/* {leaveStatus
                 ? statusClip("briefcase-clock", "On Leave")
-                : isActive && statusClip()}
+                : isActive && statusClip()} */}
             </View>
 
             {/* <Text style={ds.workshift}>{state?.user?.work_shift}</Text> */}
@@ -317,7 +317,9 @@ const DashBoard = () => {
             <View
               style={[
                 ds.work,
-                wfhData == "approved"
+                moment().day() === 6 || moment().day() === 0
+                  ? { backgroundColor: colors.primary }
+                  : wfhData == "approved"
                   ? { backgroundColor: colors.greenButton }
                   : wfhData === "pending"
                   ? { backgroundColor: colors.brown }
@@ -336,10 +338,12 @@ const DashBoard = () => {
               ) : (
                 <Icon
                   name={
-                    wfhData === "office" ||
-                    wfhData === "cancelled" ||
-                    wfhData === "deleted" ||
-                    wfhData === "denied"
+                    moment().day() === 6 || moment().day() === 0
+                      ? "domain"
+                      : wfhData === "office" ||
+                        wfhData === "cancelled" ||
+                        wfhData === "deleted" ||
+                        wfhData === "denied"
                       ? "domain"
                       : "home-outline"
                   }
@@ -355,10 +359,12 @@ const DashBoard = () => {
                   color: wfhData === "pending" ? colors.primary : colors.white,
                 }}
               >
-                {wfhData === "office" ||
-                wfhData === "cancelled" ||
-                wfhData === "deleted" ||
-                wfhData === "denied"
+                {moment().day() === 6 || moment().day() === 0
+                  ? "Work from office"
+                  : wfhData === "office" ||
+                    wfhData === "cancelled" ||
+                    wfhData === "deleted" ||
+                    wfhData === "denied"
                   ? "Work from office"
                   : "Work from home"}
               </Text>

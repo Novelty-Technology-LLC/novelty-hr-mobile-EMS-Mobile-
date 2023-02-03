@@ -1,3 +1,4 @@
+import moment from "moment";
 import { api } from "../api/api";
 import { getToday, getYesterday } from "../utils";
 
@@ -6,8 +7,9 @@ const getDashboard = (user_id: number) => {
     try {
       const res = await api.get("/dashboard", {
         params: {
-          todayDate: getToday("YYYY-MM-DD"),
+          todayDate: new Date(moment(new Date()).format("YYYY-MM-DD")),
           user_id,
+          day: moment().day(),
         },
       });
 
@@ -26,7 +28,6 @@ const getList = (route: string) => {
           todayDate: getToday(),
         },
       });
-
       resolve(res.data.data);
     } catch (error) {}
   });
