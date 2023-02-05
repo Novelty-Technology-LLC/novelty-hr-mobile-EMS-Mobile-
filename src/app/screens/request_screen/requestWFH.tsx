@@ -83,7 +83,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         });
         dispatchWFHRequest({ type: "ADD", payload: res?.data?.data?.home });
         setisLoading(false);
-        showToast("Request created 🧑🏻");
+        showToast("Request created");
         goBack();
       })
       .catch((err) => {
