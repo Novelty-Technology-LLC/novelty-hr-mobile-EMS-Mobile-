@@ -53,7 +53,7 @@ const RequestWFHDetail = ({ route }: any) => {
       {showAlert && (
         <RequestButton
           screen={NAVIGATION_ROUTE.Request_WFH}
-          floatingIcon="pencil-outline"
+          floatingIcon='pencil-outline'
           olddata={{
             ...item,
             date: {
