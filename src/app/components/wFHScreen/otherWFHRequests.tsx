@@ -85,6 +85,10 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
     get();
   }, [params]);
 
+  const reload = () => {
+    getAdminRequest();
+  };
+
   return (
     <View style={otherRequestsStyle.container}>
       <TouchableWithoutFeedback
@@ -108,13 +112,18 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
         <FlatList
           data={adminrequests.adminrequests}
           renderItem={(item) => {
+            console.log("iit", item.item);
+
             return (
               <WFHRequest
                 item={item.item}
                 other={true}
                 recieved={true}
                 onPress={() =>
-                  navigation.navigate("approveWfhLeave", item.item)
+                  navigation.navigate("approveWfhLeave", {
+                    ...item.item,
+                    reload,
+                  })
                 }
               />
             );

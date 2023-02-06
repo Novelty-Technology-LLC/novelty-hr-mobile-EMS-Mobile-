@@ -135,6 +135,9 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
         showToast("Request replied ");
+        if (data.reload) {
+          data.reload();
+        }
         goBack({ reload: true });
       })
       .catch((err) => {

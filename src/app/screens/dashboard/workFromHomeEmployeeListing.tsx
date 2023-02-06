@@ -50,6 +50,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
           id: item.user_id,
         };
       });
+
       setList(responses);
 
       setLoading(false);
@@ -70,6 +71,9 @@ const WorkFromHomeEmployeeListing = (props: any) => {
             return (
               <EmployeeListingCard
                 index={index}
+                showShoutOut={false}
+                showStatus
+                status={item.status}
                 item={item?.res[0]}
                 onPress={() =>
                   navigate("employeeDetail", {
