@@ -112,8 +112,6 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
         <FlatList
           data={adminrequests.adminrequests}
           renderItem={(item) => {
-            console.log("iit", item.item);
-
             return (
               <WFHRequest
                 item={item.item}
