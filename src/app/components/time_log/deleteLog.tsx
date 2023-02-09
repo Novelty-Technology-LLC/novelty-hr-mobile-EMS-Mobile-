@@ -107,7 +107,7 @@ const DeleteLog = ({
           <AppIcon name='alert' color={colors.buttonRed} size={30} />
           <View style={style.main}>
             <Text style={style.text1}>Delete the task ?</Text>
-            <Text style={style.text2}>This cant be undone</Text>
+            <Text style={style.text2}>This can't be undone</Text>
           </View>
         </View>
       </ConfirmDialog>

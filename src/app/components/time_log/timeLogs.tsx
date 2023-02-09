@@ -128,7 +128,10 @@ const TimeLogs = (props: any) => {
 
   const onSelect = React.useCallback(
     async (startDate?: string, endDate?: string) => {
-      const selectedDate = !endDate ? dateRange(startDate, startDate) : null;
+      const selectedDate = !endDate
+        ? dateRange(startDate, startDate, "YYYY-MM-DD")
+        : null;
+
       try {
         const user: any = await getUser();
         const activeLogs: any = await getFilteredTimeLogs(
