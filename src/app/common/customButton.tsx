@@ -12,7 +12,8 @@ interface Props {
   marginBottom?: number;
   isLoading?: boolean;
   disabled?: boolean;
-  buttonStyle: any;
+  buttonStyle?: any;
+  labelStyle?: any;
 }
 export const CustomButton = ({
   label,
@@ -23,6 +24,7 @@ export const CustomButton = ({
   isLoading = false,
   disabled,
   buttonStyle,
+  labelStyle,
 }: Props) => {
   const buttonStyleFromProps = {
     width,
@@ -41,7 +43,9 @@ export const CustomButton = ({
       {isLoading ? (
         <ActivityIndicator style={styles.label} color={colors.white} />
       ) : (
-        <Text style={[styles.label, labelStyleFromProps]}>{label}</Text>
+        <Text style={[styles.label, labelStyle, labelStyleFromProps]}>
+          {label}
+        </Text>
       )}
     </TouchableOpacity>
   );

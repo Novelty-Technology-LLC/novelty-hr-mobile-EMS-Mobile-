@@ -7,6 +7,7 @@ import { CustomButton } from "./customButton";
 import { CustomText } from "../components/text";
 import colors from "../../assets/colors";
 import VersionCheck from "react-native-version-check";
+import { fonts } from "../../assets/styles";
 
 const UpdateModal = () => {
   const [visible, setVisible] = useState(false);
@@ -77,11 +78,15 @@ const UpdateModal = () => {
 
       <CustomText
         text=" Update Available"
-        style={{ fontSize: 20, fontWeight: "700", marginVertical: 10 }}
+        style={{
+          fontSize: 20,
+          marginVertical: 10,
+          fontFamily: fonts.PoppinsSemibold,
+        }}
       />
       <CustomText
         text="New version of EMS is available."
-        style={{ fontSize: 14 }}
+        style={{ fontSize: 14, fontFamily: fonts.poppinsMedium }}
       />
       <View
         style={{
@@ -95,11 +100,16 @@ const UpdateModal = () => {
           <CustomButton
             label="No, Thanks"
             buttonStyle={{ backgroundColor: "grey" }}
+            labelStyle={{ fontFamily: fonts.poppinsMedium }}
             onPress={() => setVisible(false)}
           />
         </View>
         <View style={{ width: "45%" }}>
-          <CustomButton label="Update" onPress={goToStore} />
+          <CustomButton
+            label="Update"
+            onPress={goToStore}
+            labelStyle={{ fontFamily: fonts.poppinsMedium }}
+          />
         </View>
       </View>
     </DialogContainer>
