@@ -34,6 +34,7 @@ const CustomImage = ({
     <>
       {localImage ? (
         <Image
+          style={style}
           source={image}
           onError={() => {
             setIsImageLoadingError(true);
