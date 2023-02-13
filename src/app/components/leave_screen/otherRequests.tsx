@@ -24,6 +24,7 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
   const getAdminRequest = async () => {
     setLoading(true);
     const user = await getUser();
+
     getAllRequests(JSON.parse(user).id)
       .then((data: Array) => {
         let pastreq = data.filter(
@@ -70,12 +71,16 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
     setToggle("toggle-switch-off");
   }, [refresh, params]);
 
+  const reloadRequest = () => {
+    getAdminRequest();
+  };
+
   useEffect(() => {
     const get = async () => {
       if (+params) {
-        let data = await getLeave(+params);
+        let data: any = await getLeave(+params);
         data = mapObjectToRequest(data[0]);
-        navigation.navigate("approveLeave", data[0]);
+        navigation.navigate("approveLeave", { ...data[0], reloadRequest });
       }
     };
     get();
@@ -111,7 +116,10 @@ const OtherRequests = ({ refresh, params = 0, screenName = "Leave" }: any) => {
                 other={true}
                 recieved={true}
                 onPress={() => {
-                  navigation.navigate("approveLeave", item.item);
+                  navigation.navigate("approveLeave", {
+                    ...item.item,
+                    reloadRequest,
+                  });
                 }}
               />
             );

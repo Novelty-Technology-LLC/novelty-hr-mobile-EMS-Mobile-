@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import { Linking, Alert, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import VersionCheck from "react-native-version-check";
-
 import { AuthContext, useAuth } from "../reducer";
 import { getUser, getToken } from "../utils";
 import { Login, SplashScreen } from "../screens";
@@ -13,30 +10,12 @@ import Loading from "../screens/auth_screen/loading";
 import { navigationRef } from "../utils/navigation";
 import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
+import UpdateModal from "../common/updateModal";
 
 const Root = createStackNavigator();
 
 const RootNavigation = () => {
   const { state, dispatch } = useAuth();
-
-  const goToStore = async () => {
-    try {
-      let url = "";
-      if (Platform.OS == "ios") {
-        url = await VersionCheck.getAppStoreUrl({
-          appID: "1536008045",
-        });
-      } else {
-        url = await VersionCheck.getStoreUrl();
-      }
-
-      Linking.openURL(url);
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    checkUpdate();
-  }, []);
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -52,35 +31,6 @@ const RootNavigation = () => {
 
     bootstrapAsync();
   }, []);
-
-  const checkUpdate = async () => {
-    try {
-      const curretVersion = await VersionCheck.getCurrentVersion();
-      const latestVersion = await VersionCheck.getLatestVersion();
-
-      VersionCheck.needUpdate({
-        currentVersion: curretVersion,
-        latestVersion: latestVersion,
-      }).then((res: any) => {
-        if (res?.isNeeded) {
-          Alert.alert(
-            "New Update Available",
-            "New version of EMS is available",
-            [
-              {
-                text: "Cancel",
-                onPress: () => {},
-                style: "cancel",
-              },
-              { text: "UPDATE", onPress: () => goToStore() },
-            ],
-            { cancelable: false }
-          );
-        } else {
-        }
-      });
-    } catch (e) {}
-  };
 
   const deepLinking = {
     prefixes: ["noveltyhrmobile://"],
@@ -229,6 +179,7 @@ const RootNavigation = () => {
         }}
       > */}
       <AuthContext.Provider value={{ state, dispatch }}>
+        <UpdateModal />
         <Root.Navigator
           screenOptions={{
             headerShown: false,

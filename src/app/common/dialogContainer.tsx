@@ -7,17 +7,19 @@ const DialogContainer = ({
   visible,
   setVisible,
   setdotloader = null,
+  dialogStyle,
 }: {
   children?: any;
   visible: boolean;
   setVisible: Function;
   setdotloader?: Function;
+  dialogStyle?: any;
 }) => {
   return (
     <Dialog
       visible={visible}
       animationType="fade"
-      dialogStyle={dialogContainerStyle.dialog}
+      dialogStyle={[dialogContainerStyle.dialog, dialogStyle]}
       contentStyle={dialogContainerStyle.content}
       onTouchOutside={() => {
         setVisible(false), setdotloader && setdotloader(false);

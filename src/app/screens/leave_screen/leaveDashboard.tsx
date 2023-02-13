@@ -30,6 +30,7 @@ const LeaveDashboard = () => {
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
     const user = await getUser();
+
     const newuser = await get(+JSON.parse(user).id);
     setIsAdmin(+newuser.is_approver === 1 ? true : false);
     setUser(newuser);
@@ -150,7 +151,7 @@ const LeaveDashboard = () => {
           />
         )}
       </ScrollView>
-      <RequestButton screen='requestLeave' />
+      <RequestButton screen="requestLeave" />
     </View>
   );
 };
