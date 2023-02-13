@@ -11,6 +11,7 @@ const ApproveRequest = ({ route }: any) => {
   let { dayRange } = getDay(route.params);
   let { name } = getName(route.params);
 
+
   return (
     <>
       <Header icon={true}>
@@ -21,6 +22,7 @@ const ApproveRequest = ({ route }: any) => {
         </View>
       </Header>
       <Request
+        reloadRequest={route.params?.reloadRequest}
         data={route.params}
         style={style}
         title="admin"

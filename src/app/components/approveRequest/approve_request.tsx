@@ -21,6 +21,7 @@ import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import CustomImage from "../../common/image";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { goBack } from "../../utils/navigation";
 
 let leave_quota: any = {
   total_pto: 0,
@@ -35,6 +36,7 @@ const Request = ({
   title = null,
   screenName = "Leave",
   type,
+  reloadRequest,
 }: any) => {
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
@@ -150,6 +152,10 @@ const Request = ({
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
         showToast("Request replied ");
+        goBack();
+        if (reloadRequest) {
+          reloadRequest();
+        }
       })
       .catch((error) => {
         alertRef.current?.hideSubmitLoading();
@@ -192,11 +198,11 @@ const Request = ({
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name='calendar' size={20} />
+                  <Icon style={style.calander} name="calendar" size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state='Requested'>{startDate(data)}</State>
+                  <State state="Requested">{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -255,7 +261,7 @@ const Request = ({
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text='Responses' />
+                    <SmallHeader text="Responses" />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -301,7 +307,7 @@ const Request = ({
                       {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text='Pending Responses' />
+                            <SmallHeader text="Pending Responses" />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i?.toString()}>
@@ -344,7 +350,7 @@ const Request = ({
             <View style={style.buttonView}>
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
-                title='Approve'
+                title="Approve"
                 style={style}
                 item={data}
                 fromStack={false}
@@ -353,7 +359,7 @@ const Request = ({
               />
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
-                title='Deny'
+                title="Deny"
                 style={style}
                 item={data}
                 fromStack={false}

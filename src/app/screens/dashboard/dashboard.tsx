@@ -8,37 +8,23 @@ import {
   RefreshControl,
   TouchableOpacity,
   BackHandler,
-  Image,
 } from "react-native";
 import { AuthContext } from "../../reducer";
-import {
-  dashboardStyle as ds,
-  headerTxtStyle,
-  listStyle,
-} from "../../../assets/styles";
-import { Cards, header as Header, List, showToast } from "../../common";
+import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
+import { Cards, header as Header, List } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
-import { getToday } from "../../utils";
-import {
-  createWork,
-  getWork,
-  getDashboard,
-  getRequest,
-  getList,
-  shoutOutService,
-} from "../../services";
+import { getDashboard, getRequest } from "../../services";
 import moment from "moment";
 import normalize from "react-native-normalize";
 import { DashboardCardPlaceholder } from "../../common";
 import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
-import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
-import { LOCALE_DEFAULT } from "@ui-kitten/components/ui/calendar/service/nativeDate.service";
+import { setUser } from "../../utils";
 
 const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
@@ -48,18 +34,11 @@ const DashBoard = () => {
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [wfhData, setWfhData] = useState("");
-  const [isActive, setActive] = useState(false);
-  const [id, setId] = useState(0);
-  const [userId, setUserId] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [loadingIsActive, setLoadingIsActive] = useState(false);
   const [leaveStatus, setLeaveStatus] = useState(false);
-  const [todayLeave, setTodayLeave] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
-  const [list, setList] = useState<any>(null);
   const [shoutoutLoading, setshoutoutLoading] = useState<any>(false);
-  const [eventloading, setEventloading] = useState<any>(null);
   const [announcements, setAnnouncements] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
@@ -112,6 +91,19 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state, refreshing]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        if (state?.user?.id) {
+          const response: any = await getRequest(
+            `/user/profile/${state?.user?.id}`
+          );
+          await setUser(response);
+        }
+      } catch (error) {}
+    })();
+  }, [state]);
+
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {
@@ -125,6 +117,7 @@ const DashBoard = () => {
       setAnnouncements(response);
     } catch (error) {}
   };
+
   useEffect(() => {
     (async () => {
       try {

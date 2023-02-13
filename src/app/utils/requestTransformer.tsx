@@ -26,8 +26,8 @@ const mapDataToRequest = (requests: any) => {
       const newData: dataType = {
         id: data.id,
         date: dateStringMapper(
-          data?.leave_date?.startDate ?? "",
-          data?.leave_date?.endDate ?? ""
+          data.start_date ?? data?.leave_date?.startDate,
+          data.end_date ?? data?.leave_date?.endDate
         ),
         type: data?.type ? data?.type.toUpperCase() : data?.type,
         state: data?.status,
