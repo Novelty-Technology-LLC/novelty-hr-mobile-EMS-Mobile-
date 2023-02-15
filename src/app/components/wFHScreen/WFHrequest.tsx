@@ -93,22 +93,23 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
       user_name: item.user.first_name,
       quotaId,
     };
+  
+updateWFHRequests(item.id, newData)
+  .then((val: any) => {
+    dispatchAdmin({
+      type: "REPLY",
+      payload: { ...item, status: val.status },
+    });
 
-    updateWFHRequests(item.id, newData)
-      .then(() => {
-        dispatchAdmin({
-          type: "REPLY",
-          payload: item,
-        });
-        actionRef.current?.hideLoading();
-        actionRef.current?.hide();
-        alertRef.current?.hideSubmitLoading();
-        showToast("Request replied ");
-      })
-      .catch((err) => {
-        alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong ", false);
-      });
+    actionRef.current?.hideLoading();
+    actionRef.current?.hide();
+    alertRef.current?.hideSubmitLoading();
+    showToast("Request replied ");
+  })
+  .catch((err) => {
+    alertRef.current?.hideSubmitLoading();
+    showToast("Something went wrong ", false);
+  });
   };
 
   return (
