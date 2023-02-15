@@ -29,8 +29,8 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   const actionRef = useRef<any>(null);
 
   const checkReplied = () => {
-    item.leave_approvals &&
-      item.leave_approvals.map((item: any) => {
+    item.wfh_approvals &&
+      item.wfh_approvals.map((item: any) => {
         if (item.requested_to === state.user.id) {
           setIsReplied(true);
         }
