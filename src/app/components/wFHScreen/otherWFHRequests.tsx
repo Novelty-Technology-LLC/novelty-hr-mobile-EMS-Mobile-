@@ -79,7 +79,7 @@ const OtherWFHRequests = ({ refresh, params = 0 }: any) => {
       if (+params) {
         let data: any = await getWfhDetail(+params);
         data = mapObjectToWFHRequest(data);
-        navigation.navigate("approveWfhLeave", data[0]);
+        navigation.navigate("approveWfhLeave", { ...data[0], reload });
       }
     };
     get();

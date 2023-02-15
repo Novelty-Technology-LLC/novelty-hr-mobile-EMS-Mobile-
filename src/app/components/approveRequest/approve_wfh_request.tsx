@@ -24,7 +24,7 @@ import { showToast, SmallHeader } from "../../common";
 import Autolink from "react-native-autolink";
 import CustomImage from "../../common/image";
 import WfhAlert from "../leave_screen/alert/wfhAlert";
-import { goBack, navigationRef } from "../../utils/navigation";
+import { goBack } from "../../utils/navigation";
 
 let home_quota: any = {
   total: 0,
@@ -43,8 +43,8 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
   const actionRef = useRef<any>(null);
 
   const checkReplied = () => {
-    data.leave_approvals &&
-      data.leave_approvals.map((item) => {
+    data.wfh_approvals &&
+      data.wfh_approvals.map((item) => {
         if (item.requested_to === state.user.id) {
           setapproved(true);
         }
@@ -169,11 +169,11 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name='calendar' size={20} />
+                  <Icon style={style.calander} name="calendar" size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state='Requested'>{startDate(data)}</State>
+                  <State state="Requested">{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -199,7 +199,7 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text='Responses' />
+                    <SmallHeader text="Responses" />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -245,7 +245,7 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
                       {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text='Pending Responses' />
+                            <SmallHeader text="Pending Responses" />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i?.toString()}>
@@ -289,8 +289,8 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
                 onPressSubmit={onPressSubmit}
-                title='Approve'
-                screenName='WFH'
+                title="Approve"
+                screenName="WFH"
                 style={style}
                 item={data}
                 fromStack={false}
@@ -299,8 +299,8 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
               <ApproveDeny
                 ref={{ alertRef, actionRef }}
                 onPressSubmit={onPressSubmit}
-                title='Deny'
-                screenName='WFH'
+                title="Deny"
+                screenName="WFH"
                 style={style}
                 item={data}
                 fromStack={false}
