@@ -73,16 +73,19 @@ const TimeLogs = (props: any) => {
   const [loader, setLoader] = useState(false);
   const [totalTimeLog, setTotalTimeLog] = useState(initialState);
   const { state } = useContext<any>(AuthContext);
+  const [week, setWeek] = useState("This Week");
 
   useEffect(() => {
     (async () => {
       if (state?.user?.id) {
         try {
           setLoader(true);
+
           let response: any = await getRequest("/dashboard/timelog", {
             ...logTime,
             user_id: state.user.id,
           });
+
           response = response.filter((item: any) => item);
           const keys = Object.keys(response[0]).map((item) => {
             return {
@@ -252,7 +255,9 @@ const TimeLogs = (props: any) => {
         <Week loading={loading} refreshing={refreshing} title={"History"} />
         <View style={ds.timeLog}>
           <HoursHeader
-            title='HOURS WORKED'
+            week={week}
+            setWeek={setWeek}
+            title="HOURS WORKED"
             dropDown={!refreshing && !loading}
             setLogTime={setLogTime}
           />
@@ -277,7 +282,7 @@ const TimeLogs = (props: any) => {
           <View style={ds.chartWrapper}>
             {loader ? (
               <View style={ds.loader}>
-                <ActivityIndicator size='large' color={colors.primary} />
+                <ActivityIndicator size="large" color={colors.primary} />
               </View>
             ) : (
               <LineChartComponent
@@ -289,7 +294,7 @@ const TimeLogs = (props: any) => {
         </View>
       </ScrollView>
       <RequestButton
-        screen='logtime'
+        screen="logtime"
         olddata={{
           log_date: stringifyDate(date),
           not_old: true,

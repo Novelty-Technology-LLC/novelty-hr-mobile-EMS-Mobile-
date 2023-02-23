@@ -14,12 +14,15 @@ const Header = ({
   title,
   dropDown,
   setLogTime,
+  week,
+  setWeek,
 }: {
   title: string;
   dropDown: boolean;
   setLogTime: Function;
+  week: string;
+  setWeek: any;
 }) => {
-  const [week, setweek] = useState('This week');
   return (
     <View style={styles.main}>
       <Text style={styles.text}>{title}</Text>
@@ -30,6 +33,7 @@ const Header = ({
           week={week}
           onChange={(filter: any, val: any) => {
             setLogTime(filter);
+            setWeek(val);
           }}
           style={styles.dropDown}
           labelStyle={styles.labelStyle}

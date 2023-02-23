@@ -7,19 +7,15 @@ import {
   leaveDashboardStyle as style,
 } from "../../../assets/styles";
 import { RequestButton } from "../../components/requestButton";
-import { getUser, mapDataToRequest, setUser } from "../../utils";
+import { getUser, setUser } from "../../utils";
 import { get, getMyRequest, getQuota } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
-import { AuthContext } from "../../reducer";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { MyWFHRequests } from "../../components/wFHScreen/myWFHRequests";
 import OtherWFHRequests from "../../components/wFHScreen/otherWFHRequests";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
-import {
-  mapDataToWFHRequest,
-  mapObjectToWFHRequest,
-} from "../../utils/requestWfhTransformer";
+import { mapDataToWFHRequest } from "../../utils/requestWfhTransformer";
 
 const WFHDashboard = ({ route }: { route: any }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -129,7 +125,6 @@ const WFHDashboard = ({ route }: { route: any }) => {
         ) : (
           <QuotaPlaceHolder />
         )}
-
         <MyWFHRequests
           screenName={NAVIGATION_ROUTE.Request_WFH_DETAIL}
           loading={loading}
