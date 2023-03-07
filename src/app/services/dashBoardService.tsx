@@ -1,6 +1,7 @@
 import moment from "moment";
 import { api } from "../api/api";
 import { getToday, getYesterday } from "../utils";
+import { todayDate } from "../utils/dateFilter";
 
 const getDashboard = (user_id: number) => {
   return new Promise(async (resolve, reject) => {
@@ -10,6 +11,7 @@ const getDashboard = (user_id: number) => {
           todayDate: new Date(moment(new Date()).format("YYYY-MM-DD")),
           user_id,
           day: moment().day(),
+          datefilter: JSON.stringify(todayDate()),
         },
       });
 
