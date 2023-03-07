@@ -5,6 +5,7 @@ import { setUser, storeToken } from "../utils";
 import { create } from "./userService";
 import { mapDataToObject } from "../utils/transformer";
 import { showToast } from "../common";
+import { TokenTypes } from "../enums";
 
 const signInGoogle = async (dispatch: any) => {
   try {
@@ -12,9 +13,12 @@ const signInGoogle = async (dispatch: any) => {
     const userInfo: any = await GoogleSignin.signIn();
     if (!userInfo.idToken) throw new Error("Error while sign in");
     dispatch({ type: "RESET" });
-    delete userInfo.user.name;
-    const userData = mapDataToObject(userInfo.user);
-    createUser(dispatch, userData, userInfo.idToken);
+
+    const signInData = {
+      auth_token: userInfo.idToken,
+      token_type: TokenTypes.GOOGLE,
+    };
+    createUser(dispatch, signInData);
   } catch (error: any) {
     if (error.message === "NETWORK_ERROR") {
       error.message = "Please connect to a network.";
@@ -25,7 +29,7 @@ const signInGoogle = async (dispatch: any) => {
   }
 };
 
-const createUser = (dispatch: any, user: any, token: any) => {
+const createUser = (dispatch: any, data: any) => {
   // const objuser = {
   //   email: 'pradip@noveltytechnology.com',
   //   image_url:
@@ -33,10 +37,12 @@ const createUser = (dispatch: any, user: any, token: any) => {
   //   uuid: '103684157629101882595',
   // };
 
-  create(user)
+  create(data)
     .then(async ({ data }: any) => {
       await setUser(data.data);
       dispatch({ type: "STORE_USER", user: data.data });
+      const token = data.data.access_token;
+
       await storeToken(token);
       dispatch({ type: "SIGN_IN", token });
     })
@@ -60,20 +66,13 @@ const signInApple = async (dispatch: any) => {
     if (!data.identityToken || !data.email)
       throw new Error("Please provide your email.");
 
-    data.fullName["email"] = data.email;
-    data.fullName["token"] = data.identityToken;
-    data.fullName["id"] = data.user;
+    const signInData = {
+      auth_token: data.identityToken,
+      token_type: TokenTypes.APPLE,
+    };
 
-    const userData = mapDataToObject(data.fullName);
-    if (/@noveltytechnology.com\s*$/.test(userData.email)) {
-      create(userData)
-        .then(async (res: any) => {
-          await setUser(res.data.data);
-          dispatch({ type: "STORE_USER", user: res.data.data });
-          storeToken(data.identityToken);
-          dispatch({ type: "SIGN_IN", token: data.identityToken });
-        })
-        .catch((err) => {});
+    if (/@noveltytechnology.com\s*$/.test(data.email)) {
+      createUser(dispatch, signInData);
     } else {
       dispatch({ type: "INVALID" });
     }

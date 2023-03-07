@@ -21,7 +21,7 @@ import ImageCropper from "react-native-image-crop-picker";
 import { updateImage } from "../services";
 
 import normalize from "react-native-normalize";
-import { storeToken, removeToken, removeUser, setUser } from "../utils";
+import { removeUser, setUser } from "../utils";
 import { ProfileInfoComponent } from "../common/profileInformation";
 
 import { CustomText } from "../components/text";
@@ -162,8 +162,6 @@ const Profile = ({ navigation }: any) => {
     })
       .then((data) => {
         showToast("Image uploaded ");
-        removeToken();
-        storeToken(JSON.stringify(data));
         removeUser();
         setUser(data);
         updateProfileImage({ ...image, visible: false }, data);
@@ -243,7 +241,7 @@ const Profile = ({ navigation }: any) => {
           <View style={profileStyle.infoStyle}>
             <ProfileInfoComponent user={state.user} />
 
-            <CustomDivider size='maxlarge' />
+            <CustomDivider size="maxlarge" />
           </View>
           {/* <View style={{ ...style.imageView, position: "absolute" }}>
           
@@ -267,7 +265,7 @@ const Profile = ({ navigation }: any) => {
                 style={[style.imageWrappers]}
                 onPress={() => refRBSheet?.current?.open()}
               >
-                <Icon name='camera' color='white' size={15}></Icon>
+                <Icon name="camera" color="white" size={15}></Icon>
               </TouchableOpacity>
             </View>
           </View>
