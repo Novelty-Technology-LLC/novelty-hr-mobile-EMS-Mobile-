@@ -1,7 +1,7 @@
 import { api } from "../api/api";
 import { navigate } from "../utils/navigation";
 
-const create = async (data: object) => {
+const login = async (data: object) => {
   return new Promise((resolve, reject) => {
     api
       .post("/user/login", data)
@@ -44,4 +44,4 @@ const logOutUser = (body) => {
   });
 };
 
-export { create, store, get, logOutUser };
+export { login, store, get, logOutUser };

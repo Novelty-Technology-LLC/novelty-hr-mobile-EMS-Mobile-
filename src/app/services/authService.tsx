@@ -2,8 +2,7 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
 
 import { setUser, storeToken } from "../utils";
-import { create } from "./userService";
-import { mapDataToObject } from "../utils/transformer";
+import { login } from "./userService";
 import { showToast } from "../common";
 import { TokenTypes } from "../enums";
 
@@ -18,7 +17,7 @@ const signInGoogle = async (dispatch: any) => {
       auth_token: userInfo.idToken,
       token_type: TokenTypes.GOOGLE,
     };
-    createUser(dispatch, signInData);
+    appLogin(dispatch, signInData);
   } catch (error: any) {
     if (error.message === "NETWORK_ERROR") {
       error.message = "Please connect to a network.";
@@ -29,7 +28,7 @@ const signInGoogle = async (dispatch: any) => {
   }
 };
 
-const createUser = (dispatch: any, data: any) => {
+const appLogin = (dispatch: any, data: any) => {
   // const objuser = {
   //   email: 'pradip@noveltytechnology.com',
   //   image_url:
@@ -37,7 +36,7 @@ const createUser = (dispatch: any, data: any) => {
   //   uuid: '103684157629101882595',
   // };
 
-  create(data)
+  login(data)
     .then(async ({ data }: any) => {
       await setUser(data.data);
       dispatch({ type: "STORE_USER", user: data.data });
@@ -72,7 +71,7 @@ const signInApple = async (dispatch: any) => {
     };
 
     if (/@noveltytechnology.com\s*$/.test(data.email)) {
-      createUser(dispatch, signInData);
+      appLogin(dispatch, signInData);
     } else {
       dispatch({ type: "INVALID" });
     }
@@ -93,4 +92,4 @@ const signOutGoogle = async () => {
   } catch (error) {}
 };
 
-export { signInGoogle, signInApple, signOutGoogle, createUser };
+export { signInGoogle, signInApple, signOutGoogle, appLogin };
