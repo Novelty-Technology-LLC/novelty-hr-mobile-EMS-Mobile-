@@ -118,13 +118,13 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
 
     const newData: any = {
       wfh_id: data.id,
-      requested_to: state.user.id,
+      requested_to: state.user.id, // REMOVABLE
       action,
       note,
       notification_token: data.device_tokens?.map(
         (item: any) => item.notification_token
       ),
-      lead_name: state.user.first_name,
+      lead_name: state.user.first_name, // REMOVABLE
       user_name: data.user.first_name,
       quotaId,
     };

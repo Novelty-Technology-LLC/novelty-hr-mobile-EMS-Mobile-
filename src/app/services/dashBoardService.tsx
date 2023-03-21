@@ -8,7 +8,7 @@ const getDashboard = (user_id: number) => {
       const res = await api.get("/dashboard", {
         params: {
           todayDate: new Date(moment(new Date()).format("YYYY-MM-DD")),
-          user_id,
+          user_id, // REMOVABLE
           day: moment().day(),
         },
       });

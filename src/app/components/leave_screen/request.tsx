@@ -76,14 +76,14 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
       leave_id: item?.id,
       action,
       note,
-      requested_to: state.user.id,
+      requested_to: state.user.id, //REMOVABLE
       quotaId: item.sender,
       notification_token: item.device_tokens?.map(
         (item: any) => item.notification_token
       ),
-      lead_name: state.user.first_name,
+      lead_name: state.user.first_name, //REMOVABLE
       user_name: item.user.first_name,
-      uuid: state.user.uuid,
+      uuid: state.user.uuid, //REMOVABLE
     };
 
     updateRequest(item.id, newData)
@@ -165,7 +165,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Approve'
+                    title="Approve"
                     style={style}
                     item={item}
                     fromStack={true}
@@ -175,7 +175,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     ref={{ alertRef, actionRef }}
                     onPressSubmit={onPressSubmit}
-                    title='Deny'
+                    title="Deny"
                     style={style}
                     item={item}
                     fromStack={true}

@@ -30,7 +30,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
     setIsSubmitting(true);
     const submitData = {
       receiver: JSON.stringify([employee.id]),
-      shoutout_from: state.user.id.toString(),
+      shoutout_from: state.user.id.toString(), // REMOVABLE
       shoutout,
       shoutout_date: moment().toISOString(),
     };
@@ -65,7 +65,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
       <ScrollView
         contentContainerStyle={dashboardStyle.body}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
       >
         <Formik
           initialValues={{ shoutout: "" }}
@@ -100,7 +100,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
                   />
                 </View>
                 <CustomButton
-                  label='Submit'
+                  label="Submit"
                   onPress={props.handleSubmit}
                   isLoading={isSubmitting}
                 />

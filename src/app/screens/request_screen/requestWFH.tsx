@@ -248,8 +248,8 @@ const RequestWFH = ({ route, navigation }: any) => {
           end_date: endDate,
           day: dayData,
           option: option,
-          user_id: state.user.id,
-          requestor_name: state.user.first_name,
+          user_id: state.user.id, // REMOVABLE
+          requestor_name: state.user.first_name, // REMOVABLE
           // uuid: state.user.uuid,
           // gender: state.user.gender,
         };
@@ -296,7 +296,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik

@@ -131,14 +131,14 @@ const Request = ({
       leave_id: data?.id,
       action,
       note,
-      requested_to: state.user.id,
+      requested_to: state.user.id, //REMOVABLE
       quotaId: data.sender,
       notification_token: data.device_tokens?.map(
         (item: any) => item.notification_token
       ),
-      lead_name: state.user.first_name,
+      lead_name: state.user.first_name, //REMOVABLE
       user_name: data.user.first_name,
-      uuid: state.user.uuid,
+      uuid: state.user.uuid, //REMOVABLE
     };
 
     updateRequest(data.id, newData)

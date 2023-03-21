@@ -83,33 +83,33 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
 
     const newData: any = {
       wfh_id: item.id,
-      requested_to: state.user.id,
+      requested_to: state.user.id, // REMOVABLE
       action,
       note,
       notification_token: item.device_tokens?.map(
         (item: any) => item.notification_token
       ),
-      lead_name: state.user.first_name,
+      lead_name: state.user.first_name, // REMOVABLE
       user_name: item.user.first_name,
       quotaId,
     };
-  
-updateWFHRequests(item.id, newData)
-  .then((val: any) => {
-    dispatchAdmin({
-      type: "REPLY",
-      payload: { ...item, status: val.status },
-    });
 
-    actionRef.current?.hideLoading();
-    actionRef.current?.hide();
-    alertRef.current?.hideSubmitLoading();
-    showToast("Request replied ");
-  })
-  .catch((err) => {
-    alertRef.current?.hideSubmitLoading();
-    showToast("Something went wrong ", false);
-  });
+    updateWFHRequests(item.id, newData)
+      .then((val: any) => {
+        dispatchAdmin({
+          type: "REPLY",
+          payload: { ...item, status: val.status },
+        });
+
+        actionRef.current?.hideLoading();
+        actionRef.current?.hide();
+        alertRef.current?.hideSubmitLoading();
+        showToast("Request replied ");
+      })
+      .catch((err) => {
+        alertRef.current?.hideSubmitLoading();
+        showToast("Something went wrong ", false);
+      });
   };
 
   return (
@@ -155,20 +155,20 @@ updateWFHRequests(item.id, newData)
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Approve'
+                    title="Approve"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                   <View style={style.buttonSpacer}></View>
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Deny'
+                    title="Deny"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                 </View>

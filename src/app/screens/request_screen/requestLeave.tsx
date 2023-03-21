@@ -268,10 +268,10 @@ const RequestLeave = ({ route }: any) => {
           },
           day: dayData,
           leave_option: leave_option,
-          requestor_id: state.user.id,
-          requestor_name: state.user.first_name,
-          uuid: state.user.uuid,
-          gender: state.user.gender,
+          requestor_id: state.user.id, // REMOVABLE
+          requestor_name: state.user.first_name, // REMOVABLE
+          uuid: state.user.uuid, // REMOVABLE
+          gender: state.user.gender, // REMOVABLE
         };
 
         setisLoading(true);
@@ -301,7 +301,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik

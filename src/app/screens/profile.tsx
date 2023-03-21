@@ -155,7 +155,7 @@ const Profile = ({ navigation }: any) => {
 
   const confirm = () => {
     setloading(true);
-    updateImage(state.user.id, {
+    updateImage({
       data: image.data,
       name: image.path.split("/").pop(),
       type: image.mime,

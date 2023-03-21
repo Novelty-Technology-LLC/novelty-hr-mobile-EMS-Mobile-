@@ -62,7 +62,7 @@ const LogTime = ({ route }: any) => {
   });
   const addHashtag = async (values: any) => {
     const user = await getUser();
-    values.user_id = JSON.parse(user).id;
+    values.user_id = JSON.parse(user).id; // REMOVABLE
 
     values.hashtag =
       values?.hashtag?.length > 0
@@ -227,7 +227,7 @@ const LogTime = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 100}
         extraHeight={Platform.OS === "android" ? 160 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik

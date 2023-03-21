@@ -24,7 +24,7 @@ const store = (data) => {
 const get = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/user/${id}`);
+      let res = await api.get(`/user/${id}`); // REPLACE: /user/my
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
