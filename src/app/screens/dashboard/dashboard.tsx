@@ -96,7 +96,7 @@ const DashBoard = () => {
       try {
         if (state?.user?.id) {
           const response: any = await getRequest(
-            `/user/profile/${state?.user?.id}` // REPLACE: /user/profile/my
+            `/user/profile/${state?.user?.id}` // REPLACE: /user/profile-self
           );
           await setUser(response);
         }

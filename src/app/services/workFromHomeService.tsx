@@ -17,7 +17,7 @@ const createWork = async (data: object) => {
 const getMyRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await api.get(`/work/${id}`); // REPLACE: /work/my
+      const res = await api.get(`/work/${id}`); // REPLACE: /work/wfh-self
 
       resolve(res.data.data);
     } catch (error) {
@@ -118,7 +118,7 @@ export const editRequestWfh = (id: number, data: any) => {
 const getPastWFHRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/work/past/${id}`); // REPLACE: /work/past/my
+      let res = await api.get(`/work/past/${id}`); // REPLACE: /work/past-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -129,7 +129,7 @@ const getPastWFHRequests = (id: any) => {
 const getAllWFHRequests = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/work/admin/${id}`); // REPLACE: /work/admin/my
+      let res = await api.get(`/work/admin/${id}`); // REPLACE: /work/admin-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

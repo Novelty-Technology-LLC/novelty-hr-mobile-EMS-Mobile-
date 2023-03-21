@@ -4,7 +4,7 @@ import { dataType } from "../interface";
 export const getAllRequests = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/leave/admin/${id}`); // REPLACE: /leave/admin/my
+      let res = await api.get(`/leave/admin/${id}`); // REPLACE: /leave/admin-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -15,7 +15,7 @@ export const getAllRequests = (id) => {
 export const getMyRequests = (id: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/leave/${id}`); // REPLACE: /leave/my
+      let res = await api.get(`/leave/${id}`); // REPLACE: /leave/leave-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -26,7 +26,7 @@ export const getMyRequests = (id: string) => {
 export const getPastRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/leave/past/${id}`); // REPLACE: /leave/past/my
+      let res = await api.get(`/leave/past/${id}`); // REPLACE: /leave/past-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

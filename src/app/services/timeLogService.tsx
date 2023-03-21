@@ -3,7 +3,7 @@ import { api } from "../api/api";
 export const getAllTimeLogs = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/timelog/${id}`); // REPLACE: /timelog/my
+      let res = await api.get(`/timelog/${id}`); // REPLACE: /timelog/timelog-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -20,7 +20,7 @@ export const getFilteredTimeLogs = (
   return new Promise(async (resolve, reject) => {
     try {
       let res = await api.get(`/timelog/filter/${id}`, {
-        // REPLACE /timelog/filter/my
+        // REPLACE /timelog/filter-self
         params: { datefilter, selectedDate, historyDate },
       });
       resolve(res.data.data);
