@@ -17,7 +17,7 @@ const createWork = async (data: object) => {
 const getMyRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await api.get(`/work/${id}`); // REPLACE: /work/wfh-self
+      const res = await api.get(`/work/user/${id}`); // REPLACE: /work/self
 
       resolve(res.data.data);
     } catch (error) {

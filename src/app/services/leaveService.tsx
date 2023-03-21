@@ -15,7 +15,7 @@ export const getAllRequests = (id) => {
 export const getMyRequests = (id: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/leave/${id}`); // REPLACE: /leave/leave-self
+      let res = await api.get(`/leave/user/${id}`); // REPLACE: /leave/self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
