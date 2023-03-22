@@ -12,7 +12,7 @@ const signInGoogle = async (dispatch: any) => {
     const userInfo: any = await GoogleSignin.signIn();
     if (!userInfo.idToken) throw new Error("Error while sign in");
     dispatch({ type: "RESET" });
-
+    console.log(userInfo.idToken);
     const signInData = {
       auth_token: userInfo.idToken,
       token_type: TokenTypes.GOOGLE,

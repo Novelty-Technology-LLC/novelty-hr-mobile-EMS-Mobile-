@@ -83,7 +83,7 @@ const TimeLogs = (props: any) => {
 
           let response: any = await getRequest("/dashboard/timelog", {
             ...logTime,
-            user_id: state.user.id,
+            user_id: state.user.id, // REMOVABLE
           });
 
           response = response.filter((item: any) => item);

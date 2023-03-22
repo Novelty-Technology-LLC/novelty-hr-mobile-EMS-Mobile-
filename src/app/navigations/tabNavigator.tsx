@@ -140,7 +140,7 @@ const TabNavigator = () => {
     );
 
     const data = {
-      id: user.id,
+      id: user.id, // REMOVABLE
       notification_token: token,
       device_id,
       platform: Platform.OS,

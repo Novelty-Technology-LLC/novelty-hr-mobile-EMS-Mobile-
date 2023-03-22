@@ -9,7 +9,7 @@ const getDashboard = (user_id: number) => {
       const res = await api.get("/dashboard", {
         params: {
           todayDate: new Date(moment(new Date()).format("YYYY-MM-DD")),
-          user_id,
+          user_id, // REMOVABLE
           day: moment().day(),
           datefilter: JSON.stringify(todayDate()),
         },
@@ -67,7 +67,6 @@ export const createShoutout = async (props: {
 }) => {
   try {
     const data = JSON.stringify(props);
-
     const response = await api.post(`/shout-out`, data);
 
     return response.data.data;
