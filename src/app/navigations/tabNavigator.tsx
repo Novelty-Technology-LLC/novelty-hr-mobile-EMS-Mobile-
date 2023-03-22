@@ -7,13 +7,7 @@ import { Profile } from "../screens";
 import { AppIcon } from "../common";
 import LogNav from "./logStack";
 import { getUniqueId } from "react-native-device-info";
-import {
-  getUser,
-  removeToken,
-  removeUser,
-  setUser,
-  storeToken,
-} from "../utils";
+import { getUser, removeToken, removeUser, setUser } from "../utils";
 import { getRequest, store } from "../services";
 import messaging from "@react-native-firebase/messaging";
 import { AuthContext } from "../reducer";
@@ -154,10 +148,7 @@ const TabNavigator = () => {
 
     if (!isValid) {
       store(data).then(async (data: any) => {
-        await removeUser(),
-          await removeToken(),
-          await setUser(data),
-          await storeToken(JSON.stringify(data));
+        await removeUser(), await setUser(data);
       });
     }
   }

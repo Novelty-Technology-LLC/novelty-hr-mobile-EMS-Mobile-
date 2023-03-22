@@ -11,7 +11,7 @@ import {
   signInApple,
   signInGoogle,
   getLogin,
-  createUser,
+  appLogin,
   signOutGoogle,
 } from "../../services";
 import { buttonui as Logo } from "../../common/ui/buttonUi";
@@ -50,7 +50,7 @@ const Login = () => {
         uuid: "113798347975576059462",
         idToken: "alive",
       };
-      createUser(dispatch, user, user.idToken);
+      appLogin(dispatch, user);
     } else {
       Keyboard.dismiss();
       showToast("Authentication Failed ", false);
@@ -99,18 +99,18 @@ const Login = () => {
                 <Fragment>
                   <TextInput
                     style={style.textInput}
-                    placeholder='Email'
+                    placeholder="Email"
                     value={values.EmailAddress}
                     secureTextEntry={false}
-                    keyboardType='email-address'
-                    textContentType='emailAddress'
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
                     onChangeText={handleChange("EmailAddress")}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                   />
                   <TextInput
                     style={style.textInput}
                     value={values.Password}
-                    placeholder='Password'
+                    placeholder="Password"
                     secureTextEntry={true}
                     onChangeText={handleChange("Password")}
                   />
@@ -137,7 +137,7 @@ const Login = () => {
             style={style.iconView}
             onPress={async () => await signInGoogle(dispatch)}
           >
-            <Logo name='google' />
+            <Logo name="google" />
           </TouchableOpacity>
 
           {Platform.OS === "ios" && (
@@ -145,7 +145,7 @@ const Login = () => {
               <TouchableOpacity
                 onPress={async () => await signInApple(dispatch)}
               >
-                <Logo name='apple' />
+                <Logo name="apple" />
               </TouchableOpacity>
             </View>
           )}
