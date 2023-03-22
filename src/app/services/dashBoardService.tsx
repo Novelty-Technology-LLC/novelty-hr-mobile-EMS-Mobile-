@@ -65,7 +65,6 @@ export const createShoutout = async (props: {
 }) => {
   try {
     const data = JSON.stringify(props);
-
     const response = await api.post(`/shout-out`, data);
 
     return response.data.data;

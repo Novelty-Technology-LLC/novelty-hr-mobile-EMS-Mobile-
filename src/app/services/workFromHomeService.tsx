@@ -18,7 +18,6 @@ const getMyRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
       const res = await api.get(`/work/user/${id}`); // REPLACE: /work/self
-
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
