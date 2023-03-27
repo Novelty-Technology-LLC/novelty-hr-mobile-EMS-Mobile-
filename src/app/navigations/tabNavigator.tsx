@@ -28,12 +28,12 @@ const TabNavigator = () => {
         .getInitialNotification()
         .then(async (remoteMessage: any) => {
           if (remoteMessage && Object.keys(remoteMessage.data).length) {
-            if (remoteMessage.data.type === "work_from_home") {
-              navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
-                notifdata: remoteMessage.data,
-              });
-              return;
-            }
+            // if (remoteMessage.data.type === "work_from_home") {
+            //   navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
+            //     notifdata: remoteMessage.data,
+            //   });
+            //   return;
+            // }
             if (remoteMessage.data.type === "announcements") {
               try {
                 var response: any = await getRequest(
@@ -76,12 +76,12 @@ const TabNavigator = () => {
     requestUserPermission();
     messaging().onNotificationOpenedApp(async (remoteMessage: any) => {
       if (remoteMessage && Object.keys(remoteMessage?.data).length) {
-        if (remoteMessage.data.type === "work_from_home") {
-          navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
-            notifdata: remoteMessage.data,
-          });
-          return;
-        }
+        // if (remoteMessage.data.type === "work_from_home") {
+        //   navigate(NAVIGATION_ROUTE.WFH_DASHBOARD, {
+        //     notifdata: remoteMessage.data,
+        //   });
+        //   return;
+        // }
         if (remoteMessage?.data.type === "announcements") {
           try {
             var response: any = await getRequest(
