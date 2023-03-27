@@ -52,7 +52,12 @@ const RootNavigation = () => {
           screens: {
             Activity: {
               path: "activity",
-              exact: true,
+              screens: {
+                WFH_DASHBOARD: {
+                  path: "homeList",
+                  exact: true,
+                },
+              },
             },
             Home: {
               path: "home",
