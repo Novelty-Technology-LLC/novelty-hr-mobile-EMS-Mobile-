@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { AuthContext, useAuth } from "../reducer";
+import {
+  AdminRequestContext,
+  AuthContext,
+  useAdmin,
+  useAuth,
+} from "../reducer";
 import { getUser, getToken } from "../utils";
 import { Login, SplashScreen } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,11 +16,17 @@ import { navigationRef } from "../utils/navigation";
 import { FullImageScreen } from "../screens/full_screen_image";
 import SplashScreens from "react-native-splash-screen";
 import UpdateModal from "../common/updateModal";
+import {
+  RequestWFHContext,
+  useWFHRequest,
+} from "../reducer/requestWorkFromReducer";
 
 const Root = createStackNavigator();
 
 const RootNavigation = () => {
   const { state, dispatch } = useAuth();
+  const { requestsWFH, dispatchWFHRequest } = useWFHRequest();
+  const { adminrequests, dispatchAdmin } = useAdmin();
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -179,23 +190,29 @@ const RootNavigation = () => {
         }}
       > */}
       <AuthContext.Provider value={{ state, dispatch }}>
-        <UpdateModal />
-        <Root.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Root.Screen name="splash" component={SplashScreen} />
-          <Root.Screen name="login" component={Login} />
-          <Root.Screen name="loading" component={Loading} />
-          <Root.Screen name="invalid" component={Invalid} />
-          <Root.Screen name="fullImageScreen" component={FullImageScreen} />
-          <Root.Screen
-            name="BottomTabs"
-            component={TabNavigator}
-            options={{ gestureEnabled: false }}
-          />
-        </Root.Navigator>
+        <RequestWFHContext.Provider value={{ requestsWFH, dispatchWFHRequest }}>
+          <AdminRequestContext.Provider
+            value={{ adminrequests, dispatchAdmin }}
+          >
+            <UpdateModal />
+            <Root.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Root.Screen name="splash" component={SplashScreen} />
+              <Root.Screen name="login" component={Login} />
+              <Root.Screen name="loading" component={Loading} />
+              <Root.Screen name="invalid" component={Invalid} />
+              <Root.Screen name="fullImageScreen" component={FullImageScreen} />
+              <Root.Screen
+                name="BottomTabs"
+                component={TabNavigator}
+                options={{ gestureEnabled: false }}
+              />
+            </Root.Navigator>
+          </AdminRequestContext.Provider>
+        </RequestWFHContext.Provider>
       </AuthContext.Provider>
       {/* </ApplicationProvider> */}
     </NavigationContainer>
