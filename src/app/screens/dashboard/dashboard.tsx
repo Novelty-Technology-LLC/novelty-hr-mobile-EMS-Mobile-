@@ -175,7 +175,7 @@ const DashBoard = () => {
   }, [refreshing, state?.user?.id]);
 
   const handleWFH = () => {
-    navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
+    // navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
   };
 
   const statusClip = (iconName = "home", title = "Home") => {

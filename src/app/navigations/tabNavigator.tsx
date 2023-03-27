@@ -14,6 +14,7 @@ import { AuthContext } from "../reducer";
 import DashNav from "./dashBoardStack";
 import { navigate } from "../utils/navigation";
 import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
+import { WFHDashboard } from "../screens/workFromHomeSreen/wFHDashboard";
 
 const Tab = createBottomTabNavigator();
 
@@ -173,10 +174,10 @@ const TabNavigator = () => {
         />
         <Tab.Screen
           name="Activity"
-          component={LogNav}
+          component={WFHDashboard}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AppIcon name="timer" color={color} size={size} />
+              <AppIcon name="domain" color={color} size={size} />
             ),
           }}
         />
