@@ -5,22 +5,23 @@ import ScreenStack from "./screenStack";
 import colors from "../../assets/colors";
 import { Profile } from "../screens";
 import { AppIcon } from "../common";
-import LogNav from "./logStack";
 import { getUniqueId } from "react-native-device-info";
-import { getUser, removeToken, removeUser, setUser } from "../utils";
+import { getUser, removeUser, setUser } from "../utils";
 import { getRequest, store } from "../services";
 import messaging from "@react-native-firebase/messaging";
 import { AuthContext } from "../reducer";
 import DashNav from "./dashBoardStack";
 import { navigate } from "../utils/navigation";
-import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
-import { WFHDashboard } from "../screens/workFromHomeSreen/wFHDashboard";
 import { WfhNav } from "./wfhStack";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   const { dispatch }: any = useContext(AuthContext);
+
+  const onPressTimlogNotification = (url: string) => {
+    Linking.openURL(url);
+  };
 
   useEffect(() => {
     const initialNotification = () => {
@@ -34,6 +35,11 @@ const TabNavigator = () => {
             //   });
             //   return;
             // }
+            if (remoteMessage.data.type === "activity") {
+              onPressTimlogNotification(remoteMessage.data.url);
+              return;
+            }
+
             if (remoteMessage.data.type === "announcements") {
               try {
                 var response: any = await getRequest(
@@ -82,6 +88,12 @@ const TabNavigator = () => {
         //   });
         //   return;
         // }
+
+        if (remoteMessage.data.type === "activity") {
+          onPressTimlogNotification(remoteMessage.data.url);
+          return;
+        }
+
         if (remoteMessage?.data.type === "announcements") {
           try {
             var response: any = await getRequest(
