@@ -25,6 +25,7 @@ import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
 import { setUser } from "../../utils";
+import { isDev } from "../../api/uri";
 
 const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
@@ -223,9 +224,15 @@ const DashBoard = () => {
   };
   return (
     <View style={ds.safeArea}>
-      <Header icon={false} container={{ paddingVertical: normalize(4.076) }}>
+      <Header
+        icon={false}
+        container={{ paddingVertical: normalize(4.076) }}
+        showEnvironment
+      >
         <View style={ds.headerContainer}>
-          <Text style={headerTxtStyle.headerText}>DASHBOARD</Text>
+          <Text style={headerTxtStyle.headerText}>
+            DASHBOARD {isDev && "(Dev)"}
+          </Text>
           <TouchableOpacity onPress={() => navigate("Profile")}>
             <CustomImage image={state?.user?.image_url} style={ds.image} />
           </TouchableOpacity>
