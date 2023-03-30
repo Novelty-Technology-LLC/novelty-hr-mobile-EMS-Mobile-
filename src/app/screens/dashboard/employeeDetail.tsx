@@ -35,7 +35,8 @@ const EmployeeDetail = (props: any) => {
       try {
         const id = params.id;
 
-        let response = await getRequest(`user/${id}`, {});
+        let response = await getRequest(`user/self`, {});
+
 
         setData(response);
         setLoading(false);
