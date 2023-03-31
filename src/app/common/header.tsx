@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import color from "../../assets/colors";
 import { headerStyle as style } from "../../assets/styles";
-import normalize from "react-native-normalize";
+
 
 const header = ({ onPress = null, icon = false, children, ...props }: any) => {
   const navigation = useNavigation();
@@ -23,7 +23,8 @@ const header = ({ onPress = null, icon = false, children, ...props }: any) => {
             <Icon name="chevron-left" size={30} color={color.primary} />
           </TouchableWithoutFeedback>
           {children}
-        </>) : (
+        </>
+      ) : (
         <>{children}</>
       )}
     </View>

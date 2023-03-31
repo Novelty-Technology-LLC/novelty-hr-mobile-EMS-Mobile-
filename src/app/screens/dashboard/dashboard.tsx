@@ -230,9 +230,25 @@ const DashBoard = () => {
         showEnvironment
       >
         <View style={ds.headerContainer}>
-          <Text style={headerTxtStyle.headerText}>
-            DASHBOARD {isDev && "(Dev)"}
-          </Text>
+          {isDev && (
+            <View
+              style={{
+                top: 0,
+                position: "absolute",
+                left: "45%",
+                backgroundColor: "grey",
+                borderColor: "grey",
+                borderWidth: 1,
+                borderRadius: 10,
+                paddingHorizontal: 12,
+                paddingVertical: 2,
+                marginTop: 5,
+              }}
+            >
+              <Text style={{ color: "white", fontSize: 10 }}>DEV</Text>
+            </View>
+          )}
+          <Text style={headerTxtStyle.headerText}>DASHBOARD</Text>
           <TouchableOpacity onPress={() => navigate("Profile")}>
             <CustomImage image={state?.user?.image_url} style={ds.image} />
           </TouchableOpacity>
