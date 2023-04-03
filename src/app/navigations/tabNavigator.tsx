@@ -178,7 +178,7 @@ const TabNavigator = () => {
           name="Activity"
           component={WfhNav}
           options={{
-            tabBarIcon: ({ color, size, focused }) =>
+            tabBarIcon: ({ focused }) =>
               focused ? <WfhActiveSvg /> : <WfhSvg />,
           }}
         />
