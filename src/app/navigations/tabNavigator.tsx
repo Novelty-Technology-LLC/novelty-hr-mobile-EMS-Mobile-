@@ -16,7 +16,8 @@ import { navigate } from "../utils/navigation";
 import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
 import { WFHDashboard } from "../screens/workFromHomeSreen/wFHDashboard";
 import { WfhNav } from "./wfhStack";
-
+import WfhSvg from "../../assets/images/WFH.svg";
+import WfhActiveSvg from "../../assets/images/WFHActive.svg";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -177,9 +178,8 @@ const TabNavigator = () => {
           name="Activity"
           component={WfhNav}
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="domain" color={color} size={size} />
-            ),
+            tabBarIcon: ({ color, size, focused }) =>
+              focused ? <WfhActiveSvg /> : <WfhSvg />,
           }}
         />
         <Tab.Screen
