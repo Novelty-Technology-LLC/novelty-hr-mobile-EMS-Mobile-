@@ -13,7 +13,8 @@ import { AuthContext } from "../reducer";
 import DashNav from "./dashBoardStack";
 import { navigate } from "../utils/navigation";
 import { WfhNav } from "./wfhStack";
-
+import WfhSvg from "../../assets/images/WFH.svg";
+import WfhActiveSvg from "../../assets/images/WFHActive.svg";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -189,9 +190,8 @@ const TabNavigator = () => {
           name="Activity"
           component={WfhNav}
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <AppIcon name="domain" color={color} size={size} />
-            ),
+            tabBarIcon: ({ focused }) =>
+              focused ? <WfhActiveSvg /> : <WfhSvg />,
           }}
         />
         <Tab.Screen

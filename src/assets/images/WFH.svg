@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34.899" height="21.127" viewBox="0 0 34.899 28.127">
+  <g id="Group_1852" data-name="Group 1852" transform="translate(-2674.851 1730.703)">
+    <g id="Group_1850" data-name="Group 1850" transform="translate(2661.376 -1752.553)">
+      <g id="Group_1848" data-name="Group 1848" transform="translate(13.475 21.85)">
+        <path id="Path_5936" data-name="Path 5936" d="M5.65,6.825h22.6V20.95H5.65m22.6,2.825a2.825,2.825,0,0,0,2.825-2.825V6.825A2.824,2.824,0,0,0,28.249,4H5.65A2.815,2.815,0,0,0,2.825,6.825V20.95A2.825,2.825,0,0,0,5.65,23.775H0V26.6H33.9V23.775Z" transform="translate(0 -4)" fill="#8d8d8d"/>
+      </g>
+    </g>
+    <g id="clock" transform="translate(2748.431 -1669.896)">
+      <g id="clock-2" data-name="clock" transform="translate(-57.875 -51.875)">
+        <path id="Path_5923" data-name="Path 5923" d="M18.195,9.1A9.1,9.1,0,1,1,9.1,0a9.1,9.1,0,0,1,9.1,9.1Z" fill="#fff" stroke="#8d8d8d" stroke-width="2" fill-rule="evenodd"/>
+      </g>
+    </g>
+    <path id="home-run" d="M9.458,4.227h0L5.492.262a.895.895,0,0,0-1.266,0L.264,4.225l0,0a.894.894,0,0,0,.6,1.525h.186V8.673A1.049,1.049,0,0,0,2.088,9.72H3.64a.285.285,0,0,0,.285-.285V7.148A.478.478,0,0,1,4.4,6.67h.915a.478.478,0,0,1,.478.478V9.435a.285.285,0,0,0,.285.285H7.631A1.049,1.049,0,0,0,8.679,8.673V5.755h.147a.895.895,0,0,0,.633-1.527Zm0,0" transform="translate(2694.794 -1717.665)" fill="#8d8d8d"/>
+  </g>
+</svg>
