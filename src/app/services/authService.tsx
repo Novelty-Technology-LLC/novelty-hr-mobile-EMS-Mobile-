@@ -1,7 +1,7 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
 
-import { setUser, storeToken } from "../utils";
+import { initialLogin, setUser, storeToken } from "../utils";
 import { login } from "./userService";
 import { showToast } from "../common";
 import { TokenTypes } from "../enums";
@@ -43,6 +43,7 @@ const appLogin = (dispatch: any, data: any) => {
       const token = data.data.access_token;
 
       await storeToken(token);
+      await initialLogin("isLoggedIn");
       dispatch({ type: "SIGN_IN", token });
     })
     .catch((err: any) => {
