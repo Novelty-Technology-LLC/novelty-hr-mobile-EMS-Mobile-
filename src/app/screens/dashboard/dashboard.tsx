@@ -14,17 +14,27 @@ import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
 import { Cards, header as Header, List } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
-import { getDashboard, getRequest } from "../../services";
+import { getDashboard, getRequest, signOutGoogle } from "../../services";
 import moment from "moment";
 import normalize from "react-native-normalize";
 import { DashboardCardPlaceholder } from "../../common";
-import { getCurrentRouteName, navigate } from "../../utils/navigation";
+import {
+  getCurrentRouteName,
+  navigate,
+  navigationRef,
+} from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
 import CustomImage from "../../common/image";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
-import { setUser } from "../../utils";
+import {
+  getInitialLogin,
+  getToken,
+  removeToken,
+  removeUser,
+  setUser,
+} from "../../utils";
 import { isDev } from "../../api/uri";
 
 const DashBoard = () => {

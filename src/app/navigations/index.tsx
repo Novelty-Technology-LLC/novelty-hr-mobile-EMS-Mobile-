@@ -6,7 +6,13 @@ import {
   useAdmin,
   useAuth,
 } from "../reducer";
-import { getUser, getToken } from "../utils";
+import {
+  getUser,
+  getToken,
+  getInitialLogin,
+  removeUser,
+  removeToken,
+} from "../utils";
 import { Login, SplashScreen } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigator from "./tabNavigator";
@@ -20,6 +26,7 @@ import {
   RequestWFHContext,
   useWFHRequest,
 } from "../reducer/requestWorkFromReducer";
+import { signOutGoogle } from "../services";
 
 const Root = createStackNavigator();
 
@@ -32,6 +39,18 @@ const RootNavigation = () => {
     const bootstrapAsync = async () => {
       try {
         let userToken = await getToken();
+
+        const initial = await getInitialLogin();
+
+        if (!initial) {
+          console.log("initial not found. Sigining out...");
+          await signOutGoogle();
+          await removeUser();
+          await removeToken();
+          console.log("sign outt");
+          dispatch({ type: "SIGN_OUT" });
+          return;
+        }
 
         dispatch({ type: "RESTORE_TOKEN", token: userToken });
         const user: any = await getUser();
