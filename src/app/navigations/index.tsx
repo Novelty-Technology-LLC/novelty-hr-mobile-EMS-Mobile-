@@ -40,15 +40,6 @@ const RootNavigation = () => {
       try {
         let userToken = await getToken();
 
-        const initial = await getInitialLogin();
-
-        if (!initial) {
-          await signOutGoogle();
-          await removeUser();
-          await removeToken();
-          dispatch({ type: "SIGN_OUT" });
-        }
-
         dispatch({ type: "RESTORE_TOKEN", token: userToken });
         const user: any = await getUser();
 
