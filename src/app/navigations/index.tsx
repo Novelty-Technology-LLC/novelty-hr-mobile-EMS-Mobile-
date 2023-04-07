@@ -43,13 +43,10 @@ const RootNavigation = () => {
         const initial = await getInitialLogin();
 
         if (!initial) {
-          console.log("initial not found. Sigining out...");
           await signOutGoogle();
           await removeUser();
           await removeToken();
-          console.log("sign outt");
           dispatch({ type: "SIGN_OUT" });
-          return;
         }
 
         dispatch({ type: "RESTORE_TOKEN", token: userToken });
