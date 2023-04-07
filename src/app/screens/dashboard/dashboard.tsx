@@ -37,6 +37,7 @@ import {
 } from "../../utils";
 import { isDev } from "../../api/uri";
 
+
 const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
     useContext(AnnouncementContext);
@@ -135,50 +136,49 @@ const DashBoard = () => {
         setAnnouncementLoading(true);
         setshoutoutLoading(true);
         setCardLoading(true);
-        await Promise.all([
-          getDashboard(state?.user.id),
-          fetchAnnouncements(),
-        ]).then((values) => {
-          const filterData = values[0].filter(
-            (item: any) => item.module === "Leave"
-          );
-          const res = filterData.flat()[0].items;
-          const result = res
-            .map((item) => item.user)
-            .filter((item) => {
-              const user = item.id === state?.user.id;
-              return user ? true : false;
+        await Promise.all([getDashboard(state?.user.id), fetchAnnouncements()])
+          .then((values) => {
+            const filterData = values[0].filter(
+              (item: any) => item.module === "Leave"
+            );
+            const res = filterData.flat()[0].items;
+            const result = res
+              .map((item) => item.user)
+              .filter((item) => {
+                const user = item.id === state?.user.id;
+                return user ? true : false;
+              });
+            setLeaveStatus(result.length ? true : false);
+            const dashboardData: any = values[0];
+            const wfhStatus = dashboardData.filter(
+              (item: any) => item.module === "wfh"
+            );
+            setWfhData(wfhStatus[0].items.status.toLowerCase());
+            const filterSection = dashboardData.filter(
+              (item: any) => item.show === true
+            );
+
+            var filteredArray = filterSection.filter((e: any) => {
+              return e?.detailRoute !== "/shoutout";
             });
-          setLeaveStatus(result.length ? true : false);
-          const dashboardData: any = values[0];
-          const wfhStatus = dashboardData.filter(
-            (item: any) => item.module === "wfh"
-          );
-          setWfhData(wfhStatus[0].items.status.toLowerCase());
-          const filterSection = dashboardData.filter(
-            (item: any) => item.show === true
-          );
+            var shoutoutData = filterSection.filter((e: any) => {
+              return e?.detailRoute === "/shoutout";
+            });
 
-          var filteredArray = filterSection.filter((e: any) => {
-            return e?.detailRoute !== "/shoutout";
-          });
-          var shoutoutData = filterSection.filter((e: any) => {
-            return e?.detailRoute === "/shoutout";
-          });
+            dispatchShoutout({
+              type: "SET_SHOUTOUT_LIST",
+              payload: shoutoutData[0]?.items,
+            });
 
-          dispatchShoutout({
-            type: "SET_SHOUTOUT_LIST",
-            payload: shoutoutData[0]?.items,
-          });
+            setAnnouncementLoading(false);
+            setshoutoutLoading(false);
 
-          setAnnouncementLoading(false);
-          setshoutoutLoading(false);
+            setListData(filteredArray);
+            setCardLoading(false);
 
-          setListData(filteredArray);
-          setCardLoading(false);
-
-          setRefreshing(false);
-        });
+            setRefreshing(false);
+          })
+          .catch((err) => {});
       } catch (error) {
         setRefreshing(false);
       }
