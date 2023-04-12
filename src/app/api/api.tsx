@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getToken } from "../utils";
 import { BASE_URI, COSMIC_URI } from "./uri";
+import { Platform } from "react-native";
 
 export const api = axios.create({
   baseURL: BASE_URI,
@@ -30,6 +31,8 @@ api.interceptors.request.use(async (req: any) => {
   req.headers["Cache-Control"] = "no-cache";
   req.headers["Pragma"] = "no-cache";
   req.headers["Expires"] = "0";
+  req.headers["source"] = "mobile";
+  req.headers["platform"] = Platform.OS;
   return req;
 });
 
