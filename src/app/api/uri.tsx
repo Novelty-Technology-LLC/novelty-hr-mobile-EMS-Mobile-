@@ -1,7 +1,7 @@
 const DEV = "https://dev-api-ems.noveltytechnology.com/";
 const PROD = "https://ems-api.noveltytechnology.com/";
-const LOCAL = "https://b0ea-2407-5200-401-829b-58c1-2aeb-fd4b-64c0.ngrok.io";
+const LOCAL = "https://f8ec-2400-1a00-b020-356b-a033-6677-60ba-c39d.ngrok.io";
 
-export const isDev = false; // change to false if uri is in PROD
-export const BASE_URI = PROD;
+export const isDev = true; // change to false if uri is in PROD
+export const BASE_URI = DEV;
 export const COSMIC_URI = "https://api.vitafyhealth.com/api/cosmic/";
