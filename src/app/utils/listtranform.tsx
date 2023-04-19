@@ -191,6 +191,9 @@ export const transformList = (
       date: item?.date?.slice(0, 10),
       leave_option: item?.leave_option,
       avatar: item?.avatars,
+      created_at: item?.created_at,
+      image: item?.user?.image_url,
+      user_id: item?.user?.id,
     };
   });
 

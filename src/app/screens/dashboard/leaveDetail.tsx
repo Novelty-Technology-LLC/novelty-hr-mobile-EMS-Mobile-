@@ -1,25 +1,20 @@
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Text, View, Image, ScrollView } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import State from "../leave_screen/state";
-import { checkRequest, getResponses, updateRequest } from "../../services";
-import getDay, { responseDay, startDate } from "../../utils/getDay";
-import getName, { leadname } from "../../utils/getName";
-import { AdminRequestContext, AuthContext } from "../../reducer";
-import { ApproveDeny } from "../../components";
-import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
-import { getUser } from "../../utils";
-import { showToast, SmallHeader } from "../../common";
+import { getResponses } from "../../services";
+import { responseDay, startDate } from "../../utils/getDay";
+import { leadname } from "../../utils/getName";
+import { SmallHeader } from "../../common";
+import State from "../../components/leave_screen/state";
+import { ResponsePlaceHolder } from "../../components/loader/responsePlaceHolder";
+import {
+  headerTxtStyle,
+  approveRequest as style,
+} from "../../../assets/styles";
 import Autolink from "react-native-autolink";
-import { getLeaveOption } from "../../utils/getLeaveType";
 import CustomImage from "../../common/image";
-import { goBack } from "../../utils/navigation";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { header as Header } from "../../common/header";
+import colors from "../../../assets/colors";
 
 let leave_quota: any = {
   total_pto: 0,
@@ -28,47 +23,31 @@ let leave_quota: any = {
   used_float: 0,
 };
 
-const Request = ({
-  data,
-  style,
+const LeaveDetail = ({
   title = null,
   screenName = "Leave",
   type,
   reloadRequest,
+  route,
 }: any) => {
-  const alertRef = useRef<any>(null);
-  const actionRef = useRef<any>(null);
-  const { state } = useContext<any>(AuthContext);
-  const { dispatchAdmin } = useContext<any>(AdminRequestContext);
-  const { dayRange } = getDay(data);
-  const { name } = getName(data);
-  const [responses, setresponses] = useState([]);
-  const [approved, setapproved] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [user, setuser] = useState<any>(null);
+  const data = route.params?.data;
 
-  const checkReplied = () => {
-    data.leave_approvals &&
-      data.leave_approvals.map((item) => {
-        if (item.requested_to === state.user.id) {
-          setapproved(true);
-        }
-      });
-  };
+  const [responses, setresponses] = useState([]);
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getUser().then((user) => {
-      setuser(JSON.parse(user).uuid);
-      getRequest();
-    });
-
-    checkReplied();
+    getRequest();
   }, []);
 
   const getRequest = async () => {
     try {
-      const res: any = await getResponses(data.id, data.sender);
+      const res: any = await getResponses(
+        route?.params?.data?.id,
+        route?.params?.data?.user_id
+      );
+
       setresponses(res);
       const pto_leaves = res[0]?.leaveQuota?.find(
         (item: any) => item.leave_type === "PAID TIME OFF"
@@ -88,131 +67,44 @@ const Request = ({
       setLoading(false);
     }
   };
-  const leave_option = getLeaveOption(data?.leave_option);
-
-  const onPressAlert = (action: string) => {
-    actionRef.current?.showLoading();
-    actionRef.current?.show();
-    checkRequest(data?.id)
-      .then((res) => {
-        if (res === "Pending" || res === "In Progress") {
-          setTimeout(async () => {
-            if (alertRef.current) {
-              alertRef.current.setActionHandle(action);
-              alertRef.current.setResponse(await getRequest());
-            }
-          }, 500);
-        }
-        actionRef.current?.hideLoading();
-      })
-      .catch((err) => {
-        actionRef.current?.hideLoading();
-      });
-  };
-
-  const onPressSubmit = ({
-    action,
-    note,
-  }: {
-    action: string;
-    note: string;
-  }) => {
-    alertRef.current?.showSubmitLoading();
-    action === "Approve" && (action = "Approved");
-    action === "Deny" && (action = "Denied");
-
-    const newData: any = {
-      leave_id: data?.id,
-      action,
-      note,
-      requested_to: state.user.id, //REMOVABLE
-      quotaId: data.sender,
-      notification_token: data.device_tokens?.map(
-        (item: any) => item.notification_token
-      ),
-      lead_name: state.user.first_name, //REMOVABLE
-      user_name: data.user.first_name,
-      uuid: state.user.uuid, //REMOVABLE
-    };
-
-    updateRequest(data.id, newData)
-      .then((data: any) => {
-        data.state = data.status;
-        dispatchAdmin({
-          type: "REPLY",
-          payload: data,
-        });
-        actionRef.current?.hideLoading();
-        actionRef.current?.hide();
-        alertRef.current?.hideSubmitLoading();
-        showToast("Request replied ");
-        goBack();
-        if (reloadRequest) {
-          reloadRequest();
-        }
-      })
-      .catch((error) => {
-        alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong ", false);
-      });
-  };
 
   return (
     <>
-      {data && (
+      <Header icon={true}>
+        <View style={style.headContainer}>
+          <View>
+            <Text style={headerTxtStyle.headerText}>{data?.title}</Text>
+          </View>
+        </View>
+      </Header>
+      {!loading ? (
         <View style={style.container}>
           <View style={style.requestView}>
-            <View style={style.imageView}>
-              <CustomImage style={style.image} image={data?.user?.image_url} />
-
-              <View style={style.senderView}>
-                <View style={style.statusView}>
-                  <Text style={style.sender}>{name}</Text>
-                  <View style={style.stateView}>
-                    <State state={data.state} />
+            <>
+              <View style={style.imageView}>
+                <CustomImage style={style.image} image={data?.image} />
+                <View style={style.senderView}>
+                  <View style={style.statusView}>
+                    <Text style={style.sender}>{data?.title}</Text>
+                    <View style={style.stateView}>
+                      <State state={data.status} />
+                    </View>
+                  </View>
+                  <View style={style.dateView}>
+                    <Text style={style.leaveType}>{data.subTitle}</Text>
                   </View>
                 </View>
-                <View style={style.dateView}>
-                  <Text style={style.leaveType}>
-                    {screenName === "Leave" && <Text>{type}</Text>}
-                    {screenName === "Leave" ? (
-                      leave_option !== "FULL DAY" &&
-                      leave_option && (
-                        <Text
-                          style={style.leaveOption}
-                        >{` (${leave_option})`}</Text>
-                      )
-                    ) : (
-                      <Text style={style.leaveOption}>{`${leave_option}`}</Text>
-                    )}
-                  </Text>
+              </View>
+              <View style={[style.sectionView, { alignSelf: "flex-end" }]}>
+                <View style={style.sectionHeader}>
+                  <View style={style.sendView}>
+                    <State state="Requested">
+                      {startDate({ createdAt: data?.created_at })}
+                    </State>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View style={style.sectionView}>
-              <View style={style.sectionHeader}>
-                <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name="calendar" size={20} />
-                  <Text style={style.sectionDate}>{dayRange}</Text>
-                </View>
-                <View style={style.sendView}>
-                  <State state="Requested">{startDate(data)}</State>
-                </View>
-              </View>
-            </View>
-            <View style={style.sectionBody}>
-              <Autolink
-                // Required: the text to parse for links
-                text={data.note}
-                textProps={{ style: style.note }}
-                // Optional: enable email linking
-                email
-                // Optional: enable URL linking
-                url
-                // Optional: custom linking matchers
-              />
-              {/* <Text style={style.note}>{data.note}</Text> */}
-            </View>
+            </>
             {responses?.length ? (
               screenName === "Leave" ? (
                 <View style={style.cardFooterContainer}>
@@ -249,13 +141,13 @@ const Request = ({
             ) : null}
           </View>
           <View style={style.responseView}>
-            {loading && <ResponsePlaceHolder />}
             <ScrollView showsVerticalScrollIndicator={false}>
               {responses?.length > 0 &&
-                JSON.parse(data.lead).length !==
-                  responses[0].pendingResponses.length && (
+                responses[0].pendingResponses?.length && (
                   <>
-                    <SmallHeader text="Responses" />
+                    {responses[0]?.responses?.length !== 0 && (
+                      <SmallHeader text="Responses" />
+                    )}
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -294,7 +186,7 @@ const Request = ({
                     ))}
                   </>
                 )}
-              {data.state !== "Denied" && (
+              {data.status !== "Denied" && (
                 <>
                   <View style={style.pendingresponseView}>
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -340,32 +232,20 @@ const Request = ({
               )}
             </ScrollView>
           </View>
-          {title === "admin" && !approved && user !== data?.user?.uuid && (
-            <View style={style.buttonView}>
-              <ApproveDeny
-                ref={{ alertRef, actionRef }}
-                title="Approve"
-                style={style}
-                item={data}
-                fromStack={false}
-                onPress={onPressAlert}
-                onPressSubmit={onPressSubmit}
-              />
-              <ApproveDeny
-                ref={{ alertRef, actionRef }}
-                title="Deny"
-                style={style}
-                item={data}
-                fromStack={false}
-                onPress={onPressAlert}
-                onPressSubmit={onPressSubmit}
-              />
-            </View>
-          )}
+        </View>
+      ) : (
+        <View
+          style={{
+            backgroundColor: colors.white,
+            flex: 1,
+            paddingHorizontal: 20,
+          }}
+        >
+          <ResponsePlaceHolder />
         </View>
       )}
     </>
   );
 };
 
-export default Request;
+export default LeaveDetail;
