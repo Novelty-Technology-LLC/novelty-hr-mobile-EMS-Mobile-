@@ -1,39 +1,43 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Text, View, Image, ScrollView } from "react-native";
-import { getResponses } from "../../services";
-import { responseDay, startDate } from "../../utils/getDay";
-import { leadname } from "../../utils/getName";
-import { SmallHeader } from "../../common";
-import State from "../../components/leave_screen/state";
-import { ResponsePlaceHolder } from "../../components/loader/responsePlaceHolder";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { approveRequest as style } from "../../../assets/styles";
 import {
-  headerTxtStyle,
-  approveRequest as style,
-} from "../../../assets/styles";
+  checkWFHRequest,
+  getQuota,
+  getWFHResponses,
+  updateWFHRequests,
+} from "../../services";
+import { header as Header } from "../../common";
+import getDay, { responseDay, startDate } from "../../utils/getDay";
+import getName, { leadname } from "../../utils/getName";
+import { AuthContext } from "../../reducer";
+import { ApproveDeny } from "../../components";
+import { getUser } from "../../utils";
+import { showToast, SmallHeader } from "../../common";
 import Autolink from "react-native-autolink";
 import CustomImage from "../../common/image";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { header as Header } from "../../common/header";
+import { goBack } from "../../utils/navigation";
+import State from "../../components/leave_screen/state";
+import WfhAlert from "../../components/leave_screen/alert/wfhAlert";
+import { ResponsePlaceHolder } from "../../components/loader/responsePlaceHolder";
 import colors from "../../../assets/colors";
+import { headerTxtStyle } from "../../../assets/styles";
 
-let leave_quota: any = {
-  total_pto: 0,
-  total_float: 0,
-  used_pto: 0,
-  used_float: 0,
+let home_quota: any = {
+  total: 0,
+  remaining: 0,
 };
 
-const LeaveDetail = ({
-  title = null,
-  screenName = "Leave",
-  type,
-  reloadRequest,
-  route,
-}: any) => {
+const WfhDetail = ({ route, screenName = "" }: any) => {
   const data = route.params?.data;
-
   const [responses, setresponses] = useState([]);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -43,31 +47,18 @@ const LeaveDetail = ({
 
   const getRequest = async () => {
     try {
-      const res: any = await getResponses(
-        route?.params?.data?.id,
-        route?.params?.data?.user_id
-      );
+      const res: any = await getWFHResponses(data.id, data.user_id);
 
       setresponses(res);
-      const pto_leaves = res[0]?.leaveQuota?.find(
-        (item: any) => item.leave_type === "PAID TIME OFF"
-      );
-      const float_leaves = res[0]?.leaveQuota?.find(
-        (item: any) => item.leave_type === "FLOATING DAY"
-      );
-      leave_quota = {
-        total_pto: pto_leaves?.leave_total,
-        total_float: float_leaves?.leave_total,
-        used_pto: pto_leaves?.leave_remaining,
-        used_float: float_leaves?.leave_remaining,
+      home_quota = {
+        remaining: res[0]?.homeQuota[0]?.remaining,
+        total: res[0]?.homeQuota[0]?.total,
       };
       setLoading(false);
-      return leave_quota;
     } catch (error) {
       setLoading(false);
     }
   };
-
 
   return (
     <>
@@ -92,12 +83,7 @@ const LeaveDetail = ({
                     </View>
                   </View>
                   <View style={style.dateView}>
-                    <View style={{ flexDirection: "column" }}>
-                      <Text style={style.leaveType}>{data.subTitle}</Text>
-                      <Text style={style.leaveType}>
-                        ({data?.leave_option})
-                      </Text>
-                    </View>
+                    <Text style={style.leaveType}>{data.subTitle}</Text>
                   </View>
                 </View>
               </View>
@@ -111,40 +97,7 @@ const LeaveDetail = ({
                 </View>
               </View>
             </>
-            {responses?.length ? (
-              screenName === "Leave" ? (
-                <View style={style.cardFooterContainer}>
-                  <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining :</Text>
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" PTO"}</Text>
-                    </Text>
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" Floating "}</Text>
-                    </Text>
-                  </View>
-                </View>
-              ) : (
-                <View style={style.cardWFHFooter}>
-                  <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining Quota :</Text>
-                    {/* <Text></Text> */}
-                    <Text>
-                      <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
-                      </Text>
-                      <Text style={style.leaveTypes}>{" WFH "}</Text>
-                    </Text>
-                  </View>
-                </View>
-              )
-            ) : null}
+            <WfhAlert responses={home_quota} />
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -254,4 +207,4 @@ const LeaveDetail = ({
   );
 };
 
-export default LeaveDetail;
+export default WfhDetail;

@@ -46,6 +46,7 @@ import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
 import { RequestWFHDetail } from "../screens/request_detail_screen/requestWFHDetail";
 import { ApproveWFHRequest } from "../screens/approve_request/approveWfhRequest";
 import LeaveDetail from "../screens/dashboard/leaveDetail";
+import WfhDetail from "../screens/dashboard/wfhDetail";
 
 const DashStack = createStackNavigator();
 
@@ -143,6 +144,7 @@ const DashNav = () => {
                       name="leaveDetail"
                       component={LeaveDetail}
                     />
+                    <DashStack.Screen name="wfhDetail" component={WfhDetail} />
                   </DashStack.Navigator>
                 </RequestContext.Provider>
               </AdminRequestContext.Provider>
