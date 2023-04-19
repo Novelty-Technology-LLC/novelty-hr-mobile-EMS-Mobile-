@@ -68,6 +68,7 @@ const LeaveDetail = ({
     }
   };
 
+
   return (
     <>
       <Header icon={true}>
@@ -91,7 +92,12 @@ const LeaveDetail = ({
                     </View>
                   </View>
                   <View style={style.dateView}>
-                    <Text style={style.leaveType}>{data.subTitle}</Text>
+                    <View style={{ flexDirection: "column" }}>
+                      <Text style={style.leaveType}>{data.subTitle}</Text>
+                      <Text style={style.leaveType}>
+                        ({data?.leave_option})
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
