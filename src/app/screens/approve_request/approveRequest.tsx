@@ -5,12 +5,9 @@ import { headerTxtStyle } from "../../../assets/styles";
 import { approveRequest as style } from "../../../assets/styles";
 import Request from "../../components/approveRequest/approve_request";
 import getName from "../../utils/getName";
-import getDay from "../../utils/getDay";
 
 const ApproveRequest = ({ route }: any) => {
-  let { dayRange } = getDay(route.params);
   let { name } = getName(route.params);
-
 
   return (
     <>
