@@ -91,6 +91,13 @@ const WorkFromHomeEmployeeListing = (props: any) => {
                         status: item?.status,
                       },
                     });
+                  } else {
+                    navigate("employeeDetail", {
+                      id: item?.id,
+                      image: item?.res[0]?.image,
+                      name: item?.res[0]?.title,
+                      refresh: getWFHemployees,
+                    });
                   }
                 }}
               />
