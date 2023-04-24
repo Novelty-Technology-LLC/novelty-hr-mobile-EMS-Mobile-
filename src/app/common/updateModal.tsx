@@ -50,6 +50,7 @@ const UpdateModal = () => {
 
   return (
     <DialogContainer
+      onTouchOutside={false}
       visible={visible}
       setVisible={setVisible}
       dialogStyle={{ width: "100%" }}
@@ -96,15 +97,7 @@ const UpdateModal = () => {
           width: "100%",
         }}
       >
-        <View style={{ width: "45%" }}>
-          <CustomButton
-            label="No, Thanks"
-            buttonStyle={{ backgroundColor: "grey" }}
-            labelStyle={{ fontFamily: fonts.poppinsMedium }}
-            onPress={() => setVisible(false)}
-          />
-        </View>
-        <View style={{ width: "45%" }}>
+        <View style={{ width: "100%" }}>
           <CustomButton
             label="Update"
             onPress={goToStore}
