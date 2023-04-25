@@ -28,6 +28,7 @@ import { CustomText } from "../components/text";
 import { TermPolicy } from "../common/termPolicy";
 import { CustomDivider } from "../common/divider";
 import CustomImage from "../common/image";
+import { ProfileTab } from "../components/profile/profileTab";
 
 const Profile = ({ navigation }: any) => {
   const { state, dispatch } = useContext(AuthContext);
@@ -239,8 +240,8 @@ const Profile = ({ navigation }: any) => {
           <View style={profileStyle.topContainer}></View>
 
           <View style={profileStyle.infoStyle}>
-            <ProfileInfoComponent user={state.user} />
-
+            {/* <ProfileInfoComponent user={state.user} /> */}
+            <ProfileTab />
             <CustomDivider size="maxlarge" />
           </View>
           {/* <View style={{ ...style.imageView, position: "absolute" }}>
