@@ -1,23 +1,32 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import React from "react";
+import React, { useContext } from "react";
 import { View } from "react-native";
+import normalize from "react-native-normalize";
 import { profileStyles } from "../../../assets/styles/profile";
-import { CustomTabBar } from "../../common/customTabBar";
 import { ProfileInfoComponent } from "../../common/profileInformation";
+import { InventoryInfo } from "../../common/inventoryInfo";
+import colors from "../../../assets/colors";
 
 const Tab = createMaterialTopTabNavigator();
 
-export const ProfileTab = () => {
+export const ProfileTab = ({ user }: any) => {
   return (
-    <View style={{}}>
-      <Tab.Navigator
-        tabBar={(props: any) => (
-          <CustomTabBar appBarStyle={profileStyles.benifitsTabbar} {...props} />
-        )}
-      >
-        <Tab.Screen name="Membership" component={ProfileInfoComponent} />
-        <Tab.Screen name="Transaction" component={ProfileInfoComponent} />
-      </Tab.Navigator>
-    </View>
+    <Tab.Navigator
+      // tabBar={() => <></>}
+      tabBarShowLabel={false}
+      tabBarOptions={{
+        tabStyle: { backgroundColor: colors.white },
+        style: {
+          marginTop: 0,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Profile Information"
+        component={ProfileInfoComponent}
+        initialParams={{ user }}
+      />
+      <Tab.Screen name="Assigned Inventory" component={InventoryInfo} />
+    </Tab.Navigator>
   );
 };

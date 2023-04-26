@@ -37,7 +37,6 @@ import {
 } from "../../utils";
 import { isDev } from "../../api/uri";
 
-
 const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
     useContext(AnnouncementContext);

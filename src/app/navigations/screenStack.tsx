@@ -5,6 +5,7 @@ import {
   FullScreenImage,
   LeaveApproval,
   LeaveDashboard,
+  Profile,
   RequestDetail,
   RequestLeave,
 } from "../screens";
@@ -25,6 +26,7 @@ import {
 import { RequestWFH } from "../screens/request_screen/requestWFH";
 import { NAVIGATION_ROUTE } from "../constant/navigation.contant";
 import { RequestWFHDetail } from "../screens/request_detail_screen/requestWFHDetail";
+import { ProfileTab } from "../components/profile/profileTab";
 
 const ScreenStack = createStackNavigator();
 
@@ -69,6 +71,8 @@ const ScreenNav = () => {
                 name="requestDetail"
                 component={RequestDetail}
               />
+              <ScreenStack.Screen name="profileTab" component={ProfileTab} />
+              <ScreenStack.Screen name="Profile" component={Profile} />
               <ScreenStack.Screen
                 name={NAVIGATION_ROUTE.Request_WFH_DETAIL}
                 component={RequestWFHDetail}

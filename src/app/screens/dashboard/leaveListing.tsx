@@ -26,7 +26,6 @@ import { AuthContext } from "../../reducer";
 
 const LeaveListing = (props: any) => {
   const { state } = useContext(AuthContext);
-  console.log("ss", state.user.is_approver);
 
   const [list, setList] = useState<any>(null);
   const [loading, setLoading] = useState<any>(null);

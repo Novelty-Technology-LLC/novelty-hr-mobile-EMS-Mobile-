@@ -11,16 +11,24 @@ import { fonts } from "../../assets/styles/theme";
 import moment from "moment";
 
 const ProfileInfoComponent = ({
-  user,
+  route,
   chekUserInfo = null,
 }: {
-  user: any;
+  route: any;
   chekUserInfo?: any;
 }) => {
+  const user = route?.params?.user;
   return (
-    <View style={{ top: normalize(50), flex: 1 }}>
-      <CustomText
-        text={user?.first_name + " " + user.last_name}
+    <View
+      style={{
+        paddingTop: normalize(10),
+        flex: 1,
+        backgroundColor: colors.white,
+      }}
+    >
+      {/*code could be in use
+       <CustomText
+        text={user?.first_name + " " + user?.last_name}
         style={{
           color: "black",
           paddingTop: 5,
@@ -31,7 +39,7 @@ const ProfileInfoComponent = ({
         }}
       />
       <CustomText
-        text={user.designation}
+        text={user?.designation}
         style={{
           color: "#8D8D8D",
           textAlign: "center",
@@ -39,29 +47,29 @@ const ProfileInfoComponent = ({
           // fontWeight: "bold",
           fontFamily: fonts.poppinsMedium,
         }}
-      />
+      /> */}
       <View style={{ ...style.infoView }}>
         <View style={style.body}>
-          <SmallHeader text="Personal Information" />
+          <SmallHeader text="Personal Information" showLine={false} />
           <TouchableOpacity
             disabled={
               chekUserInfo != null
-                ? user.id !== chekUserInfo.id
+                ? user?.id !== chekUserInfo.id
                   ? false
                   : true
                 : true
             }
             onPress={() => {
               if (chekUserInfo != null) {
-                if (user.id !== chekUserInfo.id) {
-                  Linking.openURL(`mailto:${user.email}?subject=Subject to:`);
+                if (user?.id !== chekUserInfo.id) {
+                  Linking.openURL(`mailto:${user?.email}?subject=Subject to:`);
                 }
               }
             }}
           >
             <View style={style.icon}>
               <Icon name="email-newsletter" color={colors.primary} size={25} />
-              <Text style={style.text}>{user.email}</Text>
+              <Text style={style.text}>{user?.email}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -74,31 +82,31 @@ const ProfileInfoComponent = ({
             }
             onPress={() => {
               if (chekUserInfo != null) {
-                if (user.id !== chekUserInfo.id) {
-                  Linking.openURL(`tel:${user.phone}`);
+                if (user?.id !== chekUserInfo.id) {
+                  Linking.openURL(`tel:${user?.phone}`);
                 }
               }
             }}
           >
             <View style={style.icon}>
               <Icon name="phone" color={colors.primary} size={25} />
-              <Text style={style.text}>{formatPhoneNumber(user.phone)}</Text>
+              <Text style={style.text}>{formatPhoneNumber(user?.phone)}</Text>
             </View>
           </TouchableOpacity>
 
           <View style={style.icon}>
             <Icon name="human-male-female" color={colors.primary} size={25} />
-            <Text style={style.gender}>{user.gender}</Text>
+            <Text style={style.gender}>{user?.gender}</Text>
           </View>
-          {user.birth_date && (
+          {user?.birth_date && (
             <View style={style.icon}>
               <Icon name="cake-variant" color={colors.primary} size={25} />
               <Text style={style.date}>
-                {moment(user.birth_date).format("LL")}
+                {moment(user?.birth_date).format("LL")}
               </Text>
             </View>
           )}
-          {user.blood_group && (
+          {user?.blood_group && (
             <View style={style.icon}>
               <Icon name="water" color={colors.primary} size={25} />
               <Text style={style.text}>{user?.blood_group}</Text>
@@ -109,7 +117,7 @@ const ProfileInfoComponent = ({
       <View style={style.infoView}></View>
       <View style={style.infoView}>
         <View style={style.body}>
-          <SmallHeader text="Employee Information" />
+          <SmallHeader text="Employee Information" showLine={false} />
 
           <View style={style.icon}>
             <Icon
