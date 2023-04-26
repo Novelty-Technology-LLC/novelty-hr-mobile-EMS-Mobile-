@@ -1,15 +1,17 @@
-import { smallHeaderStyle as style } from '../../assets/styles';
-import React from 'react';
-import { Text, View } from 'react-native';
+import { smallHeaderStyle as style } from "../../assets/styles";
+import React from "react";
+import { Text, View } from "react-native";
 
 const SmallHeader = ({
   text,
   history,
   timelog = false,
+  showLine = true,
 }: {
   text: string;
   history?: Boolean;
   timelog?: boolean;
+  showLine?: boolean;
 }) => {
   return (
     <View
@@ -22,7 +24,7 @@ const SmallHeader = ({
       }
     >
       <Text style={style.header}>{text}</Text>
-      <View style={style.line}></View>
+      {showLine && <View style={style.line}></View>}
     </View>
   );
 };

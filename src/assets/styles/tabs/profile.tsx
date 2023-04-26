@@ -27,10 +27,11 @@ const profileStyle = StyleSheet.create({
   },
   infoStyle: {
     borderTopLeftRadius: 22,
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderTopRightRadius: 22,
-    height: Dimensions.get("screen").height / 1.3,
+    height: Dimensions.get("screen").height / 0.9,
   },
+  profileInfo: {},
   imageView: {
     paddingVertical: normalize(20),
     justifyContent: "center",
@@ -91,6 +92,15 @@ const profileStyle = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     paddingHorizontal: normalize(15),
+    backgroundColor: colors.white,
+  },
+  invinfoView: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    paddingHorizontal: normalize(15),
+    backgroundColor: colors.white,
+    flex: 1,
+    paddingTop: normalize(10),
   },
   heading: {
     fontFamily: fonts.poppinsMedium,

@@ -16,6 +16,18 @@ const globalStyle = StyleSheet.create({
   },
   titleWeight: { fontWeight: "700" },
   row: { flexDirection: "row", justifyContent: "space-between" },
+  itemContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    overflow: "hidden",
+  },
+  button: {
+    paddingHorizontal: 16,
+    paddingBottom: 5,
+  },
 });
 
 export { globalStyle };

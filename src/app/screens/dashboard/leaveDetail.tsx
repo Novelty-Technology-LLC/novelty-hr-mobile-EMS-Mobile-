@@ -33,7 +33,6 @@ const LeaveDetail = ({
   const data = route.params?.data;
 
   const [responses, setresponses] = useState([]);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -67,7 +66,6 @@ const LeaveDetail = ({
       setLoading(false);
     }
   };
-
 
   return (
     <>
