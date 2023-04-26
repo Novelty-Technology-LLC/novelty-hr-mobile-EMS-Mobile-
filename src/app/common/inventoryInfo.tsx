@@ -4,9 +4,10 @@ import { SmallHeader } from "./smallHeader";
 import { profileStyle } from "../../assets/styles/tabs/profile";
 import { getRequest } from "../services";
 import { AuthContext } from "../reducer";
+import { profileStyles } from "../../assets/styles/profile";
 
 export const InventoryInfo = () => {
-  const { state, dispatch } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
   const [inv, setInv] = useState([]);
   useEffect(() => {
     fetchInventory();
@@ -27,33 +28,11 @@ export const InventoryInfo = () => {
 
         <View>
           {inv.map((item) => (
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                paddingRight: 90,
-              }}
-            >
-              <View
-                style={{
-                  flex: 0.5,
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "flex-start",
-                  justifyContent: "flex-start",
-                }}
-              >
+            <View style={profileStyles.invContainer}>
+              <View style={profileStyles.invWrapper}>
                 <Text style={profileStyle.text}>{item?.category}</Text>
               </View>
-              <View
-                style={{
-                  flex: 0.5,
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "flex-start",
-                  justifyContent: "flex-start",
-                }}
-              >
+              <View style={profileStyles.invWrapper}>
                 <Text
                   style={[
                     profileStyle.text,

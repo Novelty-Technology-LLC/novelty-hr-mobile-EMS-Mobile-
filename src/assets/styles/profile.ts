@@ -14,6 +14,18 @@ export const profileStyles = StyleSheet.create({
 
     justifyContent: "flex-start",
   },
+  invContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingRight: 90,
+  },
+  invWrapper: {
+    flex: 0.5,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
   benifitsTabbar: {
     flexDirection: "column",
     // paddingTop: DeviceInfo.hasNotchAndIsland() ? 20 : 0,
