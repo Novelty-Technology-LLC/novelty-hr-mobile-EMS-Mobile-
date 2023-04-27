@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Linking, Platform, Text, View } from "react-native";
+import React from "react";
+import { BackHandler, Linking, Platform, View } from "react-native";
 import { DialogContainer } from "./dialogContainer";
 import Logo from "../../assets/images/novelty.png";
 import CustomImage from "./image";
 import { CustomButton } from "./customButton";
 import { CustomText } from "../components/text";
 import colors from "../../assets/colors";
-import VersionCheck from "react-native-version-check";
 import { fonts } from "../../assets/styles";
+import VersionCheck from "react-native-version-check";
+import { isForceUpdate } from "../api/uri";
 
-const UpdateModal = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    checkUpdate();
-  }, []);
-
+const UpdateModal = ({ closeModal = () => {} }) => {
   const goToStore = async () => {
     try {
       let url = "";
@@ -26,33 +21,15 @@ const UpdateModal = () => {
       } else {
         url = await VersionCheck.getStoreUrl();
       }
-      setVisible(false);
+      BackHandler.exitApp();
       Linking.openURL(url);
     } catch (error) {}
-  };
-
-  const checkUpdate = async () => {
-    try {
-      const curretVersion = await VersionCheck.getCurrentVersion();
-      const latestVersion = await VersionCheck.getLatestVersion();
-
-      VersionCheck.needUpdate({
-        currentVersion: curretVersion,
-        latestVersion: latestVersion,
-      }).then((res: any) => {
-        if (res?.isNeeded) {
-          setVisible(true);
-        } else {
-        }
-      });
-    } catch (e) {}
   };
 
   return (
     <DialogContainer
       onTouchOutside={false}
-      visible={visible}
-      setVisible={setVisible}
+      visible={true}
       dialogStyle={{ width: "100%" }}
     >
       <View
@@ -97,7 +74,17 @@ const UpdateModal = () => {
           width: "100%",
         }}
       >
-        <View style={{ width: "100%" }}>
+        {!isForceUpdate && (
+          <View style={{ width: "45%" }}>
+            <CustomButton
+              label="No, Thanks"
+              buttonStyle={{ backgroundColor: "grey" }}
+              labelStyle={{ fontFamily: fonts.poppinsMedium }}
+              onPress={closeModal}
+            />
+          </View>
+        )}
+        <View style={{ width: isForceUpdate ? "100%" : "45%" }}>
           <CustomButton
             label="Update"
             onPress={goToStore}
