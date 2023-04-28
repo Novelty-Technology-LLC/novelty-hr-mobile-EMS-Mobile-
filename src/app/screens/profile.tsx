@@ -280,7 +280,7 @@ const Profile = ({ navigation, route }: any) => {
               style={[style.image]}
               image={uri}
               fullScreen={false}
-              userProfile={route.params?.userProfile}
+              userProfile={route?.params?.userProfile}
             />
             <View style={style.iconCameraWrapper}>
               <TouchableOpacity

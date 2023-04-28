@@ -178,8 +178,8 @@ const LeaveDetail = ({
                             </View>
                           </View>
                         </View>
-                        {item.note ? (
-                          <Text style={style.leadText}>{item.note}</Text>
+                        {item?.note ? (
+                          <Text style={style.leadText}>{item?.note}</Text>
                         ) : (
                           <></>
                         )}
