@@ -5,7 +5,6 @@ import { customImageStyle } from "../../assets/styles/common/images.styles";
 import { PROFILE_IMAGE } from "../constant/global.constant";
 import { navigate } from "../utils/navigation";
 import { AuthContext } from "../reducer";
-import { boolean } from "yup";
 
 const CustomImage = ({
   image,
