@@ -33,6 +33,7 @@ const EmployeeDetail = (props: any) => {
         const id = params.id;
 
         let response = await getRequest(`user/user/${id}`, {});
+
         setData(response);
         setLoading(false);
       } catch (error) {
@@ -60,7 +61,7 @@ const EmployeeDetail = (props: any) => {
           <View style={profileStyle.topContainer}></View>
           <View style={profileStyle.infoStyle}>
             <ProfileInfoComponent
-              user={data ?? data}
+              route={{ params: { user: data ?? data } }}
               chekUserInfo={state.user}
             />
           </View>

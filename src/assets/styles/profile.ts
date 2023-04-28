@@ -52,7 +52,7 @@ export const profileStyles = StyleSheet.create({
 
   body: {
     paddingHorizontal: 20,
-    fleX: 1,
+    flex: 1,
     alignContent: "center",
     flexDirection: "row",
     justifyContent: "space-between",
