@@ -10,8 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "rebuild": "cd android && ./gradlew clean && yarn android",
     "build": "cd android && ./gradlew clean &&  ./gradlew bundleRelease",
-    "apk": "cd android && ./gradlew clean &&  ./gradlew assembleRelease",
-    "arch-ios": "arch -x86_64 yarn ios --simulator=\"iPhone 14 Pro\" "
+    "apk": "cd android && ./gradlew clean &&  ./gradlew assembleRelease"
   },
   "dependencies": {
     "@eva-design/eva": "^2.0.0",
