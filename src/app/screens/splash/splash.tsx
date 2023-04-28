@@ -59,6 +59,7 @@ export const SplashScreen = () => {
       const curretVersion = await VersionCheck.getCurrentVersion();
       const latestVersion = await VersionCheck.getLatestVersion();
 
+
       VersionCheck.needUpdate({
         currentVersion: curretVersion,
         latestVersion: latestVersion,

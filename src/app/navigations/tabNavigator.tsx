@@ -206,6 +206,7 @@ const TabNavigator = () => {
         <Tab.Screen
           name="Profile"
           component={Profile}
+          initialParams={{ userProfile: true }}
           options={{
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="account" color={color} size={size} />
