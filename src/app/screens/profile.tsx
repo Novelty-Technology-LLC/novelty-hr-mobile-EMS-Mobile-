@@ -27,7 +27,8 @@ import { TermPolicy } from "../common/termPolicy";
 import { CustomDivider } from "../common/divider";
 import CustomImage from "../common/image";
 import { ProfileTab } from "../components/profile/profileTab";
-const Profile = ({ navigation }: any) => {
+
+const Profile = ({ navigation, route }: any) => {
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   let refRBSheet = useRef<any>(null);
@@ -73,6 +74,7 @@ const Profile = ({ navigation }: any) => {
       </View>
     );
   };
+
   const confirmForBottomSheet = ({
     title,
     iconName,
@@ -179,6 +181,7 @@ const Profile = ({ navigation }: any) => {
   };
 
   let uri = image ? image?.path : state?.user?.image_url;
+
   const [oldimage, setoldimage] = useState(state.image_url);
   const cancel = () => {
     setloading(false);
@@ -277,6 +280,7 @@ const Profile = ({ navigation }: any) => {
               style={[style.image]}
               image={uri}
               fullScreen={false}
+              userProfile={route?.params?.userProfile}
             />
             <View style={style.iconCameraWrapper}>
               <TouchableOpacity
