@@ -10,6 +10,9 @@ import colors from "../../../assets/colors";
 const Tab = createMaterialTopTabNavigator();
 
 export const ProfileTab = ({ user }: any) => {
+
+  const { device_tokens, ...rest } = user;
+
   return (
     <Tab.Navigator
       // tabBar={() => <></>}
@@ -24,7 +27,7 @@ export const ProfileTab = ({ user }: any) => {
       <Tab.Screen
         name="Profile Information"
         component={ProfileInfoComponent}
-        initialParams={{ user }}
+        initialParams={{ user: rest }}
       />
       <Tab.Screen name="Assigned Inventory" component={InventoryInfo} />
     </Tab.Navigator>

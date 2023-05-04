@@ -5,14 +5,14 @@ import { dialogContainerStyle } from "../../assets/styles";
 const DialogContainer = ({
   children,
   visible,
-  setVisible,
+  setVisible = () => {},
   setdotloader = null,
   dialogStyle,
   onTouchOutside = true,
 }: {
   children?: any;
   visible: boolean;
-  setVisible: Function;
+  setVisible?: Function;
   setdotloader?: Function;
   dialogStyle?: any;
   onTouchOutside?: boolean;

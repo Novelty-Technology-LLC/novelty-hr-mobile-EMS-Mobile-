@@ -5,9 +5,7 @@ import { SmallHeader } from ".";
 import colors from "../../assets/colors";
 import { profileStyle as style } from "../../assets/styles/tabs";
 import { formatPhoneNumber } from "../utils";
-import { CustomText } from "../components/text";
 import normalize from "react-native-normalize";
-import { fonts } from "../../assets/styles/theme";
 import moment from "moment";
 
 const ProfileInfoComponent = ({
@@ -75,7 +73,7 @@ const ProfileInfoComponent = ({
           <TouchableOpacity
             disabled={
               chekUserInfo != null
-                ? user.id !== chekUserInfo.id
+                ? user?.id !== chekUserInfo.id
                   ? false
                   : true
                 : true
