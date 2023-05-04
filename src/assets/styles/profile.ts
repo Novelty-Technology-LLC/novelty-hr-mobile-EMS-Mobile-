@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../colors";
+import { fonts } from "./theme";
 
 const paddingTop = normalize(20);
 
@@ -25,6 +26,17 @@ export const profileStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "flex-start",
+  },
+  emptyInv: {
+    backgroundColor: colors.white,
+    justifyContent: "center",
+    height: "100%",
+    alignItems: "center",
+  },
+  emptyText: {
+    color: colors.secondary,
+    fontSize: normalize(16),
+    fontFamily: fonts.mulishRegular,
   },
   benifitsTabbar: {
     flexDirection: "column",
@@ -52,7 +64,7 @@ export const profileStyles = StyleSheet.create({
 
   body: {
     paddingHorizontal: 20,
-    fleX: 1,
+    flex: 1,
     alignContent: "center",
     flexDirection: "row",
     justifyContent: "space-between",

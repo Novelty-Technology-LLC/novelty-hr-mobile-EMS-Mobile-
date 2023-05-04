@@ -24,6 +24,7 @@ const globalStyle = StyleSheet.create({
     borderBottomRightRadius: 20,
     overflow: "hidden",
   },
+  contentCenter: { alignItems: "center", flex: 1, justifyContent: "center" },
   button: {
     paddingHorizontal: 16,
     paddingBottom: 5,
