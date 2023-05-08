@@ -1,16 +1,16 @@
-import { StyleSheet } from 'react-native';
-import normalize from 'react-native-normalize';
-import colors from '../../colors';
-import { fonts } from '../theme';
+import { StyleSheet } from "react-native";
+import normalize from "react-native-normalize";
+import colors from "../../colors";
+import { fonts } from "../theme";
 
 const ListingStyle = StyleSheet.create({
   container: {
     marginHorizontal: normalize(20),
     paddingVertical: normalize(10),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     borderBottomColor: colors.lightGrey,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     fontFamily: fonts.mulishBold,
