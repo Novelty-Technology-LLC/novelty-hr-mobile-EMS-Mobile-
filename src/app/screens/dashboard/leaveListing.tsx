@@ -37,6 +37,7 @@ const LeaveListing = (props: any) => {
   const getallLeaveListing = async (routeName: string) => {
     setLoading(true);
     const data = await getList(routeName);
+
     setLoading(false);
     setList(data);
   };

@@ -109,7 +109,8 @@ const LeaveDetail = ({
                 </View>
               </View>
             </>
-            {responses?.length ? (
+            <Text>{data?.note || ""}</Text>
+            {responses?.length > 0 ? (
               screenName === "Leave" ? (
                 <View style={style.cardFooterContainer}>
                   <View style={style.cardFooter}>

@@ -60,6 +60,7 @@ const WfhDetail = ({ route, screenName = "" }: any) => {
     }
   };
 
+
   return (
     <>
       <Header icon={true}>
@@ -96,55 +97,55 @@ const WfhDetail = ({ route, screenName = "" }: any) => {
                   </View>
                 </View>
               </View>
+              <Text style={{ marginBottom: 5 }}>{data?.note || ""}</Text>
             </>
             <WfhAlert responses={home_quota} />
           </View>
           <View style={style.responseView}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              {responses?.length > 0 &&
-                responses[0].pendingResponses?.length && (
-                  <>
-                    {responses[0]?.responses?.length !== 0 && (
-                      <SmallHeader text="Responses" />
-                    )}
-                    {responses[0].responses.map((item: any, i: number) => (
-                      <Fragment key={i}>
-                        <View style={style.main} key={i.toString()}>
-                          <View style={style.imageView}>
-                            <Image
-                              style={style.image}
-                              source={
-                                item.user?.image_url
-                                  ? { uri: item.user.image_url }
-                                  : require("../../../assets/images/person.jpeg")
-                              }
-                            />
-                            <View style={style.senderView}>
-                              <View style={style.teamWrapper}>
-                                <Text style={style.sender}>
-                                  {leadname(item.user)}
-                                </Text>
-                                <State state={item.action} />
-                              </View>
-                              <View style={style.teamLeadView}>
-                                <Text style={style.teamLead}>Team Lead</Text>
-                                <Text style={style.text}>
-                                  on {responseDay(item)}
-                                </Text>
-                              </View>
+              {responses?.length > 0 && (
+                <>
+                  {responses[0]?.responses?.length !== 0 && (
+                    <SmallHeader text="Responses" />
+                  )}
+                  {responses[0].responses.map((item: any, i: number) => (
+                    <Fragment key={i}>
+                      <View style={style.main} key={i.toString()}>
+                        <View style={style.imageView}>
+                          <Image
+                            style={style.image}
+                            source={
+                              item.user?.image_url
+                                ? { uri: item.user.image_url }
+                                : require("../../../assets/images/person.jpeg")
+                            }
+                          />
+                          <View style={style.senderView}>
+                            <View style={style.teamWrapper}>
+                              <Text style={style.sender}>
+                                {leadname(item.user)}
+                              </Text>
+                              <State state={item.action} />
+                            </View>
+                            <View style={style.teamLeadView}>
+                              <Text style={style.teamLead}>Team Lead</Text>
+                              <Text style={style.text}>
+                                on {responseDay(item)}
+                              </Text>
                             </View>
                           </View>
-                          {item.note ? (
-                            <Text style={style.leadText}>{item.note}</Text>
-                          ) : (
-                            <></>
-                          )}
                         </View>
-                        <View style={style.spacer} />
-                      </Fragment>
-                    ))}
-                  </>
-                )}
+                        {item?.note ? (
+                          <Text style={style.leadText}>{item?.note}</Text>
+                        ) : (
+                          <></>
+                        )}
+                      </View>
+                      <View style={style.spacer} />
+                    </Fragment>
+                  ))}
+                </>
+              )}
               {data.status !== "Denied" && (
                 <>
                   <View style={style.pendingresponseView}>

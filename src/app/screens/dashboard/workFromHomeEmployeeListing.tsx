@@ -46,6 +46,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
             work_shift: items?.work_shift,
             user_id: item?.user_id,
             created_at: item?.created_at,
+            note: item?.note,
           };
         });
         return {

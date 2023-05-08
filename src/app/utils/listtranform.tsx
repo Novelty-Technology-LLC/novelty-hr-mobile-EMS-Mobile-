@@ -194,6 +194,7 @@ export const transformList = (
       created_at: item?.created_at,
       image: item?.user?.image_url,
       user_id: item?.user?.id,
+      note: item?.note,
     };
   });
 
