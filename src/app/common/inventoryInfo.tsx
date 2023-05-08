@@ -38,13 +38,13 @@ export const InventoryInfo = () => {
       }
     >
       <View style={profileStyle.body}>
-        {inv.length > 0 && (
+        {inv?.length > 0 && (
           <SmallHeader text="Assigned Inventory" showLine={false} />
         )}
 
-        {inv.length > 0 ? (
+        {inv?.length > 0 ? (
           <View>
-            {inv.map((item) => (
+            {inv?.map((item) => (
               <View style={profileStyles.invContainer}>
                 <View style={profileStyles.invWrapper}>
                   <Text style={profileStyle.text}>{item?.category}</Text>
