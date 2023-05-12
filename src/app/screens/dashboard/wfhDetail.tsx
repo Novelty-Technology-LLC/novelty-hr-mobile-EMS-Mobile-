@@ -83,7 +83,7 @@ const WfhDetail = ({ route, screenName = "" }: any) => {
                       <State state={data.status} />
                     </View>
                   </View>
-                  <Text style={style.leaveType}>{data.date}</Text>
+                  <Text style={style.leaveType}>{data?.date}</Text>
                   <View style={style.dateView}>
                     <Text style={style.leaveType}>{data.subTitle}</Text>
                   </View>
