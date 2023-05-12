@@ -130,6 +130,46 @@ const transfromDateForLeave = (startDate: string, endDate: string) => {
   )}`;
 };
 
+
+export const transfromDateForWFH = (startDate: string, endDate: string) => {
+  if (
+    moment(moment().format("YYYY-MM-DD")).isBetween(
+      startDate,
+      endDate,
+      null,
+      "[]"
+    )
+  ) {
+    if (moment(startDate).isSame(moment(endDate))) {
+      if (moment().day() === 6 || moment().day() === 0) {
+        return "";
+      }
+      return "On WFH Today";
+    } else {
+      if (moment().day() === 6 || moment().day() === 0) {
+        return dateStringMapper(
+          moment(startDate).format("YYYY-MM-DD"),
+          moment(endDate).format("YYYY-MM-DD")
+        );
+      }
+      return `On WFH Today\n${dateStringMapper(
+        moment(startDate).format("YYYY-MM-DD"),
+        moment(endDate).format("YYYY-MM-DD")
+      )}`;
+    }
+  }
+  if (moment(moment().format("YYYY-MM-DD")).add(1, "day").isSame(startDate)) {
+    return `On WFH Tomorrow\n${dateStringMapper(
+      moment(startDate).format("YYYY-MM-DD"),
+      moment(endDate).format("YYYY-MM-DD")
+    )}`;
+  }
+  return `${dateStringMapper(
+    moment(startDate).format("YYYY-MM-DD"),
+    moment(endDate).format("YYYY-MM-DD")
+  )}`;
+};
+
 export const transformDate = (date: any, module: string, isList: boolean) => {
   let startDate = date?.startDate ?? date;
   let endDate = date?.endDate ?? date;
