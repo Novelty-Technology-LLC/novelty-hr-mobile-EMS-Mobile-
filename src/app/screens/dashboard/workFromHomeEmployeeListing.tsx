@@ -9,6 +9,7 @@ import { momentdate } from "../../utils";
 import { navigate } from "../../utils/navigation";
 import { EmployeeListingCard } from "./employeeListingCard";
 import { AuthContext } from "../../reducer";
+import { transfromDateForWFH } from "../../utils/listtranform";
 
 const WorkFromHomeEmployeeListing = (props: any) => {
   const [list, setList] = useState<any>(null);
@@ -47,6 +48,7 @@ const WorkFromHomeEmployeeListing = (props: any) => {
             user_id: item?.user_id,
             created_at: item?.created_at,
             note: item?.note,
+            date: transfromDateForWFH(item.start_date, item.end_date),
           };
         });
         return {

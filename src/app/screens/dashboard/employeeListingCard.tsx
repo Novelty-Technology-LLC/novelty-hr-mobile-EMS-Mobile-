@@ -53,14 +53,18 @@ const EmployeeListingCard = ({
           {/* Designation */}
           <View style={cardStyle.icon}>
             <View style={styles.employeeDetailContainer}>
-              <AppIcon
-                name='card-account-details'
-                color={colors.fontGrey}
-                size={normalize(12)}
-                style={{ marginRight: normalize(5) }}
-              />
-
-              <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+              <View style={{ flexDirection: "column" }}>
+                <Text style={cardStyle.subTitleText}>{item?.date}</Text>
+                <View style={{ flexDirection: "row" }}>
+                  <AppIcon
+                    name="card-account-details"
+                    color={colors.fontGrey}
+                    size={normalize(12)}
+                    style={{ marginRight: normalize(5) }}
+                  />
+                  <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+                </View>
+              </View>
             </View>
           </View>
 
@@ -68,7 +72,7 @@ const EmployeeListingCard = ({
           {item?.work_shift && (
             <View style={styles.employeeDetailContainer}>
               <AppIcon
-                name='timetable'
+                name="timetable"
                 color={colors.fontGrey}
                 size={normalize(12)}
                 style={{ marginRight: normalize(5) }}
