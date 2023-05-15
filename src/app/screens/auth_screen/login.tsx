@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
-import { Text, View, Platform, Keyboard, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  Platform,
+  Keyboard,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AuthContext } from "../../reducer";
 import {
@@ -26,6 +33,7 @@ let AuthModel = {
 };
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const [showLoginForm, setLoginForm] = useState(
     Platform.OS === "ios" ? true : false
@@ -34,7 +42,6 @@ const Login = () => {
 
   const fetchLogin = async () => {
     const login = await getLogin();
-
     setLoginForm(login?.metadata?.show_login ?? false);
   };
 
@@ -43,18 +50,26 @@ const Login = () => {
       values.EmailAddress === "dev@noveltytechnology.com" &&
       values.Password === "testPassword"
     ) {
+      setLoading(true);
       const user = {
         email: "dev@noveltytechnology.com",
         image_url:
           "https://lh5.googleusercontent.com/-x6GB2ApSCXU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnhtcm9X9UWnHBQpR4YP9h7d9uPfw/s120/photo.jpg",
         uuid: "113798347975576059462",
         idToken: "alive",
+        bypass: true,
+        userId: 1062,
+        password: "testPassword",
       };
-      appLogin(dispatch, user);
+      appLogin(dispatch, user, loadFalse);
     } else {
       Keyboard.dismiss();
       showToast("Authentication Failed ", false);
     }
+  };
+
+  const loadFalse = () => {
+    setLoading(false);
   };
 
   const navigate = () => {
@@ -121,6 +136,12 @@ const Login = () => {
                       >
                         Login
                       </Text>
+                      {loading && (
+                        <ActivityIndicator
+                          style={{ marginLeft: 10 }}
+                          color="white"
+                        />
+                      )}
                     </View>
                   </Button>
                   <Text style={{ textAlign: "center", fontWeight: "bold" }}>

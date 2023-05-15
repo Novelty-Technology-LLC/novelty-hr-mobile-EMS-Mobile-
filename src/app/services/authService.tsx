@@ -1,6 +1,5 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { appleAuth } from "@invertase/react-native-apple-authentication";
-
 import { initialLogin, setUser, storeToken } from "../utils";
 import { login } from "./userService";
 import { showToast } from "../common";
@@ -28,7 +27,7 @@ const signInGoogle = async (dispatch: any) => {
   }
 };
 
-const appLogin = (dispatch: any, data: any) => {
+const appLogin = (dispatch: any, data: any, loadFalse = () => {}) => {
   // const objuser = {
   //   email: 'pradip@noveltytechnology.com',
   //   image_url:
@@ -45,8 +44,10 @@ const appLogin = (dispatch: any, data: any) => {
       await storeToken(token);
       await initialLogin("isLoggedIn");
       dispatch({ type: "SIGN_IN", token });
+      loadFalse();
     })
     .catch((err: any) => {
+      loadFalse();
       if (err?.message === "Request failed with status code 404") {
         dispatch({ type: "INVALID" });
       } else {
