@@ -6,7 +6,6 @@ platform :ios, '11.0'
 target 'noveltyhrmobile' do
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
-  
   config = use_native_modules!
   pod 'GoogleSignIn'
   pod 'Firebase/Messaging'
