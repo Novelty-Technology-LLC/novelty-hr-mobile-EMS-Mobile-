@@ -25,6 +25,7 @@ api.interceptors.request.use(
 api.interceptors.request.use(async (req: any) => {
   let userToken = await getToken();
   const curretVersion = await VersionCheck?.getCurrentVersion();
+  const latestVersion = await VersionCheck.getLatestVersion();
   req.headers.authorization = userToken;
   req.headers["requestsource"] = "localhost";
   req.headers["Accept"] = "application/json";
@@ -34,7 +35,7 @@ api.interceptors.request.use(async (req: any) => {
   req.headers["Expires"] = "0";
   req.headers["source"] = "mobile";
   req.headers["platform"] = Platform.OS;
-  req.headers["app_version"] = curretVersion;
+  req.headers["app_version"] = `${curretVersion}/${latestVersion}`;
   return req;
 });
 
