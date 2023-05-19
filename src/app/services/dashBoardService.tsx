@@ -2,9 +2,12 @@ import moment from "moment";
 import { api } from "../api/api";
 import { getToday, getYesterday } from "../utils";
 import { todayDate } from "../utils/dateFilter";
+import VersionCheck from "react-native-version-check";
 
 const getDashboard = (user_id: number) => {
   return new Promise(async (resolve, reject) => {
+    const curretVersion = await VersionCheck?.getCurrentVersion();
+    const latestVersion = await VersionCheck?.getLatestVersion();
     try {
       const res = await api.get("/dashboard", {
         params: {
@@ -12,6 +15,7 @@ const getDashboard = (user_id: number) => {
           user_id, // REMOVABLE
           day: moment().day(),
           datefilter: JSON.stringify(todayDate()),
+          app_version: `${curretVersion}/${latestVersion}`,
         },
       });
 

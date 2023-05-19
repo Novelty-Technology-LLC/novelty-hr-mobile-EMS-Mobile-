@@ -42,20 +42,20 @@ const EmployeeListingCard = ({
         <View style={{ marginRight: theme.size.lg }}>
           <CustomImage style={style.headerImage} image={item.image} />
         </View>
-
         {/* Details */}
         <View style={{ flex: 1 }}>
           {/* Name */}
           <Text style={cardStyle.titleText} numberOfLines={1}>
             {item?.title}
           </Text>
-
           {/* Designation */}
           <View style={cardStyle.icon}>
             <View style={styles.employeeDetailContainer}>
               <View style={{ flexDirection: "column" }}>
-                <Text style={cardStyle.subTitleText}>{item?.date}</Text>
-                <View style={{ flexDirection: "row" }}>
+                {item?.date && (
+                  <Text style={cardStyle.subTitleText}>{item?.date}</Text>
+                )}
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <AppIcon
                     name="card-account-details"
                     color={colors.fontGrey}
