@@ -20,6 +20,7 @@ import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import CustomImage from "../../common/image";
 import { goBack } from "../../utils/navigation";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 
 let leave_quota: any = {
   total_pto: 0,
@@ -40,6 +41,7 @@ const Request = ({
   const actionRef = useRef<any>(null);
   const { state } = useContext<any>(AuthContext);
   const { dispatchAdmin } = useContext<any>(AdminRequestContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
@@ -141,6 +143,10 @@ const Request = ({
         dispatchAdmin({
           type: "REPLY",
           payload: data,
+        });
+        dispatchPendingRequest({
+          type: "SUBTRACT_PENDING_REQUEST",
+          payload: { key: "pending_leave" },
         });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
