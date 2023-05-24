@@ -14,34 +14,25 @@ import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
 import { Cards, header as Header, List } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
-import { getDashboard, getRequest, signOutGoogle } from "../../services";
+import { getDashboard, getRequest } from "../../services";
 import moment from "moment";
 import normalize from "react-native-normalize";
 import { DashboardCardPlaceholder } from "../../common";
-import {
-  getCurrentRouteName,
-  navigate,
-  navigationRef,
-} from "../../utils/navigation";
+import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
 import CustomImage from "../../common/image";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
-import {
-  getInitialLogin,
-  getToken,
-  removeToken,
-  removeUser,
-  setUser,
-} from "../../utils";
+import { setUser } from "../../utils";
 import { isDev } from "../../api/uri";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 
 const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
     useContext(AnnouncementContext);
 
   const { shoutoutState, dispatchShoutout } = useContext(ShoutoutContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
   const [wfhData, setWfhData] = useState("");
@@ -56,6 +47,7 @@ const DashBoard = () => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    dispatchPendingRequest({ type: "RELOAD" });
   }, []);
 
   useEffect(() => {

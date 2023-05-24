@@ -4,6 +4,7 @@ const initialState = {
   pending_wfh: 0,
   pending_leave: 0,
   total_pending_requests: 0,
+  reload: false,
 };
 
 const PendingRequestReducer = (prevState: any, action: any) => {
@@ -15,6 +16,8 @@ const PendingRequestReducer = (prevState: any, action: any) => {
     case "SUBTRACT_PENDING_REQUEST":
       const { key } = action.payload;
       return { ...prevState, [key]: prevState[key] - 1 };
+    case "RELOAD":
+      return { ...prevState, reload: !prevState.reload };
   }
 };
 

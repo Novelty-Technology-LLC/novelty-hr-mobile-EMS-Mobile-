@@ -34,14 +34,13 @@ const TabNavigator = () => {
     (async () => {
       if (isApprover(state?.user)) {
         const response = await api.get("user/pending-response");
-
         dispatchPendingRequest({
           type: "SET_PENDING_REQUEST",
           payload: response.data.data,
         });
       }
     })();
-  }, [state?.user]);
+  }, [state?.user, pendingRequests?.reload]);
 
   useEffect(() => {
     const initialNotification = () => {
@@ -222,12 +221,12 @@ const TabNavigator = () => {
           options={{
             tabBarBadgeStyle: {
               top: Platform.OS === "ios" ? 0 : 9,
-              minWidth: 18,
-              maxHeight: 18,
-              borderRadius: 9,
+              minWidth: 16,
+              maxHeight: 16,
+              borderRadius: 8,
               fontSize: 10,
-              lineHeight: 18,
-              marginTop: 2,
+              lineHeight: 16,
+              marginTop: 3,
             },
             tabBarBadge: showBadge(state?.user, pendingRequests?.pending_wfh)
               ? pendingRequests?.pending_wfh
@@ -242,12 +241,12 @@ const TabNavigator = () => {
           options={{
             tabBarBadgeStyle: {
               top: Platform.OS === "ios" ? 0 : 9,
-              minWidth: 18,
-              maxHeight: 18,
-              borderRadius: 9,
+              minWidth: 16,
+              maxHeight: 16,
+              borderRadius: 8,
               fontSize: 10,
-              lineHeight: 18,
-              marginTop: 2,
+              lineHeight: 16,
+              marginTop: 3,
             },
             tabBarBadge: showBadge(state?.user, pendingRequests?.pending_leave)
               ? pendingRequests?.pending_leave

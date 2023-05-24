@@ -1007,10 +1007,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@invertase/react-native-apple-authentication@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@invertase/react-native-apple-authentication/-/react-native-apple-authentication-1.1.2.tgz#cf86364d89030f0b9970d04468fde2d204cab5df"
-  integrity sha512-eRwLOyxPtAP0ZEy1iaBf+Sle7upBnyqOkeXgScWNKLKsb4r6+6I6CvMuHNdMZ9ObSdUfAVgAbj5L09TbJRw0hQ==
+"@invertase/react-native-apple-authentication@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@invertase/react-native-apple-authentication/-/react-native-apple-authentication-2.2.2.tgz#1d3b6d22ba1fab8ef8a285396acdbf0778ab071b"
+  integrity sha512-uNZcUn9WbAQP5zSOFXI1+kEUokLwZG9imUulFdt5t22CU2ozGq6zyPm+BAVVg8D5eUUXduX/dJFhbuOpJxiEhQ==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
