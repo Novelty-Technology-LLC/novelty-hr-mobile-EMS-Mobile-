@@ -220,7 +220,7 @@ const TabNavigator = () => {
           component={WfhNav}
           options={{
             tabBarBadgeStyle: {
-              top: Platform.OS === "ios" ? 0 : 9,
+              top: Platform.OS === "ios" ? 0 : 4,
               minWidth: 16,
               maxHeight: 16,
               borderRadius: 8,
@@ -240,7 +240,7 @@ const TabNavigator = () => {
           component={ScreenStack}
           options={{
             tabBarBadgeStyle: {
-              top: Platform.OS === "ios" ? 0 : 9,
+              top: Platform.OS === "ios" ? 0 : 4,
               minWidth: 16,
               maxHeight: 16,
               borderRadius: 8,
