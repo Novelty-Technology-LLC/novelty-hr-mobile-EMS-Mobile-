@@ -25,6 +25,7 @@ import Autolink from "react-native-autolink";
 import CustomImage from "../../common/image";
 import WfhAlert from "../leave_screen/alert/wfhAlert";
 import { goBack } from "../../utils/navigation";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 
 let home_quota: any = {
   total: 0,
@@ -33,6 +34,7 @@ let home_quota: any = {
 
 const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
   const { state } = useContext(AuthContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
@@ -134,6 +136,10 @@ const WfhRequestApproval = ({ data, style, title = null, type }: any) => {
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
+        dispatchPendingRequest({
+          type: "SUBTRACT_PENDING_REQUEST",
+          payload: { key: "pending_wfh" },
+        });
         showToast("Request replied ");
         if (data.reload) {
           data.reload();

@@ -15,14 +15,32 @@ import { navigate } from "../utils/navigation";
 import { WfhNav } from "./wfhStack";
 import WfhSvg from "../../assets/images/WFH.svg";
 import WfhActiveSvg from "../../assets/images/WFHActive.svg";
+import { PendingRequestContext } from "../reducer/pendingRequestReducer";
+import { api } from "../api/api";
+
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const { dispatch }: any = useContext(AuthContext);
+  const { dispatch, state }: any = useContext(AuthContext);
+  const { pendingRequests, dispatchPendingRequest } = useContext<any>(
+    PendingRequestContext
+  );
 
   const onPressTimlogNotification = (url: string) => {
     Linking.openURL(url);
   };
+
+  useEffect(() => {
+    (async () => {
+      if (isApprover(state?.user)) {
+        const response = await api.get("user/pending-response");
+        dispatchPendingRequest({
+          type: "SET_PENDING_REQUEST",
+          payload: response.data.data,
+        });
+      }
+    })();
+  }, [state?.user, pendingRequests?.reload]);
 
   useEffect(() => {
     const initialNotification = () => {
@@ -168,6 +186,17 @@ const TabNavigator = () => {
     }
   }
 
+  const isApprover = (user: any) => {
+    if (+user?.is_approver === 1 || +user?.is_default_approver === 1)
+      return true;
+    return false;
+  };
+
+  const showBadge = (user: any, total_count: number) => {
+    if (isApprover(user) && total_count > 0) return true;
+    return false;
+  };
+
   return (
     <>
       <Tab.Navigator
@@ -190,6 +219,18 @@ const TabNavigator = () => {
           name="Activity"
           component={WfhNav}
           options={{
+            tabBarBadgeStyle: {
+              top: Platform.OS === "ios" ? 0 : 4,
+              minWidth: 16,
+              maxHeight: 16,
+              borderRadius: 8,
+              fontSize: 10,
+              lineHeight: 16,
+              marginTop: 3,
+            },
+            tabBarBadge: showBadge(state?.user, pendingRequests?.pending_wfh)
+              ? pendingRequests?.pending_wfh
+              : null,
             tabBarIcon: ({ focused }) =>
               focused ? <WfhActiveSvg /> : <WfhSvg />,
           }}
@@ -198,6 +239,18 @@ const TabNavigator = () => {
           name="Home"
           component={ScreenStack}
           options={{
+            tabBarBadgeStyle: {
+              top: Platform.OS === "ios" ? 0 : 4,
+              minWidth: 16,
+              maxHeight: 16,
+              borderRadius: 8,
+              fontSize: 10,
+              lineHeight: 16,
+              marginTop: 3,
+            },
+            tabBarBadge: showBadge(state?.user, pendingRequests?.pending_leave)
+              ? pendingRequests?.pending_leave
+              : null,
             tabBarIcon: ({ color, size }) => (
               <AppIcon name="briefcase-clock" color={color} size={size} />
             ),

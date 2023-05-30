@@ -10,6 +10,7 @@ import { AdminRequestContext, AuthContext } from "../../reducer";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import { checkRequest, getResponses, updateRequest } from "../../services";
 import { showToast } from "../../common";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 interface requestPropType {
   item: any;
   other?: boolean;
@@ -22,6 +23,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext<any>(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext<any>(AdminRequestContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
 
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
@@ -92,6 +94,10 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
         dispatchAdmin({
           type: "REPLY",
           payload: item,
+        });
+        dispatchPendingRequest({
+          type: "SUBTRACT_PENDING_REQUEST",
+          payload: { key: "pending_leave" },
         });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();

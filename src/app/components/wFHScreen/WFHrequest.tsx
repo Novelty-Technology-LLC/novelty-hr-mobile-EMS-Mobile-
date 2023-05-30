@@ -11,6 +11,7 @@ import { ApproveDeny } from "../leave_screen/approveDeny";
 import { checkWFHRequest, getQuota, updateWFHRequests } from "../../services";
 import { showToast } from "../../common";
 import { dateStringMapper } from "../../utils";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 
 interface requestPropType {
   item: any;
@@ -25,6 +26,7 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext<any>(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext<any>(AdminRequestContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
 
@@ -100,7 +102,10 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
           type: "REPLY",
           payload: { ...item, status: val.status },
         });
-
+        dispatchPendingRequest({
+          type: "SUBTRACT_PENDING_REQUEST",
+          payload: { key: "pending_wfh" },
+        });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
