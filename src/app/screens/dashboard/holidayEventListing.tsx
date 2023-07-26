@@ -35,13 +35,7 @@ const HolidayEventListing = (props: any) => {
       <Header icon={true}>
         <Text style={headerTxtStyle.headerText}>HOLIDAYS & EVENTS</Text>
       </Header>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          display: "flex",
-          flex: 1,
-        }}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         {loading ? (
           <ListPlaceholder />
         ) : list?.length > 0 ? (
