@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "1058123517066",
+    "project_id": "novelty-ems-396605",
+    "storage_bucket": "novelty-ems-396605.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058123517066:android:d702df6429d7c06bf93173",
+        "android_client_info": {
+          "package_name": "com.noveltyhrmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058123517066-ar5cgfq7nv2p6jqnoc41ghblrom9tigj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.noveltyhrmobile",
+            "certificate_hash": "02a272d18eb41fa71309f7451abfe01f103940be"
+          }
+        },
+        {
+          "client_id": "1058123517066-gsuvatvpiitia475jp6kspojg5h5931g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.noveltyhrmobile",
+            "certificate_hash": "cb66f1e0bf01b2a285da5e3ab3d945540836c97a"
+          }
+        },
+        {
+          "client_id": "1058123517066-ncsq4l5rj44mro0g81cqid6uuv3jvpvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.noveltyhrmobile",
+            "certificate_hash": "7c55e92c276dd18cb91a91800c875c8562e7356e"
+          }
+        },
+        {
+          "client_id": "1058123517066-sso62u31tb7oaflt9v9d81tif86cgekn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAE-FLc5-D84HRST-gv0NFM2974r-Strg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058123517066-sso62u31tb7oaflt9v9d81tif86cgekn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1058123517066-9rohggcgu4imr4ni1ubt02csvbc2nen2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.novelty.hr",
+                "app_store_id": "1536008045"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
