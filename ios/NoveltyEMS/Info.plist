@@ -42,8 +42,27 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>app needs access to camera to change profile picture</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontAwesome.ttf</string>
+		<string>poppins.regular.ttf</string>
+		<string>Mulish-SemiBold.ttf</string>
+		<string>Mulish-Bold.ttf</string>
+		<string>Mulish-Regular.ttf</string>
+		<string>poppins.medium.ttf</string>
+		<string>poppins.semibold.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>Mulish-Bold.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
