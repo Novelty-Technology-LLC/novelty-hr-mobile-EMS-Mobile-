@@ -84,6 +84,8 @@ const signInApple = async (dispatch: any) => {
       dispatch({type: 'INVALID'});
     }
   } catch (error: any) {
+    console.log('error ', error);
+    
     if (error.message === 'NETWORK_ERROR') {
       error.message = 'Please connect to a network.';
     } else {
