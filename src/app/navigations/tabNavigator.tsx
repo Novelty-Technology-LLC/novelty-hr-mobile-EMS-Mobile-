@@ -1,29 +1,29 @@
-import React, { useContext, useEffect } from "react";
-import { Linking, Platform } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ScreenStack from "./screenStack";
-import colors from "../../assets/colors";
-import { Profile } from "../screens";
-import { AppIcon } from "../common";
-import { getUniqueId } from "react-native-device-info";
-import { getUser, removeUser, setUser } from "../utils";
-import { getRequest, store } from "../services";
-import messaging from "@react-native-firebase/messaging";
-import { AuthContext } from "../reducer";
-import DashNav from "./dashBoardStack";
-import { navigate } from "../utils/navigation";
-import { WfhNav } from "./wfhStack";
-import WfhSvg from "../../assets/images/WFH.svg";
-import WfhActiveSvg from "../../assets/images/WFHActive.svg";
-import { PendingRequestContext } from "../reducer/pendingRequestReducer";
-import { api } from "../api/api";
+import React, {useContext, useEffect} from 'react';
+import {Linking, Platform} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import ScreenStack from './screenStack';
+import colors from '../../assets/colors';
+import {Profile} from '../screens';
+import {AppIcon} from '../common';
+import {getUniqueId} from 'react-native-device-info';
+import {getUser, removeUser, setUser} from '../utils';
+import {getRequest, store} from '../services';
+import messaging from '@react-native-firebase/messaging';
+import {AuthContext} from '../reducer';
+import DashNav from './dashBoardStack';
+import {navigate} from '../utils/navigation';
+import {WfhNav} from './wfhStack';
+import WfhSvg from '../../assets/images/WFH.svg';
+import WfhActiveSvg from '../../assets/images/WFHActive.svg';
+import {PendingRequestContext} from '../reducer/pendingRequestReducer';
+import {api} from '../api/api';
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const { dispatch, state }: any = useContext(AuthContext);
-  const { pendingRequests, dispatchPendingRequest } = useContext<any>(
-    PendingRequestContext
+  const {dispatch, state}: any = useContext(AuthContext);
+  const {pendingRequests, dispatchPendingRequest} = useContext<any>(
+    PendingRequestContext,
   );
 
   const onPressTimlogNotification = (url: string) => {
@@ -33,9 +33,9 @@ const TabNavigator = () => {
   useEffect(() => {
     (async () => {
       if (isApprover(state?.user)) {
-        const response = await api.get("user/pending-response");
+        const response = await api.get('user/pending-response');
         dispatchPendingRequest({
-          type: "SET_PENDING_REQUEST",
+          type: 'SET_PENDING_REQUEST',
           payload: response.data.data,
         });
       }
@@ -54,16 +54,16 @@ const TabNavigator = () => {
             //   });
             //   return;
             // }
-            if (remoteMessage.data.type === "activity") {
+            if (remoteMessage.data.type === 'activity') {
               onPressTimlogNotification(remoteMessage.data.url);
               return;
             }
 
-            if (remoteMessage.data.type === "announcements") {
+            if (remoteMessage.data.type === 'announcements') {
               try {
                 var response: any = await getRequest(
-                  "/webportal/announcements",
-                  {}
+                  '/webportal/announcements',
+                  {},
                 );
                 let itemData: any = [];
 
@@ -71,12 +71,12 @@ const TabNavigator = () => {
                   itemData.push(element);
                 });
                 const id = JSON.parse(
-                  remoteMessage.data.announcement_id.toString()
+                  remoteMessage.data.announcement_id.toString(),
                 );
                 var findAnnouncement = response.find(
-                  (item: any) => item.id == +id
+                  (item: any) => item.id == +id,
                 );
-                navigate("announcementsDetails", {
+                navigate('announcementsDetails', {
                   id: findAnnouncement?.id,
                   headerText: findAnnouncement?.title,
                   title: findAnnouncement?.title,
@@ -85,10 +85,10 @@ const TabNavigator = () => {
                   html: findAnnouncement?.html,
                 });
               } catch (error) {}
-            } else if (remoteMessage?.data.type === "shoutout") {
+            } else if (remoteMessage?.data.type === 'shoutout') {
               handleShoutoutNotification(remoteMessage?.data.id.toString());
             } else {
-              dispatch({ type: "Notification", payload: remoteMessage.data });
+              dispatch({type: 'Notification', payload: remoteMessage.data});
               Linking.openURL(`noveltyhrmobile://${remoteMessage.data.url}`);
             }
           }
@@ -108,16 +108,16 @@ const TabNavigator = () => {
         //   return;
         // }
 
-        if (remoteMessage.data.type === "activity") {
+        if (remoteMessage.data.type === 'activity') {
           onPressTimlogNotification(remoteMessage.data.url);
           return;
         }
 
-        if (remoteMessage?.data.type === "announcements") {
+        if (remoteMessage?.data.type === 'announcements') {
           try {
             var response: any = await getRequest(
-              "/webportal/announcements",
-              {}
+              '/webportal/announcements',
+              {},
             );
             let itemData: any = [];
 
@@ -125,10 +125,10 @@ const TabNavigator = () => {
               itemData.push(element);
             });
             const id = JSON.parse(
-              remoteMessage.data.announcement_id.toString()
+              remoteMessage.data.announcement_id.toString(),
             );
             var findAnnouncement = response.find((item: any) => item.id == +id);
-            navigate("announcementsDetails", {
+            navigate('announcementsDetails', {
               id: findAnnouncement?.id,
               headerText: findAnnouncement?.title,
               title: findAnnouncement?.title,
@@ -137,10 +137,10 @@ const TabNavigator = () => {
               html: findAnnouncement?.html,
             });
           } catch (error) {}
-        } else if (remoteMessage?.data.type === "shoutout") {
+        } else if (remoteMessage?.data.type === 'shoutout') {
           handleShoutoutNotification(remoteMessage?.data.id.toString());
         } else {
-          dispatch({ type: "Notification", payload: remoteMessage?.data });
+          dispatch({type: 'Notification', payload: remoteMessage?.data});
           Linking.openURL(`noveltyhrmobile://${remoteMessage?.data?.url}`);
         }
       }
@@ -148,14 +148,14 @@ const TabNavigator = () => {
   }, [messaging]);
 
   const handleShoutoutNotification = (shoutoutID: string) => {
-    navigate("shoutoutDetail", {
+    navigate('shoutoutDetail', {
       id: shoutoutID,
     });
   };
 
   async function requestUserPermission() {
     const token = await messaging().getToken();
-    console.log(" token", token);
+    console.log(' token', token);
 
     const authStatus = await messaging().requestPermission();
     const enabled =
@@ -170,7 +170,7 @@ const TabNavigator = () => {
       (item: any) =>
         item.user_id === user.id &&
         item.device_id === device_id &&
-        item.notification_token === token
+        item.notification_token === token,
     );
 
     const data = {
@@ -188,13 +188,16 @@ const TabNavigator = () => {
   }
 
   const isApprover = (user: any) => {
-    if (+user?.is_approver === 1 || +user?.is_default_approver === 1)
+    if (+user?.is_approver === 1 || +user?.is_default_approver === 1) {
       return true;
+    }
     return false;
   };
 
   const showBadge = (user: any, total_count: number) => {
-    if (isApprover(user) && total_count > 0) return true;
+    if (isApprover(user) && total_count > 0) {
+      return true;
+    }
     return false;
   };
 
@@ -205,13 +208,12 @@ const TabNavigator = () => {
           activeTintColor: colors.primary,
           showLabel: false,
           keyboardHidesTabBar: true,
-        }}
-      >
+        }}>
         <Tab.Screen
           name="Dashboard"
           component={DashNav}
           options={{
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({color, size}) => (
               <AppIcon name="home" color={color} size={size} />
             ),
           }}
@@ -221,7 +223,7 @@ const TabNavigator = () => {
           component={WfhNav}
           options={{
             tabBarBadgeStyle: {
-              top: Platform.OS === "ios" ? 0 : 4,
+              top: Platform.OS === 'ios' ? 0 : 4,
               minWidth: 16,
               maxHeight: 16,
               borderRadius: 8,
@@ -232,7 +234,7 @@ const TabNavigator = () => {
             tabBarBadge: showBadge(state?.user, pendingRequests?.pending_wfh)
               ? pendingRequests?.pending_wfh
               : null,
-            tabBarIcon: ({ focused }) =>
+            tabBarIcon: ({focused}) =>
               focused ? <WfhActiveSvg /> : <WfhSvg />,
           }}
         />
@@ -241,7 +243,7 @@ const TabNavigator = () => {
           component={ScreenStack}
           options={{
             tabBarBadgeStyle: {
-              top: Platform.OS === "ios" ? 0 : 4,
+              top: Platform.OS === 'ios' ? 0 : 4,
               minWidth: 16,
               maxHeight: 16,
               borderRadius: 8,
@@ -252,7 +254,7 @@ const TabNavigator = () => {
             tabBarBadge: showBadge(state?.user, pendingRequests?.pending_leave)
               ? pendingRequests?.pending_leave
               : null,
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({color, size}) => (
               <AppIcon name="briefcase-clock" color={color} size={size} />
             ),
           }}
@@ -260,9 +262,9 @@ const TabNavigator = () => {
         <Tab.Screen
           name="Profile"
           component={Profile}
-          initialParams={{ userProfile: true }}
+          initialParams={{userProfile: true}}
           options={{
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({color, size}) => (
               <AppIcon name="account" color={color} size={size} />
             ),
           }}
