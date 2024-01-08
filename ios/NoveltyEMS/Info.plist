@@ -44,12 +44,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>app needs access to camera to change profile picture</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>App needs access to Photo Library in order to upload profile picture</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>App needs access to Photo Library in order to upload profile picture</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>
