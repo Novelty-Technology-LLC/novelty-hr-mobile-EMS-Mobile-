@@ -8,13 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* NoveltyEMSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NoveltyEMSTests.m */; };
+		0C3CB063423C42F0B5043351 /* Novelty Logo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0BF037A12D9B435A992F8522 /* Novelty Logo.svg */; };
 		0C80B921A6F3F58F76C31292 /* libPods-NoveltyEMS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-NoveltyEMS.a */; };
+		0F5AC2046E0D44C6B916A9D3 /* poppins.semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 909DE63B2EA44B26A85444A1 /* poppins.semibold.ttf */; };
+		10B412AF7A684F0BBA4BCAC3 /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8E8DB47960547869EDF7351 /* Mulish-Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1CCD43D8071E4FC298935486 /* Apple.svg in Resources */ = {isa = PBXBuildFile; fileRef = D3BA45AFE40A453ABF003223 /* Apple.svg */; };
+		2793A82E21E24092B2066F38 /* shoutout.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6EC4AC6FC6DD4F6ABD480435 /* shoutout.svg */; };
+		2D010307DF00471196DF3BE0 /* person.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 681FB5D29DAE40BCA5B75C98 /* person.jpeg */; };
+		2DC4F4B0C1CB4978A4E0589B /* Like.svg in Resources */ = {isa = PBXBuildFile; fileRef = 6FC29628A15947D8B840B87B /* Like.svg */; };
+		2EE1DD454224490BAA5F264F /* poppins.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C312F314FC5E47F7AC49A444 /* poppins.regular.ttf */; };
+		430C8C8F8EFE46DBAA59AE29 /* Google.svg in Resources */ = {isa = PBXBuildFile; fileRef = F4571A5744B442F49F7D1F06 /* Google.svg */; };
+		44D8B60DACB64AC2A7903D00 /* novelty.svg in Resources */ = {isa = PBXBuildFile; fileRef = 02692A9312824B8BBA0176A9 /* novelty.svg */; };
 		54C1FBA52B4BC1FC00F86741 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54C1FBA42B4BC1FB00F86741 /* GoogleService-Info.plist */; };
+		5B1D7AD422AE4CE9A4B59923 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 059267F46BBB4408AA168779 /* menu.png */; };
 		7699B88040F8A987B510C191 /* libPods-NoveltyEMS-NoveltyEMSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-NoveltyEMS-NoveltyEMSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		898C4E311BD84522B0EA8608 /* shoutout.png in Resources */ = {isa = PBXBuildFile; fileRef = 5861C31EE8814C50B55A29E7 /* shoutout.png */; };
+		ABAD3023F84746BFB08AE699 /* Mulish-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3463B05AA974FE0B285B062 /* Mulish-SemiBold.ttf */; };
+		C97A9B72F9DD4944870A320A /* WFH.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2FFEE60E9B774A31A560BB01 /* WFH.svg */; };
+		D6EA1E932C7D481D8AA705FF /* WFHActive.svg in Resources */ = {isa = PBXBuildFile; fileRef = C63B7EA52E91409CBE58AA99 /* WFHActive.svg */; };
+		DB147F8B61A848F6853FA57D /* Mulish-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C369BB10E64C43A88362C9D6 /* Mulish-Bold.ttf */; };
+		E63704FB081A4B7FAC709001 /* novelty.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A977FBA9494D67B50D8DD9 /* novelty.png */; };
+		F452974626D74056B91B7604 /* employee.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC85A2D77FE4691ACEBCC79 /* employee.png */; };
+		F456B52C0904471CB0A1EE2D /* poppins.medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35314F0BBFC94A8FA89B4150 /* poppins.medium.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +50,9 @@
 		00E356EE1AD99517003FC87E /* NoveltyEMSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoveltyEMSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* NoveltyEMSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoveltyEMSTests.m; sourceTree = "<group>"; };
+		02692A9312824B8BBA0176A9 /* novelty.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = novelty.svg; path = ../src/assets/images/novelty.svg; sourceTree = "<group>"; };
+		059267F46BBB4408AA168779 /* menu.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = menu.png; path = ../src/assets/images/menu.png; sourceTree = "<group>"; };
+		0BF037A12D9B435A992F8522 /* Novelty Logo.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Novelty Logo.svg"; path = "../src/assets/images/Novelty Logo.svg"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NoveltyEMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoveltyEMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NoveltyEMS/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = NoveltyEMS/AppDelegate.mm; sourceTree = "<group>"; };
@@ -38,15 +60,31 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NoveltyEMS/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NoveltyEMS/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-NoveltyEMS-NoveltyEMSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoveltyEMS-NoveltyEMSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FFEE60E9B774A31A560BB01 /* WFH.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = WFH.svg; path = ../src/assets/images/WFH.svg; sourceTree = "<group>"; };
+		35314F0BBFC94A8FA89B4150 /* poppins.medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.medium.ttf; path = ../src/assets/fonts/poppins.medium.ttf; sourceTree = "<group>"; };
+		3AC85A2D77FE4691ACEBCC79 /* employee.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = employee.png; path = ../src/assets/images/employee.png; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-NoveltyEMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS.debug.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS/Pods-NoveltyEMS.debug.xcconfig"; sourceTree = "<group>"; };
+		49A977FBA9494D67B50D8DD9 /* novelty.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = novelty.png; path = ../src/assets/images/novelty.png; sourceTree = "<group>"; };
 		54C1FBA42B4BC1FB00F86741 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Users/lovishhamal/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		54CF8F012B3BE86200E7C8FB /* NoveltyEMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NoveltyEMS.entitlements; path = NoveltyEMS/NoveltyEMS.entitlements; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-NoveltyEMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS.release.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS/Pods-NoveltyEMS.release.xcconfig"; sourceTree = "<group>"; };
+		5861C31EE8814C50B55A29E7 /* shoutout.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = shoutout.png; path = ../src/assets/images/shoutout.png; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-NoveltyEMS-NoveltyEMSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS-NoveltyEMSTests.debug.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS-NoveltyEMSTests/Pods-NoveltyEMS-NoveltyEMSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-NoveltyEMS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoveltyEMS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		681FB5D29DAE40BCA5B75C98 /* person.jpeg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = person.jpeg; path = ../src/assets/images/person.jpeg; sourceTree = "<group>"; };
+		6EC4AC6FC6DD4F6ABD480435 /* shoutout.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = shoutout.svg; path = ../src/assets/images/shoutout.svg; sourceTree = "<group>"; };
+		6FC29628A15947D8B840B87B /* Like.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Like.svg; path = ../src/assets/images/Like.svg; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NoveltyEMS/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-NoveltyEMS-NoveltyEMSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS-NoveltyEMSTests.release.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS-NoveltyEMSTests/Pods-NoveltyEMS-NoveltyEMSTests.release.xcconfig"; sourceTree = "<group>"; };
+		909DE63B2EA44B26A85444A1 /* poppins.semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.semibold.ttf; path = ../src/assets/fonts/poppins.semibold.ttf; sourceTree = "<group>"; };
+		B3463B05AA974FE0B285B062 /* Mulish-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBold.ttf"; path = "../src/assets/fonts/Mulish-SemiBold.ttf"; sourceTree = "<group>"; };
+		C312F314FC5E47F7AC49A444 /* poppins.regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.regular.ttf; path = ../src/assets/fonts/poppins.regular.ttf; sourceTree = "<group>"; };
+		C369BB10E64C43A88362C9D6 /* Mulish-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Bold.ttf"; path = "../src/assets/fonts/Mulish-Bold.ttf"; sourceTree = "<group>"; };
+		C63B7EA52E91409CBE58AA99 /* WFHActive.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = WFHActive.svg; path = ../src/assets/images/WFHActive.svg; sourceTree = "<group>"; };
+		C8E8DB47960547869EDF7351 /* Mulish-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Regular.ttf"; path = "../src/assets/fonts/Mulish-Regular.ttf"; sourceTree = "<group>"; };
+		D3BA45AFE40A453ABF003223 /* Apple.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Apple.svg; path = ../src/assets/images/Apple.svg; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F4571A5744B442F49F7D1F06 /* Google.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Google.svg; path = ../src/assets/images/Google.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +165,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				929FEBCC19FA40B0AAB5DCF7 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -140,6 +179,32 @@
 				00E356EE1AD99517003FC87E /* NoveltyEMSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		929FEBCC19FA40B0AAB5DCF7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C369BB10E64C43A88362C9D6 /* Mulish-Bold.ttf */,
+				C8E8DB47960547869EDF7351 /* Mulish-Regular.ttf */,
+				B3463B05AA974FE0B285B062 /* Mulish-SemiBold.ttf */,
+				35314F0BBFC94A8FA89B4150 /* poppins.medium.ttf */,
+				C312F314FC5E47F7AC49A444 /* poppins.regular.ttf */,
+				909DE63B2EA44B26A85444A1 /* poppins.semibold.ttf */,
+				D3BA45AFE40A453ABF003223 /* Apple.svg */,
+				F4571A5744B442F49F7D1F06 /* Google.svg */,
+				6FC29628A15947D8B840B87B /* Like.svg */,
+				0BF037A12D9B435A992F8522 /* Novelty Logo.svg */,
+				2FFEE60E9B774A31A560BB01 /* WFH.svg */,
+				C63B7EA52E91409CBE58AA99 /* WFHActive.svg */,
+				3AC85A2D77FE4691ACEBCC79 /* employee.png */,
+				059267F46BBB4408AA168779 /* menu.png */,
+				49A977FBA9494D67B50D8DD9 /* novelty.png */,
+				02692A9312824B8BBA0176A9 /* novelty.svg */,
+				681FB5D29DAE40BCA5B75C98 /* person.jpeg */,
+				5861C31EE8814C50B55A29E7 /* shoutout.png */,
+				6EC4AC6FC6DD4F6ABD480435 /* shoutout.svg */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -250,6 +315,25 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				54C1FBA52B4BC1FC00F86741 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				DB147F8B61A848F6853FA57D /* Mulish-Bold.ttf in Resources */,
+				10B412AF7A684F0BBA4BCAC3 /* Mulish-Regular.ttf in Resources */,
+				ABAD3023F84746BFB08AE699 /* Mulish-SemiBold.ttf in Resources */,
+				F456B52C0904471CB0A1EE2D /* poppins.medium.ttf in Resources */,
+				2EE1DD454224490BAA5F264F /* poppins.regular.ttf in Resources */,
+				0F5AC2046E0D44C6B916A9D3 /* poppins.semibold.ttf in Resources */,
+				1CCD43D8071E4FC298935486 /* Apple.svg in Resources */,
+				430C8C8F8EFE46DBAA59AE29 /* Google.svg in Resources */,
+				2DC4F4B0C1CB4978A4E0589B /* Like.svg in Resources */,
+				0C3CB063423C42F0B5043351 /* Novelty Logo.svg in Resources */,
+				C97A9B72F9DD4944870A320A /* WFH.svg in Resources */,
+				D6EA1E932C7D481D8AA705FF /* WFHActive.svg in Resources */,
+				F452974626D74056B91B7604 /* employee.png in Resources */,
+				5B1D7AD422AE4CE9A4B59923 /* menu.png in Resources */,
+				E63704FB081A4B7FAC709001 /* novelty.png in Resources */,
+				44D8B60DACB64AC2A7903D00 /* novelty.svg in Resources */,
+				2D010307DF00471196DF3BE0 /* person.jpeg in Resources */,
+				898C4E311BD84522B0EA8608 /* shoutout.png in Resources */,
+				2793A82E21E24092B2066F38 /* shoutout.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,7 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NoveltyEMS/NoveltyEMS.entitlements;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 73;
 				DEVELOPMENT_TEAM = 2TTLU72S98;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NoveltyEMS/Info.plist;
@@ -494,7 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -515,14 +599,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NoveltyEMS/NoveltyEMS.entitlements;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 73;
 				DEVELOPMENT_TEAM = 2TTLU72S98;
 				INFOPLIST_FILE = NoveltyEMS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
