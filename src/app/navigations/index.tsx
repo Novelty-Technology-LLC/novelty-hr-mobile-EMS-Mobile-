@@ -1,46 +1,42 @@
-import React, { useEffect } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import {
-  AdminRequestContext,
-  AuthContext,
-  useAdmin,
-  useAuth,
-} from "../reducer";
-import { getUser, getToken } from "../utils";
-import { Login, SplashScreen } from "../screens";
-import { createStackNavigator } from "@react-navigation/stack";
-import TabNavigator from "./tabNavigator";
-import Invalid from "../screens/auth_screen/invalid";
-import Loading from "../screens/auth_screen/loading";
-import { navigationRef } from "../utils/navigation";
-import { FullImageScreen } from "../screens/full_screen_image";
-import SplashScreens from "react-native-splash-screen";
+import React, {useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {AdminRequestContext, AuthContext, useAdmin, useAuth} from '../reducer';
+import {getUser, getToken} from '../utils';
+import {Login, SplashScreen} from '../screens';
+import {createStackNavigator} from '@react-navigation/stack';
+import TabNavigator from './tabNavigator';
+import Invalid from '../screens/auth_screen/invalid';
+import Loading from '../screens/auth_screen/loading';
+import {navigationRef} from '../utils/navigation';
+import {FullImageScreen} from '../screens/full_screen_image';
+import SplashScreens from 'react-native-splash-screen';
 import {
   RequestWFHContext,
   useWFHRequest,
-} from "../reducer/requestWorkFromReducer";
+} from '../reducer/requestWorkFromReducer';
 import {
   PendingRequestContext,
   useRequest,
-} from "../reducer/pendingRequestReducer";
+} from '../reducer/pendingRequestReducer';
+import messaging from '@react-native-firebase/messaging';
 
 const Root = createStackNavigator();
 
 const RootNavigation = () => {
-  const { state, dispatch } = useAuth();
-  const { requestsWFH, dispatchWFHRequest } = useWFHRequest();
-  const { adminrequests, dispatchAdmin } = useAdmin();
-  const { pendingRequests, dispatchPendingRequest } = useRequest();
+  const {state, dispatch} = useAuth();
+  const {requestsWFH, dispatchWFHRequest} = useWFHRequest();
+  const {adminrequests, dispatchAdmin} = useAdmin();
+  const {pendingRequests, dispatchPendingRequest} = useRequest();
 
   useEffect(() => {
     const bootstrapAsync = async () => {
       try {
         let userToken = await getToken();
 
-        dispatch({ type: "RESTORE_TOKEN", token: userToken });
+        dispatch({type: 'RESTORE_TOKEN', token: userToken});
         const user: any = await getUser();
 
-        dispatch({ type: "STORE_USER", user: JSON.parse(user) });
+        dispatch({type: 'STORE_USER', user: JSON.parse(user)});
       } catch (e) {}
     };
 
@@ -48,26 +44,26 @@ const RootNavigation = () => {
   }, []);
 
   const deepLinking = {
-    prefixes: ["noveltyhrmobile://"],
+    prefixes: ['noveltyhrmobile://'],
     config: {
       screens: {
         BottomTabs: {
-          path: "bottom_tabs",
+          path: 'bottom_tabs',
           screens: {
             Activity: {
-              path: "activity",
+              path: 'activity',
               screens: {
                 WFH_DASHBOARD: {
-                  path: "homeList",
+                  path: 'homeList',
                   exact: true,
                 },
               },
             },
             Home: {
-              path: "home",
+              path: 'home',
               screens: {
                 LeaveList: {
-                  path: "leaveList",
+                  path: 'leaveList',
                   exact: true,
                 },
               },
@@ -82,21 +78,16 @@ const RootNavigation = () => {
     <NavigationContainer
       linking={deepLinking}
       ref={navigationRef}
-      onReady={() => SplashScreens.hide()}
-    >
-      <AuthContext.Provider value={{ state, dispatch }}>
-        <RequestWFHContext.Provider value={{ requestsWFH, dispatchWFHRequest }}>
-          <AdminRequestContext.Provider
-            value={{ adminrequests, dispatchAdmin }}
-          >
+      onReady={() => SplashScreens.hide()}>
+      <AuthContext.Provider value={{state, dispatch}}>
+        <RequestWFHContext.Provider value={{requestsWFH, dispatchWFHRequest}}>
+          <AdminRequestContext.Provider value={{adminrequests, dispatchAdmin}}>
             <PendingRequestContext.Provider
-              value={{ pendingRequests, dispatchPendingRequest }}
-            >
+              value={{pendingRequests, dispatchPendingRequest}}>
               <Root.Navigator
                 screenOptions={{
                   headerShown: false,
-                }}
-              >
+                }}>
                 <Root.Screen name="splash" component={SplashScreen} />
                 <Root.Screen name="login" component={Login} />
                 <Root.Screen name="loading" component={Loading} />
@@ -108,7 +99,7 @@ const RootNavigation = () => {
                 <Root.Screen
                   name="BottomTabs"
                   component={TabNavigator}
-                  options={{ gestureEnabled: false }}
+                  options={{gestureEnabled: false}}
                 />
               </Root.Navigator>
             </PendingRequestContext.Provider>

@@ -1,22 +1,23 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { BackHandler, Text, TouchableOpacity, View } from 'react-native';
-import { loginStyle as style } from '../../../assets/styles';
+import {useNavigation} from '@react-navigation/native';
+import React, {useCallback, useEffect} from 'react';
+import {BackHandler, Text, TouchableOpacity, View} from 'react-native';
+import {loginStyle as style} from '../../../assets/styles';
 import LoginWrapper from './loginWrapper';
 
 const Invalid = () => {
   const navigation = useNavigation();
-  const onBackPress = () => {
+
+  const onBackPress = useCallback(() => {
     navigation.navigate('login');
     return true;
-  };
+  }, [navigation]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', onBackPress);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     };
-  }, []);
+  }, [onBackPress]);
 
   return (
     <LoginWrapper>
