@@ -1,0 +1,81 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Mulish-Bold.ttf",
+      "sha1": "3c0089e0d91befccdeadf5fff88310c417c4ca03"
+    },
+    {
+      "path": "src/assets/fonts/Mulish-Regular.ttf",
+      "sha1": "4707223b24a2784e88ea9e3df752e9a034e6a04a"
+    },
+    {
+      "path": "src/assets/fonts/Mulish-SemiBold.ttf",
+      "sha1": "4ad5a0cf99a17236604359a184beb2513441f384"
+    },
+    {
+      "path": "src/assets/fonts/poppins.medium.ttf",
+      "sha1": "5c96d1545a51c39e05ee0fcc0c3c9021f14d9c31"
+    },
+    {
+      "path": "src/assets/fonts/poppins.regular.ttf",
+      "sha1": "440dc8992517a306d66e55cb0afed0cfe9b971b5"
+    },
+    {
+      "path": "src/assets/fonts/poppins.semibold.ttf",
+      "sha1": "0dbbb6d5a8fa0f9ece415dda4a69c8aa6595fba5"
+    },
+    {
+      "path": "src/assets/images/Apple.svg",
+      "sha1": "5ad3201b7a3619945554b6a3e95ab26e3fbab9cc"
+    },
+    {
+      "path": "src/assets/images/Google.svg",
+      "sha1": "dba2e7e6abb8edc6e52e8c2b9b4e2f058990885f"
+    },
+    {
+      "path": "src/assets/images/Like.svg",
+      "sha1": "8c2b630872c6664f2ecf45859d923e48b4cd067c"
+    },
+    {
+      "path": "src/assets/images/Novelty Logo.svg",
+      "sha1": "452b4f4adb34feada5fb1bca2fcd1fb14e185ce1"
+    },
+    {
+      "path": "src/assets/images/WFH.svg",
+      "sha1": "ffc1b6ef804e344cb87f3d0fbc57fba6e49bbbc3"
+    },
+    {
+      "path": "src/assets/images/WFHActive.svg",
+      "sha1": "837ac60194808e65248e142f95383dc614f99c9f"
+    },
+    {
+      "path": "src/assets/images/employee.png",
+      "sha1": "85e5aea9c6a8ca85cfff625f20fe710b77533b1b"
+    },
+    {
+      "path": "src/assets/images/menu.png",
+      "sha1": "7d3e456d26d1c5ebc01a0c609c8292abd2a16560"
+    },
+    {
+      "path": "src/assets/images/novelty.png",
+      "sha1": "24ef2e1dd72aef7d928bdd44bcc7dca1e3332b3a"
+    },
+    {
+      "path": "src/assets/images/novelty.svg",
+      "sha1": "a0cda68a875c7b829c64cc1fc397e7ab21e34838"
+    },
+    {
+      "path": "src/assets/images/person.jpeg",
+      "sha1": "313d42d104621865648c10e9eff5936359b0da39"
+    },
+    {
+      "path": "src/assets/images/shoutout.png",
+      "sha1": "54f2d7e1399aff4789fc4535e7258eefd0719efe"
+    },
+    {
+      "path": "src/assets/images/shoutout.svg",
+      "sha1": "01b6e499a53fbde69bc34b9dcc896c38a681bbdc"
+    }
+  ]
+}
