@@ -132,6 +132,7 @@ dependencies {
         implementation jscFlavor
     }
 }
+
 android {
     defaultConfig {
         multiDexEnabled true
