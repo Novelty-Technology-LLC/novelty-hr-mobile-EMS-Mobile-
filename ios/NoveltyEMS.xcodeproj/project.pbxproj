@@ -50,9 +50,9 @@
 		00E356EE1AD99517003FC87E /* NoveltyEMSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoveltyEMSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* NoveltyEMSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoveltyEMSTests.m; sourceTree = "<group>"; };
-		02692A9312824B8BBA0176A9 /* novelty.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = novelty.svg; path = ../src/assets/images/novelty.svg; sourceTree = "<group>"; };
-		059267F46BBB4408AA168779 /* menu.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = menu.png; path = ../src/assets/images/menu.png; sourceTree = "<group>"; };
-		0BF037A12D9B435A992F8522 /* Novelty Logo.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Novelty Logo.svg"; path = "../src/assets/images/Novelty Logo.svg"; sourceTree = "<group>"; };
+		02692A9312824B8BBA0176A9 /* novelty.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = novelty.svg; path = ../src/assets/images/novelty.svg; sourceTree = "<group>"; };
+		059267F46BBB4408AA168779 /* menu.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = menu.png; path = ../src/assets/images/menu.png; sourceTree = "<group>"; };
+		0BF037A12D9B435A992F8522 /* Novelty Logo.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Novelty Logo.svg"; path = "../src/assets/images/Novelty Logo.svg"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NoveltyEMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoveltyEMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NoveltyEMS/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = NoveltyEMS/AppDelegate.mm; sourceTree = "<group>"; };
@@ -60,31 +60,31 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NoveltyEMS/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NoveltyEMS/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-NoveltyEMS-NoveltyEMSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoveltyEMS-NoveltyEMSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2FFEE60E9B774A31A560BB01 /* WFH.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = WFH.svg; path = ../src/assets/images/WFH.svg; sourceTree = "<group>"; };
-		35314F0BBFC94A8FA89B4150 /* poppins.medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.medium.ttf; path = ../src/assets/fonts/poppins.medium.ttf; sourceTree = "<group>"; };
-		3AC85A2D77FE4691ACEBCC79 /* employee.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = employee.png; path = ../src/assets/images/employee.png; sourceTree = "<group>"; };
+		2FFEE60E9B774A31A560BB01 /* WFH.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = WFH.svg; path = ../src/assets/images/WFH.svg; sourceTree = "<group>"; };
+		35314F0BBFC94A8FA89B4150 /* poppins.medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.medium.ttf; path = ../src/assets/fonts/poppins.medium.ttf; sourceTree = "<group>"; };
+		3AC85A2D77FE4691ACEBCC79 /* employee.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = employee.png; path = ../src/assets/images/employee.png; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-NoveltyEMS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS.debug.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS/Pods-NoveltyEMS.debug.xcconfig"; sourceTree = "<group>"; };
-		49A977FBA9494D67B50D8DD9 /* novelty.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = novelty.png; path = ../src/assets/images/novelty.png; sourceTree = "<group>"; };
+		49A977FBA9494D67B50D8DD9 /* novelty.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = novelty.png; path = ../src/assets/images/novelty.png; sourceTree = "<group>"; };
 		54C1FBA42B4BC1FB00F86741 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Users/lovishhamal/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		54CF8F012B3BE86200E7C8FB /* NoveltyEMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NoveltyEMS.entitlements; path = NoveltyEMS/NoveltyEMS.entitlements; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-NoveltyEMS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS.release.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS/Pods-NoveltyEMS.release.xcconfig"; sourceTree = "<group>"; };
-		5861C31EE8814C50B55A29E7 /* shoutout.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = shoutout.png; path = ../src/assets/images/shoutout.png; sourceTree = "<group>"; };
+		5861C31EE8814C50B55A29E7 /* shoutout.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = shoutout.png; path = ../src/assets/images/shoutout.png; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-NoveltyEMS-NoveltyEMSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS-NoveltyEMSTests.debug.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS-NoveltyEMSTests/Pods-NoveltyEMS-NoveltyEMSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-NoveltyEMS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoveltyEMS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		681FB5D29DAE40BCA5B75C98 /* person.jpeg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = person.jpeg; path = ../src/assets/images/person.jpeg; sourceTree = "<group>"; };
-		6EC4AC6FC6DD4F6ABD480435 /* shoutout.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = shoutout.svg; path = ../src/assets/images/shoutout.svg; sourceTree = "<group>"; };
-		6FC29628A15947D8B840B87B /* Like.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Like.svg; path = ../src/assets/images/Like.svg; sourceTree = "<group>"; };
+		681FB5D29DAE40BCA5B75C98 /* person.jpeg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = person.jpeg; path = ../src/assets/images/person.jpeg; sourceTree = "<group>"; };
+		6EC4AC6FC6DD4F6ABD480435 /* shoutout.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = shoutout.svg; path = ../src/assets/images/shoutout.svg; sourceTree = "<group>"; };
+		6FC29628A15947D8B840B87B /* Like.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Like.svg; path = ../src/assets/images/Like.svg; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NoveltyEMS/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-NoveltyEMS-NoveltyEMSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoveltyEMS-NoveltyEMSTests.release.xcconfig"; path = "Target Support Files/Pods-NoveltyEMS-NoveltyEMSTests/Pods-NoveltyEMS-NoveltyEMSTests.release.xcconfig"; sourceTree = "<group>"; };
-		909DE63B2EA44B26A85444A1 /* poppins.semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.semibold.ttf; path = ../src/assets/fonts/poppins.semibold.ttf; sourceTree = "<group>"; };
-		B3463B05AA974FE0B285B062 /* Mulish-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBold.ttf"; path = "../src/assets/fonts/Mulish-SemiBold.ttf"; sourceTree = "<group>"; };
-		C312F314FC5E47F7AC49A444 /* poppins.regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.regular.ttf; path = ../src/assets/fonts/poppins.regular.ttf; sourceTree = "<group>"; };
-		C369BB10E64C43A88362C9D6 /* Mulish-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Bold.ttf"; path = "../src/assets/fonts/Mulish-Bold.ttf"; sourceTree = "<group>"; };
-		C63B7EA52E91409CBE58AA99 /* WFHActive.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = WFHActive.svg; path = ../src/assets/images/WFHActive.svg; sourceTree = "<group>"; };
-		C8E8DB47960547869EDF7351 /* Mulish-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Regular.ttf"; path = "../src/assets/fonts/Mulish-Regular.ttf"; sourceTree = "<group>"; };
-		D3BA45AFE40A453ABF003223 /* Apple.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Apple.svg; path = ../src/assets/images/Apple.svg; sourceTree = "<group>"; };
+		909DE63B2EA44B26A85444A1 /* poppins.semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.semibold.ttf; path = ../src/assets/fonts/poppins.semibold.ttf; sourceTree = "<group>"; };
+		B3463B05AA974FE0B285B062 /* Mulish-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-SemiBold.ttf"; path = "../src/assets/fonts/Mulish-SemiBold.ttf"; sourceTree = "<group>"; };
+		C312F314FC5E47F7AC49A444 /* poppins.regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = poppins.regular.ttf; path = ../src/assets/fonts/poppins.regular.ttf; sourceTree = "<group>"; };
+		C369BB10E64C43A88362C9D6 /* Mulish-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Bold.ttf"; path = "../src/assets/fonts/Mulish-Bold.ttf"; sourceTree = "<group>"; };
+		C63B7EA52E91409CBE58AA99 /* WFHActive.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = WFHActive.svg; path = ../src/assets/images/WFHActive.svg; sourceTree = "<group>"; };
+		C8E8DB47960547869EDF7351 /* Mulish-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Regular.ttf"; path = "../src/assets/fonts/Mulish-Regular.ttf"; sourceTree = "<group>"; };
+		D3BA45AFE40A453ABF003223 /* Apple.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Apple.svg; path = ../src/assets/images/Apple.svg; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F4571A5744B442F49F7D1F06 /* Google.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Google.svg; path = ../src/assets/images/Google.svg; sourceTree = "<group>"; };
+		F4571A5744B442F49F7D1F06 /* Google.svg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Google.svg; path = ../src/assets/images/Google.svg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +205,6 @@
 				6EC4AC6FC6DD4F6ABD480435 /* shoutout.svg */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -571,7 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NoveltyEMS/NoveltyEMS.entitlements;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 73;
 				DEVELOPMENT_TEAM = 2TTLU72S98;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NoveltyEMS/Info.plist;
@@ -579,7 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -600,14 +599,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NoveltyEMS/NoveltyEMS.entitlements;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 73;
 				DEVELOPMENT_TEAM = 2TTLU72S98;
 				INFOPLIST_FILE = NoveltyEMS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.0;
+				MARKETING_VERSION = 1.5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

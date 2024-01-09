@@ -79,8 +79,8 @@ android {
         applicationId "com.noveltyhrmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 211
-        versionName "3.1.7"
+        versionCode 212
+        versionName "3.1.8"
         resConfigs "en"
     }
     signingConfigs {
