@@ -63,7 +63,7 @@ const TimeLogs = (props: any) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState<Date>(new Date());
-  const { timelogs, dispatchTimeLog } = useContext(TimeLogContext);
+  const { timelogs, dispatchTimeLog } = useContext<any>(TimeLogContext);
   const [activeLoading, setActiveLoading] = useState(false);
   const ref = React.useRef(null);
   const [selectedHrs, setSelectedHrs] = useState(0);
@@ -72,17 +72,20 @@ const TimeLogs = (props: any) => {
   const [logTime, setLogTime] = useState(thisWeek());
   const [loader, setLoader] = useState(false);
   const [totalTimeLog, setTotalTimeLog] = useState(initialState);
-  const { state } = useContext(AuthContext);
+  const { state } = useContext<any>(AuthContext);
+  const [week, setWeek] = useState("This Week");
 
   useEffect(() => {
     (async () => {
       if (state?.user?.id) {
         try {
           setLoader(true);
+
           let response: any = await getRequest("/dashboard/timelog", {
             ...logTime,
-            user_id: state.user.id,
+            user_id: state.user.id, // REMOVABLE
           });
+
           response = response.filter((item: any) => item);
           const keys = Object.keys(response[0]).map((item) => {
             return {
@@ -106,7 +109,7 @@ const TimeLogs = (props: any) => {
       const user: any = await getUser();
       const activeLogs: any = await getFilteredTimeLogs(
         JSON.parse(user).id,
-        JSON.stringify(todayDate())
+        todayDate()
       );
       if (activeLogs) {
         dispatchTimeLog({
@@ -128,12 +131,15 @@ const TimeLogs = (props: any) => {
 
   const onSelect = React.useCallback(
     async (startDate?: string, endDate?: string) => {
-      const selectedDate = !endDate ? dateRange(startDate, startDate) : null;
+      const selectedDate = !endDate
+        ? dateRange(startDate, startDate, "YYYY-MM-DD")
+        : null;
+
       try {
         const user: any = await getUser();
         const activeLogs: any = await getFilteredTimeLogs(
           JSON.parse(user).id,
-          JSON.stringify(dateRange(startDate, endDate ? endDate : startDate))
+          dateRange(startDate, endDate ? endDate : startDate, "YYYY-MM-DD")
         );
         if (activeLogs) {
           dispatchTimeLog({
@@ -216,7 +222,6 @@ const TimeLogs = (props: any) => {
           refreshing={refreshing}
           setSelectedDay={setSelectedDay}
         />
-
         {activeLoading ? (
           <UserPlaceHolder />
         ) : timelogs.present[0] ? (
@@ -250,7 +255,9 @@ const TimeLogs = (props: any) => {
         <Week loading={loading} refreshing={refreshing} title={"History"} />
         <View style={ds.timeLog}>
           <HoursHeader
-            title='HOURS WORKED'
+            week={week}
+            setWeek={setWeek}
+            title="HOURS WORKED"
             dropDown={!refreshing && !loading}
             setLogTime={setLogTime}
           />
@@ -275,7 +282,7 @@ const TimeLogs = (props: any) => {
           <View style={ds.chartWrapper}>
             {loader ? (
               <View style={ds.loader}>
-                <ActivityIndicator size='large' color={colors.primary} />
+                <ActivityIndicator size="large" color={colors.primary} />
               </View>
             ) : (
               <LineChartComponent
@@ -287,7 +294,7 @@ const TimeLogs = (props: any) => {
         </View>
       </ScrollView>
       <RequestButton
-        screen='logtime'
+        screen="logtime"
         olddata={{
           log_date: stringifyDate(date),
           not_old: true,

@@ -4,7 +4,18 @@ import { dataType } from "../interface";
 export const getAllRequests = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/leave/admin/${id}`);
+      let res = await api.get(`/leave/admin/${id}`); // REPLACE: /leave/admin-self
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+export const getMyRequests = (id: string) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/leave/user/${id}`); // REPLACE: /leave/self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -15,7 +26,7 @@ export const getAllRequests = (id) => {
 export const getPastRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/leave/past/${id}`);
+      let res = await api.get(`/leave/past/${id}`); // REPLACE: /leave/past-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });

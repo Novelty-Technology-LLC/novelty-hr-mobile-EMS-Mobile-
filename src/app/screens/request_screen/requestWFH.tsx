@@ -6,13 +6,7 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
-import {
-  header as Header,
-  showToast,
-  SmallHeader,
-  snackBarMessage,
-  snackErrorBottom,
-} from "../../common";
+import { header as Header, showToast } from "../../common";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider } from "@ui-kitten/components";
 import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
@@ -28,17 +22,10 @@ import {
 import { button as Button } from "../../common";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { editRequest, postRequest, postWFHRequest } from "../../services";
+import { editRequestWfh, postWFHRequest } from "../../services";
 import colors from "../../../assets/colors";
-import { StackActions, useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
-import { snackErrorTop } from "../../common";
-import {
-  checkIfRequested,
-  checkValidityQuota,
-  dateMapper,
-  momentdate,
-} from "../../utils";
+import { checkIfRequested, compareDateBetween, dateMapper } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
@@ -47,6 +34,18 @@ import { Teams } from "../../components/request_screen/teams";
 import { goBack } from "../../utils/navigation";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 
+const DATA = [
+  {
+    title: "Full Day",
+  },
+  {
+    title: "First Half",
+  },
+  {
+    title: "Second Half",
+  },
+];
+
 const validationSchema = Yup.object().shape({
   date: Yup.object()
     .shape({
@@ -54,28 +53,30 @@ const validationSchema = Yup.object().shape({
       endDate: Yup.date().nullable(),
     })
     .required("Date is required"),
-  note: Yup.string().required("WFH note is required").label("note"),
+  note: Yup.string().required("Work from home note is required").label("note"),
   lead: Yup.array().of(Yup.number()).label("lead").required("Lead is required"),
   status: Yup.string().label("status"),
 });
 
 const RequestWFH = ({ route, navigation }: any) => {
   const olddata = route.params;
-  const { state } = useContext(AuthContext);
-  const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
+  const { state } = useContext<any>(AuthContext);
+  const { requestsWFH, dispatchWFHRequest } =
+    useContext<any>(RequestWFHContext);
+
   const [isLoading, setisLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   let option = "FULL DAY";
   const initialValues = {
-    date: olddata ? olddata.date : "",
-    status: olddata ? olddata.state : "Pending",
-    note: olddata ? olddata.note : "",
-    lead: olddata ? olddata.lead : [],
+    date: olddata ? olddata?.date : "",
+    status: olddata ? olddata?.status : "Pending",
+    note: olddata ? olddata?.note : "",
+    lead: olddata ? olddata?.lead : [],
   };
 
-  const submitRequest = async (data) => {
+  const submitRequest = async (data: any) => {
     await postWFHRequest(data)
-      .then((res) => {
+      .then((res: any) => {
         dispatchWFHRequest({
           type: "UPDATEQUOTA",
           payload: res?.data?.data?.quota,
@@ -90,21 +91,19 @@ const RequestWFH = ({ route, navigation }: any) => {
       });
   };
 
-  const updateReq = (data) => {
-    data.start_date = momentdate(data.leave_date.startDate, "YYYY-MM-DD");
-    data.end_date = momentdate(data.leave_date.endDate, "YYYY-MM-DD");
-
-    editRequest(olddata.id, data)
+  const updateReq = (data: any) => {
+    editRequestWfh(olddata?.id, data)
       .then((res: any) => {
-        res.quota.map((item) => {
-          dispatchWFHRequest({
-            type: "UPDATEQUOTA",
-            payload: { ...item, option: res.option },
-          });
+        const home = { ...res.home };
+        const { option: keyvalue } = home;
+        const quota = { ...res.quota, option: keyvalue };
+        dispatchWFHRequest({
+          type: "UPDATEQUOTA",
+          payload: { ...quota },
         });
 
-        dispatchWFHRequest({ type: "UPDATE", payload: res.leave });
-        showToast("Request updated");
+        dispatchWFHRequest({ type: "UPDATE", payload: res.home });
+        showToast("Request updated ");
         navigation.navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
         setisLoading(false);
       })
@@ -126,10 +125,40 @@ const RequestWFH = ({ route, navigation }: any) => {
       setSelectedIndex(0);
     }
   };
-  const onSubmit = async (values) => {
+
+  const checkIfWfhExist = (date: string) => {
+    if (!olddata) {
+      const findCurrentWfh = requestsWFH.requests.filter((item: any) => {
+        return compareDateBetween(date, item.start_date, item.end_date);
+      });
+      return findCurrentWfh;
+    } else {
+      const findCurrentWfh = requestsWFH.requests
+        .filter(
+          (item: any) =>
+            olddata.id !== item.id &&
+            (item.status === "Approved" ||
+              item.status === "In Progress" ||
+              item.status === "Pending")
+        )
+        .filter((item: any) => {
+          return compareDateBetween(date, item.start_date, item.end_date);
+        });
+      return findCurrentWfh;
+    }
+  };
+
+  const onSubmit = async (values: any) => {
     const { date, ...rest } = values;
 
     const dates = JSON.parse(values?.date);
+
+    if (checkIfWfhExist(moment(dates.startDate).format("YYYY-MM-DD")).length) {
+      return showToast(
+        "You cannot take work from home twice on same day ",
+        false
+      );
+    }
 
     const leaveDate = moment(dates.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
@@ -139,9 +168,9 @@ const RequestWFH = ({ route, navigation }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("The selected date has passed. ", false);
+        showToast("The selected date has passed ", false);
       } else {
-        showToast("You cannot take WFH after 10 am", false);
+        showToast("You cannot take WFH after 10 am ", false);
       }
     } else {
       try {
@@ -154,14 +183,16 @@ const RequestWFH = ({ route, navigation }: any) => {
             req.state === "In Progress" ||
             req.state === "Pending"
         );
+
         if (!olddata && checkIfRequested(allrequests, values)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ", false);
         }
         if (olddata && checkIfRequested(allrequests, values, olddata)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ", false);
         }
         const dateParsed = JSON.parse(values.date);
         let dayArray: any = [];
+
         const startDate = new Date(dateParsed.startDate)
           .toString()
           .slice(0, 15);
@@ -173,10 +204,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         }
         let day = 0;
         if (olddata) {
-          let oldday = dateMapper(
-            olddata.leave_date.startDate,
-            olddata.leave_date.endDate
-          );
+          let oldday = dateMapper(olddata.date.startDate, olddata.date.endDate);
 
           day = dateMapper(startDate, endDate);
           if (olddata.type === values.type) {
@@ -187,7 +215,7 @@ const RequestWFH = ({ route, navigation }: any) => {
               { days: -oldday, dayType: olddata.type },
             ];
           }
-          dayArray.map((day) => {
+          dayArray.map((day: any) => {
             if (values.type === day.dayType) {
               // if (checkValidityQuota(requests.quota, values.type, day.days)) {
               //   throw new Error(`Selected day exceeds ${values.type}`);
@@ -196,6 +224,7 @@ const RequestWFH = ({ route, navigation }: any) => {
           });
         } else {
           day = dateMapper(startDate, endDate);
+
           // if (checkValidityQuota(requests.quota, values.type, day)) {
           //   throw new Error(`Selected day exceeds ${values.type}`);
           // }
@@ -219,8 +248,20 @@ const RequestWFH = ({ route, navigation }: any) => {
           end_date: endDate,
           day: dayData,
           option: option,
-          user_id: state.user.id,
-          requestor_name: state.user.first_name,
+          user_id: state.user.id, // REMOVABLE
+          requestor_name: state.user.first_name, // REMOVABLE
+          // uuid: state.user.uuid,
+          // gender: state.user.gender,
+        };
+
+        const updateData = {
+          ...rest,
+          start_date: startDate,
+          end_date: endDate,
+          day: dayData,
+          option: option,
+          // user_id: state.user.id,
+          // requestor_name: state.user.first_name,
           // uuid: state.user.uuid,
           // gender: state.user.gender,
         };
@@ -229,13 +270,13 @@ const RequestWFH = ({ route, navigation }: any) => {
 
         Keyboard.dismiss();
 
-        olddata ? updateReq(requestData) : submitRequest(requestData);
-      } catch (error) {
+        olddata ? updateReq(updateData) : submitRequest(requestData);
+      } catch (error: any) {
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
 
-        showToast(error.message);
+        showToast(`${error.message} `, false);
       }
     }
   };
@@ -255,7 +296,7 @@ const RequestWFH = ({ route, navigation }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik
@@ -266,10 +307,14 @@ const RequestWFH = ({ route, navigation }: any) => {
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
               <CalendarComponent
+                selectedOption={selectedIndex}
                 workfromHome={true}
                 style={style}
                 handleChange={handleChange}
-                defaultValue={olddata && olddata.leave_date}
+                defaultValue={{
+                  startDate: olddata?.start_date,
+                  endDate: olddata?.end_date,
+                }}
                 olddata_id={olddata && olddata.id}
                 error={errors}
                 touched={touched}
@@ -305,7 +350,7 @@ const RequestWFH = ({ route, navigation }: any) => {
               >
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>
-                    {olddata ? "Upadate " : "Submit Request"}
+                    {olddata ? "Update " : "Submit"}
                   </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />
@@ -319,15 +364,5 @@ const RequestWFH = ({ route, navigation }: any) => {
     </ApplicationProvider>
   );
 };
-const DATA = [
-  {
-    title: "Full Day",
-  },
-  {
-    title: "First Half",
-  },
-  {
-    title: "Second Half",
-  },
-];
+
 export { RequestWFH };

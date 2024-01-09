@@ -10,8 +10,7 @@ import { AdminRequestContext, AuthContext } from "../../reducer";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import { checkRequest, getResponses, updateRequest } from "../../services";
 import { showToast } from "../../common";
-import { navigationRef } from "../../utils/navigation";
-
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 interface requestPropType {
   item: any;
   other?: boolean;
@@ -24,6 +23,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext<any>(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext<any>(AdminRequestContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
 
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
@@ -78,14 +78,14 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
       leave_id: item?.id,
       action,
       note,
-      requested_to: state.user.id,
+      requested_to: state.user.id, //REMOVABLE
       quotaId: item.sender,
       notification_token: item.device_tokens?.map(
         (item: any) => item.notification_token
       ),
-      lead_name: state.user.first_name,
+      lead_name: state.user.first_name, //REMOVABLE
       user_name: item.user.first_name,
-      uuid: state.user.uuid,
+      uuid: state.user.uuid, //REMOVABLE
     };
 
     updateRequest(item.id, newData)
@@ -95,14 +95,18 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
           type: "REPLY",
           payload: item,
         });
+        dispatchPendingRequest({
+          type: "SUBTRACT_PENDING_REQUEST",
+          payload: { key: "pending_leave" },
+        });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
-        showToast("Request replied");
+        showToast("Request replied ");
       })
       .catch((error) => {
         alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong", false);
+        showToast("Something went wrong ", false);
       });
   };
 
@@ -146,7 +150,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
             <Text style={style.type}>
               <Text> {item.type}</Text>
               {leave_option !== "FULL DAY" && (
-                <Text> {` (${leave_option})`}</Text>
+                <Text> {`(${leave_option})`}</Text>
               )}
             </Text>
           </View>
@@ -167,7 +171,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Approve'
+                    title="Approve"
                     style={style}
                     item={item}
                     fromStack={true}
@@ -177,7 +181,7 @@ const Request = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     ref={{ alertRef, actionRef }}
                     onPressSubmit={onPressSubmit}
-                    title='Deny'
+                    title="Deny"
                     style={style}
                     item={item}
                     fromStack={true}

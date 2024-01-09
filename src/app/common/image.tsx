@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ActivityIndicator, Image, ImageResizeMode, View } from "react-native";
 import { TouchableEffect } from "react-native-simple-dialogs";
 import { customImageStyle } from "../../assets/styles/common/images.styles";
 import { PROFILE_IMAGE } from "../constant/global.constant";
 import { navigate } from "../utils/navigation";
+import { AuthContext } from "../reducer";
 
 const CustomImage = ({
   image,
@@ -15,6 +16,7 @@ const CustomImage = ({
   fullScreen = true,
   resizemode = "cover",
   containerStyle,
+  userProfile = false,
 }: {
   image: string;
   style?: any;
@@ -25,15 +27,18 @@ const CustomImage = ({
   localImage?: boolean;
   fullScreen?: boolean;
   containerStyle?: any;
+  userProfile: boolean;
 }) => {
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [isImageLoadingError, setIsImageLoadingError] = useState(false);
   const customStyle = isImageLoading ? {} : style;
+  const { state } = useContext(AuthContext);
 
   return (
     <>
       {localImage ? (
         <Image
+          style={style}
           source={image}
           onError={() => {
             setIsImageLoadingError(true);
@@ -67,7 +72,11 @@ const CustomImage = ({
         <TouchableEffect
           style={containerStyle}
           disabled={fullScreen}
-          onPress={() => navigate("fullImageScreen", { image: image })}
+          onPress={() => {
+            navigate("fullImageScreen", {
+              image: !userProfile ? image : state.user.image_url,
+            });
+          }}
         >
           <Image
             style={customStyle ?? customImageStyle.imageLoader}

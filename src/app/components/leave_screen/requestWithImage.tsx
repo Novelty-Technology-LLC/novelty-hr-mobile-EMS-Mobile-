@@ -23,11 +23,11 @@ const RequestWithImage = ({ item, onPress, type }: any) => {
           <Text style={style.type}>
             {type !== "WFH" && <Text> {type}</Text>}
             {work_option && (
-              <Text style={style.option}> {`${work_option}`}</Text>
+              <Text style={style.option}> {`(${work_option})`}</Text>
             )}
           </Text>
           <View style={style.date}>
-            <AppIcon name='calendar' size={18} color={colors.secondary} />
+            <AppIcon name="calendar" size={18} color={colors.secondary} />
             <Text style={style.datetype}>{dayRange}</Text>
           </View>
         </View>

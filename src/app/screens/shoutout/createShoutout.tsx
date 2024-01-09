@@ -30,7 +30,7 @@ export const CreateShoutout = ({ route, navigation }: any) => {
     setIsSubmitting(true);
     const submitData = {
       receiver: JSON.stringify([employee.id]),
-      shoutout_from: state.user.id.toString(),
+      shoutout_from: state.user.id.toString(), // REMOVABLE
       shoutout,
       shoutout_date: moment().toISOString(),
     };
@@ -39,12 +39,12 @@ export const CreateShoutout = ({ route, navigation }: any) => {
       .then(async (shoutoutData) => {
         await appendNewShoutoutToList(shoutoutData.id?.toString());
         setIsSubmitting(false);
-        showToast("Shoutout created successfully.");
+        showToast("Shoutout created successfully ");
         navigation.goBack();
       })
       .catch((err) => {
         if (typeof err.message === "string") showToast(err.message, false);
-        else showToast("An error occured.", false);
+        else showToast("An error occured ", false);
       })
       .then(() => {
         setIsSubmitting(false);

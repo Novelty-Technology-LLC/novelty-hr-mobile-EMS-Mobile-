@@ -1,37 +1,44 @@
-import React, { useState, useEffect, useContext, Fragment } from "react";
-import { Text, View, Platform, Keyboard, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { AuthContext } from "../../reducer";
+import React, {useState, useEffect, useContext, Fragment} from 'react';
+import {
+  Text,
+  View,
+  Platform,
+  Keyboard,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {AuthContext} from '../../reducer';
 import {
   loginStyle as style,
   requestLeave as rstyle,
-} from "../../../assets/styles";
-import { GoogleConfig } from "../../utils";
+} from '../../../assets/styles';
+import {GoogleConfig} from '../../utils';
 import {
   signInApple,
   signInGoogle,
   getLogin,
-  createUser,
+  appLogin,
   signOutGoogle,
-} from "../../services";
-import { buttonui as Logo } from "../../common/ui/buttonUi";
-import LoginWrapper from "./loginWrapper";
-import { Formik } from "formik";
-import { button as Button, snackErrorTop } from "../../common";
-import { useNavigation } from "@react-navigation/native";
-import SplashLogo from "../../common/ui/splash_logo";
+} from '../../services';
+import {buttonui as Logo} from '../../common/ui/buttonUi';
+import LoginWrapper from './loginWrapper';
+import {Formik} from 'formik';
+import {button as Button, showToast} from '../../common';
+import {useNavigation} from '@react-navigation/native';
 
 let AuthModel = {
-  EmailAddress: "",
-  Password: "",
+  EmailAddress: '',
+  Password: '',
 };
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const [showLoginForm, setLoginForm] = useState(
-    Platform.OS === "ios" ? true : false
+    Platform.OS === 'ios' ? true : false,
   );
-  const { state, dispatch } = useContext(AuthContext);
+  const {state, dispatch} = useContext<any>(AuthContext);
 
   const fetchLogin = async () => {
     const login = await getLogin();
@@ -40,40 +47,48 @@ const Login = () => {
 
   const submitLogin = (values: any) => {
     if (
-      values.EmailAddress === "dev@noveltytechnology.com" &&
-      values.Password === "testPassword"
+      values.EmailAddress === 'dev@noveltytechnology.com' &&
+      values.Password === 'testPassword'
     ) {
+      setLoading(true);
       const user = {
-        email: "dev@noveltytechnology.com",
+        email: 'dev@noveltytechnology.com',
         image_url:
-          "https://lh5.googleusercontent.com/-x6GB2ApSCXU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnhtcm9X9UWnHBQpR4YP9h7d9uPfw/s120/photo.jpg",
-        uuid: "113798347975576059462",
-        idToken: "alive",
+          'https://lh5.googleusercontent.com/-x6GB2ApSCXU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnhtcm9X9UWnHBQpR4YP9h7d9uPfw/s120/photo.jpg',
+        uuid: '113798347975576059462',
+        idToken: 'alive',
+        bypass: true,
+        userId: 1062,
+        password: 'testPassword',
       };
-      createUser(dispatch, user, user.idToken);
+      appLogin(dispatch, user, loadFalse);
     } else {
       Keyboard.dismiss();
-      snackErrorTop({ message: "Authentication Failed" });
+      showToast('Authentication Failed ', false);
     }
+  };
+
+  const loadFalse = () => {
+    setLoading(false);
   };
 
   const navigate = () => {
     if (state?.isLoading) {
-      return navigation.navigate("loading");
+      return navigation.navigate('loading');
     } else {
       if (state?.user !== null) {
-        return navigation.navigate("BottomTabs", { screen: "Dashboard" });
+        return navigation.navigate('BottomTabs', {screen: 'Dashboard'});
       } else if (state?.isInvalid) {
         signOutGoogle();
-        return navigation.navigate("invalid");
+        return navigation.navigate('invalid');
       } else if (state?.user === null) {
-        return navigation.navigate("login");
+        return navigation.navigate('login');
       }
     }
   };
 
   useEffect(() => {
-    if (Platform.OS === "ios") {
+    if (Platform.OS === 'ios') {
       fetchLogin();
     }
     GoogleConfig();
@@ -90,12 +105,11 @@ const Login = () => {
           <View style={style.formWrapper}>
             <Formik
               initialValues={AuthModel}
-              onSubmit={(values) => {
+              onSubmit={values => {
                 Keyboard.dismiss();
                 submitLogin(values);
-              }}
-            >
-              {({ handleChange, values, handleSubmit }) => (
+              }}>
+              {({handleChange, values, handleSubmit}) => (
                 <Fragment>
                   <TextInput
                     style={style.textInput}
@@ -104,7 +118,7 @@ const Login = () => {
                     secureTextEntry={false}
                     keyboardType="email-address"
                     textContentType="emailAddress"
-                    onChangeText={handleChange("EmailAddress")}
+                    onChangeText={handleChange('EmailAddress')}
                     autoCapitalize="none"
                   />
                   <TextInput
@@ -112,18 +126,22 @@ const Login = () => {
                     value={values.Password}
                     placeholder="Password"
                     secureTextEntry={true}
-                    onChangeText={handleChange("Password")}
+                    onChangeText={handleChange('Password')}
                   />
                   <Button onPress={() => handleSubmit()}>
                     <View style={rstyle.buttonView}>
-                      <Text
-                        style={[rstyle.buttonText, { paddingVertical: 10 }]}
-                      >
+                      <Text style={[rstyle.buttonText, {paddingVertical: 10}]}>
                         Login
                       </Text>
+                      {loading && (
+                        <ActivityIndicator
+                          style={{marginLeft: 10}}
+                          color="white"
+                        />
+                      )}
                     </View>
                   </Button>
-                  <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+                  <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
                     OR
                   </Text>
                 </Fragment>
@@ -135,16 +153,14 @@ const Login = () => {
         <View style={style.loginView}>
           <TouchableOpacity
             style={style.iconView}
-            onPress={async () => await signInGoogle(dispatch)}
-          >
+            onPress={async () => await signInGoogle(dispatch)}>
             <Logo name="google" />
           </TouchableOpacity>
 
-          {Platform.OS === "ios" && (
+          {Platform.OS === 'ios' && (
             <View style={style.iconView}>
               <TouchableOpacity
-                onPress={async () => await signInApple(dispatch)}
-              >
+                onPress={async () => await signInApple(dispatch)}>
                 <Logo name="apple" />
               </TouchableOpacity>
             </View>
@@ -155,4 +171,4 @@ const Login = () => {
   );
 };
 
-export { Login };
+export {Login};

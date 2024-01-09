@@ -8,10 +8,10 @@ import { getLeaveOption } from "../../utils/getLeaveType";
 import State from "../leave_screen/state";
 import RequestWithImage from "../leave_screen/requestWithImage";
 import { ApproveDeny } from "../leave_screen/approveDeny";
-import { getQuota, updateWFHRequests } from "../../services";
+import { checkWFHRequest, getQuota, updateWFHRequests } from "../../services";
 import { showToast } from "../../common";
-import { navigationRef } from "../../utils/navigation";
-import { dateStringMapper, formatDate } from "../../utils";
+import { dateStringMapper } from "../../utils";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 
 interface requestPropType {
   item: any;
@@ -22,15 +22,17 @@ interface requestPropType {
 
 const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   let { day } = getDay(item);
+
   const [isReplied, setIsReplied] = useState(false);
   const { state } = useContext<any>(AuthContext);
   const { adminrequests, dispatchAdmin } = useContext<any>(AdminRequestContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
 
   const checkReplied = () => {
-    item.leave_approvals &&
-      item.leave_approvals.map((item: any) => {
+    item.wfh_approvals &&
+      item.wfh_approvals.map((item: any) => {
         if (item.requested_to === state.user.id) {
           setIsReplied(true);
         }
@@ -46,12 +48,21 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
   const onPressAlert = (action: string) => {
     actionRef.current?.showLoading();
     actionRef.current?.show();
-    setTimeout(async () => {
-      if (alertRef.current) {
-        alertRef.current.setActionHandle(action);
-        alertRef.current.setResponse(await getRequest(item.user_id));
-      }
-    }, 500);
+    checkWFHRequest(item?.id)
+      .then((res) => {
+        if (res === "Pending" || res === "In Progress") {
+          setTimeout(async () => {
+            if (alertRef.current) {
+              alertRef.current.setActionHandle(action);
+              alertRef.current.setResponse(await getRequest(item.user_id));
+            }
+          }, 500);
+        }
+        actionRef.current?.hideLoading();
+      })
+      .catch((err) => {
+        actionRef.current?.hideLoading();
+      });
   };
 
   const getRequest = async (id: number) => {
@@ -74,31 +85,35 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
 
     const newData: any = {
       wfh_id: item.id,
-      requested_to: state.user.id,
+      requested_to: state.user.id, // REMOVABLE
       action,
       note,
       notification_token: item.device_tokens?.map(
         (item: any) => item.notification_token
       ),
-      lead_name: state.user.first_name,
+      lead_name: state.user.first_name, // REMOVABLE
       user_name: item.user.first_name,
       quotaId,
     };
 
     updateWFHRequests(item.id, newData)
-      .then(() => {
+      .then((val: any) => {
         dispatchAdmin({
           type: "REPLY",
-          payload: item,
+          payload: { ...item, status: val.status },
+        });
+        dispatchPendingRequest({
+          type: "SUBTRACT_PENDING_REQUEST",
+          payload: { key: "pending_wfh" },
         });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
-        showToast("Request replied");
+        showToast("Request replied ");
       })
       .catch((err) => {
         alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong", false);
+        showToast("Something went wrong ", false);
       });
   };
 
@@ -145,20 +160,20 @@ const WFHRequest = ({ item, other, recieved, onPress }: requestPropType) => {
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Approve'
+                    title="Approve"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                   <View style={style.buttonSpacer}></View>
                   <ApproveDeny
                     onPressSubmit={onPressSubmit}
                     ref={{ alertRef, actionRef }}
-                    title='Deny'
+                    title="Deny"
                     style={style}
                     item={item}
-                    screenName='WFH'
+                    screenName="WFH"
                     onPress={onPressAlert}
                   />
                 </View>

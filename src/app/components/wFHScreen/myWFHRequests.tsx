@@ -1,16 +1,15 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
-import { View, Text, FlatList, TouchableWithoutFeedback } from "react-native";
+import { View, FlatList, TouchableWithoutFeedback } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import { myRequestsStyle as style } from "../../../assets/styles";
 import { useNavigation } from "@react-navigation/native";
 import { EmptyContainer, SmallHeader } from "../../common";
 import { getUser } from "../../utils";
-import { getMyRequest, getPastWFHRequests } from "../../services";
+import { getMyRequest, getPastWFHRequests, getWfhDetail } from "../../services";
 import { UserPlaceHolder } from "../loader";
 import HistoryToggle from "../../common/historyToggle";
 import moment from "moment";
-import Swipe from "../leave_screen/swipe";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "./WFHrequest";
 import WFHHistory from "./wFHhistory";
@@ -19,6 +18,7 @@ import {
   mapDataToWFHRequest,
   mapObjectToWFHRequest,
 } from "../../utils/requestWfhTransformer";
+import { WFHSwipe } from "./wfhSwipe";
 
 const MyWFHRequests = ({
   loading,
@@ -33,7 +33,8 @@ const MyWFHRequests = ({
 }) => {
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
-  const { requestsWFH, dispatchWFHRequest } = useContext(RequestWFHContext);
+  const { requestsWFH, dispatchWFHRequest } =
+    useContext<any>(RequestWFHContext);
 
   let row: Array<any> = [];
 
@@ -62,32 +63,36 @@ const MyWFHRequests = ({
   useEffect(() => {
     const get = async () => {
       if (params) {
-        let data = await getMyRequest(+params);
-
-        data = mapObjectToWFHRequest(data[0]);
+        let data: any = await getWfhDetail(+params);
+        data = mapObjectToWFHRequest(data);
         navigation.navigate(screenName, data[0]);
       }
     };
     get();
   }, [params]);
-  const renderItem = (item: any) => {
-    const workDate = moment(item?.item?.start_date).format("YYYY-MM-DD");
 
+  const renderItem = (item: any) => {
+    const workDate = moment(item?.item?.start_date?.slice(0, 10)).format(
+      "YYYY-MM-DD"
+    );
     const today = moment().format("YYYY-MM-DD");
+
     if (workDate >= today) {
       if (workDate === today) {
-        return new Date().getHours() >= 10 ? (
+        return new Date().getHours() < 10 ? (
           <Swipeable
             shouldCancelWhenOutside
             ref={(ref) => (row[item.index] = ref)}
-            renderRightActions={() => (
-              <Swipe
-                isLeave={false}
-                item={item.item}
-                screenName={NAVIGATION_ROUTE.Request_WFH}
-                onPress={() => row[item.index].close()}
-              />
-            )}
+            renderRightActions={() => {
+              return (
+                <WFHSwipe
+                  isLeave={false}
+                  item={item.item}
+                  screenName={NAVIGATION_ROUTE.Request_WFH}
+                  onPress={() => row[item.index].close()}
+                />
+              );
+            }}
           >
             <WFHRequest
               item={item.item}
@@ -117,7 +122,7 @@ const MyWFHRequests = ({
           <Swipeable
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
-              <Swipe
+              <WFHSwipe
                 isLeave={false}
                 item={item.item}
                 screenName={NAVIGATION_ROUTE.Request_WFH}
@@ -156,10 +161,10 @@ const MyWFHRequests = ({
         {/*  new Date(item.item.leave_date.startDate) <= new Date() &&
             new Date().getHours() >= 10 ? */}
         <View style={[style.header]}>
-          <SmallHeader text='My Requests' history={true} />
+          <SmallHeader text="My Requests" history={true} />
           <HistoryToggle
             toggle={toggle}
-            screen='leave'
+            screen="leave"
             setHistory={setHistory}
             history={history}
           />
@@ -180,7 +185,7 @@ const MyWFHRequests = ({
       {toggle === "toggle-switch" &&
         (!requestsWFH?.pastrequests ? (
           <>
-            <SmallHeader text='Past Requests' />
+            <SmallHeader text="Past Requests" />
             <UserPlaceHolder />
           </>
         ) : (

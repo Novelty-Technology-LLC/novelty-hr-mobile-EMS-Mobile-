@@ -25,19 +25,23 @@ const tabHeader = ({
     const user_id = await getUser();
     const device_id = await DeviceInfo.getUniqueId();
 
-    logOutUser({ device_id, user_id: JSON.parse(user_id).id }).then((data) => {
-      // Reset stack navigation while logging out
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "login" }],
-        })
-      );
-      dispatch({ type: "SIGN_OUT" });
-      signOutGoogle();
-      removeUser();
-      removeToken();
-    });
+
+logOutUser({ device_id, user_id: JSON.parse(user_id).id })
+  .then((data) => {
+    // Reset stack navigation while logging out
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "login" }],
+      })
+    );
+
+    dispatch({ type: "SIGN_OUT" });
+    signOutGoogle();
+    removeUser();
+    removeToken();
+  })
+  .catch((err) => {});
   };
 
   return (

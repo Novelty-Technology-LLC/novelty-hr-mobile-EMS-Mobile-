@@ -47,9 +47,9 @@ export const checkRepeatLeaveDays = (olddate: Object, newdate: Object) => {
   const new_end = JSON.parse(newdate).endDate
     ? new Date(JSON.parse(newdate).endDate).getTime()
     : new_start;
-  const old_start = new Date(olddate.startDate).getTime();
-  const old_end = olddate.endDate
-    ? new Date(olddate.endDate).getTime()
+  const old_start = new Date(olddate?.startDate).getTime();
+  const old_end = olddate?.endDate
+    ? new Date(olddate?.endDate).getTime()
     : old_start;
 
   if (new_end !== new_start && old_end !== old_start) {

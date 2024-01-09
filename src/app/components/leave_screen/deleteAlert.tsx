@@ -8,7 +8,7 @@ import { AppIcon, showToast, snackBarMessage } from "../../common";
 import { dataType } from "../../interface";
 import { RequestContext, TimeLogContext } from "../../reducer";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
-import { deleteRequest, cancelLeave, cancelWfh } from "../../services";
+import { deleteRequest, cancelLeave } from "../../services";
 import { deleteTimeLog } from "../../services/timeLogService";
 import Normalize from "../../utils/normalize";
 
@@ -19,7 +19,6 @@ const DeleteAlert = ({
   timelog,
   edittimelog,
   onPress,
-  isLeave = true,
 }: {
   item: dataType;
   other: boolean;
@@ -27,51 +26,34 @@ const DeleteAlert = ({
   value?: object;
   edittimelog?: boolean;
   onPress?: Function;
-  isLeave: Boolean;
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const show = () => setShowAlert(true);
   const hide = () => setShowAlert(false);
   const { dispatchTimeLog } = useContext(TimeLogContext);
   const { dispatchRequest } = useContext(RequestContext);
-  const { requestsWFH, dispatchWFHRequest } =
-    useContext<any>(RequestWFHContext);
   const [loading, setLoading] = useState(false);
 
   const onDelete = async () => {
     setLoading(true);
     if (other) {
-      if (isLeave) {
-        cancelLeave(item?.id)
-          .then((data) => {
-            dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
-            dispatchRequest({ type: "CANCEL", payload: data.leave });
-            setLoading(false);
-            showToast("Request Cancelled");
-            hide();
-          })
-          .catch((err) => {
-            hide();
-          });
-      } else {
-        cancelWfh(item?.id)
-          .then((data) => {
-            dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
-            dispatchRequest({ type: "CANCEL", payload: data.home });
-            setLoading(false);
-            showToast("Request Cancelled");
-            hide();
-          })
-          .catch((err) => {
-            hide();
-          });
-      }
+      cancelLeave(item?.id)
+        .then((data) => {
+          dispatchRequest({ type: "UPDATEQUOTA", payload: data.quota });
+          dispatchRequest({ type: "CANCEL", payload: data.leave });
+          setLoading(false);
+          showToast("Request Cancelled ");
+          hide();
+        })
+        .catch((err) => {
+          hide();
+        });
     } else {
       deleteRequest(item.id)
         .then(async (data) => {
           dispatchRequest({ type: "UPDATEQUOTA", payload: data });
           dispatchRequest({ type: "DELETE", payload: item.id });
-          showToast("Request deleted");
+          showToast("Request deleted ");
           setLoading(false);
           hide();
         })
@@ -87,7 +69,7 @@ const DeleteAlert = ({
       .then(() => {
         dispatchTimeLog({ type: "DELETE", payload: item?.id });
 
-        showToast("TimeLog deleted");
+        showToast("TimeLog deleted ");
         setLoading(false);
         hide();
       })

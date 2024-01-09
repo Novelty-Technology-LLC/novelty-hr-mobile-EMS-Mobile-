@@ -16,11 +16,11 @@ import { ApproveDeny } from "../../components";
 import { ResponsePlaceHolder } from "../loader/responsePlaceHolder";
 import { getUser } from "../../utils";
 import { showToast, SmallHeader } from "../../common";
-import normalize from "react-native-normalize";
 import Autolink from "react-native-autolink";
 import { getLeaveOption } from "../../utils/getLeaveType";
 import CustomImage from "../../common/image";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { goBack } from "../../utils/navigation";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 
 let leave_quota: any = {
   total_pto: 0,
@@ -35,11 +35,13 @@ const Request = ({
   title = null,
   screenName = "Leave",
   type,
+  reloadRequest,
 }: any) => {
   const alertRef = useRef<any>(null);
   const actionRef = useRef<any>(null);
   const { state } = useContext<any>(AuthContext);
   const { dispatchAdmin } = useContext<any>(AdminRequestContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
   const { dayRange } = getDay(data);
   const { name } = getName(data);
   const [responses, setresponses] = useState([]);
@@ -69,9 +71,7 @@ const Request = ({
   const getRequest = async () => {
     try {
       const res: any = await getResponses(data.id, data.sender);
-
       setresponses(res);
-
       const pto_leaves = res[0]?.leaveQuota?.find(
         (item: any) => item.leave_type === "PAID TIME OFF"
       );
@@ -84,7 +84,6 @@ const Request = ({
         used_pto: pto_leaves?.leave_remaining,
         used_float: float_leaves?.leave_remaining,
       };
-
       setLoading(false);
       return leave_quota;
     } catch (error) {
@@ -96,7 +95,6 @@ const Request = ({
   const onPressAlert = (action: string) => {
     actionRef.current?.showLoading();
     actionRef.current?.show();
-
     checkRequest(data?.id)
       .then((res) => {
         if (res === "Pending" || res === "In Progress") {
@@ -129,14 +127,14 @@ const Request = ({
       leave_id: data?.id,
       action,
       note,
-      requested_to: state.user.id,
+      requested_to: state.user.id, //REMOVABLE
       quotaId: data.sender,
       notification_token: data.device_tokens?.map(
         (item: any) => item.notification_token
       ),
-      lead_name: state.user.first_name,
+      lead_name: state.user.first_name, //REMOVABLE
       user_name: data.user.first_name,
-      uuid: state.user.uuid,
+      uuid: state.user.uuid, //REMOVABLE
     };
 
     updateRequest(data.id, newData)
@@ -146,14 +144,22 @@ const Request = ({
           type: "REPLY",
           payload: data,
         });
+        dispatchPendingRequest({
+          type: "SUBTRACT_PENDING_REQUEST",
+          payload: { key: "pending_leave" },
+        });
         actionRef.current?.hideLoading();
         actionRef.current?.hide();
         alertRef.current?.hideSubmitLoading();
-        showToast("Request replied");
+        showToast("Request replied ");
+        goBack();
+        if (reloadRequest) {
+          reloadRequest();
+        }
       })
       .catch((error) => {
         alertRef.current?.hideSubmitLoading();
-        showToast("Something went wrong", false);
+        showToast("Something went wrong ", false);
       });
   };
 
@@ -174,13 +180,14 @@ const Request = ({
                 </View>
                 <View style={style.dateView}>
                   <Text style={style.leaveType}>
-                    {screenName === "Leave" && <Text>{type}</Text>}
-                    {screenName === "Leave" ? (
-                      leave_option !== "FULL DAY" &&
+                    {screenName === 'Leave' && <Text>{type}</Text>}
+                    {screenName === 'Leave' ? (
+                      leave_option !== 'FULL DAY' &&
                       leave_option && (
                         <Text
-                          style={style.leaveOption}
-                        >{` (${leave_option})`}</Text>
+                          style={
+                            style.leaveOption
+                          }>{` (${leave_option})`}</Text>
                       )
                     ) : (
                       <Text style={style.leaveOption}>{`${leave_option}`}</Text>
@@ -192,11 +199,11 @@ const Request = ({
             <View style={style.sectionView}>
               <View style={style.sectionHeader}>
                 <View style={style.sectionDateView}>
-                  <Icon style={style.calander} name='calendar' size={20} />
+                  <Icon style={style.calander} name="calendar" size={20} />
                   <Text style={style.sectionDate}>{dayRange}</Text>
                 </View>
                 <View style={style.sendView}>
-                  <State state='Requested'>{startDate(data)}</State>
+                  <State state="Requested">{startDate(data)}</State>
                 </View>
               </View>
             </View>
@@ -204,7 +211,7 @@ const Request = ({
               <Autolink
                 // Required: the text to parse for links
                 text={data.note}
-                textProps={{ style: style.note }}
+                textProps={{style: style.note}}
                 // Optional: enable email linking
                 email
                 // Optional: enable URL linking
@@ -214,34 +221,33 @@ const Request = ({
               {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
             {responses?.length ? (
-              screenName === "Leave" ? (
+              screenName === 'Leave' ? (
                 <View style={style.cardFooterContainer}>
                   <View style={style.cardFooter}>
                     <Text style={style.remainingLeave}>Remaining :</Text>
                     <Text>
                       <Text style={style.totalDays}>
-                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
+                        {leave_quota.used_pto + '/' + leave_quota.total_pto}
                       </Text>
-                      <Text style={style.leaveTypes}>{" PTO"}</Text>
+                      <Text style={style.leaveTypes}>{' PTO'}</Text>
                     </Text>
                     <Text>
                       <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
+                        {leave_quota.used_float + '/' + leave_quota.total_float}
                       </Text>
-                      <Text style={style.leaveTypes}>{" Floating "}</Text>
+                      <Text style={style.leaveTypes}>{' Floating '}</Text>
                     </Text>
                   </View>
                 </View>
               ) : (
                 <View style={style.cardWFHFooter}>
                   <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining Quota :</Text>
+                    <Text style={style.remainingLeave}>Total WFH :</Text>
                     {/* <Text></Text> */}
                     <Text>
                       <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
+                        {Math.abs(leave_quota?.used_float ?? 0)}
                       </Text>
-                      <Text style={style.leaveTypes}>{" WFH "}</Text>
                     </Text>
                   </View>
                 </View>
@@ -255,7 +261,7 @@ const Request = ({
                 JSON.parse(data.lead).length !==
                   responses[0].pendingResponses.length && (
                   <>
-                    <SmallHeader text='Responses' />
+                    <SmallHeader text="Responses" />
                     {responses[0].responses.map((item: any, i: number) => (
                       <Fragment key={i}>
                         <View style={style.main} key={i.toString()}>
@@ -264,8 +270,8 @@ const Request = ({
                               style={style.image}
                               source={
                                 item.user?.image_url
-                                  ? { uri: item.user.image_url }
-                                  : require("../../../assets/images/person.jpeg")
+                                  ? {uri: item.user.image_url}
+                                  : require('../../../assets/images/person.jpeg')
                               }
                             />
                             <View style={style.senderView}>
@@ -294,14 +300,14 @@ const Request = ({
                     ))}
                   </>
                 )}
-              {data.state !== "Denied" && (
+              {data.state !== 'Denied' && (
                 <>
                   <View style={style.pendingresponseView}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                       {responses?.length > 0 &&
                         responses[0].pendingResponses.length > 0 && (
                           <>
-                            <SmallHeader text='Pending Responses' />
+                            <SmallHeader text="Pending Responses" />
                             {responses[0].pendingResponses.map((item, i) => (
                               <Fragment key={i}>
                                 <View style={style.main} key={i?.toString()}>
@@ -310,8 +316,8 @@ const Request = ({
                                       style={style.image}
                                       source={
                                         item?.image_url
-                                          ? { uri: item?.image_url }
-                                          : require("../../../assets/images/person.jpeg")
+                                          ? {uri: item?.image_url}
+                                          : require('../../../assets/images/person.jpeg')
                                       }
                                     />
                                     <View style={style.senderView}>
@@ -340,11 +346,11 @@ const Request = ({
               )}
             </ScrollView>
           </View>
-          {title === "admin" && !approved && user !== data?.user?.uuid && (
+          {title === 'admin' && !approved && user !== data?.user?.uuid && (
             <View style={style.buttonView}>
               <ApproveDeny
-                ref={{ alertRef, actionRef }}
-                title='Approve'
+                ref={{alertRef, actionRef}}
+                title="Approve"
                 style={style}
                 item={data}
                 fromStack={false}
@@ -352,8 +358,8 @@ const Request = ({
                 onPressSubmit={onPressSubmit}
               />
               <ApproveDeny
-                ref={{ alertRef, actionRef }}
-                title='Deny'
+                ref={{alertRef, actionRef}}
+                title="Deny"
                 style={style}
                 item={data}
                 fromStack={false}

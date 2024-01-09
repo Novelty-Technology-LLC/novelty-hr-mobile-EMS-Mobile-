@@ -4,18 +4,12 @@ import AnimateNumber from "react-native-countup";
 import { daysRemainingStyle as style } from "../../../assets/styles/";
 
 interface DaysRemainingPropType {
-  total: number;
   remaining: number;
   title: String;
   timelog?: boolean;
 }
 
-const DaysRemaining = ({
-  total,
-  remaining,
-  title,
-  timelog,
-}: DaysRemainingPropType) => {
+const DaysRemaining = ({remaining, title, timelog}: DaysRemainingPropType) => {
   return (
     <View style={timelog ? style.logcontainer : style.container}>
       <Text style={style.text}>
@@ -26,15 +20,13 @@ const DaysRemaining = ({
             interval={0}
             countBy={1}
             timing="linear"
-            formatter={(val) => {
+            formatter={val => {
               return !timelog || Number.isInteger(val)
                 ? val
                 : parseFloat(val).toFixed(1);
             }}
           />
         </Text>
-        <Text style={style.total}> / </Text>
-        <Text style={style.total}>{total}</Text>
       </Text>
       {timelog && <Text style={style.title}>Hours</Text>}
       <Text style={timelog ? style.footer : style.title}>

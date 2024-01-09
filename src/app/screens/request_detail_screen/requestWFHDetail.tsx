@@ -7,13 +7,16 @@ import Request from "../../components/approveRequest/approve_request";
 import { approveRequest as style } from "../../../assets/styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RequestButton } from "../../components/requestButton";
-import { checkRequest } from "../../services";
+import { checkRequest, checkWFHRequest } from "../../services";
 import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
 import { WFHRequest } from "../../components/wFHScreen/WFHrequest";
 import WfhRequestApproval from "../../components/approveRequest/approve_wfh_request";
+import moment from "moment";
+import getDay from "../../utils/getDay";
 
 const RequestWFHDetail = ({ route }: any) => {
-  const { date } = route.params;
+  const item = route.params;
+  const { dayRange } = getDay(item);
   const [isReplied, setIsReplied] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -21,10 +24,14 @@ const RequestWFHDetail = ({ route }: any) => {
     onEdit();
   }, []);
   const onEdit = () => {
-    checkRequest(route?.params?.id)
+    checkWFHRequest(route?.params?.id)
       .then((res) => {
         if (res === "Pending") {
-          setShowAlert(true);
+          if (item.start_date == moment().format("YYYY-MM-DD")) {
+            moment().hour() < 10 && setShowAlert(true);
+          } else {
+            setShowAlert(true);
+          }
         }
       })
       .catch((err) => {});
@@ -33,7 +40,7 @@ const RequestWFHDetail = ({ route }: any) => {
     <>
       <Header icon={true}>
         <View style={approveRequest.headContainer}>
-          <Text style={headerTxtStyle.headerText}>{date}</Text>
+          <Text style={headerTxtStyle.headerText}>{dayRange}</Text>
         </View>
       </Header>
 
@@ -47,7 +54,13 @@ const RequestWFHDetail = ({ route }: any) => {
         <RequestButton
           screen={NAVIGATION_ROUTE.Request_WFH}
           floatingIcon='pencil-outline'
-          olddata={route?.params}
+          olddata={{
+            ...item,
+            date: {
+              startDate: moment(item?.start_date.slice(0, 10)).format("llll"),
+              endDate: moment(item?.end_date.slice(0, 10)).format("llll"),
+            },
+          }}
         />
       )}
     </>

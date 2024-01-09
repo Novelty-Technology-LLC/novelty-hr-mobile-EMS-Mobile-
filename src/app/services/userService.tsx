@@ -1,10 +1,10 @@
 import { api } from "../api/api";
 import { navigate } from "../utils/navigation";
 
-const create = async (data: object) => {
+const login = async (data: object) => {
   return new Promise((resolve, reject) => {
     api
-      .post("/user/add", data)
+      .post("/user/login", data)
       .then((data) => resolve(data))
       .catch((err) => {
         reject(err);
@@ -24,7 +24,7 @@ const store = (data) => {
 const get = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/user/${id}`);
+      let res = await api.get(`/user/user/${id}`); // REPLACE: /user/self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -44,4 +44,4 @@ const logOutUser = (body) => {
   });
 };
 
-export { create, store, get, logOutUser };
+export { login, store, get, logOutUser };

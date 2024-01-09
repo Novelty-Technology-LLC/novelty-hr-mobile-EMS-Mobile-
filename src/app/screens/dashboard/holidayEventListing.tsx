@@ -1,14 +1,16 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../../assets/colors";
 import {
   cardStyle,
+  globalStyle,
   headerTxtStyle,
   listingStyle,
   timeLogStyle,
 } from "../../../assets/styles";
-import { header as Header } from "../../common";
+import { EmptyContainer, header as Header } from "../../common";
 import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getList } from "../../services";
 import { getColor, transformList } from "../../utils/listtranform";
@@ -83,7 +85,14 @@ const HolidayEventListing = (props: any) => {
             }
           )
         ) : (
-          <></>
+          <View style={globalStyle.contentCenter}>
+            <EmptyContainer
+              text={`${"No Upcoming Holidays and Events"}`}
+              containerStyle={{
+                backgroundColor: "white",
+              }}
+            />
+          </View>
         )}
       </ScrollView>
     </View>

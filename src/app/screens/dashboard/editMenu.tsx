@@ -41,12 +41,12 @@ export const EditMenu = ({ navigation, route }: any) => {
           type: "UPDATE_ITEM",
           payload: { id: item?.id, value: menuText },
         });
-        showToast("Menu updated successfully.");
+        showToast("Menu updated successfully ");
 
         if (isFocused) navigation.goBack();
       })
       .catch((err) => {
-        showToast(err.message, false);
+        showToast(`${err.message} `, false);
       })
       .then(() => {
         setIsLoading(false);
@@ -84,7 +84,7 @@ export const EditMenu = ({ navigation, route }: any) => {
                     }}
                   />
                   <CustomButton
-                    label="Update"
+                    label='Update'
                     onPress={props.handleSubmit}
                     disabled={
                       menuText.trim() == item.title.trim() ||

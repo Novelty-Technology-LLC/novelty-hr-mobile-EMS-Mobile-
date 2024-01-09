@@ -10,7 +10,7 @@ import {
   Pressable,
   Platform,
 } from "react-native";
-import { headerTxtStyle } from "../../assets/styles";
+import { fonts, headerTxtStyle } from "../../assets/styles";
 import { profileStyle, profileStyle as style } from "../../assets/styles/tabs";
 import { showToast, tabHeader as Header } from "../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -21,15 +21,14 @@ import ImageCropper from "react-native-image-crop-picker";
 import { updateImage } from "../services";
 
 import normalize from "react-native-normalize";
-import { storeToken, removeToken, removeUser, setUser } from "../utils";
-import { ProfileInfoComponent } from "../common/profileInformation";
-
+import { removeUser, setUser } from "../utils";
 import { CustomText } from "../components/text";
 import { TermPolicy } from "../common/termPolicy";
 import { CustomDivider } from "../common/divider";
 import CustomImage from "../common/image";
+import { ProfileTab } from "../components/profile/profileTab";
 
-const Profile = ({ navigation }: any) => {
+const Profile = ({ navigation, route }: any) => {
   const { state, dispatch } = useContext(AuthContext);
   const [image, setimage] = useState(null);
   let refRBSheet = useRef<any>(null);
@@ -39,8 +38,8 @@ const Profile = ({ navigation }: any) => {
 
   const cleanImage = () =>
     ImageCropper.clean()
-      .then(() => { })
-      .catch((e) => { });
+      .then(() => {})
+      .catch((e) => {});
 
   const updateProfileImage = (image: any, data?: any) => {
     setimage(image ?? image.data);
@@ -75,6 +74,7 @@ const Profile = ({ navigation }: any) => {
       </View>
     );
   };
+
   const confirmForBottomSheet = ({
     title,
     iconName,
@@ -134,11 +134,11 @@ const Profile = ({ navigation }: any) => {
         callbackForUploadImage(image);
         // confirm()
       })
-      .finally(() => { })
+      .finally(() => {})
       .then((image) => {
         callbackForUploadImage(image);
       })
-      .finally(() => { });
+      .finally(() => {});
   };
   const openCamera = () =>
     ImageCropper.openCamera({
@@ -155,15 +155,13 @@ const Profile = ({ navigation }: any) => {
 
   const confirm = () => {
     setloading(true);
-    updateImage(state.user.id, {
+    updateImage({
       data: image.data,
       name: image.path.split("/").pop(),
       type: image.mime,
     })
       .then((data) => {
-        showToast("Image uploaded");
-        removeToken();
-        storeToken(JSON.stringify(data));
+        showToast("Image uploaded ");
         removeUser();
         setUser(data);
         updateProfileImage({ ...image, visible: false }, data);
@@ -178,11 +176,12 @@ const Profile = ({ navigation }: any) => {
         setLoad(false);
         setloading(false);
         cleanImage();
-        showToast("Something went wrong", false);
+        showToast("Something went wrong ", false);
       });
   };
 
   let uri = image ? image?.path : state?.user?.image_url;
+
   const [oldimage, setoldimage] = useState(state.image_url);
   const cancel = () => {
     setloading(false);
@@ -236,13 +235,33 @@ const Profile = ({ navigation }: any) => {
       <Header icon={true} navigation={navigation}>
         <Text style={headerTxtStyle.headerText}>Profile</Text>
       </Header>
-      <ScrollView style={style.container}>
-        <View style={profileStyle.scrollStyle}>
+      <View style={style.container}>
+        <ScrollView style={profileStyle.scrollStyle}>
           <View style={profileStyle.topContainer}></View>
 
           <View style={profileStyle.infoStyle}>
-            <ProfileInfoComponent user={state.user} />
-
+            <View style={{ marginTop: normalize(80) }}>
+              <CustomText
+                text={state?.user?.first_name + " " + state?.user?.last_name}
+                style={{
+                  color: "black",
+                  paddingTop: 5,
+                  textAlign: "center",
+                  fontSize: 15,
+                  fontFamily: fonts.PoppinsSemibold,
+                }}
+              />
+              <CustomText
+                text={state?.user?.designation}
+                style={{
+                  color: "#8D8D8D",
+                  textAlign: "center",
+                  fontSize: 15,
+                  fontFamily: fonts.poppinsMedium,
+                }}
+              />
+            </View>
+            <ProfileTab user={state.user} />
             <CustomDivider size="maxlarge" />
           </View>
           {/* <View style={{ ...style.imageView, position: "absolute" }}>
@@ -261,6 +280,7 @@ const Profile = ({ navigation }: any) => {
               style={[style.image]}
               image={uri}
               fullScreen={false}
+              userProfile={route?.params?.userProfile}
             />
             <View style={style.iconCameraWrapper}>
               <TouchableOpacity
@@ -271,8 +291,8 @@ const Profile = ({ navigation }: any) => {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
       <View
         style={{
           backgroundColor: "white",

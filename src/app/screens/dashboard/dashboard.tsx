@@ -8,62 +8,46 @@ import {
   RefreshControl,
   TouchableOpacity,
   BackHandler,
-  Image,
 } from "react-native";
 import { AuthContext } from "../../reducer";
-import {
-  dashboardStyle as ds,
-  headerTxtStyle,
-  listStyle,
-} from "../../../assets/styles";
-import { Cards, header as Header, List, showToast } from "../../common";
+import { dashboardStyle as ds, headerTxtStyle } from "../../../assets/styles";
+import { Cards, header as Header, List } from "../../common";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../../../assets/colors";
-import { getToday } from "../../utils";
-import {
-  createWork,
-  getWork,
-  getDashboard,
-  getRequest,
-  getList,
-  shoutOutService,
-} from "../../services";
+import { getDashboard, getRequest } from "../../services";
 import moment from "moment";
 import normalize from "react-native-normalize";
 import { DashboardCardPlaceholder } from "../../common";
 import { getCurrentRouteName, navigate } from "../../utils/navigation";
 import { time } from "../../utils/listtranform";
-import { getWorkShift } from "../../utils/getWorkShift";
 import CustomImage from "../../common/image";
 import { AnnouncementContext } from "../../reducer/announcementreducer";
-import { NAVIGATION_ROUTE } from "../../constant/navigation.contant";
-import { RouteNames } from "../../constant/route_names";
 import { ShoutoutContext } from "../../reducer/shoutoutReducer";
+import { setUser } from "../../utils";
+import { isDev } from "../../api/uri";
+import { PendingRequestContext } from "../../reducer/pendingRequestReducer";
 
 const DashBoard = () => {
   const { state: announcementState, dispatch }: any =
     useContext(AnnouncementContext);
 
   const { shoutoutState, dispatchShoutout } = useContext(ShoutoutContext);
+  const { dispatchPendingRequest } = useContext<any>(PendingRequestContext);
   const { state }: any = useContext(AuthContext);
   const [toggle, setToggle] = useState(false);
-  const [isActive, setActive] = useState(false);
-  const [id, setId] = useState(0);
-  const [userId, setUserId] = useState(0);
+  const [wfhData, setWfhData] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loadingIsActive, setLoadingIsActive] = useState(false);
   const [leaveStatus, setLeaveStatus] = useState(false);
   const [announcementLoading, setAnnouncementLoading] = useState(false);
   const [listData, setListData] = useState([]);
-  const [list, setList] = useState<any>(null);
   const [shoutoutLoading, setshoutoutLoading] = useState<any>(false);
-  const [eventloading, setEventloading] = useState<any>(null);
   const [announcements, setAnnouncements] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [cardLoading, setCardLoading] = useState(true);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    dispatchPendingRequest({ type: "RELOAD" });
   }, []);
 
   useEffect(() => {
@@ -110,6 +94,19 @@ const DashBoard = () => {
     state?.user?.id && fetchWork();
   }, [state, refreshing]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        if (state?.user?.id) {
+          const response: any = await getRequest(
+            `/user/profile/${state?.user?.id}` // REPLACE: /user/profile-self
+          );
+          await setUser(response);
+        }
+      } catch (error) {}
+    })();
+  }, [state]);
+
   const fetchAnnouncements = async () => {
     try {
       var response: any = await getRequest("/webportal/announcements", {
@@ -123,101 +120,66 @@ const DashBoard = () => {
       setAnnouncements(response);
     } catch (error) {}
   };
-  const fetchLeave = async () => {
-    try {
-      var response: any = await getRequest("/leave", {});
-      var date = moment(new Date()).format("ddd MMM D YYYY");
 
-      var todayLeave = response.find(function (element: any) {
-        return (
-          element.requestor_id === state?.user.id &&
-          moment(date).isSame(element.leave_date.startDate)
-        );
-      });
-      if (todayLeave.status === "Approved") {
-        setLeaveStatus(true);
-      } else {
-        setLeaveStatus(false);
-      }
-    } catch (error) {}
-  };
   useEffect(() => {
     (async () => {
       try {
         setAnnouncementLoading(true);
         setshoutoutLoading(true);
         setCardLoading(true);
-        await Promise.all([
-          getDashboard(),
-          fetchLeave(),
-          fetchAnnouncements(),
-        ]).then((values) => {
-          const dashboardData: any = values[0];
-          var filteredArray = dashboardData.filter((e: any) => {
-            return e?.detailRoute !== "/shoutout";
-          });
-          var shoutoutData = dashboardData.filter((e: any) => {
-            return e?.detailRoute === "/shoutout";
-          });
+        await Promise.all([getDashboard(state?.user.id), fetchAnnouncements()])
+          .then((values) => {
+            const filterData = values[0].filter(
+              (item: any) => item.module === "Leave"
+            );
+            const res = filterData.flat()[0].items;
+            const result = res
+              .map((item) => item.user)
+              .filter((item) => {
+                const user = item.id === state?.user.id;
+                return user ? true : false;
+              });
+            setLeaveStatus(result.length ? true : false);
+            const dashboardData: any = values[0];
+            const wfhStatus = dashboardData.filter(
+              (item: any) => item.module === "wfh"
+            );
+            setWfhData(wfhStatus[0].items.status.toLowerCase());
+            const filterSection = dashboardData.filter(
+              (item: any) => item.show === true
+            );
 
-          dispatchShoutout({
-            type: "SET_SHOUTOUT_LIST",
-            payload: shoutoutData[0]?.items,
-          });
+            var filteredArray = filterSection.filter((e: any) => {
+              return e?.detailRoute !== "/shoutout";
+            });
+            var shoutoutData = filterSection.filter((e: any) => {
+              return e?.detailRoute === "/shoutout";
+            });
 
-          setAnnouncementLoading(false);
-          setshoutoutLoading(false);
+            dispatchShoutout({
+              type: "SET_SHOUTOUT_LIST",
+              payload: shoutoutData[0]?.items,
+            });
 
-          setListData(filteredArray);
-          setCardLoading(false);
+            setAnnouncementLoading(false);
+            setshoutoutLoading(false);
 
-          setRefreshing(false);
-        });
+            setListData(filteredArray);
+            setCardLoading(false);
+
+            setRefreshing(false);
+          })
+          .catch((err) => {});
       } catch (error) {
         setRefreshing(false);
       }
     })();
-  }, [refreshing]);
+  }, [refreshing, state?.user?.id]);
 
-  const ToggleWork = async () => {
-    if (leaveStatus) {
-      showToast("You are currently on leave", false);
-    } else {
-      try {
-        setLoading(true);
-        const data = {
-          id,
-          date: getToday(),
-          user_id: state?.user?.id,
-          status: !toggle ? 1 : 0,
-        };
-        const res: any = await createWork(data);
-        res?.data?.data?.id && setId(res?.data?.data?.id);
-        if (res?.data?.data?.message) {
-          showToast(res?.data?.data?.message, false);
-          setLoading(false);
-        } else if (res?.data?.status === 200) {
-          showToast("Successfully changed status.");
-          setToggle(!toggle);
-          let newList: any = listData.find(
-            (item: any) => item?.detailRoute === "/employee"
-          );
-          newList.items.map((item: any) => {
-            if (item?.subTitle === "Working from Home") {
-              item.title = !toggle ? +item.title + 1 : +item.title - 1;
-            }
-          });
-          setLoading(false);
-        }
-      } catch (error) {
-        showToast("Something went wrong", false);
-        setLoading(false);
-      }
-    }
-  };
   const handleWFH = () => {
-    navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
+    // navigate(NAVIGATION_ROUTE.WFH_DASHBOARD);
   };
+
   const statusClip = (iconName = "home", title = "Home") => {
     return (
       <TouchableWithoutFeedback
@@ -263,8 +225,30 @@ const DashBoard = () => {
   };
   return (
     <View style={ds.safeArea}>
-      <Header icon={false} container={{ paddingVertical: normalize(4.076) }}>
+      <Header
+        icon={false}
+        container={{ paddingVertical: normalize(4.076) }}
+        showEnvironment
+      >
         <View style={ds.headerContainer}>
+          {isDev && (
+            <View
+              style={{
+                top: 0,
+                position: "absolute",
+                left: "45%",
+                backgroundColor: "grey",
+                borderColor: "grey",
+                borderWidth: 1,
+                borderRadius: 10,
+                paddingHorizontal: 12,
+                paddingVertical: 2,
+                marginTop: 5,
+              }}
+            >
+              <Text style={{ color: "white", fontSize: 10 }}>DEV</Text>
+            </View>
+          )}
           <Text style={headerTxtStyle.headerText}>DASHBOARD</Text>
           <TouchableOpacity onPress={() => navigate("Profile")}>
             <CustomImage image={state?.user?.image_url} style={ds.image} />
@@ -331,9 +315,9 @@ const DashBoard = () => {
                   </Text>
                 </View>
               </TouchableWithoutFeedback> */}
-              {leaveStatus
-                ? statusClip("briefcase-clock", "OnLeave")
-                : isActive && statusClip()}
+              {/* {leaveStatus
+                ? statusClip("briefcase-clock", "On Leave")
+                : isActive && statusClip()} */}
             </View>
 
             {/* <Text style={ds.workshift}>{state?.user?.work_shift}</Text> */}
@@ -350,31 +334,58 @@ const DashBoard = () => {
             <View
               style={[
                 ds.work,
-
-                toggle
+                moment().day() === 6 || moment().day() === 0
+                  ? { backgroundColor: colors.primary }
+                  : wfhData == "approved"
+                  ? { backgroundColor: colors.greenButton }
+                  : wfhData === "pending"
+                  ? { backgroundColor: colors.brown }
+                  : wfhData === "in progress"
+                  ? { backgroundColor: colors.yellow }
+                  : wfhData === "office" ||
+                    wfhData === "cancelled" ||
+                    wfhData === "deleted" ||
+                    wfhData === "denied"
                   ? { backgroundColor: colors.primary }
                   : { backgroundColor: colors.primary },
               ]}
             >
-              <Text
-                style={{
-                  ...ds.workText,
-
-                  color: toggle ? colors.white : colors.white,
-                }}
-              >
-                WFH
-              </Text>
-              <View style={{ marginHorizontal: 2 }} />
               {loading ? (
                 <ActivityIndicator color={colors.white} />
               ) : (
                 <Icon
-                  name='arrow-top-right'
-                  color={toggle ? colors.white : colors.white}
+                  name={
+                    moment().day() === 6 || moment().day() === 0
+                      ? "domain"
+                      : wfhData === "office" ||
+                        wfhData === "cancelled" ||
+                        wfhData === "deleted" ||
+                        wfhData === "denied"
+                      ? "domain"
+                      : "home-outline"
+                  }
+                  // home-outline arrow-top-right
+                  color={wfhData === "pending" ? colors.primary : colors.white}
+                  style={{ marginRight: 2 }}
                   size={20}
                 />
               )}
+              <Text
+                style={{
+                  ...ds.workText,
+                  color: wfhData === "pending" ? colors.primary : colors.white,
+                }}
+              >
+                {moment().day() === 6 || moment().day() === 0
+                  ? "Work from office"
+                  : wfhData === "office" ||
+                    wfhData === "cancelled" ||
+                    wfhData === "deleted" ||
+                    wfhData === "denied"
+                  ? "Work from office"
+                  : "Work from home"}
+              </Text>
+              <View style={{ marginHorizontal: 2 }} />
             </View>
           </TouchableWithoutFeedback>
         </View>

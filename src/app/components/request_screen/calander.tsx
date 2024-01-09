@@ -3,17 +3,14 @@ import { RangeCalendar, Calendar } from "@ui-kitten/components";
 import { Text, View } from "react-native";
 import moment from "moment";
 import { MomentDateService } from "@ui-kitten/moment";
-import {
-  dateStringMapper,
-  checkRepeat,
-  checkRepeatLeaveDays,
-} from "../../utils";
+import { dateStringMapper, checkRepeatLeaveDays } from "../../utils";
 import { calenderStyle, timeLogStyle } from "../../../assets/styles";
-import { momentdate } from "../../utils/momentDate";
 import colors from "../../../assets/colors";
 import { RequestContext } from "../../reducer";
 import { RequestWFHContext } from "../../reducer/requestWorkFromReducer";
+
 interface calenderPropType {
+  selectedOption?: number;
   style?: any;
   handleChange: Function;
   defaultValue?: object;
@@ -25,6 +22,7 @@ interface calenderPropType {
 }
 
 const CalendarComponent = ({
+  selectedOption = 0,
   style,
   handleChange,
   defaultValue,
@@ -34,30 +32,34 @@ const CalendarComponent = ({
   olddata_id,
   workfromHome = false,
 }: calenderPropType) => {
+  let reviewed: any = [];
   const currentDate = new Date();
+  const dateService = new MomentDateService();
+  const { requests } = useContext<any>(RequestContext);
+  const { requestsWFH } = useContext<any>(RequestWFHContext);
+  const filter = (date: any) => date.getDay() !== 0 && date.getDay() !== 6;
+
+  const [date, setDate] = useState(moment());
 
   const [range, setrange] = useState<any>(
     defaultValue
       ? {
-          endDate: new Date(defaultValue?.endDate),
-          startDate: new Date(defaultValue?.startDate),
+          endDate: new Date(
+            moment(defaultValue?.endDate ?? new Date(), "YYYY-MM-DD")
+          ),
+          startDate: new Date(
+            moment(defaultValue?.startDate ?? new Date(), "YYYY-MM-DD")
+          ),
         }
       : ""
   );
-  const [date, setDate] = useState(moment());
-  const dateService = new MomentDateService();
-  const { requests } = useContext(RequestContext);
-  const { requestsWFH } = useContext(RequestWFHContext);
 
-  const filter = (date) => date.getDay() !== 0 && date.getDay() !== 6;
-  const modalfilter = (date) => momentdate(date) < momentdate();
-  let reviewed: any = [];
   if (workfromHome) {
     reviewed = [...requestsWFH.pastrequests, ...requestsWFH.requests].filter(
       (req) =>
-        req.state === "Approved" ||
-        req.state === "In Progress" ||
-        req.state === "Pending"
+        req.status === "Approved" ||
+        req.status === "In Progress" ||
+        req.status === "Pending"
     );
   } else {
     reviewed = [...requests.pastrequests, ...requests.requests].filter(
@@ -76,25 +78,59 @@ const CalendarComponent = ({
     let approved = false;
     let inprogress = false;
     let pending = false;
-    if (date.getDay() !== 0 && date.getDay() !== 6) {
-      reviewed.map((req) => {
-        if (
-          checkRepeatLeaveDays(
-            req.leave_date,
-            JSON.stringify({ startDate: date, endDate: date })
-          )
-        ) {
-          req.state === "Approved"
-            ? (approved = true)
-            : req.state === "In Progress"
-            ? (inprogress = true)
-            : req.state === "Pending"
-            ? (pending = true)
-            : {};
-        }
-      });
+    if (workfromHome) {
+      if (date.getDay() !== 0 && date.getDay() !== 6) {
+        reviewed.map((req) => {
+          const data = {
+            ...req,
+            date: {
+              startDate: moment(req?.start_date.slice(0, 10)).format("llll"),
+              endDate: moment(req?.end_date.slice(0, 10)).format("llll"),
+            },
+          };
+          if (
+            checkRepeatLeaveDays(
+              data.date,
+              JSON.stringify({ startDate: date, endDate: date })
+            )
+          ) {
+            req.status === "Approved"
+              ? (approved = true)
+              : req.status === "In Progress"
+              ? (inprogress = true)
+              : req.status === "Pending"
+              ? (pending = true)
+              : {};
+          }
+        });
+      }
+    } else {
+      if (date.getDay() !== 0 && date.getDay() !== 6) {
+        reviewed.map((req: any) => {
+          const data = {
+            ...req,
+            date: {
+              startDate: moment(req?.start_date.slice(0, 10)).format("llll"),
+              endDate: moment(req?.end_date.slice(0, 10)).format("llll"),
+            },
+          };
+          if (
+            checkRepeatLeaveDays(
+              data.date,
+              JSON.stringify({ startDate: date, endDate: date })
+            )
+          ) {
+            req.state === "Approved"
+              ? (approved = true)
+              : req.state === "In Progress"
+              ? (inprogress = true)
+              : req.state === "Pending"
+              ? (pending = true)
+              : {};
+          }
+        });
+      }
     }
-
     return (
       <View
         style={[
@@ -151,7 +187,13 @@ const CalendarComponent = ({
         </View>
         {range.startDate && !modal && (
           <Text style={timeLogStyle.rldate}>
-            Total : {dateStringMapper(range.startDate, range.endDate)}
+            Total :{" "}
+            {dateStringMapper(
+              range.startDate,
+              range.endDate,
+              false,
+              selectedOption === 0 ? 1 : 0.5
+            )}
           </Text>
         )}
       </View>
@@ -160,29 +202,25 @@ const CalendarComponent = ({
           <Calendar
             style={timeLogStyle.modalCalender}
             dateService={dateService}
-            max={moment(new Date())}
-            min={moment("2022-12-01")}
             date={date}
             onSelect={(nextRange) => {
               setDate(nextRange);
               handleChange(nextRange);
             }}
-            name="date"
-            label="date"
+            name='date'
+            label='date'
           />
         </View>
       ) : (
         <RangeCalendar
           max={new Date(currentDate.getFullYear() + 1, 7)}
-          min={new Date(2020, 6)}
+          min={new Date()}
           filter={filter}
           range={range}
-          onSelect={(nextRange) => {
-            setrange(nextRange);
-          }}
+          onSelect={(nextRange) => setrange(nextRange)}
           style={[style?.calendar, { marginTop: -15, borderBottomWidth: 0 }]}
-          name="date"
-          label="date"
+          name='date'
+          label='date'
           renderDay={DayCell}
         />
       )}

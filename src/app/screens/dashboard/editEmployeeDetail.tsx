@@ -75,14 +75,14 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
     updateEmployeeDetail(data.id, values, fiscalYear.current)
       .then(() => {
         setIsSubmitting(false);
-        showToast("Employee detail successfully updated.");
+        showToast("Employee detail successfully updated ");
         navigate("employeeDetail", {
           updated: true,
           data: { ...data, ...values },
         });
       })
       .catch((err) => {
-        showToast(err.message, false);
+        showToast(`${err.message} `, false);
         setIsSubmitting(false);
       });
   };
@@ -114,7 +114,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
             .find((item) => item.field === "fiscal_year")
             .value.fiscal_year.find((item: any) => item.active).label ?? "";
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -130,7 +130,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
         <ScrollView
           contentContainerStyle={editEmployeeStyles.body}
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps='handled'
         >
           <Formik
             initialValues={getInitialForm(data)}
@@ -145,7 +145,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                     <CustomTextInput
                       error={props.errors.first_name}
                       touched={props.touched.first_name}
-                      icon="account"
+                      icon='account'
                       style={editEmployeeStyles.horizontalViewItem}
                       textInputProps={{
                         placeholder: "First Name",
@@ -157,7 +157,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                     <CustomTextInput
                       error={props.errors.last_name}
                       touched={props.touched.last_name}
-                      icon="account"
+                      icon='account'
                       style={editEmployeeStyles.horizontalViewItem}
                       textInputProps={{
                         placeholder: "Last Name",
@@ -171,7 +171,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                   <DropDownInput
                     error={props.errors.designation}
                     touched={props.touched.designation}
-                    icon="account-tie"
+                    icon='account-tie'
                     dropDownProps={{
                       placeholder: initialDesignation?.label,
                       items: designations,
@@ -186,7 +186,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                   <CustomTextInput
                     error={props.errors.email}
                     touched={props.touched.email}
-                    icon="email-newsletter"
+                    icon='email-newsletter'
                     textInputProps={{
                       placeholder: "Email",
                       value: props.values.email,
@@ -200,7 +200,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                       <DropDownInput
                         error={props.errors.gender}
                         touched={props.touched.gender}
-                        icon="human-male-female"
+                        icon='human-male-female'
                         dropDownProps={{
                           placeholder: initialGender?.label,
                           items: genders,
@@ -214,7 +214,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                     <CustomTextInput
                       error={props.errors.phone}
                       touched={props.touched.phone}
-                      icon="phone"
+                      icon='phone'
                       style={editEmployeeStyles.horizontalViewItem}
                       textInputProps={{
                         placeholder: "Phone number",
@@ -256,7 +256,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                         <CustomTextInput
                           error={props.errors.birth_date}
                           touched={props.touched.birth_date}
-                          icon="cake-variant"
+                          icon='cake-variant'
                           textInputProps={{
                             placeholder: "Birth Date",
                             value: props.values.birth_date,
@@ -271,7 +271,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                       <DropDownInput
                         error={props.errors.blood_group}
                         touched={props.touched.blood_group}
-                        icon="water"
+                        icon='water'
                         dropDownProps={{
                           placeholder: initialBloodGroup?.label,
                           items: bloodGroups,
@@ -285,7 +285,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
 
                   {/* Employee ID */}
                   <CustomTextInput
-                    icon="card-account-details"
+                    icon='card-account-details'
                     textInputProps={{
                       placeholder: "Employee ID",
                       value: props.values.employee_id,
@@ -321,7 +321,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                       <CustomTextInput
                         error={props.errors.join_date}
                         touched={props.touched.join_date}
-                        icon="location-enter"
+                        icon='location-enter'
                         textInputProps={{
                           placeholder: "Join Date",
                           value: props.values.join_date,
@@ -335,7 +335,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
                   <DropDownInput
                     error={props.errors.work_shift}
                     touched={props.touched.work_shift}
-                    icon="timetable"
+                    icon='timetable'
                     dropDownProps={{
                       placeholder: initialWorkShif?.label,
                       items: workShifts,
@@ -348,7 +348,7 @@ export const EditEmployeeDetail = ({ route, navigation }: any) => {
 
                   <CustomButton
                     isLoading={isSubmitting}
-                    label="Update"
+                    label='Update'
                     onPress={props.handleSubmit}
                     disabled={false}
                   />

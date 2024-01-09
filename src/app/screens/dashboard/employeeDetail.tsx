@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
-import {
-  headerTxtStyle,
-  listingStyle,
-} from "../../../assets/styles";
+import { headerTxtStyle, listingStyle } from "../../../assets/styles";
 import { getRequest } from "../../services";
 import { header as Header } from "../../common";
 import { ProfileInfoComponent } from "../../common/profileInformation";
@@ -35,7 +32,7 @@ const EmployeeDetail = (props: any) => {
       try {
         const id = params.id;
 
-        let response = await getRequest(`user/${id}`, {});
+        let response = await getRequest(`user/user/${id}`, {});
 
         setData(response);
         setLoading(false);
@@ -64,7 +61,7 @@ const EmployeeDetail = (props: any) => {
           <View style={profileStyle.topContainer}></View>
           <View style={profileStyle.infoStyle}>
             <ProfileInfoComponent
-              user={data ?? data}
+              route={{ params: { user: data ?? data } }}
               chekUserInfo={state.user}
             />
           </View>

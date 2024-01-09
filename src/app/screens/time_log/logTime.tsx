@@ -62,7 +62,7 @@ const LogTime = ({ route }: any) => {
   });
   const addHashtag = async (values: any) => {
     const user = await getUser();
-    values.user_id = JSON.parse(user).id;
+    values.user_id = JSON.parse(user).id; // REMOVABLE
 
     values.hashtag =
       values?.hashtag?.length > 0
@@ -111,21 +111,22 @@ const LogTime = ({ route }: any) => {
             });
             navigation.navigate("timelog");
             setIsLoading(false);
-            showToast("TimeLog added");
+            showToast("TimeLog added ");
           } else {
             checkAndReplace(data, timelogs, dispatchTimeLog);
             navigation.navigate("timelog");
             setIsLoading(false);
-            showToast("TimeLog updated");
+            showToast("TimeLog updated ");
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          showToast("Someting went wrong ", false);
+          setIsLoading(false);
+        });
     } else {
       Keyboard.dismiss();
       setIsLoading(false);
-      snackErrorBottom({
-        message: "You cannot log more than 24 hours a day ",
-      });
+      showToast("You cannot log more than 24 hours a day ", false);
     }
   };
 

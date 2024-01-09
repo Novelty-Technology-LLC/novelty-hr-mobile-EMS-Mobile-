@@ -12,8 +12,16 @@ import { RouteNames } from "../../constant/route_names";
 import ShoutoutSVG from "../../../assets/images/shoutout.svg";
 import { employeeListingStyles as styles } from "../../../assets/styles/dashboard/employeeListing.styles";
 import { AuthContext } from "../../reducer";
+import State from "../../components/leave_screen/state";
 
-const EmployeeListingCard = ({ index, item, onPress }: any) => {
+const EmployeeListingCard = ({
+  index,
+  item,
+  onPress,
+  status = "",
+  showShoutOut = true,
+  showStatus = false,
+}: any) => {
   const { state, dispatch }: any = useContext(AuthContext);
 
   return (
@@ -34,25 +42,29 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
         <View style={{ marginRight: theme.size.lg }}>
           <CustomImage style={style.headerImage} image={item.image} />
         </View>
-
         {/* Details */}
         <View style={{ flex: 1 }}>
           {/* Name */}
           <Text style={cardStyle.titleText} numberOfLines={1}>
             {item?.title}
           </Text>
-
           {/* Designation */}
           <View style={cardStyle.icon}>
             <View style={styles.employeeDetailContainer}>
-              <AppIcon
-                name='card-account-details'
-                color={colors.fontGrey}
-                size={normalize(12)}
-                style={{ marginRight: normalize(5) }}
-              />
-
-              <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+              <View style={{ flexDirection: "column" }}>
+                {item?.date && (
+                  <Text style={cardStyle.subTitleText}>{item?.date}</Text>
+                )}
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <AppIcon
+                    name="card-account-details"
+                    color={colors.fontGrey}
+                    size={normalize(12)}
+                    style={{ marginRight: normalize(5) }}
+                  />
+                  <Text style={cardStyle.subTitleText}>{item?.subTitle}</Text>
+                </View>
+              </View>
             </View>
           </View>
 
@@ -60,7 +72,7 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
           {item?.work_shift && (
             <View style={styles.employeeDetailContainer}>
               <AppIcon
-                name='timetable'
+                name="timetable"
                 color={colors.fontGrey}
                 size={normalize(12)}
                 style={{ marginRight: normalize(5) }}
@@ -74,7 +86,7 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
       </TouchableOpacity>
 
       {/* Shouout  */}
-      {state?.user?.id !== item?.id && (
+      {state?.user?.id !== item?.id && showShoutOut && (
         <TouchableOpacity
           onPress={() => navigate(RouteNames.createShoutout, item)}
           style={{
@@ -84,6 +96,8 @@ const EmployeeListingCard = ({ index, item, onPress }: any) => {
           <ShoutoutSVG />
         </TouchableOpacity>
       )}
+
+      {showStatus && <State state={status} />}
     </View>
   );
 };

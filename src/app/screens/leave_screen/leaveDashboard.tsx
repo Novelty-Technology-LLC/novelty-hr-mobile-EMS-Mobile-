@@ -10,11 +10,10 @@ import OtherRequests from "../../components/leave_screen/otherRequests";
 import { RequestButton } from "../../components/requestButton";
 import { RequestContext } from "../../reducer";
 import { getUser, mapDataToRequest, setUser } from "../../utils";
-import { get, getLeaveQuota, getMyRequests, store } from "../../services";
+import { get, getLeaveQuota, getMyRequests } from "../../services";
 import { QuotaPlaceHolder } from "../../components/loader/quotaPlaceHolder";
 import { useScrollToTop } from "@react-navigation/native";
 import { AuthContext } from "../../reducer";
-import Autolink from "react-native-autolink";
 
 const LeaveDashboard = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -26,10 +25,12 @@ const LeaveDashboard = () => {
   } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
+
   const onRefresh = React.useCallback(async () => {
     setRefresh((prevState) => !prevState);
     setRefreshing(true);
     const user = await getUser();
+
     const newuser = await get(+JSON.parse(user).id);
     setIsAdmin(+newuser.is_approver === 1 ? true : false);
     setUser(newuser);
@@ -40,7 +41,21 @@ const LeaveDashboard = () => {
     });
 
     getMyRequests(JSON.parse(user).id)
-      .then((data) => {
+      .then((data: any) => {
+        dispatchRequest({
+          type: "CHANGE",
+          payload: mapDataToRequest(
+            data.map((item: any) => {
+              return {
+                ...item,
+                leave_date: {
+                  startDate: item.start_date,
+                  endDate: item.end_date,
+                },
+              };
+            })
+          ),
+        });
         setLoading(false);
         setRefreshing(false);
       })
@@ -64,8 +79,21 @@ const LeaveDashboard = () => {
     setIsAdmin(+JSON.parse(user).is_approver ? true : false);
 
     getMyRequests(JSON.parse(user).id)
-      .then((data) => {
-        dispatchRequest({ type: "CHANGE", payload: mapDataToRequest(data) });
+      .then((data: any) => {
+        dispatchRequest({
+          type: "CHANGE",
+          payload: mapDataToRequest(
+            data.map((item) => {
+              return {
+                ...item,
+                leave_date: {
+                  startDate: item.start_date,
+                  endDate: item.end_date,
+                },
+              };
+            })
+          ),
+        });
         setLoading(false);
       })
       .catch((err) => {
@@ -83,6 +111,7 @@ const LeaveDashboard = () => {
   }, [requests?.requests?.length]);
 
   useScrollToTop(ref);
+
   return (
     <View style={style.mainContainer}>
       <Header icon={false}>
@@ -122,7 +151,7 @@ const LeaveDashboard = () => {
           />
         )}
       </ScrollView>
-      <RequestButton screen='requestLeave' />
+      <RequestButton screen="requestLeave" />
     </View>
   );
 };

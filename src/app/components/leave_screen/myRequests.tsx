@@ -30,6 +30,7 @@ const MyRequests = ({
   const navigation = useNavigation();
   const [history, setHistory] = useState(false);
   const { requests, dispatchRequest } = useContext(RequestContext);
+
   let row: Array<any> = [];
 
   const [toggle, setToggle] = useState("toggle-switch-off");
@@ -39,7 +40,17 @@ const MyRequests = ({
       .then((data) => {
         dispatchRequest({
           type: "CHANGEPAST",
-          payload: mapDataToRequest(data),
+          payload: mapDataToRequest(
+            data?.map((item: any) => {
+              return {
+                ...item,
+                leave_date: {
+                  startDate: item.start_date,
+                  endDate: item.end_date,
+                },
+              };
+            })
+          ),
         });
       })
       .catch((err) => {});
@@ -58,8 +69,31 @@ const MyRequests = ({
       if (params) {
         let data = await getLeave(+params);
 
-        data = mapObjectToRequest(data[0]);
+        data = mapObjectToRequest({
+          ...data[0],
+          leave_date: {
+            startDate: data[0].start_date,
+            endDate: data[0].end_date,
+          },
+        });
+        // getLeave(+params).then((data: any) => {
+        //   dispatchRequest({
+        //     type: "CHANGE",
+        //     payload: mapDataToRequest(
+        //       data[0].map((item: any) => {
+        //         return {
+        //           ...item,
+        //           leave_date: {
+        //             startDate: item.start_date,
+        //             endDate: item.end_date,
+        //           },
+        //         };
+        //       })
+        //     ),
+        //   });
         navigation.navigate(screenName, data[0]);
+        // });
+        // data = mapObjectToRequest(data[0]);
       }
     };
     get();
@@ -72,7 +106,7 @@ const MyRequests = ({
     const today = moment().format("YYYY-MM-DD");
     if (leaveDate >= today) {
       if (leaveDate === today) {
-        return new Date().getHours() <= 10 ? (
+        return new Date().getHours() < 10 ? (
           <Swipeable
             ref={(ref) => (row[item.index] = ref)}
             renderRightActions={() => (
@@ -80,7 +114,7 @@ const MyRequests = ({
             )}
           >
             <Request
-              item={item.item}
+              item={item?.item}
               other={false}
               onPress={() => navigation.navigate(screenName, item.item)}
             />

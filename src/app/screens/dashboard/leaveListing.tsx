@@ -1,6 +1,12 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { Dimensions, ScrollView, Text, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Dimensions,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import normalize from "react-native-normalize";
 import colors from "../../../assets/colors";
 import {
@@ -15,8 +21,12 @@ import { ListPlaceholder } from "../../components/loader/listPlaceHolder";
 import { getList } from "../../services";
 import { transformList } from "../../utils/listtranform";
 import { ListingCard } from "./leaveListingCard";
+import { navigate } from "../../utils/navigation";
+import { AuthContext } from "../../reducer";
 
 const LeaveListing = (props: any) => {
+  const { state } = useContext(AuthContext);
+
   const [list, setList] = useState<any>(null);
   const [loading, setLoading] = useState<any>(null);
 
@@ -26,7 +36,6 @@ const LeaveListing = (props: any) => {
 
   const getallLeaveListing = async (routeName: string) => {
     setLoading(true);
-
     const data = await getList(routeName);
 
     setLoading(false);
@@ -49,7 +58,21 @@ const LeaveListing = (props: any) => {
             false,
             props?.route?.params?.module === "Leave" ? true : false
           ).map((item, index) => {
-            return <ListingCard index={index} item={item} list={list.length} />;
+            return (
+              <TouchableOpacity
+                disabled={
+                  state.user.is_approver !== "1" ||
+                  state.user.is_approver !== "1"
+                }
+                onPress={() => {
+                  navigate("leaveDetail", {
+                    data: item,
+                  });
+                }}
+              >
+                <ListingCard index={index} item={item} list={list.length} />
+              </TouchableOpacity>
+            );
           })
         ) : (
           <EmptyContainer

@@ -75,7 +75,6 @@ const List = ({ list }: { list: any }) => {
               // keyExtractor={(item) => item?.id.toString()}
               data={list?.items}
               renderItem={({ item, index }: any) => {
-
                 return (
                   <ShoutoutListItem
                     date={item?.shoutout_date}
@@ -108,18 +107,34 @@ const List = ({ list }: { list: any }) => {
       ) : (
         <>
           <EmptyContainer
-            text={`${list.message
-              ? list.message
-              : list?.module === "Leave"
+            text={`${
+              list.message
+                ? list.message
+                : list?.module === "Leave"
                 ? "No Upcoming Leave"
                 : "No Upcoming Holidays and Events"
-              }`}
+            }`}
             containerStyle={{
               height: normalize(80),
               borderBottomColor: colors.snow,
               paddingVertical: normalize(10),
             }}
           />
+          <TouchableOpacity
+            onPress={() =>
+              navigate(list?.detailRoute, {
+                route: list?.detailRoute,
+                module: list.module,
+              })
+            }
+          >
+            {list?.module !== "shoutout" && (
+              <View style={listStyle.seeAllTextOn}>
+                <Text style={listStyle.seeAllTexts}>See All</Text>
+                <Icon name="arrow-right" color={colors.primary} size={12} />
+              </View>
+            )}
+          </TouchableOpacity>
           {/* <TouchableOpacity
             onPress={() =>
               navigate(list?.detailRoute, {

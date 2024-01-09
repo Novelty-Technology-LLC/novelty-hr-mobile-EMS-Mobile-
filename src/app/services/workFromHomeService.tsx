@@ -17,7 +17,18 @@ const createWork = async (data: object) => {
 const getMyRequest = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await api.get(`/work/${id}`);
+      const res = await api.get(`/work/user/${id}`); // REPLACE: /work/self
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+
+const getWfhDetail = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await api.get(`/work/wfh/detail/${id}`);
 
       resolve(res.data.data);
     } catch (error) {
@@ -72,11 +83,41 @@ const cancelWfh = (id: number) => {
     }
   });
 };
+const deleteWfhRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.delete(`/work/${id}`);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+const checkWFHRequest = (id: number) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.get(`/work/check/${id}`);
 
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
+export const editRequestWfh = (id: number, data: any) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let res = await api.put(`/work/${id}`, data);
+      resolve(res.data.data);
+    } catch (error) {
+      reject({ success: false, message: error });
+    }
+  });
+};
 const getPastWFHRequests = (id: any) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/work/past/${id}`);
+      let res = await api.get(`/work/past/${id}`); // REPLACE: /work/past-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -87,7 +128,7 @@ const getPastWFHRequests = (id: any) => {
 const getAllWFHRequests = (id: number) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/work/admin/${id}`);
+      let res = await api.get(`/work/admin/${id}`); // REPLACE: /work/admin-self
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -109,7 +150,7 @@ const updateWFHRequests = (id: any, data: any) => {
 const getWFHResponses = (id, user_id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let res = await api.get(`/wfh-approve/${id}?user_id=${user_id}`);
+      let res = await api.get(`/wfh-approve/${id}?user_id=${user_id}`); // REMOVABLE: user_id
       resolve(res.data.data);
     } catch (error) {
       reject({ success: false, message: error });
@@ -120,12 +161,15 @@ const getWFHResponses = (id, user_id) => {
 export {
   createWork,
   getWork,
+  checkWFHRequest,
   getQuota,
   postWFHRequest,
   getMyRequest,
   getPastWFHRequests,
   cancelWfh,
+  deleteWfhRequest,
   updateWFHRequests,
   getAllWFHRequests,
   getWFHResponses,
+  getWfhDetail,
 };

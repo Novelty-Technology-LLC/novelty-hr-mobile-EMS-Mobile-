@@ -6,19 +6,12 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
-import {
-  header as Header,
-  showToast,
-  SmallHeader,
-  snackBarMessage,
-  snackErrorBottom,
-} from "../../common";
+import { header as Header, showToast } from "../../common";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider } from "@ui-kitten/components";
 import { default as theme } from "../../../assets/styles/leave_screen/custom-theme.json";
 import {
   approveRequest,
-  fonts,
   headerTxtStyle,
   requestLeave as style,
 } from "../../../assets/styles";
@@ -35,19 +28,15 @@ import { editRequest, postRequest } from "../../services";
 import colors from "../../../assets/colors";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext, RequestContext } from "../../reducer";
-import { snackErrorTop } from "../../common";
 import {
-  checkIfRequested,
   checkIfRequestedForLeave,
-  checkValidityQuota,
+  compareDateBetween,
   dateMapper,
   momentdate,
 } from "../../utils";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import moment from "moment";
 import { CustomRadioButton } from "../../common/radioButton";
-import { Size } from "@ui-kitten/components/devsupport";
-import normalize from "react-native-normalize";
 
 const validationSchema = Yup.object().shape({
   date: Yup.object()
@@ -64,10 +53,10 @@ const validationSchema = Yup.object().shape({
 
 const RequestLeave = ({ route }: any) => {
   const olddata = route.params;
-
   const navigation = useNavigation();
-  const { state } = useContext(AuthContext);
-  const { dispatchRequest, requests } = useContext(RequestContext);
+  const { state } = useContext<any>(AuthContext);
+  const { dispatchRequest, requests } = useContext<any>(RequestContext);
+
   const [isLoading, setisLoading] = useState(false);
   const [quotaMsg, setQuota] = useState("");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -81,36 +70,77 @@ const RequestLeave = ({ route }: any) => {
     lead: olddata ? olddata.lead : [],
   };
 
-  const submitRequest = (data) => {
+  const checkIfLeaveExist = (date: string) => {
+    if (!olddata) {
+      const findCurrentLeave = requests.requests.filter((item: any) => {
+        return compareDateBetween(date, item.start_date, item.end_date);
+      });
+      return findCurrentLeave;
+    } else {
+      const findCurrentLeave = requests.requests
+        .filter(
+          (item: any) =>
+            olddata.id !== item.id &&
+            (item.state === "Approved" ||
+              item.state === "In Progress" ||
+              item.state === "Pending")
+        )
+        .filter((item: any) => {
+          return compareDateBetween(date, item.start_date, item.end_date);
+        });
+      return findCurrentLeave;
+    }
+  };
+
+  const submitRequest = (data: any) => {
     postRequest(data)
-      .then((res) => {
+      .then((res: any) => {
         dispatchRequest({ type: "UPDATEQUOTA", payload: res.data.data.quota });
-        dispatchRequest({ type: "ADD", payload: res.data.data.leave });
+        dispatchRequest({
+          type: "ADD",
+          payload: {
+            ...res.data.data,
+            leave_date: {
+              startDate: res.data.data.leave.start_date,
+              endDate: res.data.data.leave.end_date,
+            },
+          },
+        });
         navigation.navigate("leaveList");
         setisLoading(false);
-        showToast("Request created");
+        showToast("Request created ");
       })
       .catch((err) => {
+
         setisLoading(false);
       });
   };
 
-  const updateReq = (data) => {
+  const updateReq = (data: any) => {
     data.start_date = momentdate(data.leave_date.startDate, "YYYY-MM-DD");
     data.end_date = momentdate(data.leave_date.endDate, "YYYY-MM-DD");
 
     editRequest(olddata.id, data)
       .then((res: any) => {
-        res.quota.map((item) => {
+        res.quota.map((item: any) => {
           dispatchRequest({
             type: "UPDATEQUOTA",
             payload: { ...item, leave_option: res.leave_option },
           });
         });
-
-        dispatchRequest({ type: "UPDATE", payload: res.leave });
+        const { leave_date, ...rest } = res.leave;
+        dispatchRequest({
+          type: "UPDATE",
+          payload: {
+            ...rest,
+            leave_date: {
+              startDate: moment(leave_date.startDate).format("YYYY-MM-DD"),
+              endDate: moment(leave_date.endDate).format("YYYY-MM-DD"),
+            },
+          },
+        });
         navigation.navigate("leaveList");
-        showToast("Request updated");
+        showToast("Request updated ");
 
         setisLoading(false);
       })
@@ -142,8 +172,12 @@ const RequestLeave = ({ route }: any) => {
       setSelectedIndex(0);
     }
   };
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     const date = JSON.parse(values.date);
+
+    if (checkIfLeaveExist(moment(date.startDate).format("YYYY-MM-DD")).length) {
+      return showToast("You cannot take leave twice on same day ", false);
+    }
 
     const leaveDate = moment(date.startDate).format("YYYY-MM-DD");
     const today = moment(new Date()).format("YYYY-MM-DD");
@@ -153,9 +187,9 @@ const RequestLeave = ({ route }: any) => {
       Number(moment(new Date()).format("HH")) >= 10
     ) {
       if (moment(leaveDate).format("YYYY-MM-DD") <= today) {
-        showToast("The selected date has passed. ", false);
+        showToast("The selected date has passed ", false);
       } else {
-        showToast("You cannot take leave after 10 am", false);
+        showToast("You cannot take leave after 10 am ", false);
       }
     } else {
       try {
@@ -169,10 +203,10 @@ const RequestLeave = ({ route }: any) => {
             req.state === "Pending"
         );
         if (!olddata && checkIfRequestedForLeave(allrequests, values)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ", false);
         }
         if (olddata && checkIfRequestedForLeave(allrequests, values, olddata)) {
-          return showToast("You cannot request the same date twice", false);
+          return showToast("You cannot request the same date twice ", false);
         }
         const date = JSON.parse(values.date);
         let dayArray: any = [];
@@ -200,7 +234,7 @@ const RequestLeave = ({ route }: any) => {
               { days: -oldday, dayType: olddata.type },
             ];
           }
-          dayArray.map((day) => {
+          dayArray.map((day: any) => {
             if (values.type === day.dayType) {
               // if (checkValidityQuota(requests.quota, values.type, day.days)) {
               //   throw new Error(`Selected day exceeds ${values.type}`);
@@ -235,23 +269,20 @@ const RequestLeave = ({ route }: any) => {
           },
           day: dayData,
           leave_option: leave_option,
-          requestor_id: state.user.id,
-          requestor_name: state.user.first_name,
-          uuid: state.user.uuid,
-          gender: state.user.gender,
+          requestor_id: state.user.id, // REMOVABLE
+          requestor_name: state.user.first_name, // REMOVABLE
+          uuid: state.user.uuid, // REMOVABLE
+          gender: state.user.gender, // REMOVABLE
         };
 
         setisLoading(true);
-
         Keyboard.dismiss();
-
         olddata ? updateReq(requestData) : submitRequest(requestData);
-      } catch (error) {
+      } catch (error: any) {
         if (!error.message.includes("Selected day exceeds"))
           error.message = "Unkonown error occured";
         setisLoading(false);
-
-        showToast(error.message);
+        showToast(`${error.message} `, false);
       }
     }
   };
@@ -271,7 +302,7 @@ const RequestLeave = ({ route }: any) => {
         extraScrollHeight={Platform.OS === "ios" ? 180 : 70}
         extraHeight={Platform.OS === "android" ? 140 : 50}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         keyboardDismissMode={"none"}
       >
         <Formik
@@ -282,8 +313,8 @@ const RequestLeave = ({ route }: any) => {
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <>
               {quotaMsg ? <Text style={style.quotaMsg}>{quotaMsg}</Text> : null}
-
               <CalendarComponent
+                selectedOption={selectedIndex}
                 workfromHome={false}
                 style={style}
                 handleChange={handleChange}
@@ -324,7 +355,7 @@ const RequestLeave = ({ route }: any) => {
               >
                 <View style={style.buttonView}>
                   <Text style={style.buttonText}>
-                    {olddata ? "Upadate " : "Submit Request"}
+                    {olddata ? "Update " : "Submit"}
                   </Text>
                   {isLoading && (
                     <ActivityIndicator size={30} color={colors.white} />
