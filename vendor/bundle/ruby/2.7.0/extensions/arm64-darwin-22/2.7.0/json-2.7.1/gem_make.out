@@ -1,0 +1,13 @@
+current directory: /Applications/Work/NoveltyEMS/vendor/bundle/ruby/2.7.0/gems/json-2.7.1/ext/json
+/Users/lovishhamal/.rvm/rubies/ruby-2.7.6/bin/ruby -I /Users/lovishhamal/.rvm/rubies/ruby-2.7.6/lib/ruby/2.7.0 -r ./siteconf20231226-69578-12gbvio.rb extconf.rb
+creating Makefile
+
+current directory: /Applications/Work/NoveltyEMS/vendor/bundle/ruby/2.7.0/gems/json-2.7.1/ext/json
+make "DESTDIR=" clean
+
+current directory: /Applications/Work/NoveltyEMS/vendor/bundle/ruby/2.7.0/gems/json-2.7.1/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Applications/Work/NoveltyEMS/vendor/bundle/ruby/2.7.0/gems/json-2.7.1/ext/json
+make "DESTDIR=" install
