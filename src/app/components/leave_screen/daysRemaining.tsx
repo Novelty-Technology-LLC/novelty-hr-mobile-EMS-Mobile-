@@ -1,15 +1,23 @@
-import React from "react";
-import { View, Text } from "react-native";
-import AnimateNumber from "react-native-countup";
-import { daysRemainingStyle as style } from "../../../assets/styles/";
+import React from 'react';
+import {View, Text} from 'react-native';
+import AnimateNumber from 'react-native-countup';
+import {daysRemainingStyle as style} from '../../../assets/styles/';
 
 interface DaysRemainingPropType {
   remaining: number;
   title: String;
   timelog?: boolean;
+  total?: number;
+  isLeave?: boolean;
 }
 
-const DaysRemaining = ({remaining, title, timelog}: DaysRemainingPropType) => {
+const DaysRemaining = ({
+  isLeave = false,
+  total,
+  remaining,
+  title,
+  timelog,
+}: DaysRemainingPropType) => {
   return (
     <View style={timelog ? style.logcontainer : style.container}>
       <Text style={style.text}>
@@ -27,14 +35,27 @@ const DaysRemaining = ({remaining, title, timelog}: DaysRemainingPropType) => {
             }}
           />
         </Text>
+        {isLeave && (
+          <>
+            <Text style={style.total}> / </Text>
+            <Text style={style.total}>{total}</Text>
+          </>
+        )}
       </Text>
       {timelog && <Text style={style.title}>Hours</Text>}
-      <Text style={timelog ? style.footer : style.title}>
-        {title.toUpperCase()}
-      </Text>
-      {!timelog && <Text style={style.footer}>REMAINING</Text>}
+      {isLeave && (
+        <Text style={timelog ? style.footer : style.title}>
+          {title.toUpperCase()}
+        </Text>
+      )}
+      {!timelog &&
+        (isLeave ? (
+          <Text style={style.footer}>REMAINING</Text>
+        ) : (
+          <Text style={[style.footer, {textTransform: 'none'}]}>Total WFH</Text>
+        ))}
     </View>
   );
 };
 
-export { DaysRemaining };
+export {DaysRemaining};

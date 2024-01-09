@@ -122,31 +122,31 @@ const LeaveDashboard = () => {
         ref={ref}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
+        }>
         {requests?.quota?.length > 0 ? null : <QuotaPlaceHolder />}
         <View style={style.container}>
           {requests.quota &&
             requests.quota.length > 0 &&
-            requests.quota.map((daysDetail) => (
+            requests.quota.map(daysDetail => (
               <DaysRemaining
                 key={daysDetail?.id}
                 total={daysDetail?.leave_total}
                 remaining={daysDetail?.leave_remaining}
                 title={daysDetail?.leave_type}
+                isLeave
               />
             ))}
         </View>
         <MyRequests
           loading={loading}
           refresh={refresh}
-          params={notifdata?.request === "myrequest" && +notifdata?.leave_id}
+          params={notifdata?.request === 'myrequest' && +notifdata?.leave_id}
         />
         {isAdmin && (
           <OtherRequests
             refresh={refresh}
             params={
-              notifdata?.request === "otherrequest" && +notifdata?.leave_id
+              notifdata?.request === 'otherrequest' && +notifdata?.leave_id
             }
           />
         )}
