@@ -180,13 +180,14 @@ const Request = ({
                 </View>
                 <View style={style.dateView}>
                   <Text style={style.leaveType}>
-                    {screenName === "Leave" && <Text>{type}</Text>}
-                    {screenName === "Leave" ? (
-                      leave_option !== "FULL DAY" &&
+                    {screenName === 'Leave' && <Text>{type}</Text>}
+                    {screenName === 'Leave' ? (
+                      leave_option !== 'FULL DAY' &&
                       leave_option && (
                         <Text
-                          style={style.leaveOption}
-                        >{` (${leave_option})`}</Text>
+                          style={
+                            style.leaveOption
+                          }>{` (${leave_option})`}</Text>
                       )
                     ) : (
                       <Text style={style.leaveOption}>{`${leave_option}`}</Text>
@@ -210,7 +211,7 @@ const Request = ({
               <Autolink
                 // Required: the text to parse for links
                 text={data.note}
-                textProps={{ style: style.note }}
+                textProps={{style: style.note}}
                 // Optional: enable email linking
                 email
                 // Optional: enable URL linking
@@ -220,34 +221,33 @@ const Request = ({
               {/* <Text style={style.note}>{data.note}</Text> */}
             </View>
             {responses?.length ? (
-              screenName === "Leave" ? (
+              screenName === 'Leave' ? (
                 <View style={style.cardFooterContainer}>
                   <View style={style.cardFooter}>
                     <Text style={style.remainingLeave}>Remaining :</Text>
                     <Text>
                       <Text style={style.totalDays}>
-                        {leave_quota.used_pto + "/" + leave_quota.total_pto}
+                        {leave_quota.used_pto + '/' + leave_quota.total_pto}
                       </Text>
-                      <Text style={style.leaveTypes}>{" PTO"}</Text>
+                      <Text style={style.leaveTypes}>{' PTO'}</Text>
                     </Text>
                     <Text>
                       <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
+                        {leave_quota.used_float + '/' + leave_quota.total_float}
                       </Text>
-                      <Text style={style.leaveTypes}>{" Floating "}</Text>
+                      <Text style={style.leaveTypes}>{' Floating '}</Text>
                     </Text>
                   </View>
                 </View>
               ) : (
                 <View style={style.cardWFHFooter}>
                   <View style={style.cardFooter}>
-                    <Text style={style.remainingLeave}>Remaining Quota :</Text>
+                    <Text style={style.remainingLeave}>Total WFH :</Text>
                     {/* <Text></Text> */}
                     <Text>
                       <Text style={style.totalDays}>
-                        {leave_quota.used_float + "/" + leave_quota.total_float}
+                        {Math.abs(leave_quota?.used_float ?? 0)}
                       </Text>
-                      <Text style={style.leaveTypes}>{" WFH "}</Text>
                     </Text>
                   </View>
                 </View>
@@ -270,8 +270,8 @@ const Request = ({
                               style={style.image}
                               source={
                                 item.user?.image_url
-                                  ? { uri: item.user.image_url }
-                                  : require("../../../assets/images/person.jpeg")
+                                  ? {uri: item.user.image_url}
+                                  : require('../../../assets/images/person.jpeg')
                               }
                             />
                             <View style={style.senderView}>
@@ -300,7 +300,7 @@ const Request = ({
                     ))}
                   </>
                 )}
-              {data.state !== "Denied" && (
+              {data.state !== 'Denied' && (
                 <>
                   <View style={style.pendingresponseView}>
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -316,8 +316,8 @@ const Request = ({
                                       style={style.image}
                                       source={
                                         item?.image_url
-                                          ? { uri: item?.image_url }
-                                          : require("../../../assets/images/person.jpeg")
+                                          ? {uri: item?.image_url}
+                                          : require('../../../assets/images/person.jpeg')
                                       }
                                     />
                                     <View style={style.senderView}>
@@ -346,10 +346,10 @@ const Request = ({
               )}
             </ScrollView>
           </View>
-          {title === "admin" && !approved && user !== data?.user?.uuid && (
+          {title === 'admin' && !approved && user !== data?.user?.uuid && (
             <View style={style.buttonView}>
               <ApproveDeny
-                ref={{ alertRef, actionRef }}
+                ref={{alertRef, actionRef}}
                 title="Approve"
                 style={style}
                 item={data}
@@ -358,7 +358,7 @@ const Request = ({
                 onPressSubmit={onPressSubmit}
               />
               <ApproveDeny
-                ref={{ alertRef, actionRef }}
+                ref={{alertRef, actionRef}}
                 title="Deny"
                 style={style}
                 item={data}

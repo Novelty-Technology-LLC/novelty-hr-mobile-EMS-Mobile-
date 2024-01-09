@@ -6,13 +6,12 @@ const WfhAlert = ({ responses }: { responses: any }) => {
   return (
     <View style={approveRequest.cardWFHFooter}>
       <View style={approveRequest.cardFooter}>
-        <Text style={approveRequest.remainingLeave}>Remaining Quota :</Text>
+        <Text style={approveRequest.remainingLeave}>Total WFH :</Text>
         {/* <Text></Text> */}
         <Text>
           <Text style={approveRequest.totalDays}>
-            {responses.remaining + "/" + responses.total}
+            {Math.abs(responses?.remaining ?? 0)}
           </Text>
-          <Text style={approveRequest.leaveTypes}>{" WFH "}</Text>
         </Text>
       </View>
     </View>
